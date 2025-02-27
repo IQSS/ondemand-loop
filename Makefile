@@ -1,7 +1,7 @@
 # Define default compose command
 COMPOSE_CMD = docker compose
 
-.PHONY: up down build restart logs bash console db-setup
+.PHONY: up server down build restart logs bash console db-setup
 
 # Start the containers in the background
 up:
