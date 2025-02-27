@@ -1,7 +1,7 @@
 # Define default compose command
 COMPOSE_CMD = docker compose
 
-.PHONY: up server down build restart logs bash console db-setup
+.PHONY: up server down build restart logs bash console tests db-setup
 
 # Start the containers in the background
 up:
@@ -33,6 +33,10 @@ bash:
 # Open a Rails Console in the app container
 console:
 	$(COMPOSE_CMD) exec app rails console
+
+# Run tests
+tests:
+	$(COMPOSE_CMD) exec app bundle exec rspec
 
 # Run database setup (create, migrate, seed)
 db-setup:
