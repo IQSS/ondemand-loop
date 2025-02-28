@@ -5,7 +5,7 @@ FROM docker.io/library/ruby:$RUBY_VERSION-slim
 WORKDIR /app
 
 # Install dependencies
-RUN apt-get update -qq && apt-get install -y build-essential curl libjemalloc2 && \
+RUN apt-get update -qq && apt-get install --no-install-recommends -y build-essential curl libjemalloc2 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install Bundler
