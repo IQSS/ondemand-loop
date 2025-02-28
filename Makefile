@@ -37,7 +37,3 @@ console:
 # Run tests
 tests:
 	$(COMPOSE_CMD) exec app bundle exec rspec
-
-# Run database setup (create, migrate, seed)
-db-setup:
-	$(COMPOSE_CMD) run app rails db:create db:migrate db:seed
