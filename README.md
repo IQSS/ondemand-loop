@@ -11,60 +11,81 @@ Ensure you have the following installed:
 - [Docker Compose](https://docs.docker.com/compose/)
 - `make` (usually pre-installed on Linux/macOS, Windows users may need to install it via WSL or Git Bash)
 
-## 📦 Setup & Usage
 
-### 1 Build the Docker Containers
-```sh
-make build
-```
-This will build the application and install dependencies inside the container.
+## 📦 Available commands
 
-### 2 Start the Development Server
-```sh
-make up
-```
-Starts the Rails application in development mode on [http://localhost:3000](http://localhost:3000).
+The following `make` commands are available to manage the application:
 
-### 3 Stop the Containers
-```sh
-make down
-```
-Stops and removes running containers.
+### Start and Stop Containers
+- **Start the container in the background:**
+  ```sh
+  make up
+  ```
+- **Stop the container:**
+  ```sh
+  make down
+  ```
+- **Restart the container:**
+  ```sh
+  make restart
+  ```
 
-### 4 Restart the Containers
-```sh
-make restart
-```
-Stops, then starts the containers again.
-
-### 5 View Logs
-```sh
-make logs
-```
-Shows the logs for the Rails container.
-
-### 6 Open a Bash Shell in the Rails Container
-```sh
-make bash
-```
-Opens an interactive shell session inside the Rails app container. Inside that shell you can run the Rails generators
-to develop the application.
-
-### 7 Open a Rails Console
-```sh
-make console
-```
-Runs a Rails Console inside the app container
-
-### 8 Run RSpec Tests
-```sh
-make test
-```
-Executes RSpec tests inside the container.
-
-## 📺 Troubleshooting
-
-- If the app does not start properly, rebuild the containers:
+### Build and Install Dependencies
+- **Build or rebuild the container:**
   ```sh
   make build
   ```
+- **Install dependencies with `bundle install`:**
+  ```sh
+  make install
+  ```
+
+### Running the Application
+- **Start the Rails server:**
+  ```sh
+  make server
+  ```
+  The server will be accessible at `http://localhost:3000`.
+- **Start the Rails server in production mode:**
+  ```sh
+  make prod_server
+  ```
+
+### Debugging and Logs
+- **View development logs for the Rails application:**
+  ```sh
+  make logs
+  ```
+- **Open a Bash shell inside the Rails app container:**
+  ```sh
+  make bash
+  ```
+- **Open a Rails console inside the app container:**
+  ```sh
+  make console
+  ```
+
+### Running Tests
+- **Run tests using RSpec:**
+  ```sh
+  make tests
+  ```
+  
+## Start developing and running the application
+
+To start developing or running the developer server, run the following commands:
+
+```sh
+make build
+```
+To build the developer container image
+
+```sh
+make install
+```
+To install all gem dependencies with Bundle
+
+```sh
+make server
+```
+To run the developer Rails server and see the application in `localhost:3000`

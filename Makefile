@@ -1,39 +1,47 @@
 # Define default compose command
 COMPOSE_CMD = docker compose
 
-.PHONY: up server down build restart logs bash console tests db-setup
+.PHONY: up down build restart install server prod_server logs bash console tests
 
-# Start the containers in the background
+# Start the container in the background
 up:
 	$(COMPOSE_CMD) up -d
 
-# Start the containers in foreground
-server:
-	$(COMPOSE_CMD) up
-
-# Stop the containers
+# Stop the container
 down:
 	$(COMPOSE_CMD) down
 
-# Build or rebuild the containers
+# Build or rebuild the container
 build:
 	$(COMPOSE_CMD) build
 
-# Restart the containers
+# Restart the container
 restart: down up
 
+# Install dependencies with bundle install
+install: up
+	$(COMPOSE_CMD) exec app bundle install
+
+# Start Rails server
+server: up
+	$(COMPOSE_CMD) exec app rails server -b 0.0.0.0
+
+# Start Rails server in production mode
+prod_server: up
+	$(COMPOSE_CMD) exec app rails server -e production -b 0.0.0.0
+
 # Show logs for the app container
-logs:
-	$(COMPOSE_CMD) logs -f app
+logs: up
+	$(COMPOSE_CMD) exec app tail -f log/development.log
 
 # Open a bash shell in the Rails app container
-bash:
+bash: up
 	$(COMPOSE_CMD) exec app bash
 
 # Open a Rails Console in the app container
-console:
+console: up
 	$(COMPOSE_CMD) exec app rails console
 
 # Run tests
-tests:
+tests: up
 	$(COMPOSE_CMD) exec app bundle exec rspec
