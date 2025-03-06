@@ -13,7 +13,7 @@ class ExternalToolData
 
   def initialize(data)
     @query_parameters = ExternalToolQueryParameters.new(data["queryParameters"])
-    @signed_urls = data["signedUrls"].map { |url| SignedUrl.new(url) }
+    @signed_urls = data["signedUrls"].map { |url| ExternalToolSignedUrl.new(url) }
   end
 end
 
@@ -26,7 +26,7 @@ class ExternalToolQueryParameters
   end
 end
 
-class SignedUrl
+class ExternalToolSignedUrl
   attr_accessor :name, :http_method, :signed_url, :time_out
 
   def initialize(data)
