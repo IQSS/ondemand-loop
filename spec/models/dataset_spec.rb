@@ -171,6 +171,28 @@ RSpec.describe Dataset, type: :model do
 EOF
   end
 
+  let(:empty_json) { "{}" }
+  let(:empty_string) { "" }
+
+  let(:incomplete_json_body) do
+    <<EOF
+ {
+  "status": "OK",
+  "data": {
+    "id": 6,
+    "identifier": "FK2/GCN7US",
+    "persistentUrl": "https://doi.org/10.5072/FK2/GCN7US",
+    "protocol": "doi",
+    "authority": "10.5072",
+    "publisher": "Root",
+    "publicationDate": "2025-01-23",
+    "storageIdentifier": "local://10.5072/FK2/GCN7US",
+    "datasetType": "dataset"
+  }
+}
+EOF
+  end
+
   describe Dataset do
     describe "valid json" do
       subject(:dataset) { Dataset.new(valid_json_body) }
@@ -259,6 +281,31 @@ EOF
           expect(data_file.filesize).to eq(272314)
           expect(data_file.md5).to eq("13035cba04a51f54dd8101fe726cda5c")
         end
+      end
+    end
+
+    describe "empty json" do
+      subject(:dataset) { Dataset.new(empty_json) }
+
+      it "should raise an error" do
+        expect { dataset.status }.to raise_error(NoMethodError)
+        expect { dataset.data }.to raise_error(NoMethodError)
+      end
+    end
+
+    describe "empty string" do
+      subject(:dataset) { Dataset.new(empty_string) }
+
+      it "should raise an error" do
+        expect { dataset }.to raise_error(JSON::ParserError)
+      end
+    end
+
+    describe "incomplete json" do
+      subject(:dataset) { Dataset.new(incomplete_json_body) }
+
+      it "should raise an error" do
+        expect { dataset }.to raise_error(NoMethodError)
       end
     end
 
