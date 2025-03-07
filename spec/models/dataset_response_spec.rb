@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Dataset, type: :model do
+RSpec.describe DatasetResponse, type: :model do
   let(:valid_json_body) do
     <<EOF
  {
@@ -193,12 +193,12 @@ EOF
 EOF
   end
 
-  describe Dataset do
+  describe DatasetResponse do
     describe "valid json" do
-      subject(:dataset) { Dataset.new(valid_json_body) }
+      subject(:dataset) { DatasetResponse.new(valid_json_body) }
 
       it "should parse the dataset body" do
-        expect(dataset).to be_a(Dataset)
+        expect(dataset).to be_a(DatasetResponse)
       end
 
       it "parses the status correctly" do
@@ -285,7 +285,7 @@ EOF
     end
 
     describe "empty json" do
-      subject(:dataset) { Dataset.new(empty_json) }
+      subject(:dataset) { DatasetResponse.new(empty_json) }
 
       it "should raise an error" do
         expect { dataset.status }.to raise_error(NoMethodError)
@@ -294,7 +294,7 @@ EOF
     end
 
     describe "empty string" do
-      subject(:dataset) { Dataset.new(empty_string) }
+      subject(:dataset) { DatasetResponse.new(empty_string) }
 
       it "should raise an error" do
         expect { dataset }.to raise_error(JSON::ParserError)
@@ -302,7 +302,7 @@ EOF
     end
 
     describe "incomplete json" do
-      subject(:dataset) { Dataset.new(incomplete_json_body) }
+      subject(:dataset) { DatasetResponse.new(incomplete_json_body) }
 
       it "should raise an error" do
         expect { dataset }.to raise_error(NoMethodError)

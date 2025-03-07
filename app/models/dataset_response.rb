@@ -2,7 +2,7 @@
 
 require "json"
 
-class Dataset
+class DatasetResponse
   attr_reader :status, :data
 
   def initialize(json)
