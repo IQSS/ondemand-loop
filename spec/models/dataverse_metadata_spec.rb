@@ -30,7 +30,7 @@ RSpec.describe DataverseMetadata, type: :model do
       expect(retrieved_host.id).to eq new_id
       expect(retrieved_host.full_name).to eq('https://example.com:443')
       expect(File.exist?(DataverseMetadata.filename_by_id(host.id))).to be true
-      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.json")).count).to eq 1
+      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.yml")).count).to eq 1
       expect(DataverseMetadata.all.count).to eq 1
     end
 
@@ -46,7 +46,7 @@ RSpec.describe DataverseMetadata, type: :model do
       retrieved_host = DataverseMetadata.find(SecureRandom.uuid.to_s)
       expect(retrieved_host).to be_nil
       expect(File.exist?(DataverseMetadata.filename_by_id(host.id))).to be true
-      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.json")).count).to eq 1
+      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.yml")).count).to eq 1
       expect(DataverseMetadata.all.count).to eq 1
     end
   end
@@ -54,7 +54,7 @@ RSpec.describe DataverseMetadata, type: :model do
   describe '.all' do
     it 'returns and empty array' do
       expect(DataverseMetadata.all).to be_empty
-      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.json")).count).to eq 0
+      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.yml")).count).to eq 0
     end
 
     it 'returns all saved hosts' do
@@ -77,7 +77,7 @@ RSpec.describe DataverseMetadata, type: :model do
       all_hosts = DataverseMetadata.all
       expect(all_hosts.count).to eq(2)
       expect(all_hosts.map(&:full_name)).to contain_exactly('http://host1.com:80', 'https://host2.com:443')
-      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.json")).count).to eq 2
+      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.yml")).count).to eq 2
     end
   end
 
@@ -96,13 +96,13 @@ RSpec.describe DataverseMetadata, type: :model do
       found_host = DataverseMetadata.find_by_uri(sample_uri)
       expect(found_host).not_to be_nil
       expect(found_host.full_name).to eq('https://example.com:443')
-      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.json")).count).to eq 1
+      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.yml")).count).to eq 1
     end
 
     it 'try to find another host by its URI' do
       found_host = DataverseMetadata.find_by_uri(another_sample_uri)
       expect(found_host).to be_nil
-      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.json")).count).to eq 1
+      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.yml")).count).to eq 1
     end
   end
 
@@ -112,7 +112,7 @@ RSpec.describe DataverseMetadata, type: :model do
       expect(new_host).not_to be_nil
       expect(new_host.full_name).to eq('https://example.com:443')
       expect(File.exist?(DataverseMetadata.filename_by_id(new_host.id))).to be true
-      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.json")).count).to eq 1
+      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.yml")).count).to eq 1
     end
 
     it 'a second invocation of the method does not create a new entry' do
@@ -123,7 +123,7 @@ RSpec.describe DataverseMetadata, type: :model do
       expect(retrieved_host).not_to be_nil
       expect(retrieved_host.full_name).to eq('https://example.com:443')
       expect(File.exist?(DataverseMetadata.filename_by_id(new_host.id))).to be true
-      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.json")).count).to eq 1
+      expect(Dir.glob(File.join(DataverseMetadata.metadata_directory, "*.yml")).count).to eq 1
       expect(DataverseMetadata.all.count).to eq 1
     end
   end

@@ -6,7 +6,7 @@ class DataverseMetadata < ApplicationDiskRecord
     "#{scheme}://#{hostname}:#{port}"
   end
   def self.all
-    Dir.glob(File.join(metadata_directory, "*.json")).map do |file|
+    Dir.glob(File.join(metadata_directory, "*.yml")).map do |file|
       load_from_file(file)
     end.compact
   end
@@ -41,20 +41,26 @@ class DataverseMetadata < ApplicationDiskRecord
   end
 
   def to_hash
-    { id: id, hostname: hostname, port: port, scheme: scheme, full_name: full_name }
+    { "id" => id, "hostname" => hostname, "port" => port, "scheme" => scheme }
   end
 
   def to_json
     to_hash.to_json
   end
+
+  def to_yaml
+    to_hash.to_yaml
+  end
+
   def to_s
     to_json
   end
+
   def save
     FileUtils.mkdir_p(DataverseMetadata.metadata_directory)
     filename = DataverseMetadata.filename_by_id(id)
     File.open(filename, "w") do |file|
-      file.write(to_s)
+      file.write(to_yaml)
     end
     true
   end
@@ -66,16 +72,16 @@ class DataverseMetadata < ApplicationDiskRecord
   end
 
   def self.filename_by_id(id)
-    metadata_directory + "/#{id}.json"
+    metadata_directory + "/#{id}.yml"
   end
 
   def self.load_from_file(filename)
-    data = JSON.parse(File.read(filename), symbolize_names: true)
+    data = YAML.safe_load(File.read(filename), permitted_classes: [Hash], aliases: true)
     new.tap do |host|
-      host.id = data[:id]
-      host.hostname = data[:hostname]
-      host.port = data[:port]
-      host.scheme = data[:scheme]
+      host.id = data["id"]
+      host.hostname = data["hostname"]
+      host.port = data["port"]
+      host.scheme = data["scheme"]
     end
   rescue StandardError
     nil
