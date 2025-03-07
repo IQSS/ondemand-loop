@@ -107,12 +107,24 @@ RSpec.describe DataverseHost, type: :model do
   end
 
   describe '.find_or_initialize_by_uri' do
-    it 'finds an existing host or initializes a new one' do
+    it 'tries to find an existing host and initializes a new one' do
       new_host = DataverseHost.find_or_initialize_by_uri(sample_uri)
       expect(new_host).not_to be_nil
       expect(new_host.full_name).to eq('https://example.com:443')
       expect(File.exist?(DataverseHost.filename_by_id(new_host.id))).to be true
       expect(Dir.glob(File.join(DataverseHost.metadata_directory, "*.json")).count).to eq 1
+    end
+
+    it 'a second invocation of the method does not create a new entry' do
+      new_host = DataverseHost.find_or_initialize_by_uri(sample_uri)
+      retrieved_host = DataverseHost.find_or_initialize_by_uri(sample_uri)
+      expect(new_host).not_to be_nil
+      expect(new_host.full_name).to eq('https://example.com:443')
+      expect(retrieved_host).not_to be_nil
+      expect(retrieved_host.full_name).to eq('https://example.com:443')
+      expect(File.exist?(DataverseHost.filename_by_id(new_host.id))).to be true
+      expect(Dir.glob(File.join(DataverseHost.metadata_directory, "*.json")).count).to eq 1
+      expect(DataverseHost.all.count).to eq 1
     end
   end
 end
