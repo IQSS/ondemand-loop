@@ -1,4 +1,4 @@
-class DataverseHost < ApplicationDiskRecord
+class DataverseMetadata < ApplicationDiskRecord
 
   attr_accessor :id, :hostname, :port, :scheme
 
@@ -31,7 +31,7 @@ class DataverseHost < ApplicationDiskRecord
     return host if host
 
     new_host = new.tap do |h|
-      h.id = DataverseHost.generate_id
+      h.id = DataverseMetadata.generate_id
       h.hostname = uri.hostname
       h.port = uri.port
       h.scheme = uri.scheme
@@ -51,8 +51,8 @@ class DataverseHost < ApplicationDiskRecord
     to_json
   end
   def save
-    FileUtils.mkdir_p(DataverseHost.metadata_directory)
-    filename = DataverseHost.filename_by_id(id)
+    FileUtils.mkdir_p(DataverseMetadata.metadata_directory)
+    filename = DataverseMetadata.filename_by_id(id)
     File.open(filename, "w") do |file|
       file.write(to_s)
     end
@@ -62,7 +62,7 @@ class DataverseHost < ApplicationDiskRecord
   private
 
   def self.metadata_directory
-    metadata_root_directory + "/dataverse_hosts/"
+    metadata_root_directory + "/dataverse_metadatas/"
   end
 
   def self.filename_by_id(id)
