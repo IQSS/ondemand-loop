@@ -66,7 +66,7 @@ The following `make` commands are available to manage the application:
   ```
 
 ### Running Tests
-- **Run tests using RSpec:**
+- **Run tests using Minitest:**
   ```sh
   make tests
   ```

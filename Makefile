@@ -44,4 +44,4 @@ console: up
 
 # Run tests
 tests: up
-	$(COMPOSE_CMD) exec app bundle exec rspec
+	$(COMPOSE_CMD) exec app bundle exec rails test
