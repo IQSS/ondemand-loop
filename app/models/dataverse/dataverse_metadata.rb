@@ -71,7 +71,7 @@ module Dataverse
     private
 
     def self.metadata_directory
-      metadata_root_directory + "/dataverse_metadatas/"
+      metadata_root_directory + Configuration.dataverse_metadata_folder
     end
 
     def self.filename_by_id(id)

@@ -1,8 +1,7 @@
 class ApplicationDiskRecord
-  METADATA_FOLDER = ".downloads-for-ondemand/"
 
   def self.metadata_root_directory
-    @root_directory ||= ENV["HOME"] + "/" + METADATA_FOLDER
+    Configuration.user_downloads_for_ondemand_metadata_folder
   end
 
   def self.generate_id

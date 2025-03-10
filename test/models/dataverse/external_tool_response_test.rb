@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ExternalToolResponseTest < ActiveSupport::TestCase
+class Dataverse::ExternalToolResponseTest < ActiveSupport::TestCase
   def setup
     @json_input = '{
       "status": "OK",
@@ -26,7 +26,7 @@ class ExternalToolResponseTest < ActiveSupport::TestCase
       }
     }'
 
-    @external_tool_response = ExternalToolResponse.new(@json_input)
+    @external_tool_response = Dataverse::ExternalToolResponse.new(@json_input)
   end
 
   test 'parses the status correctly' do
