@@ -202,7 +202,7 @@ EOF
     dataset = Dataverse::DatasetResponse.new(valid_json_body)
     assert_instance_of Dataverse::DatasetResponse, dataset
     assert_equal "OK", dataset.status
-    assert_instance_of Dataverse::DatasetData, dataset.data
+    assert_instance_of Dataverse::DatasetResponse::Data, dataset.data
   end
 
   test "valid json parses dataset response data" do
@@ -219,7 +219,7 @@ EOF
   test "valid json parses dataset response latest version" do
     dataset = Dataverse::DatasetResponse.new(valid_json_body)
     version = dataset.data.latest_version
-    assert_instance_of Dataverse::DatasetVersion, version
+    assert_instance_of Dataverse::DatasetResponse::Data::Version, version
     assert_equal 3, version.id
     assert_equal 1, version.version_number
     assert_equal "RELEASED", version.version_state
@@ -228,7 +228,7 @@ EOF
   test "valid json parses dataset response license" do
     dataset = Dataverse::DatasetResponse.new(valid_json_body)
     license = dataset.data.latest_version.license
-    assert_instance_of Dataverse::License, license
+    assert_instance_of Dataverse::DatasetResponse::Data::Version::License, license
     assert_equal "CC0 1.0", license.name
     assert_equal "http://creativecommons.org/publicdomain/zero/1.0", license.uri
     assert_equal "https://licensebuttons.net/p/zero/1.0/88x31.png", license.icon_uri
@@ -239,12 +239,12 @@ EOF
     version = dataset.data.latest_version
 
     assert_equal 1, version.files.size
-    version.files.each { |file| assert_instance_of Dataverse::DatasetFile, file }
+    version.files.each { |file| assert_instance_of Dataverse::DatasetResponse::Data::Version::DatasetFile, file }
 
     file = version.files.first
     assert_equal "screenshot.png", file.label
     refute file.restricted
-    assert_instance_of Dataverse::DataFile, file.data_file
+    assert_instance_of Dataverse::DatasetResponse::Data::Version::DatasetFile::DataFile, file.data_file
 
     data_file = file.data_file
     assert_equal 7, data_file.id
