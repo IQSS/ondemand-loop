@@ -1,5 +1,5 @@
 class ApplicationDiskRecord
-  METADATA_FOLDER = ".dataverse-for-ondemand/"
+  METADATA_FOLDER = ".downloads-for-ondemand/"
 
   def self.metadata_root_directory
     @root_directory ||= ENV["HOME"] + "/" + METADATA_FOLDER
