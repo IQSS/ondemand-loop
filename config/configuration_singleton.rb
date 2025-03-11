@@ -4,6 +4,7 @@ class ConfigurationSingleton
   def initialize
     add_boolean_configs
     add_string_configs
+    load_dotenv_files
   end
 
   def boolean_configs
@@ -17,14 +18,6 @@ class ConfigurationSingleton
     }.freeze
   end
 
-  def load_dotenv_files
-    # .env.local first, so it can override OOD_APP_CONFIG_ROOT
-    Dotenv.load(*dotenv_local_files)
-
-    # load the rest of the dotenv files
-    Dotenv.load(*dotenv_files)
-  end
-
   def config
     @config ||= read_config
   end
@@ -34,6 +27,14 @@ class ConfigurationSingleton
   end
 
   private
+
+  def load_dotenv_files
+    # .env.local first, so it can override OOD_APP_CONFIG_ROOT
+    Dotenv.load(*dotenv_local_files)
+
+    # load the rest of the dotenv files
+    Dotenv.load(*dotenv_files)
+  end
 
   def app_root
     Pathname.new(File.expand_path("../../",  __FILE__))
@@ -79,6 +80,7 @@ class ConfigurationSingleton
   def add_boolean_configs
     boolean_configs.each do |cfg_item, default|
       define_singleton_method(cfg_item.to_sym) do
+        load_dotenv_files
         e = ENV["OOD_#{cfg_item.to_s.upcase}"]
 
         if e.nil?
@@ -97,6 +99,7 @@ class ConfigurationSingleton
   def add_string_configs
     string_configs.each do |cfg_item, default|
       define_singleton_method(cfg_item.to_sym) do
+        load_dotenv_files
         e = ENV["OOD_#{cfg_item.to_s.upcase}"]
 
         e.nil? ? config.fetch(cfg_item, default) : e.to_s

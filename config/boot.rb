@@ -8,4 +8,3 @@ require File.expand_path('configuration_singleton', __dir__)
 
 # global instance to access and use
 Configuration = ConfigurationSingleton.new
-Configuration.load_dotenv_files
