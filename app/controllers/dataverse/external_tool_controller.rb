@@ -1,5 +1,5 @@
 module Dataverse
-  class ExternalToolHandlerController < ApplicationController
+  class ExternalToolController < ApplicationController
     #Handler for dataset external tool
     def dataset
       callback = params[:callback]
