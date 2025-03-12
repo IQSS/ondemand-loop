@@ -1,2 +1,91 @@
-<h1>Dataverse::Dataset#show</h1>
-<p>Find me in app/views/dataverse/dataset/show.html.erb</p>
+<h1>Dataset content</h1>
+
+<%= form_with url: nil, method: :post, local: true, class: "file-selection-form" do %>
+  <ul class="file-list">
+    <% @files.each do |file| %>
+      <li class="file-item">
+        <label>
+          <input type="checkbox" name="file_ids[]" value="<%= file.data_file.id %>" class="file-checkbox" />
+          <span class="file-label"><%= file.label %></span>
+        </label>
+        <div class="file-meta">
+          <span><strong>Type:</strong> <%= file.data_file.friendly_type %></span>
+          <span><strong>Size:</strong> <%= number_to_human_size(file.data_file.filesize) %></span>
+          <span><strong>Published:</strong> <%= file.data_file.publication_date %></span>
+          <span><strong>MD5:</strong> <%= file.data_file.md5 %></span>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="form-actions">
+    <%= submit_tag "Download Selected Files", class: "submit-btn" %>
+  </div>
+<% end %>
+
+<!-- Inline CSS (Move to CSS file in production) -->
+<style>
+    .file-selection-form {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #f9f9f9;
+    }
+
+    .file-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .file-item {
+        display: flex;
+        flex-direction: column;
+        padding: 12px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .file-item:last-child {
+        border-bottom: none;
+    }
+
+    .file-label {
+        font-weight: bold;
+        margin-left: 8px;
+    }
+
+    .file-meta {
+        margin-top: 6px;
+        font-size: 0.9em;
+        color: #555;
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .file-checkbox {
+        margin-right: 8px;
+    }
+
+    .form-actions {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .submit-btn {
+        padding: 10px 20px;
+        font-size: 1em;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .submit-btn:hover {
+        background-color: #0056b3;
+    }
+</style>
