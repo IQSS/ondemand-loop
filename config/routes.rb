@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   # Dataverse routes
   post "/view/dataverse/:metadata_id/datasets/:id/download" => "dataverse/datasets#download", as: :download_dataverse_dataset_files
+  get "/view/dataverse/:metadata_id/datasets/:id" => "dataverse/dataset#show", as: :view_dataverse_dataset
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
