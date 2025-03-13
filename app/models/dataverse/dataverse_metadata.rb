@@ -14,12 +14,12 @@ module Dataverse
     end
 
     def self.find_by_uri(uri)
-      full_name = uri.scheme + "://" + uri.hostname + ":" + uri.port.to_s
-      find_by_full_name(full_name)
+      full_hostname = uri.scheme + "://" + uri.hostname + ":" + uri.port.to_s
+      find_by_full_name(full_hostname)
     end
 
-    def self.find_by_full_name(full_name)
-      all.find { |host| host.full_hostname == full_name }
+    def self.find_by_full_name(full_hostname)
+      all.find { |metadata| metadata.full_hostname == full_hostname }
     end
 
     def self.find(id)
@@ -30,17 +30,17 @@ module Dataverse
     end
 
     def self.find_or_initialize_by_uri(uri)
-      host = find_by_uri(uri)
-      return host if host
+      metadata = find_by_uri(uri)
+      return metadata if metadata
 
-      new_host = new.tap do |h|
-        h.id = DataverseMetadata.generate_id
-        h.hostname = uri.hostname
-        h.port = uri.port
-        h.scheme = uri.scheme
+      new_metadata = new.tap do |m|
+        m.id = DataverseMetadata.generate_id
+        m.hostname = uri.hostname
+        m.port = uri.port
+        m.scheme = uri.scheme
       end
-      new_host.save
-      new_host
+      new_metadata.save
+      new_metadata
     end
 
     def to_hash
@@ -80,11 +80,11 @@ module Dataverse
 
     def self.load_from_file(filename)
       data = YAML.safe_load(File.read(filename), permitted_classes: [Hash], aliases: true)
-      new.tap do |host|
-        host.id = data["id"]
-        host.hostname = data["hostname"]
-        host.port = data["port"]
-        host.scheme = data["scheme"]
+      new.tap do |dataverse_metadata|
+        dataverse_metadata.id = data["id"]
+        dataverse_metadata.hostname = data["hostname"]
+        dataverse_metadata.port = data["port"]
+        dataverse_metadata.scheme = data["scheme"]
       end
     rescue StandardError
       nil
