@@ -3,7 +3,7 @@ module Dataverse
 
     attr_accessor :id, :hostname, :port, :scheme
 
-    def full_name
+    def full_hostname
       "#{scheme}://#{hostname}:#{port}"
     end
 
@@ -19,7 +19,7 @@ module Dataverse
     end
 
     def self.find_by_full_name(full_name)
-      all.find { |host| host.full_name == full_name }
+      all.find { |host| host.full_hostname == full_name }
     end
 
     def self.find(id)

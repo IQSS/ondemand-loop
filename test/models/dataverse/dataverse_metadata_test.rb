@@ -26,7 +26,7 @@ class Dataverse::DataverseMetadataTest < ActiveSupport::TestCase
     assert_equal 'example.com', retrieved_dataverse_metadata.hostname
     assert_equal 'https', retrieved_dataverse_metadata.scheme
     assert_equal new_id, retrieved_dataverse_metadata.id
-    assert_equal 'https://example.com:443', retrieved_dataverse_metadata.full_name
+    assert_equal 'https://example.com:443', retrieved_dataverse_metadata.full_hostname
     assert File.exist?(Dataverse::DataverseMetadata.filename_by_id(dataverse_metadata.id))
     assert_equal 1, Dir.glob(File.join(Dataverse::DataverseMetadata.metadata_directory, "*.yml")).count
     assert_equal 1, Dataverse::DataverseMetadata.all.count
@@ -73,7 +73,7 @@ class Dataverse::DataverseMetadataTest < ActiveSupport::TestCase
 
     all_dataverse_metadatas = Dataverse::DataverseMetadata.all
     assert_equal 2, all_dataverse_metadatas.count
-    full_names = all_dataverse_metadatas.map(&:full_name)
+    full_names = all_dataverse_metadatas.map(&:full_hostname)
     assert_includes full_names, 'http://dataverse_metadata1.com:80'
     assert_includes full_names, 'https://dataverse_metadata2.com:443'
     assert_equal 2, Dir.glob(File.join(Dataverse::DataverseMetadata.metadata_directory, "*.yml")).count
@@ -90,7 +90,7 @@ class Dataverse::DataverseMetadataTest < ActiveSupport::TestCase
 
     found_dataverse_metadata = Dataverse::DataverseMetadata.find_by_uri(@sample_uri)
     assert_not_nil found_dataverse_metadata
-    assert_equal 'https://example.com:443', found_dataverse_metadata.full_name
+    assert_equal 'https://example.com:443', found_dataverse_metadata.full_hostname
     assert_equal 1, Dir.glob(File.join(Dataverse::DataverseMetadata.metadata_directory, "*.yml")).count
   end
 
@@ -111,7 +111,7 @@ class Dataverse::DataverseMetadataTest < ActiveSupport::TestCase
   test '.find_or_initialize_by_uri - initializes a new dataverse_metadata if none found' do
     new_dataverse_metadata = Dataverse::DataverseMetadata.find_or_initialize_by_uri(@sample_uri)
     assert_not_nil new_dataverse_metadata
-    assert_equal 'https://example.com:443', new_dataverse_metadata.full_name
+    assert_equal 'https://example.com:443', new_dataverse_metadata.full_hostname
     assert File.exist?(Dataverse::DataverseMetadata.filename_by_id(new_dataverse_metadata.id))
     assert_equal 1, Dir.glob(File.join(Dataverse::DataverseMetadata.metadata_directory, "*.yml")).count
   end
@@ -122,7 +122,7 @@ class Dataverse::DataverseMetadataTest < ActiveSupport::TestCase
 
     assert_not_nil first_dataverse_metadata
     assert_not_nil second_dataverse_metadata
-    assert_equal first_dataverse_metadata.full_name, second_dataverse_metadata.full_name
+    assert_equal first_dataverse_metadata.full_hostname, second_dataverse_metadata.full_hostname
     assert File.exist?(Dataverse::DataverseMetadata.filename_by_id(first_dataverse_metadata.id))
     assert_equal 1, Dir.glob(File.join(Dataverse::DataverseMetadata.metadata_directory, "*.yml")).count
     assert_equal 1, Dataverse::DataverseMetadata.all.count
