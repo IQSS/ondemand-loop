@@ -6,6 +6,7 @@
       <li class="file-item">
         <label>
           <input type="checkbox" name="file_ids[]" value="<%= file.data_file.id %>" class="file-checkbox" />
+          <%= file_thumbnail(@dataverse_metadata, file) %>
           <span class="file-label"><%= file.label %></span>
         </label>
         <div class="file-meta">
