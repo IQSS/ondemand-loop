@@ -1,92 +1,78 @@
-<h1>Dataset content</h1>
 
-<%= form_with url: nil, method: :post, local: true, class: "file-selection-form" do %>
-  <ul class="file-list">
-    <% @files.each do |file| %>
-      <li class="file-item">
-        <label>
-          <input type="checkbox" name="file_ids[]" value="<%= file.data_file.id %>" class="file-checkbox" />
-          <%= file_thumbnail(@dataverse_metadata, file) %>
-          <span class="file-label"><%= file.label %></span>
-        </label>
-        <div class="file-meta">
-          <span><strong>Type:</strong> <%= file.data_file.friendly_type %></span>
-          <span><strong>Size:</strong> <%= number_to_human_size(file.data_file.filesize) %></span>
-          <span><strong>Published:</strong> <%= file.data_file.publication_date %></span>
-          <span><strong>MD5:</strong> <%= file.data_file.md5 %></span>
-        </div>
+<div class="container-md content mt-4">
+  <nav aria-label="Breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active">
+        <a href="/pun/sys/ood/">Home</a>
       </li>
-    <% end %>
-  </ul>
+      <li class="breadcrumb-item">
+        <a aria-current="page">Explore Dataverse</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a aria-current="page">Datasets</a>
+      </li>
+      <li class="breadcrumb-item active">
+        <a aria-current="page">doi:10.5072/FK2/VNRAWR</a>
+      </li>
+    </ol>
+  </nav>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card dataset-header">
+        <div class="card-header">Dataset</div>
+        <div class="list-group list-group-flush">
+          <span class="list-group-item list-group-item-action">
+            Sample dataset 5
+          </span>
+          <span class="list-group-item list-group-item-action">
+            doi:10.5072/FK2/VNRAWR
+          </span>
+        </div>
+      </div>
+      <div class="card dataset-header">
+        <div class="card-header">Dataset Metadata</div>
+        <div class="list-group list-group-flush">
+          <span class="list-group-item list-group-item-action">
+            <b>Publication date:</b> 2025-01-03
+          </span>
+          <span class="list-group-item list-group-item-action">
+            <b>Author:</b> John Doe
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div>
+        <%= form_with url: nil, method: :post, local: true, class: "p-4 border rounded bg-light" do %>
+          <% @files.each do |file| %>
+            <div class="row">
+              <div class="col-md-12 mb-12">
+                <div class="card h-100 shadow-sm">
+                  <div class="card-body">
+                    <div class="form-check mb-2">
+                      <%= check_box_tag "file_ids[]", file.data_file.id, false, class: "form-check-input", id: "file_checkbox_#{file.data_file.id}"  %>
+                      <label class="form-check-label fw-bold" for="file_checkbox_<%= file.data_file.id %>">
+                        <%= file_thumbnail(@dataverse_metadata, file) %>
+                        <%= file.label %>
+                      </label>
+                    </div>
 
-  <div class="form-actions">
-    <%= submit_tag "Download Selected Files", class: "submit-btn" %>
+                    <ul class="list-unstyled small text-muted">
+                      <li><strong>Type:</strong> <%= file.data_file.friendly_type %></li>
+                      <li><strong>Size:</strong> <%= number_to_human_size(file.data_file.filesize) %></li>
+                      <li><strong>Published:</strong> <%= file.data_file.publication_date %></li>
+                      <li><strong>MD5:</strong> <%= file.data_file.md5 %></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <div class="text-center mt-4">
+            <%= submit_tag "Download Selected Files", class: "btn btn-primary btn-lg" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-<% end %>
-
-<!-- Inline CSS (Move to CSS file in production) -->
-<style>
-    .file-selection-form {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 20px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        background: #f9f9f9;
-    }
-
-    .file-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .file-item {
-        display: flex;
-        flex-direction: column;
-        padding: 12px;
-        margin-bottom: 12px;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .file-item:last-child {
-        border-bottom: none;
-    }
-
-    .file-label {
-        font-weight: bold;
-        margin-left: 8px;
-    }
-
-    .file-meta {
-        margin-top: 6px;
-        font-size: 0.9em;
-        color: #555;
-        display: flex;
-        gap: 15px;
-        flex-wrap: wrap;
-    }
-
-    .file-checkbox {
-        margin-right: 8px;
-    }
-
-    .form-actions {
-        margin-top: 20px;
-        text-align: center;
-    }
-
-    .submit-btn {
-        padding: 10px 20px;
-        font-size: 1em;
-        background-color: #007BFF;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .submit-btn:hover {
-        background-color: #0056b3;
-    }
-</style>
+</div>
