@@ -32,10 +32,12 @@ module Dataverse
       end
 
       class Version
-        attr_reader :id, :version_number, :version_state, :license, :files
+        attr_reader :id, :dataset_id, :dataset_persistent_id, :version_number, :version_state, :license, :files
 
         def initialize(version)
           @id = version[:id]
+          @dataset_id = version[:datasetId]
+          @dataset_persistent_id = version[:datasetPersistentId]
           @version_number = version[:versionNumber]
           @version_state = version[:versionState]
           @license = License.new(version[:license])

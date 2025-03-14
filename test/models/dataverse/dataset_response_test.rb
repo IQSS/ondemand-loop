@@ -41,6 +41,8 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal 3, version.id
     assert_equal 1, version.version_number
     assert_equal "RELEASED", version.version_state
+    assert_equal 6, version.dataset_id
+    assert_equal "doi:10.5072/FK2/GCN7US", version.dataset_persistent_id
   end
 
   test "valid json parses @dataset response license" do
@@ -68,6 +70,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "image/png", data_file.content_type
     assert_equal 272314, data_file.filesize
     assert_equal "13035cba04a51f54dd8101fe726cda5c", data_file.md5
+    assert_equal "PNG Image", data_file.friendly_type
   end
 
   test "empty json raises error" do

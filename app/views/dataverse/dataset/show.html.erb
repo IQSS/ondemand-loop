@@ -12,7 +12,7 @@
         <a aria-current="page">Datasets</a>
       </li>
       <li class="breadcrumb-item active">
-        <a aria-current="page">doi:10.5072/FK2/VNRAWR</a>
+        <a aria-current="page"><%= @dataset.data.latest_version.dataset_persistent_id %></a>
       </li>
     </ol>
   </nav>
@@ -25,7 +25,7 @@
             Sample dataset 5
           </span>
           <span class="list-group-item list-group-item-action">
-            doi:10.5072/FK2/VNRAWR
+            <%= @dataset.data.latest_version.dataset_persistent_id %>
           </span>
         </div>
       </div>
@@ -33,7 +33,7 @@
         <div class="card-header">Dataset Metadata</div>
         <div class="list-group list-group-flush">
           <span class="list-group-item list-group-item-action">
-            <b>Publication date:</b> 2025-01-03
+            <b>Publication date:</b> <%= @dataset.data.publication_date %>
           </span>
           <span class="list-group-item list-group-item-action">
             <b>Author:</b> John Doe
