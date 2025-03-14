@@ -6,7 +6,10 @@
         <a href="/pun/sys/ood/">Home</a>
       </li>
       <li class="breadcrumb-item">
-        <a aria-current="page">Explore Dataverse</a>
+        <a aria-current="page">Dataverse</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a aria-current="page"><%= @dataverse_metadata.full_hostname %></a>
       </li>
       <li class="breadcrumb-item">
         <a aria-current="page">Datasets</a>
@@ -53,32 +56,39 @@
       </div>
     </div>
     <div class="col-md-9">
-      <div>
+      <div class="card dataset-header">
+        <div class="card-header">Files</div>
         <%= form_with url: nil, method: :post, local: true, class: "p-4 border rounded bg-light" do %>
-          <% @files.each do |file| %>
-            <div class="row">
-              <div class="col-md-12 mb-12">
+          <div class="row">
+            <% @files.each do |file| %>
+              <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm">
                   <div class="card-body">
                     <div class="form-check mb-2">
                       <%= check_box_tag "file_ids[]", file.data_file.id, false, class: "form-check-input", id: "file_checkbox_#{file.data_file.id}"  %>
                       <label class="form-check-label fw-bold" for="file_checkbox_<%= file.data_file.id %>">
-                        <%= file_thumbnail(@dataverse_metadata, file) %>
+                        <%# file_thumbnail(@dataverse_metadata, file) %>
                         <%= file.label %>
                       </label>
                     </div>
-
-                    <ul class="list-unstyled small text-muted">
-                      <li><strong>Type:</strong> <%= file.data_file.friendly_type %></li>
-                      <li><strong>Size:</strong> <%= number_to_human_size(file.data_file.filesize) %></li>
-                      <li><strong>Published:</strong> <%= file.data_file.publication_date %></li>
-                      <li><strong>MD5:</strong> <%= file.data_file.md5 %></li>
-                    </ul>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <%= file_thumbnail(@dataverse_metadata, file) %>
+                      </div>
+                      <div class="col-md-9">
+                        <ul class="list-unstyled small text-muted">
+                          <li><strong>Type:</strong> <%= file.data_file.friendly_type %></li>
+                          <li><strong>Size:</strong> <%= number_to_human_size(file.data_file.filesize) %></li>
+                          <li><strong>Published:</strong> <%= file.data_file.publication_date %></li>
+                          <li><strong>MD5:</strong> <%= md5_with_copy(file.data_file.md5) %></li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
           <div class="text-center mt-4">
             <%= submit_tag "Download Selected Files", class: "btn btn-primary btn-lg" %>
           </div>
