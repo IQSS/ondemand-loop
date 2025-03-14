@@ -31,6 +31,10 @@ module Dataverse
       metadata_field("dsDescription").map { |a| a[:dsDescriptionValue][:value] }.join(" ")
     end
 
+    def subjects
+      metadata_field("subject").join(", ")
+    end
+
     class Data
       attr_reader :id, :identifier, :persistent_url, :publisher, :publication_date, :dataset_type, :latest_version
 
