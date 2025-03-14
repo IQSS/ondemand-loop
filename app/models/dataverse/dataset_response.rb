@@ -23,6 +23,14 @@ module Dataverse
       field.value if field
     end
 
+    def authors
+      metadata_field("author").map { |a| a[:authorName][:value] }.join(" | ")
+    end
+
+    def description
+      metadata_field("dsDescription").map { |a| a[:dsDescriptionValue][:value] }.join(" ")
+    end
+
     class Data
       attr_reader :id, :identifier, :persistent_url, :publisher, :publication_date, :dataset_type, :latest_version
 

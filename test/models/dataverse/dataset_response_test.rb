@@ -50,6 +50,16 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "sample dataset 3", dataset.metadata_field("title")
   end
 
+  test "valid json parses dataset response files metadata fields author" do
+    dataset = Dataverse::DatasetResponse.new(valid_json_body)
+    assert_equal "Admin, Dataverse", dataset.authors
+  end
+
+  test "valid json parses dataset response files metadata fields description" do
+    dataset = Dataverse::DatasetResponse.new(valid_json_body)
+    assert_equal "This is the description of the dataset", dataset.description
+  end
+
   test "valid json parses dataset response license" do
     license = @dataset.data.latest_version.license
     assert_instance_of Dataverse::DatasetResponse::Data::Version::License, license
