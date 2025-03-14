@@ -18,6 +18,11 @@ module Dataverse
       data.latest_version.files.select { |f| ids.include?(f.data_file.id.to_i) }
     end
 
+    def metadata_field(field_name)
+      field = data.latest_version.metadata_blocks.citation.fields.find{|f| f.type_name == field_name}
+      field.value if field
+    end
+
     class Data
       attr_reader :id, :identifier, :persistent_url, :publisher, :publication_date, :dataset_type, :latest_version
 
@@ -32,7 +37,8 @@ module Dataverse
       end
 
       class Version
-        attr_reader :id, :dataset_id, :dataset_persistent_id, :version_number, :version_state, :license, :files
+        attr_reader :id, :dataset_id, :dataset_persistent_id, :version_number, :version_state, :license, :files,
+                    :metadata_blocks
 
         def initialize(version)
           @id = version[:id]
@@ -41,6 +47,7 @@ module Dataverse
           @version_number = version[:versionNumber]
           @version_state = version[:versionState]
           @license = License.new(version[:license])
+          @metadata_blocks = MetadataBlocks.new(version[:metadataBlocks])
           @files = version[:files].map { |file| DatasetFile.new(file) }
         end
 
@@ -52,6 +59,32 @@ module Dataverse
             @uri = license[:uri]
             @icon_uri = license[:iconUri]
           end
+        end
+
+        class MetadataBlocks
+          attr_reader :citation
+          def initialize(metadata_blocks)
+            @citation = Citation.new(metadata_blocks[:citation])
+          end
+
+          class Citation
+            attr_reader :name, :fields
+            def initialize(citation)
+              @name = citation[:name]
+              @fields = citation[:fields].map { |field| CitationField.new(field) }
+            end
+
+            class CitationField
+              attr_reader :type_name, :multiple, :type_class, :value
+              def initialize(field)
+                @type_name = field[:typeName]
+                @multiple = field[:multiple]
+                @type_class = field[:typeClass]
+                @value = field[:value]
+              end
+            end
+          end
+
         end
 
         class DatasetFile

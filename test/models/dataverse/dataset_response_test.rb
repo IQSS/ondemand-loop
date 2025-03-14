@@ -45,7 +45,12 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "doi:10.5072/FK2/GCN7US", version.dataset_persistent_id
   end
 
-  test "valid json parses @dataset response license" do
+  test "valid json parses dataset response files metadata fields title" do
+    dataset = Dataverse::DatasetResponse.new(valid_json_body)
+    assert_equal "sample dataset 3", dataset.metadata_field("title")
+  end
+
+  test "valid json parses dataset response license" do
     license = @dataset.data.latest_version.license
     assert_instance_of Dataverse::DatasetResponse::Data::Version::License, license
     assert_equal "CC0 1.0", license.name
