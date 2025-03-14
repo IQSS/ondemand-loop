@@ -63,3 +63,5 @@ group :test do
   gem "selenium-webdriver"
   gem "mocha"
 end
+
+gem "cssbundling-rails", "~> 1.4"
