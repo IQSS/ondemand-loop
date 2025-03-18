@@ -1,0 +1,12 @@
+<h1>Downloads#index</h1>
+<p>Find me in app/views/downloads/index.html.erb</p>
+<% flash.each do |type, message| %>
+  <% alert_class = case type.to_sym
+                   when :notice then "alert-success"
+                   when :alert, :error then "alert-danger"
+                   else "alert-info"
+                   end %>
+  <div class="alert <%= alert_class %>">
+    <%= message %>
+  </div>
+<% end %>
