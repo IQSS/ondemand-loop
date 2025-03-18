@@ -20,7 +20,4 @@ $(document).ready(function () {
     });
 });
 
-export default class extends Controller {
-    connect() {
-    }
-}
+export default class extends Controller {}
