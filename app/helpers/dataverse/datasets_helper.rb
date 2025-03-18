@@ -1,4 +1,4 @@
-module Dataverse::DatasetHelper
+module Dataverse::DatasetsHelper
   def file_thumbnail(dataverse_metadata, file)
     if ['image/png','image/jpeg', 'image/bmp', 'image/gif'].include? file.data_file.content_type
       src = "#{dataverse_metadata.full_hostname}/api/access/datafile/#{file.data_file.id}?imageThumb=true"
