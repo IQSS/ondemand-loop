@@ -26,7 +26,7 @@ class DownloadCollection < ApplicationDiskRecord
 
   def files
     directory = self.class.collection_directory(id)
-    Dir.glob(directory).reject {|f| f == "metadata.yml" }.map do |filename|
+    Dir.glob(directory).reject { |f| f == "metadata.yml" }.map do |filename|
       file_id = filename.split(".yml").first
       DownloadFile.find(id, file_id)
     end.compact
