@@ -14,7 +14,8 @@ class ConfigurationSingleton
   def string_configs
     {
       :user_downloads_for_ondemand_metadata_folder => Pathname.new("~/.downloads-for-ondemand/").expand_path.to_s,
-      :dataverse_metadata_folder => "/dataverse_metadatas/"
+      :dataverse_metadata_folder => "/dataverse_metadatas/",
+      :download_collections_folder => "/downloads/",
     }.freeze
   end
 
