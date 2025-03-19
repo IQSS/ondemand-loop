@@ -1,11 +1,18 @@
 # frozen_string_literal: true
 
 class DownloadFile < ApplicationDiskRecord
+  include ActiveModel::Model
+
   ATTRIBUTES = %w[id collection_id kind metadata_id external_id filename status size checksum].freeze
   KIND = %w[dataverse].freeze
   STATUS = %w[new ready downloading success error].freeze
 
   attr_accessor *ATTRIBUTES
+
+  validates_presence_of *ATTRIBUTES
+  validates :kind, inclusion: { in: KIND, message: "%{value} is not a valid kind" }
+  validates :status, inclusion: { in: STATUS, message: "%{value} is not a valid status" }
+  validates :size, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
 
   def self.find(collection_id, file_id)
     filename = filename_by_ids(collection_id, file_id)
@@ -33,6 +40,8 @@ class DownloadFile < ApplicationDiskRecord
   end
 
   def save
+    return false unless valid?
+
     FileUtils.mkdir_p(self.class.collection_directory(collection_id))
     filename = self.class.filename_by_ids(collection_id, id)
     File.open(filename, "w") do |file|
