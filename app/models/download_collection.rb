@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class DownloadCollection < ApplicationDiskRecord
-  attr_accessor :id, :kind
+  attr_accessor :id, :kind, :metadata_id
+
+  KINDS = [:dataverse]
 
   def self.all
     Dir.glob(metadata_directory).map do |directory|
@@ -21,6 +23,7 @@ class DownloadCollection < ApplicationDiskRecord
     new.tap do |collection|
       collection.id = data["id"]
       collection.kind = data["kind"]
+      collection.metadata_id = data["metadata_id"]
     end
   rescue StandardError
     nil
