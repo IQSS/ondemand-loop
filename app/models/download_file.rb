@@ -51,6 +51,7 @@ class DownloadFile < ApplicationDiskRecord
   end
 
   private
+
   def self.metadata_directory
     metadata_root_directory + Configuration.download_collections_folder
   end
