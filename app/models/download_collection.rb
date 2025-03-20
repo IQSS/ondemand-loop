@@ -29,10 +29,12 @@ class DownloadCollection < ApplicationDiskRecord
 
   def files
     directory = self.class.collection_directory(id)
-    Dir.glob(directory).reject { |f| f == "metadata.yml" }.map do |filename|
-      file_id = filename.split(".yml").first
-      DownloadFile.find(id, file_id)
-    end.compact
+    Dir.glob(File.join(directory, '*.yml'))
+       .select { |f| File.file?(f) }
+       .reject { |f| File.basename(f) == "metadata.yml" }
+       .sort_by { |f| File.ctime(f) }
+       .map { |f | DownloadFile.find(id, File.basename(f, ".yml")) }
+       .compact
   end
 
   def save

@@ -20,6 +20,13 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     }
     @download_collection3 = DownloadCollection.new(@valid_attributes3)
     @test_filename3 = File.join(@tmp_dir, 'downloads', '222-222', 'metadata.yml')
+    @file_attributes = {
+      'id' => '123-321', 'collection_id' => '456-789', 'kind' => 'dataverse',
+      'metadata_id' => '123-456', 'external_id' => '789', 'filename' => 'test.png',
+      'status' => 'new', 'size' => 1024, 'checksum' => 'abc123'
+    }
+    @download_file = DownloadFile.new(@file_attributes)
+    @file_filename = File.join(@tmp_dir, 'downloads', '456-789', '123-321.yml')
   end
 
   def teardown
@@ -171,5 +178,35 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     assert_equal @download_collection.id, last_collection.id
     assert_equal @download_collection.metadata_id, last_collection.metadata_id
     assert_equal @download_collection.kind, last_collection.kind
+  end
+
+  test "an new download collection has no files" do
+    assert @download_collection.save
+    assert File.exist?(@test_filename), "File was not created in the file system"
+    loaded_collection = DownloadCollection.find('456-789')
+    assert loaded_collection
+    assert loaded_collection.files.empty?
+  end
+
+  test "a download collection has one file" do
+    assert @download_collection.save
+    assert File.exist?(@test_filename), "File was not created in the file system"
+    assert @download_file.save
+    assert File.exist?(@file_filename), "File was not created in the file system"
+    loaded_collection = DownloadCollection.find('456-789')
+    assert loaded_collection
+    assert_equal 1, loaded_collection.files.count
+    loaded_file = DownloadFile.find("456-789", "123-321")
+    assert loaded_file
+    first_file = loaded_collection.files.first
+    assert_equal '123-321', first_file.id
+    assert_equal '456-789', first_file.collection_id
+    assert_equal 'dataverse', first_file.kind
+    assert_equal '123-456', first_file.metadata_id
+    assert_equal '789', first_file.external_id
+    assert_equal 'test.png', first_file.filename
+    assert_equal 'new', first_file.status
+    assert_equal 1024, first_file.size
+    assert_equal 'abc123', first_file.checksum
   end
 end
