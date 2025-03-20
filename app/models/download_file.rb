@@ -21,6 +21,20 @@ class DownloadFile < ApplicationDiskRecord
     load_from_file(filename)
   end
 
+  def self.new_from_dataverse_file(download_collection, dataset_file)
+    new.tap do |f|
+      f.id = generate_id
+      f.collection_id = download_collection.id
+      f.kind = 'dataverse'
+      f.metadata_id = download_collection.metadata_id
+      f.external_id = dataset_file.data_file.id
+      f.filename = dataset_file.data_file.filename
+      f.status = 'new'
+      f.size = dataset_file.data_file.filesize
+      f.checksum = dataset_file.data_file.md5
+    end
+  end
+
   def to_hash
     ATTRIBUTES.each_with_object({}) do |attr, hash|
       hash[attr] = send(attr)

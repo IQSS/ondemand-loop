@@ -6,8 +6,15 @@ class Dataverse::DatasetsController < ApplicationController
   end
 
   def download
-    @file_ids = params[:file_ids]
-    render json: @file_ids
+    @file_ids = params[:file_ids] #TODO get the real param with ids
+    @files = @dataset.files_by_ids(@file_ids)
+    @download_collection = DownloadCollection.new_from_dataverse(@dataverse_metadata)
+    @download_collection.save
+    @files.each do |file|
+      download_file = DownloadFile.new_from_dataverse_file(@download_collection, file)
+      download_file.save
+    end
+    redirect_to downloads_path
   end
 
   private
@@ -16,7 +23,7 @@ class Dataverse::DatasetsController < ApplicationController
     @dataverse_metadata = Dataverse::DataverseMetadata.find(params[:metadata_id])
     unless @dataverse_metadata
       flash[:error] = "Dataverse host metadata not found"
-      redirect_to root_path
+      redirect_to downloads_path
       return
     end
   end
@@ -27,7 +34,7 @@ class Dataverse::DatasetsController < ApplicationController
       @dataset = service.find_dataset_by_id(params[:id])
       unless @dataset
         flash[:error] = "Dataset not found"
-        redirect_to root_path
+        redirect_to downloads_path
         return
       end
     rescue Exception => e
