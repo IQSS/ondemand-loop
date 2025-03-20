@@ -69,15 +69,15 @@ class DownloadCollection < ApplicationDiskRecord
   private
 
   def self.metadata_directory
-    metadata_root_directory + Configuration.download_collections_folder
+    File.join(metadata_root_directory, Configuration.download_collections_folder)
   end
 
   def self.collection_directory(id)
-    metadata_directory + "#{id}"
+    File.join(metadata_directory, id)
   end
 
   def self.filename_by_id(id)
-    collection_directory(id) + "/metadata.yml"
+    File.join(collection_directory(id), "metadata.yml")
   end
 
   def self.load_metadata_from_directory(directory)
