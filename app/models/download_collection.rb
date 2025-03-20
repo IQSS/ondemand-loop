@@ -20,6 +20,14 @@ class DownloadCollection < ApplicationDiskRecord
        .compact
   end
 
+  def self.new_from_dataverse(dataverse_metadata)
+    new.tap do |collection|
+      collection.id = generate_id
+      collection.kind = "dataverse"
+      collection.metadata_id = dataverse_metadata.id
+    end
+  end
+
   def self.find(collection_id)
     filename = filename_by_id(collection_id)
     return nil unless File.exist?(filename)

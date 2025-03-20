@@ -5,6 +5,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     @tmp_dir = Dir.mktmpdir
     DownloadCollection.stubs(:metadata_root_directory).returns(@tmp_dir)
     DownloadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
+    Dataverse::DataverseMetadata.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
       'id' => '456-789', 'kind' => 'dataverse', 'metadata_id' => '123-456'
     }
@@ -243,5 +244,15 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     assert_equal 1, @download_collection2.files.count
     assert_equal "123-456", @download_collection2.files.first.id
     assert_equal 0, @download_collection3.files.count
+  end
+
+  test "new from dataverse" do
+    dataverse_metadata = Dataverse::DataverseMetadata.find_or_initialize_by_uri(URI.parse("http://localhost:3000"))
+    assert dataverse_metadata
+    collection = DownloadCollection.new_from_dataverse(dataverse_metadata)
+    assert_equal "dataverse", collection.kind
+    assert_equal dataverse_metadata.id, collection.metadata_id
+    assert collection.id
+    assert collection.save
   end
 end
