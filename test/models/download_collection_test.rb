@@ -10,6 +10,16 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     }
     @download_collection = DownloadCollection.new(@valid_attributes)
     @test_filename = File.join(@tmp_dir, 'downloads', '456-789', 'metadata.yml')
+    @valid_attributes2 = {
+      'id' => '111-111', 'kind' => 'dataverse', 'metadata_id' => '123-456'
+    }
+    @download_collection2 = DownloadCollection.new(@valid_attributes2)
+    @test_filename2 = File.join(@tmp_dir, 'downloads', '111-111', 'metadata.yml')
+    @valid_attributes3 = {
+      'id' => '222-222', 'kind' => 'dataverse', 'metadata_id' => '123-456'
+    }
+    @download_collection3 = DownloadCollection.new(@valid_attributes3)
+    @test_filename3 = File.join(@tmp_dir, 'downloads', '222-222', 'metadata.yml')
   end
 
   def teardown
@@ -102,6 +112,18 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     assert_equal '123-456', loaded_collection.metadata_id
   end
 
+  test "find retrieves the correct record on multiple records" do
+    assert @download_collection.save
+    assert @download_collection2.save
+    assert @download_collection3.save
+    assert File.exist?(@test_filename), "File was not created in the file system"
+    loaded_collection = DownloadCollection.find('456-789')
+    assert loaded_collection
+    assert_equal '456-789', loaded_collection.id
+    assert_equal 'dataverse', loaded_collection.kind
+    assert_equal '123-456', loaded_collection.metadata_id
+  end
+
   test "find retrieves the record only if id matches" do
     assert @download_collection.save
     assert File.exist?(@test_filename), "File was not created in the file system"
@@ -118,5 +140,36 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     assert File.exist?(@test_filename), "File was not created in the file system"
     assert DownloadCollection.find('456-789')
     assert_equal 1, DownloadCollection.all.count
+  end
+
+  test "all returns an array with the saved entry" do
+    assert @download_collection.save
+    assert File.exist?(@test_filename), "File was not created in the file system"
+    found_collection = DownloadCollection.find('456-789')
+    first_collection = DownloadCollection.all.first
+    assert_equal found_collection.id, first_collection.id
+    assert_equal found_collection.metadata_id, first_collection.metadata_id
+    assert_equal found_collection.kind, first_collection.kind
+  end
+
+  test "all returns an array with multiple entries sorted by newest first" do
+    assert @download_collection.save
+    assert @download_collection2.save
+    assert @download_collection3.save
+    assert File.exist?(@test_filename), "File was not created in the file system"
+    assert File.exist?(@test_filename2), "File was not created in the file system"
+    assert File.exist?(@test_filename3), "File was not created in the file system"
+    assert DownloadCollection.find('456-789')
+    assert DownloadCollection.find('111-111')
+    assert DownloadCollection.find('222-222')
+    assert_equal 3, DownloadCollection.all.count
+    first_collection = DownloadCollection.all.first
+    last_collection = DownloadCollection.all.last
+    assert_equal @download_collection3.id, first_collection.id
+    assert_equal @download_collection3.metadata_id, first_collection.metadata_id
+    assert_equal @download_collection3.kind, first_collection.kind
+    assert_equal @download_collection.id, last_collection.id
+    assert_equal @download_collection.metadata_id, last_collection.metadata_id
+    assert_equal @download_collection.kind, last_collection.kind
   end
 end

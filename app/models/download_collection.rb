@@ -12,9 +12,12 @@ class DownloadCollection < ApplicationDiskRecord
   validates :kind, inclusion: { in: KIND }
 
   def self.all
-    Dir.glob(metadata_directory).map do |directory|
-      load_metadata_from_directory(directory)
-    end.compact
+    Dir.glob(File.join(metadata_directory, '*'))
+       .select { |path| File.directory?(path) }
+       .sort_by { |directory| File.ctime(directory) }
+       .reverse
+       .map { |directory| load_metadata_from_directory(directory) }
+       .compact
   end
 
   def self.find(collection_id)
