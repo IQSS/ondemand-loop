@@ -71,11 +71,11 @@ module Dataverse
     private
 
     def self.metadata_directory
-      metadata_root_directory + Configuration.dataverse_metadata_folder
+      File.join(metadata_root_directory, Configuration.dataverse_metadata_folder)
     end
 
     def self.filename_by_id(id)
-      metadata_directory + "/#{id}.yml"
+      File.join(metadata_directory, "#{id}.yml")
     end
 
     def self.load_from_file(filename)
