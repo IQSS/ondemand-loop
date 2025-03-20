@@ -27,6 +27,22 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     }
     @download_file = DownloadFile.new(@file_attributes)
     @file_filename = File.join(@tmp_dir, 'downloads', '456-789', '123-321.yml')
+
+    @file_attributes2 = {
+      'id' => '111-123', 'collection_id' => '456-789', 'kind' => 'dataverse',
+      'metadata_id' => '123-456', 'external_id' => '790', 'filename' => 'test.png',
+      'status' => 'new', 'size' => 1024, 'checksum' => 'abc123'
+    }
+    @download_file2 = DownloadFile.new(@file_attributes2)
+    @file_filename2 = File.join(@tmp_dir, 'downloads', '456-789', '111-123.yml')
+
+    @file_attributes3 = {
+      'id' => '123-456', 'collection_id' => '111-111', 'kind' => 'dataverse',
+      'metadata_id' => '123-456', 'external_id' => '791', 'filename' => 'test.png',
+      'status' => 'new', 'size' => 1024, 'checksum' => 'abc123'
+    }
+    @download_file3 = DownloadFile.new(@file_attributes3)
+    @file_filename3 = File.join(@tmp_dir, 'downloads', '111-111', '123-456.yml')
   end
 
   def teardown
@@ -208,5 +224,24 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     assert_equal 'new', first_file.status
     assert_equal 1024, first_file.size
     assert_equal 'abc123', first_file.checksum
+  end
+
+  test "download collection has multiple files listed in order" do
+    assert @download_collection.save
+    assert @download_collection2.save
+    assert @download_collection3.save
+    assert @download_file.save
+    assert @download_file2.save
+    assert @download_file3.save
+    assert File.exist?(@test_filename), "File was not created in the file system"
+    assert File.exist?(@test_filename2), "File was not created in the file system"
+    assert File.exist?(@test_filename3), "File was not created in the file system"
+    assert_equal 3, DownloadCollection.all.count
+    assert_equal 2, @download_collection.files.count
+    assert_equal "123-321", @download_collection.files.first.id
+    assert_equal "111-123", @download_collection.files.last.id
+    assert_equal 1, @download_collection2.files.count
+    assert_equal "123-456", @download_collection2.files.first.id
+    assert_equal 0, @download_collection3.files.count
   end
 end
