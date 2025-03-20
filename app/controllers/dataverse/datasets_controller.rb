@@ -40,7 +40,7 @@ class Dataverse::DatasetsController < ApplicationController
     rescue Exception => e
       Rails.logger.error("Dataverse service error: #{e.message}")
       flash[:error] = "An error occurred while retrieving the dataset #{params[:id]}"
-      redirect_to root_path
+      redirect_to downloads_path
       return
     end
   end
