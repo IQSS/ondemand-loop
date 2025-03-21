@@ -128,4 +128,27 @@ class DownloadFileTest < ActiveSupport::TestCase
     refute DownloadFile.find('456-780', '123-321')
     refute DownloadFile.find('456-789', '123-322')
   end
+
+  test "new from dataverse" do
+    response_body = load_file_fixture(File.join('dataverse', 'dataset_response', 'valid_response.json'))
+    dataset_response = Dataverse::DatasetResponse.new(response_body)
+    assert dataset_response
+    dataset_file = dataset_response.files_by_ids([7]).first
+    assert dataset_file
+    collection_attributes = {
+      'id' => '456-789', 'kind' => 'dataverse', 'metadata_id' => '123-456'
+    }
+    download_collection = DownloadCollection.new(collection_attributes)
+    assert download_collection.save
+    new_download_file = DownloadFile.new_from_dataverse_file(download_collection, dataset_file)
+    assert new_download_file.save
+    assert_equal dataset_file.data_file.id, new_download_file.external_id
+    assert_equal '456-789', new_download_file.collection_id
+    assert_equal 'dataverse', new_download_file.kind
+    assert_equal '123-456', new_download_file.metadata_id
+    assert_equal 'screenshot.png', new_download_file.filename
+    assert_equal 'new', new_download_file.status
+    assert_equal 272314, new_download_file.size
+    assert_equal "13035cba04a51f54dd8101fe726cda5c", new_download_file.checksum
+  end
 end
