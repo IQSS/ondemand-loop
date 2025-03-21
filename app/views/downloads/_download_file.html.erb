@@ -18,9 +18,15 @@
       </div>
 
       <div class="col-md-3">
-                        <span class="badge bg-<%= file.status == 'success' ? 'success' : (file.status == 'downloading' ? 'info' : 'secondary') %>">
-                          <%= file.status %>
-                        </span>
+        <span class="badge
+          <%= case file.status
+              when 'success' then 'bg-success'
+              when 'downloading' then 'bg-info'
+              when 'error' then 'bg-danger'
+              else 'bg-secondary'
+              end %>">
+          <%= file.status.capitalize %>
+        </span>
       </div>
 
       <div class="col-md-1 text-end">
