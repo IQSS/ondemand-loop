@@ -113,6 +113,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
 
   test "find files matches no files with multiple array" do
     files = @dataset.files_by_ids([1,2,3,4,5,6,7,8,9,10])
+    assert_equal 1, files.size
     assert_equal 7, files.first.data_file.id
     assert_equal "image/png", files.first.data_file.content_type
   end
