@@ -39,7 +39,7 @@
         <% @download_collections.each do |collection| %>
           <div class="row">
             <div class="card dataset-header">
-              <div class="card-header"><%= collection.id %></div>
+              <div class="card-header"><%= collection.name %> (<%= collection.id %>)</div>
               <% collection.files.each do |file| %>
                 <div class="card mb-3 shadow-sm">
                   <div class="card-body">
