@@ -65,6 +65,10 @@ class DownloadFile < ApplicationDiskRecord
     true
   end
 
+  def progress
+    65 #TODO compute current progress from size and current transferred bytes
+  end
+
   private
 
   def self.metadata_directory
