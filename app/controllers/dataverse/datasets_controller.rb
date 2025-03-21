@@ -9,6 +9,7 @@ class Dataverse::DatasetsController < ApplicationController
     @file_ids = params[:file_ids] #TODO get the real param with ids
     @files = @dataset.files_by_ids(@file_ids)
     @download_collection = DownloadCollection.new_from_dataverse(@dataverse_metadata)
+    @download_collection.name = "#{@dataverse_metadata.full_name} selection from #{@dataset.data.identifier}"
     @download_collection.save
     @files.each do |file|
       download_file = DownloadFile.new_from_dataverse_file(@download_collection, file)
