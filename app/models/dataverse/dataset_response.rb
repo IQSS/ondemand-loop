@@ -13,7 +13,9 @@ module Dataverse
     end
 
     def files_by_ids(ids)
-      data.latest_version.files.select { |f| ids.include?(f.data_file.id) }
+      ids = Array(ids)
+      ids = ids.map { |id| id.to_i }
+      data.latest_version.files.select { |f| ids.include?(f.data_file.id.to_i) }
     end
 
     class Data

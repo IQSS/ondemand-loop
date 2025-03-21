@@ -1,8 +1,10 @@
 require "test_helper"
 
 class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
-  def valid_json_body
-    load_file_fixture(File.join('dataverse', 'dataset_response', 'valid_response.json'))
+
+  def setup
+    valid_json = load_file_fixture(File.join('dataverse', 'dataset_response', 'valid_response.json'))
+    @dataset = Dataverse::DatasetResponse.new(valid_json)
   end
 
   def empty_json
@@ -17,16 +19,14 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_response.json'))
   end
 
-  test "valid json parses dataset response" do
-    dataset = Dataverse::DatasetResponse.new(valid_json_body)
-    assert_instance_of Dataverse::DatasetResponse, dataset
-    assert_equal "OK", dataset.status
-    assert_instance_of Dataverse::DatasetResponse::Data, dataset.data
+  test "valid json parses @dataset response" do
+    assert_instance_of Dataverse::DatasetResponse, @dataset
+    assert_equal "OK", @dataset.status
+    assert_instance_of Dataverse::DatasetResponse::Data, @dataset.data
   end
 
-  test "valid json parses dataset response data" do
-    dataset = Dataverse::DatasetResponse.new(valid_json_body)
-    data = dataset.data
+  test "valid json parses @dataset response data" do
+    data = @dataset.data
     assert_equal 6, data.id
     assert_equal "FK2/GCN7US", data.identifier
     assert_equal "https://doi.org/10.5072/FK2/GCN7US", data.persistent_url
@@ -35,27 +35,24 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "dataset", data.dataset_type
   end
 
-  test "valid json parses dataset response latest version" do
-    dataset = Dataverse::DatasetResponse.new(valid_json_body)
-    version = dataset.data.latest_version
+  test "valid json parses @dataset response latest version" do
+    version = @dataset.data.latest_version
     assert_instance_of Dataverse::DatasetResponse::Data::Version, version
     assert_equal 3, version.id
     assert_equal 1, version.version_number
     assert_equal "RELEASED", version.version_state
   end
 
-  test "valid json parses dataset response license" do
-    dataset = Dataverse::DatasetResponse.new(valid_json_body)
-    license = dataset.data.latest_version.license
+  test "valid json parses @dataset response license" do
+    license = @dataset.data.latest_version.license
     assert_instance_of Dataverse::DatasetResponse::Data::Version::License, license
     assert_equal "CC0 1.0", license.name
     assert_equal "http://creativecommons.org/publicdomain/zero/1.0", license.uri
     assert_equal "https://licensebuttons.net/p/zero/1.0/88x31.png", license.icon_uri
   end
 
-  test "valid json parses dataset response files" do
-    dataset = Dataverse::DatasetResponse.new(valid_json_body)
-    version = dataset.data.latest_version
+  test "valid json parses @dataset response files" do
+    version = @dataset.data.latest_version
 
     assert_equal 1, version.files.size
     version.files.each { |file| assert_instance_of Dataverse::DatasetResponse::Data::Version::DatasetFile, file }
@@ -83,5 +80,40 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
 
   test "incomplete json raises NoMethodError when accessing missing data" do
     assert_raises(NoMethodError) { Dataverse::DatasetResponse.new(incomplete_json_body) }
+  end
+
+  test "find files matches one file" do
+    files = @dataset.files_by_ids([7])
+    assert_equal 1, files.size
+    assert_equal 7, files.first.data_file.id
+    assert_equal "image/png", files.first.data_file.content_type
+  end
+
+  test "find files matches one file as string id" do
+    files = @dataset.files_by_ids(['7'])
+    assert_equal 1, files.size
+    assert_equal 7, files.first.data_file.id
+    assert_equal "image/png", files.first.data_file.content_type
+  end
+
+  test "find files matches no files with wrong id" do
+    files = @dataset.files_by_ids([1])
+    assert_equal 0, files.size
+  end
+
+  test "find files matches no files with empty array" do
+    files = @dataset.files_by_ids([])
+    assert_equal 0, files.size
+  end
+
+  test "find files matches no files with nil" do
+    files = @dataset.files_by_ids(nil)
+    assert_equal 0, files.size
+  end
+
+  test "find files matches no files with multiple array" do
+    files = @dataset.files_by_ids([1,2,3,4,5,6,7,8,9,10])
+    assert_equal 7, files.first.data_file.id
+    assert_equal "image/png", files.first.data_file.content_type
   end
 end
