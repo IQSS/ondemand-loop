@@ -3,7 +3,7 @@
 class DownloadFile < ApplicationDiskRecord
   include ActiveModel::Model
 
-  ATTRIBUTES = %w[id collection_id kind metadata_id external_id filename status size checksum].freeze
+  ATTRIBUTES = %w[id collection_id kind metadata_id external_id filename status size checksum content_type].freeze
   KIND = %w[dataverse].freeze
   STATUS = %w[new ready downloading success error].freeze
 
@@ -32,6 +32,7 @@ class DownloadFile < ApplicationDiskRecord
       f.status = 'new'
       f.size = dataset_file.data_file.filesize
       f.checksum = dataset_file.data_file.md5
+      f.content_type = dataset_file.data_file.content_type
     end
   end
 

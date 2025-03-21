@@ -4,10 +4,11 @@ class DownloadFileTest < ActiveSupport::TestCase
   def setup
     @tmp_dir = Dir.mktmpdir
     DownloadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
+    DownloadCollection.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
       'id' => '123-321', 'collection_id' => '456-789', 'kind' => 'dataverse',
       'metadata_id' => '123-456', 'external_id' => '789', 'filename' => 'test.png',
-      'status' => 'new', 'size' => 1024, 'checksum' => 'abc123'
+      'status' => 'new', 'size' => 1024, 'checksum' => 'abc123', 'content_type' => 'image/png'
     }
     @download_file = DownloadFile.new(@valid_attributes)
     @test_filename = File.join(@tmp_dir, 'downloads', '456-789', '123-321.yml')
@@ -27,6 +28,7 @@ class DownloadFileTest < ActiveSupport::TestCase
     assert_equal 'new', @download_file.status
     assert_equal 1024, @download_file.size
     assert_equal 'abc123', @download_file.checksum
+    assert_equal 'image/png', @download_file.content_type
   end
 
   test "should be valid" do
@@ -119,6 +121,7 @@ class DownloadFileTest < ActiveSupport::TestCase
     assert_equal 'new', loaded_file.status
     assert_equal 1024, loaded_file.size
     assert_equal 'abc123', loaded_file.checksum
+    assert_equal 'image/png', loaded_file.content_type
   end
 
   test "find retrieves the record only if both ids match" do
@@ -150,5 +153,6 @@ class DownloadFileTest < ActiveSupport::TestCase
     assert_equal 'new', new_download_file.status
     assert_equal 272314, new_download_file.size
     assert_equal "13035cba04a51f54dd8101fe726cda5c", new_download_file.checksum
+    assert_equal 'image/png', new_download_file.content_type
   end
 end
