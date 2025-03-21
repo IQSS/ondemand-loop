@@ -1,12 +1,62 @@
-<h1>Downloads#index</h1>
-<p>Find me in app/views/downloads/index.html.erb</p>
-<% flash.each do |type, message| %>
-  <% alert_class = case type.to_sym
-                   when :notice then "alert-success"
-                   when :alert, :error then "alert-danger"
-                   else "alert-info"
-                   end %>
-  <div class="alert <%= alert_class %>">
-    <%= message %>
+<div class="container-md content mt-4" role="main">
+  <nav aria-label="Breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active">
+        <a href="/pun/sys/ood/">Home</a>
+      </li>
+      <li class="breadcrumb-item active">
+        <a aria-current="page">Downloads</a>
+      </li>
+    </ol>
+  </nav>
+  <div class="row">
+    <% flash.each do |type, message| %>
+      <% alert_class = case type.to_sym
+                       when :notice then "alert-success"
+                       when :alert, :error then "alert-danger"
+                       else "alert-info"
+                       end %>
+      <div class="alert <%= alert_class %>">
+        <%= message %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card dataset-header">
+        <div class="card-header">Downloads</div>
+        <div class="list-group list-group-flush">
+          <span class="list-group-item list-group-item-action">
+            Files being downloaded
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <% if @download_collections.empty? %>
+        There are currently no downloads
+      <% else %>
+        <% @download_collections.each do |collection| %>
+          <div class="row">
+            <div class="card dataset-header">
+              <div class="card-header"><%= collection.id     %></div>
+              <% collection.files do |file| %>
+                <div class="row">
+                  <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                      <div class="form-check mb-2">
+                        <label class="form-check-label fw-bold" for="file_checkbox_<%= file.data_file.id %>">
+                          <%= file.filename %>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
