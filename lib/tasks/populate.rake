@@ -23,7 +23,22 @@ namespace :dev do
 
     files.each do |file|
       download_file = DownloadFile.new_from_dataverse_file(download_collection, file)
-      puts download_file.errors.inspect unless download_file.save
+      download_file.save
+
+      download_file2 = DownloadFile.new_from_dataverse_file(download_collection, file)
+      download_file2.status = 'downloading'
+      download_file2.filename = "another_file_being_downloaded.png"
+      download_file2.save
+
+      download_file3 = DownloadFile.new_from_dataverse_file(download_collection, file)
+      download_file3.status = 'success'
+      download_file3.filename = "yet_another_file_downloaded.png"
+      download_file3.save
+
+      download_file4 = DownloadFile.new_from_dataverse_file(download_collection, file)
+      download_file4.status = 'error'
+      download_file4.filename = "a_file_with_error.png"
+      download_file4.save
     end
   end
 end
