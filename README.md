@@ -89,3 +89,12 @@ To install all gem dependencies with Bundle
 make server
 ```
 To run the developer Rails server and see the application in `localhost:3000`
+
+### Populate local environment with development data
+
+to load the special project folder with sample files to view the application
+with some data, run this task:
+
+```sh
+rake dev:populate
+```
