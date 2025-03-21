@@ -139,7 +139,8 @@ class DownloadFileTest < ActiveSupport::TestCase
     dataset_file = dataset_response.files_by_ids([7]).first
     assert dataset_file
     collection_attributes = {
-      'id' => '456-789', 'kind' => 'dataverse', 'metadata_id' => '123-456'
+      'id' => '456-789', 'kind' => 'dataverse', 'metadata_id' => '123-456',
+      'name' => 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US'
     }
     download_collection = DownloadCollection.new(collection_attributes)
     assert download_collection.save

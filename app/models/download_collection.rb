@@ -3,7 +3,7 @@
 class DownloadCollection < ApplicationDiskRecord
   include ActiveModel::Model
 
-  ATTRIBUTES = %w[id kind metadata_id]
+  ATTRIBUTES = %w[id kind metadata_id name].freeze
   KIND = %w[dataverse]
 
   attr_accessor *ATTRIBUTES

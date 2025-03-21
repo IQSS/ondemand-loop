@@ -7,17 +7,20 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     DownloadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
     Dataverse::DataverseMetadata.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
-      'id' => '456-789', 'kind' => 'dataverse', 'metadata_id' => '123-456'
+      'id' => '456-789', 'kind' => 'dataverse', 'metadata_id' => '123-456',
+      'name' => 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US'
     }
     @download_collection = DownloadCollection.new(@valid_attributes)
     @test_filename = File.join(@tmp_dir, 'downloads', '456-789', 'metadata.yml')
     @valid_attributes2 = {
-      'id' => '111-111', 'kind' => 'dataverse', 'metadata_id' => '123-456'
+      'id' => '111-111', 'kind' => 'dataverse', 'metadata_id' => '123-456',
+      'name' => 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US'
     }
     @download_collection2 = DownloadCollection.new(@valid_attributes2)
     @test_filename2 = File.join(@tmp_dir, 'downloads', '111-111', 'metadata.yml')
     @valid_attributes3 = {
-      'id' => '222-222', 'kind' => 'dataverse', 'metadata_id' => '123-456'
+      'id' => '222-222', 'kind' => 'dataverse', 'metadata_id' => '123-456',
+      'name' => 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US'
     }
     @download_collection3 = DownloadCollection.new(@valid_attributes3)
     @test_filename3 = File.join(@tmp_dir, 'downloads', '222-222', 'metadata.yml')
@@ -54,6 +57,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     assert_equal '456-789', @download_collection.id
     assert_equal 'dataverse', @download_collection.kind
     assert_equal '123-456', @download_collection.metadata_id
+    assert_equal 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US', @download_collection.name
   end
 
   test "should be valid" do
@@ -134,6 +138,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     assert_equal '456-789', loaded_collection.id
     assert_equal 'dataverse', loaded_collection.kind
     assert_equal '123-456', loaded_collection.metadata_id
+    assert_equal 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US', loaded_collection.name
   end
 
   test "find retrieves the correct record on multiple records" do
@@ -146,6 +151,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     assert_equal '456-789', loaded_collection.id
     assert_equal 'dataverse', loaded_collection.kind
     assert_equal '123-456', loaded_collection.metadata_id
+    assert_equal 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US', loaded_collection.name
   end
 
   test "find retrieves the record only if id matches" do
@@ -174,6 +180,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     assert_equal found_collection.id, first_collection.id
     assert_equal found_collection.metadata_id, first_collection.metadata_id
     assert_equal found_collection.kind, first_collection.kind
+    assert_equal found_collection.name, first_collection.name
   end
 
   test "all returns an array with multiple entries sorted by newest first" do
@@ -195,6 +202,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     assert_equal @download_collection.id, last_collection.id
     assert_equal @download_collection.metadata_id, last_collection.metadata_id
     assert_equal @download_collection.kind, last_collection.kind
+    assert_equal @download_collection.name, last_collection.name
   end
 
   test "an new download collection has no files" do
@@ -253,6 +261,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     assert_equal "dataverse", collection.kind
     assert_equal dataverse_metadata.id, collection.metadata_id
     assert collection.id
+    collection.name = 'new name'
     assert collection.save
   end
 end
