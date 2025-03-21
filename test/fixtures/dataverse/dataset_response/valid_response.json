@@ -105,7 +105,7 @@
                     "typeName": "dsDescriptionValue",
                     "multiple": false,
                     "typeClass": "primitive",
-                    "value": "asdsdsadadsadsadsadd"
+                    "value": "This is the description of the dataset"
                   }
                 }
               ]
