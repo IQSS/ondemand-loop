@@ -5,7 +5,7 @@
         <a href="/pun/sys/ood/">Home</a>
       </li>
       <li class="breadcrumb-item active">
-        <a aria-current="page">Downloads</a>
+        <a aria-current="page">downloads</a>
       </li>
     </ol>
   </nav>
@@ -39,16 +39,12 @@
         <% @download_collections.each do |collection| %>
           <div class="row">
             <div class="card dataset-header">
-              <div class="card-header"><%= collection.id     %></div>
-              <% collection.files do |file| %>
+              <div class="card-header"><%= collection.id %></div>
+              <% collection.files.each do |file| %>
                 <div class="row">
                   <div class="card h-100 shadow-sm">
                     <div class="card-body">
-                      <div class="form-check mb-2">
-                        <label class="form-check-label fw-bold" for="file_checkbox_<%= file.data_file.id %>">
-                          <%= file.filename %>
-                        </label>
-                      </div>
+                      <%= file.filename %>
                     </div>
                   </div>
                 </div>
