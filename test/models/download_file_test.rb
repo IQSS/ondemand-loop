@@ -11,7 +11,7 @@ class DownloadFileTest < ActiveSupport::TestCase
       'status' => 'new', 'size' => 1024, 'checksum' => 'abc123', 'content_type' => 'image/png'
     }
     @download_file = DownloadFile.new(@valid_attributes)
-    @test_filename = File.join(@tmp_dir, 'downloads', '456-789', '123-321.yml')
+    @test_filename = File.join(@tmp_dir, 'downloads', '456-789', 'files', '123-321.yml')
   end
 
   def teardown

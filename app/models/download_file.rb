@@ -57,7 +57,7 @@ class DownloadFile < ApplicationDiskRecord
   def save
     return false unless valid?
 
-    FileUtils.mkdir_p(self.class.collection_directory(collection_id))
+    FileUtils.mkdir_p(self.class.collection_files_directory(collection_id))
     filename = self.class.filename_by_ids(collection_id, id)
     File.open(filename, "w") do |file|
       file.write(to_yaml)
@@ -79,8 +79,12 @@ class DownloadFile < ApplicationDiskRecord
     File.join(self.metadata_directory, collection_id)
   end
 
+  def self.collection_files_directory(collection_id)
+    File.join(self.metadata_directory, collection_id, 'files')
+  end
+
   def self.filename_by_ids(collection_id, file_id)
-    File.join(collection_directory(collection_id), "#{file_id}.yml")
+    File.join(collection_files_directory(collection_id), "#{file_id}.yml")
   end
 
   def self.load_from_file(filename)

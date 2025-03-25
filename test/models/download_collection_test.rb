@@ -30,7 +30,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
       'status' => 'new', 'size' => 1024, 'checksum' => 'abc123', 'content_type' => 'image/png'
     }
     @download_file = DownloadFile.new(@file_attributes)
-    @file_filename = File.join(@tmp_dir, 'downloads', '456-789', '123-321.yml')
+    @file_filename = File.join(@tmp_dir, 'downloads', '456-789', 'files', '123-321.yml')
 
     @file_attributes2 = {
       'id' => '111-123', 'collection_id' => '456-789', 'type' => 'dataverse',
@@ -38,7 +38,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
       'status' => 'new', 'size' => 1024, 'checksum' => 'abc123', 'content_type' => 'image/png'
     }
     @download_file2 = DownloadFile.new(@file_attributes2)
-    @file_filename2 = File.join(@tmp_dir, 'downloads', '456-789', '111-123.yml')
+    @file_filename2 = File.join(@tmp_dir, 'downloads', '456-789', 'files', '111-123.yml')
 
     @file_attributes3 = {
       'id' => '123-456', 'collection_id' => '111-111', 'type' => 'dataverse',
@@ -46,7 +46,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
       'status' => 'new', 'size' => 1024, 'checksum' => 'abc123', 'content_type' => 'image/png'
     }
     @download_file3 = DownloadFile.new(@file_attributes3)
-    @file_filename3 = File.join(@tmp_dir, 'downloads', '111-111', '123-456.yml')
+    @file_filename3 = File.join(@tmp_dir, 'downloads', '111-111', 'files', '123-456.yml')
   end
 
   def teardown
