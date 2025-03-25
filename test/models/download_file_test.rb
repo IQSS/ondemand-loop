@@ -6,7 +6,7 @@ class DownloadFileTest < ActiveSupport::TestCase
     DownloadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
     DownloadCollection.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
-      'id' => '123-321', 'collection_id' => '456-789', 'kind' => 'dataverse',
+      'id' => '123-321', 'collection_id' => '456-789', 'type' => 'dataverse',
       'metadata_id' => '123-456', 'external_id' => '789', 'filename' => 'test.png',
       'status' => 'new', 'size' => 1024, 'checksum' => 'abc123', 'content_type' => 'image/png'
     }
@@ -21,7 +21,7 @@ class DownloadFileTest < ActiveSupport::TestCase
   test "should initialize with valid attributes" do
     assert_equal '123-321', @download_file.id
     assert_equal '456-789', @download_file.collection_id
-    assert_equal 'dataverse', @download_file.kind
+    assert_equal 'dataverse', @download_file.type
     assert_equal '123-456', @download_file.metadata_id
     assert_equal '789', @download_file.external_id
     assert_equal 'test.png', @download_file.filename
@@ -37,9 +37,9 @@ class DownloadFileTest < ActiveSupport::TestCase
 
   test "should be invalid because of invalid values" do
     assert @download_file.valid?
-    @download_file.kind = 'invalid_kind'
+    @download_file.type = 'invalid_type'
     refute @download_file.valid?
-    assert_includes @download_file.errors[:kind], 'invalid_kind is not a valid kind'
+    assert_includes @download_file.errors[:type], 'invalid_type is not a valid type'
     @download_file.status = 'invalid_status'
     refute @download_file.valid?
     assert_includes @download_file.errors[:status], 'invalid_status is not a valid status'
@@ -92,7 +92,7 @@ class DownloadFileTest < ActiveSupport::TestCase
   end
 
   test "save stopped due to invalid attributes" do
-    @download_file.kind = 'invalid_kind'
+    @download_file.type = 'invalid_type'
     refute @download_file.save
     refute File.exist?(@test_filename), "File was not created in the file system"
   end
@@ -114,7 +114,7 @@ class DownloadFileTest < ActiveSupport::TestCase
     assert loaded_file
     assert_equal '123-321', loaded_file.id
     assert_equal '456-789', loaded_file.collection_id
-    assert_equal 'dataverse', loaded_file.kind
+    assert_equal 'dataverse', loaded_file.type
     assert_equal '123-456', loaded_file.metadata_id
     assert_equal '789', loaded_file.external_id
     assert_equal 'test.png', loaded_file.filename
@@ -139,7 +139,7 @@ class DownloadFileTest < ActiveSupport::TestCase
     dataset_file = dataset_response.files_by_ids([7]).first
     assert dataset_file
     collection_attributes = {
-      'id' => '456-789', 'kind' => 'dataverse', 'metadata_id' => '123-456',
+      'id' => '456-789', 'type' => 'dataverse', 'metadata_id' => '123-456',
       'name' => 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US'
     }
     download_collection = DownloadCollection.new(collection_attributes)
@@ -148,7 +148,7 @@ class DownloadFileTest < ActiveSupport::TestCase
     assert new_download_file.save
     assert_equal dataset_file.data_file.id, new_download_file.external_id
     assert_equal '456-789', new_download_file.collection_id
-    assert_equal 'dataverse', new_download_file.kind
+    assert_equal 'dataverse', new_download_file.type
     assert_equal '123-456', new_download_file.metadata_id
     assert_equal 'screenshot.png', new_download_file.filename
     assert_equal 'new', new_download_file.status

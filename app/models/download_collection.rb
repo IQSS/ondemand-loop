@@ -3,13 +3,13 @@
 class DownloadCollection < ApplicationDiskRecord
   include ActiveModel::Model
 
-  ATTRIBUTES = %w[id kind metadata_id name].freeze
-  KIND = %w[dataverse]
+  ATTRIBUTES = %w[id type metadata_id name].freeze
+  TYPES = %w[dataverse]
 
   attr_accessor *ATTRIBUTES
 
   validates_presence_of *ATTRIBUTES
-  validates :kind, inclusion: { in: KIND }
+  validates :type, inclusion: { in: TYPES }
 
   def self.all
     Dir.glob(File.join(metadata_directory, '*'))
@@ -23,7 +23,7 @@ class DownloadCollection < ApplicationDiskRecord
   def self.new_from_dataverse(dataverse_metadata)
     new.tap do |collection|
       collection.id = generate_id
-      collection.kind = "dataverse"
+      collection.type = "dataverse"
       collection.metadata_id = dataverse_metadata.id
     end
   end

@@ -7,25 +7,25 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     DownloadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
     Dataverse::DataverseMetadata.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
-      'id' => '456-789', 'kind' => 'dataverse', 'metadata_id' => '123-456',
+      'id' => '456-789', 'type' => 'dataverse', 'metadata_id' => '123-456',
       'name' => 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US'
     }
     @download_collection = DownloadCollection.new(@valid_attributes)
     @test_filename = File.join(@tmp_dir, 'downloads', '456-789', 'metadata.yml')
     @valid_attributes2 = {
-      'id' => '111-111', 'kind' => 'dataverse', 'metadata_id' => '123-456',
+      'id' => '111-111', 'type' => 'dataverse', 'metadata_id' => '123-456',
       'name' => 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US'
     }
     @download_collection2 = DownloadCollection.new(@valid_attributes2)
     @test_filename2 = File.join(@tmp_dir, 'downloads', '111-111', 'metadata.yml')
     @valid_attributes3 = {
-      'id' => '222-222', 'kind' => 'dataverse', 'metadata_id' => '123-456',
+      'id' => '222-222', 'type' => 'dataverse', 'metadata_id' => '123-456',
       'name' => 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US'
     }
     @download_collection3 = DownloadCollection.new(@valid_attributes3)
     @test_filename3 = File.join(@tmp_dir, 'downloads', '222-222', 'metadata.yml')
     @file_attributes = {
-      'id' => '123-321', 'collection_id' => '456-789', 'kind' => 'dataverse',
+      'id' => '123-321', 'collection_id' => '456-789', 'type' => 'dataverse',
       'metadata_id' => '123-456', 'external_id' => '789', 'filename' => 'test.png',
       'status' => 'new', 'size' => 1024, 'checksum' => 'abc123', 'content_type' => 'image/png'
     }
@@ -33,7 +33,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     @file_filename = File.join(@tmp_dir, 'downloads', '456-789', '123-321.yml')
 
     @file_attributes2 = {
-      'id' => '111-123', 'collection_id' => '456-789', 'kind' => 'dataverse',
+      'id' => '111-123', 'collection_id' => '456-789', 'type' => 'dataverse',
       'metadata_id' => '123-456', 'external_id' => '790', 'filename' => 'test.png',
       'status' => 'new', 'size' => 1024, 'checksum' => 'abc123', 'content_type' => 'image/png'
     }
@@ -41,7 +41,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     @file_filename2 = File.join(@tmp_dir, 'downloads', '456-789', '111-123.yml')
 
     @file_attributes3 = {
-      'id' => '123-456', 'collection_id' => '111-111', 'kind' => 'dataverse',
+      'id' => '123-456', 'collection_id' => '111-111', 'type' => 'dataverse',
       'metadata_id' => '123-456', 'external_id' => '791', 'filename' => 'test.png',
       'status' => 'new', 'size' => 1024, 'checksum' => 'abc123', 'content_type' => 'image/png'
     }
@@ -55,7 +55,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
 
   test "initialization should works" do
     assert_equal '456-789', @download_collection.id
-    assert_equal 'dataverse', @download_collection.kind
+    assert_equal 'dataverse', @download_collection.type
     assert_equal '123-456', @download_collection.metadata_id
     assert_equal 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US', @download_collection.name
   end
@@ -66,9 +66,9 @@ class DownloadCollectionTest < ActiveSupport::TestCase
 
   test "validations should fail due to invalid values" do
     assert @download_collection.valid?
-    @download_collection.kind = 'invalid_kind'
+    @download_collection.type = 'invalid_type'
     refute @download_collection.valid?
-    assert_includes @download_collection.errors[:kind], 'is not included in the list'
+    assert_includes @download_collection.errors[:type], 'is not included in the list'
   end
 
   test "validations should fail due to blank value" do
@@ -79,9 +79,9 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     @download_collection.metadata_id = ''
     refute @download_collection.valid?
     assert_includes @download_collection.errors[:metadata_id], "can't be blank"
-    @download_collection.kind = ''
+    @download_collection.type = ''
     refute @download_collection.valid?
-    assert_includes @download_collection.errors[:kind], "can't be blank"
+    assert_includes @download_collection.errors[:type], "can't be blank"
   end
 
   test "to_hash" do
@@ -115,7 +115,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
   end
 
   test "save stopped due to invalid attributes" do
-    @download_collection.kind = 'invalid_kind'
+    @download_collection.type = 'invalid_type'
     refute @download_collection.save
     refute File.exist?(@test_filename), "File was not created in the file system"
   end
@@ -136,7 +136,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     loaded_collection = DownloadCollection.find('456-789')
     assert loaded_collection
     assert_equal '456-789', loaded_collection.id
-    assert_equal 'dataverse', loaded_collection.kind
+    assert_equal 'dataverse', loaded_collection.type
     assert_equal '123-456', loaded_collection.metadata_id
     assert_equal 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US', loaded_collection.name
   end
@@ -149,7 +149,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     loaded_collection = DownloadCollection.find('456-789')
     assert loaded_collection
     assert_equal '456-789', loaded_collection.id
-    assert_equal 'dataverse', loaded_collection.kind
+    assert_equal 'dataverse', loaded_collection.type
     assert_equal '123-456', loaded_collection.metadata_id
     assert_equal 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US', loaded_collection.name
   end
@@ -179,7 +179,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     first_collection = DownloadCollection.all.first
     assert_equal found_collection.id, first_collection.id
     assert_equal found_collection.metadata_id, first_collection.metadata_id
-    assert_equal found_collection.kind, first_collection.kind
+    assert_equal found_collection.type, first_collection.type
     assert_equal found_collection.name, first_collection.name
   end
 
@@ -198,10 +198,10 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     last_collection = DownloadCollection.all.last
     assert_equal @download_collection3.id, first_collection.id
     assert_equal @download_collection3.metadata_id, first_collection.metadata_id
-    assert_equal @download_collection3.kind, first_collection.kind
+    assert_equal @download_collection3.type, first_collection.type
     assert_equal @download_collection.id, last_collection.id
     assert_equal @download_collection.metadata_id, last_collection.metadata_id
-    assert_equal @download_collection.kind, last_collection.kind
+    assert_equal @download_collection.type, last_collection.type
     assert_equal @download_collection.name, last_collection.name
   end
 
@@ -226,7 +226,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     first_file = loaded_collection.files.first
     assert_equal '123-321', first_file.id
     assert_equal '456-789', first_file.collection_id
-    assert_equal 'dataverse', first_file.kind
+    assert_equal 'dataverse', first_file.type
     assert_equal '123-456', first_file.metadata_id
     assert_equal '789', first_file.external_id
     assert_equal 'test.png', first_file.filename
@@ -258,7 +258,7 @@ class DownloadCollectionTest < ActiveSupport::TestCase
     dataverse_metadata = Dataverse::DataverseMetadata.find_or_initialize_by_uri(URI.parse("http://localhost:3000"))
     assert dataverse_metadata
     collection = DownloadCollection.new_from_dataverse(dataverse_metadata)
-    assert_equal "dataverse", collection.kind
+    assert_equal "dataverse", collection.type
     assert_equal dataverse_metadata.id, collection.metadata_id
     assert collection.id
     collection.name = 'new name'

@@ -3,14 +3,14 @@
 class DownloadFile < ApplicationDiskRecord
   include ActiveModel::Model
 
-  ATTRIBUTES = %w[id collection_id kind metadata_id external_id filename status size checksum content_type].freeze
-  KIND = %w[dataverse].freeze
+  ATTRIBUTES = %w[id collection_id type metadata_id external_id filename status size checksum content_type].freeze
+  TYPES = %w[dataverse].freeze
   STATUS = %w[new ready downloading success error].freeze
 
   attr_accessor *ATTRIBUTES
 
   validates_presence_of *ATTRIBUTES
-  validates :kind, inclusion: { in: KIND, message: "%{value} is not a valid kind" }
+  validates :type, inclusion: { in: TYPES, message: "%{value} is not a valid type" }
   validates :status, inclusion: { in: STATUS, message: "%{value} is not a valid status" }
   validates :size, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
 
@@ -25,7 +25,7 @@ class DownloadFile < ApplicationDiskRecord
     new.tap do |f|
       f.id = generate_id
       f.collection_id = download_collection.id
-      f.kind = 'dataverse'
+      f.type = 'dataverse'
       f.metadata_id = download_collection.metadata_id
       f.external_id = dataset_file.data_file.id
       f.filename = dataset_file.data_file.filename
