@@ -1,6 +1,6 @@
 class Dataverse::DatasetsController < ApplicationController
-  before_action :find_dataverse_metadata
-  before_action :find_dataset
+  before_action :find_dataverse_metadata, except: [:show]
+  before_action :find_dataset, except: [:show]
 
   def show
     begin

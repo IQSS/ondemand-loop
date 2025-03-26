@@ -19,7 +19,7 @@ namespace :dev do
     files = dataset.files_by_ids(file_ids)
 
     download_collection = DownloadCollection.new_from_dataverse(dataverse_metadata)
-    download_collection.name = "#{dataverse_metadata.full_name} Dataverse selection from #{dataset.data.identifier}"
+    download_collection.name = "#{dataverse_metadata.full_hostname} Dataverse selection from #{dataset.data.identifier}"
     download_collection.save
 
     files.each do |file|
