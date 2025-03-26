@@ -190,15 +190,15 @@ EOF
 
   test "should redirect to root path after not finding a dataverse_metadata" do
     get view_dataverse_dataset_url("random", "random_id")
-    assert_redirected_to root_path
+    assert_redirected_to downloads_path
     assert_equal "Dataverse host metadata not found", flash[:error]
   end
 
   test "should redirect to root path after not finding a dataset" do
     Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_id).returns(nil)
     get view_dataverse_dataset_url(@new_id, "random_id")
-    assert_redirected_to root_path
-    assert_equal "An error occurred while retrieving the dataset random_id", flash[:error]
+    assert_redirected_to downloads_path
+    assert_equal "Dataset not found", flash[:error]
   end
 
   test "should display the dataset view with the file" do
