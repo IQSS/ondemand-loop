@@ -1,0 +1,19 @@
+<div class="card dataset-header">
+  <div class="card-header">Dataset</div>
+  <div class="list-group list-group-flush">
+    <span class="list-group-item list-group-item-action">
+       <b><%= dataset.metadata_field('title') %></b>
+    </span>
+    <span class="list-group-item list-group-item-action">
+       <%= dataset.data.latest_version.dataset_persistent_id %>
+    </span>
+  </div>
+</div>
+<div class="card dataset-header">
+  <div class="card-header">Description</div>
+  <div class="list-group list-group-flush">
+    <span class="list-group-item list-group-item-action">
+      <%= dataset.description %>
+    </span>
+  </div>
+</div>
