@@ -1,0 +1,18 @@
+<div class="card dataset-header">
+  <div class="card-header">Dataset Metadata</div>
+  <div class="list-group list-group-flush">
+    <span class="list-group-item list-group-item-action">
+      <b>Publication date:</b> <%= dataset.data.publication_date %>
+    </span>
+    <span class="list-group-item list-group-item-action">
+      <b>Authors:</b> <%= dataset.authors %>
+    </span>
+    <span class="list-group-item list-group-item-action">
+      <b>Subjects:</b> <%= dataset.subjects %>
+    </span>
+    <span class="list-group-item list-group-item-action">
+      <b>License:</b> <%= image_tag dataset.data.latest_version.license.icon_uri %>
+      <%= dataset.data.latest_version.license.name %>
+    </span>
+  </div>
+</div>
