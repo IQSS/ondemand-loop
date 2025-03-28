@@ -1,0 +1,35 @@
+<div class="card dataset-header">
+  <div class="card-header"><%= pluralize(files.count, 'file') %></div>
+  <% if files.count > 0 %>
+    <%= form_with url: download_dataverse_dataset_files_path(dataverse_metadata.id, dataset.data.id), method: :post, local: true, class: "p-3 rounded bg-light" do %>
+      <div class="row">
+        <table class="table table-bordered table-hover align-middle">
+          <thead class="table-light">
+          <tr>
+            <th scope="col">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="select_all_files">
+              </div>
+            </th>
+            <th scope="col">File name</th>
+            <th scope="col">Size</th>
+            <th scope="col">Published</th>
+          </tr>
+          </thead>
+          <tbody>
+            <%= render partial: "dataverse/datasets/dataset_file_row", collection: files, as: :file %>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center">
+        <%= submit_tag "Download Selected Files", class: "btn btn-primary", id: "submit_button" %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="list-group list-group-flush">
+      <span class="list-group-item list-group-item-action">
+        The dataset does not contain files to download
+      </span>
+    </div>
+  <% end %>
+</div>
