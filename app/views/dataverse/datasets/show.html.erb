@@ -1,24 +1,6 @@
 
 <div class="container-md content mt-4" role="main">
-  <nav aria-label="Breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item active">
-        <a href="/pun/sys/ood/">Home</a>
-      </li>
-      <li class="breadcrumb-item">
-        <a aria-current="page">Dataverse</a>
-      </li>
-      <li class="breadcrumb-item">
-        <a aria-current="page"><%= @dataverse_metadata.full_hostname %></a>
-      </li>
-      <li class="breadcrumb-item">
-        <a aria-current="page">Datasets</a>
-      </li>
-      <li class="breadcrumb-item active">
-        <a aria-current="page"><%= @dataset.data.latest_version.dataset_persistent_id %></a>
-      </li>
-    </ol>
-  </nav>
+  <%= render partial: 'dataverse/datasets/breadcrumbs', locals: { dataverse_metadata: @dataverse_metadata, dataset: @dataset} %>
   <div class="row">
     <div class="col-md-3">
       <div class="card dataset-header">
