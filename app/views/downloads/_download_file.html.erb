@@ -1,7 +1,7 @@
 <div class="card mb-3 shadow-sm">
   <div class="card-body">
     <div class="row align-items-center">
-      <div class="col-md-6">
+      <div class="col-md-10">
         <h6 class="mb-1"><%= file.filename %></h6>
         <small class="text-muted">Size: <%= number_to_human_size(file.size) %></small><br>
 
@@ -17,7 +17,7 @@
         <% end %>
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-2">
         <span class="badge
           <%= case file.status
               when 'success' then 'bg-success'
@@ -27,18 +27,6 @@
               end %>">
           <%= file.status.capitalize %>
         </span>
-      </div>
-
-      <div class="col-md-1 text-end">
-        <a href="<%# file.path %>" class="btn btn-outline-secondary btn-sm" title="Browse File">
-          <i class="bi bi-folder2-open"></i>
-        </a>
-      </div>
-
-      <div class="col-md-1 text-end">
-        <%= button_to nil, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm", title: "Delete File" do %>
-          <i class="bi bi-trash"></i>
-        <% end %>
       </div>
     </div>
   </div>
