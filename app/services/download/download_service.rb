@@ -60,7 +60,7 @@ module Download
     end
 
     def lock_file
-      '/tmp/download.lock'
+      File.join(Configuration.metadata_root, 'download.lock')
     end
 
     private
