@@ -37,10 +37,10 @@ module Download
         return if batch.empty?
 
         download_threads = batch.map do |file|
-          file.status = 'downloading'
-          file.save
           download_connector = Download::DownloadFactory.download_connector(file)
           Thread.new do
+            file.status = 'downloading'
+            file.save
             download_connector.download(file)
             file.status = 'success'
           rescue => e
