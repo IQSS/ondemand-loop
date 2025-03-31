@@ -5,8 +5,18 @@ module Download
   class DownloadFactory
 
     def self.download_connector(file)
-      Download::DataverseDownload.new
+      if file.type == 'dataverse'
+        return Download::DataverseDownload.new
+      end
+
+      raise ConnectorNotImplemented, "File type not supported: #{file.type}"
     end
 
+  end
+
+  class ConnectorNotImplemented < StandardError
+    def initialize(msg)
+      super
+    end
   end
 end

@@ -22,6 +22,8 @@ module Download
 
         process
         log_info('Completed', {pid: process_id, elapsed_time: elapsed_time, stats: stats_to_s})
+      rescue => e
+        log_error('Error while executing DownloadService', {error_class: e.class, error: e.message})
       end
     end
 
