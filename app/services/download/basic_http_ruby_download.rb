@@ -22,6 +22,8 @@ module Download
       File.delete(temp_file) if File.exist?(temp_file)
     end
 
+    private
+
     def download_follow_redirects(url, file_path, headers = {}, limit = 3)
       raise "Too many redirects" if limit <= 0
 
@@ -45,8 +47,6 @@ module Download
       end
 
     end
-
-    private
 
     def redirect?(response)
       response.is_a?(Net::HTTPRedirection) && response['location']
