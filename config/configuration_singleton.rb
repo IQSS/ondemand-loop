@@ -13,9 +13,9 @@ class ConfigurationSingleton
 
   def string_configs
     {
-      :user_downloads_for_ondemand_metadata_folder => File.join(Dir.home, ".downloads-for-ondemand"),
-      :dataverse_metadata_folder => "dataverse_metadatas",
-      :download_collections_folder => "downloads",
+      :metadata_root => File.join(Dir.home, ".downloads-for-ondemand"),
+      :download_root => File.join(Dir.home, "downloads-ondemand"),
+      :ruby_binary => '/usr/local/bin/ruby',
     }.freeze
   end
 
@@ -81,7 +81,7 @@ class ConfigurationSingleton
   def add_boolean_configs
     boolean_configs.each do |cfg_item, default|
       define_singleton_method(cfg_item.to_sym) do
-        e = ENV["OOD_#{cfg_item.to_s.upcase}"]
+        e = ENV["OOD_LOOP_#{cfg_item.to_s.upcase}"]
 
         if e.nil?
           config.fetch(cfg_item, default)
@@ -99,7 +99,7 @@ class ConfigurationSingleton
   def add_string_configs
     string_configs.each do |cfg_item, default|
       define_singleton_method(cfg_item.to_sym) do
-        e = ENV["OOD_#{cfg_item.to_s.upcase}"]
+        e = ENV["OOD_LOOP_#{cfg_item.to_s.upcase}"]
 
         e.nil? ? config.fetch(cfg_item, default) : e.to_s
       end

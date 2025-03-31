@@ -12,7 +12,7 @@ down:
 	$(COMPOSE_CMD) down
 
 # Build or rebuild the container
-build:
+docker:
 	$(COMPOSE_CMD) build
 
 # Restart the container
@@ -21,6 +21,7 @@ restart: down up
 # Install dependencies with bundle install
 install: up
 	$(COMPOSE_CMD) exec app bundle install
+	$(COMPOSE_CMD) exec app rails assets:precompile
 
 # Start Rails server
 server: up

@@ -11,7 +11,7 @@ class Dataverse::DatasetsController < ApplicationController
     file_ids = params[:file_ids]
     @download_collection = @service.initialize_download_collection(@dataset)
     unless @download_collection.save
-      flash[:error] = "Error generating the download collection"
+      flash[:error] = "Error generating the download collection: #{@download_collection.errors}"
       redirect_to downloads_path
       return
     end

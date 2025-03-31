@@ -2,10 +2,12 @@
 services:
   app:
     build: .
-    container_name: rails_dev
+    container_name: oodd_dev
     restart: always
     volumes:
       - .:/app
+      - ./data/metadata:/root/.downloads-for-ondemand
+      - ./data/downloads:/root/downloads-ondemand
     ports:
       - "3000:3000"
     environment:

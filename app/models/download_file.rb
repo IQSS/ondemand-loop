@@ -56,14 +56,16 @@ class DownloadFile < ApplicationDiskRecord
 
   private
 
+  #TODO: This needs to be taken from the DownloadCollection object
   def self.metadata_directory
-    File.join(metadata_root_directory, Configuration.download_collections_folder)
+    File.join(metadata_root_directory, 'collections')
   end
 
   def self.collection_directory(collection_id)
     File.join(self.metadata_directory, collection_id)
   end
 
+  #TODO: This needs to be taken from the DownloadCollection object
   def self.collection_files_directory(collection_id)
     File.join(self.metadata_directory, collection_id, 'files')
   end

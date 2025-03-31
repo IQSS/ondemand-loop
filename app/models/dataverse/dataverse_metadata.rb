@@ -71,7 +71,7 @@ module Dataverse
     private
 
     def self.metadata_directory
-      File.join(metadata_root_directory, Configuration.dataverse_metadata_folder)
+      File.join(metadata_root_directory, 'dataverse-metadata')
     end
 
     def self.filename_by_id(id)

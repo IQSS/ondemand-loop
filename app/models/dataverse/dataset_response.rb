@@ -67,6 +67,7 @@ module Dataverse
           attr_reader :name, :uri, :icon_uri
 
           def initialize(license)
+            license = license || {}
             @name = license[:name]
             @uri = license[:uri]
             @icon_uri = license[:iconUri]

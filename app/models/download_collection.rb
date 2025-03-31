@@ -3,7 +3,7 @@
 class DownloadCollection < ApplicationDiskRecord
   include ActiveModel::Model
 
-  ATTRIBUTES = %w[id type metadata_id name].freeze
+  ATTRIBUTES = %w[id type metadata_id name download_dir].freeze
   TYPES = %w[dataverse]
 
   attr_accessor *ATTRIBUTES
@@ -27,6 +27,10 @@ class DownloadCollection < ApplicationDiskRecord
     load_from_file(filename)
   end
 
+  def initialize(id: nil, type: nil, name: nil, download_dir: nil, connector_metadata: {})
+    self.download_dir = download_dir || File.join(Configuration.download_root, id.to_s)
+  end
+
   def files
     directory = File.join(self.class.collection_files_directory(id))
     Dir.glob(File.join(directory, '*.yml'))
@@ -40,6 +44,7 @@ class DownloadCollection < ApplicationDiskRecord
     return false unless valid?
 
     FileUtils.mkdir_p(self.class.collection_files_directory(id))
+    FileUtils.mkdir_p(download_dir)
     filename = self.class.filename_by_id(id)
     File.open(filename, "w") do |file|
       file.write(to_yaml)
@@ -68,7 +73,7 @@ class DownloadCollection < ApplicationDiskRecord
   private
 
   def self.metadata_directory
-    File.join(metadata_root_directory, Configuration.download_collections_folder)
+    File.join(metadata_root_directory, 'collections')
   end
 
   def self.collection_directory(id)
