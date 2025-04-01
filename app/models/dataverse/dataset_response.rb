@@ -110,13 +110,14 @@ module Dataverse
           end
 
           class DataFile
-            attr_reader :id, :filename, :content_type, :friendly_type, :filesize, :md5, :publication_date
+            attr_reader :id, :filename, :content_type, :friendly_type, :storage_identifier, :filesize, :md5, :publication_date
 
             def initialize(data_file)
               @id = data_file[:id]
               @filename = data_file[:filename]
               @content_type = data_file[:contentType]
               @friendly_type = data_file[:friendlyType]
+              @storage_identifier = data_file[:storageIdentifier]
               @filesize = data_file[:filesize]
               @md5 = data_file[:md5]
               @publication_date = data_file[:publicationDate]

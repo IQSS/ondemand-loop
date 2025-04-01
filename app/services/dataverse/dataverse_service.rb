@@ -35,6 +35,15 @@ module Dataverse
           f.size = dataset_file.data_file.filesize
           f.checksum = dataset_file.data_file.md5
           f.content_type = dataset_file.data_file.content_type
+          f.connector_metadata = {
+            dataverse_metadata: dataset_file.metadata_id,
+            id: dataset_file.data_file.id,
+            filename: dataset_file.data_file.filename,
+            size: dataset_file.data_file.filesize,
+            content_type: dataset_file.data_file.content_type,
+            storage: dataset_file.storage_identifier,
+            md5: dataset_file.data_file.md5,
+          }
         end
       end
     end

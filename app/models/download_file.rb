@@ -2,8 +2,9 @@
 
 class DownloadFile < ApplicationDiskRecord
   include ActiveModel::Model
+  include LoggingCommon
 
-  ATTRIBUTES = %w[id collection_id type metadata_id external_id filename status size checksum content_type].freeze
+  ATTRIBUTES = %w[id collection_id type metadata_id external_id filename status size checksum content_type connector_metadata].freeze
   TYPES = %w[dataverse].freeze
   STATUS = %w[ready downloading success error].freeze
 
@@ -45,13 +46,13 @@ class DownloadFile < ApplicationDiskRecord
     FileUtils.mkdir_p(self.class.collection_files_directory(collection_id))
     filename = self.class.filename_by_ids(collection_id, id)
     File.open(filename, "w") do |file|
-      file.write(to_yaml)
+      file.write(to_hash.deep_stringify_keys.to_yaml)
     end
     true
   end
 
-  def progress
-    65 #TODO compute current progress from size and current transferred bytes
+  def connector_status
+    ConnectorClassDispatcher.file_status(self)
   end
 
   private
@@ -79,7 +80,8 @@ class DownloadFile < ApplicationDiskRecord
     new.tap do |file|
       ATTRIBUTES.each { |attr| file.send("#{attr}=", data[attr]) }
     end
-  rescue StandardError
+  rescue StandardError => e
+    Rails.logger.error(e.message)
     nil
   end
 end

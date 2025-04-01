@@ -37,14 +37,14 @@ module Download
         return if batch.empty?
 
         download_threads = batch.map do |file|
-          download_connector = Download::DownloadFactory.download_connector(file)
+          download_processor = ConnectorClassDispatcher.download_processor(file)
           Thread.new do
             file.status = 'downloading'
             file.save
-            download_connector.download(file)
+            download_processor.download(file)
             file.status = 'success'
           rescue => e
-            Rails.logger.info e.message
+            log_error('Error while processing file', {pid: process_id, file_id: file.id, error_class: e.class, error: e.message})
             file.status = 'error'
           ensure
             stats[:completed] += 1

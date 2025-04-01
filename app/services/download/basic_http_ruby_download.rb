@@ -8,10 +8,10 @@ module Download
 
     attr_reader :download_url, :download_file, :temp_file
 
-    def initialize(download_url, download_file)
+    def initialize(download_url, download_file, temp_file)
       @download_url = download_url
       @download_file = download_file
-      @temp_file = "#{download_file}.part"
+      @temp_file = temp_file
     end
 
     def download

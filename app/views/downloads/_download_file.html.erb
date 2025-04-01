@@ -9,9 +9,9 @@
           <div class="progress mt-2" style="height: 20px;">
             <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
                  role="progressbar"
-                 style="width: <%= file.progress %>%"
-                 aria-valuenow="<%= file.progress %>" aria-valuemin="0" aria-valuemax="100">
-              <%= file.progress %>%
+                 style="width: <%= file.connector_status.download_progress %>%"
+                 aria-valuenow="<%= file.connector_status.download_progress %>" aria-valuemin="0" aria-valuemax="100">
+              <%= file.connector_status.download_progress %>%
             </div>
           </div>
         <% end %>
