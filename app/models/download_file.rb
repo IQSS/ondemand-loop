@@ -52,7 +52,7 @@ class DownloadFile < ApplicationDiskRecord
   end
 
   def connector_status
-    ConnectorClassDispatcher.file_status(self)
+    ConnectorClassDispatcher.file_connector_status(self)
   end
 
   private
