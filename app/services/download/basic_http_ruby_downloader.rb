@@ -3,7 +3,7 @@ module Download
   # Utility class to download a file from an HTTP url.
   # It downloads the file in chunks to be memory efficient.
   # It supports stopping the download at any point.
-  class BasicHttpRubyDownload
+  class BasicHttpRubyDownloader
     include LoggingCommon
 
     attr_reader :download_url, :download_file, :temp_file

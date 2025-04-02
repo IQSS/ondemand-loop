@@ -23,7 +23,7 @@ module Dataverse
       file.metadata = connector_metadata.to_h
       file.save
 
-      download_processor = Download::BasicHttpRubyDownload.new(download_url, download_location, temp_location)
+      download_processor = Download::BasicHttpRubyDownloader.new(download_url, download_location, temp_location)
       download_processor.download
       md5_result = verify(download_location,  connector_metadata.md5)
       log_info('Download completed', {id: file.id, location: download_location, md5_valid: md5_result})
