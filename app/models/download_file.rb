@@ -51,6 +51,11 @@ class DownloadFile < ApplicationDiskRecord
     true
   end
 
+  def save_status!(status)
+    status = status
+    save
+  end
+
   def connector_status
     ConnectorClassDispatcher.file_connector_status(self)
   end

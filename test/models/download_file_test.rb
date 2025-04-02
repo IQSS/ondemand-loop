@@ -126,4 +126,14 @@ class DownloadFileTest < ActiveSupport::TestCase
     refute DownloadFile.find('456-789', '123-322')
   end
 
+  test "save status!" do
+    assert @download_file.save
+    assert @download_file.save_status! "downloading"
+    assert_equal 'downloading', @download_file.status
+    assert @download_file.save_status! "success"
+    assert_equal 'success', @download_file.status
+    assert @download_file.save_status! "error"
+    assert_equal 'error', @download_file.status
+    assert_equal false, @download_file.save_status!("non-existent")
+  end
 end

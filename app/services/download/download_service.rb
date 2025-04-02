@@ -39,16 +39,14 @@ module Download
         download_threads = batch.map do |file|
           download_processor = ConnectorClassDispatcher.download_processor(file)
           Thread.new do
-            file.status = 'downloading'
-            file.save
+            file.save_status! 'downloading'
             download_processor.download
-            file.status = 'success'
+            file.save_status! 'success'
           rescue => e
             log_error('Error while processing file', {pid: process_id, file_id: file.id}, e)
-            file.status = 'error'
+            file.save_status! 'error'
           ensure
             stats[:completed] += 1
-            file.save
           end
         end
         # Wait for all downloads to complete
