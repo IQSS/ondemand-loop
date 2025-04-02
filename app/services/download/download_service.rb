@@ -23,7 +23,7 @@ module Download
         process
         log_info('Completed', {pid: process_id, elapsed_time: elapsed_time, stats: stats_to_s})
       rescue => e
-        log_error('Error while executing DownloadService', {error_class: e.class, error: e.message})
+        log_error('Exit. Error while executing DownloadService', {pid: process_id, elapsed_time: elapsed_time}, e)
       end
     end
 
@@ -41,10 +41,10 @@ module Download
           Thread.new do
             file.status = 'downloading'
             file.save
-            download_processor.download(file)
+            download_processor.download
             file.status = 'success'
           rescue => e
-            log_error('Error while processing file', {pid: process_id, file_id: file.id, error_class: e.class, error: e.message})
+            log_error('Error while processing file', {pid: process_id, file_id: file.id}, e)
             file.status = 'error'
           ensure
             stats[:completed] += 1

@@ -4,8 +4,16 @@ module LoggingCommon
     Rails.logger.info(format_log("INFO", message, data))
   end
 
-  def log_error(message, data = {})
-    Rails.logger.error(format_log("ERROR", message, data))
+  def log_error(message, data = {}, exception = nil)
+    log_message = format_log("ERROR", message, data)
+
+    if exception
+      # First 5 lines as a stack trace
+      log_message += "\n[STACK] " + exception.message
+      log_message += "\n[STACK] " + exception.backtrace&.first(5)&.join("\n[STACK] ")
+    end
+
+    Rails.logger.error(log_message)
   end
 
   private

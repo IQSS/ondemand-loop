@@ -3,13 +3,11 @@
 class DownloadCollection < ApplicationDiskRecord
   include ActiveModel::Model
 
-  ATTRIBUTES = %w[id type metadata_id name download_dir].freeze
-  TYPES = %w[dataverse]
+  ATTRIBUTES = %w[id name download_dir].freeze
 
   attr_accessor *ATTRIBUTES
 
   validates_presence_of *ATTRIBUTES
-  validates :type, inclusion: { in: TYPES }
 
   def self.all
     Dir.glob(File.join(metadata_directory, '*'))
@@ -27,8 +25,10 @@ class DownloadCollection < ApplicationDiskRecord
     load_from_file(filename)
   end
 
-  def initialize(id: nil, type: nil, name: nil, download_dir: nil, connector_metadata: {})
-    self.download_dir = download_dir || File.join(Configuration.download_root, id.to_s)
+  def initialize(id: nil, name: nil, download_dir: nil)
+    self.id = id || DownloadCollection.generate_id
+    self.name = name || self.id
+    self.download_dir = download_dir || File.join(Configuration.download_root, self.id.to_s)
   end
 
   def files

@@ -4,7 +4,7 @@ class DownloadFile < ApplicationDiskRecord
   include ActiveModel::Model
   include LoggingCommon
 
-  ATTRIBUTES = %w[id collection_id type metadata_id external_id filename status size checksum content_type connector_metadata].freeze
+  ATTRIBUTES = %w[id collection_id type filename status size metadata].freeze
   TYPES = %w[dataverse].freeze
   STATUS = %w[ready downloading success error].freeze
 
@@ -53,6 +53,10 @@ class DownloadFile < ApplicationDiskRecord
 
   def connector_status
     ConnectorClassDispatcher.file_connector_status(self)
+  end
+
+  def connector_metadata
+    ConnectorClassDispatcher.connector_metadata(self)
   end
 
   private

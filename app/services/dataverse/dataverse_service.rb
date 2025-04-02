@@ -13,12 +13,7 @@ module Dataverse
     end
 
     def initialize_download_collection(dataset)
-      DownloadCollection.new.tap do |collection|
-        collection.id = DownloadCollection.generate_id
-        collection.type = "dataverse"
-        collection.metadata_id = @dataverse_metadata.id
-        collection.name = "#{@dataverse_metadata.full_hostname} Dataverse selection from #{dataset.data.identifier}"
-      end
+      DownloadCollection.new(name: "#{@dataverse_metadata.full_hostname} Dataverse selection from #{dataset.data.identifier}")
     end
 
     def initialize_download_files(download_collection, dataset, file_ids)
@@ -28,21 +23,20 @@ module Dataverse
           f.id = DownloadFile.generate_id
           f.collection_id = download_collection.id
           f.type = 'dataverse'
-          f.metadata_id = download_collection.metadata_id
-          f.external_id = dataset_file.data_file.id
           f.filename = dataset_file.data_file.filename
           f.status = 'ready'
           f.size = dataset_file.data_file.filesize
-          f.checksum = dataset_file.data_file.md5
-          f.content_type = dataset_file.data_file.content_type
-          f.connector_metadata = {
-            dataverse_metadata: dataset_file.metadata_id,
+          f.metadata = {
+            dataverse_metadata: @dataverse_metadata.id,
             id: dataset_file.data_file.id,
             filename: dataset_file.data_file.filename,
             size: dataset_file.data_file.filesize,
             content_type: dataset_file.data_file.content_type,
-            storage: dataset_file.storage_identifier,
+            storage: dataset_file.data_file.storage_identifier,
             md5: dataset_file.data_file.md5,
+            download_url: nil,
+            download_location: nil,
+            temp_location: nil,
           }
         end
       end

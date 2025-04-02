@@ -13,6 +13,9 @@
     <%= number_to_human_size(file.data_file.filesize) %>
   </td>
   <td class="text-nowrap">
+    <%= file.data_file.storage_identifier.split(":", 3)[0..1].join(":") %>
+  </td>
+  <td class="text-nowrap">
     <%= file.data_file.publication_date %>
   </td>
 </tr>

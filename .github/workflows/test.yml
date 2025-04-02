@@ -1,0 +1,21 @@
+name: test
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-test-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ${{ github.sha }}
+        uses: actions/checkout@v4
+      - name: test app
+        working-directory: .
+        run: make tests
+
