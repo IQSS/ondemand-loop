@@ -12,6 +12,13 @@ module Dataverse
       response.is_a?(Net::HTTPSuccess) ? DatasetResponse.new(response.body) : nil
     end
 
+    def find_dataset_by_persistent_id(persistent_id)
+      url = @dataverse_metadata.full_hostname + "/api/datasets/:persistentId/?persistentId=#{persistent_id}"
+      url = URI.parse(url)
+      response = Net::HTTP.get_response(url)
+      response.is_a?(Net::HTTPSuccess) ? DatasetResponse.new(response.body) : nil
+    end
+
     def initialize_download_collection(dataset)
       DownloadCollection.new(name: "#{@dataverse_metadata.full_hostname} Dataverse selection from #{dataset.data.identifier}")
     end

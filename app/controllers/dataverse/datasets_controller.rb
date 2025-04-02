@@ -1,7 +1,8 @@
 class Dataverse::DatasetsController < ApplicationController
   before_action :find_dataverse_metadata
   before_action :init_service
-  before_action :find_dataset
+  before_action :find_dataset_by_persistent_id, only: [:show]
+  before_action :find_dataset_by_id, only: [:download]
 
   def show
     @files = @dataset.data.latest_version.files
@@ -38,7 +39,7 @@ class Dataverse::DatasetsController < ApplicationController
     @service = Dataverse::DataverseService.new(@dataverse_metadata)
   end
 
-  def find_dataset
+  def find_dataset_by_id
     begin
       @dataset = @service.find_dataset_by_id(params[:id])
       unless @dataset
@@ -49,6 +50,22 @@ class Dataverse::DatasetsController < ApplicationController
     rescue Exception => e
       Rails.logger.error("Dataverse service error: #{e.message}")
       flash[:error] = "An error occurred while retrieving the dataset #{params[:id]}"
+      redirect_to downloads_path
+      return
+    end
+  end
+
+  def find_dataset_by_persistent_id
+    begin
+      @dataset = @service.find_dataset_by_persistent_id(params[:persistent_id])
+      unless @dataset
+        flash[:error] = "Dataset not found"
+        redirect_to downloads_path
+        return
+      end
+    rescue Exception => e
+      Rails.logger.error("Dataverse service error: #{e.message}")
+      flash[:error] = "An error occurred while retrieving the dataset #{params[:persistent_id]}"
       redirect_to downloads_path
       return
     end
