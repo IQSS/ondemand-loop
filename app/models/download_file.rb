@@ -52,7 +52,7 @@ class DownloadFile < ApplicationDiskRecord
   end
 
   def save_status!(status)
-    status = status
+    self.status = status
     save
   end
 
