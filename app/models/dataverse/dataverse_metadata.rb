@@ -43,6 +43,11 @@ module Dataverse
       new_metadata
     end
 
+    def self.find_or_initialize_by_full_name(full_name)
+      uri = URI.parse(full_name)
+      find_or_initialize_by_uri(uri)
+    end
+
     def to_hash
       { "id" => id, "hostname" => hostname, "port" => port, "scheme" => scheme }
     end

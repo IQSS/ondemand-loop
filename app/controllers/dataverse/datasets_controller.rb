@@ -27,7 +27,12 @@ class Dataverse::DatasetsController < ApplicationController
   private
 
   def find_dataverse_metadata
-    @dataverse_metadata = Dataverse::DataverseMetadata.find(params[:metadata_id])
+    hostname = params[:dv_hostname]
+    scheme = params[:dv_scheme] || "https"
+    port = params[:dv_port] || 443
+    full_hostname = scheme + "://" + hostname + ":" + port.to_s
+    puts full_hostname
+    @dataverse_metadata = Dataverse::DataverseMetadata.find_or_initialize_by_full_name(full_hostname)
     unless @dataverse_metadata
       flash[:error] = "Dataverse host metadata not found"
       redirect_to downloads_path

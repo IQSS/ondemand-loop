@@ -6,10 +6,13 @@ module Dataverse
       service = Dataverse::ExternalToolService.new
       service_response = service.process_callback(callback)
 
-      metadata_id = service_response[:metadata].id
+      metadata = service_response[:metadata]
       dataset_pid = service_response[:response].data.query_parameters.dataset_pid
+      extra_params = {}
+      extra_params[:dv_scheme] = "http" if metadata.scheme == "http"
+      extra_params[:dv_port] = metadata.port if metadata.port != 443
 
-      redirect_to view_dataverse_dataset_path(metadata_id, dataset_pid)
+      redirect_to view_dataverse_dataset_path(metadata.hostname, dataset_pid, extra_params)
     end
   end
 end
