@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   # DATAVERSE ROUTES
   get "integrations/dataverse/external_tool/dataset" => "dataverse/external_tool#dataset"
 
-  #post "/view/dataverse/:hostname/datasets/:id/download" => "dataverse/datasets#download", as: :download_dataverse_dataset_files
   post "/view/dataverse/download/dataset" => "dataverse/datasets#download", as: :download_dataverse_dataset_files
   get "/view/dataverse/*dv_hostname/datasets/*persistent_id" => "dataverse/datasets#show", as: :view_dataverse_dataset
 
