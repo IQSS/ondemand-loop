@@ -1,7 +1,9 @@
 <div class="card dataset-header">
   <div class="card-header"><%= pluralize(files.count, 'file') %></div>
   <% if files.count > 0 %>
-    <%= form_with url: download_dataverse_dataset_files_path(dataverse_metadata.id, dataset.data.id), method: :post, local: true, class: "p-3 rounded bg-light" do %>
+    <%= form_with url: download_dataverse_dataset_files_path, method: :post, local: true, class: "p-3 rounded bg-light" do %>
+      <%= hidden_field_tag 'dv_full_hostname', @dv_full_hostname %>
+      <%= hidden_field_tag 'persistent_id', @persistent_id %>
       <div class="row">
         <table class="table table-bordered table-hover align-middle">
           <thead class="table-light">
