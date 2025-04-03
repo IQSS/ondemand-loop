@@ -20,7 +20,7 @@ class Dataverse::DatasetsController < ApplicationController
     if save_results.include?(false)
       flash[:error] = "Error generating the download file"
     end
-    redirect_to downloads_path(action: "index")
+    redirect_to downloads_path
   end
 
   private

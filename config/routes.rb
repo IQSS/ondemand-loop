@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  match "/downloads/:action", to: "downloads#dynamic_action", via: [:get, :post], as: "downloads"
+  get "downloads" => "downloads#index", as: :downloads
+  get "downloads/collections" => "downloads#collections", as: :downloads_collections
 
   # DATAVERSE ROUTES
   get "integrations/dataverse/external_tool/dataset" => "dataverse/external_tool#dataset"
