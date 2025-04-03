@@ -1,0 +1,7 @@
+
+<script nonce="<%= content_security_policy_nonce %>">
+  window.loop_app_config = {
+      downloads_collection_path: "<%= downloads_path(action: :collections)%>",
+      connector_status_poll_interval: <%= Configuration.connector_status_poll_interval.to_i%>,
+  }
+</script>

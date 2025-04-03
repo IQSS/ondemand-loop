@@ -151,3 +151,30 @@ curl --location 'http://localhost:8080/api/admin/externalTools' \
 For production deployments, please change the Dataverse server location in the curl command and use the full path of the OOD 
 Passenger app in the `fullUrl` JSON property.
 
+
+### Technical Notes
+Adding vanilla JS to the app
+app/javascript/collections_status_refresh.js
+
+config/importmap.rb
+pin "collections_status_refresh"
+```erb
+<script type="module" src="<%= asset_path('collections_status_refresh') %>"></script>
+```
+
+```javascript
+import { cssBadgeForState } from "./utils"
+  document.addEventListener("DOMContentLoaded", function () {
+    console.log("JavaScript file loaded!");
+    myFunction();
+  });
+
+  function myFunction() {
+    console.log("MyFunction")
+    setInterval(() => {
+      console.log(cssBadgeForState('error'))
+    }, loop_app_config.connector_status_poll_interval)
+  }
+```
+
+

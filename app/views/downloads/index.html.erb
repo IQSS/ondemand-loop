@@ -32,22 +32,8 @@
         </div>
       </div>
     </div>
-    <div class="col-md-9">
-      <% if @download_collections.empty? %>
-        There are currently no downloads
-      <% else %>
-        <% @download_collections.each do |collection| %>
-          <div class="row">
-            <div class="card dataset-header">
-              <div class="card-header"><%= collection.name %> (<%= collection.id %>)</div>
-              <% collection.files.each do |file| %>
-                <%= render partial: 'download_file', locals: {file: file} %>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-        </div>
-        </div>
-      <% end %>
-      </div>
+    <div class="col-md-9" data-controller="collections-status-refresh">
+      <%= render partial: 'collections' %>
+    </div>
+  </div>
 </div>

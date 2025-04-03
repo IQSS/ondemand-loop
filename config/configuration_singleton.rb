@@ -16,6 +16,7 @@ class ConfigurationSingleton
       :metadata_root => File.join(Dir.home, ".downloads-for-ondemand"),
       :download_root => File.join(Dir.home, "downloads-ondemand"),
       :ruby_binary => '/usr/local/bin/ruby',
+      :connector_status_poll_interval => '10000',
     }.freeze
   end
 
