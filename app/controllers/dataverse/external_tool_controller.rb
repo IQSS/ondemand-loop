@@ -9,7 +9,7 @@ module Dataverse
       metadata = service_response[:metadata]
       dataset_pid = service_response[:response].data.query_parameters.dataset_pid
       extra_params = {}
-      extra_params[:dv_scheme] = "http" if metadata.scheme == "http"
+      extra_params[:dv_scheme] = "http" if metadata.scheme != "https"
       extra_params[:dv_port] = metadata.port if metadata.port != 443
 
       redirect_to view_dataverse_dataset_path(metadata.hostname, dataset_pid, extra_params)
