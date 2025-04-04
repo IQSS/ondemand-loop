@@ -42,4 +42,10 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "input[type=checkbox][name='file_ids[]']", 1 # One file is displayed on the view
   end
+
+  test "should display demo.dataverse.org pages" do
+    get "/view/dataverse/demo.dataverse.org/datasets/doi:10.70122/FK2/VWERU3"
+    assert_response :success
+    assert_select "input[type=checkbox][name='file_ids[]']", 1 # One file is displayed on the view
+  end
 end
