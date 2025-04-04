@@ -1,4 +1,5 @@
 class Dataverse::DatasetsController < ApplicationController
+  before_action :get_dv_full_hostname
   before_action :find_dataverse_metadata
   before_action :init_service
   before_action :find_dataset_by_persistent_id
@@ -25,7 +26,7 @@ class Dataverse::DatasetsController < ApplicationController
 
   private
 
-  def find_dataverse_metadata
+  def get_dv_full_hostname
     if params[:dv_full_hostname]
       @dv_full_hostname = params[:dv_full_hostname]
     elsif params[:dv_hostname]
@@ -38,7 +39,9 @@ class Dataverse::DatasetsController < ApplicationController
       redirect_to downloads_path
       return
     end
-    # TODO check it is a valid URI
+  end
+
+  def find_dataverse_metadata
     @dataverse_metadata = Dataverse::DataverseMetadata.find_or_initialize_by_full_name(@dv_full_hostname)
     unless @dataverse_metadata
       flash[:error] = "Dataverse host metadata not found"
