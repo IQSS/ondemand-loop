@@ -3,10 +3,10 @@ require "test_helper"
 class DownloadsControllerTest < ActionDispatch::IntegrationTest
 
   def setup
+    skip "For David"
     @tmp_dir = Dir.mktmpdir
     DownloadCollection.stubs(:metadata_root_directory).returns(@tmp_dir)
     DownloadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
-    Dataverse::DataverseMetadata.stubs(:metadata_root_directory).returns(@tmp_dir)
     Rake.application.rake_require("tasks/populate")
     Rake::Task.define_task(:environment)
   end

@@ -18,8 +18,8 @@ module ModelHelper
       file.type = type
       file.filename = "#{random_id}.txt"
       file.status = 'ready'
-      file.status = 200
-      file.metadata = {}
+      file.size = 200
+      file.metadata = {test: 'test'}
     end
   end
 

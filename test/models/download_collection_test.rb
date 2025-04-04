@@ -1,123 +1,86 @@
 require "test_helper"
 
 class DownloadCollectionTest < ActiveSupport::TestCase
-  def setup
-    @tmp_dir = Dir.mktmpdir
-    DownloadCollection.stubs(:metadata_root_directory).returns(@tmp_dir)
-    DownloadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
-    Dataverse::DataverseMetadata.stubs(:metadata_root_directory).returns(@tmp_dir)
-    @valid_attributes = {
-      'id' => '456-789', 'type' => 'dataverse', 'metadata_id' => '123-456',
-      'name' => 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US'
-    }
-    @download_collection = DownloadCollection.new(@valid_attributes)
-    @test_filename = File.join(@tmp_dir, 'downloads', '456-789', 'metadata.yml')
-    @valid_attributes2 = {
-      'id' => '111-111', 'type' => 'dataverse', 'metadata_id' => '123-456',
-      'name' => 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US'
-    }
-    @download_collection2 = DownloadCollection.new(@valid_attributes2)
-    @test_filename2 = File.join(@tmp_dir, 'downloads', '111-111', 'metadata.yml')
-    @valid_attributes3 = {
-      'id' => '222-222', 'type' => 'dataverse', 'metadata_id' => '123-456',
-      'name' => 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US'
-    }
-    @download_collection3 = DownloadCollection.new(@valid_attributes3)
-    @test_filename3 = File.join(@tmp_dir, 'downloads', '222-222', 'metadata.yml')
-    @file_attributes = {
-      'id' => '123-321', 'collection_id' => '456-789', 'type' => 'dataverse',
-      'metadata_id' => '123-456', 'external_id' => '789', 'filename' => 'test.png',
-      'status' => 'ready', 'size' => 1024, 'checksum' => 'abc123', 'content_type' => 'image/png'
-    }
-    @download_file = DownloadFile.new(@file_attributes)
-    @file_filename = File.join(@tmp_dir, 'downloads', '456-789', 'files', '123-321.yml')
-
-    @file_attributes2 = {
-      'id' => '111-123', 'collection_id' => '456-789', 'type' => 'dataverse',
-      'metadata_id' => '123-456', 'external_id' => '790', 'filename' => 'test.png',
-      'status' => 'ready', 'size' => 1024, 'checksum' => 'abc123', 'content_type' => 'image/png'
-    }
-    @download_file2 = DownloadFile.new(@file_attributes2)
-    @file_filename2 = File.join(@tmp_dir, 'downloads', '456-789', 'files', '111-123.yml')
-
-    @file_attributes3 = {
-      'id' => '123-456', 'collection_id' => '111-111', 'type' => 'dataverse',
-      'metadata_id' => '123-456', 'external_id' => '791', 'filename' => 'test.png',
-      'status' => 'ready', 'size' => 1024, 'checksum' => 'abc123', 'content_type' => 'image/png'
-    }
-    @download_file3 = DownloadFile.new(@file_attributes3)
-    @file_filename3 = File.join(@tmp_dir, 'downloads', '111-111', 'files', '123-456.yml')
-  end
-
-  def teardown
-    FileUtils.remove_entry(@tmp_dir)
-  end
 
   test "initialization should works" do
-    assert_equal '456-789', @download_collection.id
-    assert_equal 'dataverse', @download_collection.type
-    assert_equal '123-456', @download_collection.metadata_id
-    assert_equal 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US', @download_collection.name
+    target = DownloadCollection.new(id: 'ab12345', name: 'test_collection', download_dir: '/tmp/test_collection')
+    assert_equal 'ab12345', target.id
+    assert_equal 'test_collection', target.name
+    assert_equal '/tmp/test_collection', target.download_dir
   end
 
-  test "should be valid" do
-    assert @download_collection.valid?
-  end
-
-  test "validations should fail due to invalid values" do
-    assert @download_collection.valid?
-    @download_collection.type = 'invalid_type'
-    refute @download_collection.valid?
-    assert_includes @download_collection.errors[:type], 'is not included in the list'
+  test "should be valid when all fields are populated" do
+    target = create_valid_collection
+    assert target.valid?
   end
 
   test "validations should fail due to blank value" do
-    assert @download_collection.valid?
-    @download_collection.id = ''
-    refute @download_collection.valid?
-    assert_includes @download_collection.errors[:id], "can't be blank"
-    @download_collection.metadata_id = ''
-    refute @download_collection.valid?
-    assert_includes @download_collection.errors[:metadata_id], "can't be blank"
-    @download_collection.type = ''
-    refute @download_collection.valid?
-    assert_includes @download_collection.errors[:type], "can't be blank"
+    target = create_valid_collection
+    assert target.valid?
+
+    target.id = ''
+    refute target.valid?
+    assert_includes target.errors[:id], "can't be blank"
+
+    target.name = ''
+    refute target.valid?
+    assert_includes target.errors[:name], "can't be blank"
+
+    target.download_dir = ''
+    refute target.valid?
+    assert_includes target.errors[:download_dir], "can't be blank"
   end
 
   test "to_hash" do
-    expected_hash = @valid_attributes
-    assert_equal expected_hash, @download_collection.to_hash
+    target = create_valid_collection
+    expected_hash = {id: target.id, name: target.name, download_dir: target.download_dir}.stringify_keys
+    assert_equal expected_hash, target.to_hash
   end
 
   test "to_json" do
-    expected_json = @valid_attributes.to_json
-    assert_equal expected_json, @download_collection.to_json
+    target = create_valid_collection
+    expected_json = {id: target.id, name: target.name, download_dir: target.download_dir}.to_json
+    assert_equal expected_json, target.to_json
   end
 
   test "to_yaml" do
-    expected_yaml = @valid_attributes.to_yaml
-    assert_equal expected_yaml, @download_collection.to_yaml
+    target = create_valid_collection
+    expected_yaml = {id: target.id, name: target.name, download_dir: target.download_dir}.stringify_keys.to_yaml
+    assert_equal expected_yaml, target.to_yaml
   end
 
   test "save with valid attributes" do
-    assert @download_collection.save
-    assert File.exist?(@test_filename), "File was not created in the file system"
+    in_temp_directory do |dir|
+      target = create_valid_collection
+      assert target.save
+      expected_file = File.join(dir, 'collections', target.id, 'metadata.yml')
+      assert File.exist?(expected_file), "DownloadCollection file was not created in the file system"
+    end
   end
 
   test "save twice only creates one file" do
-    directory = File.join(@tmp_dir, 'downloads', '456-789')
-    assert @download_collection.save
-    assert File.exist?(@test_filename), "File was not created in the file system"
-    assert_equal 1, Dir.glob(directory).count
-    assert @download_collection.save
-    assert File.exist?(@test_filename), "File was not created in the file system"
-    assert_equal 1, Dir.glob(directory).count
+    in_temp_directory do |dir|
+      target = create_valid_collection
+      assert target.save
+      expected_directory = File.join(dir, 'collections', target.id)
+      expected_file = File.join(expected_directory, 'metadata.yml')
+      assert File.exist?(expected_file), "DownloadCollection file was not created in the file system"
+      assert_equal 1, Dir.glob(expected_directory).count
+
+      assert target.save
+      assert File.exist?(expected_file), "DownloadCollection file was not created in the file system"
+      assert_equal 1, Dir.glob(expected_directory).count
+    end
   end
 
   test "save stopped due to invalid attributes" do
-    @download_collection.type = 'invalid_type'
-    refute @download_collection.save
-    refute File.exist?(@test_filename), "File was not created in the file system"
+    in_temp_directory do |dir|
+      target = create_valid_collection
+      target.id = ''
+      refute target.save
+      expected_file = File.join(dir, 'collections', target.id, 'metadata.yml')
+      refute File.exist?(expected_file), "DownloadCollection file was created in the file system"
+    end
   end
 
   test "find does not find the record if it was not saved" do
@@ -125,133 +88,144 @@ class DownloadCollectionTest < ActiveSupport::TestCase
   end
 
   test "find retrieves the record if it was saved" do
-    assert @download_collection.save
-    assert File.exist?(@test_filename), "File was not created in the file system"
-    assert DownloadCollection.find('456-789')
+    in_temp_directory do |dir|
+      target = create_valid_collection
+      target.save
+      assert DownloadCollection.find(target.id)
+    end
   end
 
   test "find retrieves the record with the same stored values" do
-    assert @download_collection.save
-    assert File.exist?(@test_filename), "File was not created in the file system"
-    loaded_collection = DownloadCollection.find('456-789')
-    assert loaded_collection
-    assert_equal '456-789', loaded_collection.id
-    assert_equal 'dataverse', loaded_collection.type
-    assert_equal '123-456', loaded_collection.metadata_id
-    assert_equal 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US', loaded_collection.name
+    in_temp_directory do |dir|
+      target = create_valid_collection
+      assert target.save
+      saved_collection = DownloadCollection.find(target.id)
+      assert saved_collection
+      assert_equal 'ab12345', saved_collection.id
+      assert_equal 'test_collection', saved_collection.name
+      assert_equal '/tmp/test_collection', saved_collection.download_dir
+    end
   end
 
   test "find retrieves the correct record on multiple records" do
-    assert @download_collection.save
-    assert @download_collection2.save
-    assert @download_collection3.save
-    assert File.exist?(@test_filename), "File was not created in the file system"
-    loaded_collection = DownloadCollection.find('456-789')
-    assert loaded_collection
-    assert_equal '456-789', loaded_collection.id
-    assert_equal 'dataverse', loaded_collection.type
-    assert_equal '123-456', loaded_collection.metadata_id
-    assert_equal 'Dataverse dataset selection from doi:10.5072/FK2/GCN7US', loaded_collection.name
-  end
+    in_temp_directory do |dir|
+      target1 = create_valid_collection(id: random_id, name: random_id)
+      assert target1.save
 
-  test "find retrieves the record only if id matches" do
-    assert @download_collection.save
-    assert File.exist?(@test_filename), "File was not created in the file system"
-    assert DownloadCollection.find('456-789')
-    refute DownloadCollection.find('456-780')
+      target2 = create_valid_collection(id: random_id, name: random_id)
+      assert target2.save
+
+      target3 = create_valid_collection(id: random_id, name: random_id)
+      assert target3.save
+
+      saved_collection = DownloadCollection.find(target2.id)
+      assert saved_collection
+      assert_equal target2.id, saved_collection.id
+      assert_equal target2.name, saved_collection.name
+      assert_equal target2.download_dir, saved_collection.download_dir
+    end
   end
 
   test "all returns empty array if no records stored" do
-    assert DownloadCollection.all.empty?
-  end
-
-  test "all returns an array with one entry if there is one stored record" do
-    assert @download_collection.save
-    assert File.exist?(@test_filename), "File was not created in the file system"
-    assert DownloadCollection.find('456-789')
-    assert_equal 1, DownloadCollection.all.count
+    in_temp_directory do
+      assert DownloadCollection.all.empty?
+    end
   end
 
   test "all returns an array with the saved entry" do
-    assert @download_collection.save
-    assert File.exist?(@test_filename), "File was not created in the file system"
-    found_collection = DownloadCollection.find('456-789')
-    first_collection = DownloadCollection.all.first
-    assert_equal found_collection.id, first_collection.id
-    assert_equal found_collection.metadata_id, first_collection.metadata_id
-    assert_equal found_collection.type, first_collection.type
-    assert_equal found_collection.name, first_collection.name
+    in_temp_directory do |dir|
+      target = create_valid_collection
+      assert target.save
+      assert_equal 1, DownloadCollection.all.size
+      saved_collection = DownloadCollection.all.first
+      assert saved_collection
+      assert_equal 'ab12345', saved_collection.id
+      assert_equal 'test_collection', saved_collection.name
+      assert_equal '/tmp/test_collection', saved_collection.download_dir
+    end
   end
 
-  test "all returns an array with multiple entries sorted by newest first" do
-    assert @download_collection.save
-    assert @download_collection2.save
-    assert @download_collection3.save
-    assert File.exist?(@test_filename), "File was not created in the file system"
-    assert File.exist?(@test_filename2), "File was not created in the file system"
-    assert File.exist?(@test_filename3), "File was not created in the file system"
-    assert DownloadCollection.find('456-789')
-    assert DownloadCollection.find('111-111')
-    assert DownloadCollection.find('222-222')
-    assert_equal 3, DownloadCollection.all.count
-    first_collection = DownloadCollection.all.first
-    last_collection = DownloadCollection.all.last
-    assert_equal @download_collection3.id, first_collection.id
-    assert_equal @download_collection3.metadata_id, first_collection.metadata_id
-    assert_equal @download_collection3.type, first_collection.type
-    assert_equal @download_collection.id, last_collection.id
-    assert_equal @download_collection.metadata_id, last_collection.metadata_id
-    assert_equal @download_collection.type, last_collection.type
-    assert_equal @download_collection.name, last_collection.name
+  test "all returns an array with multiple entries sorted by creation date descendant" do
+    in_temp_directory do |dir|
+      target1 = create_valid_collection(id: random_id, name: random_id)
+      assert target1.save
+      sleep(0.1)# SLEEP TO HAVE DIFFERENT CREATION DATE
+
+      target2 = create_valid_collection(id: random_id, name: random_id)
+      assert target2.save
+      sleep(0.1)# SLEEP TO HAVE DIFFERENT CREATION DATE
+      target3 = create_valid_collection(id: random_id, name: random_id)
+      assert target3.save
+
+      collections = DownloadCollection.all
+      assert 3, collections.size
+      assert_equal target3.id, collections[0].id
+      assert_equal target2.id, collections[1].id
+      assert_equal target1.id, collections[2].id
+    end
   end
 
-  test "an new download collection has no files" do
-    assert @download_collection.save
-    assert File.exist?(@test_filename), "File was not created in the file system"
-    loaded_collection = DownloadCollection.find('456-789')
-    assert loaded_collection
-    assert loaded_collection.files.empty?
+  test "files default value is empty array" do
+    in_temp_directory do
+      target = create_valid_collection
+      assert target.save
+      saved_collection = DownloadCollection.find(target.id)
+      assert saved_collection.files.empty?
+    end
   end
 
-  test "a download collection has one file" do
-    assert @download_collection.save
-    assert File.exist?(@test_filename), "File was not created in the file system"
-    assert @download_file.save
-    assert File.exist?(@file_filename), "File was not created in the file system"
-    loaded_collection = DownloadCollection.find('456-789')
-    assert loaded_collection
-    assert_equal 1, loaded_collection.files.count
-    loaded_file = DownloadFile.find("456-789", "123-321")
-    assert loaded_file
-    first_file = loaded_collection.files.first
-    assert_equal '123-321', first_file.id
-    assert_equal '456-789', first_file.collection_id
-    assert_equal 'dataverse', first_file.type
-    assert_equal '123-456', first_file.metadata_id
-    assert_equal '789', first_file.external_id
-    assert_equal 'test.png', first_file.filename
-    assert_equal 'ready', first_file.status
-    assert_equal 1024, first_file.size
-    assert_equal 'abc123', first_file.checksum
+  test "files handle a single file" do
+    in_temp_directory do |dir|
+      target = create_valid_collection
+      assert target.save
+      file = create_download_file(target)
+      assert file.save, file
+      expected_file = File.join(dir, 'collections', target.id, 'files', "#{file.id}.yml")
+      assert File.exist?(expected_file)
+
+      saved_collection = DownloadCollection.find(target.id)
+      collection_files = saved_collection.files
+      assert_equal 1, collection_files.count
+      saved_file = collection_files.first
+      assert_equal file.id, saved_file.id
+    end
   end
 
-  test "download collection has multiple files listed in order" do
-    assert @download_collection.save
-    assert @download_collection2.save
-    assert @download_collection3.save
-    assert @download_file.save
-    assert @download_file2.save
-    assert @download_file3.save
-    assert File.exist?(@test_filename), "File was not created in the file system"
-    assert File.exist?(@test_filename2), "File was not created in the file system"
-    assert File.exist?(@test_filename3), "File was not created in the file system"
-    assert_equal 3, DownloadCollection.all.count
-    assert_equal 2, @download_collection.files.count
-    assert_equal "123-321", @download_collection.files.first.id
-    assert_equal "111-123", @download_collection.files.last.id
-    assert_equal 1, @download_collection2.files.count
-    assert_equal "123-456", @download_collection2.files.first.id
-    assert_equal 0, @download_collection3.files.count
+  test "files handle multiple files sorted by creation date ascendant" do
+    in_temp_directory do
+      target = create_valid_collection
+      target.save
+      file1 = create_download_file(target)
+      assert file1.save
+      sleep(0.1)# SLEEP TO HAVE DIFFERENT CREATION DATE
+      file2 = create_download_file(target)
+      assert file2.save
+      sleep(0.1)# SLEEP TO HAVE DIFFERENT CREATION DATE
+      file3 = create_download_file(target)
+      assert file3.save
+
+      saved_collection = DownloadCollection.find(target.id)
+      collection_files = saved_collection.files
+      assert_equal 3, collection_files.count
+      assert_equal file1.id, collection_files[0].id
+      assert_equal file2.id, collection_files[1].id
+      assert_equal file3.id, collection_files[2].id
+    end
+  end
+
+  private
+
+  def create_valid_collection(id: 'ab12345', name: 'test_collection', download_dir: '/tmp/test_collection')
+    DownloadCollection.new(id: id, name: name, download_dir: download_dir)
+  end
+
+  def in_temp_directory
+    Dir.mktmpdir do |dir|
+      DownloadCollection.stubs(:metadata_root_directory).returns(dir)
+      DownloadFile.stubs(:metadata_root_directory).returns(dir)
+
+      yield dir
+    end
   end
 
 end

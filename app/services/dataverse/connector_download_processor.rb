@@ -12,8 +12,7 @@ module Dataverse
 
     def download
       collection = DownloadCollection.find(file.collection_id)
-      dataverse_metadata = Dataverse::DataverseMetadata.find(connector_metadata.dataverse_metadata)
-      download_url = "#{dataverse_metadata.full_hostname}/api/access/datafile/#{connector_metadata.id}"
+      download_url = "#{connector_metadata.dataverse_url}/api/access/datafile/#{connector_metadata.id}"
       download_location = File.join(collection.download_dir, connector_metadata.filename)
       temp_location ="#{download_location}.part"
 
