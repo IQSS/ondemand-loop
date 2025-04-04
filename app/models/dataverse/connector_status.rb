@@ -11,11 +11,16 @@ module Dataverse
     end
 
     def download_progress
-      download_location = connector_metadata.temp_location
-      file_size = file.size
-      return 0 unless File.exist?(download_location) && file_size.to_i.positive?
+      return 0 if %w[new ready].include?(file.status)
+      return 100 if %w[completed].include?(file.status)
 
-      downloaded_size = File.size(download_location)
+      return 100 if File.exist?(connector_metadata.download_location)
+
+      temp_location = connector_metadata.temp_location
+      file_size = file.size
+      return 0 unless File.exist?(temp_location) && file_size.to_i.positive?
+
+      downloaded_size = File.size(temp_location)
       [(downloaded_size.to_f / file_size * 100).to_i, 100].min
     end
 

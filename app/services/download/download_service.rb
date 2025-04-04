@@ -3,9 +3,10 @@ module Download
   class DownloadService
     include LoggingCommon
 
-    attr_reader :process_id, :stats
+    attr_reader :files_provider, :process_id, :stats
 
-    def initialize
+    def initialize(download_files_provider)
+      @files_provider = download_files_provider
       @process_id = Process.pid
       @start_time = Time.now.to_i
       @stats = { pending: 0, completed: 0 }
@@ -17,7 +18,7 @@ module Download
       File.open(lock_file, 'w') do |service_lock|
         unless service_lock.flock(File::LOCK_EX | File::LOCK_NB) # Exclusive, non-blocking lock
           log_info('Exit. Other DownloadService already running', {pid: process_id, elapsed_time: elapsed_time})
-          exit 1
+          return
         end
 
         process
@@ -29,7 +30,7 @@ module Download
 
     def process
       while true
-        files = DownloadCollection.all.flat_map(&:files).select{|f| f.status == 'ready'}
+        files = files_provider.pending_files
         stats[:pending] = files.length
 
         log_info('Processing', {pid: process_id, elapsed_time: elapsed_time, stats: stats_to_s})
