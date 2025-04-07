@@ -136,4 +136,29 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal 7, files.first.data_file.id
     assert_equal "image/png", files.first.data_file.content_type
   end
+
+  test "dataset with multiple files" do
+    valid_json = load_file_fixture(File.join('dataverse', 'dataset_response', 'valid_response_multiple_files.json'))
+    @dataset_multiple_files = Dataverse::DatasetResponse.new(valid_json)
+    files = @dataset_multiple_files.files_by_ids([86,87,88,89,90])
+    assert_equal 5, files.size
+
+    version = @dataset_multiple_files.data.latest_version
+
+    assert_equal 5, version.files.size
+    version.files.each { |file| assert_instance_of Dataverse::DatasetResponse::Data::Version::DatasetFile, file }
+
+    file = version.files.first
+    assert_equal "2019-02-25.tab", file.label
+    refute file.restricted
+    assert_instance_of Dataverse::DatasetResponse::Data::Version::DatasetFile::DataFile, file.data_file
+
+    data_file = file.data_file
+    assert_equal 90, data_file.id
+    assert_equal "2019-02-25.tab", data_file.filename
+    assert_equal "text/tab-separated-values", data_file.content_type
+    assert_equal 17232, data_file.filesize
+    assert_equal "8af47fd3e16134e1aa4700fbfc48ff50", data_file.md5
+    assert_equal "Tab-Delimited", data_file.friendly_type
+  end
 end
