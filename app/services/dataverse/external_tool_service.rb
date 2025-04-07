@@ -9,7 +9,7 @@ module Dataverse
       response = Net::HTTP.get_response(parsed_url)
       external_tool_response = response.is_a?(Net::HTTPSuccess) ? ExternalToolResponse.new(response.body) : nil
 
-      dataverse_url = URI::Generic.build(scheme: uri.scheme, host: uri.hostname, port: uri.port)
+      dataverse_url = URI::Generic.build(scheme: parsed_url.scheme, host: parsed_url.hostname, port: parsed_url.port)
 
       {
         response: external_tool_response,
