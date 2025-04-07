@@ -162,4 +162,11 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "8af47fd3e16134e1aa4700fbfc48ff50", data_file.md5
     assert_equal "Tab-Delimited", data_file.friendly_type
   end
+
+  test "dataset incomplete with no license" do
+    json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_license.json'))
+    @dataset_incomplete = Dataverse::DatasetResponse.new(json)
+    assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
+  end
+
 end
