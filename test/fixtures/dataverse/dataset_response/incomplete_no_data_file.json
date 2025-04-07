@@ -1,0 +1,279 @@
+{
+  "status": "OK",
+  "data": {
+    "id": 85,
+    "identifier": "FK2/LLIZ6Q",
+    "persistentUrl": "https://doi.org/10.5072/FK2/LLIZ6Q",
+    "protocol": "doi",
+    "authority": "10.5072",
+    "publisher": "Root",
+    "publicationDate": "2025-04-04",
+    "storageIdentifier": "local://10.5072/FK2/LLIZ6Q",
+    "datasetType": "dataset",
+    "latestVersion": {
+      "id": 21,
+      "datasetId": 85,
+      "datasetPersistentId": "doi:10.5072/FK2/LLIZ6Q",
+      "storageIdentifier": "local://10.5072/FK2/LLIZ6Q",
+      "versionNumber": 1,
+      "versionMinorNumber": 0,
+      "versionState": "RELEASED",
+      "latestVersionPublishingState": "RELEASED",
+      "UNF": "UNF:6:NizHwcfb5TXIMJfjyhuuoA==",
+      "lastUpdateTime": "2025-04-04T10:43:02Z",
+      "releaseTime": "2025-04-04T10:43:02Z",
+      "createTime": "2025-04-04T10:42:45Z",
+      "publicationDate": "2025-04-04",
+      "citationDate": "2025-04-04",
+      "license": {
+        "name": "CC0 1.0",
+        "uri": "http://creativecommons.org/publicdomain/zero/1.0",
+        "iconUri": "https://licensebuttons.net/p/zero/1.0/88x31.png"
+      },
+      "fileAccessRequest": true,
+      "metadataBlocks": {
+        "citation": {
+          "displayName": "Citation Metadata",
+          "name": "citation",
+          "fields": [
+            {
+              "typeName": "title",
+              "multiple": false,
+              "typeClass": "primitive",
+              "value": "Open Source at Harvard"
+            },
+            {
+              "typeName": "author",
+              "multiple": true,
+              "typeClass": "compound",
+              "value": [
+                {
+                  "authorName": {
+                    "typeName": "authorName",
+                    "multiple": false,
+                    "typeClass": "primitive",
+                    "value": "Doe, John"
+                  },
+                  "authorAffiliation": {
+                    "typeName": "authorAffiliation",
+                    "multiple": false,
+                    "typeClass": "primitive",
+                    "value": "Harvard University"
+                  },
+                  "authorIdentifierScheme": {
+                    "typeName": "authorIdentifierScheme",
+                    "multiple": false,
+                    "typeClass": "controlledVocabulary",
+                    "value": "ORCID"
+                  },
+                  "authorIdentifier": {
+                    "typeName": "authorIdentifier",
+                    "multiple": false,
+                    "typeClass": "primitive",
+                    "value": "5555-5555-5555-5555"
+                  }
+                }
+              ]
+            },
+            {
+              "typeName": "datasetContact",
+              "multiple": true,
+              "typeClass": "compound",
+              "value": [
+                {
+                  "datasetContactName": {
+                    "typeName": "datasetContactName",
+                    "multiple": false,
+                    "typeClass": "primitive",
+                    "value": "Doe, John"
+                  },
+                  "datasetContactAffiliation": {
+                    "typeName": "datasetContactAffiliation",
+                    "multiple": false,
+                    "typeClass": "primitive",
+                    "value": "Harvard University"
+                  },
+                  "datasetContactEmail": {
+                    "typeName": "datasetContactEmail",
+                    "multiple": false,
+                    "typeClass": "primitive",
+                    "value": "foobar@harvard.edu"
+                  }
+                }
+              ]
+            },
+            {
+              "typeName": "dsDescription",
+              "multiple": true,
+              "typeClass": "compound",
+              "value": [
+                {
+                  "dsDescriptionValue": {
+                    "typeName": "dsDescriptionValue",
+                    "multiple": false,
+                    "typeClass": "primitive",
+                    "value": "The tabular file contains information on known Harvard repositories on GitHub, such as the number of stars, programming language, day last updated, number of open issues, size, number of forks, repository URL, create date, and description. Each repository has a corresponding JSON file that was retrieved using the GitHub API with code and a list of repositories available from <a href=\"https://github.com/IQSS/open-source-at-harvard\">https://github.com/IQSS/open-source-at-harvard</a>."
+                  }
+                }
+              ]
+            },
+            {
+              "typeName": "subject",
+              "multiple": true,
+              "typeClass": "controlledVocabulary",
+              "value": [
+                "Social Sciences"
+              ]
+            },
+            {
+              "typeName": "depositor",
+              "multiple": false,
+              "typeClass": "primitive",
+              "value": "Doe, John"
+            },
+            {
+              "typeName": "dateOfDeposit",
+              "multiple": false,
+              "typeClass": "primitive",
+              "value": "2017-07-06"
+            }
+          ]
+        }
+      },
+      "files": [
+        {
+          "description": "This tabular file contains information on known Harvard repositories on GitHub, such as the number of stars, programming language, day last updated, number of open issues, size, number of forks, repository URL, create date, and description.",
+          "label": "2019-02-25.tab",
+          "restricted": false,
+          "directoryLabel": "data",
+          "version": 4,
+          "datasetVersionId": 21,
+          "categories": [
+            "Data"
+          ]
+        },
+        {
+          "description": "This shell script processes the main data file, and produces a tab delimited list of language by popularity",
+          "label": "language-count.sh",
+          "restricted": false,
+          "directoryLabel": "code",
+          "version": 2,
+          "datasetVersionId": 21,
+          "categories": [
+            "Code"
+          ]
+        },
+        {
+          "description": "This tabular file contains the summary counts of programming languages used in the surveyed projects.",
+          "label": "language-count.tab",
+          "restricted": false,
+          "directoryLabel": "results",
+          "version": 4,
+          "datasetVersionId": 21,
+          "categories": [
+            "Data",
+            "Results"
+          ],
+          "dataFile": {
+            "id": 88,
+            "persistentId": "",
+            "filename": "language-count.tab",
+            "contentType": "text/tab-separated-values",
+            "friendlyType": "Tab-Delimited",
+            "filesize": 203,
+            "description": "This tabular file contains the summary counts of programming languages used in the surveyed projects.",
+            "categories": [
+              "Data",
+              "Results"
+            ],
+            "storageIdentifier": "local://196006575c7-251a45b3b40e",
+            "originalFileFormat": "text/tsv",
+            "originalFormatLabel": "Tab-Separated Values",
+            "originalFileSize": 180,
+            "originalFileName": "language-count.tsv",
+            "UNF": "UNF:6:dGXs4ovC32jyM4NJp1vAsA==",
+            "rootDataFileId": -1,
+            "md5": "0521aec1df05efd6733b8428912095bb",
+            "checksum": {
+              "type": "MD5",
+              "value": "0521aec1df05efd6733b8428912095bb"
+            },
+            "tabularData": true,
+            "creationDate": "2025-04-04",
+            "publicationDate": "2025-04-04",
+            "fileAccessRequest": true
+          }
+        },
+        {
+          "description": "Details about the code and reproducing results.",
+          "label": "README.md",
+          "restricted": false,
+          "directoryLabel": "doc",
+          "version": 2,
+          "datasetVersionId": 21,
+          "categories": [
+            "Documentation"
+          ],
+          "dataFile": {
+            "id": 89,
+            "persistentId": "",
+            "filename": "README.md",
+            "contentType": "text/markdown",
+            "friendlyType": "Markdown Text",
+            "filesize": 31,
+            "description": "Details about the code and reproducing results.",
+            "categories": [
+              "Documentation"
+            ],
+            "storageIdentifier": "local://196006584c9-3424d6d90226",
+            "rootDataFileId": -1,
+            "md5": "815c7d68f7de886fc5df715c3e4f8a80",
+            "checksum": {
+              "type": "MD5",
+              "value": "815c7d68f7de886fc5df715c3e4f8a80"
+            },
+            "tabularData": false,
+            "creationDate": "2025-04-04",
+            "publicationDate": "2025-04-04",
+            "fileAccessRequest": true
+          }
+        },
+        {
+          "description": "This is the master script.",
+          "label": "run.sh",
+          "restricted": false,
+          "version": 2,
+          "datasetVersionId": 21,
+          "categories": [
+            "Code",
+            "Workflow"
+          ],
+          "dataFile": {
+            "id": 86,
+            "persistentId": "",
+            "filename": "run.sh",
+            "contentType": "application/x-sh",
+            "friendlyType": "Shell Script",
+            "filesize": 91,
+            "description": "This is the master script.",
+            "categories": [
+              "Code",
+              "Workflow"
+            ],
+            "storageIdentifier": "local://19600655ea1-1ca6b1522ad5",
+            "rootDataFileId": -1,
+            "md5": "1ff97714bdeaf41908c05a2271bd5afa",
+            "checksum": {
+              "type": "MD5",
+              "value": "1ff97714bdeaf41908c05a2271bd5afa"
+            },
+            "tabularData": false,
+            "creationDate": "2025-04-04",
+            "publicationDate": "2025-04-04",
+            "fileAccessRequest": true
+          }
+        }
+      ]
+    }
+  }
+}

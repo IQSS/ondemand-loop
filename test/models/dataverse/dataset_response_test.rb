@@ -177,4 +177,22 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
   end
 
+  test "dataset incomplete with no metadata blocks" do
+    json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_metadata_blocks.json'))
+    @dataset_incomplete = Dataverse::DatasetResponse.new(json)
+    assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
+  end
+
+  test "dataset incomplete with no data_file in some files" do
+    json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_data_file.json'))
+    @dataset_incomplete = Dataverse::DatasetResponse.new(json)
+    assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
+  end
+
+  test "dataset incomplete with no files" do
+    json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_files.json'))
+    @dataset_incomplete = Dataverse::DatasetResponse.new(json)
+    assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
+  end
+
 end
