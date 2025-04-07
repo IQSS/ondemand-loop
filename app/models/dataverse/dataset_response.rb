@@ -101,10 +101,11 @@ module Dataverse
         end
 
         class DatasetFile
-          attr_reader :label, :restricted, :data_file
+          attr_reader :label, :directory_label, :restricted, :data_file
 
           def initialize(file)
             @label = file[:label]
+            @directory_label = file[:directoryLabel]
             @restricted = file[:restricted]
             @data_file = DataFile.new(file[:dataFile])
           end

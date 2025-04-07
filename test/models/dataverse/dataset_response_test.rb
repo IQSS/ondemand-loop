@@ -150,6 +150,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
 
     file = version.files.first
     assert_equal "2019-02-25.tab", file.label
+    assert_equal "data", file.directory_label
     refute file.restricted
     assert_instance_of Dataverse::DatasetResponse::Data::Version::DatasetFile::DataFile, file.data_file
 
