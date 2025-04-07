@@ -39,6 +39,7 @@ module Dataverse
       attr_reader :id, :identifier, :persistent_url, :publisher, :publication_date, :dataset_type, :latest_version
 
       def initialize(data)
+        data = data || {}
         @id = data[:id]
         @identifier = data[:identifier]
         @persistent_url = data[:persistentUrl]
@@ -53,6 +54,7 @@ module Dataverse
                     :metadata_blocks
 
         def initialize(version)
+          version = version || {}
           @id = version[:id]
           @dataset_id = version[:datasetId]
           @dataset_persistent_id = version[:datasetPersistentId]
@@ -60,7 +62,7 @@ module Dataverse
           @version_state = version[:versionState]
           @license = License.new(version[:license])
           @metadata_blocks = MetadataBlocks.new(version[:metadataBlocks])
-          @files = version[:files].map { |file| DatasetFile.new(file) }
+          @files = (version[:files] || []).map { |file| DatasetFile.new(file) }
         end
 
         class License
@@ -77,19 +79,22 @@ module Dataverse
         class MetadataBlocks
           attr_reader :citation
           def initialize(metadata_blocks)
+            metadata_blocks = metadata_blocks || {}
             @citation = Citation.new(metadata_blocks[:citation])
           end
 
           class Citation
             attr_reader :name, :fields
             def initialize(citation)
+              citation = citation || {}
               @name = citation[:name]
-              @fields = citation[:fields].map { |field| CitationField.new(field) }
+              @fields = (citation[:fields] || []).map { |field| CitationField.new(field) }
             end
 
             class CitationField
               attr_reader :type_name, :multiple, :type_class, :value
               def initialize(field)
+                field = field || {}
                 @type_name = field[:typeName]
                 @multiple = field[:multiple]
                 @type_class = field[:typeClass]
@@ -104,6 +109,7 @@ module Dataverse
           attr_reader :label, :directory_label, :restricted, :data_file
 
           def initialize(file)
+            file = file || {}
             @label = file[:label]
             @directory_label = file[:directoryLabel]
             @restricted = file[:restricted]
@@ -114,6 +120,7 @@ module Dataverse
             attr_reader :id, :filename, :content_type, :friendly_type, :storage_identifier, :filesize, :md5, :publication_date
 
             def initialize(data_file)
+              data_file = data_file || {}
               @id = data_file[:id]
               @filename = data_file[:filename]
               @content_type = data_file[:contentType]

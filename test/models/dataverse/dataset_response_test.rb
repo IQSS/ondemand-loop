@@ -89,16 +89,18 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "PNG Image", data_file.friendly_type
   end
 
-  test "empty json raises error" do
-    assert_raises(NoMethodError) { Dataverse::DatasetResponse.new(empty_json) }
+  test "empty json is invalid" do
+    @invalid_dataset = Dataverse::DatasetResponse.new(empty_json)
+    assert_instance_of Dataverse::DatasetResponse, @invalid_dataset
   end
 
   test "empty string raises JSON::ParserError" do
     assert_raises(JSON::ParserError) { Dataverse::DatasetResponse.new(empty_string) }
   end
 
-  test "incomplete json raises NoMethodError when accessing missing data" do
-    assert_raises(NoMethodError) { Dataverse::DatasetResponse.new(incomplete_json_body) }
+  test "incomplete json is invalid" do
+    @invalid_dataset = Dataverse::DatasetResponse.new(incomplete_json_body)
+    assert_instance_of Dataverse::DatasetResponse, @invalid_dataset
   end
 
   test "find files matches one file" do
@@ -165,6 +167,12 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
 
   test "dataset incomplete with no license" do
     json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_license.json'))
+    @dataset_incomplete = Dataverse::DatasetResponse.new(json)
+    assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
+  end
+
+  test "dataset incomplete with no latest_version" do
+    json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_version.json'))
     @dataset_incomplete = Dataverse::DatasetResponse.new(json)
     assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
   end
