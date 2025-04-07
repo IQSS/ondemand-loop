@@ -9,6 +9,11 @@ Rails.application.routes.draw do
   post "/view/dataverse/download/dataset" => "dataverse/datasets#download", as: :download_dataverse_dataset_files
   get "/view/dataverse/*dv_hostname/datasets/*persistent_id" => "dataverse/datasets#show", as: :view_dataverse_dataset
 
+  # DOI ROUTES
+  get "/view/doi/search" => 'doi_search#index', as: :doi_search
+  post '/view/doi/search' => 'doi_search#search', as: :doi_search_post
+  get "/view/doi/search/*doi" => 'doi_search#search', as: :doi_resolve
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check

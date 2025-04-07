@@ -9,18 +9,7 @@
       </li>
     </ol>
   </nav>
-  <div class="row">
-    <% flash.each do |type, message| %>
-      <% alert_class = case type.to_sym
-                       when :notice then "alert-success"
-                       when :alert, :error then "alert-danger"
-                       else "alert-info"
-                       end %>
-      <div class="alert <%= alert_class %>">
-        <%= message %>
-      </div>
-    <% end %>
-  </div>
+
   <div class="row">
     <div class="col-md-3">
       <div class="card dataset-header">

@@ -23,10 +23,6 @@ module ModelHelper
     end
   end
 
-  def fixture_path(partial_path)
-    File.join(__dir__, "..", "fixtures", partial_path)
-  end
-
   def random_id
     SecureRandom.uuid.to_s
   end
