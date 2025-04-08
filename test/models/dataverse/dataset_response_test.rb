@@ -153,6 +153,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "Doe, John", @dataset_multiple_files.authors
     assert_match /The tabular file contains information on known/, @dataset_multiple_files.description
     assert_equal "Social Sciences", @dataset_multiple_files.subjects
+    assert_equal "doi:10.5072/FK2/LLIZ6Q", @dataset_multiple_files.data.latest_version.dataset_persistent_id
 
     file = version.files.first
     assert_equal "2019-02-25.tab", file.label
@@ -176,6 +177,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "Doe, John", @dataset_incomplete.authors
     assert_match /The tabular file contains information on known/, @dataset_incomplete.description
     assert_equal "Social Sciences", @dataset_incomplete.subjects
+    assert_equal "doi:10.5072/FK2/LLIZ6Q", @dataset_incomplete.data.latest_version.dataset_persistent_id
   end
 
   test "dataset incomplete with no latest_version" do
@@ -187,6 +189,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "", @dataset_incomplete.authors
     assert_equal "", @dataset_incomplete.description
     assert_equal "", @dataset_incomplete.subjects
+    assert_nil @dataset_incomplete.data.latest_version.dataset_persistent_id
   end
 
   test "dataset incomplete with no metadata blocks" do
@@ -198,6 +201,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "", @dataset_incomplete.authors
     assert_equal "", @dataset_incomplete.description
     assert_equal "", @dataset_incomplete.subjects
+    assert_equal "doi:10.5072/FK2/LLIZ6Q", @dataset_incomplete.data.latest_version.dataset_persistent_id
   end
 
   test "dataset incomplete with no data_file in some files" do
@@ -209,6 +213,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "Doe, John", @dataset_incomplete.authors
     assert_match /The tabular file contains information on known/, @dataset_incomplete.description
     assert_equal "Social Sciences", @dataset_incomplete.subjects
+    assert_equal "doi:10.5072/FK2/LLIZ6Q", @dataset_incomplete.data.latest_version.dataset_persistent_id
   end
 
   test "dataset incomplete with no files" do
@@ -220,6 +225,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "Doe, John", @dataset_incomplete.authors
     assert_match /The tabular file contains information on known/, @dataset_incomplete.description
     assert_equal "Social Sciences", @dataset_incomplete.subjects
+    assert_equal "doi:10.5072/FK2/LLIZ6Q", @dataset_incomplete.data.latest_version.dataset_persistent_id
   end
 
 end
