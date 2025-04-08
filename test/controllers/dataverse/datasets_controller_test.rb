@@ -23,6 +23,14 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_data.json'))
   end
 
+  def incomplete_json_no_version
+    load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_version.json'))
+  end
+
+  def incomplete_json_no_metadata_blocks
+    load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_metadata_blocks.json'))
+  end
+
   test "should redirect to root path after not finding a dataverse_metadata" do
     get view_dataverse_dataset_url("random", "random_id")
     assert_redirected_to downloads_path
@@ -58,6 +66,22 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     get view_dataverse_dataset_url(@new_id, "doi:10.5072/FK2/LLIZ6Q")
     assert_response :success
     assert_select "input[type=checkbox][name='file_ids[]']", 0
+  end
+
+  test "should display the dataset incomplete with no version" do
+    dataset = Dataverse::DatasetResponse.new(incomplete_json_no_version)
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).returns(dataset)
+    get view_dataverse_dataset_url(@new_id, "doi:10.5072/FK2/LLIZ6Q")
+    assert_response :success
+    assert_select "input[type=checkbox][name='file_ids[]']", 0
+  end
+
+  test "should display the dataset incomplete with no metadata blocks" do
+    dataset = Dataverse::DatasetResponse.new(incomplete_json_no_metadata_blocks)
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).returns(dataset)
+    get view_dataverse_dataset_url(@new_id, "doi:10.5072/FK2/LLIZ6Q")
+    assert_response :success
+    assert_select "input[type=checkbox][name='file_ids[]']", 5
   end
 
   test "should display demo.dataverse.org pages" do
