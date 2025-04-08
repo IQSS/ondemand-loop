@@ -155,6 +155,9 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "Social Sciences", @dataset_multiple_files.subjects
     assert_equal "doi:10.5072/FK2/LLIZ6Q", @dataset_multiple_files.data.latest_version.dataset_persistent_id
     assert_equal "Open Source at Harvard", @dataset_multiple_files.metadata_field('title')
+    assert_equal "2025-04-04", @dataset_multiple_files.data.publication_date
+    assert_equal "CC0 1.0", @dataset_multiple_files.data.latest_version.license.name
+    assert_equal "https://licensebuttons.net/p/zero/1.0/88x31.png", @dataset_multiple_files.data.latest_version.license.icon_uri
 
     file = version.files.first
     assert_equal "2019-02-25.tab", file.label
@@ -180,6 +183,9 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "Social Sciences", @dataset_incomplete.subjects
     assert_equal "doi:10.5072/FK2/LLIZ6Q", @dataset_incomplete.data.latest_version.dataset_persistent_id
     assert_equal "Open Source at Harvard", @dataset_incomplete.metadata_field('title')
+    assert_equal "2025-04-04", @dataset_incomplete.data.publication_date
+    assert_nil @dataset_incomplete.data.latest_version.license.name
+    assert_nil @dataset_incomplete.data.latest_version.license.icon_uri
   end
 
   test "dataset incomplete with no latest_version" do
@@ -193,6 +199,9 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "", @dataset_incomplete.subjects
     assert_nil @dataset_incomplete.data.latest_version.dataset_persistent_id
     assert_nil @dataset_incomplete.metadata_field('title')
+    assert_equal "2025-04-04", @dataset_incomplete.data.publication_date
+    assert_nil @dataset_incomplete.data.latest_version.license.name
+    assert_nil @dataset_incomplete.data.latest_version.license.icon_uri
   end
 
   test "dataset incomplete with no metadata blocks" do
@@ -206,6 +215,9 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "", @dataset_incomplete.subjects
     assert_equal "doi:10.5072/FK2/LLIZ6Q", @dataset_incomplete.data.latest_version.dataset_persistent_id
     assert_nil @dataset_incomplete.metadata_field('title')
+    assert_equal "2025-04-04", @dataset_incomplete.data.publication_date
+    assert_equal "CC0 1.0", @dataset_incomplete.data.latest_version.license.name
+    assert_equal "https://licensebuttons.net/p/zero/1.0/88x31.png", @dataset_incomplete.data.latest_version.license.icon_uri
   end
 
   test "dataset incomplete with no data_file in some files" do
@@ -219,6 +231,9 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "Social Sciences", @dataset_incomplete.subjects
     assert_equal "doi:10.5072/FK2/LLIZ6Q", @dataset_incomplete.data.latest_version.dataset_persistent_id
     assert_equal "Open Source at Harvard", @dataset_incomplete.metadata_field('title')
+    assert_equal "2025-04-04", @dataset_incomplete.data.publication_date
+    assert_equal "CC0 1.0", @dataset_incomplete.data.latest_version.license.name
+    assert_equal "https://licensebuttons.net/p/zero/1.0/88x31.png", @dataset_incomplete.data.latest_version.license.icon_uri
   end
 
   test "dataset incomplete with no files" do
@@ -232,6 +247,9 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "Social Sciences", @dataset_incomplete.subjects
     assert_equal "doi:10.5072/FK2/LLIZ6Q", @dataset_incomplete.data.latest_version.dataset_persistent_id
     assert_equal "Open Source at Harvard", @dataset_incomplete.metadata_field('title')
+    assert_equal "2025-04-04", @dataset_incomplete.data.publication_date
+    assert_equal "CC0 1.0", @dataset_incomplete.data.latest_version.license.name
+    assert_equal "https://licensebuttons.net/p/zero/1.0/88x31.png", @dataset_incomplete.data.latest_version.license.icon_uri
   end
 
 end
