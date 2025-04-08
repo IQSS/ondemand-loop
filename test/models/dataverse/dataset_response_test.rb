@@ -150,6 +150,8 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal 5, version.files.size
     version.files.each { |file| assert_instance_of Dataverse::DatasetResponse::Data::Version::DatasetFile, file }
 
+    assert_equal "Doe, John", @dataset_multiple_files.authors
+
     file = version.files.first
     assert_equal "2019-02-25.tab", file.label
     assert_equal "data", file.directory_label
@@ -175,24 +177,36 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_version.json'))
     @dataset_incomplete = Dataverse::DatasetResponse.new(json)
     assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
+    files = @dataset_incomplete.files_by_ids([86,87,88,89,90])
+    assert_equal 0, files.size
+    assert_equal "", @dataset_incomplete.authors
   end
 
   test "dataset incomplete with no metadata blocks" do
     json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_metadata_blocks.json'))
     @dataset_incomplete = Dataverse::DatasetResponse.new(json)
     assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
+    files = @dataset_incomplete.files_by_ids([86,87,88,89,90])
+    assert_equal 5, files.size
+    assert_equal "", @dataset_incomplete.authors
   end
 
   test "dataset incomplete with no data_file in some files" do
     json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_data_file.json'))
     @dataset_incomplete = Dataverse::DatasetResponse.new(json)
     assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
+    files = @dataset_incomplete.files_by_ids([86,87,88,89,90])
+    assert_equal 3, files.size
+    assert_equal "Doe, John", @dataset_incomplete.authors
   end
 
   test "dataset incomplete with no files" do
     json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_files.json'))
     @dataset_incomplete = Dataverse::DatasetResponse.new(json)
     assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
+    files = @dataset_incomplete.files_by_ids([86,87,88,89,90])
+    assert_equal 0, files.size
+    assert_equal "Doe, John", @dataset_incomplete.authors
   end
 
 end

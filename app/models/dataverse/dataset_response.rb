@@ -24,7 +24,12 @@ module Dataverse
     end
 
     def authors
-      metadata_field("author").map { |a| a[:authorName][:value] }.join(" | ")
+      authors = metadata_field("author")
+      return "" if authors.nil?
+      authors.map do |author|
+        author_name = author[:authorName] || {}
+        author_name[:value].to_s
+      end.join(" | ")
     end
 
     def description
