@@ -152,6 +152,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
 
     assert_equal "Doe, John", @dataset_multiple_files.authors
     assert_match /The tabular file contains information on known/, @dataset_multiple_files.description
+    assert_equal "Social Sciences", @dataset_multiple_files.subjects
 
     file = version.files.first
     assert_equal "2019-02-25.tab", file.label
@@ -172,6 +173,9 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_license.json'))
     @dataset_incomplete = Dataverse::DatasetResponse.new(json)
     assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
+    assert_equal "Doe, John", @dataset_incomplete.authors
+    assert_match /The tabular file contains information on known/, @dataset_incomplete.description
+    assert_equal "Social Sciences", @dataset_incomplete.subjects
   end
 
   test "dataset incomplete with no latest_version" do
@@ -182,6 +186,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal 0, files.size
     assert_equal "", @dataset_incomplete.authors
     assert_equal "", @dataset_incomplete.description
+    assert_equal "", @dataset_incomplete.subjects
   end
 
   test "dataset incomplete with no metadata blocks" do
@@ -192,6 +197,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal 5, files.size
     assert_equal "", @dataset_incomplete.authors
     assert_equal "", @dataset_incomplete.description
+    assert_equal "", @dataset_incomplete.subjects
   end
 
   test "dataset incomplete with no data_file in some files" do
@@ -202,6 +208,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal 3, files.size
     assert_equal "Doe, John", @dataset_incomplete.authors
     assert_match /The tabular file contains information on known/, @dataset_incomplete.description
+    assert_equal "Social Sciences", @dataset_incomplete.subjects
   end
 
   test "dataset incomplete with no files" do
@@ -212,6 +219,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal 0, files.size
     assert_equal "Doe, John", @dataset_incomplete.authors
     assert_match /The tabular file contains information on known/, @dataset_incomplete.description
+    assert_equal "Social Sciences", @dataset_incomplete.subjects
   end
 
 end

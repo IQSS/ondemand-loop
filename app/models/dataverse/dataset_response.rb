@@ -42,7 +42,9 @@ module Dataverse
     end
 
     def subjects
-      metadata_field("subject").join(", ")
+      subjects = metadata_field("subject")
+      return "" if subjects.nil?
+      subjects.join(", ")
     end
 
     class Data
