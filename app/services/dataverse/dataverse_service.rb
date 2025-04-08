@@ -18,8 +18,6 @@ module Dataverse
       url = @dataverse_url + "/api/datasets/:persistentId/?persistentId=#{persistent_id}"
       url = URI.parse(url)
       response = Net::HTTP.get_response(url)
-      puts response.body
-      puts response.code
       return nil if response.is_a?(Net::HTTPNotFound)
       raise "Error getting dataset: #{response.code} - #{response.body}" unless response.is_a?(Net::HTTPSuccess)
       DatasetResponse.new(response.body)
