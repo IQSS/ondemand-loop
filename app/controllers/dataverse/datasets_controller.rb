@@ -51,7 +51,7 @@ class Dataverse::DatasetsController < ApplicationController
     begin
       @dataset = @service.find_dataset_by_persistent_id(@persistent_id)
       unless @dataset
-        log_error('Dataset not found.', {dataverse: @dataverse_url, persistent_id: @persistent_id}, e)
+        log_error('Dataset not found.', {dataverse: @dataverse_url, persistent_id: @persistent_id})
         flash[:error] = "Dataset not found. Dataverse: #{@dataverse_url} persistentId: #{@persistent_id}"
         redirect_to downloads_path
         return
