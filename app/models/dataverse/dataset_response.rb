@@ -33,7 +33,12 @@ module Dataverse
     end
 
     def description
-      metadata_field("dsDescription").map { |a| a[:dsDescriptionValue][:value] }.join(" ")
+      descriptions = metadata_field("dsDescription")
+      return "" if descriptions.nil?
+      descriptions.map do |desc|
+        description_value = desc[:dsDescriptionValue] ||{}
+        description_value[:value].to_s
+      end.join(" ")
     end
 
     def subjects

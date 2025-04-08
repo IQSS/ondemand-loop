@@ -151,6 +151,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     version.files.each { |file| assert_instance_of Dataverse::DatasetResponse::Data::Version::DatasetFile, file }
 
     assert_equal "Doe, John", @dataset_multiple_files.authors
+    assert_match /The tabular file contains information on known/, @dataset_multiple_files.description
 
     file = version.files.first
     assert_equal "2019-02-25.tab", file.label
@@ -180,6 +181,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     files = @dataset_incomplete.files_by_ids([86,87,88,89,90])
     assert_equal 0, files.size
     assert_equal "", @dataset_incomplete.authors
+    assert_equal "", @dataset_incomplete.description
   end
 
   test "dataset incomplete with no metadata blocks" do
@@ -189,6 +191,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     files = @dataset_incomplete.files_by_ids([86,87,88,89,90])
     assert_equal 5, files.size
     assert_equal "", @dataset_incomplete.authors
+    assert_equal "", @dataset_incomplete.description
   end
 
   test "dataset incomplete with no data_file in some files" do
@@ -198,6 +201,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     files = @dataset_incomplete.files_by_ids([86,87,88,89,90])
     assert_equal 3, files.size
     assert_equal "Doe, John", @dataset_incomplete.authors
+    assert_match /The tabular file contains information on known/, @dataset_incomplete.description
   end
 
   test "dataset incomplete with no files" do
@@ -207,6 +211,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     files = @dataset_incomplete.files_by_ids([86,87,88,89,90])
     assert_equal 0, files.size
     assert_equal "Doe, John", @dataset_incomplete.authors
+    assert_match /The tabular file contains information on known/, @dataset_incomplete.description
   end
 
 end
