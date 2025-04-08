@@ -3,12 +3,9 @@ require "test_helper"
 class DownloadsControllerTest < ActionDispatch::IntegrationTest
 
   def setup
-    skip "For David"
     @tmp_dir = Dir.mktmpdir
     DownloadCollection.stubs(:metadata_root_directory).returns(@tmp_dir)
     DownloadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
-    Rake.application.rake_require("tasks/populate")
-    Rake::Task.define_task(:environment)
   end
 
   def teardown
@@ -22,11 +19,28 @@ class DownloadsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index on disk with data" do
-    task = Rake::Task["dev:populate"]
-    task.invoke
+    populate
     get downloads_url
     assert_response :success
     assert_select "div.col-md-9 > div.row", count: 1
-    assert_select "div.col-md-9 > div.row > div.card > div.card", count: 4
+    assert_select "div.col-md-9 > div.row > div.card > div.card", count: 5
+  end
+
+  private
+
+  def populate
+    valid_json = load_file_fixture(File.join('dataverse', 'dataset_response', 'valid_response_multiple_files.json'))
+    dataset = Dataverse::DatasetResponse.new(valid_json)
+    file_ids = [86,87,88,89,90]
+
+    parsed_url = URI.parse("http://localhost:3000")
+    service = Dataverse::DataverseService.new(parsed_url.to_s)
+    download_collection = service.initialize_download_collection(dataset)
+    download_collection.save
+
+    files = service.initialize_download_files(download_collection, dataset, file_ids)
+    files.each do |download_file|
+      download_file.save
+    end
   end
 end
