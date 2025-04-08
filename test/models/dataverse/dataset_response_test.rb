@@ -139,9 +139,16 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "image/png", files.first.data_file.content_type
   end
 
+  test "files method" do
+    files = @dataset.files_by_ids([1,2,3,4,5,6,7,8,9,10])
+    assert_equal files, @dataset.files
+    assert_equal 1, files.size
+  end
+
   test "dataset with multiple files" do
     valid_json = load_file_fixture(File.join('dataverse', 'dataset_response', 'valid_response_multiple_files.json'))
     @dataset_multiple_files = Dataverse::DatasetResponse.new(valid_json)
+    assert_equal 5, @dataset_multiple_files.files.size
     files = @dataset_multiple_files.files_by_ids([86,87,88,89,90])
     assert_equal 5, files.size
 
@@ -192,6 +199,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_version.json'))
     @dataset_incomplete = Dataverse::DatasetResponse.new(json)
     assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
+    assert_equal 0, @dataset_incomplete.files.count
     files = @dataset_incomplete.files_by_ids([86,87,88,89,90])
     assert_equal 0, files.size
     assert_equal "", @dataset_incomplete.authors
@@ -204,10 +212,28 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_nil @dataset_incomplete.data.latest_version.license.icon_uri
   end
 
+  test "dataset incomplete with no data" do
+    json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_data.json'))
+    @dataset_incomplete = Dataverse::DatasetResponse.new(json)
+    assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
+    assert_equal 0, @dataset_incomplete.files.count
+    files = @dataset_incomplete.files_by_ids([86,87,88,89,90])
+    assert_equal 0, files.size
+    assert_equal "", @dataset_incomplete.authors
+    assert_equal "", @dataset_incomplete.description
+    assert_equal "", @dataset_incomplete.subjects
+    assert_nil @dataset_incomplete.data.latest_version.dataset_persistent_id
+    assert_nil @dataset_incomplete.metadata_field('title')
+    assert_nil @dataset_incomplete.data.publication_date
+    assert_nil @dataset_incomplete.data.latest_version.license.name
+    assert_nil @dataset_incomplete.data.latest_version.license.icon_uri
+  end
+
   test "dataset incomplete with no metadata blocks" do
     json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_metadata_blocks.json'))
     @dataset_incomplete = Dataverse::DatasetResponse.new(json)
     assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
+    assert_equal 5, @dataset_incomplete.files.count
     files = @dataset_incomplete.files_by_ids([86,87,88,89,90])
     assert_equal 5, files.size
     assert_equal "", @dataset_incomplete.authors
@@ -224,6 +250,7 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_data_file.json'))
     @dataset_incomplete = Dataverse::DatasetResponse.new(json)
     assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
+    assert_equal 5, @dataset_incomplete.files.count
     files = @dataset_incomplete.files_by_ids([86,87,88,89,90])
     assert_equal 3, files.size
     assert_equal "Doe, John", @dataset_incomplete.authors
@@ -234,12 +261,27 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "2025-04-04", @dataset_incomplete.data.publication_date
     assert_equal "CC0 1.0", @dataset_incomplete.data.latest_version.license.name
     assert_equal "https://licensebuttons.net/p/zero/1.0/88x31.png", @dataset_incomplete.data.latest_version.license.icon_uri
+    file = @dataset_incomplete.files.first
+    assert_equal "2019-02-25.tab", file.label
+    assert_equal "data", file.directory_label
+    refute file.restricted
+    assert_instance_of Dataverse::DatasetResponse::Data::Version::DatasetFile::DataFile, file.data_file
+    data_file = file.data_file
+    assert_nil data_file.id
+    assert_nil data_file.filename
+    assert_nil data_file.publication_date
+    assert_nil data_file.storage_identifier
+    assert_nil data_file.content_type
+    assert_nil data_file.filesize
+    assert_nil data_file.md5
+    assert_nil data_file.friendly_type
   end
 
   test "dataset incomplete with no files" do
     json = load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_files.json'))
     @dataset_incomplete = Dataverse::DatasetResponse.new(json)
     assert_instance_of Dataverse::DatasetResponse, @dataset_incomplete
+    assert_equal 0, @dataset_incomplete.files.count
     files = @dataset_incomplete.files_by_ids([86,87,88,89,90])
     assert_equal 0, files.size
     assert_equal "Doe, John", @dataset_incomplete.authors

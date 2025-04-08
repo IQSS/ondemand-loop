@@ -12,10 +12,14 @@ module Dataverse
       @data = Data.new(parsed[:data])
     end
 
+    def files
+      data.latest_version.files || []
+    end
+
     def files_by_ids(ids)
       ids = Array(ids)
       ids = ids.map { |id| id.to_i }
-      data.latest_version.files.select { |f| ids.include?(f.data_file.id.to_i) }
+      files.select { |f| ids.include?(f.data_file.id.to_i) }
     end
 
     def metadata_field(field_name)

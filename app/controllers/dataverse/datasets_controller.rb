@@ -6,7 +6,7 @@ class Dataverse::DatasetsController < ApplicationController
   before_action :find_dataset_by_persistent_id
 
   def show
-    @files = @dataset.data.latest_version.files
+    @files = @dataset.files
   end
 
   def download
