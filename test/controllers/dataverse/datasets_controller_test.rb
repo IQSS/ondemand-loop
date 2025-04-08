@@ -31,7 +31,7 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_metadata_blocks.json'))
   end
 
-  test "should redirect to root path after not finding a dataverse_metadata" do
+  test "should redirect to root path after not finding a dataverse host" do
     get view_dataverse_dataset_url("random", "random_id")
     assert_redirected_to downloads_path
     assert_equal "Dataverse service error. Dataverse: https://random persistentId: random_id", flash[:error]
@@ -42,6 +42,13 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     get view_dataverse_dataset_url(@new_id, "random_id")
     assert_redirected_to downloads_path
     assert_equal "Dataset not found. Dataverse: https://#{@new_id} persistentId: random_id", flash[:error]
+  end
+
+  test "should redirect to root path after raising exception" do
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).raises("error")
+    get view_dataverse_dataset_url(@new_id, "random_id")
+    assert_redirected_to downloads_path
+    assert_equal "Dataverse service error. Dataverse: https://#{@new_id} persistentId: random_id", flash[:error]
   end
 
   test "should display the dataset view with the file" do
