@@ -2,7 +2,7 @@
   <div class="card-header">Dataset</div>
   <div class="list-group list-group-flush">
     <span class="list-group-item list-group-item-action">
-       <b><%= dataset.metadata_field('title') %></b>
+       <b><%= dataset.metadata_field('title').to_s %></b>
     </span>
     <span class="list-group-item list-group-item-action">
        <%= dataset.data.latest_version.dataset_persistent_id %>
