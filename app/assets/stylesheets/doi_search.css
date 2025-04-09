@@ -1,0 +1,31 @@
+#doi-search-container {
+    .center-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 50vh;
+        text-align: center;
+    }
+
+    .doi-input {
+    }
+
+    .lookup-btn {
+        margin-top: 10px;
+        width: 300px;
+    }
+
+    .lookup-btn img {
+        max-height: 30px;
+    }
+
+    form {
+        width: 100%;
+    }
+
+    .logo {
+        max-width: 150px;
+        margin-bottom: 20px;
+    }
+}
