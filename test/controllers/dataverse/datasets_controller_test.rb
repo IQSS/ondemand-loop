@@ -32,6 +32,7 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect to root path after not finding a dataverse host" do
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).raises("error")
     get view_dataverse_dataset_url("random", "random_id")
     assert_redirected_to downloads_path
     assert_equal "Dataverse service error. Dataverse: https://random persistentId: random_id", flash[:error]
@@ -91,9 +92,11 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[type=checkbox][name='file_ids[]']", 5
   end
 
-  test "should display demo.dataverse.org pages" do
+  test "controller should handle demo.dataverse.org routes" do
+    dataset = Dataverse::DatasetResponse.new(incomplete_json_no_metadata_blocks)
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).returns(dataset)
     get "/view/dataverse/demo.dataverse.org/datasets/doi:10.70122/FK2/VWERU3"
     assert_response :success
-    assert_select "input[type=checkbox][name='file_ids[]']", 1 # One file is displayed on the view
+    assert_select "input[type=checkbox][name='file_ids[]']", 5
   end
 end
