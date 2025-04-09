@@ -21,7 +21,7 @@ class DoiSearchController < ApplicationController
       return
     end
 
-    doi_resolver = Doi::DoiResolver.new(DoiResolversRegistry.resolvers)
+    doi_resolver = Doi::DoiResolverService.new(DoiResolversRegistry.resolvers)
     doi_info = doi_resolver.resolve(doi, object_url)
 
     #TODO: This needs to be handled by a connector specific class
