@@ -92,10 +92,10 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[type=checkbox][name='file_ids[]']", 5
   end
 
-  test "controller should handle demo.dataverse.org routes" do
+  test "controller should handle domain routes" do
     dataset = Dataverse::DatasetResponse.new(incomplete_json_no_metadata_blocks)
     Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).returns(dataset)
-    get "/view/dataverse/demo.dataverse.org/datasets/doi:10.70122/FK2/VWERU3"
+    get view_dataverse_dataset_url("demo.dataverse.org", "doi:10.70122/FK2/VWERU3")
     assert_response :success
     assert_select "input[type=checkbox][name='file_ids[]']", 5
   end
