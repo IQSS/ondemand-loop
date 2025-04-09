@@ -1,5 +1,5 @@
 module Doi
-  # Doi::DoiResolver
+  # Doi::DoiResolverService
   #
   # This class is responsible for processing the resolution of a DOI. It loops through
   # the available resolvers in the registry and attempts to resolve the DOI using each
@@ -9,7 +9,7 @@ module Doi
   # Methods:
   # - `resolve`: Iterates through all registered resolvers, passing the DOI and context,
   #   and invokes the first resolver that successfully resolves the DOI.
-  class DoiResolver
+  class DoiResolverService
     def initialize(resolvers)
       @resolvers = resolvers
     end
