@@ -89,18 +89,40 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "PNG Image", data_file.friendly_type
   end
 
-  test "empty json is invalid" do
+  test "empty json does not throw exception" do
     @invalid_dataset = Dataverse::DatasetResponse.new(empty_json)
     assert_instance_of Dataverse::DatasetResponse, @invalid_dataset
+    assert_equal 0, @invalid_dataset.files.count
+    files = @invalid_dataset.files_by_ids([86,87,88,89,90])
+    assert_equal 0, files.size
+    assert_equal "", @invalid_dataset.authors
+    assert_equal "", @invalid_dataset.description
+    assert_equal "", @invalid_dataset.subjects
+    assert_nil @invalid_dataset.data.latest_version.dataset_persistent_id
+    assert_nil @invalid_dataset.metadata_field('title')
+    assert_nil @invalid_dataset.data.publication_date
+    assert_nil @invalid_dataset.data.latest_version.license.name
+    assert_nil @invalid_dataset.data.latest_version.license.icon_uri
   end
 
   test "empty string raises JSON::ParserError" do
     assert_raises(JSON::ParserError) { Dataverse::DatasetResponse.new(empty_string) }
   end
 
-  test "incomplete json is invalid" do
+  test "incomplete json does not throw exception" do
     @invalid_dataset = Dataverse::DatasetResponse.new(incomplete_json_body)
     assert_instance_of Dataverse::DatasetResponse, @invalid_dataset
+    assert_equal 0, @invalid_dataset.files.count
+    files = @invalid_dataset.files_by_ids([86,87,88,89,90])
+    assert_equal 0, files.size
+    assert_equal "", @invalid_dataset.authors
+    assert_equal "", @invalid_dataset.description
+    assert_equal "", @invalid_dataset.subjects
+    assert_nil @invalid_dataset.data.latest_version.dataset_persistent_id
+    assert_nil @invalid_dataset.metadata_field('title')
+    assert_equal "2025-01-23", @invalid_dataset.data.publication_date
+    assert_nil @invalid_dataset.data.latest_version.license.name
+    assert_nil @invalid_dataset.data.latest_version.license.icon_uri
   end
 
   test "find files matches one file" do
