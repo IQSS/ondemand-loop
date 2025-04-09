@@ -13,12 +13,14 @@ class DownloadsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index on empty disk" do
+    DetachProcess.any_instance.stubs(:start_process).returns(true)
     get downloads_url
     assert_response :success
     assert_select "div.col-md-9 > div.row", count: 0
   end
 
   test "should get index on disk with data" do
+    DetachProcess.any_instance.stubs(:start_process).returns(true)
     populate
     get downloads_url
     assert_response :success
