@@ -15,7 +15,7 @@ module Common
   #
   # Constructor:
   # - `initialize(base_url:, open_timeout: 5, read_timeout: 10, proxy: nil)`
-  #   - `base_url`: The base URL to be used for all HTTP requests. This is a required parameter.
+  #   - `base_url`: The base URL to be used for all HTTP requests. This is an optional parameter.
   #   - `open_timeout`: The connection timeout in seconds (default is 5 seconds).
   #   - `read_timeout`: The read timeout in seconds (default is 10 seconds).
   #   - `proxy`: An optional hash with the proxy server settings:
@@ -25,11 +25,11 @@ module Common
   #       - `:password`: Proxy password (optional)
   #
   # Methods:
-  # - `get(relative_url, params = {}, headers = {}, follow_redirects = false)`: Makes a GET request to the provided relative URL,
+  # - `get(path, params = {}, headers = {}, follow_redirects = false)`: Makes a GET request to the path adding the base_url if provided,
   #   optionally accepting request parameters and headers.
-  # - `post(relative_url, params = {}, body, headers = {})`: Makes a POST request to the provided relative URL
+  # - `post(path, params = {}, body, headers = {})`: Makes a POST request to the provided path adding the base_url if provided,
   #   with the given request parameters, body payload and optional headers.
-  # - `head(relative_url, params = {}, headers = {})`: Makes a HEAD request to the provided relative URL,
+  # - `head(path, params = {}, headers = {})`: Makes a HEAD request to the path adding the base_url if provided,
   #   optionally accepting request parameters and headers.
   #
   # Example usage:
