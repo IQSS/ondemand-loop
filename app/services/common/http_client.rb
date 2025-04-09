@@ -67,7 +67,7 @@ module Common
       end
 
       def json
-        JSON.parse(response.body)
+        JSON.parse(body)
       end
 
       def redirect?
