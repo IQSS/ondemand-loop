@@ -1,6 +1,5 @@
 require 'dotenv'
 class ConfigurationSingleton
-
   def initialize
     load_dotenv_files
     add_boolean_configs
@@ -13,10 +12,11 @@ class ConfigurationSingleton
 
   def string_configs
     {
-      :metadata_root => File.join(Dir.home, ".downloads-for-ondemand"),
-      :download_root => File.join(Dir.home, "downloads-ondemand"),
-      :ruby_binary => '/usr/local/bin/ruby',
-      :connector_status_poll_interval => '10000',
+      metadata_root: File.join(Dir.home, '.downloads-for-ondemand'),
+      download_root: File.join(Dir.home, 'downloads-ondemand'),
+      ruby_binary: File.join(RbConfig::CONFIG['bindir'], 'ruby'),
+      files_app_path: '/pun/sys/dashboard/files/fs',
+      connector_status_poll_interval: '45000'
     }.freeze
   end
 
@@ -24,8 +24,12 @@ class ConfigurationSingleton
     @config ||= read_config
   end
 
+  def connector_config(connector_type)
+    config.fetch(connector_type.to_sym, {})
+  end
+
   def rails_env
-    ENV['RAILS_ENV'] || ENV['RACK_ENV'] || "development"
+    ENV['RAILS_ENV'] || ENV['RACK_ENV'] || 'development'
   end
 
   private
@@ -39,38 +43,38 @@ class ConfigurationSingleton
   end
 
   def app_root
-    Pathname.new(File.expand_path("../../",  __FILE__))
+    Pathname.new(File.expand_path('../../',  __FILE__))
   end
 
   def dotenv_local_files
     [
       app_root.join(".env.#{rails_env}.local"),
-      (app_root.join(".env.local") unless rails_env == "test")
+      (app_root.join('.env.local') unless rails_env == 'test')
     ].compact
   end
 
   def dotenv_files
     [
       app_root.join(".env.#{rails_env}"),
-      app_root.join(".env")
+      app_root.join('.env')
     ].compact
   end
 
-  FALSE_VALUES=[nil, false, '', 0, '0', 'f', 'F', 'false', 'FALSE', 'off', 'OFF', 'no', 'NO']
+  FALSE_VALUES=[ nil, false, '', 0, '0', 'f', 'F', 'false', 'FALSE', 'off', 'OFF', 'no', 'NO' ]
 
   def to_bool(value)
     !FALSE_VALUES.include?(value)
   end
 
   def config_directory
-    Pathname.new(ENV['OOD_CONFIG_D_DIRECTORY'] || "/etc/ood/config/ondemand.d")
+    Pathname.new(ENV['OOD_CONFIG_D_DIRECTORY'] || '/etc/ood/config/ondemand.d')
   end
 
   def read_config
-    files = Pathname.glob(config_directory.join("*.{yml,yaml,yml.erb,yaml.erb}"))
+    files = Pathname.glob(config_directory.join('*.{yml,yaml,yml.erb,yaml.erb}'))
     files.sort.each_with_object({}) do |f, conf|
       begin
-        content = ERB.new(f.read, trim_mode: "-").result(binding)
+        content = ERB.new(f.read, trim_mode: '-').result(binding)
         yml = YAML.safe_load(content, aliases: true) || {}
         conf.deep_merge!(yml.deep_symbolize_keys)
       rescue => e

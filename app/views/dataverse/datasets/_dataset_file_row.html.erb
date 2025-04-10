@@ -1,7 +1,15 @@
-<tr>
+<%
+  restrictions_response = verify_file(file)
+  row_classes = restrictions_response.valid? ? '' : 'table-row-disabled'
+%>
+<tr class="<%= row_classes %>" title="<%= restrictions_response.message %>">
   <td>
     <div class="form-check">
-      <%= check_box_tag "file_ids[]", file.data_file.id, false, class: "form-check-input", id: "file_checkbox_#{file.data_file.id}" %>
+      <% if restrictions_response.valid? %>
+        <%= check_box_tag("file_ids[]", file.data_file.id, false, class: "form-check-input", id: "file_checkbox_#{file.data_file.id}") %>
+      <% else %>
+        <i class="fas fa-circle-info"></i>
+      <% end %>
     </div>
   </td>
   <td>

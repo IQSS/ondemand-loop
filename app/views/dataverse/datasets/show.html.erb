@@ -1,3 +1,8 @@
+<%
+  restrictions_response = verify_dataset(@dataset)
+  error_message = restrictions_response.valid? ? nil : restrictions_response.message
+%>
+
 <div class="container-md content mt-4" role="main">
   <%= render partial: 'dataverse/datasets/breadcrumbs', locals: { dataverse_url: @dataverse_url, dataset: @dataset} %>
   <div class="row">
@@ -6,7 +11,7 @@
       <%= render partial: 'dataverse/datasets/dataset_metadata', locals: { dataset: @dataset } %>
     </div>
     <div class="col-md-9">
-      <%= render partial: 'dataverse/datasets/dataset_files', locals: { files: @files, dataverse_url: @dataverse_url, dataset: @dataset} %>
+      <%= render partial: 'dataverse/datasets/dataset_files', locals: { error_message: error_message, files: @files, dataverse_url: @dataverse_url, dataset: @dataset} %>
     </div>
   </div>
 </div>
