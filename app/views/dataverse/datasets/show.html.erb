@@ -1,4 +1,4 @@
-<% validation_result = validate_dataset(@dataset) %>
+<% validation_result = verify_dataset(@dataset) %>
 
 <div class="container-md content mt-4" role="main">
   <%= render partial: 'dataverse/datasets/breadcrumbs', locals: { dataverse_url: @dataverse_url, dataset: @dataset} %>

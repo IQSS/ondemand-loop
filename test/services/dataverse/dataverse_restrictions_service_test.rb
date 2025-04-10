@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class Dataverse::DataverseValidationServiceTest < ActiveSupport::TestCase
+class Dataverse::DataverseRestrictionsServiceTest < ActiveSupport::TestCase
   def setup
     # No specific setup needed for now, we initialize defaults in the tests themselves
   end
@@ -12,7 +12,7 @@ class Dataverse::DataverseValidationServiceTest < ActiveSupport::TestCase
     dataset = mock('dataset')
     dataset.stubs(:files).returns(Array.new(99)) # Less than max_dataset_files
 
-    validation_service = Dataverse::DataverseValidationService.new
+    validation_service = Dataverse::DataverseRestrictionsService.new
     response = validation_service.validate_dataset(dataset)
 
     assert response.valid, 'Dataset should be valid when file count is within the limit'
@@ -24,7 +24,7 @@ class Dataverse::DataverseValidationServiceTest < ActiveSupport::TestCase
     dataset = mock('dataset')
     dataset.stubs(:files).returns(Array.new(101)) # More than max_dataset_files
 
-    validation_service = Dataverse::DataverseValidationService.new
+    validation_service = Dataverse::DataverseRestrictionsService.new
     response = validation_service.validate_dataset(dataset)
 
     assert_not response.valid, 'Dataset should be invalid when file count exceeds the limit'
@@ -38,7 +38,7 @@ class Dataverse::DataverseValidationServiceTest < ActiveSupport::TestCase
     file.stubs(:data_file).returns(data_file)
     data_file.stubs(:filesize).returns(9.gigabytes) # Less than max_file_size
 
-    validation_service = Dataverse::DataverseValidationService.new
+    validation_service = Dataverse::DataverseRestrictionsService.new
     response = validation_service.validate_dataset_file(file)
 
     assert response.valid, 'File should be valid when size is within the limit'
@@ -52,7 +52,7 @@ class Dataverse::DataverseValidationServiceTest < ActiveSupport::TestCase
     file.stubs(:data_file).returns(data_file)
     data_file.stubs(:filesize).returns(11.gigabytes) # More than max_file_size
 
-    validation_service = Dataverse::DataverseValidationService.new
+    validation_service = Dataverse::DataverseRestrictionsService.new
     response = validation_service.validate_dataset_file(file)
 
     assert_not response.valid, 'File should be invalid when size exceeds the limit'
@@ -71,7 +71,7 @@ class Dataverse::DataverseValidationServiceTest < ActiveSupport::TestCase
     file.stubs(:data_file).returns(data_file)
     data_file.stubs(:filesize).returns(6.gigabytes) # More than 5 GB
 
-    validation_service = Dataverse::DataverseValidationService.new(dataverse_restrictions: custom_restrictions)
+    validation_service = Dataverse::DataverseRestrictionsService.new(dataverse_restrictions: custom_restrictions)
     response = validation_service.validate_dataset_file(file)
 
     assert_not response.valid, 'File should be invalid when size exceeds the custom max file size'
@@ -83,7 +83,7 @@ class Dataverse::DataverseValidationServiceTest < ActiveSupport::TestCase
     dataset = mock('dataset')
     dataset.stubs(:files).returns([]) # No files
 
-    validation_service = Dataverse::DataverseValidationService.new
+    validation_service = Dataverse::DataverseRestrictionsService.new
     response = validation_service.validate_dataset(dataset)
 
     assert response.valid, 'Dataset should be valid with no files'

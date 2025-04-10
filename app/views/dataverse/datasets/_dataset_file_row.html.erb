@@ -1,5 +1,5 @@
 <%
-  validation_response = validate_file(file)
+  validation_response = verify_file(file)
   row_classes = validation_response.valid ? '' : 'table-row-disabled'
 %>
 <tr class="<%= row_classes %>" title=" <%= validation_response.message %>">

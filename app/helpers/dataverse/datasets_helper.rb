@@ -26,18 +26,18 @@ module Dataverse::DatasetsHelper
     end
   end
 
-  def validate_dataset(dataset)
-    validation_service.validate_dataset(dataset)
+  def verify_dataset(dataset)
+    retrictions_service.validate_dataset(dataset)
   end
 
-  def validate_file(file)
-    validation_service.validate_dataset_file(file)
+  def verify_file(file)
+    retrictions_service.validate_dataset_file(file)
   end
 
   private
 
-  def validation_service
+  def retrictions_service
     restrictions = Configuration.connector_config(:dataverse)[:restrictions]
-    @validation_service ||= Dataverse::DataverseValidationService.new(dataverse_restrictions: restrictions)
+    @validation_service ||= Dataverse::DataverseRestrictionsService.new(dataverse_restrictions: restrictions)
   end
 end

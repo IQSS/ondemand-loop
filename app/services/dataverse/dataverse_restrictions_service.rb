@@ -3,7 +3,7 @@
 require 'ostruct'
 
 module Dataverse
-  class DataverseValidationService
+  class DataverseRestrictionsService
     attr_reader :dataverse_restrictions
 
     DEFAULT_RESTRICTIONS = {
