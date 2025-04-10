@@ -3,3 +3,8 @@
   color: rgb(255, 255, 255);
   margin-bottom: 2rem;
 };
+
+.table-row-disabled td {
+  color: var(--bs-secondary-color);
+  opacity: 0.5;
+}

@@ -1,3 +1,5 @@
+<% validation_result = validate_dataset(@dataset) %>
+
 <div class="container-md content mt-4" role="main">
   <%= render partial: 'dataverse/datasets/breadcrumbs', locals: { dataverse_url: @dataverse_url, dataset: @dataset} %>
   <div class="row">
@@ -6,7 +8,11 @@
       <%= render partial: 'dataverse/datasets/dataset_metadata', locals: { dataset: @dataset } %>
     </div>
     <div class="col-md-9">
-      <%= render partial: 'dataverse/datasets/dataset_files', locals: { files: @files, dataverse_url: @dataverse_url, dataset: @dataset} %>
+        <% if validation_result.valid %>
+          <%= render partial: 'dataverse/datasets/dataset_files', locals: { files: @files, dataverse_url: @dataverse_url, dataset: @dataset} %>
+        <% else %>
+          <%= validation_result.message %> 
+        <% end %>
     </div>
   </div>
 </div>
