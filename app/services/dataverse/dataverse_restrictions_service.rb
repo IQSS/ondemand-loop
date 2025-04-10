@@ -17,10 +17,10 @@ module Dataverse
     end
 
     def validate_dataset(dataset)
-      response = { valid: true, message: nil }
+      response = { valid?: true, message: nil }
       if dataset.files.size > dataverse_restrictions.max_dataset_files
         response = {
-          valid: false,
+          valid?: false,
           message: "Datasets with more than #{dataverse_restrictions.max_dataset_files} files are not supported"
         }
       end
@@ -29,11 +29,11 @@ module Dataverse
     end
 
     def validate_dataset_file(file)
-      response = { valid: true, message: nil }
+      response = { valid?: true, message: nil }
       if file.data_file.filesize > dataverse_restrictions.max_file_size
         helpers = ActionController::Base.helpers
         response = {
-          valid: false,
+          valid?: false,
           message: "Files bigger than #{helpers.number_to_human_size(dataverse_restrictions.max_file_size)} are not supported"
         }
       end

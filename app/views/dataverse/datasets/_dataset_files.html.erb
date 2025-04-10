@@ -1,8 +1,12 @@
+<%
+  display_files = local_assigns[:error_message].nil? && files.count > 0
+  message = local_assigns[:error_message] || 'The dataset does not contain files to download'
+%>
 <div class="card dataset-header">
   <div class="card-header"><%= pluralize(files.count, 'file') %></div>
-  <% if files.count > 0 %>
+  <% if display_files %>
     <%= form_with url: download_dataverse_dataset_files_path, method: :post, local: true, class: "p-3 rounded bg-light" do %>
-      <%= hidden_field_tag 'dataverse_url', @dataverse_url %>
+      <%= hidden_field_tag 'dataverse_url', dataverse_url %>
       <%= hidden_field_tag 'persistent_id', @persistent_id %>
       <div class="row">
         <table class="table table-bordered table-hover align-middle">
@@ -31,7 +35,7 @@
   <% else %>
     <div class="list-group list-group-flush">
       <span class="list-group-item list-group-item-action">
-        The dataset does not contain files to download
+        <%= message %>
       </span>
     </div>
   <% end %>

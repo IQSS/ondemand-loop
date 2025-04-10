@@ -15,7 +15,7 @@ class Dataverse::DataverseRestrictionsServiceTest < ActiveSupport::TestCase
     validation_service = Dataverse::DataverseRestrictionsService.new
     response = validation_service.validate_dataset(dataset)
 
-    assert response.valid, 'Dataset should be valid when file count is within the limit'
+    assert response.valid?, 'Dataset should be valid when file count is within the limit'
     assert_nil response.message, 'There should be no error message for valid dataset'
   end
 
@@ -27,7 +27,7 @@ class Dataverse::DataverseRestrictionsServiceTest < ActiveSupport::TestCase
     validation_service = Dataverse::DataverseRestrictionsService.new
     response = validation_service.validate_dataset(dataset)
 
-    assert_not response.valid, 'Dataset should be invalid when file count exceeds the limit'
+    assert_not response.valid?, 'Dataset should be invalid when file count exceeds the limit'
     assert_equal response.message, 'Datasets with more than 100 files are not supported', 'Message should indicate the file limit exceeded'
   end
 
@@ -41,7 +41,7 @@ class Dataverse::DataverseRestrictionsServiceTest < ActiveSupport::TestCase
     validation_service = Dataverse::DataverseRestrictionsService.new
     response = validation_service.validate_dataset_file(file)
 
-    assert response.valid, 'File should be valid when size is within the limit'
+    assert response.valid?, 'File should be valid when size is within the limit'
     assert_nil response.message, 'There should be no error message for valid file'
   end
 
@@ -55,7 +55,7 @@ class Dataverse::DataverseRestrictionsServiceTest < ActiveSupport::TestCase
     validation_service = Dataverse::DataverseRestrictionsService.new
     response = validation_service.validate_dataset_file(file)
 
-    assert_not response.valid, 'File should be invalid when size exceeds the limit'
+    assert_not response.valid?, 'File should be invalid when size exceeds the limit'
     assert_equal response.message, 'Files bigger than 10 GB are not supported', 'Message should indicate the file size limit exceeded'
   end
 
@@ -74,7 +74,7 @@ class Dataverse::DataverseRestrictionsServiceTest < ActiveSupport::TestCase
     validation_service = Dataverse::DataverseRestrictionsService.new(dataverse_restrictions: custom_restrictions)
     response = validation_service.validate_dataset_file(file)
 
-    assert_not response.valid, 'File should be invalid when size exceeds the custom max file size'
+    assert_not response.valid?, 'File should be invalid when size exceeds the custom max file size'
     assert_equal response.message, 'Files bigger than 5 GB are not supported', 'Message should indicate the custom file size limit exceeded'
   end
 
@@ -86,7 +86,7 @@ class Dataverse::DataverseRestrictionsServiceTest < ActiveSupport::TestCase
     validation_service = Dataverse::DataverseRestrictionsService.new
     response = validation_service.validate_dataset(dataset)
 
-    assert response.valid, 'Dataset should be valid with no files'
+    assert response.valid?, 'Dataset should be valid with no files'
     assert_nil response.message, 'There should be no error message for empty dataset'
   end
 end
