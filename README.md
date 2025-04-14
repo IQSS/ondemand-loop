@@ -95,7 +95,7 @@ curl --location 'http://localhost:8080/api/admin/externalTools' \
   "types": [
     "explore"
   ],
-  "toolUrl": "http://localhost:3000/integrations/dataverse/external_tool/dataset",
+  "toolUrl": "http://localhost:33000/pun/sys/loop/integrations/dataverse/external_tool/dataset",
   "httpMethod":"GET",
   "toolParameters": {
     "queryParameters": [      
