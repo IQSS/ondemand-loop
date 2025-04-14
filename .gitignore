@@ -6,38 +6,33 @@
 
 # Ignore bundler config.
 /.bundle
+application/.bundle
+application/vendor/bundle
 
 # Ignore all environment files (except templates).
-/.env*
-!/.env*.erb
+/application/.env*
+!/application/.env*.erb
 
 # Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
+/application/log/*
+/application/tmp/*
+!/application/log/.keep
+!/application/tmp/.keep
 
 # Ignore pidfiles, but keep the directory.
-/tmp/pids/*
-!/tmp/pids/
-!/tmp/pids/.keep
+/application/tmp/pids/*
+!/application/tmp/pids/
+!/application/tmp/pids/.keep
 
-# Ignore storage (uploaded files in development and any SQLite databases).
-/storage/*
-!/storage/.keep
-/tmp/storage/*
-!/tmp/storage/
-!/tmp/storage/.keep
-
-/public/assets
+/application/public/assets
 
 # Ignore master key for decrypting credentials and more.
-/config/master.key
+/application/config/master.key
 
 .idea
-/app/assets/builds/*
-!/app/assets/builds/.keep
+/application/app/assets/builds/*
+!/application/app/assets/builds/.keep
 
-/node_modules
+/application/node_modules
 
 /data

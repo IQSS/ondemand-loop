@@ -1,0 +1,21 @@
+<div id="doi-search-container">
+  <div class="container center-container">
+     <%= image_tag "doi_logo.svg", alt: "DOI Logo", class: "logo" %>
+
+    <h1 class="mb-4">
+      <%= image_tag "icon.png", alt: "DOI Logo", height: "80" %>
+      <span class="align-middle">DOI Lookup</span>
+    </h1>
+
+    <%= form_with url: doi_search_post_path, method: :post, local: true, html: {autocomplete: false} do |form| %>
+      <div class="mb-3">
+        <%= form.text_field :doi, class: "form-control doi-input", placeholder: "Enter DOI..." %>
+      </div>
+      <div>
+        <%= button_tag type: "submit", class: "btn btn-primary lookup-btn" do %>
+          <span class="">Search</span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

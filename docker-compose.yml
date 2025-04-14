@@ -1,16 +1,35 @@
-
 services:
-  app:
-    build: .
-    container_name: oodd_dev
-    restart: always
-    volumes:
-      - .:/app
-      - ./data/metadata:/root/.downloads-for-ondemand
-      - ./data/downloads:/root/downloads-ondemand
+  smtp:
+    hostname: smtp
+    container_name: passenger_loop_smtp
+    image: maildev/maildev:2.0.5
+    restart: on-failure
     ports:
-      - "3000:3000"
+      - "35000:1080" # web ui
     environment:
-      RAILS_ENV: development
-    stdin_open: true
-    tty: true
+      - MAILDEV_SMTP_PORT=25
+      - MAILDEV_MAIL_DIRECTORY=/mail
+      #- MAILDEV_INCOMING_USER=smtp
+      #- MAILDEV_INCOMING_PASS=password
+    tmpfs:
+      - /mail:mode=770,size=128M,uid=1000,gid=1000
+  
+  ood:
+    image: ${OOD_IMAGE}
+    hostname: localhost
+    container_name: passenger_loop_ood
+    privileged: true
+    cgroup: host
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+      - ./data/ood:/home/ood/ondemand/data
+      - ./data/metadata:/home/ood/.downloads-for-ondemand
+      - ./data/downloads:/home/ood/downloads-ondemand
+      - ./application:/var/www/ood/apps/sys/loop
+      - ./docker/loop.conf:/var/lib/ondemand-nginx/config/apps/sys/loop.conf
+    ports:
+      - "33000:443"
+    expose:
+      - "8080"
+      - "80"
+      - "443"

@@ -1,0 +1,19 @@
+<% if @download_collections.empty? %>
+  There are currently no downloads
+<% else %>
+  <% @download_collections.each do |collection| %>
+    <div class="row">
+      <div class="card dataset-header">
+        <div class="card-header">
+          <%= link_to(files_app_url(collection.download_dir), class: 'btn btn-outline-light', target: '_blank') do %>
+            <i class="fa fa-folder"></i>
+          <% end %>
+          <%= collection.name %> (<%= collection.id %>)
+        </div>
+        <% collection.files.each do |file| %>
+          <%= render partial: 'download_file', locals: {file: file} %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

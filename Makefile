@@ -1,48 +1,40 @@
-# Define default compose command
+all:: loop_up
+.PHONY: loop_up loop_down loop_build loop_docker_builder logs bash test
+
 COMPOSE_CMD = docker compose
+OOD_UID := $(shell id -u)
+OOD_GID := $(shell id -g)
+OOD_IMAGE := hmdc/sid-ood:ood-3.1.7.el8
+LOOP_BUILDER_IMAGE := hmdc/ondemand-loop:builder-R3.1
+WORKING_DIR := $(shell pwd)
 
-.PHONY: up down build restart install server prod_server logs bash console tests
+ENV := env OOD_IMAGE=$(OOD_IMAGE) OOD_UID=$(OOD_UID) OOD_GID=$(OOD_GID)
 
-# Start the container in the background
-up:
-	$(COMPOSE_CMD) up -d
+loop_up: loop_down
+	$(ENV) $(COMPOSE_CMD) -p loop_passenger up --build || :
 
-# Stop the container
-down:
-	$(COMPOSE_CMD) down
+loop_down:
+	$(ENV) $(COMPOSE_CMD) -p loop_passenger down -v || :
 
-# Build or rebuild the container
-docker:
-	$(COMPOSE_CMD) build
+loop_build:
+	docker run --rm -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app $(LOOP_BUILDER_IMAGE) /usr/local/scripts/loop_build.sh
 
-# Restart the container
-restart: down up
+loop_docker_builder:
+	docker build --platform=linux/amd64 --build-arg RUBY_VERSION=ruby:3.1 -t $(LOOP_BUILDER_IMAGE) -f docker/Dockerfile.builder .
 
-# Install dependencies with bundle install
-install: up
-	$(COMPOSE_CMD) exec app bundle install
-	$(COMPOSE_CMD) exec app rails assets:precompile
-
-# Start Rails server
-server: up
-	$(COMPOSE_CMD) exec app rails server -b 0.0.0.0
-
-# Start Rails server in production mode
-prod_server: up
-	$(COMPOSE_CMD) exec app rails server -e production -b 0.0.0.0
+clean:
+	rm -rf ./application/node_modules
+	rm -rf ./application/vendor/bundle
+	rm -rf ./application/public/assets
 
 # Show logs for the app container
-logs: up
-	$(COMPOSE_CMD) exec app tail -f log/development.log
+logs:
+	docker exec -it passenger_loop_ood tail -f /var/log/ondemand-nginx/ood/error.log
 
 # Open a bash shell in the Rails app container
-bash: up
-	$(COMPOSE_CMD) exec app bash
+bash:
+	docker exec -it passenger_loop_ood /bin/bash
 
-# Open a Rails Console in the app container
-console: up
-	$(COMPOSE_CMD) exec app rails console
+test: clean
+	docker run --rm -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app $(LOOP_BUILDER_IMAGE) /usr/local/scripts/loop_test.sh
 
-# Run tests
-tests: up
-	$(COMPOSE_CMD) exec app bundle exec rails test
