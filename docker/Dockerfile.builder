@@ -19,6 +19,7 @@ RUN dnf update -y && \
         zlib-devel \
         libxml2-devel \
         libxslt-devel \
+        xz \
         nc
 RUN dnf clean all && rm -rf /var/cache/dnf/*
 RUN gem install rake
