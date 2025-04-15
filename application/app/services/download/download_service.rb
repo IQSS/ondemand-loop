@@ -31,7 +31,9 @@ module Download
     def process
       while true
         files = files_provider.pending_files
+        in_progress = files_provider.processing_files
         stats[:pending] = files.length
+        stats[:progress] = in_progress.length
 
         log_info('Processing', {pid: process_id, elapsed_time: elapsed_time, stats: stats_to_s})
         batch = files.first(1)
@@ -57,7 +59,7 @@ module Download
     end
 
     def stats_to_s
-      "pending=#{stats[:pending]} completed=#{stats[:completed]}"
+      "in_progress=#{stats[:progress]} pending=#{stats[:pending]} completed=#{stats[:completed]}"
     end
 
     def lock_file

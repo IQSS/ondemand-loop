@@ -9,4 +9,8 @@ class DownloadFilesProviderMock
   def pending_files
     @files[@from..-1].tap { @from += 1 }
   end
+
+  def processing_files
+    []
+  end
 end
