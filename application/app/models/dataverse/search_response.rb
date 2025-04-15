@@ -13,15 +13,12 @@ module Dataverse
       attr_reader :q, :total_count, :start, :items, :facets, :count_in_response, :total_count_per_object_type
 
       def initialize(data)
+        puts data.inspect
         data = data || {}
         @q = data[:q]
         @total_count = data[:total_count]
         @start = data[:start]
-        @items = (data[:items] || []).map do |item|
-          return DatasetItem.new(item) if item[:type] == 'dataset'
-          return DataverseItem.new(item) if item[:type] == 'dataverse'
-          nil
-        end.compact
+        @items = (data[:items] || []).map { |item| item[:type] == 'dataset' ? DatasetItem.new(item) : DataverseItem.new(item) }
         #@facets = data[:facets]
         @count_in_response = data[:count_in_response]
         #@total_count_per_object_type = data[:total_count_per_object_type]
