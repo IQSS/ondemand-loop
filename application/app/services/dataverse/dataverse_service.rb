@@ -29,7 +29,7 @@ module Dataverse
       response = Net::HTTP.get_response(url)
       return nil if response.is_a?(Net::HTTPNotFound)
       raise "Error getting dataverse: #{response.code} - #{response.body}" unless response.is_a?(Net::HTTPSuccess)
-      response.body
+      DataverseResponse.new(response.body)
     end
 
     def search_dataverse_items(dataverse_id)

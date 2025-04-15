@@ -9,11 +9,5 @@
     <li class="breadcrumb-item">
       <%= link_to dataverse_url, view_root_dataverse_path(URI.parse(@dataverse_url).hostname, {dv_port: params[:dv_port], dv_scheme: params[:dv_scheme]}) %>
     </li>
-    <li class="breadcrumb-item">
-      <a aria-current="page">Datasets</a>
-    </li>
-    <li class="breadcrumb-item active">
-      <a aria-current="page"><%= dataset.data.latest_version.dataset_persistent_id %></a>
-    </li>
   </ol>
 </nav>
