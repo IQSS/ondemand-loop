@@ -54,7 +54,21 @@ module Dataverse
       end
 
       class DataverseItem
+        attr_reader :name, :type, :url, :identifier, :published_at, :publication_statuses, :affiliation
+        attr_reader :parent_dataverse_name, :parent_dataverse_identifier
 
+        def initialize(item)
+          item = item || {}
+          @name = item[:name]
+          @type = item[:type]
+          @url = item[:url]
+          @identifier = item[:identifier]
+          @published_at = item[:published_at]
+          #@publication_statuses = item[:publicationStatuses]
+          @affiliation = item[:affiliation]
+          @parent_dataverse_name = item[:parentDataverseName]
+          @parent_dataverse_identifier = item[:parentDataverseIdentifier]
+        end
       end
     end
   end
