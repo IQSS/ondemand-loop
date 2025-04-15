@@ -23,6 +23,15 @@ module Dataverse
       DatasetResponse.new(response.body)
     end
 
+    def find_dataverse_by_id(id)
+      url = @dataverse_url + "/api/dataverses/#{id}"
+      url = URI.parse(url)
+      response = Net::HTTP.get_response(url)
+      return nil if response.is_a?(Net::HTTPNotFound)
+      raise "Error getting dataverse: #{response.code} - #{response.body}" unless response.is_a?(Net::HTTPSuccess)
+      response.body
+    end
+
     def initialize_download_collection(dataset)
       DownloadCollection.new(name: "#{@dataverse_url} Dataverse selection from #{dataset.data.identifier}")
     end
