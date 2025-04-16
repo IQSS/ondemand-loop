@@ -32,14 +32,13 @@ module Dataverse
       DataverseResponse.new(response.body)
     end
 
-    def search_dataverse_items(dataverse_id)
-      per_page = 10
+    def search_dataverse_items(dataverse_id, page = 1, per_page = 10)
       url = @dataverse_url + "/api/search?q=*&show_facets=true&sort=date&order=desc&show_type_counts=true&per_page=#{per_page}&type=dataverse&type=dataset&subtree=#{dataverse_id}"
       url = URI.parse(url)
       response = Net::HTTP.get_response(url)
       return nil if response.is_a?(Net::HTTPNotFound)
       raise "Error getting dataverse items: #{response.code} - #{response.body}" unless response.is_a?(Net::HTTPSuccess)
-      SearchResponse.new(response.body)
+      SearchResponse.new(response.body, page, per_page)
     end
 
     def initialize_download_collection(dataset)

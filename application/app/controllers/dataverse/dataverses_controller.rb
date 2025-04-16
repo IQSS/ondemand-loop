@@ -5,13 +5,15 @@ class Dataverse::DataversesController < ApplicationController
   before_action :init_service
 
   def index
+    @page = params[:page] || 1
     @dataverse = @service.find_dataverse_by_id(":root")
-    @search_result = @service.search_dataverse_items(":root")
+    @search_result = @service.search_dataverse_items(":root", @page)
   end
 
   def show
+    @page = params[:page] || 1
     @dataverse = @service.find_dataverse_by_id(params[:id])
-    @search_result = @service.search_dataverse_items(params[:id])
+    @search_result = @service.search_dataverse_items(params[:id], @page)
     render :index
   end
 
