@@ -9,13 +9,11 @@
     <li class="breadcrumb-item">
       <%= link_to_root_dataverse(dataverse_url) %>
     </li>
-    <% unless dataverse.data.is_facet_root %>
-      <li class="breadcrumb-item">
-        <a aria-current="page">Dataverse</a>
-      </li>
-      <li class="breadcrumb-item">
-        <a aria-current="page"><%= dataverse.data.alias %></a>
-      </li>
-    <% end %>
+    <li class="breadcrumb-item">
+      <a aria-current="page">Dataverse</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a aria-current="page"><%= dataverse.data.alias %></a>
+    </li>
   </ol>
 </nav>
