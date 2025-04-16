@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   post "/view/dataverse/download/dataset" => "dataverse/datasets#download", as: :download_dataverse_dataset_files
   get "/view/dataverse/*dv_hostname/datasets/*persistent_id" => "dataverse/datasets#show", as: :view_dataverse_dataset
+  get "/view/dataverse/*dv_hostname/dataverses/:id" => "dataverse/dataverses#show", as: :view_dataverse
 
   # DOI ROUTES
   get "/view/doi/search" => 'doi_search#index', as: :doi_search

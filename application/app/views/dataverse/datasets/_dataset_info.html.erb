@@ -13,7 +13,7 @@
   <div class="card-header">Description</div>
   <div class="list-group list-group-flush">
     <span class="list-group-item list-group-item-action">
-      <%= dataset.description %>
+      <%= truncate(strip_tags(dataset.description), length: 300) %>
     </span>
   </div>
 </div>

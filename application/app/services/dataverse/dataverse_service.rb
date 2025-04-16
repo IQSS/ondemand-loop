@@ -23,6 +23,26 @@ module Dataverse
       DatasetResponse.new(response.body)
     end
 
+    def find_dataverse_by_id(id)
+      url = @dataverse_url + "/api/dataverses/#{id}"
+      url = URI.parse(url)
+      response = Net::HTTP.get_response(url)
+      return nil if response.is_a?(Net::HTTPNotFound)
+      raise "Error getting dataverse: #{response.code} - #{response.body}" unless response.is_a?(Net::HTTPSuccess)
+      DataverseResponse.new(response.body)
+    end
+
+    def search_dataverse_items(dataverse_id, page = 1, per_page = 10)
+      start = (page-1) * per_page
+      query_string = "q=*&show_facets=true&sort=date&order=desc&show_type_counts=true&per_page=#{per_page}&start=#{start}&type=dataverse&type=dataset&subtree=#{dataverse_id}"
+      url = @dataverse_url + "/api/search?#{query_string}"
+      url = URI.parse(url)
+      response = Net::HTTP.get_response(url)
+      return nil if response.is_a?(Net::HTTPNotFound)
+      raise "Error getting dataverse items: #{response.code} - #{response.body}" unless response.is_a?(Net::HTTPSuccess)
+      SearchResponse.new(response.body, page, per_page)
+    end
+
     def initialize_download_collection(dataset)
       DownloadCollection.new(name: "#{@dataverse_url} Dataverse selection from #{dataset.data.identifier}")
     end

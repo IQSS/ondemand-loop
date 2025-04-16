@@ -10,10 +10,10 @@
       <%= link_to_root_dataverse(dataverse_url) %>
     </li>
     <li class="breadcrumb-item">
-      <a aria-current="page">Datasets</a>
+      <a aria-current="page">Dataverse</a>
     </li>
-    <li class="breadcrumb-item active">
-      <a aria-current="page"><%= dataset.data.latest_version.dataset_persistent_id %></a>
+    <li class="breadcrumb-item">
+      <a aria-current="page"><%= dataverse.data.alias %></a>
     </li>
   </ol>
 </nav>

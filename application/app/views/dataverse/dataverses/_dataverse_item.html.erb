@@ -1,0 +1,22 @@
+<div class="list-group-item flex-column align-items-start">
+  <div class="d-flex w-100 justify-content-between">
+    <h5 class="mb-1">
+      <%= link_to_dataverse item.name.presence || "Unnamed Dataverse", dataverse_url, item.identifier, {target: "_blank", class: "text-decoration-none"} %>
+    </h5>
+    <% if item.published_at %>
+      <small class="text-muted">
+        Published: <%= item.published_at.to_date.to_s %>
+      </small>
+    <% end %>
+  </div>
+
+  <small class="text-muted d-block">
+    <strong>Type:</strong> <%= item.type %>
+    <% if item.affiliation.present? %> |
+      <strong>Affiliation:</strong> <%= item.affiliation %>
+    <% end %>
+    <% if item.parent_dataverse_name.present? %> |
+      <strong>Parent:</strong> <%= link_to_dataverse item.parent_dataverse_name, dataverse_url, item.parent_dataverse_identifier, {class: "text-decoration-none"} %>
+    <% end %>
+  </small>
+</div>

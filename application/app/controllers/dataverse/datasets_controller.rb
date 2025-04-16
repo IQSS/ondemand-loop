@@ -1,5 +1,6 @@
 class Dataverse::DatasetsController < ApplicationController
   include LoggingCommon
+  include Dataverse::CommonHelper
 
   before_action :get_dv_full_hostname
   before_action :init_service
@@ -28,18 +29,7 @@ class Dataverse::DatasetsController < ApplicationController
   private
 
   def get_dv_full_hostname
-    if params[:dataverse_url]
-      @dataverse_url =  URI.parse(params[:dataverse_url]).to_s
-    elsif params[:dv_hostname]
-      hostname = params[:dv_hostname]
-      scheme = params[:dv_scheme] || "https"
-      port = params[:dv_port] || 443
-      @dataverse_url = URI.parse(scheme + "://" + hostname + ":" + port.to_s).to_s
-    else
-      flash[:error] = "Invalid Dataverse Hostname"
-      redirect_to downloads_path
-      return
-    end
+    @dataverse_url = current_dataverse_url
   end
 
   def init_service
@@ -53,13 +43,13 @@ class Dataverse::DatasetsController < ApplicationController
       unless @dataset
         log_error('Dataset not found.', {dataverse: @dataverse_url, persistent_id: @persistent_id})
         flash[:error] = "Dataset not found. Dataverse: #{@dataverse_url} persistentId: #{@persistent_id}"
-        redirect_to downloads_path
+        redirect_to root_path
         return
       end
     rescue Exception => e
       log_error('Dataverse service error', {dataverse: @dataverse_url, persistent_id: @persistent_id}, e)
       flash[:error] = "Dataverse service error. Dataverse: #{@dataverse_url} persistentId: #{@persistent_id}"
-      redirect_to downloads_path
+      redirect_to root_path
       return
     end
   end
