@@ -2,7 +2,7 @@
   <div class="card-header"><%= "1 to 10 of 5,019 Results" %></div>
   <% if items.any? %>
     <div class="list-group">
-      <%= render partial: 'item', collection: items, as: :item %>
+      <%= render partial: 'item', collection: items, as: :item, locals: {dataverse_url: dataverse_url} %>
     </div>
 
     <div class="mt-4 d-flex justify-content-center">

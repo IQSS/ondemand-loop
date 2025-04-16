@@ -10,6 +10,13 @@ class Dataverse::DataversesController < ApplicationController
     @items = @search_result.data.items
   end
 
+  def show
+    @dataverse = @service.find_dataverse_by_id(params[:id])
+    @search_result = @service.search_dataverse_items(params[:id])
+    @items = @search_result.data.items
+    render :index
+  end
+
   private
 
   def get_dv_full_hostname

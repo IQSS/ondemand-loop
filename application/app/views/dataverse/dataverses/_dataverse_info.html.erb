@@ -5,7 +5,7 @@
        <b><%= dataverse.data.name %></b>
     </span>
     <span class="list-group-item list-group-item-action">
-       <%= dataverse.data.description %>
+      <%= truncate(strip_tags(dataverse.data.description), length: 200) %>
     </span>
   </div>
 </div>

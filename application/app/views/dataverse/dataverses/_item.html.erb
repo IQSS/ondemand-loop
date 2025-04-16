@@ -2,7 +2,7 @@
   <div class="list-group-item flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">
-        <a href="<%= item.url %>" target="_blank" class="text-decoration-none">
+        <a href="<%= view_dataverse_dataset_url(URI.parse(dataverse_url).hostname, item.global_id, {dv_port: params[:dv_port], dv_scheme: params[:dv_scheme]}) %>" target="_blank" class="text-decoration-none">
           <%= item.name.presence || "Untitled Dataset" %>
         </a>
       </h5>
@@ -24,7 +24,7 @@
   <div class="list-group-item flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">
-        <a href="<%= item.url %>" target="_blank" class="text-decoration-none">
+        <a href="<%= view_dataverse_url(URI.parse(dataverse_url).hostname, item.identifier, {dv_port: params[:dv_port], dv_scheme: params[:dv_scheme]}) %>" target="_blank" class="text-decoration-none">
           <%= item.name.presence || "Unnamed Dataverse" %>
         </a>
       </h5>
