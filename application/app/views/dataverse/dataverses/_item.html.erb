@@ -1,48 +1,6 @@
 <% if item.type == 'dataset' %>
-  <div class="list-group-item flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">
-        <a href="<%= view_dataverse_dataset_url(URI.parse(dataverse_url).hostname, item.global_id, {dv_port: params[:dv_port], dv_scheme: params[:dv_scheme]}) %>" target="_blank" class="text-decoration-none">
-          <%= item.name.presence || "Untitled Dataset" %>
-        </a>
-      </h5>
-      <% if item.published_at %>
-        <small class="text-muted">Published: <%= item.published_at.to_date.to_s %></small>
-      <% end %>
-    </div>
-
-    <p class="mb-1"><%= truncate(item.description, length: 200) %></p>
-
-    <small class="text-muted">
-      <strong>Type:</strong> <%= item.type %> |
-      <strong>Publisher:</strong> <%= item.publisher %> |
-      <strong>Files:</strong> <%= item.file_count %>
-    </small>
-  </div>
+  <%= render partial: 'dataset_item', locals: { item: item, dataverse_url: dataverse_url } %>
 <% end %>
 <% if item.type == 'dataverse' %>
-  <div class="list-group-item flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">
-        <a href="<%= view_dataverse_url(URI.parse(dataverse_url).hostname, item.identifier, {dv_port: params[:dv_port], dv_scheme: params[:dv_scheme]}) %>" target="_blank" class="text-decoration-none">
-          <%= item.name.presence || "Unnamed Dataverse" %>
-        </a>
-      </h5>
-      <% if item.published_at %>
-        <small class="text-muted">
-          Published: <%= item.published_at.to_date.to_s %>
-        </small>
-      <% end %>
-    </div>
-
-    <small class="text-muted d-block">
-      <strong>Type:</strong> <%= item.type %>
-      <% if item.affiliation.present? %> |
-        <strong>Affiliation:</strong> <%= item.affiliation %>
-      <% end %>
-      <% if item.parent_dataverse_name.present? %> |
-        <strong>Parent:</strong> <%= item.parent_dataverse_name %>
-      <% end %>
-    </small>
-  </div>
+  <%= render partial: 'dataverse_item', locals: { item: item, dataverse_url: dataverse_url } %>
 <% end %>

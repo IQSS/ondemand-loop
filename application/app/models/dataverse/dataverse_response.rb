@@ -9,7 +9,7 @@ module Dataverse
     end
 
     class Data
-      attr_reader :id, :alias, :name, :description
+      attr_reader :id, :alias, :name, :description, :is_facet_root
 
       def initialize(data)
         data = data || {}
@@ -17,6 +17,7 @@ module Dataverse
         @alias = data[:alias]
         @name = data[:name]
         @description = data[:description]
+        @is_facet_root = data[:isFacetRoot]
       end
     end
   end
