@@ -7,13 +7,11 @@ class Dataverse::DataversesController < ApplicationController
   def index
     @dataverse = @service.find_dataverse_by_id(":root")
     @search_result = @service.search_dataverse_items(":root")
-    @items = @search_result.data.items
   end
 
   def show
     @dataverse = @service.find_dataverse_by_id(params[:id])
     @search_result = @service.search_dataverse_items(params[:id])
-    @items = @search_result.data.items
     render :index
   end
 

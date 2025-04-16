@@ -7,7 +7,7 @@
       <a aria-current="page">Dataverse</a>
     </li>
     <li class="breadcrumb-item">
-      <%= link_to dataverse_url, view_root_dataverse_path(URI.parse(dataverse_url).hostname, {dv_port: params[:dv_port], dv_scheme: params[:dv_scheme]}) %>
+      <%= link_to_root_dataverse(dataverse_url) %>
     </li>
     <% unless dataverse.data.is_facet_root %>
       <li class="breadcrumb-item">
