@@ -26,6 +26,30 @@ module Dataverse
         #@total_count_per_object_type = data[:total_count_per_object_type]
       end
 
+      def total_pages
+        (@total_count.to_f / @per_page).ceil
+      end
+
+      def first_page?
+        @page == 1
+      end
+
+      def last_page?
+        @page == total_pages
+      end
+
+      def out_of_range?
+        @page > total_pages
+      end
+
+      def next_page
+        @page + 1 unless last_page? || out_of_range?
+      end
+
+      def prev_page
+        @page - 1 unless first_page? || out_of_range?
+      end
+
       class DatasetItem
         attr_reader :name, :type, :url, :global_id, :description, :published_at, :publisher
         attr_reader :identifier_of_dataverse, :name_of_dataverse, :citation, :storage_identifier

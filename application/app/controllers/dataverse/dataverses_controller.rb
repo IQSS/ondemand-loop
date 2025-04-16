@@ -6,7 +6,7 @@ class Dataverse::DataversesController < ApplicationController
   before_action :init_service
 
   def show
-    @page = params[:page] || 1
+    @page = params[:page] ? params[:page].to_i : 1
     @dataverse = @service.find_dataverse_by_id(params[:id])
     @search_result = @service.search_dataverse_items(params[:id], @page)
   end

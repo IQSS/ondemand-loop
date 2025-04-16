@@ -4,6 +4,15 @@
   margin-bottom: 2rem;
 };
 
+.card-header a {
+  color: rgb(255, 255, 255);
+};
+
+a.bottom-page-link {
+  color: var(--bs-body-color);
+  padding: 0 0.3em;
+}
+
 .table-row-disabled td {
   color: var(--bs-secondary-color);
   opacity: 0.5;

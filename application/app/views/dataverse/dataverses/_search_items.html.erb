@@ -1,12 +1,20 @@
 <div class="card dataset-header">
-  <div class="card-header"><%= "1 to 10 of #{search_result.data.total_count} Results" %></div>
+  <div class="card-header d-flex align-items-center">
+    <%= search_results_count(search_result) %>
+    <span class="ms-auto">
+      <%= link_to_search_results_prev_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none"}) %>
+      <%= "page #{search_result.data.page}" %>
+      <%= link_to_search_results_next_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none"}) %>
+    </span>
+  </div>
   <% if search_result.data.items.any? %>
     <div class="list-group">
       <%= render partial: 'item', collection: search_result.data.items, as: :item, locals: {dataverse_url: dataverse_url} %>
-    </div>
-
-    <div class="mt-4 d-flex justify-content-center">
-      <%# paginate @items %>
+      <div class="list-group-item d-flex justify-content-center">
+        <%= link_to_search_results_prev_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none bottom-page-link"}) %>
+        <%= "page #{search_result.data.page}" %>
+        <%= link_to_search_results_next_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none bottom-page-link"}) %>
+      </div>
     </div>
   <% else %>
     <div class="alert alert-warning mt-3">
