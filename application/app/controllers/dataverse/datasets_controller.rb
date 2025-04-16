@@ -43,13 +43,13 @@ class Dataverse::DatasetsController < ApplicationController
       unless @dataset
         log_error('Dataset not found.', {dataverse: @dataverse_url, persistent_id: @persistent_id})
         flash[:error] = "Dataset not found. Dataverse: #{@dataverse_url} persistentId: #{@persistent_id}"
-        redirect_to downloads_path
+        redirect_to root_path
         return
       end
     rescue Exception => e
       log_error('Dataverse service error', {dataverse: @dataverse_url, persistent_id: @persistent_id}, e)
       flash[:error] = "Dataverse service error. Dataverse: #{@dataverse_url} persistentId: #{@persistent_id}"
-      redirect_to downloads_path
+      redirect_to root_path
       return
     end
   end
