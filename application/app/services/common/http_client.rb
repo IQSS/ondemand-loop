@@ -132,6 +132,7 @@ module Common
              end
 
       http.use_ssl = uri.scheme == "https"
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE if http.use_ssl? && uri.host == "hub.dataverse.org"
       http.open_timeout = @open_timeout
       http.read_timeout = @read_timeout
       http

@@ -1,0 +1,24 @@
+<div class="card dataset-header">
+  <div class="card-header d-flex align-items-center">
+    <%= "#{installations.count} Dataverse servers found" %>
+    <span class="ms-auto">
+      <%= "<" %>
+      <%= "page 1" %>
+      <%= ">" %>
+    </span>
+  </div>
+  <% if installations.any? %>
+    <div class="list-group">
+      <%= render partial: 'installation', collection: installations, as: :installation %>
+      <div class="list-group-item d-flex justify-content-center">
+        <%= "<" %>
+        <%= "page 1" %>
+        <%= ">" %>
+      </div>
+    </div>
+  <% else %>
+    <div class="alert alert-warning mt-3">
+      No items found.
+    </div>
+  <% end %>
+</div>
