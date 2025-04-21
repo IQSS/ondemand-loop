@@ -6,9 +6,21 @@ class Dataverse::DataversesController < ApplicationController
   before_action :init_service
 
   def show
-    @page = params[:page] ? params[:page].to_i : 1
-    @dataverse = @service.find_dataverse_by_id(params[:id])
-    @search_result = @service.search_dataverse_items(params[:id], @page)
+    begin
+      @page = params[:page] ? params[:page].to_i : 1
+      @dataverse = @service.find_dataverse_by_id(params[:id])
+      @search_result = @service.search_dataverse_items(params[:id], @page)
+      if @dataverse.nil? || @search_result.nil?
+        log_error('Dataverse not found.', {dataverse: @dataverse_url, id: params[:id]})
+        flash[:error] = "Dataverse not found. Dataverse: #{@dataverse_url} Id: #{params[:id]}"
+        redirect_to root_path
+        return
+      end
+    rescue Exception => e
+      log_error('Dataverse service error', {dataverse: @dataverse_url, id: params[:id]}, e)
+      flash[:error] = "Dataverse service error. Dataverse: #{@dataverse_url} Id: #{params[:id]}"
+      redirect_to root_path
+    end
   end
 
   private
