@@ -29,6 +29,24 @@ class Dataverse::SearchResponseTest < ActiveSupport::TestCase
     assert_equal 195882, data.total_count
     assert_equal 10, data.start
     assert_equal 20, data.count_in_response
+    assert_equal 20, data.items.count
+  end
+
+  test "valid dataset item" do
+    dataset = @response.data.items.first
+    assert_instance_of Dataverse::SearchResponse::Data::DatasetItem, dataset
+    assert_match /Traditional martial arts, subak, folk dance/, dataset.name
+    assert_equal "doi:10.7910/DVN/VIQT9F", dataset.global_id
+    assert_equal "junho", dataset.identifier_of_dataverse
+    assert_equal "junho song Dataverse", dataset.name_of_dataverse
+    assert_equal 1, dataset.file_count
+  end
+
+  test "valid dataverse item" do
+    dataverse = @response.data.items[1]
+    assert_instance_of Dataverse::SearchResponse::Data::DataverseItem, dataverse
+    assert_equal "junho song Dataverse", dataverse.name
+    assert_equal "junho", dataverse.identifier
   end
 
   test "empty json does not throw exception" do
