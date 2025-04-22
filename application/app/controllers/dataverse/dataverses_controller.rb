@@ -3,10 +3,16 @@ class Dataverse::DataversesController < ApplicationController
   include Dataverse::CommonHelper
 
   def index
-    hub_registry = Dataverse::HubRegistry.new
-    installations = hub_registry.installations
-    page = params[:page] ? params[:page].to_i : 1
-    @installations_page = Page.new(installations, page, 25)
+    begin
+      hub_registry = Dataverse::HubRegistry.new
+      installations = hub_registry.installations
+      page = params[:page] ? params[:page].to_i : 1
+      @installations_page = Page.new(installations, page, 25)
+    rescue Exception => e
+      log_error('Dataverse Installations service error', {}, e)
+      flash[:error] = "Dataverse Installations service error."
+      redirect_to root_path
+    end
   end
 
   def show
