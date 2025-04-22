@@ -4,7 +4,9 @@ class Dataverse::DataversesController < ApplicationController
 
   def index
     hub_registry = Dataverse::HubRegistry.new
-    @installations = hub_registry.installations
+    installations = hub_registry.installations
+    page = params[:page] ? params[:page].to_i : 1
+    @installations_page = Page.new(installations, page, 25)
   end
 
   def show

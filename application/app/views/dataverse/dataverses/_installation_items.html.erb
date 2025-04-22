@@ -1,19 +1,19 @@
 <div class="card dataset-header">
   <div class="card-header d-flex align-items-center">
-    <%= "#{installations.count} Dataverse servers found" %>
+    <%= installations_page.to_s %>
     <span class="ms-auto">
-      <%= "<" %>
-      <%= "page 1" %>
-      <%= ">" %>
+      <%= link_to("<", view_dataverse_landing_path(page: installations_page.prev_page), {class: "text-decoration-none"}) unless installations_page.first_page? %>
+      <%= "page #{installations_page.page}" %>
+      <%= link_to(">", view_dataverse_landing_path(page: installations_page.next_page), {class: "text-decoration-none"}) unless installations_page.last_page? %>
     </span>
   </div>
-  <% if installations.any? %>
+  <% if installations_page.page_items.any? %>
     <div class="list-group">
-      <%= render partial: 'installation', collection: installations, as: :installation %>
+      <%= render partial: 'installation', collection: installations_page.page_items, as: :installation %>
       <div class="list-group-item d-flex justify-content-center">
-        <%= "<" %>
-        <%= "page 1" %>
-        <%= ">" %>
+        <%= link_to("<", view_dataverse_landing_path(page: installations_page.prev_page), {class: "text-decoration-none bottom-page-link"}) unless installations_page.first_page? %>
+        <%= "page #{installations_page.page}" %>
+        <%= link_to(">", view_dataverse_landing_path(page: installations_page.next_page), {class: "text-decoration-none bottom-page-link"}) unless installations_page.last_page? %>
       </div>
     </div>
   <% else %>
