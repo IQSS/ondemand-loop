@@ -4,7 +4,7 @@
       <a href="<%= root_path %>">Home</a>
     </li>
     <li class="breadcrumb-item">
-      <a aria-current="page">Dataverse</a>
+      <%= link_to "Dataverse", view_dataverse_landing_path %>
     </li>
     <li class="breadcrumb-item">
       <%= link_to_root_dataverse(dataverse_url) %>

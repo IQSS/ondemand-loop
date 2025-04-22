@@ -1,5 +1,6 @@
 module Dataverse
   class DataverseService
+    include LoggingCommon
 
     def initialize(dataverse_url)
       @dataverse_url = dataverse_url
