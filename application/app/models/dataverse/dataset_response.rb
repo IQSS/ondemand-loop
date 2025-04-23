@@ -53,6 +53,7 @@ module Dataverse
 
     class Data
       attr_reader :id, :identifier, :persistent_url, :publisher, :publication_date, :dataset_type, :latest_version
+      attr_reader :parents
 
       def initialize(data)
         data = data || {}
@@ -63,6 +64,14 @@ module Dataverse
         @publication_date = data[:publicationDate]
         @dataset_type = data[:datasetType]
         @latest_version = Version.new(data[:latestVersion])
+        @parents = []
+        parent = data[:isPartOf]
+        while parent
+          p = { name: parent[:displayName], type: parent[:type], identifier: parent[:identifier] }
+          @parents << p
+          parent = parent[:isPartOf]
+        end
+        @parents.reverse!
       end
 
       class Version

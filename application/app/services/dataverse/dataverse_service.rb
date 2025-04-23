@@ -9,7 +9,7 @@ module Dataverse
     end
 
     def find_dataset_by_id(id)
-      url = @dataverse_url + "/api/datasets/#{id}"
+      url = @dataverse_url + "/api/datasets/#{id}?returnOwners=true"
       url = URI.parse(url)
       response = Net::HTTP.get_response(url)
       return nil if response.is_a?(Net::HTTPNotFound)
@@ -19,7 +19,7 @@ module Dataverse
     end
 
     def find_dataset_by_persistent_id(persistent_id)
-      url = @dataverse_url + "/api/datasets/:persistentId/?persistentId=#{persistent_id}"
+      url = @dataverse_url + "/api/datasets/:persistentId/?persistentId=#{persistent_id}&returnOwners=true"
       url = URI.parse(url)
       response = Net::HTTP.get_response(url)
       return nil if response.is_a?(Net::HTTPNotFound)

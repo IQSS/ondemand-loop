@@ -9,9 +9,6 @@
     <li class="breadcrumb-item">
       <%= link_to_root_dataverse(dataverse_url) %>
     </li>
-    <li class="breadcrumb-item">
-      <a aria-current="page">Dataverse</a>
-    </li>
     <% dataverse.data.parents.each do |parent| %>
       <li class="breadcrumb-item">
         <%= link_to_dataverse(parent[:identifier], dataverse_url, parent[:identifier], {'aria-current' => 'page'}) %>
