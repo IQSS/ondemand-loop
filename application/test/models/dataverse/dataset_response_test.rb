@@ -33,6 +33,11 @@ class Dataverse::DatasetResponseTest < ActiveSupport::TestCase
     assert_equal "Root", data.publisher
     assert_equal "2025-01-23", data.publication_date
     assert_equal "dataset", data.dataset_type
+    assert_equal 2, data.parents.size
+    assert_equal "parent", data.parents.last[:identifier]
+    assert_equal "Parent Dataverse", data.parents.last[:name]
+    assert_equal "grandparent", data.parents.first[:identifier]
+    assert_equal "Grandparent Dataverse", data.parents.first[:name]
   end
 
   test "valid json parses @dataset response latest version" do

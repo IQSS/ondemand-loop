@@ -10,6 +10,18 @@
     "publicationDate": "2025-01-23",
     "storageIdentifier": "local://10.5072/FK2/GCN7US",
     "datasetType": "dataset",
+    "isPartOf": {
+      "type": "DATAVERSE",
+      "identifier": "parent",
+      "isReleased": true,
+      "displayName": "Parent Dataverse",
+      "isPartOf": {
+        "type": "DATAVERSE",
+        "identifier": "grandparent",
+        "isReleased": true,
+        "displayName": "Grandparent Dataverse"
+      }
+    },
     "latestVersion": {
       "id": 3,
       "datasetId": 6,
