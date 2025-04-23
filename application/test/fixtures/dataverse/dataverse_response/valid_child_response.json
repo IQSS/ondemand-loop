@@ -1,0 +1,31 @@
+{
+  "status": "OK",
+  "data": {
+    "id": 1234,
+    "alias": "Sample_Child_Dataverse",
+    "name": "Sample child Dataverse",
+    "affiliation": "Harvard University",
+    "dataverseContacts": [
+      {
+        "displayOrder": 0,
+        "contactEmail": "john@example.com"
+      }
+    ],
+    "isPartOf": {
+      "type": "DATAVERSE",
+      "identifier": "parent",
+      "isReleased": true,
+      "displayName": "Parent Dataverse"
+    },
+    "permissionRoot": true,
+    "description": "Sample child dataverse for tests",
+    "dataverseType": "RESEARCHERS",
+    "isMetadataBlockRoot": false,
+    "isFacetRoot": false,
+    "ownerId": 1,
+    "creationDate": "2025-04-16T05:23:03Z",
+    "effectiveRequiresFilesToPublishDataset": false,
+    "isReleased": true,
+    "childCount": 1
+  }
+}

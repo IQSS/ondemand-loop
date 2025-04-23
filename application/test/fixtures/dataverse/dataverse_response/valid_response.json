@@ -15,7 +15,7 @@
     "description": "Sample Dataverse description",
     "dataverseType": "RESEARCHERS",
     "isMetadataBlockRoot": false,
-    "isFacetRoot": false,
+    "isFacetRoot": true,
     "ownerId": 1,
     "creationDate": "2025-04-16T05:23:03Z",
     "effectiveRequiresFilesToPublishDataset": false,

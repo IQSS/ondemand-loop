@@ -29,7 +29,7 @@ module Dataverse
     end
 
     def find_dataverse_by_id(id)
-      url = @dataverse_url + "/api/dataverses/#{id}"
+      url = @dataverse_url + "/api/dataverses/#{id}?returnOwners=true"
       url = URI.parse(url)
       response = Net::HTTP.get_response(url)
       return nil if response.is_a?(Net::HTTPNotFound)
