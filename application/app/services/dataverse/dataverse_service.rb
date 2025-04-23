@@ -38,6 +38,17 @@ module Dataverse
       DataverseResponse.new(response.body)
     end
 
+    def find_dataverse_hierarchy_by_child_id(id)
+      dataverses = []
+      while id
+        dataverse = find_dataverse_by_id(id)
+        break if dataverse.nil?
+        dataverses.push(dataverse)
+        id = dataverse.data.is_facet_root ? nil : dataverse.data.parent_identifier
+      end
+      dataverses.reverse
+    end
+
     def search_dataverse_items(dataverse_id, page = 1, per_page = 10)
       start = (page-1) * per_page
       query_string = "q=*&show_facets=true&sort=date&order=desc&show_type_counts=true&per_page=#{per_page}&start=#{start}&type=dataverse&type=dataset&subtree=#{dataverse_id}"
