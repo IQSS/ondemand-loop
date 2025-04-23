@@ -15,7 +15,13 @@
       "type": "DATAVERSE",
       "identifier": "parent",
       "isReleased": true,
-      "displayName": "Parent Dataverse"
+      "displayName": "Parent Dataverse",
+      "isPartOf": {
+        "type": "DATAVERSE",
+        "identifier": "grandparent",
+        "isReleased": true,
+        "displayName": "Grandparent Dataverse"
+      }
     },
     "permissionRoot": true,
     "description": "Sample child dataverse for tests",

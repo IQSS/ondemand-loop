@@ -20,8 +20,7 @@ class Dataverse::DataversesController < ApplicationController
     @service = Dataverse::DataverseService.new(@dataverse_url)
     begin
       @page = params[:page] ? params[:page].to_i : 1
-      @dataverses = @service.find_dataverse_hierarchy_by_child_id(params[:id])
-      @dataverse = @dataverses.last
+      @dataverse = @service.find_dataverse_by_id(params[:id])
       @search_result = @service.search_dataverse_items(params[:id], @page)
       if @dataverse.nil? || @search_result.nil?
         log_error('Dataverse not found.', {dataverse: @dataverse_url, id: params[:id]})
