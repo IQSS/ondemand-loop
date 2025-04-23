@@ -40,11 +40,14 @@ module Dataverse
 
     def find_dataverse_hierarchy_by_child_id(id)
       dataverses = []
-      while id
+      max_depth = 10
+      depth = 1
+      while id and depth < max_depth do
         dataverse = find_dataverse_by_id(id)
         break if dataverse.nil?
         dataverses.push(dataverse)
-        id = dataverse.data.is_facet_root ? nil : dataverse.data.parent_identifier
+        id = dataverse.data.parent_identifier
+        depth = depth + 1
       end
       dataverses.reverse
     end
