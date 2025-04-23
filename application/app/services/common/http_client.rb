@@ -77,6 +77,14 @@ module Common
       def success?
         raw.is_a?(Net::HTTPSuccess)
       end
+
+      def unauthorized?
+        raw.is_a?(Net::HTTPUnauthorized)
+      end
+
+      def not_found?
+        raw.is_a?(Net::HTTPNotFound)
+      end
     end
 
     def initialize(base_url: nil, open_timeout: 5, read_timeout: 10, proxy: nil)
@@ -132,6 +140,7 @@ module Common
              end
 
       http.use_ssl = uri.scheme == "https"
+      # TODO remove this line after fixing container certificates to connect to hub.dataverse.org
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE if http.use_ssl? && uri.host == "hub.dataverse.org"
       http.open_timeout = @open_timeout
       http.read_timeout = @read_timeout

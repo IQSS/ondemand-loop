@@ -4,49 +4,37 @@ module Dataverse
 
     class UnauthorizedException < Exception; end
 
-    def initialize(dataverse_url)
+    def initialize(dataverse_url, http_client: Common::HttpClient.new(base_url: dataverse_url))
       @dataverse_url = dataverse_url
-    end
-
-    def find_dataset_by_id(id)
-      url = @dataverse_url + "/api/datasets/#{id}?returnOwners=true"
-      url = URI.parse(url)
-      response = Net::HTTP.get_response(url)
-      return nil if response.is_a?(Net::HTTPNotFound)
-      raise UnauthorizedException if response.is_a?(Net::HTTPUnauthorized)
-      raise "Error getting dataset: #{response.code} - #{response.body}" unless response.is_a?(Net::HTTPSuccess)
-      DatasetResponse.new(response.body)
+      @http_client = http_client
     end
 
     def find_dataset_by_persistent_id(persistent_id)
-      url = @dataverse_url + "/api/datasets/:persistentId/?persistentId=#{persistent_id}&returnOwners=true"
-      url = URI.parse(url)
-      response = Net::HTTP.get_response(url)
-      return nil if response.is_a?(Net::HTTPNotFound)
-      raise UnauthorizedException if response.is_a?(Net::HTTPUnauthorized)
-      raise "Error getting dataset: #{response.code} - #{response.body}" unless response.is_a?(Net::HTTPSuccess)
+      url = "/api/datasets/:persistentId/?persistentId=#{persistent_id}&returnOwners=true"
+      response = @http_client.get(url)
+      return nil if response.not_found?
+      raise UnauthorizedException if response.unauthorized?
+      raise "Error getting dataset: #{response.code} - #{response.body}" unless response.success?
       DatasetResponse.new(response.body)
     end
 
     def find_dataverse_by_id(id)
-      url = @dataverse_url + "/api/dataverses/#{id}?returnOwners=true"
-      url = URI.parse(url)
-      response = Net::HTTP.get_response(url)
-      return nil if response.is_a?(Net::HTTPNotFound)
-      raise UnauthorizedException if response.is_a?(Net::HTTPUnauthorized)
-      raise "Error getting dataverse: #{response.code} - #{response.body}" unless response.is_a?(Net::HTTPSuccess)
+      url = "/api/dataverses/#{id}?returnOwners=true"
+      response = @http_client.get(url)
+      return nil if response.not_found?
+      raise UnauthorizedException if response.unauthorized?
+      raise "Error getting dataverse: #{response.code} - #{response.body}" unless response.success?
       DataverseResponse.new(response.body)
     end
 
     def search_dataverse_items(dataverse_id, page = 1, per_page = 10)
       start = (page-1) * per_page
       query_string = "q=*&show_facets=true&sort=date&order=desc&show_type_counts=true&per_page=#{per_page}&start=#{start}&type=dataverse&type=dataset&subtree=#{dataverse_id}"
-      url = @dataverse_url + "/api/search?#{query_string}"
-      url = URI.parse(url)
-      response = Net::HTTP.get_response(url)
-      return nil if response.is_a?(Net::HTTPNotFound)
-      raise UnauthorizedException if response.is_a?(Net::HTTPUnauthorized)
-      raise "Error getting dataverse items: #{response.code} - #{response.body}" unless response.is_a?(Net::HTTPSuccess)
+      url = "/api/search?#{query_string}"
+      response = @http_client.get(url)
+      return nil if response.not_found?
+      raise UnauthorizedException if response.unauthorized?
+      raise "Error getting dataverse items: #{response.code} - #{response.body}" unless response.success?
       SearchResponse.new(response.body, page, per_page)
     end
 
