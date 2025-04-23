@@ -12,8 +12,10 @@
     <li class="breadcrumb-item">
       <a aria-current="page">Dataverse</a>
     </li>
-    <li class="breadcrumb-item">
-      <a aria-current="page"><%= dataverse.data.alias %></a>
-    </li>
+    <% dataverses.each do |dataverse| %>
+      <li class="breadcrumb-item">
+        <%= link_to_dataverse(dataverse.data.alias, dataverse_url, dataverse.data.alias, {'aria-current' => 'page'}) %>
+      </li>
+    <% end %>
   </ol>
 </nav>

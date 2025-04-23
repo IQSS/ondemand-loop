@@ -20,7 +20,16 @@ class Dataverse::DataversesController < ApplicationController
     @service = Dataverse::DataverseService.new(@dataverse_url)
     begin
       @page = params[:page] ? params[:page].to_i : 1
-      @dataverse = @service.find_dataverse_by_id(params[:id])
+      @dataverses = []
+      dv_id = params[:id]
+      while dv_id
+        dv = @service.find_dataverse_by_id(dv_id)
+        @dataverses.push(dv)
+        break if dv.nil?
+        dv_id = dv.data.is_facet_root ? nil : dv.data.parent_identifier
+      end
+      @dataverses.reverse!
+      @dataverse = @dataverses.last
       @search_result = @service.search_dataverse_items(params[:id], @page)
       if @dataverse.nil? || @search_result.nil?
         log_error('Dataverse not found.', {dataverse: @dataverse_url, id: params[:id]})
