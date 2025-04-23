@@ -28,6 +28,10 @@ class Dataverse::DataversesController < ApplicationController
         redirect_to root_path
         return
       end
+    rescue Dataverse::DataverseService::UnauthorizedException => e
+      log_error('Dataverse requires authorization', {dataverse: @dataverse_url, id: params[:id]}, e)
+      flash[:error] = "Dataverse requires authorization. Dataverse: #{@dataverse_url} Id: #{params[:id]}"
+      redirect_to root_path
     rescue Exception => e
       log_error('Dataverse service error', {dataverse: @dataverse_url, id: params[:id]}, e)
       flash[:error] = "Dataverse service error. Dataverse: #{@dataverse_url} Id: #{params[:id]}"

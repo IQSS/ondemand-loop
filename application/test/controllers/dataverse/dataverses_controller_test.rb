@@ -17,6 +17,14 @@ class Dataverse::DataversesControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Dataverse service error. Dataverse: https://example.com Id: :root", flash[:error]
   end
 
+  test "should redirect to root path after finding an unauthorized dataverse" do
+    Dataverse::DataverseService.any_instance.stubs(:find_dataverse_by_id).returns(nil)
+    Dataverse::DataverseService.any_instance.stubs(:search_dataverse_items).raises(Dataverse::DataverseService::UnauthorizedException)
+    get view_dataverse_url("example.com", ":root")
+    assert_redirected_to root_path
+    assert_equal "Dataverse requires authorization. Dataverse: https://example.com Id: :root", flash[:error]
+  end
+
   test "should redirect to root path after not finding neither dataverse nor dataverse results" do
     Dataverse::DataverseService.any_instance.stubs(:find_dataverse_by_id).returns(nil)
     Dataverse::DataverseService.any_instance.stubs(:search_dataverse_items).returns(nil)

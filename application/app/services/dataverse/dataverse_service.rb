@@ -2,6 +2,8 @@ module Dataverse
   class DataverseService
     include LoggingCommon
 
+    class UnauthorizedException < Exception; end
+
     def initialize(dataverse_url)
       @dataverse_url = dataverse_url
     end
@@ -11,6 +13,7 @@ module Dataverse
       url = URI.parse(url)
       response = Net::HTTP.get_response(url)
       return nil if response.is_a?(Net::HTTPNotFound)
+      raise UnauthorizedException if response.is_a?(Net::HTTPUnauthorized)
       raise "Error getting dataset: #{response.code} - #{response.body}" unless response.is_a?(Net::HTTPSuccess)
       DatasetResponse.new(response.body)
     end
@@ -20,6 +23,7 @@ module Dataverse
       url = URI.parse(url)
       response = Net::HTTP.get_response(url)
       return nil if response.is_a?(Net::HTTPNotFound)
+      raise UnauthorizedException if response.is_a?(Net::HTTPUnauthorized)
       raise "Error getting dataset: #{response.code} - #{response.body}" unless response.is_a?(Net::HTTPSuccess)
       DatasetResponse.new(response.body)
     end
@@ -29,6 +33,7 @@ module Dataverse
       url = URI.parse(url)
       response = Net::HTTP.get_response(url)
       return nil if response.is_a?(Net::HTTPNotFound)
+      raise UnauthorizedException if response.is_a?(Net::HTTPUnauthorized)
       raise "Error getting dataverse: #{response.code} - #{response.body}" unless response.is_a?(Net::HTTPSuccess)
       DataverseResponse.new(response.body)
     end
@@ -40,6 +45,7 @@ module Dataverse
       url = URI.parse(url)
       response = Net::HTTP.get_response(url)
       return nil if response.is_a?(Net::HTTPNotFound)
+      raise UnauthorizedException if response.is_a?(Net::HTTPUnauthorized)
       raise "Error getting dataverse items: #{response.code} - #{response.body}" unless response.is_a?(Net::HTTPSuccess)
       SearchResponse.new(response.body, page, per_page)
     end
