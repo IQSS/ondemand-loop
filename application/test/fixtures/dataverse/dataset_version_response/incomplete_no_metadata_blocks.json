@@ -1,0 +1,36 @@
+{
+  "status": "OK",
+  "data": {
+    "id": 2,
+    "datasetId": 3,
+    "datasetPersistentId": "doi:10.5072/FK2/4INDFN",
+    "storageIdentifier": "local://10.5072/FK2/4INDFN",
+    "versionNumber": 2,
+    "versionMinorNumber": 0,
+    "versionState": "RELEASED",
+    "latestVersionPublishingState": "RELEASED",
+    "lastUpdateTime": "2025-01-23T15:45:59Z",
+    "releaseTime": "2025-01-23T15:45:59Z",
+    "createTime": "2025-01-23T12:11:15Z",
+    "publicationDate": "2025-01-20",
+    "citationDate": "2025-01-20",
+    "license": {
+      "name": "CC0 1.0",
+      "uri": "http://creativecommons.org/publicdomain/zero/1.0",
+      "iconUri": "https://licensebuttons.net/p/zero/1.0/88x31.png"
+    },
+    "fileAccessRequest": true,
+    "isPartOf": {
+      "type": "DATAVERSE",
+      "identifier": "parent",
+      "isReleased": true,
+      "displayName": "Parent Dataverse",
+      "isPartOf": {
+        "type": "DATAVERSE",
+        "identifier": "grandparent",
+        "isReleased": true,
+        "displayName": "Grandparent Dataverse"
+      }
+    }
+  }
+}

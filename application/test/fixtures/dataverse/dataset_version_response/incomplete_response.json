@@ -1,0 +1,10 @@
+{
+  "status": "OK",
+  "data": {
+    "id": 2,
+    "datasetId": 3,
+    "datasetPersistentId": "doi:10.5072/FK2/4INDFN",
+    "storageIdentifier": "local://10.5072/FK2/4INDFN",
+    "versionNumber": 2
+  }
+}
