@@ -11,7 +11,7 @@ module Dataverse
       #TODO: We need to remove this at some point
       parsed_url.host = "host.docker.internal" if parsed_url.host == 'localhost'
 
-      log_info("requesting #{parsed_url}", {parsed_url: parsed_url})
+      log_info("requesting #{parsed_url}", { parsed_url: parsed_url })
       response = @http_client.get(parsed_url)
       external_tool_response = response.success? ? ExternalToolResponse.new(response.body) : nil
 
