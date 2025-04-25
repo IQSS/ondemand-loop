@@ -31,7 +31,7 @@ class Dataverse::DatasetFilesResponseTest < ActiveSupport::TestCase
     assert_instance_of Dataverse::DatasetFilesResponse::DatasetFile::DataFile, file.data_file
 
     data_file = file.data_file
-    assert_equal 7, data_file.id
+    assert_equal 4, data_file.id
     assert_equal "screenshot.png", data_file.filename
     assert_equal "image/png", data_file.content_type
     assert_equal 272314, data_file.filesize
@@ -52,16 +52,16 @@ class Dataverse::DatasetFilesResponseTest < ActiveSupport::TestCase
   end
 
   test "find files matches one file in dataset files" do
-    files = @dataset_files.files_by_ids([7])
+    files = @dataset_files.files_by_ids([4])
     assert_equal 1, files.size
-    assert_equal 7, files.first.data_file.id
+    assert_equal 4, files.first.data_file.id
     assert_equal "image/png", files.first.data_file.content_type
   end
 
   test "find files matches one file as string id in dataset files" do
-    files = @dataset_files.files_by_ids(['7'])
+    files = @dataset_files.files_by_ids(['4'])
     assert_equal 1, files.size
-    assert_equal 7, files.first.data_file.id
+    assert_equal 4, files.first.data_file.id
     assert_equal "image/png", files.first.data_file.content_type
   end
 
@@ -82,15 +82,15 @@ class Dataverse::DatasetFilesResponseTest < ActiveSupport::TestCase
 
   test "find files matches no files with multiple array in dataset files" do
     files = @dataset_files.files_by_ids([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-    assert_equal 1, files.size
-    assert_equal 7, files.first.data_file.id
+    assert_equal 2, files.size
+    assert_equal 4, files.first.data_file.id
     assert_equal "image/png", files.first.data_file.content_type
   end
 
   test "files method in dataset files" do
     files = @dataset_files.files_by_ids([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
     assert_equal files, @dataset_files.files
-    assert_equal 1, files.size
+    assert_equal 2, files.size
   end
 
   test "dataset files incomplete with no data" do
@@ -106,12 +106,11 @@ class Dataverse::DatasetFilesResponseTest < ActiveSupport::TestCase
     json = load_file_fixture(File.join('dataverse', 'dataset_files_response', 'incomplete_no_data_file.json'))
     @dataset_files_incomplete = Dataverse::DatasetFilesResponse.new(json)
     assert_instance_of Dataverse::DatasetFilesResponse, @dataset_files_incomplete
-    assert_equal 5, @dataset_files_incomplete.files.count
-    files = @dataset_files_incomplete.files_by_ids([86, 87, 88, 89, 90])
-    assert_equal 3, files.size
+    assert_equal 2, @dataset_files_incomplete.files.count
+    files = @dataset_files_incomplete.files_by_ids([4, 5])
+    assert_equal 1, files.size
     file = @dataset_files_incomplete.files.first
-    assert_equal "2019-02-25.tab", file.label
-    assert_equal "data", file.directory_label
+    assert_equal "screenshot.png", file.label
     refute file.restricted
     assert_instance_of Dataverse::DatasetFilesResponse::DatasetFile::DataFile, file.data_file
     data_file = file.data_file

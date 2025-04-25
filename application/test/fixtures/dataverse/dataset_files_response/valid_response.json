@@ -3,14 +3,14 @@
   "totalCount": 2,
   "data": [
     {
-      "label": "17-closer.png",
+      "label": "screenshot.png",
       "restricted": false,
       "version": 1,
       "datasetVersionId": 2,
       "dataFile": {
         "id": 4,
         "persistentId": "",
-        "filename": "17-closer.png",
+        "filename": "screenshot.png",
         "contentType": "image/png",
         "friendlyType": "PNG Image",
         "filesize": 272314,
