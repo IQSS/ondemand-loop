@@ -28,6 +28,16 @@ module Dataverse
       DatasetVersionResponse.new(response.body)
     end
 
+    def search_dataset_files_by_persistent_id(persistent_id, version: ':latest-published', page: 1, per_page: 10)
+      start = (page-1) * per_page
+      url = "/api/datasets/:persistentId/versions/#{version}/files?persistentId=#{persistent_id}&offset=#{start}&limit=#{per_page}"
+      response = @http_client.get(url)
+      return nil if response.not_found?
+      raise UnauthorizedException if response.unauthorized?
+      raise "Error getting dataset files: #{response.code} - #{response.body}" unless response.success?
+      DatasetFilesResponse.new(response.body)
+    end
+
     def find_dataverse_by_id(id)
       url = "/api/dataverses/#{id}?returnOwners=true"
       response = @http_client.get(url)
