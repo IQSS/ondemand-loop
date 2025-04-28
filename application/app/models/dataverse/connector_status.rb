@@ -11,8 +11,8 @@ module Dataverse
     end
 
     def download_progress
-      return 0 if %w[new ready].include?(file.status)
-      return 100 if %w[completed].include?(file.status)
+      return 0 if FileStatus.new_statuses.include?(file.status)
+      return 100 if FileStatus.completed_statuses.include?(file.status)
 
       return 100 if File.exist?(connector_metadata.download_location)
 

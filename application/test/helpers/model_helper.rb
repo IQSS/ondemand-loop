@@ -17,7 +17,7 @@ module ModelHelper
       file.collection_id = collection.id
       file.type = type
       file.filename = "#{random_id}.txt"
-      file.status = 'ready'
+      file.status = FileStatus::READY
       file.size = 200
       file.metadata = {test: 'test'}
     end
@@ -25,5 +25,9 @@ module ModelHelper
 
   def random_id
     SecureRandom.uuid.to_s
+  end
+
+  def file_now
+    Time.now.strftime('%Y-%m-%dT%H:%M:%S')
   end
 end

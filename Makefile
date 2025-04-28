@@ -26,6 +26,7 @@ clean:
 	rm -rf ./application/node_modules
 	rm -rf ./application/vendor/bundle
 	rm -rf ./application/public/assets
+	rm -f ./application/log/*
 
 # Show logs for the app container
 logs:
@@ -38,3 +39,5 @@ bash:
 test:
 	docker run --rm -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app $(LOOP_BUILDER_IMAGE) /usr/local/scripts/loop_test.sh
 
+test_bash:
+	docker run --rm -it -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app $(LOOP_BUILDER_IMAGE) /bin/bash

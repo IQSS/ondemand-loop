@@ -11,12 +11,12 @@ class Dataverse::ConnectorStatusTest < ActiveSupport::TestCase
     }
     @file = DownloadFile.new
     @file.type = 'dataverse'
-    @file.status = 'new'
+    @file.status = FileStatus::READY
     @file.metadata = @default_metadata
   end
 
   test "should return 0 for missing files" do
-    @file.status = 'downloading'
+    @file.status = FileStatus::DOWNLOADING
     @file.size = 200
 
     target = Dataverse::ConnectorStatus.new(@file)
@@ -28,8 +28,7 @@ class Dataverse::ConnectorStatusTest < ActiveSupport::TestCase
     @default_metadata[:temp_location] = file_location
     assert File.exist?(file_location)
 
-    @file.status = 'ready'
-    @file.size = 200
+    @file.status = FileStatus::READY
     @file.metadata = @default_metadata
 
     target = Dataverse::ConnectorStatus.new(@file)
@@ -42,7 +41,7 @@ class Dataverse::ConnectorStatusTest < ActiveSupport::TestCase
     @default_metadata[:temp_location] = file_location
     assert File.exist?(file_location)
 
-    @file.status = 'downloading'
+    @file.status = FileStatus::DOWNLOADING
     @file.size = 200
     @file.metadata = @default_metadata
 
@@ -55,7 +54,7 @@ class Dataverse::ConnectorStatusTest < ActiveSupport::TestCase
     @default_metadata[:temp_location] = file_location
     assert File.exist?(file_location)
 
-    @file.status = 'completed'
+    @file.status = FileStatus::SUCCESS
     @file.size = 200
     @file.metadata = @default_metadata
 
@@ -68,7 +67,7 @@ class Dataverse::ConnectorStatusTest < ActiveSupport::TestCase
     @default_metadata[:temp_location] = file_location
     assert File.exist?(file_location)
 
-    @file.status = 'downloading'
+    @file.status = FileStatus::DOWNLOADING
     @file.size = 200
     @file.metadata = @default_metadata
 

@@ -1,0 +1,67 @@
+.progress-badge-stack {
+  min-width: 60px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.progress-badge-stack .badge-half {
+  min-width: 30px;
+}
+
+.badge-project-error {
+  background-color: #e8b3b9;
+  color: #842029;
+  border: 1px solid #d19ca1;
+}
+
+.badge-project-completed {
+  background-color: #b3cbe9;
+  color: #0d6efd;
+  border: 1px solid #a3bee0;
+}
+
+.badge-project-completed:hover {
+  background-color: #a3bee0;
+}
+
+.badge-project-pending {
+  background-color: #dee2e6;
+  color: #6c757d;
+  border: 1px solid #dee2e6;
+}
+
+.badge-project-pending:hover {
+  background-color: #c7ced4;
+}
+
+.badge-project-error {
+  background-color: #e8b3b9;
+  color: #842029;
+  border: 1px solid #d19ca1;
+}
+
+.badge-project-error:hover {
+  background-color: #dba3aa;
+}
+
+.badge-project-cancel {
+  background-color: #e0b084;
+  color: #4b371c;
+  border: 1px solid #e4c7b0;
+}
+
+.badge-project-cancel:hover {
+  background-color: #ebd5c5;
+}
+
+.badge-project-total {
+  background-color: #d7dce1;
+  color: #343a40;
+  border: 1px solid #c1c7cd;
+}
+
+.badge-project-total:hover {
+  background-color: #c7ced4;
+}

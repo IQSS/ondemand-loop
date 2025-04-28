@@ -2,52 +2,40 @@
 module Download
   class DownloadService
     include LoggingCommon
+    include DateTimeCommon
 
-    attr_reader :files_provider, :process_id, :stats
+    attr_reader :files_provider, :stats
 
     def initialize(download_files_provider)
       @files_provider = download_files_provider
-      @process_id = Process.pid
-      @start_time = Time.now.to_i
+      @start_time = Time.now
       @stats = { pending: 0, completed: 0 }
     end
-    
+
     def start
-      log_info('Process started', {pid: process_id, elapsed_time: elapsed_time})
-
-      File.open(lock_file, 'w') do |service_lock|
-        unless service_lock.flock(File::LOCK_EX | File::LOCK_NB) # Exclusive, non-blocking lock
-          log_info('Exit. Other DownloadService already running', {pid: process_id, elapsed_time: elapsed_time})
-          return
-        end
-
-        process
-        log_info('Completed', {pid: process_id, elapsed_time: elapsed_time, stats: stats_to_s})
-      rescue => e
-        log_error('Exit. Error while executing DownloadService', {pid: process_id, elapsed_time: elapsed_time}, e)
-      end
-    end
-
-    def process
+      log_info('start', {elapsed_time: elapsed_time})
       while true
         files = files_provider.pending_files
         in_progress = files_provider.processing_files
         stats[:pending] = files.length
         stats[:progress] = in_progress.length
 
-        log_info('Processing', {pid: process_id, elapsed_time: elapsed_time, stats: stats_to_s})
+        log_info('Processing', {elapsed_time: elapsed_time, stats: stats_to_s})
         batch = files.first(1)
         return if batch.empty?
 
         download_threads = batch.map do |file|
           download_processor = ConnectorClassDispatcher.download_processor(file)
           Thread.new do
-            file.save_status! 'downloading'
-            download_processor.download
-            file.save_status! 'success'
+            file.update(start_date: now, status: FileStatus::DOWNLOADING)
+            file.save
+            result = download_processor.download
+            file.update(end_date: now, status: result.status)
+            file.save
           rescue => e
-            log_error('Error while processing file', {pid: process_id, file_id: file.id}, e)
-            file.save_status! 'error'
+            log_error('Error while processing file', {file_id: file.id}, e)
+            file.update(end_date: now, status: FileStatus::ERROR)
+            file.save
           ensure
             stats[:completed] += 1
           end
@@ -58,19 +46,18 @@ module Download
 
     end
 
-    def stats_to_s
-      "in_progress=#{stats[:progress]} pending=#{stats[:pending]} completed=#{stats[:completed]}"
-    end
-
-    def lock_file
-      File.join(Configuration.metadata_root, 'download.lock')
+    def shutdown
+      log_info('shutdown', {elapsed_time: elapsed_time})
     end
 
     private
 
     def elapsed_time
-      total_seconds = Time.now.to_i - @start_time
-      Time.at(total_seconds).utc.strftime('%H:%M:%S')
+      elapsed_string(@start_time)
+    end
+
+    def stats_to_s
+      "in_progress=#{stats[:progress]} pending=#{stats[:pending]} completed=#{stats[:completed]}"
     end
 
   end

@@ -1,23 +1,25 @@
 require 'dotenv'
+require_relative 'configuration_property'
 class ConfigurationSingleton
   def initialize
     load_dotenv_files
-    add_boolean_configs
-    add_string_configs
+    add_property_configs
   end
 
-  def boolean_configs
-    {}.freeze
+  def property_configs
+    [
+      ::ConfigurationProperty.path(:metadata_root, default: File.join(Dir.home, '.downloads-for-ondemand')),
+      ::ConfigurationProperty.path(:download_root, default: File.join(Dir.home, 'downloads-ondemand')),
+      ::ConfigurationProperty.property(:ruby_binary, default: File.join(RbConfig::CONFIG['bindir'], 'ruby')),
+      ::ConfigurationProperty.property(:files_app_path, default: '/pun/sys/dashboard/files/fs'),
+      ::ConfigurationProperty.property(:ood_dashboard_path, default: '/pun/sys/dashboard'),
+      ::ConfigurationProperty.property(:connector_status_poll_interval, default: '5000'),
+      ::ConfigurationProperty.integer(:download_files_retention_period, default: 24 * 60 * 60),
+    ].freeze
   end
 
-  def string_configs
-    {
-      metadata_root: File.join(Dir.home, '.downloads-for-ondemand'),
-      download_root: File.join(Dir.home, 'downloads-ondemand'),
-      ruby_binary: File.join(RbConfig::CONFIG['bindir'], 'ruby'),
-      files_app_path: '/pun/sys/dashboard/files/fs',
-      connector_status_poll_interval: '45000'
-    }.freeze
+  def download_server_socket_file
+    File.join(metadata_root, 'download.server.sock')
   end
 
   def config
@@ -60,14 +62,8 @@ class ConfigurationSingleton
     ].compact
   end
 
-  FALSE_VALUES=[ nil, false, '', 0, '0', 'f', 'F', 'false', 'FALSE', 'off', 'OFF', 'no', 'NO' ]
-
-  def to_bool(value)
-    !FALSE_VALUES.include?(value)
-  end
-
   def config_directory
-    Pathname.new(ENV['OOD_CONFIG_D_DIRECTORY'] || '/etc/ood/config/ondemand.d')
+    Pathname.new(ENV['LOOP_CONFIG_DIRECTORY'] || '/etc/loop/config')
   end
 
   def read_config
@@ -83,34 +79,18 @@ class ConfigurationSingleton
     end
   end
 
-  def add_boolean_configs
-    boolean_configs.each do |cfg_item, default|
-      define_singleton_method(cfg_item.to_sym) do
-        e = ENV["OOD_LOOP_#{cfg_item.to_s.upcase}"]
-
-        if e.nil?
-          config.fetch(cfg_item, default)
-        else
-          to_bool(e.to_s)
+  # Dynamically adds methods to this class based on the property_configs defined.
+  # The name of the method is the name of the property.
+  # The value is based on ENV and config objects, depending on the configuration of the property.
+  def add_property_configs
+    property_configs.each do |property|
+      define_singleton_method(property.name) do
+        if property.read_from_environment
+          environment_value = property.map_string(property.environment_names.map do |key|
+            ENV[key]
+          end.compact.first)
         end
-      end
-    end.each do |cfg_item, _|
-      define_singleton_method("#{cfg_item}?".to_sym) do
-        send(cfg_item)
-      end
-    end
-  end
-
-  def add_string_configs
-    string_configs.each do |cfg_item, default|
-      define_singleton_method(cfg_item.to_sym) do
-        e = ENV["OOD_LOOP_#{cfg_item.to_s.upcase}"]
-
-        e.nil? ? config.fetch(cfg_item, default) : e.to_s
-      end
-    end.each do |cfg_item, _|
-      define_singleton_method("#{cfg_item}?".to_sym) do
-        send(cfg_item).nil?
+        environment_value.nil? ? config.fetch(property.name, property.default) : environment_value
       end
     end
   end

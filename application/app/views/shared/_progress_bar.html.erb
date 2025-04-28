@@ -1,0 +1,9 @@
+<% progress ||= 0 %>
+<div class="progress" style="height: 20px;">
+  <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+       role="progressbar"
+       style="width: <%= progress %>%"
+       aria-valuenow="<%= progress%>" aria-valuemin="0" aria-valuemax="100">
+  </div>
+  <span class="progress-text text-secondary"><%= progress %>%</span>
+</div>

@@ -36,3 +36,5 @@ application/vendor/bundle
 /application/node_modules
 
 /data
+
+.DS_Store

@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
 
   connect() {
-    this.url_value = loop_app_config.downloads_collection_path
+    this.url_value = loop_app_config.downloads_files_path
     this.poll_interval = loop_app_config.connector_status_poll_interval
     this.loadCollections()
     this.startAutoRefresh()

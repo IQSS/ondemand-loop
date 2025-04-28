@@ -1,6 +1,7 @@
 module Dataverse
   class DataverseService
     include LoggingCommon
+    include DateTimeCommon
 
     class UnauthorizedException < Exception; end
 
@@ -48,9 +49,10 @@ module Dataverse
         DownloadFile.new.tap do |f|
           f.id = DownloadFile.generate_id
           f.collection_id = download_collection.id
+          f.creation_date = now
           f.type = 'dataverse'
           f.filename = dataset_file.data_file.filename
-          f.status = 'ready'
+          f.status = FileStatus::READY
           f.size = dataset_file.data_file.filesize
           f.metadata = {
             dataverse_url: @dataverse_url,

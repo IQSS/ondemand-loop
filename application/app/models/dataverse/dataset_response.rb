@@ -93,7 +93,10 @@ module Dataverse
         class License
           attr_reader :name, :uri, :icon_uri
 
+          # TODO: GOT AN ERROR in https://abacus.library.ubc.ca persistentId: hdl:11272.1/AB2/0HWPT7
+          # LICENCE IS A STRING WITH "NONE"
           def initialize(license)
+            license = { name: license } if license.is_a?(String)
             license = license || {}
             @name = license[:name]
             @uri = license[:uri]

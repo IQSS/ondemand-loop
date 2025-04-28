@@ -18,7 +18,7 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     assert_equal File.join(Dir.home, 'downloads-ondemand'), @config_instance.download_root
     assert_equal File.join(RbConfig::CONFIG['bindir'], 'ruby'), @config_instance.ruby_binary
     assert_equal '/pun/sys/dashboard/files/fs', @config_instance.files_app_path
-    assert_equal '45000', @config_instance.connector_status_poll_interval
+    assert_equal '5000', @config_instance.connector_status_poll_interval
   end
 
   test 'should return overridden string config values from ENV' do
@@ -30,8 +30,8 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
 
     config = ConfigurationSingleton.new
 
-    assert_equal '/custom/meta', config.metadata_root
-    assert_equal '/custom/download', config.download_root
+    assert_equal Pathname.new('/custom/meta'), config.metadata_root
+    assert_equal Pathname.new('/custom/download'), config.download_root
     assert_equal '/custom/ruby', config.ruby_binary
     assert_equal '/custom/files', config.files_app_path
     assert_equal '99999', config.connector_status_poll_interval

@@ -18,6 +18,9 @@ require "rails/test_unit/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# Libraries required by the Loop App
+require 'ostruct'
+
 module DataverseForOndemand
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.

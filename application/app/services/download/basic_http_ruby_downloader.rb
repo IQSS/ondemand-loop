@@ -2,7 +2,7 @@
 module Download
   # Utility class to download a file from an HTTP url.
   # It downloads the file in chunks to be memory efficient.
-  # It supports stopping the download at any point.
+  # It supports cancelling the download at any point.
   class BasicHttpRubyDownloader
     include LoggingCommon
 
@@ -14,9 +14,9 @@ module Download
       @temp_file = temp_file
     end
 
-    def download
+    def download(&)
       log_info('Downloading...', {url: download_url, file: download_file, temp: temp_file})
-      download_follow_redirects(download_url, temp_file)
+      download_follow_redirects(download_url, temp_file, &)
       FileUtils.mv(temp_file, download_file)
     ensure
       File.delete(temp_file) if File.exist?(temp_file)
@@ -24,7 +24,7 @@ module Download
 
     private
 
-    def download_follow_redirects(url, file_path, headers = {}, limit = 3)
+    def download_follow_redirects(url, file_path, headers = {}, limit = 3, &)
       raise "Too many redirects" if limit <= 0
 
       uri = URI.parse(url)
@@ -35,13 +35,25 @@ module Download
           if redirect?(response)
             new_url = URI.join(url, response['location']).to_s
             log_info('Redirect...', {url: new_url, file: download_file, temp: temp_file})
-            return download_follow_redirects(new_url, file_path, headers, limit - 1)
+            return download_follow_redirects(new_url, file_path, headers, limit - 1, &)
           end
 
           raise "Failed to download: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
 
+          total_downloaded = 0  # Initialize the total downloaded size
           File.open(file_path, "wb") do |file|
-            response.read_body { |chunk| file.write(chunk) } # Stream chunks
+            response.read_body do |chunk|
+              file.write(chunk)
+              total_downloaded += chunk.length
+              if block_given?
+                # THE CALLER WANTS TO HANDLE CANCELLATIONS
+                cancel = yield create_context(url, file_path, total_downloaded)
+                if cancel
+                  log_info('Download canceled.', {url: new_url, file: download_file, temp: temp_file})
+                  return
+                end
+              end
+            end
           end
         end
       end
@@ -50,6 +62,14 @@ module Download
 
     def redirect?(response)
       response.is_a?(Net::HTTPRedirection) && response['location']
+    end
+
+    def create_context(url, location, total)
+      {
+        url: url,
+        location: location,
+        total: total
+      }
     end
 
   end

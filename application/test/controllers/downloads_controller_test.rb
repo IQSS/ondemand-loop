@@ -16,7 +16,6 @@ class DownloadsControllerTest < ActionDispatch::IntegrationTest
     DetachProcess.any_instance.stubs(:start_process).returns(true)
     get downloads_url
     assert_response :success
-    assert_select "div.col-md-9 > div.row", count: 0
   end
 
   test "should get index on disk with data" do
@@ -24,8 +23,6 @@ class DownloadsControllerTest < ActionDispatch::IntegrationTest
     populate
     get downloads_url
     assert_response :success
-    assert_select "div.col-md-9 > div.row", count: 1
-    assert_select "div.col-md-9 > div.row > div.card > div.card", count: 5
   end
 
   private

@@ -1,0 +1,48 @@
+<% files ||= [] %>
+<div id="schedule-downloads" class="card">
+  <div class="card-header">
+    <h4>Scheduled Downloads</h4>
+  </div>
+  <div class="card-body bg-light px-0">
+    <div class="container files">
+      <% files.each_with_index do |data, index| %>
+        <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
+          <div class="col-md-8">
+            <div class="d-flex align-items-center">
+            <%= link_to(files_app_url(data.collection.download_dir), class: 'btn btn-sm btn-outline-secondary me-2', title: 'Browse file', target: '_blank') do %>
+              <i class="bi bi-folder"></i>
+            <% end %>
+              <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-2" title="Schedule creation date">
+                <span><%= get_date(data.file.creation_date) %></span>
+                <span><%= get_time(data.file.creation_date) %></span>
+              </div>
+              <span class="me-2"><%= data.collection.id %> ></span>
+              <span class="me-2"><%= data.file.filename %></span>
+              <small class="text-muted me-2"><%= number_to_human_size(data.file.size) %></small>
+            </div>
+
+          </div>
+
+          <div class="col-md-2">
+            <% if data.file.status.downloading? %>
+              <%= render partial: '/shared/progress_bar', locals: { progress: data.file.connector_status.download_progress } %>
+            <% end %>
+          </div>
+
+          <div class="download-actions col-md-2 text-end">
+            <%= status_badge(data.file.status) %>
+
+            <a href="#" class="btn btn-sm btn-outline-dark" title="Cancel download"
+               data-controller="download-file-cancellation"
+               data-action="click->download-file-cancellation#cancel"
+               data-download-file-cancellation-url-value="<%= downloads_file_cancel_path(collection_id: data.file.collection_id, file_id: data.file.id) %>">
+              <i class="bi bi-sign-stop"></i>
+            </a>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+
+  </div>
+</div>

@@ -38,7 +38,7 @@ class Dataverse::DataverseServiceTest < ActiveSupport::TestCase
     assert download_files[0].valid?
 
     assert_equal download_collection.id, download_files[0].collection_id
-    assert_equal 'ready', download_files[0].status
+    assert_equal FileStatus::READY, download_files[0].status
     assert_equal 'dataverse', download_files[0].type
     assert_equal 272314, download_files[0].size
     assert_equal 'screenshot.png', download_files[0].filename

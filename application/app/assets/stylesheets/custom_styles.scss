@@ -1,0 +1,61 @@
+.files {
+  .custom-stripe {
+    background-color: #e9ecef;
+  }
+
+  .creation-date {
+    font-size: 0.7rem;
+    cursor: default;
+  }
+}
+
+.icon-class {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+.bg-project-muted {
+  background-color: #a1a8b0;
+  color: #212529;
+}
+
+.btn-project-muted {
+  background-color: #a1a8b0;
+  color: #212529;
+  border: 1px solid #949ba3;
+}
+
+.btn-project-muted:hover {
+  background-color: #949ba3;
+}
+
+.bg-project-warn {
+  background-color: #f8d7da;
+  color: #842029;
+}
+
+.btn-project-warn {
+  background-color: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c2c7;
+}
+.btn-project-warn:hover {
+  background-color: #f1b0b7;
+}
+
+.bg-project-neutral {
+  background-color: #ced4da;
+  color: #212529;
+}
+
+.btn-project-neutral {
+  background-color: #ced4da;
+  color: #212529;
+  border: 1px solid #adb5bd;
+}
+.btn-project-neutral:hover {
+  background-color: #bfc6cd;
+}

@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   get "downloads" => "downloads#index", as: :downloads
-  get "downloads/collections" => "downloads#collections", as: :downloads_collections
+  get "downloads/files" => "downloads#files", as: :downloads_files
+  post "downloads/:collection_id/:file_id/cancel" => "files#cancel", as: :downloads_file_cancel
+
+  get "projects" => "projects#index", as: :projects
 
   # DATAVERSE ROUTES
   get "integrations/dataverse/external_tool/dataset" => "dataverse/external_tool#dataset"
@@ -25,5 +28,5 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   # Defines the root path route ("/")
-  root "downloads#index"
+  root "projects#index"
 end

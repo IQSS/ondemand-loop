@@ -4,15 +4,12 @@ class DownloadFile < ApplicationDiskRecord
   include ActiveModel::Model
   include LoggingCommon
 
-  ATTRIBUTES = %w[id collection_id type filename status size metadata].freeze
+  ATTRIBUTES = %w[id collection_id type filename status size creation_date start_date end_date metadata].freeze
   TYPES = %w[dataverse].freeze
-  STATUS = %w[ready downloading success error].freeze
 
   attr_accessor *ATTRIBUTES
 
-  validates_presence_of *ATTRIBUTES
   validates :type, inclusion: { in: TYPES, message: "%{value} is not a valid type" }
-  validates :status, inclusion: { in: STATUS, message: "%{value} is not a valid status" }
   validates :size, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
 
   def self.find(collection_id, file_id)
@@ -22,9 +19,20 @@ class DownloadFile < ApplicationDiskRecord
     load_from_file(filename)
   end
 
+  def status=(value)
+    raise ArgumentError, "Invalid status: #{value}" unless value.is_a?(FileStatus)
+
+    @status = value
+  end
+
+  # TODO: Should be call this to_h instead?
   def to_hash
     ATTRIBUTES.each_with_object({}) do |attr, hash|
-      hash[attr] = send(attr)
+      if attr == 'status'
+        hash[attr] = status.to_s
+      else
+        hash[attr] = send(attr)
+      end
     end
   end
 
@@ -51,9 +59,11 @@ class DownloadFile < ApplicationDiskRecord
     true
   end
 
-  def save_status!(status)
-    self.status = status
-    save
+  def update(attributes = {})
+    attributes.each do |key, value|
+      # Set each attribute manually
+      send("#{key}=", value) if respond_to?("#{key}=")
+    end
   end
 
   def connector_status
@@ -87,7 +97,13 @@ class DownloadFile < ApplicationDiskRecord
   def self.load_from_file(filename)
     data = YAML.safe_load(File.read(filename), permitted_classes: [Hash], aliases: true)
     new.tap do |file|
-      ATTRIBUTES.each { |attr| file.send("#{attr}=", data[attr]) }
+      ATTRIBUTES.each do |attr|
+        if attr == 'status'
+          file.status = FileStatus.get(data['status'])
+        else
+          file.send("#{attr}=", data[attr])
+        end
+      end
     end
   rescue StandardError => e
     Rails.logger.error(e.message)

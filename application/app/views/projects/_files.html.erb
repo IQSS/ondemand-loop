@@ -1,0 +1,30 @@
+<% files = project.files %>
+<div class="container files border border-secondary-subtle rounded">
+  <% files.each_with_index do |file, index| %>
+    <div class="row py-1 align-items-center <%= 'custom-stripe' if index.even? %>">
+      <div class="col-md-10">
+        <div class="d-flex align-items-center">
+          <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-2" title="Schedule creation date">
+            <span><%= get_date(file.creation_date) %></span>
+            <span><%= get_time(file.creation_date) %></span>
+          </div>
+          <span class="me-2"><%= file.filename %></span>
+          <small class="text-muted me-2"><%= number_to_human_size(file.size) %></small>
+        </div>
+
+      </div>
+
+      <div class="file-status col-md-2 d-flex justify-content-end">
+        <div class="d-flex flex-column align-items-center">
+          <%= status_badge(file.status) %>
+          <% if file.status.success? %>
+            <span class="creation-date"><%= elapsed_string(file.start_date, file.end_date) %></span>
+          <% end %>
+          <% if file.status.downloading? %>
+            <span class="creation-date"><%= file.start_date %></span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

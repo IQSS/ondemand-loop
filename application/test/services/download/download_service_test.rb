@@ -14,7 +14,7 @@ class Download::DownloadServiceTest < ActiveSupport::TestCase
       connector = ConnectorDownloadProcessorMock.new
       ConnectorClassDispatcher.stubs(:download_processor).returns(connector)
 
-      file = stub({save_status!: nil})
+      file = stub({update: nil, save: nil})
       files_provider = DownloadFilesProviderMock.new([file])
 
       main = download_service_thread(files_provider)
@@ -43,14 +43,18 @@ class Download::DownloadServiceTest < ActiveSupport::TestCase
     Dir.mktmpdir do |dir|
       Configuration.stubs(:metadata_root).returns(dir.to_s)
       connector = mock("connector")
-      connector.expects(:download).once
+      connector.expects(:download).once.returns(OpenStruct.new({status: FileStatus::SUCCESS}))
       ConnectorClassDispatcher.stubs(:download_processor).returns(connector)
 
+      now_time = file_now
       file = mock("download_file")
-      file.expects(:save_status!).with('downloading').once
-      file.expects(:save_status!).with('success').once
+      file.expects(:update).with(start_date: now_time, status: FileStatus::DOWNLOADING).once
+      file.expects(:update).with(end_date: now_time, status: FileStatus::SUCCESS).once
+      file.expects(:save).times(2)
       files_provider = DownloadFilesProviderMock.new([file])
       target = Download::DownloadService.new(files_provider)
+      target.stubs(:now).returns(now_time)
+
       target.start
     end
   end
@@ -62,9 +66,11 @@ class Download::DownloadServiceTest < ActiveSupport::TestCase
       connector.expects(:download).once.raises(StandardError, "An error occurred")
       ConnectorClassDispatcher.stubs(:download_processor).returns(connector)
 
+      now_time = file_now
       file = mock("download_file")
-      file.expects(:save_status!).with('downloading').once
-      file.expects(:save_status!).with('error').once
+      file.expects(:update).with(start_date: now_time, status: FileStatus::DOWNLOADING).once
+      file.expects(:update).with(end_date: now_time, status: FileStatus::ERROR).once
+      file.expects(:save).times(2)
       # FOR LOGGING
       file.expects(:id).once
       files_provider = DownloadFilesProviderMock.new([file])
@@ -90,6 +96,7 @@ class Download::DownloadServiceTest < ActiveSupport::TestCase
 
     def download
       @queue.pop # Blocks until something is pushed into the queue
+      OpenStruct.new({status: FileStatus::SUCCESS, message: 'OK'})
     end
 
     def unblock
