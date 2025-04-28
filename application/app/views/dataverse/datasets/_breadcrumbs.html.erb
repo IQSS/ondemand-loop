@@ -11,7 +11,7 @@
     </li>
     <% dataset.data.parents.each do |parent| %>
       <li class="breadcrumb-item">
-        <%= link_to_dataverse(parent[:identifier], dataverse_url, parent[:identifier], {'aria-current' => 'page'}) %>
+        <%= link_to_dataverse(parent[:identifier], dataverse_url, parent[:identifier], {'title' => parent[:name], 'aria-current' => 'page'}) %>
       </li>
     <% end %>
     <li class="breadcrumb-item active">
