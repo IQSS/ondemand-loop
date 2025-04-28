@@ -4,13 +4,16 @@ require "json"
 
 module Dataverse
   class DatasetFilesResponse
-    attr_reader :status, :data, :total_count
+    include ActsAsPage
+    attr_reader :status, :data
 
-    def initialize(json)
+    def initialize(json, page: 1, per_page: 10)
       parsed = JSON.parse(json, symbolize_names: true)
       @status = parsed[:status]
       @total_count = parsed[:totalCount]
       @data = (parsed[:data] || []).map { |file| DatasetFile.new(file) }
+      @page = page
+      @per_page = per_page
     end
 
     def files
