@@ -7,7 +7,8 @@ class Dataverse::DatasetsController < ApplicationController
   before_action :find_dataset_by_persistent_id
 
   def show
-    @files = []
+    page = params[:page] ? params[:page].to_i : 1
+    @files_page = @service.search_dataset_files_by_persistent_id(@persistent_id, page: page, per_page: 10)
   end
 
   def download
