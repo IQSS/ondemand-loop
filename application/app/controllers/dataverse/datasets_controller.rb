@@ -7,19 +7,21 @@ class Dataverse::DatasetsController < ApplicationController
   before_action :find_dataset_by_persistent_id
 
   def show
-    page = params[:page] ? params[:page].to_i : 1
-    @files_page = @service.search_dataset_files_by_persistent_id(@persistent_id, page: page, per_page: 10)
+    @page = params[:page] ? params[:page].to_i : 1
+    @files_page = @service.search_dataset_files_by_persistent_id(@persistent_id, page: @page, per_page: 10)
   end
 
   def download
     file_ids = params[:file_ids]
+    @page = params[:page] ? params[:page].to_i : 1
+    @files_page = @service.search_dataset_files_by_persistent_id(@persistent_id, page: @page, per_page: 10)
     @download_collection = @service.initialize_download_collection(@dataset)
     unless @download_collection.save
       flash[:error] = "Error generating the download collection: #{@download_collection.errors}"
       redirect_to downloads_path
       return
     end
-    @download_files = @service.initialize_download_files(@download_collection, @dataset, file_ids)
+    @download_files = @service.initialize_download_files(@download_collection, @files_page, file_ids)
     save_results = @download_files.each.map { |download_file| download_file.save }
     if save_results.include?(false)
       flash[:error] = "Error generating the download file"

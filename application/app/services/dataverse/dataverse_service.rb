@@ -59,11 +59,11 @@ module Dataverse
     end
 
     def initialize_download_collection(dataset)
-      DownloadCollection.new(name: "#{@dataverse_url} Dataverse selection from #{dataset.data.identifier}")
+      DownloadCollection.new(name: "#{@dataverse_url} Dataverse selection from #{dataset.data.dataset_persistent_id}")
     end
 
-    def initialize_download_files(download_collection, dataset, file_ids)
-      dataset_files = dataset.files_by_ids(file_ids)
+    def initialize_download_files(download_collection, files_page, file_ids)
+      dataset_files = files_page.files_by_ids(file_ids)
       dataset_files.each.map do |dataset_file|
         DownloadFile.new.tap do |f|
           f.id = DownloadFile.generate_id
