@@ -11,8 +11,8 @@
       <b>Subjects:</b> <%= dataset.subjects %>
     </span>
     <span class="list-group-item list-group-item-action">
-      <b>License:</b> <%= image_tag dataset.data.latest_version.license.icon_uri if dataset.data.latest_version.license.icon_uri %>
-      <%= dataset.data.latest_version.license.name %>
+      <b>License:</b> <%= image_tag dataset.data.license.icon_uri if dataset.data.license.icon_uri %>
+      <%= dataset.data.license.name %>
     </span>
   </div>
 </div>

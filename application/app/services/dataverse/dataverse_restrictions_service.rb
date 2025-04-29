@@ -17,13 +17,6 @@ module Dataverse
 
     def validate_dataset(dataset)
       response = { valid?: true, message: nil }
-      if dataset.files.size > dataverse_restrictions.max_dataset_files
-        response = {
-          valid?: false,
-          message: "Datasets with more than #{dataverse_restrictions.max_dataset_files} files are not supported"
-        }
-      end
-
       OpenStruct.new(response)
     end
 

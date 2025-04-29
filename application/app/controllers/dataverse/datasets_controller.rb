@@ -7,7 +7,7 @@ class Dataverse::DatasetsController < ApplicationController
   before_action :find_dataset_by_persistent_id
 
   def show
-    @files = @dataset.files
+    @files = []
   end
 
   def download
@@ -39,7 +39,7 @@ class Dataverse::DatasetsController < ApplicationController
   def find_dataset_by_persistent_id
     @persistent_id = params[:persistent_id]
     begin
-      @dataset = @service.find_dataset_by_persistent_id(@persistent_id)
+      @dataset = @service.find_dataset_version_by_persistent_id(@persistent_id)
       unless @dataset
         log_error('Dataset not found.', {dataverse: @dataverse_url, persistent_id: @persistent_id})
         flash[:error] = "Dataset not found. Dataverse: #{@dataverse_url} persistentId: #{@persistent_id}"

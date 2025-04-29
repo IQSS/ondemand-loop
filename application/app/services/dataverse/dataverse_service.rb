@@ -35,7 +35,7 @@ module Dataverse
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?
       raise "Error getting dataset files: #{response.code} - #{response.body}" unless response.success?
-      DatasetFilesResponse.new(response.body)
+      DatasetFilesResponse.new(response.body, page: page, per_page: per_page)
     end
 
     def find_dataverse_by_id(id)
