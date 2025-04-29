@@ -10,6 +10,4 @@ class DownloadsController < ApplicationController
     render partial: '/downloads/files', layout: false, locals: { files: @files }
   end
 
-  private
-
 end
