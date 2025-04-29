@@ -9,6 +9,7 @@ class DownloadFile < ApplicationDiskRecord
 
   attr_accessor *ATTRIBUTES
 
+  validates_presence_of :id, :collection_id, :type, :filename, :status, :size
   validates :type, inclusion: { in: TYPES, message: "%{value} is not a valid type" }
   validates :size, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
 
