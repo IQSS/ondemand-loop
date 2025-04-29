@@ -5,16 +5,13 @@ class Dataverse::DatasetsController < ApplicationController
   before_action :get_dv_full_hostname
   before_action :init_service
   before_action :find_dataset_by_persistent_id
+  before_action :search_files_page
 
   def show
-    @page = params[:page] ? params[:page].to_i : 1
-    @files_page = @service.search_dataset_files_by_persistent_id(@persistent_id, page: @page, per_page: 10)
   end
 
   def download
     file_ids = params[:file_ids]
-    @page = params[:page] ? params[:page].to_i : 1
-    @files_page = @service.search_dataset_files_by_persistent_id(@persistent_id, page: @page, per_page: 10)
     @download_collection = @service.initialize_download_collection(@dataset)
     unless @download_collection.save
       flash[:error] = "Error generating the download collection: #{@download_collection.errors}"
@@ -61,4 +58,25 @@ class Dataverse::DatasetsController < ApplicationController
     end
   end
 
+  def search_files_page
+    @page = params[:page] ? params[:page].to_i : 1
+    begin
+      @files_page = @service.search_dataset_files_by_persistent_id(@persistent_id, page: @page, per_page: 10)
+      unless @files_page
+        log_error('Dataset files not found.', {dataverse: @dataverse_url, persistent_id: @persistent_id, page: @page})
+        flash[:error] = "Dataset files not found. Dataverse: #{@dataverse_url} persistentId: #{@persistent_id} page: #{@page}"
+        redirect_to root_path
+        return
+      end
+    rescue Dataverse::DataverseService::UnauthorizedException => e
+      log_error('Dataset files endpoint requires authorization', {dataverse: @dataverse_url, persistent_id: @persistent_id, page: @page}, e)
+      flash[:error] = "Dataset files endpoint requires authorization. Dataverse: #{@dataverse_url} persistentId: #{@persistent_id} page: #{@page}"
+      redirect_to root_path
+    rescue Exception => e
+      log_error('Dataverse service error while searching files', {dataverse: @dataverse_url, persistent_id: @persistent_id, page: @page}, e)
+      flash[:error] = "Dataverse service error while searching files. Dataverse: #{@dataverse_url} persistentId: #{@persistent_id} page: #{@page}"
+      redirect_to root_path
+      return
+    end
+  end
 end
