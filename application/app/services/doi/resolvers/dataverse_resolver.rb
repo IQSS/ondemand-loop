@@ -63,7 +63,7 @@ module Doi
         return false unless response.success?
 
         json = response.json
-        json['version'] && json['build']
+        json['data'] && json['data']['version']
       rescue => e
         log_error('Error while trying Dataverse API', {api_url: api_url}, e)
         false

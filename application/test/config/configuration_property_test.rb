@@ -70,7 +70,7 @@ class ConfigurationPropertyTest < ActiveSupport::TestCase
   end
 
   test 'map_string delegates to mapper' do
-    property = ConfigurationProperty.property(:delegated)
-    assert_equal 'value', property.map_string('value')
+    ConfigurationProperty::PassThroughMapper.expects(:map_string).with('default_value')
+    property = ConfigurationProperty.new(:delegated, 'default_value', false, [], ConfigurationProperty::PassThroughMapper)
   end
 end

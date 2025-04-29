@@ -1,4 +1,6 @@
+require 'fileutils'
 require_relative '../app/lib/logging_common'
+
 # A generic class to map configurations to Ruby runtime objects like Intgers, Strings
 # and Booleans.
 class ConfigurationProperty
@@ -29,16 +31,16 @@ class ConfigurationProperty
   # The different mappers are used to transform string values from the environment to a type.
   #
   # @param name [symbol] name of the property.To be used by ConfigurationSingleton to lookup a value in the config object.
-  # @param default_value [any] default value for the property. To be used by ConfigurationSingleton when no value is defined.
+  # @param default [any] default value for the property. To be used by ConfigurationSingleton when no value is defined.
   # @param read_from_env [boolean] if true, ConfigurationSingleton will use the ENV to lookup a value.
   # @param env_names [array] list of environment names to lookup a value for this property in the ENV object. It defaults to ["LOOP_#{@name.to_s.upcase}"] if nil provided
   # @param mapper [Mapper Class] Mapper to transform strings from the environment to the property type.
   #
   def initialize(name, default, read_from_env, env_names, mapper)
     @name = name.to_sym
-    @default = default
+    @mapper = mapper || PassThroughMapper
+    @default = default.is_a?(String) ? @mapper.map_string(default) : default
     @read_from_environment = !!read_from_env
-    @mapper = mapper
 
     environment_names = env_names || ["OOD_LOOP_#{@name.to_s.upcase}"]
     @environment_names = @read_from_environment ? environment_names : []
