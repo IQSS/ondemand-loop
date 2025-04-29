@@ -10,9 +10,6 @@ export default class extends Controller {
         const path = this.urlValue
         const csrfToken = window.loop_app_config.csrf_token
 
-        console.log(path)
-        console.log(csrfToken)
-
         fetch(path, {
             method: "POST",
             headers: {
