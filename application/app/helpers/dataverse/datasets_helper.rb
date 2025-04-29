@@ -16,6 +16,26 @@ module Dataverse::DatasetsHelper
     retrictions_service.validate_dataset_file(file)
   end
 
+  def link_to_dataset_prev_page(dataverse_url, persistent_id, page, html_options = {})
+    unless page.first_page?
+      url_options = {}
+      url_options[:dv_port] = params[:dv_port]
+      url_options[:dv_scheme] = params[:dv_scheme]
+      url_options[:page] = page.prev_page
+      link_to("<", view_dataverse_dataset_path(URI.parse(dataverse_url).hostname, persistent_id, url_options), html_options)
+    end
+  end
+
+  def link_to_dataset_next_page(dataverse_url, persistent_id, page, html_options = {})
+    unless page.last_page?
+      url_options = {}
+      url_options[:dv_port] = params[:dv_port]
+      url_options[:dv_scheme] = params[:dv_scheme]
+      url_options[:page] = page.next_page
+      link_to(">", view_dataverse_dataset_path(URI.parse(dataverse_url).hostname, persistent_id, url_options), html_options)
+    end
+  end
+
   private
 
   def retrictions_service
