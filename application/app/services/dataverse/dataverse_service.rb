@@ -50,7 +50,7 @@ module Dataverse
           f.id = DownloadFile.generate_id
           f.collection_id = download_collection.id
           f.creation_date = now
-          f.type = 'dataverse'
+          f.type = ConnectorType::DATAVERSE
           f.filename = dataset_file.data_file.filename
           f.status = FileStatus::READY
           f.size = dataset_file.data_file.filesize

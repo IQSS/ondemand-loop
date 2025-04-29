@@ -7,7 +7,7 @@ class DownloadFileTest < ActiveSupport::TestCase
     DownloadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
     DownloadCollection.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
-      'id' => '123-321', 'collection_id' => '456-789', 'type' => 'dataverse', 'filename' => 'test.png',
+      'id' => '123-321', 'collection_id' => '456-789', 'type' => ConnectorType::DATAVERSE, 'filename' => 'test.png',
       'status' => FileStatus::READY, 'size' => 1024,
       'creation_date' => nil,
       'start_date' => nil,
@@ -30,7 +30,7 @@ class DownloadFileTest < ActiveSupport::TestCase
   test 'should initialize with valid attributes' do
     assert_equal '123-321', @download_file.id
     assert_equal '456-789', @download_file.collection_id
-    assert_equal 'dataverse', @download_file.type
+    assert_equal ConnectorType::DATAVERSE, @download_file.type
     assert_equal 'test.png', @download_file.filename
     assert_equal FileStatus::READY, @download_file.status
     assert_equal 1024, @download_file.size
@@ -42,26 +42,23 @@ class DownloadFileTest < ActiveSupport::TestCase
 
   test 'should be invalid because of invalid values' do
     assert @download_file.valid?
-    @download_file.type = 'invalid_type'
-    refute @download_file.valid?
-    assert_includes @download_file.errors[:type], 'invalid_type is not a valid type'
     @download_file.size = -1
     refute @download_file.valid?
     assert_includes @download_file.errors[:size], 'must be greater than or equal to 0'
   end
 
   test 'to_hash' do
-    expected_hash = @valid_attributes.tap{|h| h['status'] = h['status'].to_s}
+    expected_hash = map_objects(@valid_attributes)
     assert_equal expected_hash, @download_file.to_hash
   end
 
   test 'to_json' do
-    expected_json = @valid_attributes.tap{|h| h['status'] = h['status'].to_s}.to_json
+    expected_json = map_objects(@valid_attributes).to_json
     assert_equal expected_json, @download_file.to_json
   end
 
   test 'to_yaml' do
-    expected_yaml = @valid_attributes.tap{|h| h['status'] = h['status'].to_s}.to_yaml
+    expected_yaml = map_objects(@valid_attributes).to_yaml
     assert_equal expected_yaml, @download_file.to_yaml
   end
 
@@ -81,7 +78,7 @@ class DownloadFileTest < ActiveSupport::TestCase
   end
 
   test 'save stopped due to invalid attributes' do
-    @download_file.type = 'invalid_type'
+    @download_file.size = 'invalid_type'
     refute @download_file.save
     refute File.exist?(@expected_filename), 'File was not created in the file system'
   end
@@ -103,7 +100,7 @@ class DownloadFileTest < ActiveSupport::TestCase
     assert loaded_file
     assert_equal '123-321', loaded_file.id
     assert_equal '456-789', loaded_file.collection_id
-    assert_equal 'dataverse', loaded_file.type
+    assert_equal ConnectorType::DATAVERSE, loaded_file.type
     assert_equal 'test.png', loaded_file.filename
     assert_equal FileStatus::READY, loaded_file.status
     assert_equal 1024, loaded_file.size
@@ -122,5 +119,11 @@ class DownloadFileTest < ActiveSupport::TestCase
     target = create_download_file(collection)
     target.update(status: FileStatus::CANCELLED)
     assert_equal FileStatus::CANCELLED, target.status
+  end
+
+  def map_objects(hash)
+    hash['type'] = hash['type'].to_s
+    hash['status'] = hash['status'].to_s
+    hash
   end
 end

@@ -5,12 +5,10 @@ class DownloadFile < ApplicationDiskRecord
   include LoggingCommon
 
   ATTRIBUTES = %w[id collection_id type filename status size creation_date start_date end_date metadata].freeze
-  TYPES = %w[dataverse].freeze
 
   attr_accessor *ATTRIBUTES
 
   validates_presence_of :id, :collection_id, :type, :filename, :status, :size
-  validates :type, inclusion: { in: TYPES, message: "%{value} is not a valid type" }
   validates :size, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
 
   def self.find(collection_id, file_id)
@@ -18,6 +16,12 @@ class DownloadFile < ApplicationDiskRecord
     return nil unless File.exist?(filename)
 
     load_from_file(filename)
+  end
+
+  def type=(value)
+    raise ArgumentError, "Invalid type: #{value}" unless value.is_a?(ConnectorType)
+
+    @type = value
   end
 
   def status=(value)
@@ -29,8 +33,8 @@ class DownloadFile < ApplicationDiskRecord
   # TODO: Should be call this to_h instead?
   def to_hash
     ATTRIBUTES.each_with_object({}) do |attr, hash|
-      if attr == 'status'
-        hash[attr] = status.to_s
+      if ['type', 'status'].include?(attr)
+        hash[attr] = send(attr).to_s
       else
         hash[attr] = send(attr)
       end
@@ -99,7 +103,10 @@ class DownloadFile < ApplicationDiskRecord
     data = YAML.safe_load(File.read(filename), permitted_classes: [Hash], aliases: true)
     new.tap do |file|
       ATTRIBUTES.each do |attr|
-        if attr == 'status'
+        case attr
+        when 'type'
+          file.type = ConnectorType.get(data['type'])
+        when 'status'
           file.status = FileStatus.get(data['status'])
         else
           file.send("#{attr}=", data[attr])
@@ -107,7 +114,7 @@ class DownloadFile < ApplicationDiskRecord
       end
     end
   rescue StandardError => e
-    Rails.logger.error(e.message)
+    LoggingCommon.log_error('Cannon load file metadata', {file: filename}, e)
     nil
   end
 end

@@ -8,6 +8,7 @@
             <span><%= get_date(file.creation_date) %></span>
             <span><%= get_time(file.creation_date) %></span>
           </div>
+          <span class="me-2"><%= connector_icon(file.type) %></span>
           <span class="me-2"><%= file.filename %></span>
           <small class="text-muted me-2"><%= number_to_human_size(file.size) %></small>
         </div>

@@ -10,7 +10,7 @@ class Dataverse::ConnectorStatusTest < ActiveSupport::TestCase
       temp_location: fixture_path('/dataverse/connector_status/not_found.txt.part'),
     }
     @file = DownloadFile.new
-    @file.type = 'dataverse'
+    @file.type = ConnectorType::DATAVERSE
     @file.status = FileStatus::READY
     @file.metadata = @default_metadata
   end

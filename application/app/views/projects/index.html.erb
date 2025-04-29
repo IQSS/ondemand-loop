@@ -2,6 +2,8 @@
   <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: 'Projects'}]} %>
   <div class="row">
       <div class="col-md-12">
+        <%= render partial: 'actions' %>
+
         <% @download_collections.each do |collection| %>
           <%= render partial: 'project', locals: { project: collection } %>
         <% end %>

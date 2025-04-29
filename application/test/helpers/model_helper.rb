@@ -1,6 +1,6 @@
 module ModelHelper
 
-  def download_collection(type: 'dataverse', files:)
+  def download_collection(type: ConnectorType::DATAVERSE, files:)
     DownloadCollection.new(id: random_id, name: 'test_collection').tap do |collection|
       download_files = Array.new(files) { create_download_file(collection, type: type) }
       collection.stubs(:files).returns(download_files)
@@ -11,7 +11,7 @@ module ModelHelper
     DownloadCollection.new(id: random_id, name: 'test_collection')
   end
 
-  def create_download_file(collection, type: 'dataverse')
+  def create_download_file(collection, type: ConnectorType::DATAVERSE)
     DownloadFile.new.tap do |file|
       file.id = random_id
       file.collection_id = collection.id

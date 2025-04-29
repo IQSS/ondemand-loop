@@ -75,6 +75,7 @@ class Download::DownloadServiceTest < ActiveSupport::TestCase
       file.expects(:id).once
       files_provider = DownloadFilesProviderMock.new([file])
       target = Download::DownloadService.new(files_provider)
+      target.stubs(:now).returns(now_time)
       target.start
     end
   end

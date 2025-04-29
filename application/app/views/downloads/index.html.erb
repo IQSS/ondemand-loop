@@ -2,19 +2,10 @@
   <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: 'Downloads'}]} %>
   <div class="row">
       <div class="col-md-12">
-        <div class="text-end sticky-top bg-white p-2 m-3 z-index-999">
-          <%= link_to(files_app_url(Configuration.download_root), class: 'btn btn-outline-dark btn-sm', target: '_blank') do %>
-            <i class="bi bi-folder-fill"></i><span class="ps-1">Downloads Directory</span>
-          <% end %>
-          <%= link_to(downloads_path, class: 'btn btn-outline-dark btn-sm', target: '_blank') do %>
-            <i class="bi bi-arrow-clockwise bold"></i><span class="ps-1">Reload</span>
-          <% end %>
-        </div>
-
-        <hr>
+        <%= render partial: 'actions' %>
 
         <div data-controller="files-status-refresh">
-          <%= render partial: 'files', locals: { files: @files }%>
+          <%= render partial: 'files', locals: { files: @files } %>
         </div>
 
       </div>

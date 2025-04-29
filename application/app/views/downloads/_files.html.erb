@@ -16,7 +16,8 @@
                 <span><%= get_date(data.file.creation_date) %></span>
                 <span><%= get_time(data.file.creation_date) %></span>
               </div>
-              <span class="me-2"><%= data.collection.id %> ></span>
+              <span class="me-2"><%= connector_icon(data.file.type) %></span>
+              <span class="me-2"><%= data.collection.name %> ></span>
               <span class="me-2"><%= data.file.filename %></span>
               <small class="text-muted me-2"><%= number_to_human_size(data.file.size) %></small>
             </div>

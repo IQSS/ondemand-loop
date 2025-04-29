@@ -51,4 +51,8 @@ module ApplicationHelper
     # Return a span with the appropriate class and status text
     content_tag(:span, status.to_s, class: "badge #{color}")
   end
+
+  def connector_icon(type)
+    image_tag(type.to_s.downcase, class: 'icon-class')
+  end
 end

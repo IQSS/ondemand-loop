@@ -3,8 +3,17 @@
 class ConnectorType
   TYPES = %w[dataverse].freeze
 
-  attr_reader :value
+  # Private constructor to prevent direct instantiation
+  private_class_method :new
 
+  def self.get(value)
+    value = value.to_s.downcase
+    raise ArgumentError, "Invalid type: #{value}" unless TYPES.include?(value)
+
+    const_get(value.upcase)
+  end
+
+  # Initialize with a type value
   def initialize(value)
     value = value.to_s.downcase
     raise ArgumentError, "Invalid type: #{value}" unless TYPES.include?(value)
@@ -12,12 +21,20 @@ class ConnectorType
     @value = value
   end
 
-  # Method for checking specific type
-  def dataverse?
-    value == 'dataverse'
+  def to_s
+    @value
   end
 
-  def to_s
-    value
+  # Dynamically define constants for each type
+  TYPES.each do |type|
+    const_set(type.upcase, new(type))
   end
+
+  # Dynamically define methods to check each type
+  TYPES.each do |type|
+    define_method("#{type}?") do
+      @value == type
+    end
+  end
+
 end
