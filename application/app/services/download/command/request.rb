@@ -10,7 +10,7 @@ module Download::Command
       @body = OpenStruct.new(body)
     end
 
-    def to_json(*_args)
+    def to_json
       {
         command: command,
         headers: headers,
