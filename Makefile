@@ -4,7 +4,7 @@ all:: loop_up
 COMPOSE_CMD = docker compose
 OOD_UID := $(shell id -u)
 OOD_GID := $(shell id -g)
-OOD_IMAGE := hmdc/sid-ood:ood-3.1.7.el8
+OOD_IMAGE := hmdc/sid-ood:ood-3.1.7.ssl.el8
 LOOP_BUILDER_IMAGE := hmdc/ondemand-loop:builder-R3.1
 WORKING_DIR := $(shell pwd)
 
