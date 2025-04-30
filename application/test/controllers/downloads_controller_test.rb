@@ -28,16 +28,18 @@ class DownloadsControllerTest < ActionDispatch::IntegrationTest
   private
 
   def populate
-    valid_json = load_file_fixture(File.join('dataverse', 'dataset_response', 'valid_response_multiple_files.json'))
-    dataset = Dataverse::DatasetResponse.new(valid_json)
-    file_ids = [86,87,88,89,90]
+    valid_json = load_file_fixture(File.join('dataverse', 'dataset_version_response', 'valid_response.json'))
+    dataset = Dataverse::DatasetVersionResponse.new(valid_json)
+    valid_json = load_file_fixture(File.join('dataverse', 'dataset_files_response', 'valid_response.json'))
+    files_page = Dataverse::DatasetFilesResponse.new(valid_json)
+    file_ids = [4,5]
 
     parsed_url = URI.parse("http://localhost:3000")
     service = Dataverse::DataverseService.new(parsed_url.to_s)
     download_collection = service.initialize_download_collection(dataset)
     download_collection.save
 
-    files = service.initialize_download_files(download_collection, dataset, file_ids)
+    files = service.initialize_download_files(download_collection, files_page, file_ids)
     files.each do |download_file|
       download_file.save
     end
