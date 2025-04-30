@@ -31,6 +31,13 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     load_file_fixture(File.join('dataverse', 'dataset_files_response', 'valid_response.json'))
   end
 
+  def files_incomplete_no_data_json
+    load_file_fixture(File.join('dataverse', 'dataset_files_response', 'incomplete_no_data.json'))
+  end
+
+  def files_incomplete_no_data_file_json
+    load_file_fixture(File.join('dataverse', 'dataset_files_response', 'incomplete_no_data_file.json'))
+  end
 
   test "should redirect to root path after not finding a dataverse host" do
     Dataverse::DataverseService.any_instance.stubs(:find_dataset_version_by_persistent_id).raises("error")
@@ -50,6 +57,7 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
 
   test "should redirect to root path after raising exception" do
     Dataverse::DataverseService.any_instance.stubs(:find_dataset_version_by_persistent_id).raises("error")
+    Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(nil)
     get view_dataverse_dataset_url(@new_id, "random_id")
     assert_redirected_to root_path
     assert_equal "Dataverse service error. Dataverse: https://#{@new_id} persistentId: random_id", flash[:error]
@@ -61,6 +69,15 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     get view_dataverse_dataset_url(@new_id, "random_id")
     assert_redirected_to root_path
     assert_equal "Dataset requires authorization. Dataverse: https://#{@new_id} persistentId: random_id", flash[:error]
+  end
+
+  test "should redirect to root path after raising Unauthorized exception only in files page" do
+    dataset = Dataverse::DatasetVersionResponse.new(dataset_valid_json)
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
+    Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).raises(Dataverse::DataverseService::UnauthorizedException)
+    get view_dataverse_dataset_url(@new_id, "random_id")
+    assert_redirected_to root_path
+    assert_equal "Dataset files endpoint requires authorization. Dataverse: https://#{@new_id} persistentId: random_id page: 1", flash[:error]
   end
 
   test "should display the dataset view with the file" do
@@ -76,7 +93,17 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
   test "should display the dataset incomplete with no data" do
     dataset = Dataverse::DatasetVersionResponse.new(dataset_incomplete_json_no_data)
     Dataverse::DataverseService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
-    files_page = Dataverse::DatasetFilesResponse.new(files_valid_json)
+    files_page = Dataverse::DatasetFilesResponse.new(files_incomplete_no_data_json)
+    Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(files_page)
+    get view_dataverse_dataset_url(@new_id, "doi:10.5072/FK2/LLIZ6Q")
+    assert_response :success
+    assert_select "input[type=checkbox][name='file_ids[]']", 0
+  end
+
+  test "should display the dataset incomplete with no data file" do
+    dataset = Dataverse::DatasetVersionResponse.new(dataset_incomplete_json_no_data)
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
+    files_page = Dataverse::DatasetFilesResponse.new(files_incomplete_no_data_file_json)
     Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(files_page)
     get view_dataverse_dataset_url(@new_id, "doi:10.5072/FK2/LLIZ6Q")
     assert_response :success

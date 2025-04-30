@@ -21,7 +21,14 @@ module Dataverse
 
     def validate_dataset_file(file)
       response = { valid?: true, message: nil }
-      if file.data_file.filesize > dataverse_restrictions.max_file_size
+      if file.data_file.nil?
+        response = {
+          valid?: false,
+          message: "File data is not present"
+        }
+      end
+
+      if file&.data_file&.filesize and file.data_file.filesize > dataverse_restrictions.max_file_size
         helpers = ActionController::Base.helpers
         response = {
           valid?: false,

@@ -6,24 +6,24 @@
   <td>
     <div class="form-check">
       <% if restrictions_response.valid? %>
-        <%= check_box_tag("file_ids[]", file.data_file.id, false, class: "form-check-input", id: "file_checkbox_#{file.data_file.id}") %>
+        <%= check_box_tag("file_ids[]", file&.data_file&.id, false, class: "form-check-input", id: "file_checkbox_#{file&.data_file&.id}") %>
       <% else %>
         <i class="fas fa-circle-info"></i>
       <% end %>
     </div>
   </td>
   <td>
-    <label for="file_checkbox_<%= file.data_file.id %>" class="d-block mb-1">
+    <label for="file_checkbox_<%= file&.data_file&.id %>" class="d-block mb-1">
       <%= file.label %>
     </label>
   </td>
   <td class="text-nowrap">
-    <%= number_to_human_size(file.data_file.filesize) %>
+    <%= number_to_human_size(file&.data_file&.filesize) %>
   </td>
   <td class="text-nowrap">
-    <%= file.data_file.storage_identifier.split(":", 3)[0..1].join(":") %>
+    <%= file.data_file.storage_identifier.split(":", 3)[0..1].join(":") if file&.data_file&.storage_identifier %>
   </td>
   <td class="text-nowrap">
-    <%= file.data_file.publication_date %>
+    <%= file&.data_file&.publication_date %>
   </td>
 </tr>
