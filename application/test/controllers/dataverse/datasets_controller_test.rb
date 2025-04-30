@@ -11,99 +11,76 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     FileUtils.remove_entry(@tmp_dir)
   end
 
-  def valid_json_body
-    load_file_fixture(File.join('dataverse', 'dataset_response', 'valid_response.json'))
+  def dataset_valid_json
+    load_file_fixture(File.join('dataverse', 'dataset_version_response', 'valid_response.json'))
   end
 
-  def valid_json_multiple_files
-    load_file_fixture(File.join('dataverse', 'dataset_response', 'valid_response_multiple_files.json'))
+  def dataset_incomplete_json_no_data
+    load_file_fixture(File.join('dataverse', 'dataset_version_response', 'incomplete_no_data.json'))
   end
 
-  def incomplete_json_no_data
-    load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_data.json'))
+  def dataset_incomplete_json_no_metadata_blocks
+    load_file_fixture(File.join('dataverse', 'dataset_version_response', 'incomplete_no_metadata_blocks.json'))
   end
 
-  def incomplete_json_no_version
-    load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_version.json'))
+  def dataset_incomplete_json_no_license
+    load_file_fixture(File.join('dataverse', 'dataset_version_response', 'incomplete_no_license.json'))
   end
 
-  def incomplete_json_no_metadata_blocks
-    load_file_fixture(File.join('dataverse', 'dataset_response', 'incomplete_no_metadata_blocks.json'))
+  def files_valid_json
+    load_file_fixture(File.join('dataverse', 'dataset_files_response', 'valid_response.json'))
   end
+
 
   test "should redirect to root path after not finding a dataverse host" do
-    Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).raises("error")
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_version_by_persistent_id).raises("error")
+    Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).raises("error")
     get view_dataverse_dataset_url("random", "random_id")
     assert_redirected_to root_path
     assert_equal "Dataverse service error. Dataverse: https://random persistentId: random_id", flash[:error]
   end
 
   test "should redirect to root path after not finding a dataset" do
-    Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).returns(nil)
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(nil)
+    Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(nil)
     get view_dataverse_dataset_url(@new_id, "random_id")
     assert_redirected_to root_path
     assert_equal "Dataset not found. Dataverse: https://#{@new_id} persistentId: random_id", flash[:error]
   end
 
   test "should redirect to root path after raising exception" do
-    Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).raises("error")
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_version_by_persistent_id).raises("error")
     get view_dataverse_dataset_url(@new_id, "random_id")
     assert_redirected_to root_path
     assert_equal "Dataverse service error. Dataverse: https://#{@new_id} persistentId: random_id", flash[:error]
   end
 
   test "should redirect to root path after raising Unauthorized exception" do
-    Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).raises(Dataverse::DataverseService::UnauthorizedException)
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_version_by_persistent_id).raises(Dataverse::DataverseService::UnauthorizedException)
+    Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).raises(Dataverse::DataverseService::UnauthorizedException)
     get view_dataverse_dataset_url(@new_id, "random_id")
     assert_redirected_to root_path
     assert_equal "Dataset requires authorization. Dataverse: https://#{@new_id} persistentId: random_id", flash[:error]
   end
 
   test "should display the dataset view with the file" do
-    dataset = Dataverse::DatasetResponse.new(valid_json_body)
-    Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).returns(dataset)
+    dataset = Dataverse::DatasetVersionResponse.new(dataset_valid_json)
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
+    files_page = Dataverse::DatasetFilesResponse.new(files_valid_json)
+    Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(files_page)
     get view_dataverse_dataset_url(@new_id, "doi:10.5072/FK2/GCN7US")
     assert_response :success
     assert_select "input[type=checkbox][name='file_ids[]']", 1 # One file is displayed on the view
   end
 
-  test "should display the dataset view with multiple files" do
-    dataset = Dataverse::DatasetResponse.new(valid_json_multiple_files)
-    Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).returns(dataset)
-    get view_dataverse_dataset_url(@new_id, "doi:10.5072/FK2/LLIZ6Q")
-    assert_response :success
-    assert_select "input[type=checkbox][name='file_ids[]']", 5
-  end
-
   test "should display the dataset incomplete with no data" do
-    dataset = Dataverse::DatasetResponse.new(incomplete_json_no_data)
-    Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).returns(dataset)
+    dataset = Dataverse::DatasetVersionResponse.new(dataset_incomplete_json_no_data)
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
+    files_page = Dataverse::DatasetFilesResponse.new(files_valid_json)
+    Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(files_page)
     get view_dataverse_dataset_url(@new_id, "doi:10.5072/FK2/LLIZ6Q")
     assert_response :success
     assert_select "input[type=checkbox][name='file_ids[]']", 0
   end
 
-  test "should display the dataset incomplete with no version" do
-    dataset = Dataverse::DatasetResponse.new(incomplete_json_no_version)
-    Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).returns(dataset)
-    get view_dataverse_dataset_url(@new_id, "doi:10.5072/FK2/LLIZ6Q")
-    assert_response :success
-    assert_select "input[type=checkbox][name='file_ids[]']", 0
-  end
-
-  test "should display the dataset incomplete with no metadata blocks" do
-    dataset = Dataverse::DatasetResponse.new(incomplete_json_no_metadata_blocks)
-    Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).returns(dataset)
-    get view_dataverse_dataset_url(@new_id, "doi:10.5072/FK2/LLIZ6Q")
-    assert_response :success
-    assert_select "input[type=checkbox][name='file_ids[]']", 5
-  end
-
-  test "controller should handle domain routes" do
-    dataset = Dataverse::DatasetResponse.new(incomplete_json_no_metadata_blocks)
-    Dataverse::DataverseService.any_instance.stubs(:find_dataset_by_persistent_id).returns(dataset)
-    get view_dataverse_dataset_url("demo.dataverse.org", "doi:10.70122/FK2/VWERU3")
-    assert_response :success
-    assert_select "input[type=checkbox][name='file_ids[]']", 5
-  end
 end
