@@ -70,7 +70,7 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(files_page)
     get view_dataverse_dataset_url(@new_id, "doi:10.5072/FK2/GCN7US")
     assert_response :success
-    assert_select "input[type=checkbox][name='file_ids[]']", 1 # One file is displayed on the view
+    assert_select "input[type=checkbox][name='file_ids[]']", 2
   end
 
   test "should display the dataset incomplete with no data" do
@@ -80,7 +80,7 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(files_page)
     get view_dataverse_dataset_url(@new_id, "doi:10.5072/FK2/LLIZ6Q")
     assert_response :success
-    assert_select "input[type=checkbox][name='file_ids[]']", 0
+    assert_select "input[type=checkbox][name='file_ids[]']", 2
   end
 
 end

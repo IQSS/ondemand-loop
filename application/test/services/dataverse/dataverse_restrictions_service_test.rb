@@ -7,28 +7,14 @@ class Dataverse::DataverseRestrictionsServiceTest < ActiveSupport::TestCase
     # No specific setup needed for now, we initialize defaults in the tests themselves
   end
 
-  test 'should validate dataset within max_files constraint' do
-    # Create a mock dataset with valid number of files
+  test 'should validate dataset always as valid since there is no limit on the file count' do
+    # Create a mock dataset
     dataset = mock('dataset')
-    dataset.stubs(:files).returns(Array.new(99)) # Less than max_dataset_files
-
     validation_service = Dataverse::DataverseRestrictionsService.new
     response = validation_service.validate_dataset(dataset)
 
-    assert response.valid?, 'Dataset should be valid when file count is within the limit'
+    assert response.valid?, 'Dataset should be always valid'
     assert_nil response.message, 'There should be no error message for valid dataset'
-  end
-
-  test 'should return invalid dataset for exceeding max_files constraint' do
-    # Create a mock dataset with files exceeding the limit
-    dataset = mock('dataset')
-    dataset.stubs(:files).returns(Array.new(101)) # More than max_dataset_files
-
-    validation_service = Dataverse::DataverseRestrictionsService.new
-    response = validation_service.validate_dataset(dataset)
-
-    assert_not response.valid?, 'Dataset should be invalid when file count exceeds the limit'
-    assert_equal response.message, 'Datasets with more than 100 files are not supported', 'Message should indicate the file limit exceeded'
   end
 
   test 'should validate file within max_size constraint' do
@@ -78,15 +64,4 @@ class Dataverse::DataverseRestrictionsServiceTest < ActiveSupport::TestCase
     assert_equal response.message, 'Files bigger than 5 GB are not supported', 'Message should indicate the custom file size limit exceeded'
   end
 
-  test 'should handle empty file list in dataset' do
-    # Create a mock dataset with no files
-    dataset = mock('dataset')
-    dataset.stubs(:files).returns([]) # No files
-
-    validation_service = Dataverse::DataverseRestrictionsService.new
-    response = validation_service.validate_dataset(dataset)
-
-    assert response.valid?, 'Dataset should be valid with no files'
-    assert_nil response.message, 'There should be no error message for empty dataset'
-  end
 end
