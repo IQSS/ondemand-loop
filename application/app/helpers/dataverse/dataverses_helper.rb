@@ -27,21 +27,23 @@ module Dataverse::DataversesHelper
 
   def link_to_search_results_prev_page(dataverse_url, dataverse, search_result, html_options = {})
     unless search_result.data.first_page?
+      uri = URI.parse(dataverse_url)
       url_options = {}
-      url_options[:dv_port] = params[:dv_port]
-      url_options[:dv_scheme] = params[:dv_scheme]
+      url_options[:dv_port] = uri.port if uri.port != 443
+      url_options[:dv_scheme] = uri.scheme if uri.scheme != 'https'
       url_options[:page] = search_result.data.prev_page
-      link_to("<", view_dataverse_url(URI.parse(dataverse_url).hostname, dataverse.data.alias, url_options), html_options)
+      link_to("<", view_dataverse_url(uri.hostname, dataverse.data.alias, url_options), html_options)
     end
   end
 
   def link_to_search_results_next_page(dataverse_url, dataverse, search_result, html_options = {})
     unless search_result.data.last_page?
+      uri = URI.parse(dataverse_url)
       url_options = {}
-      url_options[:dv_port] = params[:dv_port]
-      url_options[:dv_scheme] = params[:dv_scheme]
+      url_options[:dv_port] = uri.port if uri.port != 443
+      url_options[:dv_scheme] = uri.scheme if uri.scheme != 'https'
       url_options[:page] = search_result.data.next_page
-      link_to(">", view_dataverse_url(URI.parse(dataverse_url).hostname, dataverse.data.alias, url_options), html_options)
+      link_to(">", view_dataverse_url(uri.hostname, dataverse.data.alias, url_options), html_options)
     end
   end
 end
