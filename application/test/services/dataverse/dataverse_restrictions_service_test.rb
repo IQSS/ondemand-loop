@@ -48,7 +48,6 @@ class Dataverse::DataverseRestrictionsServiceTest < ActiveSupport::TestCase
   test 'should validate file size constraint with custom restrictions' do
     # Test with custom restrictions for max file size
     custom_restrictions = {
-      max_dataset_files: 100,
       max_file_size: 5.gigabytes
     }
 

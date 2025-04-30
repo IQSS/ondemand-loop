@@ -6,7 +6,6 @@ module Dataverse
     attr_reader :dataverse_restrictions
 
     DEFAULT_RESTRICTIONS = {
-      max_dataset_files: 100,
       max_file_size: 10.gigabytes
     }
 
