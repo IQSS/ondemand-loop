@@ -10,15 +10,6 @@ module Dataverse
       @http_client = http_client
     end
 
-    def find_dataset_by_persistent_id(persistent_id)
-      url = "/api/datasets/:persistentId/?persistentId=#{persistent_id}&returnOwners=true"
-      response = @http_client.get(url)
-      return nil if response.not_found?
-      raise UnauthorizedException if response.unauthorized?
-      raise "Error getting dataset: #{response.code} - #{response.body}" unless response.success?
-      DatasetResponse.new(response.body)
-    end
-
     def find_dataset_version_by_persistent_id(persistent_id, version: ':latest-published')
       url = "/api/datasets/:persistentId/versions/#{version}?persistentId=#{persistent_id}&returnOwners=true&excludeFiles=true"
       response = @http_client.get(url)
