@@ -8,16 +8,14 @@ class DoiSearchController < ApplicationController
     doi = params[:doi]
 
     if doi.blank?
-      flash[:error] = 'Provide a valid DOI'
-      redirect_to doi_search_path
+      redirect_to doi_search_path, alert: 'Provide a valid DOI'
       return
     end
 
     #TODO: Inject DOI Api url from configuration
     object_url = Doi::DoiService.new.resolve(doi)
     if object_url.blank?
-      flash[:error] = "Invalid DOI: #{doi}"
-      redirect_to doi_search_path
+      redirect_to doi_search_path, alert: "Invalid DOI: #{doi}"
       return
     end
 
@@ -29,8 +27,7 @@ class DoiSearchController < ApplicationController
       hostname = URI.parse(doi_info[:object_url]).hostname
       redirect_to view_dataverse_dataset_path(dv_hostname: hostname, persistent_id: doi)
     else
-      flash[:error] = "DOI not supported: #{doi} type: #{doi_info[:type]}"
-      redirect_to doi_search_path
+      redirect_to doi_search_path, alert: "DOI not supported: #{doi} type: #{doi_info[:type]}"
     end
   end
 

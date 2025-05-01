@@ -1,0 +1,80 @@
+<style>
+    [data-project-name-target="form"] {
+        min-height: 2.80rem;
+    }
+
+    [data-project-name-target="form"] input {
+        min-width: 400px;
+    }
+</style>
+<div class="card-header d-flex justify-content-between align-items-center <%= project_header_class(active) %>"
+     data-controller="project-name"
+     data-project-name-initial-name-value="<%= project.name %>"
+     data-project-name-url-value="<%= project_path(id: project.id) %>"
+     data-project-name-project-id-value="<%= project.id %>">
+  <div class="d-flex align-items-center gap-3">
+    <a href="<%= files_app_url(project.download_dir) %>"
+       target="_blank"
+       class="btn btn-sm btn-outline-secondary"
+       title="Open project folder">
+      <i class="bi bi-folder-fill"></i>
+    </a>
+
+    <div>
+
+      <!-- View mode -->
+      <div data-project-name-target="display" class="d-flex flex-column">
+        <h5 class="mb-0"><%= project.name %></h5>
+        <small class="text-muted"><%= project.download_dir %></small>
+      </div>
+
+      <!-- Edit mode -->
+      <div data-project-name-target="form" class="d-none d-flex align-items-center">
+        <input type="text"
+               class="form-control form-control-sm me-2"
+               data-project-name-target="input"
+               value="<%= project.name %>">
+        <button class="btn btn-sm btn-outline-primary me-2"
+                data-action="click->project-name#save"
+                title="Save project name">
+          <i class="bi bi-check-lg"></i>
+        </button>
+        <button class="btn btn-sm btn-outline-danger"
+                type="button"
+                data-action="click->project-name#cancel"
+                title="Cancel">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex align-items-center gap-2">
+    <button class="btn btn-sm btn-secondary"
+            data-action="click->project-name#edit"
+            title="Edit project name">
+      <i class="bi bi-pencil"></i>
+    </button>
+
+    <%= render partial: "shared/button_to", locals: {
+      url: project_path(id: project.id),
+      method: 'DELETE',
+      title: "Delete Project",
+      class: 'btn-sm btn-project-muted',
+      icon: "bi bi-trash"
+    } %>
+
+    <% if active %>
+      <button class="btn btn-sm btn-primary" title="Active project" disabled>
+        <i class="bi bi-check-circle-fill text-light"></i>
+      </button>
+    <% else %>
+      <%= render partial: "shared/button_to", locals: {
+        url: project_set_active_path(id: project.id),
+        title: 'Set as Active Project',
+        class: 'btn-sm btn-project-neutral',
+        icon: "bi bi-pin-angle-fill"
+      } %>
+    <% end %>
+  </div>
+</div>

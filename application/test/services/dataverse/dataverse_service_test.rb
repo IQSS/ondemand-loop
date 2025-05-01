@@ -4,7 +4,7 @@ class Dataverse::DataverseServiceTest < ActiveSupport::TestCase
 
   def setup
     @tmp_dir = Dir.mktmpdir
-    DownloadCollection.stubs(:metadata_root_directory).returns(@tmp_dir)
+    Project.stubs(:metadata_root_directory).returns(@tmp_dir)
     @sample_uri = URI('https://example.com:443')
     @service = Dataverse::DataverseService.new(@sample_uri.to_s)
   end
@@ -17,13 +17,13 @@ class Dataverse::DataverseServiceTest < ActiveSupport::TestCase
     assert @service.kind_of?(Dataverse::DataverseService)
   end
 
-  test 'initialize download collection' do
+  test 'initialize project' do
     valid_json = load_file_fixture(File.join('dataverse', 'dataset_version_response', 'valid_response.json'))
     dataset = Dataverse::DatasetVersionResponse.new(valid_json)
-    download_collection = @service.initialize_download_collection(dataset)
-    assert download_collection.valid?
-    assert download_collection.kind_of?(DownloadCollection)
-    assert_equal 'https://example.com Dataverse selection from doi:10.5072/FK2/4INDFN', download_collection.name
+    project = @service.initialize_project(dataset)
+    assert project.valid?
+    assert project.kind_of?(Project)
+    assert_not_nil project.name
   end
 
   test 'initialize download files' do
@@ -31,15 +31,15 @@ class Dataverse::DataverseServiceTest < ActiveSupport::TestCase
     dataset = Dataverse::DatasetVersionResponse.new(valid_json)
     valid_json = load_file_fixture(File.join('dataverse', 'dataset_files_response', 'valid_response.json'))
     files_page = Dataverse::DatasetFilesResponse.new(valid_json)
-    download_collection = @service.initialize_download_collection(dataset)
-    assert download_collection.save
-    download_files = @service.initialize_download_files(download_collection, files_page, [4])
+    project = @service.initialize_project(dataset)
+    assert project.save
+    download_files = @service.initialize_download_files(project, files_page, [4])
     assert download_files.kind_of?(Array)
     assert_equal 1, download_files.count
     assert download_files[0].kind_of?(DownloadFile)
     assert download_files[0].valid?
 
-    assert_equal download_collection.id, download_files[0].collection_id
+    assert_equal project.id, download_files[0].project_id
     assert_equal FileStatus::PENDING, download_files[0].status
     assert_equal ConnectorType::DATAVERSE, download_files[0].type
     assert_equal 272314, download_files[0].size

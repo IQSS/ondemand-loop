@@ -3,10 +3,12 @@
     <i class="bi bi-folder-fill"></i>
     <span class="ps-1">Downloads Root Directory</span>
   <% end %>
-  <%= link_to(downloads_path, class: 'btn btn-outline-dark btn-sm') do %>
-    <i class="bi bi-plus-square-fill"></i>
-    <span class="ps-1">Create Project</span>
-  <% end %>
+
+  <%= render partial: "shared/button_to", locals: {
+    url: projects_path,
+    label: "Create Project",
+    icon: "bi bi-plus-square-fill"
+  } %>
 </div>
 
 <hr>

@@ -27,17 +27,17 @@ module Download
     end
 
     def pending_files
-      DownloadCollection.all.flat_map(&:files).select{|f| f.status.pending?}
+      Project.all.flat_map(&:files).select{|f| f.status.pending?}
     end
 
     def processing_files
-      DownloadCollection.all.flat_map(&:files).select{|f| f.status.downloading?}
+      Project.all.flat_map(&:files).select{|f| f.status.downloading?}
     end
 
     def all
-      DownloadCollection.all.flat_map do |collection|
-        collection.files.map do |file|
-          OpenStruct.new(file: file, collection: collection)
+      Project.all.flat_map do |project|
+        project.files.map do |file|
+          OpenStruct.new(file: file, project: project)
         end
       end
     end

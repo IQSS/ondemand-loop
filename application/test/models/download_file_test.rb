@@ -5,9 +5,9 @@ class DownloadFileTest < ActiveSupport::TestCase
   def setup
     @tmp_dir = Dir.mktmpdir
     DownloadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
-    DownloadCollection.stubs(:metadata_root_directory).returns(@tmp_dir)
+    Project.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
-      'id' => '123-321', 'collection_id' => '456-789', 'type' => ConnectorType::DATAVERSE, 'filename' => 'test.png',
+      'id' => '123-321', 'project_id' => '456-789', 'type' => ConnectorType::DATAVERSE, 'filename' => 'test.png',
       'status' => FileStatus::PENDING, 'size' => 1024,
       'creation_date' => nil,
       'start_date' => nil,
@@ -20,7 +20,7 @@ class DownloadFileTest < ActiveSupport::TestCase
       }
     }
     @download_file = DownloadFile.new(@valid_attributes)
-    @expected_filename = File.join(@tmp_dir, 'collections', '456-789', 'files', '123-321.yml')
+    @expected_filename = File.join(Project.files_directory('456-789'), '123-321.yml')
   end
 
   def teardown
@@ -29,7 +29,7 @@ class DownloadFileTest < ActiveSupport::TestCase
 
   test 'should initialize with valid attributes' do
     assert_equal '123-321', @download_file.id
-    assert_equal '456-789', @download_file.collection_id
+    assert_equal '456-789', @download_file.project_id
     assert_equal ConnectorType::DATAVERSE, @download_file.type
     assert_equal 'test.png', @download_file.filename
     assert_equal FileStatus::PENDING, @download_file.status
@@ -68,13 +68,13 @@ class DownloadFileTest < ActiveSupport::TestCase
   end
 
   test 'save twice only creates one file' do
-    directory = File.join(@tmp_dir, 'collections', '456-789')
+    files_directory = Pathname.new(Project.files_directory('456-789'))
     assert @download_file.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
-    assert_equal 1, Dir.glob(directory).reject { |f| f == 'metadata.yml' }.count
+    assert_equal 1, files_directory.children.count
     assert @download_file.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
-    assert_equal 1, Dir.glob(directory).reject { |f| f == 'metadata.yml' }.count
+    assert_equal 1, files_directory.children.count
   end
 
   test 'save stopped due to invalid attributes' do
@@ -99,7 +99,7 @@ class DownloadFileTest < ActiveSupport::TestCase
     loaded_file = DownloadFile.find('456-789', '123-321')
     assert loaded_file
     assert_equal '123-321', loaded_file.id
-    assert_equal '456-789', loaded_file.collection_id
+    assert_equal '456-789', loaded_file.project_id
     assert_equal ConnectorType::DATAVERSE, loaded_file.type
     assert_equal 'test.png', loaded_file.filename
     assert_equal FileStatus::PENDING, loaded_file.status
@@ -115,8 +115,8 @@ class DownloadFileTest < ActiveSupport::TestCase
   end
 
   test 'update' do
-    collection = create_download_collection
-    target = create_download_file(collection)
+    project = create_download_project
+    target = create_download_file(project)
     target.update(status: FileStatus::CANCELLED)
     assert_equal FileStatus::CANCELLED, target.status
   end

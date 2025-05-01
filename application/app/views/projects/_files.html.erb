@@ -4,7 +4,7 @@
     <div class="row py-1 align-items-center <%= 'custom-stripe' if index.even? %>">
       <div class="col-md-10">
         <div class="d-flex align-items-center">
-          <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-2" title="Schedule creation date">
+          <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-2" title="Schedule date">
             <span><%= get_date(file.creation_date) %></span>
             <span><%= get_time(file.creation_date) %></span>
           </div>
@@ -15,9 +15,16 @@
 
       </div>
 
-      <div class="file-status col-md-2 d-flex justify-content-end">
-        <div class="d-flex flex-column align-items-center">
-          <%= status_badge(file.status) %>
+      <div class="col-md-1 file-status d-flex align-items-end">
+        <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-3" title="Completion date">
+          <span><%= get_date(file.end_date) %></span>
+          <span><%= get_time(file.end_date) %></span>
+        </div>
+      </div>
+
+      <div class="col-md-1 file-status d-flex justify-content-end">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <%= status_badge(file.status, file.end_date) %>
           <% if file.status.success? %>
             <span class="creation-date"><%= elapsed_string(file.start_date, file.end_date) %></span>
           <% end %>

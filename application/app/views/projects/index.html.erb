@@ -4,8 +4,9 @@
       <div class="col-md-12">
         <%= render partial: 'actions' %>
 
-        <% @download_collections.each do |collection| %>
-          <%= render partial: 'project', locals: { project: collection } %>
+        <%= render partial: 'project', locals: { project: @active_project, active: true } if @active_project %>
+        <% @projects.each do |project| %>
+          <%= render partial: 'project', locals: { project: project } unless project.id == @active_project&.id %>
         <% end %>
 
       </div>

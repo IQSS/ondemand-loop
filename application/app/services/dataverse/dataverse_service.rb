@@ -49,16 +49,16 @@ module Dataverse
       SearchResponse.new(response.body, page, per_page)
     end
 
-    def initialize_download_collection(dataset)
-      DownloadCollection.new(name: "#{@dataverse_url} Dataverse selection from #{dataset.data.dataset_persistent_id}")
+    def initialize_project(dataset)
+      Project.new(name: ProjectNameGenerator.generate)
     end
 
-    def initialize_download_files(download_collection, files_page, file_ids)
+    def initialize_download_files(project, files_page, file_ids)
       dataset_files = files_page.files_by_ids(file_ids)
       dataset_files.each.map do |dataset_file|
         DownloadFile.new.tap do |f|
           f.id = DownloadFile.generate_id
-          f.collection_id = download_collection.id
+          f.project_id = project.id
           f.creation_date = now
           f.type = ConnectorType::DATAVERSE
           f.filename = dataset_file.data_file.filename

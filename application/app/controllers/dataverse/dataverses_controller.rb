@@ -10,7 +10,7 @@ class Dataverse::DataversesController < ApplicationController
       @installations_page = Page.new(installations, page, 25)
     rescue Exception => e
       log_error('Dataverse Installations service error', {}, e)
-      flash[:error] = "Dataverse Installations service error."
+      flash[:alert] = "Dataverse Installations service error."
       redirect_to root_path
     end
   end
@@ -24,17 +24,17 @@ class Dataverse::DataversesController < ApplicationController
       @search_result = @service.search_dataverse_items(params[:id], @page)
       if @dataverse.nil? || @search_result.nil?
         log_error('Dataverse not found.', {dataverse: @dataverse_url, id: params[:id]})
-        flash[:error] = "Dataverse not found. Dataverse: #{@dataverse_url} Id: #{params[:id]}"
+        flash[:alert] = "Dataverse not found. Dataverse: #{@dataverse_url} Id: #{params[:id]}"
         redirect_to root_path
         return
       end
     rescue Dataverse::DataverseService::UnauthorizedException => e
       log_error('Dataverse requires authorization', {dataverse: @dataverse_url, id: params[:id]}, e)
-      flash[:error] = "Dataverse requires authorization. Dataverse: #{@dataverse_url} Id: #{params[:id]}"
+      flash[:alert] = "Dataverse requires authorization. Dataverse: #{@dataverse_url} Id: #{params[:id]}"
       redirect_to root_path
     rescue Exception => e
       log_error('Dataverse service error', {dataverse: @dataverse_url, id: params[:id]}, e)
-      flash[:error] = "Dataverse service error. Dataverse: #{@dataverse_url} Id: #{params[:id]}"
+      flash[:alert] = "Dataverse service error. Dataverse: #{@dataverse_url} Id: #{params[:id]}"
       redirect_to root_path
     end
   end

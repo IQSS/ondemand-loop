@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-class DownloadCollection < ApplicationDiskRecord
+class Project < ApplicationDiskRecord
   include ActiveModel::Model
+  include LoggingCommon
 
   ATTRIBUTES = %w[id name download_dir].freeze
 
@@ -12,21 +13,20 @@ class DownloadCollection < ApplicationDiskRecord
   def self.all
     Dir.glob(File.join(metadata_directory, '*'))
        .select { |path| File.directory?(path) }
-       .sort_by { |directory| File.ctime(directory) }
-       .reverse
+       .sort { |a, b| File.ctime(b) <=> File.ctime(a) }
        .map { |directory| load_metadata_from_directory(directory) }
        .compact
   end
 
-  def self.find(collection_id)
-    filename = filename_by_id(collection_id)
+  def self.find(project_id)
+    filename = filename_by_id(project_id)
     return nil unless File.exist?(filename)
 
     load_from_file(filename)
   end
 
   def initialize(id: nil, name: nil, download_dir: nil)
-    self.id = id || DownloadCollection.generate_id
+    self.id = id || Project.generate_id
     self.name = name || self.id
     self.download_dir = download_dir || File.join(Configuration.download_root, self.id.to_s)
   end
@@ -34,7 +34,7 @@ class DownloadCollection < ApplicationDiskRecord
   def files
     @files ||=
       begin
-        directory = File.join(self.class.collection_files_directory(id))
+        directory = File.join(self.class.files_directory(id))
         Dir.glob(File.join(directory, '*.yml'))
            .select { |f| File.file?(f) }
            .sort_by { |f| File.ctime(f) }
@@ -52,13 +52,16 @@ class DownloadCollection < ApplicationDiskRecord
   def save
     return false unless valid?
 
-    FileUtils.mkdir_p(self.class.collection_files_directory(id))
+    FileUtils.mkdir_p(self.class.files_directory(id))
     FileUtils.mkdir_p(download_dir)
     filename = self.class.filename_by_id(id)
     File.open(filename, "w") do |file|
       file.write(to_yaml)
     end
     true
+  rescue => e
+    log_error('Unable to save project', {id: id, project_path: self.class.files_directory(id)}, e)
+    false
   end
 
   def to_hash
@@ -79,22 +82,27 @@ class DownloadCollection < ApplicationDiskRecord
     to_json
   end
 
+  def destroy
+    project_path = self.class.projects_directory(id)
+    FileUtils.rm_rf(project_path)
+  end
+
   private
 
   def self.metadata_directory
-    File.join(metadata_root_directory, 'collections')
+    File.join(metadata_root_directory, 'projects')
   end
 
-  def self.collection_directory(id)
+  def self.projects_directory(id)
     File.join(metadata_directory, id)
   end
 
-  def self.collection_files_directory(id)
+  def self.files_directory(id)
     File.join(metadata_directory, id, 'files')
   end
 
   def self.filename_by_id(id)
-    File.join(collection_directory(id), "metadata.yml")
+    File.join(projects_directory(id), "metadata.yml")
   end
 
   def self.load_metadata_from_directory(directory)
@@ -104,8 +112,8 @@ class DownloadCollection < ApplicationDiskRecord
 
   def self.load_from_file(filename)
     data = YAML.safe_load(File.read(filename), permitted_classes: [Hash], aliases: true)
-    new.tap do |collection|
-      ATTRIBUTES.each { |attr| collection.send("#{attr}=", data[attr]) }
+    new.tap do |project|
+      ATTRIBUTES.each { |attr| project.send("#{attr}=", data[attr]) }
     end
   rescue StandardError
     nil

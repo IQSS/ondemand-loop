@@ -1,5 +1,4 @@
 require 'fileutils'
-require_relative '../app/lib/logging_common'
 
 # A generic class to map configurations to Ruby runtime objects like Intgers, Strings
 # and Booleans.
@@ -64,18 +63,12 @@ class ConfigurationProperty
       # Ensure the directory exists
       FileUtils.mkdir_p(dir)
       Pathname(string_value.to_s)
-    rescue => e
-      LoggingCommon.log_error('Error parsing Path property', {value: string_value}, e)
-      nil
     end
   end
 
   class IntegerMapper
     def self.map_string(string_value)
       string_value.nil? ? string_value : Integer(string_value.to_s)
-    rescue ArgumentError => e
-      LoggingCommon.log_error('Error parsing Integer property', {value: string_value}, e)
-      nil
     end
   end
 

@@ -1,7 +1,14 @@
-# Dataverse for OnDemand
+![Loop Logo](application/app/assets/images/loop_logo.png)
 
-This project is an integration of Dataverse for Open OnDemand to allow managing the file transferring from
-both applications. This software is intended to be run as a Passenger app in a Open OnDemand setup.
+# OnDemand Loop
+
+
+Application to transfer data from heterogeneous research data repositories into Open OnDemand. With the possibility of syncing the data back.
+
+Creating the perfect loop for research data
+
+The first repository integration is for Dataverse.
+Dataverse will be used as the reference implementation for all features related to this application.
 
 ## 🚀 Getting Started
 
@@ -155,5 +162,3 @@ import { cssBadgeForState } from "./utils"
     }, loop_app_config.connector_status_poll_interval)
   }
 ```
-
-

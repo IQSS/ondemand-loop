@@ -2,9 +2,10 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   get "downloads" => "downloads#index", as: :downloads
   get "downloads/files" => "downloads#files", as: :downloads_files
-  post "downloads/:collection_id/:file_id/cancel" => "files#cancel", as: :downloads_file_cancel
+  post "downloads/:project_id/:file_id/cancel" => "files#cancel", as: :downloads_file_cancel
 
-  get "projects" => "projects#index", as: :projects
+  resources :projects, only: [:index, :create, :update, :destroy]
+  post "/projects/:id/set_active" => "projects#set_active", as: :project_set_active
 
   # DATAVERSE ROUTES
   get "integrations/dataverse/external_tool/dataset" => "dataverse/external_tool#dataset"

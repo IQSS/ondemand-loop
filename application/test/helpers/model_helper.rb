@@ -1,20 +1,20 @@
 module ModelHelper
 
-  def download_collection(type: ConnectorType::DATAVERSE, files:)
-    DownloadCollection.new(id: random_id, name: 'test_collection').tap do |collection|
-      download_files = Array.new(files) { create_download_file(collection, type: type) }
-      collection.stubs(:files).returns(download_files)
+  def download_project(type: ConnectorType::DATAVERSE, files:)
+    Project.new(id: random_id, name: 'test_project').tap do |project|
+      download_files = Array.new(files) { create_download_file(project, type: type) }
+      project.stubs(:files).returns(download_files)
     end
   end
 
-  def create_download_collection
-    DownloadCollection.new(id: random_id, name: 'test_collection')
+  def create_download_project
+    Project.new(id: random_id, name: 'test_project')
   end
 
-  def create_download_file(collection, type: ConnectorType::DATAVERSE)
+  def create_download_file(project, type: ConnectorType::DATAVERSE)
     DownloadFile.new.tap do |file|
       file.id = random_id
-      file.collection_id = collection.id
+      file.project_id = project.id
       file.type = type
       file.filename = "#{random_id}.txt"
       file.status = FileStatus::PENDING

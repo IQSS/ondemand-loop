@@ -4,15 +4,15 @@ class DownloadFile < ApplicationDiskRecord
   include ActiveModel::Model
   include LoggingCommon
 
-  ATTRIBUTES = %w[id collection_id type filename status size creation_date start_date end_date metadata].freeze
+  ATTRIBUTES = %w[id project_id type filename status size creation_date start_date end_date metadata].freeze
 
   attr_accessor *ATTRIBUTES
 
-  validates_presence_of :id, :collection_id, :type, :filename, :status, :size
+  validates_presence_of :id, :project_id, :type, :filename, :status, :size
   validates :size, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
 
-  def self.find(collection_id, file_id)
-    filename = filename_by_ids(collection_id, file_id)
+  def self.find(project_id, file_id)
+    filename = filename_by_ids(project_id, file_id)
     return nil unless File.exist?(filename)
 
     load_from_file(filename)
@@ -56,19 +56,12 @@ class DownloadFile < ApplicationDiskRecord
   def save
     return false unless valid?
 
-    FileUtils.mkdir_p(self.class.collection_files_directory(collection_id))
-    filename = self.class.filename_by_ids(collection_id, id)
+    FileUtils.mkdir_p(Project.files_directory(project_id))
+    filename = self.class.filename_by_ids(project_id, id)
     File.open(filename, "w") do |file|
       file.write(to_hash.deep_stringify_keys.to_yaml)
     end
     true
-  end
-
-  def update(attributes = {})
-    attributes.each do |key, value|
-      # Set each attribute manually
-      send("#{key}=", value) if respond_to?("#{key}=")
-    end
   end
 
   def connector_status
@@ -81,22 +74,8 @@ class DownloadFile < ApplicationDiskRecord
 
   private
 
-  #TODO: This needs to be taken from the DownloadCollection object
-  def self.metadata_directory
-    File.join(metadata_root_directory, 'collections')
-  end
-
-  def self.collection_directory(collection_id)
-    File.join(self.metadata_directory, collection_id)
-  end
-
-  #TODO: This needs to be taken from the DownloadCollection object
-  def self.collection_files_directory(collection_id)
-    File.join(self.metadata_directory, collection_id, 'files')
-  end
-
-  def self.filename_by_ids(collection_id, file_id)
-    File.join(collection_files_directory(collection_id), "#{file_id}.yml")
+  def self.filename_by_ids(project_id, file_id)
+    File.join(Project.files_directory(project_id), "#{file_id}.yml")
   end
 
   def self.load_from_file(filename)

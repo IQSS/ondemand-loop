@@ -4,7 +4,7 @@ class DownloadsControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @tmp_dir = Dir.mktmpdir
-    DownloadCollection.stubs(:metadata_root_directory).returns(@tmp_dir)
+    Project.stubs(:metadata_root_directory).returns(@tmp_dir)
     DownloadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
   end
 
@@ -36,10 +36,10 @@ class DownloadsControllerTest < ActionDispatch::IntegrationTest
 
     parsed_url = URI.parse("http://localhost:3000")
     service = Dataverse::DataverseService.new(parsed_url.to_s)
-    download_collection = service.initialize_download_collection(dataset)
-    download_collection.save
+    project = service.initialize_project(dataset)
+    project.save
 
-    files = service.initialize_download_files(download_collection, files_page, file_ids)
+    files = service.initialize_download_files(project, files_page, file_ids)
     files.each do |download_file|
       download_file.save
     end

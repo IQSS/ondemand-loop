@@ -31,9 +31,10 @@ class ConfigurationPropertyTest < ActiveSupport::TestCase
     assert_equal 42, result
   end
 
-  test 'IntegerMapper should return nil for invalid integer string' do
-    result = ConfigurationProperty::IntegerMapper.map_string('invalid')
-    assert_nil result
+  test 'IntegerMapper should throw exception for invalid integer string' do
+    assert_raises(ArgumentError) do
+      ConfigurationProperty::IntegerMapper.map_string('invalid')
+    end
   end
 
   test 'PathMapper should create directory and return Pathname' do

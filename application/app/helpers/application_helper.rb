@@ -31,11 +31,11 @@ module ApplicationHelper
   end
 
   def alert_class(type)
-    class_type = {error: 'danger', warning: 'warning', info: 'info'}.fetch(type.to_sym, 'info')
+    class_type = {error: 'danger', alert: 'danger', warning: 'warning', notice: 'success', info: 'success'}.fetch(type.to_sym, 'info')
     "alert alert-#{class_type}"
   end
 
-  def status_badge(status)
+  def status_badge(status, title = nil)
     # Determine the color of the badge based on the status
     case status
     when FileStatus::SUCCESS
@@ -49,7 +49,7 @@ module ApplicationHelper
     end
 
     # Return a span with the appropriate class and status text
-    content_tag(:span, status.to_s, class: "badge #{color}")
+    content_tag(:span, status.to_s, class: "badge file-status #{color}", title: title)
   end
 
   def connector_icon(type)

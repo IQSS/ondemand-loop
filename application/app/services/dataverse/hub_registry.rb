@@ -31,7 +31,7 @@ module Dataverse
           }
         end.compact
 
-        log_info('Dataverse installations found', {installations: installations.size})
+        log_info('Completed loading Dataverse installations', {servers: installations.size})
         installations
       else
         log_error('Failed to fetch Dataverse Hub data', {url: HUB_API_URL, response: response.status})

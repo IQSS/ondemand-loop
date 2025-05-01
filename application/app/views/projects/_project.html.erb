@@ -1,34 +1,10 @@
-<%# Required locals: project, percent:, completed:, pending:, error:, total: %>
-
-<div class="card mb-3 shadow-sm border-0">
+<% active = active.nil? ? false : active %>
+<div class="card mb-3 shadow-sm rounded <%= project_border_class(active) %>">
   <!-- Header Section -->
-  <div class="card-header bg-body-secondary d-flex justify-content-between align-items-center">
-    <div class="d-flex align-items-center gap-3">
-      <a href="<%= files_app_url(project.download_dir) %>" target="_blank" class="btn btn-sm btn-outline-secondary" title="Open project folder">
-        <i class="bi bi-folder-fill"></i>
-      </a>
-
-      <div>
-        <h5 class="mb-0"><%= project.name %></h5>
-        <small class="text-muted"><%= project.download_dir %></small>
-      </div>
-    </div>
-
-    <div class="d-flex align-items-center gap-2">
-      <button class="btn btn-sm btn-secondary" title="Edit">
-        <i class="bi bi-pencil"></i>
-      </button>
-      <button class="btn btn-sm btn-project-muted" title="Delete">
-        <i class="bi bi-trash"></i>
-      </button>
-      <button class="btn btn-sm btn-project-neutral" title="Refresh">
-        <i class="bi bi-arrow-repeat"></i>
-      </button>
-    </div>
-  </div>
+  <%= render partial: "projects/project_header", locals: { project: project, active: active } %>
 
   <!-- Main Content -->
-  <div class="card-body bg-light">
+  <div class="card-body bg-light rounded-bottom">
     <div class="row align-items-center">
       <div class="col">
       </div>

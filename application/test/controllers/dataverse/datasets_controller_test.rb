@@ -44,7 +44,7 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).raises("error")
     get view_dataverse_dataset_url("random", "random_id")
     assert_redirected_to root_path
-    assert_equal "Dataverse service error. Dataverse: https://random persistentId: random_id", flash[:error]
+    assert_equal "Dataverse service error. Dataverse: https://random persistentId: random_id", flash[:alert]
   end
 
   test "should redirect to root path after not finding a dataset" do
@@ -52,7 +52,7 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(nil)
     get view_dataverse_dataset_url(@new_id, "random_id")
     assert_redirected_to root_path
-    assert_equal "Dataset not found. Dataverse: https://#{@new_id} persistentId: random_id", flash[:error]
+    assert_equal "Dataset not found. Dataverse: https://#{@new_id} persistentId: random_id", flash[:alert]
   end
 
   test "should redirect to root path after raising exception" do
@@ -60,7 +60,7 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(nil)
     get view_dataverse_dataset_url(@new_id, "random_id")
     assert_redirected_to root_path
-    assert_equal "Dataverse service error. Dataverse: https://#{@new_id} persistentId: random_id", flash[:error]
+    assert_equal "Dataverse service error. Dataverse: https://#{@new_id} persistentId: random_id", flash[:alert]
   end
 
   test "should redirect to root path after raising Unauthorized exception" do
@@ -68,7 +68,7 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).raises(Dataverse::DataverseService::UnauthorizedException)
     get view_dataverse_dataset_url(@new_id, "random_id")
     assert_redirected_to root_path
-    assert_equal "Dataset requires authorization. Dataverse: https://#{@new_id} persistentId: random_id", flash[:error]
+    assert_equal "Dataset requires authorization. Dataverse: https://#{@new_id} persistentId: random_id", flash[:alert]
   end
 
   test "should redirect to root path after raising Unauthorized exception only in files page" do
@@ -77,7 +77,7 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).raises(Dataverse::DataverseService::UnauthorizedException)
     get view_dataverse_dataset_url(@new_id, "random_id")
     assert_redirected_to root_path
-    assert_equal "Dataset files endpoint requires authorization. Dataverse: https://#{@new_id} persistentId: random_id page: 1", flash[:error]
+    assert_equal "Dataset files endpoint requires authorization. Dataverse: https://#{@new_id} persistentId: random_id page: 1", flash[:alert]
   end
 
   test "should display the dataset view with the file" do

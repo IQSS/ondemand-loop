@@ -5,11 +5,10 @@ export default class extends Controller {
   connect() {
     this.url_value = loop_app_config.downloads_files_path
     this.poll_interval = loop_app_config.connector_status_poll_interval
-    this.loadCollections()
     this.startAutoRefresh()
   }
 
-  loadCollections() {
+  loadFiles() {
     // Start the fetch request
     fetch(this.url_value, { headers: { "Accept": "text/html" } })
         .then(response => {
@@ -22,13 +21,13 @@ export default class extends Controller {
           this.element.innerHTML = html
         })
         .catch(error => {
-          console.error("Unable to load collections:", error)
+          console.error("Unable to load files:", error)
         })
   }
 
   startAutoRefresh() {
     this.interval = setInterval(() => {
-      this.loadCollections()
+      this.loadFiles()
     }, this.poll_interval)
   }
 
