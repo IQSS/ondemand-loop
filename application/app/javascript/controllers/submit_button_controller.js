@@ -20,7 +20,6 @@ export default class extends Controller {
         this.labelTarget.classList.add("d-none")
 
         setTimeout(() => {
-            console.log('SUBMIT')
             this.element.closest("form").requestSubmit()
         }, uiDelay)
     }

@@ -28,14 +28,11 @@ module Download
           download_processor = ConnectorClassDispatcher.download_processor(file)
           Thread.new do
             file.update(start_date: now, status: FileStatus::DOWNLOADING)
-            file.save
             result = download_processor.download
             file.update(end_date: now, status: result.status)
-            file.save
           rescue => e
             log_error('Error while processing file', {file_id: file.id}, e)
             file.update(end_date: now, status: FileStatus::ERROR)
-            file.save
           ensure
             stats[:completed] += 1
           end

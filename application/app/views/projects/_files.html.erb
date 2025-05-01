@@ -4,10 +4,7 @@
     <div class="row py-1 align-items-center <%= 'custom-stripe' if index.even? %>">
       <div class="col-md-10">
         <div class="d-flex align-items-center">
-          <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-2" title="Schedule date">
-            <span><%= get_date(file.creation_date) %></span>
-            <span><%= get_time(file.creation_date) %></span>
-          </div>
+          <%= render partial: '/shared/file_row_date', locals: { date: file.creation_date, title: 'Schedule date', classes: 'mx-2'} %>
           <span class="me-2"><%= connector_icon(file.type) %></span>
           <span class="me-2"><%= file.filename %></span>
           <small class="text-muted me-2"><%= number_to_human_size(file.size) %></small>
@@ -16,10 +13,8 @@
       </div>
 
       <div class="col-md-1 file-status d-flex align-items-end">
-        <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-3" title="Completion date">
-          <span><%= get_date(file.end_date) %></span>
-          <span><%= get_time(file.end_date) %></span>
-        </div>
+        <%= render partial: '/shared/file_row_date', locals: { date: file.end_date, title: 'Completion date', classes: 'mx-3'} if file.end_date %>
+        <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: 'Download start date', classes: 'mx-3'} if file.status.downloading? %>
       </div>
 
       <div class="col-md-1 file-status d-flex justify-content-end">
@@ -27,9 +22,6 @@
           <%= status_badge(file.status, file.end_date) %>
           <% if file.status.success? %>
             <span class="creation-date"><%= elapsed_string(file.start_date, file.end_date) %></span>
-          <% end %>
-          <% if file.status.downloading? %>
-            <span class="creation-date"><%= file.start_date %></span>
           <% end %>
         </div>
       </div>

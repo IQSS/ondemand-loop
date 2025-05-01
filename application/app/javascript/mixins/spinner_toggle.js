@@ -23,7 +23,6 @@ export default function SpinnerToggleMixin(Base) {
 
         hideSpinner(buttonElement = null) {
             const button = buttonElement || this.element.querySelector("button")
-            console.log('HIDE')
             if (!button) return
 
             button.disabled = false

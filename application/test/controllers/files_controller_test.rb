@@ -35,7 +35,6 @@ class FilesControllerTest < ActionDispatch::IntegrationTest
   test "should cancel and update file if downloading and command succeeds" do
     @file.stubs(:status).returns(FileStatus.get("downloading"))
     @file.expects(:update).with(start_date: @now, end_date: @now, status: FileStatus::CANCELLED)
-    @file.expects(:save)
 
     DownloadFile.stubs(:find).returns(@file)
 
@@ -51,7 +50,6 @@ class FilesControllerTest < ActionDispatch::IntegrationTest
   test "should update and save file if not downloading" do
     @file.stubs(:status).returns(FileStatus.get("success"))
     @file.expects(:update).with(start_date: @now, end_date: @now, status: FileStatus::CANCELLED)
-    @file.expects(:save)
 
     DownloadFile.stubs(:find).returns(@file)
 

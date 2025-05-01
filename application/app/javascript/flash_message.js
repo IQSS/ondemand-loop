@@ -19,6 +19,8 @@ function bootstrapAlertClass(type) {
         case "alert":
         case "danger":
             return "alert-danger"
+        case "warning":
+            return "alert-warning"
         case "info":
             return "alert-info"
         case "success":

@@ -25,7 +25,6 @@ class FilesController < ApplicationController
     end
 
     file.update(start_date: now, end_date: now, status: FileStatus::CANCELLED)
-    file.save
 
     head :no_content
   end
