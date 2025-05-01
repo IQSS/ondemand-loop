@@ -37,7 +37,7 @@ bash:
 	docker exec -it passenger_loop_ood /bin/bash
 
 test:
-	docker run --rm -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app $(LOOP_BUILDER_IMAGE) /usr/local/scripts/loop_test.sh
+	docker run --platform=linux/amd64 --rm -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app $(LOOP_BUILDER_IMAGE) /usr/local/scripts/loop_test.sh
 
 test_bash:
 	docker run --rm -it -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app $(LOOP_BUILDER_IMAGE) /bin/bash
