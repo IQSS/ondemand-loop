@@ -2,7 +2,7 @@
 
 class FileStatus
   # Define the valid statuses as an array
-  STATUS = %w[pending downloading success error cancelled].freeze
+  STATUS = %w[pending downloading uploading success error cancelled].freeze
   # Private constructor to prevent direct instantiation
   private_class_method :new
 

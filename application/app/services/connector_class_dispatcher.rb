@@ -16,6 +16,10 @@ class ConnectorClassDispatcher
     self.load(download_file.type, 'ConnectorDownloadProcessor', download_file)
   end
 
+  def self.upload_processor(upload_file)
+    self.load(upload_file.type, 'ConnectorUploadProcessor', upload_file)
+  end
+
   private
 
   def self.load(module_name, class_name, object)
