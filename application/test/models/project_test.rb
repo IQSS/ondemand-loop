@@ -54,7 +54,7 @@ class ProjectTest < ActiveSupport::TestCase
       target = create_valid_project
       assert target.save
       expected_file = File.join(dir, 'projects', target.id, 'metadata.yml')
-      assert File.exist?(expected_file), "Downloadproject file was not created in the file system"
+      assert File.exist?(expected_file), "Project file was not created in the file system"
     end
   end
 
@@ -64,11 +64,11 @@ class ProjectTest < ActiveSupport::TestCase
       assert target.save
       expected_directory = File.join(dir, 'projects', target.id)
       expected_file = File.join(expected_directory, 'metadata.yml')
-      assert File.exist?(expected_file), "Downloadproject file was not created in the file system"
+      assert File.exist?(expected_file), "Project file was not created in the file system"
       assert_equal 1, Dir.glob(expected_directory).count
 
       assert target.save
-      assert File.exist?(expected_file), "Downloadproject file was not created in the file system"
+      assert File.exist?(expected_file), "Project file was not created in the file system"
       assert_equal 1, Dir.glob(expected_directory).count
     end
   end
@@ -79,7 +79,7 @@ class ProjectTest < ActiveSupport::TestCase
       target.id = ''
       refute target.save
       expected_file = File.join(dir, 'projects', target.id, 'metadata.yml')
-      refute File.exist?(expected_file), "Downloadproject file was created in the file system"
+      refute File.exist?(expected_file), "Project file was created in the file system"
     end
   end
 
