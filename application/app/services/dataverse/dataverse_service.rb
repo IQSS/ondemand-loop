@@ -62,7 +62,7 @@ module Dataverse
           f.creation_date = now
           f.type = ConnectorType::DATAVERSE
           f.filename = dataset_file.data_file.filename
-          f.status = FileStatus::READY
+          f.status = FileStatus::PENDING
           f.size = dataset_file.data_file.filesize
           f.metadata = {
             dataverse_url: @dataverse_url,

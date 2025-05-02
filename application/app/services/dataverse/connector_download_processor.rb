@@ -55,10 +55,17 @@ module Dataverse
     private
 
     def verify(file_path, expected_md5)
+      log_info('Verifying file', {file_path: file_path, expected_md5: expected_md5})
       return false unless File.exist?(file_path)
 
       file_md5 = Digest::MD5.file(file_path).hexdigest
-      file_md5 == expected_md5
+      if file_md5 == expected_md5
+        log_info('Checksum verification success', {file_path: file_path, expected_md5: expected_md5})
+        true
+      else
+        log_error('Checksum verification failed', {file_path: file_path, expected_md5: expected_md5, current_md5: file_md5})
+        false
+      end
     end
 
     def response(file_status, message)

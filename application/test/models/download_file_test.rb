@@ -8,7 +8,7 @@ class DownloadFileTest < ActiveSupport::TestCase
     DownloadCollection.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
       'id' => '123-321', 'collection_id' => '456-789', 'type' => ConnectorType::DATAVERSE, 'filename' => 'test.png',
-      'status' => FileStatus::READY, 'size' => 1024,
+      'status' => FileStatus::PENDING, 'size' => 1024,
       'creation_date' => nil,
       'start_date' => nil,
       'end_date' => nil,
@@ -32,7 +32,7 @@ class DownloadFileTest < ActiveSupport::TestCase
     assert_equal '456-789', @download_file.collection_id
     assert_equal ConnectorType::DATAVERSE, @download_file.type
     assert_equal 'test.png', @download_file.filename
-    assert_equal FileStatus::READY, @download_file.status
+    assert_equal FileStatus::PENDING, @download_file.status
     assert_equal 1024, @download_file.size
   end
 
@@ -102,7 +102,7 @@ class DownloadFileTest < ActiveSupport::TestCase
     assert_equal '456-789', loaded_file.collection_id
     assert_equal ConnectorType::DATAVERSE, loaded_file.type
     assert_equal 'test.png', loaded_file.filename
-    assert_equal FileStatus::READY, loaded_file.status
+    assert_equal FileStatus::PENDING, loaded_file.status
     assert_equal 1024, loaded_file.size
   end
 

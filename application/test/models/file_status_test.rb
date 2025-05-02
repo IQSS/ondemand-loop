@@ -10,13 +10,13 @@ class FileStatusTest < ActiveSupport::TestCase
   end
 
   test 'should initialize with a valid status' do
-    status = FileStatus.get('ready')
-    assert_equal 'ready', status.to_s
+    status = FileStatus.get('pending')
+    assert_equal 'pending', status.to_s
   end
 
   test 'should return correct status using dynamic methods' do
-    status = FileStatus.get('ready')
-    assert status.ready?
+    status = FileStatus.get('pending')
+    assert status.pending?
     refute status.downloading?
     refute status.success?
     refute status.error?
@@ -24,7 +24,7 @@ class FileStatusTest < ActiveSupport::TestCase
 
     status = FileStatus.get('downloading')
     assert status.downloading?
-    refute status.ready?
+    refute status.pending?
     refute status.success?
     refute status.error?
     refute status.cancelled?
@@ -33,21 +33,21 @@ class FileStatusTest < ActiveSupport::TestCase
   test 'should be able to check different statuses' do
     status = FileStatus.get('success')
     assert status.success?
-    refute status.ready?
+    refute status.pending?
     refute status.downloading?
     refute status.error?
     refute status.cancelled?
 
     status = FileStatus.get('error')
     assert status.error?
-    refute status.ready?
+    refute status.pending?
     refute status.downloading?
     refute status.success?
     refute status.cancelled?
 
     status = FileStatus.get('cancelled')
     assert status.cancelled?
-    refute status.ready?
+    refute status.pending?
     refute status.downloading?
     refute status.success?
     refute status.error?
@@ -60,13 +60,13 @@ class FileStatusTest < ActiveSupport::TestCase
     status = FileStatus.get('DownLoading')
     assert status.downloading?
 
-    status = FileStatus.get('READY')
-    assert status.ready?
+    status = FileStatus.get('PENDING')
+    assert status.pending?
   end
 
   test 'should have constants for each status' do
-    assert_instance_of FileStatus, FileStatus::READY
-    assert_equal 'ready', FileStatus::READY.to_s
+    assert_instance_of FileStatus, FileStatus::PENDING
+    assert_equal 'pending', FileStatus::PENDING.to_s
     assert_instance_of FileStatus, FileStatus::DOWNLOADING
     assert_equal 'downloading', FileStatus::DOWNLOADING.to_s
     assert_instance_of FileStatus, FileStatus::SUCCESS

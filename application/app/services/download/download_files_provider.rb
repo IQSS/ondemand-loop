@@ -27,7 +27,7 @@ module Download
     end
 
     def pending_files
-      DownloadCollection.all.flat_map(&:files).select{|f| f.status.ready?}
+      DownloadCollection.all.flat_map(&:files).select{|f| f.status.pending?}
     end
 
     def processing_files

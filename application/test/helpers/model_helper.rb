@@ -17,7 +17,7 @@ module ModelHelper
       file.collection_id = collection.id
       file.type = type
       file.filename = "#{random_id}.txt"
-      file.status = FileStatus::READY
+      file.status = FileStatus::PENDING
       file.size = 200
       file.metadata = {test: 'test'}
     end

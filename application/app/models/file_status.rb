@@ -2,7 +2,7 @@
 
 class FileStatus
   # Define the valid statuses as an array
-  STATUS = %w[ready downloading success error cancelled].freeze
+  STATUS = %w[pending downloading success error cancelled].freeze
   # Private constructor to prevent direct instantiation
   private_class_method :new
 
@@ -28,7 +28,7 @@ class FileStatus
 
   # Dynamically define constants for each status
   STATUS.each do |status|
-    # Define a constant for each status (e.g., FileStatus::READY)
+    # Define a constant for each status (e.g., FileStatus::PENDING)
     const_set(status.upcase, new(status))
   end
 
@@ -40,7 +40,7 @@ class FileStatus
   end
 
   def self.new_statuses
-    [FileStatus::READY]
+    [FileStatus::PENDING]
   end
 
   def self.completed_statuses

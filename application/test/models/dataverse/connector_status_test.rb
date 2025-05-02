@@ -11,7 +11,7 @@ class Dataverse::ConnectorStatusTest < ActiveSupport::TestCase
     }
     @file = DownloadFile.new
     @file.type = ConnectorType::DATAVERSE
-    @file.status = FileStatus::READY
+    @file.status = FileStatus::PENDING
     @file.metadata = @default_metadata
   end
 
@@ -23,12 +23,12 @@ class Dataverse::ConnectorStatusTest < ActiveSupport::TestCase
     assert_equal 0, target.download_progress
   end
 
-  test "should return 0 for new/ready files" do
+  test "should return 0 for pending files" do
     file_location = fixture_path('/dataverse/connector_status/100bytes_file.txt')
     @default_metadata[:temp_location] = file_location
     assert File.exist?(file_location)
 
-    @file.status = FileStatus::READY
+    @file.status = FileStatus::PENDING
     @file.metadata = @default_metadata
 
     target = Dataverse::ConnectorStatus.new(@file)
