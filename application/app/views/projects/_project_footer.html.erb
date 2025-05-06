@@ -1,14 +1,24 @@
 <div class="card-header border-top d-flex justify-content-between align-items-center bg-light">
   <span class="text-muted">Files</span>
-  <button class="btn btn-outline-secondary btn-sm"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#project-files-<%= project.id %>"
-          aria-expanded="false"
-          aria-controls="project-files-<%= project.id %>">
-    <i class="bi bi-folder2-open me-1"></i>
-    View Files
-  </button>
+
+  <div>
+    <button class="btn btn-outline-secondary btn-sm"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#project-files-<%= project.id %>"
+            aria-expanded="false"
+            aria-controls="project-files-<%= project.id %>">
+      <i class="bi bi-folder2-open me-1"></i>
+      View Files
+    </button>
+
+    <a href="<%= files_app_url(Project.project_metadata_dir(project.id)) %>"
+       target="_blank"
+       class="btn btn-sm btn-outline-secondary"
+       title="Open project metadata">
+      <i class="bi bi-card-list"></i>
+    </a>
+  </div>
 </div>
 
 <!-- Collapsible Tabs -->
@@ -40,8 +50,8 @@
       </div>
       <div class="tab-pane fade" id="upload-files-<%= project.id %>" role="tabpanel"
            aria-labelledby="upload-tab-<%= project.id %>">
-
       </div>
+
     </div>
 
   </div>
