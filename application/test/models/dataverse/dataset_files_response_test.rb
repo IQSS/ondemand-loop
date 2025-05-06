@@ -27,6 +27,7 @@ class Dataverse::DatasetFilesResponseTest < ActiveSupport::TestCase
 
     file = @dataset_files.data.first
     assert_equal "screenshot.png", file.label
+    assert_equal "/screenshot.png", file.full_filename
     refute file.restricted
     assert_instance_of Dataverse::DatasetFilesResponse::DatasetFile::DataFile, file.data_file
 

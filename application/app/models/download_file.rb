@@ -21,12 +21,6 @@ class DownloadFile < ApplicationDiskRecord
     load_from_file(file_metadata)
   end
 
-  def make_filename_unique!
-    root_dir = Project.files_directory(project_id)
-    @filename = Common::FileUtils.new.unique_filename(root_dir, @filename)
-    @id = Common::FileUtils.new.normalize_name(@filename)
-  end
-
   def type=(value)
     raise ArgumentError, "Invalid type: #{value}" unless value.is_a?(ConnectorType)
 
