@@ -12,7 +12,7 @@ class Dataverse::DatasetsController < ApplicationController
 
   def download
     file_ids = params[:file_ids]
-    project = Project.find(params[:active_project])
+    project = Project.find(params[:project_id])
     if project.nil?
       project = @service.initialize_project(@dataset)
       unless project.save
