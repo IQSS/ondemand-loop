@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
-    @active_project = Project.find(Current.settings.user_settings.active_project)
+    @active_project = Project.find(Current.settings.user_settings.active_project.to_s)
   end
 
   def create
