@@ -20,8 +20,11 @@ module Dataverse
     end
 
     def files_url
-      hostname = URI.parse(dataverse_url).hostname
-      Rails.application.routes.url_helpers.view_dataverse_dataset_path(dv_hostname: hostname, persistent_id: persistent_id)
+      dataverse_uri = URI.parse(dataverse_url)
+      scheme = "http" if dataverse_uri.scheme != 'https'
+      hostname = dataverse_uri.hostname
+      port = dataverse_uri.port if dataverse_uri.port != 443
+      Rails.application.routes.url_helpers.view_dataverse_dataset_path(dv_scheme: scheme, dv_hostname: hostname, dv_port: port, persistent_id: persistent_id)
     end
 
     def to_h
