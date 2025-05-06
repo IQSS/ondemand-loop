@@ -29,4 +29,17 @@ class FilesController < ApplicationController
     head :no_content
   end
 
+  def destroy
+    project_id = params[:project_id]
+    file_id = params[:file_id]
+    file = DownloadFile.find(project_id, file_id)
+    if file.nil?
+      redirect_to projects_path, alert: "File: #{file_id} not found for project: #{project_id}"
+      return
+    end
+
+    file.destroy
+    redirect_to projects_path, notice: 'Download file deleted successfully'
+  end
+
 end

@@ -8,6 +8,10 @@ class ApplicationDiskRecord
     SecureRandom.uuid.to_s
   end
 
+  def self.generate_name
+    ProjectNameGenerator.generate(token_length: 2)
+  end
+
   def save
     raise NotImplementedError, "#{self.class} must implement save"
   end

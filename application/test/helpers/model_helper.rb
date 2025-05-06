@@ -11,9 +11,9 @@ module ModelHelper
     Project.new(id: random_id, name: 'test_project')
   end
 
-  def create_download_file(project, type: ConnectorType::DATAVERSE)
+  def create_download_file(project, id: nil, type: ConnectorType::DATAVERSE)
     DownloadFile.new.tap do |file|
-      file.id = random_id
+      file.id = id || random_id
       file.project_id = project.id
       file.type = type
       file.filename = "#{random_id}.txt"

@@ -9,10 +9,10 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     @project.save
 
     @user_settings_mock = mock("UserSettings")
-    @user_settings_mock.stubs(:user_settings).returns({active_project: @project.name})
+    @user_settings_mock.stubs(:user_settings).returns(OpenStruct.new({active_project: @project.name}))
     @user_settings_mock.stubs(:update_user_settings)
 
-    Current.stubs(:user_settings).returns(@user_settings_mock)
+    Current.stubs(:settings).returns(@user_settings_mock)
   end
 
   def teardown

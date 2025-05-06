@@ -37,6 +37,10 @@ module Dataverse
         @data_file = DataFile.new(file[:dataFile])
       end
 
+      def full_filename
+        File.join('/', directory_label.to_s, data_file&.filename.to_s)
+      end
+
       class DataFile
         attr_reader :id, :filename, :content_type, :friendly_type, :storage_identifier, :filesize, :md5, :publication_date
 

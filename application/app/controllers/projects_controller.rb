@@ -2,12 +2,12 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = Project.all
-    @active_project = Project.find(Current.user_settings.user_settings[:active_project].to_s)
+    @active_project = Project.find(Current.settings.user_settings.active_project)
   end
 
   def create
     project_name = params[:project_name] || ProjectNameGenerator.generate
-    project = Project.new(name: project_name)
+    project = Project.new(id: project_name, name: project_name)
     if project.save
       flash[:notice] = "Project #{project_name} created"
     else
@@ -52,7 +52,7 @@ class ProjectsController < ApplicationController
       return
     end
 
-    Current.user_settings.update_user_settings({active_project: project_id})
+    Current.settings.update_user_settings({active_project: project_id})
     redirect_to projects_path, notice: "#{project.name} is now the active project."
   end
 

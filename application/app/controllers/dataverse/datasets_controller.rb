@@ -12,18 +12,23 @@ class Dataverse::DatasetsController < ApplicationController
 
   def download
     file_ids = params[:file_ids]
-    project = @service.initialize_project(@dataset)
-    unless project.save
-      flash[:alert] = "Error generating project: #{project.errors}"
-      redirect_to downloads_path
-      return
+    project = Project.find(params[:active_project])
+    if project.nil?
+      project = @service.initialize_project(@dataset)
+      unless project.save
+        redirect_back fallback_location: root_path, alert: "Error generating project: #{project.errors}"
+        return
+      end
     end
-    @download_files = @service.initialize_download_files(project, @files_page, file_ids)
+
+    @download_files = @service.initialize_download_files(project, @dataset, @files_page, file_ids)
     save_results = @download_files.each.map { |download_file| download_file.save }
     if save_results.include?(false)
-      flash[:alert] = "Error generating the download file"
+      redirect_back fallback_location: root_path, alert: "Error generating the download file"
+      return
     end
-    redirect_to downloads_path
+
+    redirect_back fallback_location: root_path, notice: "Files added to project: #{project.name}"
   end
 
   private

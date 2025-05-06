@@ -38,6 +38,10 @@ module Dataverse::DatasetsHelper
     end
   end
 
+  def storage_identifier(identifier)
+    identifier.to_s.split(":", 3)[0..1].join(":") if identifier
+  end
+
   private
 
   def retrictions_service

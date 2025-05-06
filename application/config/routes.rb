@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get "downloads" => "downloads#index", as: :downloads
   get "downloads/files" => "downloads#files", as: :downloads_files
   post "downloads/:project_id/:file_id/cancel" => "files#cancel", as: :downloads_file_cancel
+  delete "downloads/:project_id/:file_id" => "files#destroy", as: :downloads_file_delete
 
   resources :projects, only: [:index, :create, :update, :destroy]
   post "/projects/:id/set_active" => "projects#set_active", as: :project_set_active

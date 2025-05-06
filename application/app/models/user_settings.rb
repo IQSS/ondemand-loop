@@ -7,7 +7,7 @@ class UserSettings
 
   def user_settings
     @user_settings = read_user_settings if @user_settings.nil?
-    @user_settings.clone
+    OpenStruct.new(@user_settings.clone)
   end
 
   def update_user_settings(new_user_settings)

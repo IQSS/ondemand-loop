@@ -11,7 +11,7 @@ class FilesControllerTest < ActionDispatch::IntegrationTest
     FilesController.any_instance.stubs(:now).returns(@now)
   end
 
-  test "should return not_found if file is nil" do
+  test "cancel should return not_found if file is nil" do
     DownloadFile.stubs(:find).with(@project_id, @file_id).returns(nil)
 
     post downloads_file_cancel_url(project_id: @project_id, file_id: @file_id)

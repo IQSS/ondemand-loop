@@ -11,11 +11,20 @@ class DownloadFile < ApplicationDiskRecord
   validates_presence_of :id, :project_id, :type, :filename, :status, :size
   validates :size, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
 
+  def self.metadata_path(project_id, file_id)
+    File.join(Project.files_directory(project_id), "#{file_id}.yml")
+  end
   def self.find(project_id, file_id)
-    filename = filename_by_ids(project_id, file_id)
-    return nil unless File.exist?(filename)
+    file_metadata = metadata_path(project_id, file_id)
+    return nil unless File.exist?(file_metadata)
 
-    load_from_file(filename)
+    load_from_file(file_metadata)
+  end
+
+  def make_filename_unique!
+    root_dir = Project.files_directory(project_id)
+    @filename = Common::FileUtils.new.unique_filename(root_dir, @filename)
+    @id = Common::FileUtils.new.normalize_name(@filename)
   end
 
   def type=(value)
@@ -57,11 +66,16 @@ class DownloadFile < ApplicationDiskRecord
     return false unless valid?
 
     FileUtils.mkdir_p(Project.files_directory(project_id))
-    filename = self.class.filename_by_ids(project_id, id)
+    filename = self.class.metadata_path(project_id, id)
     File.open(filename, "w") do |file|
       file.write(to_hash.deep_stringify_keys.to_yaml)
     end
     true
+  end
+
+  def destroy
+    file_path = self.class.metadata_path(project_id, id)
+    FileUtils.rm(file_path)
   end
 
   def connector_status
@@ -74,12 +88,8 @@ class DownloadFile < ApplicationDiskRecord
 
   private
 
-  def self.filename_by_ids(project_id, file_id)
-    File.join(Project.files_directory(project_id), "#{file_id}.yml")
-  end
-
-  def self.load_from_file(filename)
-    data = YAML.safe_load(File.read(filename), permitted_classes: [Hash], aliases: true)
+  def self.load_from_file(file_metadata)
+    data = YAML.safe_load(File.read(file_metadata), permitted_classes: [Hash], aliases: true)
     new.tap do |file|
       ATTRIBUTES.each do |attr|
         case attr
@@ -93,7 +103,7 @@ class DownloadFile < ApplicationDiskRecord
       end
     end
   rescue StandardError => e
-    LoggingCommon.log_error('Cannon load file metadata', {file: filename}, e)
+    LoggingCommon.log_error('Cannon load file metadata', {file_metadata: file_metadata}, e)
     nil
   end
 end

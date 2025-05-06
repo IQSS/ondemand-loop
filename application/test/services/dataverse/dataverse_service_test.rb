@@ -35,7 +35,7 @@ class Dataverse::DataverseServiceTest < ActiveSupport::TestCase
     files_page = Dataverse::DatasetFilesResponse.new(valid_json)
     project = @service.initialize_project(dataset)
     assert project.save
-    download_files = @service.initialize_download_files(project, files_page, [4])
+    download_files = @service.initialize_download_files(project, dataset, files_page, [4])
     assert download_files.kind_of?(Array)
     assert_equal 1, download_files.count
     assert download_files[0].kind_of?(DownloadFile)
@@ -45,7 +45,7 @@ class Dataverse::DataverseServiceTest < ActiveSupport::TestCase
     assert_equal FileStatus::PENDING, download_files[0].status
     assert_equal ConnectorType::DATAVERSE, download_files[0].type
     assert_equal 272314, download_files[0].size
-    assert_equal 'screenshot.png', download_files[0].filename
+    assert_equal '/screenshot.png', download_files[0].filename
 
     assert_equal '4', download_files[0].metadata[:id]
     assert_equal 'https://example.com', download_files[0].metadata[:dataverse_url]

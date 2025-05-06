@@ -191,25 +191,25 @@ class ProjectTest < ActiveSupport::TestCase
     end
   end
 
-  test "files handle multiple files sorted by creation date ascendant" do
+  test "files handle multiple files sorted by creation date descendent" do
     in_temp_directory do
       target = create_valid_project
       target.save
-      file1 = create_download_file(target)
+      file1 = create_download_file(target, id: 'saved_1')
       assert file1.save
       sleep(0.1)# SLEEP TO HAVE DIFFERENT CREATION DATE
-      file2 = create_download_file(target)
+      file2 = create_download_file(target, id: 'saved_2')
       assert file2.save
       sleep(0.1)# SLEEP TO HAVE DIFFERENT CREATION DATE
-      file3 = create_download_file(target)
+      file3 = create_download_file(target, id: 'saved_3')
       assert file3.save
 
       saved_project = Project.find(target.id)
       project_files = saved_project.files
       assert_equal 3, project_files.count
-      assert_equal file1.id, project_files[0].id
+      assert_equal file3.id, project_files[0].id
       assert_equal file2.id, project_files[1].id
-      assert_equal file3.id, project_files[2].id
+      assert_equal file1.id, project_files[2].id
     end
   end
 

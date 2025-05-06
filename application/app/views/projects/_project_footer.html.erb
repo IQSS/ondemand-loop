@@ -1,0 +1,48 @@
+<div class="card-header border-top d-flex justify-content-between align-items-center bg-light">
+  <span class="text-muted">Files</span>
+  <button class="btn btn-outline-secondary btn-sm"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#project-files-<%= project.id %>"
+          aria-expanded="false"
+          aria-controls="project-files-<%= project.id %>">
+    <i class="bi bi-folder2-open me-1"></i>
+    View Files
+  </button>
+</div>
+
+<!-- Collapsible Tabs -->
+<div class="collapse" id="project-files-<%= project.id %>">
+  <div class="bg-light pt-2">
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" id="tabs-<%= project.id %>" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link text-secondary active" id="download-tab-<%= project.id %>" data-bs-toggle="tab"
+                data-bs-target="#download-files-<%= project.id %>" type="button" role="tab"
+                aria-controls="download-files-<%= project.id %>" aria-selected="true">
+          <i class="bi bi-download me-1"></i>Download Files
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link text-secondary" id="upload-tab-<%= project.id %>" data-bs-toggle="tab"
+                data-bs-target="#upload-files-<%= project.id %>" type="button" role="tab"
+                aria-controls="upload-files-<%= project.id %>" aria-selected="false">
+          <i class="bi bi-upload me-1"></i>Upload Files
+        </button>
+      </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="download-files-<%= project.id %>" role="tabpanel"
+           aria-labelledby="download-tab-<%= project.id %>">
+        <%= render partial: '/projects/files', locals: { project: project } %>
+      </div>
+      <div class="tab-pane fade" id="upload-files-<%= project.id %>" role="tabpanel"
+           aria-labelledby="upload-tab-<%= project.id %>">
+
+      </div>
+    </div>
+
+  </div>
+</div>

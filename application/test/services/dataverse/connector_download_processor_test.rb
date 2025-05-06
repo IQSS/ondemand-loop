@@ -13,9 +13,9 @@ class Dataverse::ConnectorDownloadProcessorTest < ActiveSupport::TestCase
 
     @file = create_download_file(@project)
     @file.id = "file-123"
+    @file.filename = "data.csv"
     @file.metadata = {
       id: "456",
-      filename: "data.csv",
       md5: Digest::MD5.hexdigest("test content"),
       dataverse_url: "http://example.com",
       download_url: nil,

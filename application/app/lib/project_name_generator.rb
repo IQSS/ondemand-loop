@@ -5,7 +5,7 @@
 # Optionally, a numeric token and custom delimiter can be included.
 # Useful for assigning default names to projects in research, HPC, or data-driven environments.
 class ProjectNameGenerator
-  def self.generate(token_length: 0, delimiter: "-")
+  def self.generate(token_length: 2, delimiter: "_")
     adjective = adjectives.sample
     noun = nouns.sample
     token = token_length > 0 ? delimiter + rand(10**token_length).to_s.rjust(token_length, '0') : ""

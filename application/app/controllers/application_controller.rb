@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
   private
 
   def load_user_settings
-    Current.user_settings = UserSettings.new
+    Current.settings = UserSettings.new
   end
 end
