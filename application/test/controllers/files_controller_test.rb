@@ -19,7 +19,7 @@ class FilesControllerTest < ActionDispatch::IntegrationTest
     assert_match "file not found", @response.body
   end
 
-  test "should cancel download if file is downloading and command fails" do
+  test "cancel should return 404 if file is downloading and command fails" do
     @file.stubs(:status).returns(FileStatus.get("downloading"))
     DownloadFile.stubs(:find).returns(@file)
 
@@ -32,7 +32,7 @@ class FilesControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
-  test "should cancel and update file if downloading and command succeeds" do
+  test "cancel should return 200 and update file if downloading and command succeeds" do
     @file.stubs(:status).returns(FileStatus.get("downloading"))
     @file.expects(:update).with(start_date: @now, end_date: @now, status: FileStatus::CANCELLED)
 
@@ -47,7 +47,7 @@ class FilesControllerTest < ActionDispatch::IntegrationTest
     assert_response :no_content
   end
 
-  test "should update and save file if not downloading" do
+  test "cancel should return 200 and save file if not downloading" do
     @file.stubs(:status).returns(FileStatus.get("success"))
     @file.expects(:update).with(start_date: @now, end_date: @now, status: FileStatus::CANCELLED)
 
