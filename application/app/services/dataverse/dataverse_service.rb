@@ -65,13 +65,13 @@ module Dataverse
           f.type = ConnectorType::DATAVERSE
           f.filename = dataset_file.full_filename
           f.status = FileStatus::PENDING
-          f.size = dataset_file.data_file.filesize
+          f.size = dataset_file.filesize
           f.metadata = {
             dataverse_url: @dataverse_url,
             persistent_id: dataset.data.dataset_persistent_id,
             parents: dataset.data.parents,
             id: dataset_file.data_file.id.to_s,
-            content_type: dataset_file.data_file.content_type,
+            content_type: dataset_file.content_type,
             storage: dataset_file.data_file.storage_identifier,
             md5: dataset_file.data_file.md5,
             download_url: nil,

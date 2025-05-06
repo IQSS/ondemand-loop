@@ -38,11 +38,21 @@ module Dataverse
       end
 
       def full_filename
-        File.join('/', directory_label.to_s, data_file&.filename.to_s)
+        filename = data_file&.original_filename || data_file&.filename
+        File.join('/', directory_label.to_s, filename.to_s)
+      end
+
+      def filesize
+        data_file.original_filesize || data_file.filesize
+      end
+
+      def content_type
+        data_file.original_content_type || data_file.content_type
       end
 
       class DataFile
         attr_reader :id, :filename, :content_type, :friendly_type, :storage_identifier, :filesize, :md5, :publication_date
+        attr_reader :original_filename, :original_content_type, :original_filesize
 
         def initialize(data_file)
           data_file = data_file || {}
@@ -54,6 +64,10 @@ module Dataverse
           @filesize = data_file[:filesize]
           @md5 = data_file[:md5]
           @publication_date = data_file[:publicationDate]
+
+          @original_filename = data_file[:originalFileName]
+          @original_content_type = data_file[:originalFileFormat]
+          @original_filesize = data_file[:originalFileSize]
         end
       end
     end
