@@ -48,12 +48,6 @@ class UploadsController < ApplicationController
     log_info @upload_file.to_s, { upload_file: @upload_file }
     @upload_file.save
 
-    #uploader = Dataverse::HttpUploader.new(@upload_file)
-    #@response = uploader.upload
-
-    #log_info "Upload response code: #{response.code}"
-    #log_info "Upload response body: #{response.body}"
-
-    #redirect_to :action => :index
+    redirect_to :action => :index
   end
 end
