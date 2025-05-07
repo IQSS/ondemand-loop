@@ -118,6 +118,10 @@ class Project < ApplicationDiskRecord
     File.join(metadata_directory, id, 'uploads')
   end
 
+  def self.upload_collections_directory(id)
+    File.join(metadata_directory, id, 'upload_collections')
+  end
+
   def self.filename_by_id(id)
     File.join(project_metadata_dir(id), "metadata.yml")
   end
