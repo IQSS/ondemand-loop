@@ -6,7 +6,9 @@ class UploadFileTest < ActiveSupport::TestCase
     UploadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
     Project.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
-      'id' => '123-321', 'project_id' => '456-789', 'type' => ConnectorType::DATAVERSE, 'filename' => 'test.png',
+      'id' => '123-321', 'project_id' => '456-789', 'type' => ConnectorType::DATAVERSE,
+      'file_location' => 'path/to/file.jpg',
+      'filename' => 'test.png',
       'status' => FileStatus::PENDING, 'size' => 1024,
       'creation_date' => nil,
       'start_date' => nil,
