@@ -23,7 +23,7 @@ module Dataverse
       connector_metadata.temp_location = temp_location
       file.update({metadata: connector_metadata.to_h})
 
-      upload_processor = Upload::BasicHttpRubyUploader.new(upload_url, source_location, payload, headers)
+      upload_processor = Upload::MultipartHttpRubyUploader.new(upload_url, source_location, payload, headers)
       upload_processor.upload do |context|
         cancelled
       end

@@ -8,7 +8,7 @@ require 'net/http/post/multipart'
 module Upload
   # Utility class to upload a file via multipart/form-data using Net::HTTP.
   # It streams the file for memory efficiency and supports progress reporting and cancellation.
-  class BasicHttpRubyUploader
+  class MultipartHttpRubyUploader
     include LoggingCommon
 
     attr_reader :upload_url, :upload_file_path, :payload, :headers
@@ -28,7 +28,6 @@ module Upload
     private
 
     def default_headers
-      { "Content-Type" => "multipart/octet-stream" }
       {}
     end
 
