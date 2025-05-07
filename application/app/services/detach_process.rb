@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 class DetachProcess
-  DOWNLOAD_SCRIPT = 'scripts/download_process.rb'
-  UPLOAD_SCRIPT   = 'scripts/upload_process.rb'
+  LAUNCH_SCRIPT = 'scripts/launch_detached_process.rb'
 
   def start_process
-    start_process_from_script(DOWNLOAD_SCRIPT, 'download_service.log')
-    start_process_from_script(UPLOAD_SCRIPT, 'upload_service.log')
+    start_process_from_script(LAUNCH_SCRIPT, 'launch_detached_process.log')
   end
 
   # TODO: We need a status page to show the detached service execution logs and possibly other things

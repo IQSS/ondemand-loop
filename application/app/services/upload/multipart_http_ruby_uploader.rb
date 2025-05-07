@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'net/http'
-require 'uri'
-require 'json'
 require 'net/http/post/multipart'
 
 module Upload
@@ -33,14 +30,13 @@ module Upload
 
     def upload_multipart(url, file_path, payload, headers, &)
       uri = URI.parse(url)
-      log_info("Uploading file #{file_path} to #{url}", { url: url, file_path: file_path })
 
       file_io = ProgressIO.new(file_path) do |context|
         if block_given?
           cancel = yield context
           if cancel
             log_info('Upload canceled.', { url: upload_url, file: upload_file_path })
-            raise :upload_canceled
+            return
           end
         end
       end
@@ -56,13 +52,9 @@ module Upload
 
       Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
         response = http.request(request)
-        log_info("response: #{response.code}", { response: response, body: response.body })
-        raise "Upload failed: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
+        raise "Upload failed. code=#{response.code} body=#{response.body}" unless response.is_a?(Net::HTTPSuccess)
         log_info('Upload complete.', { status: response.code })
       end
-    rescue => e
-      log_error('Upload failed.', { error: e.message })
-      raise
     ensure
       file_io&.close
     end

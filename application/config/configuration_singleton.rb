@@ -17,15 +17,12 @@ class ConfigurationSingleton
       ::ConfigurationProperty.integer(:download_files_retention_period, default: 24 * 60 * 60),
       ::ConfigurationProperty.integer(:upload_files_retention_period, default: 24 * 60 * 60),
       ::ConfigurationProperty.integer(:ui_feedback_delay, default: 1500),
+      ::ConfigurationProperty.integer(:detached_controller_interval, default: 10),
     ].freeze
   end
 
   def download_server_socket_file
     File.join(metadata_root, 'download.server.sock')
-  end
-
-  def upload_server_socket_file
-    File.join(metadata_root, 'upload.server.sock')
   end
 
   def config

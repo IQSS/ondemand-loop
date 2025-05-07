@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 require_relative "../config/environment"  # Load Rails environment
 
-upload_process = Upload::UploadProcess.new
-upload_process.launch
+detached_process = DetachedProcess.new
+detached_process.launch
+
+

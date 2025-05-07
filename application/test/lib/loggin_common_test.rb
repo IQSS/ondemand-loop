@@ -51,19 +51,15 @@ class LoggingCommonTest < ActiveSupport::TestCase
   end
 
   test 'format_log should format log message correctly' do
-    formatted = LoggingCommon.send(:format_log, 'DEBUG', nil, 'Testing format', {foo: 'bar', baz: 'qux'})
+    formatted = LoggingCommon.send(:format_log, 'DEBUG', 'my_class', 'Testing format', {foo: 'bar', baz: 'qux'})
 
     assert_match(/\[DEBUG\]/, formatted)
     assert_match(/(\d+)/, formatted)
+    assert_match(/my_class/, formatted)
     assert_match(/Testing format/, formatted)
     assert_match(/foo=bar/, formatted)
     assert_match(/baz=qux/, formatted)
     assert_match(/\d{4}-\d{2}-\d{2}/, formatted) # date part
   end
 
-  test 'format_log should override class name if provided' do
-    formatted = LoggingCommon.send(:format_log, 'DEBUG', 'my_class', 'Testing format', {foo: 'bar', baz: 'qux'})
-    
-    assert_match(/my_class/, formatted)
-  end
 end
