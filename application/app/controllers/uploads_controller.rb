@@ -18,9 +18,9 @@ class UploadsController < ApplicationController
     log_info @download_file.to_s, { download_file: @download_file }
 
     now = '2025-05-07T09:59:20'
-    persistent_id = "doi:10.5072/FK2/TA1ZIN"
-    api_key = "df120162-bde1-44df-8a22-df6e8e596753"
-    dataverse_url = "http://host.docker.internal:8080"
+    persistent_id = "<replace with dataset doi>"
+    api_key = "<replace with api key>"
+    dataverse_url = "http://host.docker.internal:8080" #replace it with dataverse url
 
     # Initialize UploadFile object
     @upload_file = UploadFile.new.tap do |f|
