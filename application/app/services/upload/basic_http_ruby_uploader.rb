@@ -2,6 +2,8 @@
 require 'net/http'
 require 'uri'
 require 'fileutils'
+require 'json'
+require 'mime/types'
 
 module Upload
   # Utility class to upload a file to an HTTP url.
@@ -22,8 +24,68 @@ module Upload
       log_info('Uploading...', { url: upload_url, file: upload_file, temp: temp_file })
       FileUtils.cp(upload_file, temp_file)
       upload_follow_redirects(upload_url, temp_file, &block)
+      upload_file_to_dataverse(
+        'screenshot_diagram.jpg',
+        'df120162-bde1-44df-8a22-df6e8e596753',
+        'My description.',
+        'data/subdir1',
+        ['Data'],
+        'false',
+        'false',
+        'doi:10.5072/FK2/TA1ZIN',
+        'http://localhost:8080'
+      )
+
     ensure
       File.delete(temp_file) if File.exist?(temp_file)
+    end
+
+    def upload_file_to_dataverse(file_path, api_key, description, directory_label, categories, restrict, tab_ingest, persistent_id, api_url_base)
+      uri = URI("#{api_url_base}/api/datasets/:persistentId/add")
+      uri.query = URI.encode_www_form({ persistentId: persistent_id })
+
+      # Prepare the multipart form data boundary
+      boundary = "----RubyMultipartPost#{rand(1_000_000)}"
+      post_body = []
+
+      # Add the file part
+      file = File.open(file_path, 'rb')
+      filename = File.basename(file_path)
+      content_type = MIME::Types.type_for(filename).first.to_s
+
+      post_body << "--#{boundary}\r\n"
+      post_body << "Content-Disposition: form-data; name=\"file\"; filename=\"#{filename}\"\r\n"
+      post_body << "Content-Type: #{content_type}\r\n\r\n"
+      post_body << file.read
+      post_body << "\r\n"
+
+      # Add the JSON data part
+      json_data = {
+        description: description,
+        directoryLabel: directory_label,
+        categories: categories,
+        restrict: restrict,
+        tabIngest: tab_ingest
+      }.to_json
+
+      post_body << "--#{boundary}\r\n"
+      post_body << "Content-Disposition: form-data; name=\"jsonData\"\r\n\r\n"
+      post_body << json_data
+      post_body << "\r\n"
+
+      post_body << "--#{boundary}--\r\n"
+
+      # Build the request
+      http = Net::HTTP.new(uri.host, uri.port)
+      request = Net::HTTP::Post.new(uri.request_uri)
+      request["X-Dataverse-key"] = api_key
+      request["Content-Type"] = "multipart/form-data; boundary=#{boundary}"
+      request.body = post_body.join
+
+      # Perform the request
+      response = http.request(request)
+      puts "Response Code: #{response.code}"
+      puts "Response Body: #{response.body}"
     end
 
     private
@@ -36,6 +98,7 @@ module Upload
       request.body_stream = File.open(file_path, 'rb')
       request.content_length = File.size(file_path)
       request['Content-Type'] = 'application/octet-stream'
+      request['X-Dataverse-key'] = @upload_file.metadata.api_key
 
       Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https") do |http|
         response = http.request(request)

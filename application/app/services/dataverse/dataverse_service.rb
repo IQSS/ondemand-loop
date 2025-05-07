@@ -83,5 +83,32 @@ module Dataverse
         end
       end
     end
+
+    def initialize_upload_file(project, download_file, persistent_id = 'doi:10.5072/FK2/TA1ZIN', api_key = 'df120162-bde1-44df-8a22-df6e8e596753')
+      UploadFile.new.tap do |f|
+        f.id = UploadFile.generate_id
+        f.project_id = project.id
+        f.creation_date = now
+        f.type = ConnectorType::DATAVERSE
+        f.filename = download_file.metadata.filename
+        f.status = FileStatus::PENDING
+        f.size = download_file.size
+        f.metadata = {
+          dataverse_url: @dataverse_url,
+          id: persistent_id.to_s,
+          api_key: api_key,
+          filename: download_file.metadata.filename,
+          directory_label: "data/subdir1",
+          description: "My description",
+          size: download_file.size,
+          content_type: download_file.metadata.content_type,
+          md5: download_file.metadata.md5,
+          upload_url: nil,
+          file_location: nil,
+          temp_location: nil,
+        }
+      end
+
+    end
   end
 end

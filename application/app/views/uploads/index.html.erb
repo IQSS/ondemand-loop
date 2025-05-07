@@ -1,0 +1,14 @@
+<div class="container-md content mt-4" role="main">
+  <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: 'Uploads'}]} %>
+  <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'actions' %>
+        <%= link_to "test", uploads_create_path %>
+
+        <div data-controller="upload-files-status-refresh">
+          <%= render partial: 'files', locals: { files: @files } %>
+        </div>
+
+      </div>
+  </div>
+</div>
