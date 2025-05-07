@@ -65,6 +65,6 @@ class ProjectsController < ApplicationController
     end
 
     project.destroy
-    redirect_to projects_path, notice: 'Project deleted successfully'
+    redirect_to projects_path, notice: "Project #{project.name} deleted successfully"
   end
 end

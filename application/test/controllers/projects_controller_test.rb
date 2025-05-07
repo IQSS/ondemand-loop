@@ -58,7 +58,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     delete project_url(id: @project.id)
     assert_redirected_to projects_url
     follow_redirect!
-    assert_match "Project deleted successfully", flash[:notice]
+    assert_match "Project test_project deleted successfully", flash[:notice]
   end
 
   test "should not destroy missing project" do

@@ -11,14 +11,13 @@
       <i class="bi bi-folder-fill"></i>
     </a>
 
+    <%= render partial: '/shared/file_row_date', locals: { date: project.creation_date, title: 'Creation date'} if project.creation_date %>
     <div>
-
       <!-- PROJECT METADATA -->
       <div data-project-name-target="display" class="d-flex flex-column">
         <h5 class="mb-0"><%= project.name %></h5>
         <small class="text-muted"><%= project.download_dir %></small>
       </div>
-
       <!-- PROJECT ACTIONS -->
       <div data-project-name-target="form" class="d-none d-flex align-items-center">
         <input type="text"

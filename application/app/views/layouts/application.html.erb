@@ -20,6 +20,7 @@
 
   <body>
     <%= render partial: 'layouts/nav/navigation' %>
+    <%= render partial: '/shared/project_bar', locals: { project: @active_project }  if @active_project %>
     <div id="main_container" class="container-md content mt-2" role="main">
       <%= render partial: 'layouts/flash_messages' %>
       <%= yield %>

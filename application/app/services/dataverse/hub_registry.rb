@@ -8,11 +8,12 @@ module Dataverse
     def initialize(http_client: Common::HttpClient.new(base_url: HUB_API_URL), cache: Rails.cache)
       @http_client = http_client
       @cache = cache
+      @class_name = self.class.name
     end
 
     def installations
       @cache.fetch(CACHE_KEY, expires_in: CACHE_EXPIRY) do
-        log_info('Fetching Dataverse Hub installations...', {url: HUB_API_URL})
+        log_info('Fetching Dataverse Hub installations...', {url: HUB_API_URL}, @class_name)
         fetch_installations
       end
     end
@@ -31,14 +32,14 @@ module Dataverse
           }
         end.compact
 
-        log_info('Completed loading Dataverse installations', {servers: installations.size})
+        log_info('Completed loading Dataverse installations', {servers: installations.size}, @class_name)
         installations
       else
-        log_error('Failed to fetch Dataverse Hub data', {url: HUB_API_URL, response: response.status})
+        log_error('Failed to fetch Dataverse Hub data', {url: HUB_API_URL, response: response.status}, nil, @class_name)
         []
       end
     rescue => e
-      log_error('Error fetching Dataverse Hub data', {url: HUB_API_URL}, e)
+      log_error('Error fetching Dataverse Hub data', {url: HUB_API_URL}, e, @class_name)
       []
     end
   end

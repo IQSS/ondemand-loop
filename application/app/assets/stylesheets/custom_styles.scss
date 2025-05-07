@@ -2,11 +2,11 @@
   .custom-stripe {
     background-color: #e9ecef;
   }
+}
 
-  .creation-date {
-    font-size: 0.7rem;
-    cursor: default;
-  }
+div.creation-date span, span.creation-date {
+  font-size: 0.7rem;
+  cursor: default;
 }
 
 .icon-class {
@@ -62,4 +62,8 @@
 }
 .btn-project-neutral:hover {
   background-color: #bfc6cd;
+}
+
+a.cursor-default, button.cursor-default {
+  cursor: default;
 }

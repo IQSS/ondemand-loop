@@ -7,5 +7,6 @@ class ApplicationController < ActionController::Base
 
   def load_user_settings
     Current.settings = UserSettings.new
+    @active_project = Project.find(Current.settings.user_settings.active_project.to_s)
   end
 end

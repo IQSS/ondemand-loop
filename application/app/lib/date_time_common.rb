@@ -52,4 +52,6 @@ module DateTimeCommon
       raise ArgumentError, 'Unsupported time format.'
     end
   end
+
+  module_function :now
 end

@@ -4,7 +4,7 @@ class Project < ApplicationDiskRecord
   include ActiveModel::Model
   include LoggingCommon
 
-  ATTRIBUTES = %w[id name download_dir].freeze
+  ATTRIBUTES = %w[id name download_dir creation_date].freeze
 
   attr_accessor *ATTRIBUTES
 
@@ -29,6 +29,7 @@ class Project < ApplicationDiskRecord
     self.id = id || Project.generate_id
     self.name = name || self.id
     self.download_dir = download_dir || File.join(Configuration.download_root, self.id.to_s)
+    self.creation_date = DateTimeCommon.now
   end
 
   def files

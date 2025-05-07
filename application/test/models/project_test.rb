@@ -7,6 +7,7 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal 'ab12345', target.id
     assert_equal 'test_project', target.name
     assert_equal '/tmp/test_project', target.download_dir
+    assert_not_nil target.creation_date
   end
 
   test "should be valid when all fields are populated" do
@@ -29,23 +30,27 @@ class ProjectTest < ActiveSupport::TestCase
     target.download_dir = ''
     refute target.valid?
     assert_includes target.errors[:download_dir], "can't be blank"
+
+    target.creation_date = ''
+    refute target.valid?
+    assert_includes target.errors[:creation_date], "can't be blank"
   end
 
   test "to_hash" do
     target = create_valid_project
-    expected_hash = {id: target.id, name: target.name, download_dir: target.download_dir}.stringify_keys
+    expected_hash = project_hash(target)
     assert_equal expected_hash, target.to_hash
   end
 
   test "to_json" do
     target = create_valid_project
-    expected_json = {id: target.id, name: target.name, download_dir: target.download_dir}.to_json
+    expected_json = project_hash(target).to_json
     assert_equal expected_json, target.to_json
   end
 
   test "to_yaml" do
     target = create_valid_project
-    expected_yaml = {id: target.id, name: target.name, download_dir: target.download_dir}.stringify_keys.to_yaml
+    expected_yaml = project_hash(target).stringify_keys.to_yaml
     assert_equal expected_yaml, target.to_yaml
   end
 
@@ -217,6 +222,10 @@ class ProjectTest < ActiveSupport::TestCase
 
   def create_valid_project(id: 'ab12345', name: 'test_project', download_dir: '/tmp/test_project')
     Project.new(id: id, name: name, download_dir: download_dir)
+  end
+
+  def project_hash(project)
+    {id: project.id, name: project.name, download_dir: project.download_dir, creation_date: project.creation_date}.stringify_keys
   end
 
   def in_temp_directory
