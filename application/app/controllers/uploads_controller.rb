@@ -18,9 +18,9 @@ class UploadsController < ApplicationController
     log_info @download_file.to_s, { download_file: @download_file }
 
     now = '2025-05-07T09:59:20'
-    persistent_id = "doi:10.70122/FK2/OO7VX1"
-    api_key = "abd5cc36-f55a-4050-8f61-57cab83c9dfb"
-    dataverse_url = "https://demo.dataverse.org" #replace it with dataverse url
+    persistent_id = ""
+    api_key = ""
+    dataverse_url = ""
 
     # Initialize UploadFile object
     @upload_file = UploadFile.new.tap do |f|
