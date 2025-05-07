@@ -13,17 +13,17 @@ module Dataverse
     end
 
     def upload
-      project = Project.find(file.project_id)
-      upload_url = "#{connector_metadata.dataverse_url}/api/datasets/:persistentId/add?persistentId=#{connector_metadata.id}"
-      source_location = File.join(project.download_dir, connector_metadata.filename)
+      upload_url = "#{connector_metadata.dataverse_url}/api/datasets/:persistentId/add?persistentId=#{connector_metadata.persistent_id}"
+      source_location = file.file_location
       temp_location ="#{source_location}.part"
+      headers = { "X-Dataverse-key" => connector_metadata.api_key }
+      payload = { "description" => connector_metadata.description }
 
       connector_metadata.upload_url = upload_url
-      connector_metadata.source_location = source_location
       connector_metadata.temp_location = temp_location
       file.update({metadata: connector_metadata.to_h})
 
-      upload_processor = Upload::BasicHttpRubyUploader.new(upload_url, source_location, temp_location)
+      upload_processor = Upload::BasicHttpRubyUploader.new(upload_url, source_location, payload, headers)
       upload_processor.upload do |context|
         cancelled
       end

@@ -17,7 +17,7 @@ class UploadsController < ApplicationController
     @download_file = @project.files.first
     log_info @download_file.to_s, { download_file: @download_file }
 
-    now = Time.now
+    now = '2025-05-07T09:59:20'
     persistent_id = "doi:10.5072/FK2/TA1ZIN"
     api_key = "df120162-bde1-44df-8a22-df6e8e596753"
     dataverse_url = "http://host.docker.internal:8080"
@@ -28,12 +28,13 @@ class UploadsController < ApplicationController
       f.project_id = project_id
       f.creation_date = now
       f.type = ConnectorType::DATAVERSE
+      f.file_location = @download_file.metadata['download_location']
       f.filename = @download_file.filename
       f.status = FileStatus::PENDING
       f.size = @download_file.size
       f.metadata = {
         dataverse_url: dataverse_url,
-        id: persistent_id,
+        persistent_id: persistent_id,
         api_key: api_key,
         filename: @download_file.filename,
         directory_label: "data/subdir1",
@@ -41,18 +42,17 @@ class UploadsController < ApplicationController
         size: @download_file.size,
         content_type: @download_file.metadata['content_type'],
         md5: @download_file.metadata['md5'],
-        file_location: @download_file.metadata['download_location'], # local path to file
         temp_location: nil
       }
     end
     log_info @upload_file.to_s, { upload_file: @upload_file }
     @upload_file.save
 
-    uploader = Dataverse::HttpUploader.new(@upload_file)
-    @response = uploader.upload
+    #uploader = Dataverse::HttpUploader.new(@upload_file)
+    #@response = uploader.upload
 
-    log_info "Upload response code: #{response.code}"
-    log_info "Upload response body: #{response.body}"
+    #log_info "Upload response code: #{response.code}"
+    #log_info "Upload response body: #{response.body}"
 
     #redirect_to :action => :index
   end

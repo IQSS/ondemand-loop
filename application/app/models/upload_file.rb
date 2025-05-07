@@ -4,11 +4,11 @@ class UploadFile < ApplicationDiskRecord
   include ActiveModel::Model
   include LoggingCommon
 
-  ATTRIBUTES = %w[id project_id type filename status size creation_date start_date end_date metadata].freeze
+  ATTRIBUTES = %w[id project_id type file_location filename status size creation_date start_date end_date metadata].freeze
 
   attr_accessor *ATTRIBUTES
 
-  validates_presence_of :id, :project_id, :type, :filename, :status, :size
+  validates_presence_of :id, :project_id, :type, :file_location, :filename, :status, :size
   validates :size, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
 
   def self.find(project_id, file_id)

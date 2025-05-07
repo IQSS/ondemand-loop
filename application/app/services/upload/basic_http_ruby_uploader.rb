@@ -1,141 +1,117 @@
 # frozen_string_literal: true
+
 require 'net/http'
 require 'uri'
-require 'fileutils'
 require 'json'
-require 'mime/types'
+require 'net/http/post/multipart'
 
 module Upload
-  # Utility class to upload a file to an HTTP url.
-  # It uploads the file in chunks to be memory efficient.
-  # It supports cancelling the upload at any point.
+  # Utility class to upload a file via multipart/form-data using Net::HTTP.
+  # It streams the file for memory efficiency and supports progress reporting and cancellation.
   class BasicHttpRubyUploader
     include LoggingCommon
 
-    attr_reader :upload_url, :upload_file, :temp_file
+    attr_reader :upload_url, :upload_file_path, :payload, :headers
 
-    def initialize(upload_url, upload_file, temp_file)
+    def initialize(upload_url, upload_file_path, payload = {}, headers = {})
       @upload_url = upload_url
-      @upload_file = upload_file
-      @temp_file = temp_file
+      @upload_file_path = upload_file_path
+      @payload = payload
+      @headers = headers
     end
 
-    def upload(&block)
-      log_info('Uploading...', { url: upload_url, file: upload_file, temp: temp_file })
-      FileUtils.cp(upload_file, temp_file)
-      upload_follow_redirects(upload_url, temp_file, &block)
-      upload_file_to_dataverse(
-        'screenshot_diagram.jpg',
-        'df120162-bde1-44df-8a22-df6e8e596753',
-        'My description.',
-        'data/subdir1',
-        ['Data'],
-        'false',
-        'false',
-        'doi:10.5072/FK2/TA1ZIN',
-        'http://localhost:8080'
-      )
-
-    ensure
-      File.delete(temp_file) if File.exist?(temp_file)
-    end
-
-    def upload_file_to_dataverse(file_path, api_key, description, directory_label, categories, restrict, tab_ingest, persistent_id, api_url_base)
-      uri = URI("#{api_url_base}/api/datasets/:persistentId/add")
-      uri.query = URI.encode_www_form({ persistentId: persistent_id })
-
-      # Prepare the multipart form data boundary
-      boundary = "----RubyMultipartPost#{rand(1_000_000)}"
-      post_body = []
-
-      # Add the file part
-      file = File.open(file_path, 'rb')
-      filename = File.basename(file_path)
-      content_type = MIME::Types.type_for(filename).first.to_s
-
-      post_body << "--#{boundary}\r\n"
-      post_body << "Content-Disposition: form-data; name=\"file\"; filename=\"#{filename}\"\r\n"
-      post_body << "Content-Type: #{content_type}\r\n\r\n"
-      post_body << file.read
-      post_body << "\r\n"
-
-      # Add the JSON data part
-      json_data = {
-        description: description,
-        directoryLabel: directory_label,
-        categories: categories,
-        restrict: restrict,
-        tabIngest: tab_ingest
-      }.to_json
-
-      post_body << "--#{boundary}\r\n"
-      post_body << "Content-Disposition: form-data; name=\"jsonData\"\r\n\r\n"
-      post_body << json_data
-      post_body << "\r\n"
-
-      post_body << "--#{boundary}--\r\n"
-
-      # Build the request
-      http = Net::HTTP.new(uri.host, uri.port)
-      request = Net::HTTP::Post.new(uri.request_uri)
-      request["X-Dataverse-key"] = api_key
-      request["Content-Type"] = "multipart/form-data; boundary=#{boundary}"
-      request.body = post_body.join
-
-      # Perform the request
-      response = http.request(request)
-      puts "Response Code: #{response.code}"
-      puts "Response Body: #{response.body}"
+    def upload(&)
+      log_info('Uploading...', { url: upload_url, file: upload_file_path, payload: payload })
+      upload_multipart(upload_url, upload_file_path, payload, headers, &)
     end
 
     private
 
-    def upload_follow_redirects(url, file_path, headers = {}, limit = 3, &block)
-      raise "Too many redirects" if limit <= 0
+    def default_headers
+      { "Content-Type" => "multipart/octet-stream" }
+      {}
+    end
 
+    def upload_multipart(url, file_path, payload, headers, &)
       uri = URI.parse(url)
-      request = Net::HTTP::Post.new(uri, headers)
-      request.body_stream = File.open(file_path, 'rb')
-      request.content_length = File.size(file_path)
-      request['Content-Type'] = 'application/octet-stream'
-      request['X-Dataverse-key'] = @upload_file.metadata.api_key
+      log_info("Uploading file #{file_path} to #{url}", { url: url, file_path: file_path })
 
-      Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https") do |http|
-        response = http.request(request)
-
-        if redirect?(response)
-          new_url = URI.join(url, response['location']).to_s
-          log_info('Redirect...', { url: new_url, file: file_path, temp: temp_file })
-          return upload_follow_redirects(new_url, file_path, headers, limit - 1, &block)
-        end
-
-        unless response.is_a?(Net::HTTPSuccess)
-          raise "Failed to upload: #{response.code} #{response.message}"
-        end
-
+      file_io = ProgressIO.new(file_path) do |context|
         if block_given?
-          context = create_context(url, file_path, request.content_length)
           cancel = yield context
           if cancel
-            log_info('Upload canceled.', { url: url, file: file_path, temp: temp_file })
-            return
+            log_info('Upload canceled.', { url: upload_url, file: upload_file_path })
+            raise :upload_canceled
           end
         end
-
-        log_info('Upload successful.', { url: url, file: file_path })
       end
-    end
 
-    def redirect?(response)
-      response.is_a?(Net::HTTPRedirection) && response['location']
-    end
+      upload_io = UploadIO.new(file_io, 'application/octet-stream', File.basename(file_path))
 
-    def create_context(url, location, total)
-      {
-        url: url,
-        location: location,
-        total: total
+      multipart = {
+        'file' => upload_io,
+        'jsonData' => payload.to_json
       }
+
+      request = Net::HTTP::Post::Multipart.new(uri.request_uri, multipart, default_headers.merge(headers))
+
+      Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == 'https') do |http|
+        response = http.request(request)
+        log_info("response: #{response.code}", { response: response, body: response.body })
+        raise "Upload failed: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
+        log_info('Upload complete.', { status: response.code })
+      end
+    rescue => e
+      log_error('Upload failed.', { error: e.message })
+      raise
+    ensure
+      file_io&.close
+    end
+
+    # Internal class for chunked reading with progress reporting
+    class ProgressIO
+      def initialize(file_path, chunk_size: 16 * 1024)
+        @total_size = File.size(file_path)
+        @file = File.open(file_path, 'rb')
+        @uploaded = 0
+        @chunk_size = chunk_size
+        #@callback = block_given? ? Proc.new : nil
+        @file_path = file_path
+      end
+
+      def path
+        @file_path
+      end
+
+      def read(length = nil, outbuf = nil)
+        chunk = @file.read(length || @chunk_size, outbuf)
+        if chunk
+          @uploaded += chunk.bytesize
+          report_progress
+        end
+        chunk
+      end
+
+      def rewind
+        @file.rewind
+        @uploaded = 0
+      end
+
+      def close
+        @file.close
+      end
+
+      private
+
+      def report_progress
+        context = {
+          file: @file_path,
+          total: @total_size,
+          uploaded: @uploaded,
+          percent: ((@uploaded.to_f / @total_size) * 100).round(2)
+        }
+        #@callback.call(context) if @callback
+      end
     end
   end
 end

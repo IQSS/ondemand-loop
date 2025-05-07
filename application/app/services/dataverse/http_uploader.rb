@@ -32,7 +32,7 @@ module Dataverse
   class HttpUploader
     def initialize(upload_file)
       @upload_file = upload_file
-      @file_path = upload_file.metadata[:temp_location] || upload_file.metadata[:file_location]
+      @file_path = upload_file.metadata.file_location
       raise "File path not found" unless @file_path && File.exist?(@file_path)
 
       @filename = upload_file.filename
@@ -41,7 +41,7 @@ module Dataverse
       @categories = ['Data']
       @restrict = 'false'
       @tab_ingest = 'false'
-      @persistent_id = upload_file.metadata[:id]
+      @persistent_id = upload_file.metadata[:persistent_id]
       @api_key = upload_file.metadata[:api_key]
       @dataverse_url = upload_file.metadata[:dataverse_url]
       @progress_file = "/tmp/upload_#{upload_file.id}.progress"
