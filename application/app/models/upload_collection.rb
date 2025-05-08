@@ -49,7 +49,7 @@ class UploadCollection < ApplicationDiskRecord
   def save
     return false unless valid?
 
-    FileUtils.mkdir_p(self.class.directory_by_ids(project_id, id))
+    FileUtils.mkdir_p(File.join(self.class.directory_by_ids(project_id, id), "files"))
     filename = self.class.filename_by_ids(project_id, id)
     File.open(filename, "w") do |file|
       file.write(to_hash.deep_stringify_keys.to_yaml)
@@ -60,7 +60,7 @@ class UploadCollection < ApplicationDiskRecord
   private
 
   def self.directory_by_ids(project_id, collection_id)
-    File.join(Project.upload_files_directory(project_id), collection_id)
+    File.join(Project.upload_collections_directory(project_id), collection_id)
   end
 
   def self.filename_by_ids(project_id, collection_id)

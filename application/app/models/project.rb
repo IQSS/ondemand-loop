@@ -56,6 +56,17 @@ class Project < ApplicationDiskRecord
       end
   end
 
+  def upload_collections
+    @upload_collections ||=
+      begin
+        Dir.glob(File.join(self.class.upload_collections_directory(id), '*'))
+           .select { |path| File.directory?(path) }
+           .sort { |a, b| File.ctime(b) <=> File.ctime(a) }
+           .map { |directory| UploadColection.find(id, File.basename(directory)) }
+           .compact
+      end
+  end
+
   def count
     counts = files.group_by{|f| f.status.to_s}.transform_values(&:count)
     counts[:total] = files.size
