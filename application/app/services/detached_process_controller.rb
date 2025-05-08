@@ -14,7 +14,7 @@ class DetachedProcessController
 
     loop do
       @executor_threads.each do |executor, thread|
-        if thread.nil? || !thread.alive?
+        if thread_terminated?(thread)
           log_info('Launching executor', {name: executor.name})
           @executor_threads[executor] = executor.start
         end
@@ -22,7 +22,7 @@ class DetachedProcessController
 
       sleep @interval
 
-      all_idle = @executor_threads.values.all? { |t| !t.alive? }
+      all_idle = @executor_threads.values.all? { |t| thread_terminated?(t) }
 
       if all_idle
         log_info('All executors idle. Shutting down...', {executors: @executor_threads.size})
@@ -33,5 +33,11 @@ class DetachedProcessController
     end
   rescue => e
     log_error('Error', {}, e)
+  end
+
+  private
+
+  def thread_terminated?(thread)
+    thread == nil || [nil, false].include?(thread.status)
   end
 end
