@@ -4,15 +4,15 @@ class UploadFile < ApplicationDiskRecord
   include ActiveModel::Model
   include LoggingCommon
 
-  ATTRIBUTES = %w[id project_id type file_location filename status size creation_date start_date end_date metadata].freeze
+  ATTRIBUTES = %w[id project_id collection_id type file_location filename status size creation_date start_date end_date].freeze
 
   attr_accessor *ATTRIBUTES
 
-  validates_presence_of :id, :project_id, :type, :file_location, :filename, :status, :size
+  validates_presence_of :id, :project_id, :collection_id, :type, :file_location, :filename, :status, :size
   validates :size, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
 
-  def self.find(project_id, file_id)
-    filename = filename_by_ids(project_id, file_id)
+  def self.find(project_id, collection_id, file_id)
+    filename = filename_by_ids(project_id, collection_id, file_id)
     return nil unless File.exist?(filename)
 
     load_from_file(filename)
@@ -56,12 +56,20 @@ class UploadFile < ApplicationDiskRecord
   def save
     return false unless valid?
 
-    FileUtils.mkdir_p(Project.upload_files_directory(project_id))
-    filename = self.class.filename_by_ids(project_id, id)
+    FileUtils.mkdir_p(File.join(Project.upload_collections_directory(project_id), collection_id, 'files'))
+    filename = self.class.filename_by_ids(project_id, collection_id, id)
     File.open(filename, "w") do |file|
       file.write(to_hash.deep_stringify_keys.to_yaml)
     end
     true
+  end
+
+  def upload_collection
+    UploadCollection.find(project_id, collection_id)
+  end
+
+  def project
+    Project.find(project_id)
   end
 
   def connector_status
@@ -74,8 +82,8 @@ class UploadFile < ApplicationDiskRecord
 
   private
 
-  def self.filename_by_ids(project_id, file_id)
-    File.join(Project.upload_files_directory(project_id), "#{file_id}.yml")
+  def self.filename_by_ids(project_id, collection_id, file_id)
+    File.join(Project.upload_collections_directory(project_id), collection_id, "files", "#{file_id}.yml")
   end
 
   def self.load_from_file(filename)

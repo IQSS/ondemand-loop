@@ -5,23 +5,31 @@ class UploadFileTest < ActiveSupport::TestCase
     @tmp_dir = Dir.mktmpdir
     UploadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
     Project.stubs(:metadata_root_directory).returns(@tmp_dir)
+    UploadCollection.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
-      'id' => '123-321', 'project_id' => '456-789', 'type' => ConnectorType::DATAVERSE,
+      'id' => '123-321', 'project_id' => '456-789', 'collection_id' => '111-222', 'type' => ConnectorType::DATAVERSE,
       'file_location' => 'path/to/file.jpg',
       'filename' => 'test.png',
       'status' => FileStatus::PENDING, 'size' => 1024,
       'creation_date' => nil,
       'start_date' => nil,
-      'end_date' => nil,
+      'end_date' => nil
+    }
+    @collection_attributes = {
+      'id' => '111-222', 'project_id' => '456-789', 'type' => ConnectorType::DATAVERSE,
+      'creation_date' => nil,
       'metadata' => {
-        'id' => '',
-        'filename' => '',
-        'size' => '',
-        'content_type' => '',
+        'persistent_id' => '',
+        'dataverse_url' => '',
+        'api_key' => '',
       }
     }
+    @project = Project.new id: '456-789', name: 'Test Project'
+    @project.save
+    @upload_collection = UploadCollection.new(@collection_attributes)
+    @upload_collection.save
     @upload_file = UploadFile.new(@valid_attributes)
-    @expected_filename = File.join(Project.upload_files_directory('456-789'), '123-321.yml')
+    @expected_filename = File.join(Project.upload_collections_directory('456-789'), '111-222', 'files', '123-321.yml')
   end
 
   def teardown
@@ -31,7 +39,7 @@ class UploadFileTest < ActiveSupport::TestCase
   test 'should initialize with valid attributes' do
     assert_equal '123-321', @upload_file.id
     assert_equal '456-789', @upload_file.project_id
-    assert_equal ConnectorType::DATAVERSE, @upload_file.type
+    assert_equal '111-222', @upload_file.collection_id
     assert_equal 'test.png', @upload_file.filename
     assert_equal FileStatus::PENDING, @upload_file.status
     assert_equal 1024, @upload_file.size
@@ -69,7 +77,7 @@ class UploadFileTest < ActiveSupport::TestCase
   end
 
   test 'save twice only creates one file' do
-    files_directory = Pathname.new(Project.upload_files_directory('456-789'))
+    files_directory = Pathname.new(File.join(Project.upload_collections_directory('456-789'), '111-222', 'files'))
     assert @upload_file.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
     assert_equal 1, files_directory.children.count
@@ -85,19 +93,19 @@ class UploadFileTest < ActiveSupport::TestCase
   end
 
   test 'find does not find the record if it was not saved' do
-    refute UploadFile.find('456-789', '123-321')
+    refute UploadFile.find('456-789', '111-222', '123-321')
   end
 
   test 'find retrieves the record if it was saved' do
     assert @upload_file.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
-    assert UploadFile.find('456-789', '123-321')
+    assert UploadFile.find('456-789', '111-222', '123-321')
   end
 
   test 'find retrieves the record with the same stored values' do
     assert @upload_file.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
-    loaded_file = UploadFile.find('456-789', '123-321')
+    loaded_file = UploadFile.find('456-789', '111-222', '123-321')
     assert loaded_file
     assert_equal '123-321', loaded_file.id
     assert_equal '456-789', loaded_file.project_id
@@ -110,14 +118,16 @@ class UploadFileTest < ActiveSupport::TestCase
   test 'find retrieves the record only if both ids match' do
     assert @upload_file.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
-    assert UploadFile.find('456-789', '123-321')
-    refute UploadFile.find('456-780', '123-321')
-    refute UploadFile.find('456-789', '123-322')
+    assert UploadFile.find('456-789', '111-222', '123-321')
+    refute UploadFile.find('456-780', '111-222', '123-321')
+    refute UploadFile.find('456-789', '111-222', '123-322')
+    refute UploadFile.find('456-789', '111-223', '123-321')
   end
 
   test 'update' do
     project = create_upload_project
-    target = create_upload_file(project)
+    collection = create_upload_collection(project)
+    target = create_upload_file(project, collection)
     target.update(status: FileStatus::CANCELLED)
     assert_equal FileStatus::CANCELLED, target.status
   end

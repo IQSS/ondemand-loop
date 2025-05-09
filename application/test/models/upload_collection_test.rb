@@ -7,6 +7,7 @@ class UploadCollectionTest < ActiveSupport::TestCase
     Project.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
       'id' => '123-321', 'project_id' => '456-789', 'type' => ConnectorType::DATAVERSE,
+      'name' => 'foo',
       'creation_date' => nil,
       'metadata' => {
         'persistent_id' => '',

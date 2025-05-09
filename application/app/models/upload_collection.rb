@@ -4,7 +4,7 @@ class UploadCollection < ApplicationDiskRecord
   include ActiveModel::Model
   include LoggingCommon
 
-  ATTRIBUTES = %w[id project_id type creation_date metadata].freeze
+  ATTRIBUTES = %w[id project_id type name creation_date metadata].freeze
 
   attr_accessor *ATTRIBUTES
 
