@@ -27,17 +27,19 @@ module Upload
     end
 
     def pending_files
-      Project.all.flat_map(&:upload_files).select{|f| f.status.pending?}
+      Project.all.flat_map(&:upload_collections).flat_map(&:files).select{|f| f.status.pending?}
     end
 
     def processing_files
-      Project.all.flat_map(&:upload_files).select{|f| f.status.uploading?}
+      Project.all.flat_map(&:upload_collections).flat_map(&:files).select{|f| f.status.uploading?}
     end
 
     def all
       Project.all.flat_map do |project|
-        project.upload_files.map do |file|
-          OpenStruct.new(file: file, project: project)
+        project.upload_collections.flat_map do |collection|
+          collection.files.map do |file|
+            OpenStruct.new(file: file, project: project, upload_collection: collection)
+          end
         end
       end
     end

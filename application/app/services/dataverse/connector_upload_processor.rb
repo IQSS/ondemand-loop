@@ -7,7 +7,7 @@ module Dataverse
     attr_reader :file, :connector_metadata, :cancelled
     def initialize(file)
       @file = file
-      @connector_metadata = file.connector_metadata
+      @connector_metadata = file.upload_collection.connector_metadata
       @cancelled = false
       #Upload::Command::UploadCommandRegistry.instance.register('cancel', self)
     end
@@ -17,11 +17,11 @@ module Dataverse
       source_location = file.file_location
       temp_location ="#{source_location}.part"
       headers = { "X-Dataverse-key" => connector_metadata.api_key }
-      payload = { "description" => connector_metadata.description }
+      payload = { "description" => "Sample description" }
 
       connector_metadata.upload_url = upload_url
       connector_metadata.temp_location = temp_location
-      file.update({metadata: connector_metadata.to_h})
+      file.upload_collection.update({metadata: connector_metadata.to_h})
 
       upload_processor = Upload::MultipartHttpRubyUploader.new(upload_url, source_location, payload, headers)
       upload_processor.upload do |context|

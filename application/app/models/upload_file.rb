@@ -65,15 +65,15 @@ class UploadFile < ApplicationDiskRecord
   end
 
   def upload_collection
-    UploadCollection.find(project_id, collection_id)
+    @upload_collection ||= UploadCollection.find(project_id, collection_id)
   end
 
   def project
-    Project.find(project_id)
+    @project ||= Project.find(project_id)
   end
 
   def connector_status
-    ConnectorClassDispatcher.file_connector_status(self)
+    ConnectorClassDispatcher.upload_file_connector_status(self)
   end
 
   def connector_metadata

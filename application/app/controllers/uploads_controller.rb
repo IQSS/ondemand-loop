@@ -22,28 +22,31 @@ class UploadsController < ApplicationController
     api_key = ""
     dataverse_url = ""
 
+    @upload_collection = UploadCollection.new.tap do |c|
+      c.id = UploadCollection.generate_id
+      c.project_id = project_id
+      c.creation_date = now
+      c.type = ConnectorType::DATAVERSE
+      c.metadata = {
+        dataverse_url: dataverse_url,
+        persistent_id: persistent_id,
+        api_key: api_key
+      }
+    end
+    @upload_collection.save
+    log_info @upload_collection.to_s, {upload_collection: @upload_collection, now: now}
+
     # Initialize UploadFile object
     @upload_file = UploadFile.new.tap do |f|
       f.id = UploadFile.generate_id
       f.project_id = project_id
+      f.collection_id = @upload_collection.id
       f.creation_date = now
       f.type = ConnectorType::DATAVERSE
       f.file_location = @download_file.metadata['download_location']
       f.filename = @download_file.filename
       f.status = FileStatus::PENDING
       f.size = @download_file.size
-      f.metadata = {
-        dataverse_url: dataverse_url,
-        persistent_id: persistent_id,
-        api_key: api_key,
-        filename: @download_file.filename,
-        directory_label: "data/subdir1",
-        description: "My description",
-        size: @download_file.size,
-        content_type: @download_file.metadata['content_type'],
-        md5: @download_file.metadata['md5'],
-        temp_location: nil
-      }
     end
     log_info @upload_file.to_s, { upload_file: @upload_file }
     @upload_file.save

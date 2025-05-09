@@ -57,6 +57,22 @@ class UploadCollection < ApplicationDiskRecord
     true
   end
 
+  def files
+    @upload_files ||=
+      begin
+        directory = File.join(self.class.directory_by_ids(project_id, id), "files")
+        Dir.glob(File.join(directory, '*.yml'))
+           .select { |f| File.file?(f) }
+           .sort_by { |f| File.ctime(f) }
+           .map { |f| UploadFile.find(project_id, id, File.basename(f, ".yml")) }
+           .compact
+      end
+  end
+
+  def connector_metadata
+    ConnectorClassDispatcher.connector_metadata(self)
+  end
+
   private
 
   def self.directory_by_ids(project_id, collection_id)
