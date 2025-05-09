@@ -14,6 +14,8 @@ class UploadCollectionTest < ActiveSupport::TestCase
         'api_key' => '',
       }
     }
+    @project = Project.new id: '456-789', name: 'Test Project'
+    @project.save
     @upload_collection = UploadCollection.new(@valid_attributes)
     @expected_filename = File.join(Project.upload_collections_directory('456-789'), '123-321', 'metadata.yml')
   end
@@ -101,6 +103,19 @@ class UploadCollectionTest < ActiveSupport::TestCase
     assert UploadCollection.find('456-789', '123-321')
     refute UploadCollection.find('456-780', '123-321')
     refute UploadCollection.find('456-789', '123-322')
+  end
+
+  test 'project upload collections methods returns empty list' do
+    assert_empty @project.upload_collections
+  end
+
+  test 'project upload collections methods returns list with the collection' do
+    assert @upload_collection.save
+    assert_equal 1, @project.upload_collections.count
+    collection = @project.upload_collections.first
+    assert_instance_of UploadCollection, collection
+    assert_equal @upload_collection.id, collection.id
+    assert_equal @upload_collection.project_id, collection.project_id
   end
 
   def map_objects(hash)

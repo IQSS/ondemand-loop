@@ -62,7 +62,7 @@ class Project < ApplicationDiskRecord
         Dir.glob(File.join(self.class.upload_collections_directory(id), '*'))
            .select { |path| File.directory?(path) }
            .sort { |a, b| File.ctime(b) <=> File.ctime(a) }
-           .map { |directory| UploadColection.find(id, File.basename(directory)) }
+           .map { |directory| UploadCollection.find(id, File.basename(directory)) }
            .compact
       end
   end
