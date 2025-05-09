@@ -64,7 +64,7 @@ class UploadCollection < ApplicationDiskRecord
   end
 
   def self.filename_by_ids(project_id, collection_id)
-    File.join(self.class.directory_by_ids(project_id, collection_id), "metadata.yml")
+    File.join(self.directory_by_ids(project_id, collection_id), "metadata.yml")
   end
 
   def self.load_from_file(filename)
