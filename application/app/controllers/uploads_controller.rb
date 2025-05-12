@@ -14,7 +14,7 @@ class UploadsController < ApplicationController
   def create
     @project = Project.all.first
     project_id = @project.id
-    @download_file = @project.files.select{|f| f.status.success?}.first
+    @download_file = @project.files.select{|f| f.status.success?}.last
     log_info @download_file.to_s, { download_file: @download_file }
 
     now = '2025-05-07T09:59:20'

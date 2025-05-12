@@ -9,7 +9,7 @@ module Dataverse
       @file = file
       @connector_metadata = file.upload_collection.connector_metadata
       @cancelled = false
-      #Upload::Command::UploadCommandRegistry.instance.register('cancel', self)
+      Download::Command::DownloadCommandRegistry.instance.register('cancel.upload', self)
     end
 
     def upload
@@ -38,6 +38,8 @@ module Dataverse
     end
 
     def process(request)
+      log_info("processing request: #{request.inspect}", {request: request})
+      log_info("file: #{file.id}", { file: file })
       if file.id == request.body.file_id
         # CANCELLATION IS FOR THIS FILE
         @cancelled = true

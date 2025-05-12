@@ -30,8 +30,8 @@
         <%= render partial: '/shared/file_row_date', locals: { date: file.end_date, title: 'Completion date', classes: 'mx-2'} if file.end_date %>
         <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: 'Upload start date', classes: 'mx-2'} if file.status.uploading? %>
 
-        <%# render partial: "shared/button_to", locals: {
-          url: downloads_file_delete_path(project_id: project.id, file_id: file.id),
+        <%= render partial: "shared/button_to", locals: {
+          url: uploads_file_delete_path(project_id: project.id, collection_id: file.collection_id, file_id: file.id),
           method: 'DELETE',
           title: "Delete File",
           class: 'btn-sm btn-outline-secondary',
