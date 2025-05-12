@@ -18,9 +18,9 @@ class UploadsController < ApplicationController
     log_info @download_file.to_s, { download_file: @download_file }
 
     now = '2025-05-07T09:59:20'
-    persistent_id = ""
-    api_key = ""
-    dataverse_url = ""
+    persistent_id = "doi:10.5072/FK2/TA1ZIN"
+    api_key = "df120162-bde1-44df-8a22-df6e8e596753"
+    dataverse_url = "http://host.docker.internal:8080"
 
     @upload_collection = UploadCollection.new.tap do |c|
       c.id = UploadCollection.generate_id

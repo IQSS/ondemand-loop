@@ -33,13 +33,15 @@
           <i class="bi bi-download me-1"></i>Download Files
         </button>
       </li>
-      <li class="nav-item" role="presentation">
-        <button class="nav-link text-secondary" id="upload-tab-<%= project.id %>" data-bs-toggle="tab"
-                data-bs-target="#upload-files-<%= project.id %>" type="button" role="tab"
-                aria-controls="upload-files-<%= project.id %>" aria-selected="false">
-          <i class="bi bi-upload me-1"></i>Upload Files
-        </button>
-      </li>
+      <% project.upload_collections.each do |collection| %>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link text-secondary" id="upload-tab-<%= collection.id %>" data-bs-toggle="tab"
+                  data-bs-target="#upload-files-<%= collection.id %>" type="button" role="tab"
+                  aria-controls="upload-files-<%= collection.id %>" aria-selected="false">
+            <i class="bi bi-upload me-1"></i>Uploads (<%= collection.id %>)
+          </button>
+        </li>
+      <% end %>
     </ul>
 
     <!-- Tab Content -->
@@ -48,10 +50,12 @@
            aria-labelledby="download-tab-<%= project.id %>">
         <%= render partial: '/projects/files', locals: { project: project } %>
       </div>
-      <div class="tab-pane fade" id="upload-files-<%= project.id %>" role="tabpanel"
-           aria-labelledby="upload-tab-<%= project.id %>">
-      </div>
-
+      <% project.upload_collections.each do |collection| %>
+        <div class="tab-pane fade" id="upload-files-<%= collection.id %>" role="tabpanel"
+             aria-labelledby="upload-tab-<%= collection.id %>">
+          <%= render partial: '/projects/upload_collection', locals: { project: project, upload_collection: collection } %>
+        </div>
+      <% end %>
     </div>
 
   </div>
