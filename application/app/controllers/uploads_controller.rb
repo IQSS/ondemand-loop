@@ -22,18 +22,22 @@ class UploadsController < ApplicationController
     api_key = "df120162-bde1-44df-8a22-df6e8e596753"
     dataverse_url = "http://host.docker.internal:8080"
 
-    @upload_collection = UploadCollection.new.tap do |c|
-      c.id = UploadCollection.generate_id
-      c.project_id = project_id
-      c.creation_date = now
-      c.type = ConnectorType::DATAVERSE
-      c.metadata = {
-        dataverse_url: dataverse_url,
-        persistent_id: persistent_id,
-        api_key: api_key
-      }
+    if @project.upload_collections.empty?
+      @upload_collection = UploadCollection.new.tap do |c|
+        c.id = UploadCollection.generate_id
+        c.project_id = project_id
+        c.creation_date = now
+        c.type = ConnectorType::DATAVERSE
+        c.metadata = {
+          dataverse_url: dataverse_url,
+          persistent_id: persistent_id,
+          api_key: api_key
+        }
+      end
+      @upload_collection.save
+    else
+      @upload_collection = @project.upload_collections.first
     end
-    @upload_collection.save
     log_info @upload_collection.to_s, {upload_collection: @upload_collection, now: now}
 
     # Initialize UploadFile object
