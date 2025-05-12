@@ -14,9 +14,10 @@ class DetachedProcessTest < ActiveSupport::TestCase
     FileUtils.remove_entry(@tmpdir) if File.directory?(@tmpdir)
   end
 
-  test 'launch starts controller and logs process lifecycle' do
+  test 'launch starts controller, services, command server and logs process lifecycle' do
     # Stub services and controller
     command_server = mock('CommandServer')
+    command_server.expects(:start).once
     command_server.expects(:shutdown).once
 
     controller = mock('DetachedProcessController')
@@ -52,6 +53,7 @@ class DetachedProcessTest < ActiveSupport::TestCase
 
   test 'launch still shuts down command server if error raised during startup' do
     command_server = mock('CommandServer')
+    command_server.expects(:start).once
     command_server.expects(:shutdown).once
 
     Download::Command::DownloadCommandServer.stubs(:new).returns(command_server)
