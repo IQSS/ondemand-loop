@@ -2,6 +2,7 @@
 
 module Dataverse
   class UploadConnectorStatus
+    include LoggingCommon
 
     attr_reader :file, :connector_metadata
 
@@ -14,15 +15,13 @@ module Dataverse
       return 0 if FileStatus.new_statuses.include?(file.status)
       return 100 if FileStatus.completed_statuses.include?(file.status)
 
-      #return 100 if File.exist?(connector_metadata.download_location)
+      command_client = Download::Command::DownloadCommandClient.new(socket_path: ::Configuration.download_server_socket_file)
+      request = Download::Command::Request.new(command: 'status.upload', body: {project_id: file.project_id, collection_id: file.collection_id, file_id: file.id})
+      response = command_client.request(request)
+      log_info("response: #{response}", {response: response})
+      log_info("response body : #{response.body}", {response_body: response.body})
 
-      #temp_location = connector_metadata.temp_location
-      #file_size = file.size
-      #return 0 unless File.exist?(temp_location) && file_size.to_i.positive?
-
-      #uploaded_size = File.size(temp_location)
-      #[(uploaded_size.to_f / file_size * 100).to_i, 100].min
-      60 #TODO update this with the real value
+      response.body.status[:progress]
     end
 
   end

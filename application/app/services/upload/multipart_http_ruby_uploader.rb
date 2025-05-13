@@ -99,7 +99,7 @@ module Upload
           file: @file_path,
           total: @total_size,
           uploaded: @uploaded,
-          percent: ((@uploaded.to_f / @total_size) * 100).round(2)
+          progress: [ (@uploaded.to_f / @total_size * 100).to_i, 100 ].min
         }
         @callback.call(context) if @callback
       end
