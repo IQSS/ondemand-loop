@@ -24,6 +24,12 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get project details page" do
+    get project_url(id: @project.id)
+
+    assert_response :success
+  end
+
   test "should create project with generated name" do
     ProjectNameGenerator.stubs(:generate).returns("generated_project")
     post projects_url
