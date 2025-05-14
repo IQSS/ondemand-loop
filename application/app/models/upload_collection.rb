@@ -70,7 +70,8 @@ class UploadCollection < ApplicationDiskRecord
   end
 
   def connector_metadata
-    ConnectorClassDispatcher.connector_metadata(self)
+    #TODO refactor this
+    ConnectorClassDispatcher.download_connector_metadata(self)
   end
 
   private
