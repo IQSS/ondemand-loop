@@ -30,7 +30,7 @@ module Common
     end
 
     def make_download_file_unique(download_file)
-      root_dir = Project.files_directory(download_file.project_id)
+      root_dir = Project.download_files_directory(download_file.project_id)
       download_file.filename = unique_filename(root_dir, download_file.filename)
       download_file.id = normalize_name(download_file.filename)
       download_file

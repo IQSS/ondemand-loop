@@ -185,7 +185,7 @@ class ProjectTest < ActiveSupport::TestCase
       assert target.save
       file = create_download_file(target)
       assert file.save, file
-      expected_file = File.join(dir, 'projects', target.id, 'files', "#{file.id}.yml")
+      expected_file = File.join(dir, 'projects', target.id, 'download_files', "#{file.id}.yml")
       assert File.exist?(expected_file)
 
       saved_project = Project.find(target.id)

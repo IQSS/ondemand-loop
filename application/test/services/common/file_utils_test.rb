@@ -42,7 +42,7 @@ class Common::FileUtilsTest < ActiveSupport::TestCase
 
   test 'make_download_file_unique should update filename and id' do
     fake_file = OpenStruct.new(project_id: 123, filename: 'my file.csv')
-    Project.stubs(:files_directory).with(123).returns('/tmp')
+    Project.stubs(:download_files_directory).with(123).returns('/tmp')
     @utils.stubs(:unique_filename).returns('my_file_1.csv')
 
     result = @utils.make_download_file_unique(fake_file)
@@ -93,7 +93,7 @@ class Common::FileUtilsTest < ActiveSupport::TestCase
 
   test 'make_download_file_unique normalizes updated filename correctly' do
     fake_file = OpenStruct.new(project_id: 1, filename: 'my report.txt')
-    Project.stubs(:files_directory).returns('/tmp')
+    Project.stubs(:download_files_directory).returns('/tmp')
     @utils.stubs(:unique_filename).returns('my_report_1.txt')
 
     result = @utils.make_download_file_unique(fake_file)

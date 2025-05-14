@@ -20,7 +20,7 @@ class DownloadFileTest < ActiveSupport::TestCase
       }
     }
     @download_file = DownloadFile.new(@valid_attributes)
-    @expected_filename = File.join(Project.files_directory('456-789'), '123-321.yml')
+    @expected_filename = File.join(Project.download_files_directory('456-789'), '123-321.yml')
   end
 
   def teardown
@@ -68,7 +68,7 @@ class DownloadFileTest < ActiveSupport::TestCase
   end
 
   test 'save twice only creates one file' do
-    files_directory = Pathname.new(Project.files_directory('456-789'))
+    files_directory = Pathname.new(Project.download_files_directory('456-789'))
     assert @download_file.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
     assert_equal 1, files_directory.children.count

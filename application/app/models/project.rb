@@ -35,7 +35,7 @@ class Project < ApplicationDiskRecord
   def download_files
     @files ||=
       begin
-        directory = File.join(self.class.files_directory(id))
+        directory = File.join(self.class.download_files_directory(id))
         Dir.glob(File.join(directory, '*.yml'))
            .select { |f| File.file?(f) }
            .sort_by { |f| -File.ctime(f).to_f }
@@ -64,7 +64,7 @@ class Project < ApplicationDiskRecord
   def save
     return false unless valid?
 
-    FileUtils.mkdir_p(self.class.files_directory(id))
+    FileUtils.mkdir_p(self.class.download_files_directory(id))
     FileUtils.mkdir_p(download_dir)
     filename = self.class.filename_by_id(id)
     File.open(filename, "w") do |file|
@@ -72,7 +72,7 @@ class Project < ApplicationDiskRecord
     end
     true
   rescue => e
-    log_error('Unable to save project', {id: id, project_path: self.class.files_directory(id)}, e)
+    log_error('Unable to save project', {id: id, project_path: self.class.download_files_directory(id)}, e)
     false
   end
 
@@ -109,8 +109,8 @@ class Project < ApplicationDiskRecord
     File.join(metadata_root_directory, 'projects')
   end
 
-  def self.files_directory(id)
-    File.join(metadata_directory, id, 'files')
+  def self.download_files_directory(id)
+    File.join(metadata_directory, id, 'download_files')
   end
 
   def self.upload_collections_directory(id)

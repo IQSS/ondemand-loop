@@ -12,7 +12,7 @@ class DownloadFile < ApplicationDiskRecord
   validates :size, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
 
   def self.metadata_path(project_id, file_id)
-    File.join(Project.files_directory(project_id), "#{file_id}.yml")
+    File.join(Project.download_files_directory(project_id), "#{file_id}.yml")
   end
   def self.find(project_id, file_id)
     file_metadata = metadata_path(project_id, file_id)
@@ -59,7 +59,7 @@ class DownloadFile < ApplicationDiskRecord
   def save
     return false unless valid?
 
-    FileUtils.mkdir_p(Project.files_directory(project_id))
+    FileUtils.mkdir_p(Project.download_files_directory(project_id))
     filename = self.class.metadata_path(project_id, id)
     File.open(filename, "w") do |file|
       file.write(to_hash.deep_stringify_keys.to_yaml)
