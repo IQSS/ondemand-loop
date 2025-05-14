@@ -175,7 +175,7 @@ class ProjectTest < ActiveSupport::TestCase
       target = create_valid_project
       assert target.save
       saved_project = Project.find(target.id)
-      assert saved_project.files.empty?
+      assert saved_project.download_files.empty?
     end
   end
 
@@ -189,7 +189,7 @@ class ProjectTest < ActiveSupport::TestCase
       assert File.exist?(expected_file)
 
       saved_project = Project.find(target.id)
-      project_files = saved_project.files
+      project_files = saved_project.download_files
       assert_equal 1, project_files.count
       saved_file = project_files.first
       assert_equal file.id, saved_file.id
@@ -210,7 +210,7 @@ class ProjectTest < ActiveSupport::TestCase
       assert file3.save
 
       saved_project = Project.find(target.id)
-      project_files = saved_project.files
+      project_files = saved_project.download_files
       assert_equal 3, project_files.count
       assert_equal file3.id, project_files[0].id
       assert_equal file2.id, project_files[1].id

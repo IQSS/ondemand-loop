@@ -32,7 +32,7 @@ class Project < ApplicationDiskRecord
     self.creation_date = DateTimeCommon.now
   end
 
-  def files
+  def download_files
     @files ||=
       begin
         directory = File.join(self.class.files_directory(id))
@@ -56,8 +56,8 @@ class Project < ApplicationDiskRecord
   end
 
   def count
-    counts = files.group_by{|f| f.status.to_s}.transform_values(&:count)
-    counts[:total] = files.size
+    counts = download_files.group_by{|f| f.status.to_s}.transform_values(&:count)
+    counts[:total] = download_files.size
     OpenStruct.new(counts)
   end
 
@@ -111,10 +111,6 @@ class Project < ApplicationDiskRecord
 
   def self.files_directory(id)
     File.join(metadata_directory, id, 'files')
-  end
-
-  def self.upload_files_directory(id)
-    File.join(metadata_directory, id, 'uploads')
   end
 
   def self.upload_collections_directory(id)
