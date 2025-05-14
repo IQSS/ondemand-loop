@@ -1,0 +1,49 @@
+<%
+  type = local_assigns.fetch(:type, 'form')
+  button_classes = local_assigns.fetch(:class, 'btn-outline-dark btn-sm')
+  placeholder = local_assigns.fetch(:placeholder, 'Enter value')
+%>
+<div data-controller="inline-field-submit"
+     data-inline-field-submit-url-value="<%= url %>"
+     data-inline-field-submit-field-name-value="<%= field_name %>"
+     data-inline-field-submit-type-value="<%= type %>"
+     class="flex-grow-1 d-flex justify-content-end align-items-center gap-2">
+
+  <!-- Action button (initial state) -->
+  <div data-inline-field-submit-target="button">
+    <%= link_to "#", class: "btn #{button_classes}", data: { action: "click->inline-field-submit#showForm" } do %>
+      <i class="<%= icon %>"></i>
+      <span class="ps-1"><%= label %></span>
+    <% end %>
+  </div>
+
+  <!-- Inline submit (hidden initially) -->
+  <div data-inline-field-submit-target="form" class="flex-grow-1 d-flex align-items-center gap-2 d-none position-relative">
+    <input type="text" class="form-control form-control-sm" placeholder="<%= placeholder %>"
+           data-inline-field-submit-target="input label"
+           required>
+    <button class="btn btn-sm btn-outline-primary"
+            type="submit"
+            data-action="inline-field-submit#submit"
+            data-inline-field-submit-target="label"
+            title="Submit">
+      <i class="bi bi-check-lg"></i>
+    </button>
+    <button class="btn btn-sm btn-outline-danger"
+            type="button"
+            data-action="inline-field-submit#cancel"
+            data-inline-field-submit-target="label"
+            title="Cancel">
+      <i class="bi bi-x-lg"></i>
+    </button>
+
+    <!-- Spinner placeholder -->
+    <div data-inline-field-submit-target="spinner"
+         class="position-absolute top-50 start-50 translate-middle d-none">
+      <div class="spinner-border spinner-border-sm" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+</div>

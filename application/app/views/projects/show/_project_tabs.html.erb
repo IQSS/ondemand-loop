@@ -1,0 +1,29 @@
+<!-- Project Tabs -->
+<div id="project-tabs" class="mb-3">
+  <ul class="nav nav-tabs" id="project-tabs-<%= project.id %>" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link text-secondary active" id="metadata-tab" data-bs-toggle="tab"
+              data-bs-target="#tab-project-metadata" type="button" role="tab"
+              aria-controls="project-metadata" aria-selected="true">
+        <i class="bi bi-collection me-1"></i>Project
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link text-secondary" id="download-tab" data-bs-toggle="tab"
+              data-bs-target="#tab-download-files" type="button" role="tab"
+              aria-controls="download-files" aria-selected="false">
+        <i class="bi bi-download me-1"></i>Download Files
+      </button>
+    </li>
+
+    <% project.upload_collections.each do |collection| %>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link text-secondary" id="upload-tab-<%= collection.id %>" data-bs-toggle="tab"
+                data-bs-target="#tab-collection-<%= collection.id %>" type="button" role="tab"
+                aria-controls="upload-files-<%= collection.id %>" aria-selected="false">
+          <i class="bi bi-upload me-1"></i><%= collection.name %>
+        </button>
+      </li>
+    <% end %>
+  </ul>
+</div>

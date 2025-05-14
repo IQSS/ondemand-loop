@@ -1,0 +1,28 @@
+<div id="tab-collection-<%= collection.id %>" class="tab-pane fade" role="tabpanel" aria-labelledby="upload-tab-<%= collection.id %>">
+  <%= render partial: '/projects/show/upload_actions', locals: { collection: collection } %>
+
+  <%= render layout: '/file_browser/file_drop', locals: { id: 'file-drop-target', url: uploads_file_add_path(project_id: project.id, collection_id: collection.id) } do %>
+    <div data-controller="lazy-loader"
+         data-lazy-loader-container-id-value="upload-files-<%= collection.id %>"
+         data-lazy-loader-url-value="<%= uploads_file_files_path(project_id: project.id, collection_id: collection.id) %>"
+         data-lazy-loader-event-name-value="file-drop:file-submitted"
+         class="position-relative rounded border border-2 file-drop-container">
+
+      <div id="upload-files-<%= collection.id %>" class="upload-files-container no-scroll">
+        <%= render partial: '/projects/show/upload_files', locals: { collection: collection } %>
+      </div>
+
+      <div class="drop-overlay"></div>
+      <div data-file-drop-target="icon" class="position-absolute translate-middle-y feedback-color d-none" style="top: 50%; left: 1rem; z-index: 100">
+        <i class="bi bi-plus-square-fill fs-1"></i>
+      </div>
+      <div data-file-drop-target="feedback" class="position-absolute top-50 start-50 translate-middle text-center feedback-color fs-4 d-none" style="z-index: 100">
+        <span>File added</span>
+        <span class="feedback-filename"></span>
+      </div>
+    </div>
+  <% end %>
+
+  <div id="file-browser-<%= collection.id %>" class="my-3 d-none"></div>
+
+</div>

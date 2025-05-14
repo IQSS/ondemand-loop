@@ -1,4 +1,5 @@
 <% active = active.nil? ? false : active %>
+<% footer = footer.nil? ? true : footer %>
 <div class="card mb-3 shadow-sm rounded <%= project_border_class(active) %>">
   <!-- Header Section -->
   <%= render partial: "projects/project_header", locals: { project: project, active: active } %>
@@ -16,5 +17,5 @@
     </div>
   </div>
 
-  <%= render partial: "projects/project_footer", locals: { project: project, active: active } %>
+  <%= render partial: "projects/project_footer", locals: { project: project } if footer %>
 </div>

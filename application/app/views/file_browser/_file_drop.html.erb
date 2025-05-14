@@ -1,0 +1,12 @@
+<%
+     container_id = local_assigns.fetch(:id)
+     file_post_url = local_assigns[:url]
+%>
+<div id="<%= container_id %>"
+     class="file-drop-container"
+     data-controller="file-drop"
+     data-file-drop-url-value="<%= file_post_url %>">
+
+  <%= yield %>
+
+</div>

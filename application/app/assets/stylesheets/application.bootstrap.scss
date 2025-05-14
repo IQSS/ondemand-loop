@@ -5,8 +5,10 @@ $btn-disabled-opacity: 0.4;
 @import "fontawesome/fontawesome";
 
 @import 'custom_styles';
+@import 'file_browser';
 @import 'progress_bar';
 @import 'projects';
+@import 'project_details';
 @import 'project_progress';
 @import 'downloads';
 @import 'dataverse';

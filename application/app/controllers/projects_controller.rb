@@ -5,6 +5,10 @@ class ProjectsController < ApplicationController
     @active_project = Project.find(Current.settings.user_settings.active_project.to_s)
   end
 
+  def show
+    @project = Project.find(params[:id])
+  end
+
   def create
     project_name = params[:project_name] || ProjectNameGenerator.generate
     project = Project.new(id: project_name, name: project_name)

@@ -64,6 +64,12 @@ div.creation-date span, span.creation-date {
   background-color: #bfc6cd;
 }
 
-a.cursor-default, button.cursor-default {
-  cursor: default;
+.icon-hover-danger:hover {
+  color: #fff;
+  background-color: var(--bs-danger);
+  border-color: var(--bs-danger);
+}
+
+.cursor-default {
+  cursor: default !important;
 }

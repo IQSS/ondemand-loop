@@ -1,0 +1,43 @@
+<div id="tab-project-metadata" class="tab-pane fade show active" role="tabpanel" aria-labelledby="download-tab">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item d-flex align-items-center gap-3 file-row">
+      <span class="flex-grow-1"><%= project.name %></span>
+    </li>
+  </ul>
+
+  <div class="row">
+    <!-- Left: Project Metadata -->
+    <div class="col-md-8 mb-3">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h5 class="mb-0">Project Details</h5>
+        </div>
+        <div class="card-body">
+          <p><strong>Name:</strong> <%= project.name %></p>
+          <p><strong>Download Directory:</strong> <%= project.download_dir %></p>
+          <p><strong>Created At:</strong> <%= project.creation_date %></p>
+          <!-- Add more metadata as needed -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: File State Summary Widget -->
+    <div class="col-md-4 mb-3">
+      <div class="card shadow-sm border-success">
+        <div class="card-header bg-success text-white">
+          <h6 class="mb-0">File Summary</h6>
+        </div>
+        <div class="card-body">
+          <p><strong>Total Files:</strong> HERE</p>
+          <p><strong>Missing Files:</strong> HERE</p>
+          <p><strong>Last Sync:</strong> HERE</p>
+          <!-- More summary info here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>

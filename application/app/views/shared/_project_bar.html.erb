@@ -12,8 +12,10 @@
 
     <!-- PROJECT METADATA -->
     <div data-project-name-target="display" class="d-flex flex-column">
-      <h5 class="mb-0"><%= project.name %></h5>
-      <small class="text-muted"><%= project.download_dir %></small>
+      <%= link_to project_path(id: project.id), class: "position-relative project-name-link text-reset text-decoration-none rounded-end ps-1 pe-3" do %>
+        <h5 class="mb-0"><%= project.name %></h5>
+        <small class="text-muted"><%= project.download_dir %></small>
+      <% end %>
     </div>
   </div>
 

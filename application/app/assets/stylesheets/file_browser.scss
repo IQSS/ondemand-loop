@@ -1,0 +1,16 @@
+.drop-hover .file-drop-container {
+  background-color: #e8f0fe !important;
+  border: 1px dashed #0d6efd !important;
+}
+
+.file-row, .breadcrumb-folder {
+  cursor: pointer;
+}
+
+.file-row:hover {
+  background-color: #f8f9fa;
+}
+
+.drop-hover .no-scroll {
+  overflow: hidden !important;
+}

@@ -1,0 +1,44 @@
+
+<div class="card mb-3 shadow-sm rounded">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-3">
+      <%= render partial: '/shared/file_row_date', locals: { date: collection.creation_date, title: 'Creation date'} if collection.creation_date %>
+
+      <span class="fs-2"><%= connector_icon(collection.type) %></span>
+      <div>
+        <!-- PROJECT METADATA -->
+        <div class="d-flex flex-column">
+          <h5 class="mb-0"><%= collection.name %></h5>
+          <small class="text-muted"><%= collection.name %></small>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="d-flex align-items-center gap-2">
+      <button data-controller="lazy-loader add-upload-files"
+              data-lazy-loader-container-id-value="<%= "file-browser-#{collection.id}" %>"
+              data-lazy-loader-url-value="<%= file_browser_path %>"
+              data-add-upload-files-upload-files-container-value="upload-files-<%= collection.id %>"
+              data-add-upload-files-file-browser-container-value="file-browser-<%= collection.id %>"
+              data-action="click->lazy-loader#load click->add-upload-files#toggleFileBrowser"
+              class="btn btn-outline-secondary btn-sm">
+        <i class="bi bi-plus-square-fill"></i>
+        <span class="ps-1">Add Files</span>
+      </button>
+
+      <button class="btn btn-sm btn-outline-secondary"
+              title="Edit upload collection settings">
+        <i class="bi bi-gear-fill"></i>
+      </button>
+
+      <%= render partial: "shared/button_to", locals: {
+        url: project_path(id: collection.id),
+        method: 'DELETE',
+        title: "Delete Collection",
+        class: 'btn btn-sm btn-outline-secondary icon-hover-danger',
+        icon: "bi bi-trash"
+      } %>
+    </div>
+  </div>
+</div>

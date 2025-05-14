@@ -1,0 +1,21 @@
+<div class="project-details container-md content mt-4" role="main">
+  <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: 'Projects', url: projects_path}, {text: @project.name}]} %>
+
+  <div class="row mb-2">
+    <div class="col-md-12">
+      <%= render partial: '/projects/show/project_actions', locals: { project: @project } %>
+
+      <%= render partial: '/projects/show/project_tabs', locals: { project: @project } %>
+      <div class="tab-content">
+        <%= render partial: '/projects/show/project_metadata', locals: { project: @project, active: true } %>
+        <%= render partial: '/projects/show/download_files', locals: { project: @project } %>
+        <% @project.upload_collections.each do |collection| %>
+          <%= render partial: '/projects/show/upload_collection', locals: { project: @project, collection: collection } %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

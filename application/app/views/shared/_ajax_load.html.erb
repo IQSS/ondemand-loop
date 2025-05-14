@@ -1,0 +1,13 @@
+<%
+  container_id = local_assigns.fetch(:container_id)
+  button_classes = local_assigns.fetch(:class, 'btn-outline-primary mb-2')
+  partial_html_url = local_assigns[:url]
+  label = local_assigns.fetch(:label, 'Load')
+%>
+<button data-controller="lazy-loader"
+        data-lazy-loader-container-id-value="<%= container_id %>"
+        data-lazy-loader-url-value="<%= partial_html_url %>"
+        class="btn <%= button_classes %>" data-action="click->lazy-loader#load">
+  <i class="<%= icon %>"></i>
+  <span class="ps-1"><%= label %></span>
+</button>

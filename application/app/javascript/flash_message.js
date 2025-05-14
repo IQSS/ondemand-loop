@@ -1,6 +1,7 @@
 // app/javascript/utils/flash.js
-export function showFlash(type, message) {
-    const container = document.querySelector("#flash-container") || document.body
+export function showFlash(type, message, containerId) {
+    containerId = containerId || "flash-container"
+    const container = document.getElementById(containerId) || document.body
 
     const wrapper = document.createElement("div")
     wrapper.innerHTML = `

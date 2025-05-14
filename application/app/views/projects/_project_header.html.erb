@@ -15,16 +15,18 @@
     <div>
       <!-- PROJECT METADATA -->
       <div data-project-name-target="display" class="d-flex flex-column">
-        <h5 class="mb-0"><%= project.name %></h5>
-        <small class="text-muted"><%= project.download_dir %></small>
+        <%= link_to project_path(id: project.id), class: "position-relative project-name-link text-reset text-decoration-none rounded-end  ps-1 pe-3" do %>
+          <h5 class="mb-0"><%= project.name %></h5>
+          <small class="text-muted"><%= project.download_dir %></small>
+        <% end %>
       </div>
       <!-- PROJECT ACTIONS -->
-      <div data-project-name-target="form" class="d-none d-flex align-items-center">
+      <div data-project-name-target="form" class="d-flex align-items-center gap-2 d-none">
         <input type="text"
-               class="form-control form-control-sm me-2"
+               class="form-control form-control-sm"
                data-project-name-target="input"
                value="<%= project.name %>">
-        <button class="btn btn-sm btn-outline-primary me-2"
+        <button class="btn btn-sm btn-outline-primary"
                 data-action="click->project-name#save"
                 title="Save project name">
           <i class="bi bi-check-lg"></i>

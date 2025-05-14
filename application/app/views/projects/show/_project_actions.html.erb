@@ -1,0 +1,28 @@
+<div class="d-flex justify-content-end align-items-center gap-2">
+    <%= render partial: "shared/inline_field_submit", locals: {
+      url: uploads_file_create_collection_path(project_id: project.id),
+      type: 'form',
+      field_name: "dataset_url",
+      label: "Create Upload Collection",
+      class: "btn-sm btn-outline-secondary",
+      icon: "bi bi-folder-plus",
+      placeholder: "Dataset URL",
+    } %>
+
+  <%= render partial: "shared/button_to", locals: {
+    url: project_path(id: project.id),
+    method: 'DELETE',
+    title: "Delete Project",
+    class: "btn-sm btn-outline-secondary icon-hover-danger",
+    icon: "bi bi-trash"
+  } %>
+
+  <a href="<%= files_app_url(Project.project_metadata_dir(project.id)) %>"
+     target="_blank"
+     class="btn btn-sm btn-outline-secondary"
+     title="Open project metadata">
+    <i class="bi bi-card-list"></i>
+  </a>
+</div>
+
+<hr>

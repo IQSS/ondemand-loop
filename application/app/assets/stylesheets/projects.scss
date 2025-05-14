@@ -1,6 +1,6 @@
 .projects {
   [data-project-name-target="form"] {
-    min-height: 2.80rem;
+    min-height: 3rem;
   }
 
   [data-project-name-target="form"] input {
@@ -20,5 +20,26 @@
   .nav-tabs .nav-link:hover {
     color: #343a40;
     background-color: #e9ecef;
+  }
+}
+
+.project-name-link {
+  &:hover {
+    background-color: #a4c6fb;
+    cursor: pointer;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    background-color: var(--bs-primary);
+  }
+
+  &:hover::before {
+    width: 4px;
   }
 }

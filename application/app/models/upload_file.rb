@@ -64,6 +64,11 @@ class UploadFile < ApplicationDiskRecord
     true
   end
 
+  def destroy
+    filename = self.class.filename_by_ids(project_id, collection_id, id)
+    FileUtils.rm(filename)
+  end
+
   def upload_collection
     @upload_collection ||= UploadCollection.find(project_id, collection_id)
   end
