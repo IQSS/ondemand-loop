@@ -72,17 +72,4 @@ class FilesController < ApplicationController
     redirect_to projects_path, notice: 'Download file deleted successfully'
   end
 
-  def destroy_upload
-    project_id = params[:project_id]
-    collection_id = params[:collection_id]
-    file_id = params[:file_id]
-    file = UploadFile.find(project_id, collection_id, file_id)
-    if file.nil?
-      redirect_to projects_path, alert: "File: #{file_id} not found for project and collection: #{project_id} - #{collection_id}"
-      return
-    end
-
-    file.destroy
-    redirect_to projects_path, notice: 'Upload file deleted successfully'
-  end
 end

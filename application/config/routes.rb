@@ -8,17 +8,11 @@ Rails.application.routes.draw do
   get "uploads" => "uploads#index", as: :uploads
   get "uploads/files" => "uploads#files", as: :uploads_files
 
-  post "uploads/:project_id/:file_id/cancel" => "files#cancel", as: :uploads_file_cancel
+  post "uploads/:project_id/:collection_id/:file_id/cancel" => "files#cancel_upload", as: :uploads_file_cancel
   post "uploads/:project_id/:collection_id/add" => "upload_files#add", as: :uploads_file_add
   get "uploads/:project_id/:collection_id/files" => "upload_files#files", as: :uploads_file_files
   delete "uploads/:project_id/:collection_id/:file_id" => "upload_files#delete_file", as: :uploads_file_delete
   post "uploads/:project_id/create" => "upload_files#create_collection", as: :uploads_file_create_collection
-
-  post "uploads/:project_id/:collection_id/:file_id/cancel" => "files#cancel_upload", as: :uploads_file_cancel
-  delete "uploads/:project_id/:collection_id/:file_id" => "files#destroy_upload", as: :uploads_file_delete
-
-
-  get "uploads/create" => "uploads#create", as: :uploads_create #temporally created for tests
 
   resources :projects
   post "/projects/:id/set_active" => "projects#set_active", as: :project_set_active
