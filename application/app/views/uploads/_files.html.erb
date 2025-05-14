@@ -15,17 +15,16 @@
               <%= render partial: 'shared/repo_badge', locals: {
                 repo_url: data.file.connector_metadata.files_url,
                 icon_html: connector_icon(data.file.type),
-                name: data.file.connector_metadata.repo_name,
-                tooltip: "Repository Files"
+                name: truncate(data.file.connector_metadata.repo_name, length: 20),
+                tooltip: "External dataset"
               } %>
               <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-2" title="Schedule creation date">
                 <span><%= get_date(data.file.creation_date) %></span>
                 <span><%= get_time(data.file.creation_date) %></span>
               </div>
-              <!--<span class="me-2"><%= connector_icon(data.file.type) %></span>-->
 
               <span class="me-2"><%= data.project.name %> ></span>
-              <span class="me-2"><%= data.file.upload_collection.metadata['persistent_id'] %> ></span>
+              <span class="me-2"><%= data.file.upload_collection.name %> ></span>
               <span class="me-2" title="<%= data.file.file_location %>"><%= data.file.filename %></span>
               <small class="text-muted me-2"><%= number_to_human_size(data.file.size) %></small>
             </div>
