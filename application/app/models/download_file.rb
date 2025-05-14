@@ -77,7 +77,7 @@ class DownloadFile < ApplicationDiskRecord
   end
 
   def connector_metadata
-    ConnectorClassDispatcher.connector_metadata(self)
+    ConnectorClassDispatcher.download_connector_metadata(self)
   end
 
   private

@@ -3,15 +3,15 @@ require 'test_helper'
 
 class ConnectorClassDispatcherTest < ActiveSupport::TestCase
 
-  test 'file_connector_status should return Dataverse::ConnectorStatus class for dataverse files' do
+  test 'file_connector_status should return Dataverse::DownloadConnectorStatus class for dataverse files' do
     project = download_project(type: ConnectorType::DATAVERSE, files: 1)
     result = ConnectorClassDispatcher.download_connector_status(project.download_files.first)
     assert_instance_of Dataverse::DownloadConnectorStatus, result
   end
 
-  test 'connector_metadata should return Dataverse::ConnectorMetadata class for dataverse files' do
+  test 'connector_metadata should return Dataverse::DownloadConnectorMetadata class for dataverse files' do
     project = download_project(type: ConnectorType::DATAVERSE, files: 1)
-    result = ConnectorClassDispatcher.connector_metadata(project.download_files.first)
+    result = ConnectorClassDispatcher.download_connector_metadata(project.download_files.first)
     assert_instance_of Dataverse::DownloadConnectorMetadata, result
   end
 
