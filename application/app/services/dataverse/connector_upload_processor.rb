@@ -41,11 +41,6 @@ module Dataverse
     end
 
     def process(request)
-      log_info("command: '#{request.command}'", {request: request})
-      log_info("processing request: #{request.inspect}", {request: request})
-      log_info("file: #{file.id}", { file: file })
-      log_info("status_context", {status: status_context})
-
       if request.command == 'cancel.upload'
         if file.id == request.body.file_id
           # CANCELLATION IS FOR THIS FILE
