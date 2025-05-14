@@ -16,6 +16,10 @@ class ConnectorClassDispatcher
     self.load(download_file.type, 'ConnectorMetadata', download_file)
   end
 
+  def self.upload_connector_metadata(upload_file)
+    self.load(upload_file.type, 'UploadConnectorMetadata', upload_file)
+  end
+
   def self.download_processor(download_file)
     self.load(download_file.type, 'ConnectorDownloadProcessor', download_file)
   end

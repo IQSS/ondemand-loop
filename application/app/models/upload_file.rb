@@ -82,7 +82,7 @@ class UploadFile < ApplicationDiskRecord
   end
 
   def connector_metadata
-    ConnectorClassDispatcher.connector_metadata(self)
+    ConnectorClassDispatcher.upload_connector_metadata(self)
   end
 
   private
