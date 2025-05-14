@@ -3,7 +3,7 @@ module ModelHelper
   def download_project(type: ConnectorType::DATAVERSE, files:)
     Project.new(id: random_id, name: 'test_project').tap do |project|
       download_files = Array.new(files) { create_download_file(project, type: type) }
-      project.stubs(:files).returns(download_files)
+      project.stubs(:download_files).returns(download_files)
     end
   end
 
