@@ -1,7 +1,7 @@
   # frozen_string_literal: true
 
 module Dataverse
-  class ConnectorMetadata
+  class DownloadConnectorMetadata
     def initialize(download_file)
       @metadata = download_file.metadata.to_h.deep_symbolize_keys
       @metadata.each_key do |key|

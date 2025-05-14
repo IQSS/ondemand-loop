@@ -13,7 +13,7 @@ class Dataverse::ConnectorMetadataTest < ActiveSupport::TestCase
     file = DownloadFile.new
     file.metadata = metadata
 
-    target = Dataverse::ConnectorMetadata.new(file)
+    target = Dataverse::DownloadConnectorMetadata.new(file)
     assert_equal '12345', target.id
     assert_equal 'RUNNING', target.status
     assert_equal '/some/location', target.location
@@ -37,7 +37,7 @@ class Dataverse::ConnectorMetadataTest < ActiveSupport::TestCase
     file = DownloadFile.new
     file.metadata = metadata
 
-    target = Dataverse::ConnectorMetadata.new(file)
+    target = Dataverse::DownloadConnectorMetadata.new(file)
     assert_equal '12345', target.id
     assert_nil target.other
     assert_nil target.missing
@@ -52,7 +52,7 @@ class Dataverse::ConnectorMetadataTest < ActiveSupport::TestCase
     file = DownloadFile.new
     file.metadata = metadata
 
-    result = Dataverse::ConnectorMetadata.new(file).to_h
+    result = Dataverse::DownloadConnectorMetadata.new(file).to_h
     assert_equal({'id' => '12345', 'status' => 'RUNNING'}, result)
   end
 end

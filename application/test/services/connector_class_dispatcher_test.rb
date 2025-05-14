@@ -12,7 +12,7 @@ class ConnectorClassDispatcherTest < ActiveSupport::TestCase
   test 'connector_metadata should return Dataverse::ConnectorMetadata class for dataverse files' do
     project = download_project(type: ConnectorType::DATAVERSE, files: 1)
     result = ConnectorClassDispatcher.connector_metadata(project.files.first)
-    assert_instance_of Dataverse::ConnectorMetadata, result
+    assert_instance_of Dataverse::DownloadConnectorMetadata, result
   end
 
   test 'download_processor should return Dataverse::ConnectorDownloadProcessor class for dataverse files' do
