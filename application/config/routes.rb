@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   get "uploads/create" => "uploads#create", as: :uploads_create #temporally created for tests
 
-  resources :projects, only: [:index, :show, :create, :update, :destroy]
+  resources :projects
   post "/projects/:id/set_active" => "projects#set_active", as: :project_set_active
 
   # FILE BROWSER

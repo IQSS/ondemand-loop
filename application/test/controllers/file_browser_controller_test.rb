@@ -25,7 +25,7 @@ class FileBrowserControllerTest < ActionDispatch::IntegrationTest
     FileBrowserController.any_instance.stubs(:safe_path).returns(nil)
 
     get file_browser_url, params: { path: "/unauthorized/path" }
-    assert_response :unprocessable_entity
+    assert_response :forbidden
     assert_includes @response.body, "You do not have permission"
   end
 end
