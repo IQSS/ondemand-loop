@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get "uploads" => "uploads#index", as: :uploads
   get "uploads/files" => "uploads#files", as: :uploads_files
 
-  post "uploads/:project_id/:collection_id/:file_id/cancel" => "files#cancel_upload", as: :uploads_file_cancel
+  post "uploads/:project_id/:collection_id/:file_id/cancel" => "upload_files#cancel", as: :uploads_file_cancel
   post "uploads/:project_id/:collection_id/add" => "upload_files#add", as: :uploads_file_add
   get "uploads/:project_id/:collection_id/files" => "upload_files#files", as: :uploads_file_files
   delete "uploads/:project_id/:collection_id/:file_id" => "upload_files#delete_file", as: :uploads_file_delete
