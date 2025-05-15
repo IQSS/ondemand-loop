@@ -98,8 +98,7 @@ module Upload
         context = {
           file: @file_path,
           total: @total_size,
-          uploaded: @uploaded,
-          progress: [ (@uploaded.to_f / @total_size * 100).to_i, 100 ].min
+          uploaded: @uploaded
         }
         @callback.call(context) if @callback
       end

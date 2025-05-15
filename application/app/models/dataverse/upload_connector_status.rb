@@ -18,10 +18,9 @@ module Dataverse
       command_client = Download::Command::DownloadCommandClient.new(socket_path: ::Configuration.download_server_socket_file)
       request = Download::Command::Request.new(command: 'status.upload', body: {project_id: file.project_id, collection_id: file.collection_id, file_id: file.id})
       response = command_client.request(request)
-      log_info("response: #{response}", {response: response})
-      log_info("response body : #{response.body}", {response_body: response.body})
-
-      response.body.status[:progress]
+      total = response.body.status[:total].to_i
+      uploaded = response.body.status[:uploaded].to_i
+      [ (uploaded.to_f / total * 100).to_i, 100 ].min
     end
 
   end
