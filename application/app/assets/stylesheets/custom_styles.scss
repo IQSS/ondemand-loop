@@ -9,12 +9,16 @@ div.creation-date span, span.creation-date {
   cursor: default;
 }
 
-.icon-class {
+.ood-icon-class {
   width: 20px;
   height: 20px;
-  vertical-align: middle;
-  position: relative;
-  top: -1px;
+  object-fit: contain;
+}
+
+.loop-icon-class {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
 }
 
 .badge.file-status {

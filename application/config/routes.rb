@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   get "/view/doi/search" => 'doi_search#index', as: :doi_search
   post '/view/doi/search' => 'doi_search#search', as: :doi_search_post
   get "/view/doi/search/*doi" => 'doi_search#search', as: :doi_resolve
+  # REPO RESOLVER ROUTES
+  post '/view/repo/resolve' => 'repo_resolver#resolve', as: :repo_resolver
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

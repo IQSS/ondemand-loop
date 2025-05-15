@@ -11,7 +11,7 @@ export default class extends Controller {
     }
 
     connect() {
-        this.formTarget.classList.add("d-none")
+        //this.formTarget.classList.add("d-none")
     }
 
     showForm(event) {

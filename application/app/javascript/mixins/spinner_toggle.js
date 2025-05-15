@@ -27,6 +27,7 @@ export default function SpinnerToggleMixin(Base) {
 
             button.disabled = false
             button.style.width = ''
+            button.style.height = ''
 
             if (this.hasSpinnerTarget) {
                 this.spinnerTarget.classList.add("d-none")

@@ -25,6 +25,7 @@
     <span class="badge badge-half badge-project-cancel px-4 cursor-default" title="Number of cancelled files"><%= files.cancelled %></span>
     <span class="badge badge-half badge-project-error px-4 cursor-default" title="Number of error files"><%= files.error %></span>
     <span class="badge badge-project-total px-4 cursor-default" title="Total files"><%= files.total %></span>
+
     <a href="<%= files_app_url(Project.project_metadata_dir(project.id)) %>"
        target="_blank"
        class="btn btn-sm btn-outline-primary ms-3"
