@@ -11,6 +11,21 @@ export default class extends Controller {
 
     static values = { url: String }
 
+    connect() {
+        const parent = this.element.parentElement
+        if (!parent || !parent.id) {
+            console.warn('Parent element ID is missing. Event names cannot be generated correctly.')
+            return
+        }
+
+        this.eventNames = {
+            close: `file-browser:close:${parent.id}`,
+            dragStart: `file-browser:dragstart:${parent.id}`,
+            dragEnd: `file-browser:dragend:${parent.id}`,
+            fileSelected: `file-browser:file-selected:${parent.id}`
+        }
+    }
+
     navigate() {
         const newPath = this.pathInputTarget.value
         const url = `${this.urlValue}?path=${encodeURIComponent(newPath)}`
@@ -48,7 +63,7 @@ export default class extends Controller {
         const path = event.currentTarget.dataset.entryPath
         event.dataTransfer.setData("text/plain", path)
 
-        const dragStartEvent = new CustomEvent('file-browser:dragstart', {
+        const dragStartEvent = new CustomEvent(this.eventNames.dragStart, {
             bubbles: true,
             detail: { sourcePath: path }
         })
@@ -57,7 +72,7 @@ export default class extends Controller {
     }
 
     handleDragEnd(event) {
-        const dragEndEvent = new CustomEvent('file-browser:dragend', {
+        const dragEndEvent = new CustomEvent(this.eventNames.dragEnd, {
             bubbles: true
         })
 
@@ -75,10 +90,7 @@ export default class extends Controller {
     }
 
     notifyDropTarget(path) {
-        const dropTargetId = window.loop_app_config.file_drop_target_id || 'file-drop-target'
-        const dropTarget = document.getElementById(dropTargetId)
-        if (!dropTarget || !dropTarget.dataset.controller?.includes("file-drop")) return
-        const event = new CustomEvent("file-browser:file-selected", {
+        const event = new CustomEvent(this.eventNames.fileSelected, {
             detail: { path: path },
             bubbles: true
         })
@@ -89,8 +101,9 @@ export default class extends Controller {
     hideContainer() {
         const parent = this.element.parentElement
         parent.classList.add('d-none')
+        const eventName = `file-browser:close:${parent.id}`;
 
-        const closeEvent = new CustomEvent('file-browser:close', {
+        const closeEvent = new CustomEvent(this.eventNames.close, {
             bubbles: true,
         })
 

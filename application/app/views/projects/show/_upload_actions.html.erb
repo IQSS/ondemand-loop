@@ -17,10 +17,10 @@
 
     <div class="d-flex align-items-center gap-2">
       <button data-controller="lazy-loader add-upload-files"
-              data-lazy-loader-container-id-value="<%= "file-browser-#{collection.id}" %>"
+              data-lazy-loader-container-id-value="<%= file_browser_id %>"
               data-lazy-loader-url-value="<%= file_browser_path %>"
-              data-add-upload-files-upload-files-container-value="upload-files-<%= collection.id %>"
-              data-add-upload-files-file-browser-container-value="file-browser-<%= collection.id %>"
+              data-add-upload-files-upload-files-id-value="<%= upload_files_id %>"
+              data-add-upload-files-file-browser-id-value="<%= file_browser_id %>"
               data-action="click->lazy-loader#load click->add-upload-files#toggleFileBrowser"
               class="btn btn-outline-secondary btn-sm">
         <i class="bi bi-plus-square-fill"></i>

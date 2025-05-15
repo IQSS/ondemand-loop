@@ -1,14 +1,19 @@
+<%
+  file_browser_id = "fb-#{collection.id}"
+  file_target_id = "fbt-#{collection.id}"
+  upload_files_id = "upload-files-#{collection.id}"
+%>
 <div id="tab-collection-<%= collection.id %>" class="tab-pane fade" role="tabpanel" aria-labelledby="upload-tab-<%= collection.id %>">
-  <%= render partial: '/projects/show/upload_actions', locals: { collection: collection } %>
+  <%= render partial: '/projects/show/upload_actions', locals: { collection: collection, file_browser_id: file_browser_id, upload_files_id: upload_files_id } %>
 
-  <%= render layout: '/file_browser/file_drop', locals: { id: 'file-drop-target', url: uploads_file_add_path(project_id: project.id, collection_id: collection.id) } do %>
+  <%= render layout: '/file_browser/file_drop', locals: { id: file_target_id, file_browser_id: file_browser_id, url: uploads_file_add_path(project_id: project.id, collection_id: collection.id) } do %>
     <div data-controller="lazy-loader"
          data-lazy-loader-container-id-value="upload-files-<%= collection.id %>"
          data-lazy-loader-url-value="<%= uploads_file_files_path(project_id: project.id, collection_id: collection.id) %>"
-         data-lazy-loader-event-name-value="file-drop:file-submitted"
+         data-lazy-loader-event-name-value="file-drop:file-submitted:<%= file_target_id %>"
          class="position-relative rounded border border-2 file-drop-container">
 
-      <div id="upload-files-<%= collection.id %>" class="upload-files-container no-scroll">
+      <div id="<%= upload_files_id %>" class="upload-files-container no-scroll">
         <%= render partial: '/projects/show/upload_files', locals: { collection: collection } %>
       </div>
 
@@ -23,6 +28,6 @@
     </div>
   <% end %>
 
-  <div id="file-browser-<%= collection.id %>" class="my-3 d-none"></div>
+  <div id="<%= file_browser_id %>" class="my-3 d-none"></div>
 
 </div>

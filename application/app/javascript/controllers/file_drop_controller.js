@@ -3,22 +3,23 @@ import { showFlash } from "../flash_message"
 
 export default class extends Controller {
     static targets = ["icon", "feedback"]
-    static values = { url: String, projectId: String }
+    static values = { url: String, fileBrowserId: String }
 
     connect() {
         this.wasDropped = false
         this.element.addEventListener("dragover", this.dragOver.bind(this))
         //this.element.addEventListener("dragleave", this.dragLeave.bind(this))
         this.element.addEventListener("drop", this.handleDrop.bind(this))
-        document.addEventListener("file-browser:file-selected", this.handleExternalSelect.bind(this))
-        document.addEventListener("file-browser:dragstart", this.dragOver.bind(this))
-        document.addEventListener("file-browser:dragend", this.dragLeave.bind(this))
+
+        document.addEventListener(`file-browser:file-selected:${this.fileBrowserIdValue}`, this.handleExternalSelect.bind(this))
+        document.addEventListener(`file-browser:dragstart:${this.fileBrowserIdValue}`, this.dragOver.bind(this))
+        document.addEventListener(`file-browser:dragend:${this.fileBrowserIdValue}`, this.dragLeave.bind(this))
     }
 
     disconnect() {
-        document.removeEventListener("file-browser:file-selected", this.handleExternalSelect.bind(this))
-        document.removeEventListener("file-browser:dragstart", this.dragOver.bind(this))
-        document.removeEventListener("file-browser:dragend", this.dragLeave.bind(this))
+        document.removeEventListener(`file-browser:file-selected:${this.fileBrowserIdValue}`, this.handleExternalSelect.bind(this))
+        document.removeEventListener(`file-browser:dragstart:${this.fileBrowserIdValue}`, this.dragOver.bind(this))
+        document.removeEventListener(`file-browser:dragend:${this.fileBrowserIdValue}`, this.dragLeave.bind(this))
     }
 
     dragOver(event) {
@@ -68,7 +69,7 @@ export default class extends Controller {
             if (response.ok) {
                 this.showFeedback(filePath)
             } else {
-                showFlash('error', `Error saving path: ${filePath}`, "file-drop-target")
+                showFlash('error', `Error saving path: ${filePath}`, this.element.id)
                 this.wasDropped = false
             }
         })
@@ -87,7 +88,7 @@ export default class extends Controller {
             this.iconTarget.classList.add("d-none")
             filenameSpan.textContent = ""
 
-            const event = new CustomEvent("file-drop:file-submitted", {
+            const event = new CustomEvent(`file-drop:file-submitted:${this.element.id}`, {
                 detail: { path: fileName },
                 bubbles: true
             })
