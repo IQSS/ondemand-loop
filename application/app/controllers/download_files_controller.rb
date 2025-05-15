@@ -1,4 +1,4 @@
-class FilesController < ApplicationController
+class DownloadFilesController < ApplicationController
   include DateTimeCommon
   include LoggingCommon
 

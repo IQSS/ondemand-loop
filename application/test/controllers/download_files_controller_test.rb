@@ -1,6 +1,6 @@
 require "test_helper"
 
-class FilesControllerTest < ActionDispatch::IntegrationTest
+class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
   def setup
     @project_id = "test_project"
     @file_id = "file_123"
@@ -8,7 +8,7 @@ class FilesControllerTest < ActionDispatch::IntegrationTest
     @now = Time.current
 
     # Stub now from DateTimeCommon if needed
-    FilesController.any_instance.stubs(:now).returns(@now)
+    DownloadFilesController.any_instance.stubs(:now).returns(@now)
   end
 
   test "cancel should return not_found if file is nil" do
