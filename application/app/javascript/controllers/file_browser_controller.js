@@ -12,17 +12,11 @@ export default class extends Controller {
     static values = { url: String }
 
     connect() {
-        const parent = this.element.parentElement
-        if (!parent || !parent.id) {
-            console.warn('Parent element ID is missing. Event names cannot be generated correctly.')
-            return
-        }
-
         this.eventNames = {
-            close: `file-browser:close:${parent.id}`,
-            dragStart: `file-browser:dragstart:${parent.id}`,
-            dragEnd: `file-browser:dragend:${parent.id}`,
-            fileSelected: `file-browser:file-selected:${parent.id}`
+            close: `file-browser:close:${this.element.id}`,
+            dragStart: `file-browser:dragstart:${this.element.id}`,
+            dragEnd: `file-browser:dragend:${this.element.id}`,
+            fileSelected: `file-browser:file-selected:${this.element.id}`
         }
     }
 
@@ -41,7 +35,7 @@ export default class extends Controller {
                 this.element.innerHTML = html
             })
             .catch(error => {
-                showFlash('error', error.error, "file-browser")
+                showFlash('error', error.error, this.element.id)
             })
     }
 
@@ -99,9 +93,8 @@ export default class extends Controller {
     }
 
     hideContainer() {
-        const parent = this.element.parentElement
-        parent.classList.add('d-none')
-        const eventName = `file-browser:close:${parent.id}`;
+        this.element.classList.add('d-none')
+        const eventName = `file-browser:close:${this.element.id}`;
 
         const closeEvent = new CustomEvent(this.eventNames.close, {
             bubbles: true,

@@ -28,6 +28,6 @@
     </div>
   <% end %>
 
-  <div id="<%= file_browser_id %>" class="my-3 d-none"></div>
+  <%= render partial: '/file_browser/file_browser', locals: { id: file_browser_id, class: "my-3 d-none" } %>
 
 </div>

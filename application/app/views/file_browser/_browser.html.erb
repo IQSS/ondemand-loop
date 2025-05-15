@@ -1,94 +1,90 @@
-<div id="file-browser"
-     data-controller="file-browser"
-     data-file-browser-url-value="<%= file_browser_path %>">
-  <div class="card mb-3 overflow-hidden shadow-sm">
-    <div class="card-header d-flex justify-content-between align-items-center">
-      <!-- Path display (left) -->
-      <div data-file-browser-target="pathDisplay" class="d-flex align-items-center flex-wrap gap-2">
-        <% path_parts = current_path.split('/').reject(&:blank?) %>
-        <% accumulated_path = '/' %>
-        <% path_parts.each do |part| %>
-          <% accumulated_path = File.join(accumulated_path, part) %>
-          <span class="text-muted">/</span>
-          <span class="breadcrumb-folder"
-                data-entry-path="<%= accumulated_path %>"
-                data-entry-type="folder"
-                data-action="dblclick->file-browser#handleDoubleClick">
-            <i class="bi bi-folder-fill"></i> <%= part %>
-          </span>
-        <% end %>
-      </div>
-
-      <!-- Path editor (hidden initially) -->
-      <div data-file-browser-target="pathEditor" class="flex-grow-1 d-flex align-items-center gap-2 d-none" style="max-width: 75%;">
-        <input type="text"
-               class="form-control form-control-sm flex-grow-1"
-               value="<%= current_path %>"
-               data-file-browser-target="pathInput">
-        <button class="btn btn-sm btn-outline-primary" type="button"
-                data-action="click->file-browser#navigate">
-          <i class="bi bi-check-lg"></i>
-        </button>
-        <button class="btn btn-sm btn-outline-danger" type="button"
-                data-action="click->file-browser#cancelEditPath">
-          <i class="bi bi-x-lg"></i>
-        </button>
-      </div>
-
-      <!-- Actions (right) -->
-      <div>
-        <button class="btn btn-sm btn-outline-dark"
-                title="Edit path"
-                data-action="click->file-browser#editPath">
-          <i class="bi bi-pencil"></i>
-        </button>
-        <button class="btn btn-sm btn-outline-dark"
-              data-entry-path="<%= Dir.home %>"
-              data-entry-type="folder"
-              data-action="click->file-browser#handleDoubleClick">
-          <i class="bi bi-house-door-fill"></i>
-        </button>
-        <button class="btn btn-sm btn-outline-dark"
-                data-action="click->file-browser#hideContainer">
-          <i class="bi bi-x-lg"></i>
-        </button>
-
-        <%= render partial: '/shared/ood_folder_button', locals: { path: current_path }%>
-      </div>
-    </div>
-
-    <div class="card-body p-0 overflow-auto" style="height: 500px;">
-      <ul class="list-group list-group-flush">
-        <% if true %>
-          <li class="list-group-item d-flex align-items-center gap-3 file-row text-muted"
-              data-entry-path="<%= File.expand_path('..', current_path) %>"
+<div class="card mb-3 overflow-hidden shadow-sm">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <!-- Path display (left) -->
+    <div data-file-browser-target="pathDisplay" class="d-flex align-items-center flex-wrap gap-2">
+      <% path_parts = current_path.split('/').reject(&:blank?) %>
+      <% accumulated_path = '/' %>
+      <% path_parts.each do |part| %>
+        <% accumulated_path = File.join(accumulated_path, part) %>
+        <span class="text-muted">/</span>
+        <span class="breadcrumb-folder"
+              data-entry-path="<%= accumulated_path %>"
               data-entry-type="folder"
               data-action="dblclick->file-browser#handleDoubleClick">
-            <i class="bi bi-arrow-up fs-6"></i>
-            <span>.. (Parent Folder)</span>
-          </li>
-        <% end %>
-
-        <% entries.each do |entry| %>
-          <li class="list-group-item d-flex align-items-center gap-3 file-row"
-              data-entry-path="<%= entry.path %>"
-              data-entry-type="<%= entry.type %>"
-              draggable="true"
-              data-action="dragstart->file-browser#handleDragStart dragend->file-browser#handleDragEnd dblclick->file-browser#handleDoubleClick">
-
-            <!-- Icon -->
-            <i class="bi <%= entry[:type] == 'folder' ? 'bi-folder-fill' : 'bi-file-earmark' %> fs-5 text-secondary"></i>
-
-            <!-- Name -->
-            <span class="flex-grow-1"><%= entry.name %></span>
-
-            <!-- File Size -->
-            <% if entry.type == 'file' %>
-              <small class="text-muted"><%= number_to_human_size(entry.size) %></small>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
+          <i class="bi bi-folder-fill"></i> <%= part %>
+        </span>
+      <% end %>
     </div>
+
+    <!-- Path editor (hidden initially) -->
+    <div data-file-browser-target="pathEditor" class="flex-grow-1 d-flex align-items-center gap-2 d-none" style="max-width: 75%;">
+      <input type="text"
+             class="form-control form-control-sm flex-grow-1"
+             value="<%= current_path %>"
+             data-file-browser-target="pathInput">
+      <button class="btn btn-sm btn-outline-primary" type="button"
+              data-action="click->file-browser#navigate">
+        <i class="bi bi-check-lg"></i>
+      </button>
+      <button class="btn btn-sm btn-outline-danger" type="button"
+              data-action="click->file-browser#cancelEditPath">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <!-- Actions (right) -->
+    <div>
+      <button class="btn btn-sm btn-outline-dark"
+              title="Edit path"
+              data-action="click->file-browser#editPath">
+        <i class="bi bi-pencil"></i>
+      </button>
+      <button class="btn btn-sm btn-outline-dark"
+            data-entry-path="<%= Dir.home %>"
+            data-entry-type="folder"
+            data-action="click->file-browser#handleDoubleClick">
+        <i class="bi bi-house-door-fill"></i>
+      </button>
+      <button class="btn btn-sm btn-outline-dark"
+              data-action="click->file-browser#hideContainer">
+        <i class="bi bi-x-lg"></i>
+      </button>
+
+      <%= render partial: '/shared/ood_folder_button', locals: { path: current_path }%>
+    </div>
+  </div>
+
+  <div class="card-body p-0 overflow-auto" style="height: 500px;">
+    <ul class="list-group list-group-flush">
+      <% if true %>
+        <li class="list-group-item d-flex align-items-center gap-3 file-row text-muted"
+            data-entry-path="<%= File.expand_path('..', current_path) %>"
+            data-entry-type="folder"
+            data-action="dblclick->file-browser#handleDoubleClick">
+          <i class="bi bi-arrow-up fs-6"></i>
+          <span>.. (Parent Folder)</span>
+        </li>
+      <% end %>
+
+      <% entries.each do |entry| %>
+        <li class="list-group-item d-flex align-items-center gap-3 file-row"
+            data-entry-path="<%= entry.path %>"
+            data-entry-type="<%= entry.type %>"
+            draggable="true"
+            data-action="dragstart->file-browser#handleDragStart dragend->file-browser#handleDragEnd dblclick->file-browser#handleDoubleClick">
+
+          <!-- Icon -->
+          <i class="bi <%= entry[:type] == 'folder' ? 'bi-folder-fill' : 'bi-file-earmark' %> fs-5 text-secondary"></i>
+
+          <!-- Name -->
+          <span class="flex-grow-1"><%= entry.name %></span>
+
+          <!-- File Size -->
+          <% if entry.type == 'file' %>
+            <small class="text-muted"><%= number_to_human_size(entry.size) %></small>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>
