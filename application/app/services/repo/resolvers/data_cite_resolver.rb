@@ -3,21 +3,18 @@ module Repo
     class DataCiteResolver < Repo::BaseResolver
       include LoggingCommon
 
-      DATACITE_DOMAIN = 'https://api.datacite.org'
-
       def self.build
-        http = Common::HttpClient.new(base_url: DATACITE_DOMAIN)
-        new(http_client: http)
+        new(api_url: 'https://api.datacite.org')
       end
 
-      def initialize(http_client:)
-        @http = http_client
+      def initialize(api_url:)
+        @api_url = api_url
       end
 
       def resolve(context)
         return unless context.doi
 
-        api_url = File.join(DATACITE_DOMAIN, '/dois', context.doi)
+        api_url = File.join(@api_url, '/dois', context.doi)
         response =  context.http_client.get(api_url.to_s, headers: { 'Accept' => 'application/json' })
         return unless response.success?
 
