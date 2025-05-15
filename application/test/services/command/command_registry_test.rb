@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 require 'test_helper'
 
-class Command::DownloadCommandRegistryTest < ActiveSupport::TestCase
+class Command::CommandRegistryTest < ActiveSupport::TestCase
 
   def setup
-    @registry = Command::DownloadCommandRegistry.instance
+    @registry = Command::CommandRegistry.instance
     @registry.extend(LoggingCommonMock) # override LoggingCommon for test
     @registry.reset!
   end

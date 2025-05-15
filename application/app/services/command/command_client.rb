@@ -2,7 +2,7 @@
 require 'timeout'
 
 module Command
-  class DownloadCommandClient
+  class CommandClient
     include LoggingCommon
 
     class TimeoutError < StandardError; end

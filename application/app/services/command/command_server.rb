@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Command
-  class DownloadCommandServer
+  class CommandServer
     include LoggingCommon
 
     def initialize(socket_path:)
@@ -56,7 +56,7 @@ module Command
 
       begin
         request = Command::Request.from_json(raw.strip)
-        result = Command::DownloadCommandRegistry.instance.dispatch(request)
+        result = Command::CommandRegistry.instance.dispatch(request)
 
         client.puts(result.to_json)
       rescue => e

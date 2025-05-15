@@ -19,7 +19,7 @@ class DownloadFilesController < ApplicationController
     end
 
     if file.status.downloading?
-      command_client = Command::DownloadCommandClient.new(socket_path: ::Configuration.download_server_socket_file)
+      command_client = Command::CommandClient.new(socket_path: ::Configuration.download_server_socket_file)
       request = Command::Request.new(command: 'cancel', body: {project_id: project_id, file_id: file_id})
       response = command_client.request(request)
       return  head :not_found if response.status != 200

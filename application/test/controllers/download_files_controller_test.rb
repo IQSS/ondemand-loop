@@ -25,7 +25,7 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
 
     mock_client = mock("DownloadCommandClient")
     mock_client.expects(:request).returns(OpenStruct.new(status: 500))
-    Command::DownloadCommandClient.stubs(:new).returns(mock_client)
+    Command::CommandClient.stubs(:new).returns(mock_client)
 
     post downloads_file_cancel_url(project_id: @project_id, file_id: @file_id)
 
@@ -40,7 +40,7 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
 
     mock_client = mock("DownloadCommandClient")
     mock_client.expects(:request).returns(OpenStruct.new(status: 200))
-    Command::DownloadCommandClient.stubs(:new).returns(mock_client)
+    Command::CommandClient.stubs(:new).returns(mock_client)
 
     post downloads_file_cancel_url(project_id: @project_id, file_id: @file_id)
 

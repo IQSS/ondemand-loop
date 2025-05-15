@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 require 'test_helper'
 
-class Command::DownloadCommandServerTest < ActiveSupport::TestCase
+class Command::CommandServerTest < ActiveSupport::TestCase
   def setup
     @tmpdir = Dir.mktmpdir
     @socket_path = File.join(@tmpdir, "command_server.sock")
 
-    @registry = Command::DownloadCommandRegistry.instance
+    @registry = Command::CommandRegistry.instance
     @registry.reset!
 
     # Register a default handler for 'test_command'
@@ -18,7 +18,7 @@ class Command::DownloadCommandServerTest < ActiveSupport::TestCase
 
     @registry.register("test_command", handler)
 
-    @server = Command::DownloadCommandServer.new(socket_path: @socket_path)
+    @server = Command::CommandServer.new(socket_path: @socket_path)
     @server.start
     sleep 0.1
   end

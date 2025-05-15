@@ -2,7 +2,7 @@
 require 'singleton'
 
 module Command
-  class DownloadCommandRegistry
+  class CommandRegistry
     include Singleton
     include LoggingCommon
 

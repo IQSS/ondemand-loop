@@ -24,7 +24,7 @@ class DetachedProcessTest < ActiveSupport::TestCase
     controller.expects(:run).once
 
     DetachedProcessController.stubs(:new).returns(controller)
-    Command::DownloadCommandServer.stubs(:new).returns(command_server)
+    Command::CommandServer.stubs(:new).returns(command_server)
     Download::DownloadService.stubs(:new)
     Upload::UploadService.stubs(:new)
 
@@ -44,7 +44,7 @@ class DetachedProcessTest < ActiveSupport::TestCase
       process = DetachedProcess.new
 
       # Expect nothing else to be initialized
-      Command::DownloadCommandServer.expects(:new).never
+      Command::CommandServer.expects(:new).never
       DetachedProcessController.expects(:new).never
 
       process.launch
@@ -56,7 +56,7 @@ class DetachedProcessTest < ActiveSupport::TestCase
     command_server.expects(:start).once
     command_server.expects(:shutdown).once
 
-    Command::DownloadCommandServer.stubs(:new).returns(command_server)
+    Command::CommandServer.stubs(:new).returns(command_server)
 
     Download::DownloadService.stubs(:new).raises(StandardError, 'Startup failure')
     Upload::UploadService.stubs(:new)
