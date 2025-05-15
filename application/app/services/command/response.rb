@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Download::Command
+module Command
   class Response
     attr_reader :status, :headers, :body
 

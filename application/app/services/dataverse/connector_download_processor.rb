@@ -9,7 +9,7 @@ module Dataverse
       @file = file
       @connector_metadata = file.connector_metadata
       @cancelled = false
-      Download::Command::DownloadCommandRegistry.instance.register('cancel', self)
+      Command::DownloadCommandRegistry.instance.register('cancel', self)
     end
 
     def download

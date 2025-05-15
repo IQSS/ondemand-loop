@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 require 'test_helper'
 
-class Download::Command::DownloadCommandServerTest < ActiveSupport::TestCase
+class Command::DownloadCommandServerTest < ActiveSupport::TestCase
   def setup
     @tmpdir = Dir.mktmpdir
     @socket_path = File.join(@tmpdir, "command_server.sock")
 
-    @registry = Download::Command::DownloadCommandRegistry.instance
+    @registry = Command::DownloadCommandRegistry.instance
     @registry.reset!
 
     # Register a default handler for 'test_command'
@@ -18,7 +18,7 @@ class Download::Command::DownloadCommandServerTest < ActiveSupport::TestCase
 
     @registry.register("test_command", handler)
 
-    @server = Download::Command::DownloadCommandServer.new(socket_path: @socket_path)
+    @server = Command::DownloadCommandServer.new(socket_path: @socket_path)
     @server.start
     sleep 0.1
   end
@@ -31,9 +31,9 @@ class Download::Command::DownloadCommandServerTest < ActiveSupport::TestCase
 
   test 'Should dispatch request and return response correctly' do
     socket = UNIXSocket.new(@socket_path)
-    request = Download::Command::Request.new(command: 'test_command', body: { value: 42 })
+    request = Command::Request.new(command: 'test_command', body: { value: 42 })
     socket.puts(request.to_json)
-    response = Download::Command::Response.from_json(socket.gets)
+    response = Command::Response.from_json(socket.gets)
     socket.close
 
     assert_equal 200, response.status
@@ -47,9 +47,9 @@ class Download::Command::DownloadCommandServerTest < ActiveSupport::TestCase
     assert File.socket?(@socket_path), "Socket file should exist after restart"
 
     socket = UNIXSocket.new(@socket_path)
-    request = Download::Command::Request.new(command: 'test_command', body: { value: 99 })
+    request = Command::Request.new(command: 'test_command', body: { value: 99 })
     socket.puts(request.to_json)
-    response = Download::Command::Response.from_json(socket.gets)
+    response = Command::Response.from_json(socket.gets)
     socket.close
 
     assert_equal 200, response.status
@@ -68,9 +68,9 @@ class Download::Command::DownloadCommandServerTest < ActiveSupport::TestCase
     sleep 0.1
 
     socket = UNIXSocket.new(@socket_path)
-    request = Download::Command::Request.new(command: 'test_command', body: { message: 'recovered' })
+    request = Command::Request.new(command: 'test_command', body: { message: 'recovered' })
     socket.puts(request.to_json)
-    response = Download::Command::Response.from_json(socket.gets)
+    response = Command::Response.from_json(socket.gets)
     socket.close
 
     assert_equal 200, response.status
@@ -87,9 +87,9 @@ class Download::Command::DownloadCommandServerTest < ActiveSupport::TestCase
     @registry.register("failing_command", handler)
 
     socket = UNIXSocket.new(@socket_path)
-    request = Download::Command::Request.new(command: 'failing_command')
+    request = Command::Request.new(command: 'failing_command')
     socket.puts(request.to_json)
-    response = Download::Command::Response.from_json(socket.gets)
+    response = Command::Response.from_json(socket.gets)
     socket.close
 
     assert_equal 500, response.status
@@ -99,7 +99,7 @@ class Download::Command::DownloadCommandServerTest < ActiveSupport::TestCase
   test 'Should return error response when receiving invalid JSON' do
     socket = UNIXSocket.new(@socket_path)
     socket.puts("this is not json")
-    response = Download::Command::Response.from_json(socket.gets)
+    response = Command::Response.from_json(socket.gets)
     socket.close
 
     assert_equal 500, response.status

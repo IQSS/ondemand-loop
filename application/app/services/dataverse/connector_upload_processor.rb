@@ -10,8 +10,8 @@ module Dataverse
       @connector_metadata = file.upload_collection.connector_metadata
       @cancelled = false
       @status_context = nil
-      Download::Command::DownloadCommandRegistry.instance.register('cancel.upload', self)
-      Download::Command::DownloadCommandRegistry.instance.register('status.upload', self)
+      Command::DownloadCommandRegistry.instance.register('cancel.upload', self)
+      Command::DownloadCommandRegistry.instance.register('status.upload', self)
     end
 
     def upload

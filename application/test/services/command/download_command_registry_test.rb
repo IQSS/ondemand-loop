@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 require 'test_helper'
 
-class Download::Command::DownloadCommandRegistryTest < ActiveSupport::TestCase
+class Command::DownloadCommandRegistryTest < ActiveSupport::TestCase
 
   def setup
-    @registry = Download::Command::DownloadCommandRegistry.instance
+    @registry = Command::DownloadCommandRegistry.instance
     @registry.extend(LoggingCommonMock) # override LoggingCommon for test
     @registry.reset!
   end
@@ -18,7 +18,7 @@ class Download::Command::DownloadCommandRegistryTest < ActiveSupport::TestCase
 
     @registry.register('example', handler)
 
-    request = Download::Command::Request.new(command: 'example', body: {bar: 'baz'})
+    request = Command::Request.new(command: 'example', body: {bar: 'baz'})
     result = @registry.dispatch(request)
 
     assert_equal 200, result.status
@@ -39,7 +39,7 @@ class Download::Command::DownloadCommandRegistryTest < ActiveSupport::TestCase
     @registry.register('first_response', handler2)
     @registry.register('first_response', handler3)
 
-    request = Download::Command::Request.new(command: 'first_response')
+    request = Command::Request.new(command: 'first_response')
     result = @registry.dispatch(request)
 
     assert_equal 200, result.status
@@ -53,7 +53,7 @@ class Download::Command::DownloadCommandRegistryTest < ActiveSupport::TestCase
 
     @registry.register('fail', handler)
 
-    request = Download::Command::Request.new(command: 'fail')
+    request = Command::Request.new(command: 'fail')
     result = @registry.dispatch(request)
     assert_equal 500, result.status
     assert_equal handler.class.name.to_s, result.headers[:handler]
@@ -63,7 +63,7 @@ class Download::Command::DownloadCommandRegistryTest < ActiveSupport::TestCase
   end
 
   test 'dispatch returns error if no handlers registered' do
-    request = Download::Command::Request.new(command: 'unhandled')
+    request = Command::Request.new(command: 'unhandled')
     result = @registry.dispatch(request)
     assert_equal 400, result.status
     assert_nil result.headers[:handler]
@@ -77,7 +77,7 @@ class Download::Command::DownloadCommandRegistryTest < ActiveSupport::TestCase
     @registry.register('noop', handler1)
     @registry.register('noop', handler2)
 
-    request = Download::Command::Request.new(command: 'noop')
+    request = Command::Request.new(command: 'noop')
     result = @registry.dispatch(request)
     assert_equal 400, result.status
     assert_nil result.headers[:handler]

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'singleton'
 
-module Download::Command
+module Command
   class DownloadCommandRegistry
     include Singleton
     include LoggingCommon
@@ -21,10 +21,10 @@ module Download::Command
       handlers.each do |handler|
         begin
           result = handler.process(request)
-          return Download::Command::Response.ok(body: result, handler: handler) if result
+          return Command::Response.ok(body: result, handler: handler) if result
         rescue => e
           log_error('Error while executing handler',{request: request.inspect, handler: handler.class.name}, e)
-          return Download::Command::Response.error(message: e.message, handler: handler)
+          return Command::Response.error(message: e.message, handler: handler)
         end
       end
 
@@ -32,7 +32,7 @@ module Download::Command
         message: 'No handler executed for this command',
         handlers: handlers.map{|h| h.class.name}
       }
-      return Download::Command::Response.new(status: 400, body: body)
+      return Command::Response.new(status: 400, body: body)
     end
 
     def reset!

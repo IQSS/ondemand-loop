@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 require 'test_helper'
 
-class Download::Command::DownloadCommandClientTest < ActiveSupport::TestCase
+class Command::DownloadCommandClientTest < ActiveSupport::TestCase
   def setup
     @tmpdir = Dir.mktmpdir
     @socket_path = File.join(@tmpdir, 'command.sock')
 
-    @registry = Download::Command::DownloadCommandRegistry.instance
+    @registry = Command::DownloadCommandRegistry.instance
     @registry.reset!
 
     @handler = mock('handler')
     @handler.stubs(:process).returns({ file_status: 'downloading' })
     @registry.register('status', @handler)
 
-    @server = Download::Command::DownloadCommandServer.new(socket_path: @socket_path)
+    @server = Command::DownloadCommandServer.new(socket_path: @socket_path)
     @server.start
     sleep 0.1
   end
@@ -24,8 +24,8 @@ class Download::Command::DownloadCommandClientTest < ActiveSupport::TestCase
   end
 
   test 'Should return error for a command with no handler' do
-    client = Download::Command::DownloadCommandClient.new(socket_path: @socket_path)
-    request = Download::Command::Request.new(command: 'no_handler_registered')
+    client = Command::DownloadCommandClient.new(socket_path: @socket_path)
+    request = Command::Request.new(command: 'no_handler_registered')
     result = client.request(request)
 
     assert_equal 400, result.status
@@ -33,8 +33,8 @@ class Download::Command::DownloadCommandClientTest < ActiveSupport::TestCase
   end
 
   test 'Should return response when server responds correctly' do
-    client = Download::Command::DownloadCommandClient.new(socket_path: @socket_path)
-    request = Download::Command::Request.new(command: 'status')
+    client = Command::DownloadCommandClient.new(socket_path: @socket_path)
+    request = Command::Request.new(command: 'status')
     result = client.request(request)
 
     assert_equal 200, result.status
@@ -50,10 +50,10 @@ class Download::Command::DownloadCommandClientTest < ActiveSupport::TestCase
     end.new
     @registry.register('long_task', slow_handler)
 
-    client = Download::Command::DownloadCommandClient.new(socket_path: @socket_path)
+    client = Command::DownloadCommandClient.new(socket_path: @socket_path)
 
-    assert_raises(Download::Command::DownloadCommandClient::TimeoutError) do
-      request = Download::Command::Request.new(command: 'long_task')
+    assert_raises(Command::DownloadCommandClient::TimeoutError) do
+      request = Command::Request.new(command: 'long_task')
       client.request(request, timeout: 0.5)
     end
   end
@@ -61,10 +61,10 @@ class Download::Command::DownloadCommandClientTest < ActiveSupport::TestCase
   test 'Should raise CommandError if socket is unavailable' do
     @server.shutdown
 
-    client = Download::Command::DownloadCommandClient.new(socket_path: @socket_path)
+    client = Command::DownloadCommandClient.new(socket_path: @socket_path)
 
-    error = assert_raises(Download::Command::DownloadCommandClient::CommandError) do
-      request = Download::Command::Request.new(command: 'status')
+    error = assert_raises(Command::DownloadCommandClient::CommandError) do
+      request = Command::Request.new(command: 'status')
       client.request(request)
     end
 
@@ -72,11 +72,11 @@ class Download::Command::DownloadCommandClientTest < ActiveSupport::TestCase
   end
 
   test 'Should raise CommandError if error processing the response' do
-    client = Download::Command::DownloadCommandClient.new(socket_path: @socket_path)
+    client = Command::DownloadCommandClient.new(socket_path: @socket_path)
     JSON.stubs(:parse).raises(StandardError, 'JSON parsing failed')
 
-    error = assert_raises(Download::Command::DownloadCommandClient::CommandError) do
-      request = Download::Command::Request.new(command: 'status')
+    error = assert_raises(Command::DownloadCommandClient::CommandError) do
+      request = Command::Request.new(command: 'status')
       client.request(request)
     end
 
