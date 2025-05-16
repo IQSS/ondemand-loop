@@ -1,4 +1,4 @@
-class UploadsController < ApplicationController
+class UploadStatusController < ApplicationController
   include LoggingCommon
 
   def index
@@ -8,7 +8,7 @@ class UploadsController < ApplicationController
 
   def files
     @files = Upload::UploadFilesProvider.new.recent_files
-    render partial: '/uploads/files', layout: false, locals: { files: @files }
+    render partial: '/upload_status/files', layout: false, locals: { files: @files }
   end
 
 end

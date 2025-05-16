@@ -1,4 +1,4 @@
-class DownloadsController < ApplicationController
+class DownloadStatusController < ApplicationController
 
   def index
     @files = Download::DownloadFilesProvider.new.recent_files
@@ -7,7 +7,7 @@ class DownloadsController < ApplicationController
 
   def files
     @files = Download::DownloadFilesProvider.new.recent_files
-    render partial: '/downloads/files', layout: false, locals: { files: @files }
+    render partial: '/download_status/files', layout: false, locals: { files: @files }
   end
 
 end

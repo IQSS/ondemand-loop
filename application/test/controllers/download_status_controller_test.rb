@@ -1,6 +1,6 @@
 require "test_helper"
 
-class DownloadsControllerTest < ActionDispatch::IntegrationTest
+class DownloadStatusControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @tmp_dir = Dir.mktmpdir
@@ -14,14 +14,14 @@ class DownloadsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get index on empty disk" do
     ScriptLauncher.any_instance.stubs(:launch_script).returns(true)
-    get downloads_url
+    get download_status_url
     assert_response :success
   end
 
   test "should get index on disk with data" do
     ScriptLauncher.any_instance.stubs(:launch_script).returns(true)
     populate
-    get downloads_url
+    get download_status_url
     assert_response :success
   end
 
