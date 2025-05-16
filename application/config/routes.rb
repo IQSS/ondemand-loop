@@ -2,20 +2,31 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   get "downloads" => "downloads#index", as: :downloads
   get "downloads/files" => "downloads#files", as: :downloads_files
-  post "downloads/:project_id/:file_id/cancel" => "download_files#cancel", as: :downloads_file_cancel
-  delete "downloads/:project_id/:file_id" => "download_files#destroy", as: :downloads_file_delete
-
   get "uploads" => "uploads#index", as: :uploads
   get "uploads/files" => "uploads#files", as: :uploads_files
 
-  post "uploads/:project_id/:collection_id/:file_id/cancel" => "upload_files#cancel", as: :uploads_file_cancel
-  post "uploads/:project_id/:collection_id/add" => "upload_files#add", as: :uploads_file_add
-  get "uploads/:project_id/:collection_id/files" => "upload_files#files", as: :uploads_file_files
-  delete "uploads/:project_id/:collection_id/:file_id" => "upload_files#delete_file", as: :uploads_file_delete
-  post "uploads/:project_id/create" => "upload_files#create_collection", as: :uploads_file_create_collection
+  # CRUD over /projects and /projects/:id
+  # post /projects/:id/set_active => set project as active
+  resources :projects do
+    post "set_active" => "projects#set_active", on: :member, as: :project_set_active
 
-  resources :projects
-  post "/projects/:id/set_active" => "projects#set_active", as: :project_set_active
+    # post /projects/:project_id/download_files/:id/cancel => cancel download file
+    # delete /projects/:project_id/download_files/:id => delete download file
+    resources :download_files, only: [:destroy] do
+      post "cancel" => "download_files#cancel", on: :member, as: :downloads_file_cancel
+    end
+
+    # post /projects/:project_id/upload_collections => create new collection
+    resources :upload_collections, only: [:create] do
+      # post /projects/:project_id/upload_collections/:upload_collection_id/upload_files => create new upload_file
+      # get /projects/:project_id/upload_collections/:upload_collection_id/upload_files => get upload_files from a collection
+      # delete /projects/:project_id/upload_collections/:upload_collection_id/upload_files/:id => delete upload_file
+      # post /projects/:project_id/upload_collections/:upload_collection_id/upload_files/:id/cancel => cancel upload_file
+      resources :upload_files, only: [:create, :index, :destroy] do
+        post "cancel" => "upload_files#cancel", on: :member, as: :uploads_file_cancel
+      end
+    end
+  end
 
   # FILE BROWSER
   get '/file_browser', to: 'file_browser#index'
