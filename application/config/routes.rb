@@ -7,7 +7,6 @@ Rails.application.routes.draw do
 
   #old routes
   post "uploads/:project_id/:collection_id/:file_id/cancel" => "upload_files#cancel", as: :uploads_file_cancel
-  get "uploads/:project_id/:collection_id/files" => "upload_files#files", as: :uploads_file_files
   delete "uploads/:project_id/:collection_id/:file_id" => "upload_files#delete_file", as: :uploads_file_delete
 
   #projects/<project_id>/downloads/files/<file_id>

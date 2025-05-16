@@ -9,7 +9,7 @@
   <%= render layout: '/file_browser/file_drop', locals: { id: file_target_id, file_browser_id: file_browser_id, url: project_upload_collection_upload_files_path(project_id: project.id, upload_collection_id: collection.id) } do %>
     <div data-controller="lazy-loader"
          data-lazy-loader-container-id-value="upload-files-<%= collection.id %>"
-         data-lazy-loader-url-value="<%= uploads_file_files_path(project_id: project.id, collection_id: collection.id) %>"
+         data-lazy-loader-url-value="<%= project_upload_collection_upload_files_path(project_id: project.id, upload_collection_id: collection.id) %>"
          data-lazy-loader-event-name-value="file-drop:file-submitted:<%= file_target_id %>"
          class="position-relative rounded border border-2 file-drop-container">
 
