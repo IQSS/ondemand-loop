@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   post "uploads/:project_id/:collection_id/add" => "upload_files#add", as: :uploads_file_add
   get "uploads/:project_id/:collection_id/files" => "upload_files#files", as: :uploads_file_files
   delete "uploads/:project_id/:collection_id/:file_id" => "upload_files#delete_file", as: :uploads_file_delete
-  post "uploads/:project_id/create" => "upload_collections#create", as: :uploads_file_create_collection
+
+  #projects/<project_id>/downloads/files/<file_id>
+  #projects/<project_id>/uploads/<collection_id>/files/<file_id>
 
   # CRUD over /projects and /projects/:id
   # post /projects/:id/set_active => set project as active
@@ -25,13 +27,13 @@ Rails.application.routes.draw do
       post "cancel" => "download_files#cancel", on: :member, as: :downloads_file_cancel
     end
 
-    # post /projects/:project_id/upload_collections => create new collection
-    resources :upload_collections, only: [:create] do
-      # post /projects/:project_id/upload_collections/:upload_collection_id/upload_files => create new upload_file
-      # get /projects/:project_id/upload_collections/:upload_collection_id/upload_files => get upload_files from a collection
-      # delete /projects/:project_id/upload_collections/:upload_collection_id/upload_files/:id => delete upload_file
-      # post /projects/:project_id/upload_collections/:upload_collection_id/upload_files/:id/cancel => cancel upload_file
-      resources :upload_files, only: [:create, :index, :destroy] do
+    # post /projects/:project_id/uploads => create new collection
+    resources :uploads, controller: 'upload_collections', only: [:create] do
+      # post /projects/:project_id/uploads/:upload_collection_id/files => create new upload_file
+      # get /projects/:project_id/uploads/:upload_collection_id/files => get upload_files from a collection
+      # delete /projects/:project_id/uploads/:upload_collection_id/files/:id => delete upload_file
+      # post /projects/:project_id/uploads/:upload_collection_id/files/:id/cancel => cancel upload_file
+      resources :files, controller: 'upload_files', only: [:create, :index, :destroy] do
         post "cancel" => "upload_files#cancel", on: :member, as: :uploads_file_cancel
       end
     end
