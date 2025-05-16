@@ -6,7 +6,7 @@
 <div id="tab-collection-<%= collection.id %>" class="tab-pane fade" role="tabpanel" aria-labelledby="upload-tab-<%= collection.id %>">
   <%= render partial: '/projects/show/upload_actions', locals: { collection: collection, file_browser_id: file_browser_id, upload_files_id: upload_files_id } %>
 
-  <%= render layout: '/file_browser/file_drop', locals: { id: file_target_id, file_browser_id: file_browser_id, url: uploads_file_add_path(project_id: project.id, collection_id: collection.id) } do %>
+  <%= render layout: '/file_browser/file_drop', locals: { id: file_target_id, file_browser_id: file_browser_id, url: project_upload_collection_upload_files_path(project_id: project.id, upload_collection_id: collection.id) } do %>
     <div data-controller="lazy-loader"
          data-lazy-loader-container-id-value="upload-files-<%= collection.id %>"
          data-lazy-loader-url-value="<%= uploads_file_files_path(project_id: project.id, collection_id: collection.id) %>"

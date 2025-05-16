@@ -7,7 +7,6 @@ Rails.application.routes.draw do
 
   #old routes
   post "uploads/:project_id/:collection_id/:file_id/cancel" => "upload_files#cancel", as: :uploads_file_cancel
-  post "uploads/:project_id/:collection_id/add" => "upload_files#add", as: :uploads_file_add
   get "uploads/:project_id/:collection_id/files" => "upload_files#files", as: :uploads_file_files
   delete "uploads/:project_id/:collection_id/:file_id" => "upload_files#delete_file", as: :uploads_file_delete
 
@@ -31,8 +30,8 @@ Rails.application.routes.draw do
       # get /projects/:project_id/uploads/:upload_collection_id/files => get upload_files from a collection
       # delete /projects/:project_id/uploads/:upload_collection_id/files/:id => delete upload_file
       # post /projects/:project_id/uploads/:upload_collection_id/files/:id/cancel => cancel upload_file
-      resources :files, controller: 'upload_files', only: [ :create, :index, :destroy ] do
-        post "cancel" => "upload_files#cancel", on: :member
+      resources :upload_files, path: 'files', only: [ :create, :index, :destroy ] do
+        post :cancel, on: :member
       end
     end
   end

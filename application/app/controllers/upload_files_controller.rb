@@ -11,9 +11,9 @@ class UploadFilesController < ApplicationController
     render partial: '/projects/show/upload_files', layout: false, locals: { collection: upload_collection }
   end
 
-  def add
+  def create
     project_id = params[:project_id]
-    collection_id = params[:collection_id]
+    collection_id = params[:upload_collection_id]
     upload_collection = UploadCollection.find(project_id, collection_id)
     if upload_collection.nil?
       head :not_found
@@ -36,7 +36,7 @@ class UploadFilesController < ApplicationController
         f.size = file.size
       end
       upload_file.save
-      log_info('Add path to upload collection', {project_id: project_id, collection_id: collection_id, file: file})
+      log_info('Add path to upload collection', {project_id: project_id, upload_collection_id: collection_id, file: file})
     end
 
     head :ok
