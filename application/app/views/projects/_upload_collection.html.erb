@@ -31,7 +31,7 @@
         <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: 'Upload start date', classes: 'mx-2'} if file.status.uploading? %>
 
         <%= render partial: "shared/button_to", locals: {
-          url: uploads_file_delete_path(project_id: project.id, collection_id: file.collection_id, file_id: file.id),
+          url: project_upload_collection_upload_file_path(project_id: project.id, upload_collection_id: file.collection_id, id: file.id),
           method: 'DELETE',
           title: "Delete File",
           class: 'btn-sm btn-outline-secondary',

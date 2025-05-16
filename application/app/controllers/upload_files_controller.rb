@@ -42,10 +42,10 @@ class UploadFilesController < ApplicationController
     head :ok
   end
 
-  def delete_file
+  def destroy
     project_id = params[:project_id]
-    collection_id = params[:collection_id]
-    file_id = params[:file_id]
+    collection_id = params[:upload_collection_id]
+    file_id = params[:id]
     upload_file = UploadFile.find(project_id, collection_id, file_id)
     if upload_file.nil?
       redirect_back fallback_location: root_path, alert: "File: #{file_id} not found for project: #{project_id}"
