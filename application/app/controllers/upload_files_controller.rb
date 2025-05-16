@@ -58,8 +58,8 @@ class UploadFilesController < ApplicationController
 
   def cancel
     project_id = params[:project_id]
-    collection_id = params[:collection_id]
-    file_id = params[:file_id]
+    collection_id = params[:upload_collection_id]
+    file_id = params[:id]
 
     if project_id.blank? || collection_id.blank? || file_id.blank?
       render json: 'project_id and file_id are compulsory', status: :bad_request
@@ -69,7 +69,7 @@ class UploadFilesController < ApplicationController
     file = UploadFile.find(project_id, collection_id, file_id)
 
     if file.nil?
-      render json: "file not found project_id=#{project_id} collection_id=#{collection_id} file_id=#{file_id}", status: :not_found
+      render json: "file not found project_id=#{project_id} upload_collection_id=#{collection_id} id=#{file_id}", status: :not_found
       return
     end
 

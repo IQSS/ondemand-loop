@@ -5,12 +5,6 @@ Rails.application.routes.draw do
   get "uploads" => "uploads#index", as: :uploads
   get "uploads/files" => "uploads#files", as: :uploads_files
 
-  #old routes
-  post "uploads/:project_id/:collection_id/:file_id/cancel" => "upload_files#cancel", as: :uploads_file_cancel
-
-  #projects/<project_id>/downloads/files/<file_id>
-  #projects/<project_id>/uploads/<collection_id>/files/<file_id>
-
   # REST routes over /projects and /projects/:id
   # post /projects/:id/set_active => set project as active
   resources :projects do
@@ -24,6 +18,7 @@ Rails.application.routes.draw do
 
     # post /projects/:project_id/uploads => create new collection
     resources :upload_collections, path: 'uploads', only: [ :create ] do
+
       # post /projects/:project_id/uploads/:upload_collection_id/files => create new upload_file
       # get /projects/:project_id/uploads/:upload_collection_id/files => get upload_files from a collection
       # delete /projects/:project_id/uploads/:upload_collection_id/files/:id => delete upload_file
