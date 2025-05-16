@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class DetachProcess
+class SpawnedProcess
   LAUNCH_SCRIPT = 'scripts/launch_detached_process.rb'
 
   def start_process
