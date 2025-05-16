@@ -13,13 +13,13 @@ class DownloadsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index on empty disk" do
-    ScriptLauncher.any_instance.stubs(:start_process).returns(true)
+    ScriptLauncher.any_instance.stubs(:launch_script).returns(true)
     get downloads_url
     assert_response :success
   end
 
   test "should get index on disk with data" do
-    ScriptLauncher.any_instance.stubs(:start_process).returns(true)
+    ScriptLauncher.any_instance.stubs(:launch_script).returns(true)
     populate
     get downloads_url
     assert_response :success
