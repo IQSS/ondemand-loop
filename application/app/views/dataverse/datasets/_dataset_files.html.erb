@@ -8,7 +8,7 @@
     </span>
   </div>
   <% if files_page.total_count > 0 %>
-    <%= form_with url: download_dataverse_dataset_files_path, method: :post, local: true, class: "p-3 rounded bg-light" do %>
+    <%= form_with url: download_dataverse_dataset_files_path, method: :post, local: true, class: "p-3 rounded bg-light", data: {controller: "dataverse--dataset-files"} do %>
       <%= hidden_field_tag 'project_id', Current.settings.user_settings.active_project %>
       <%= hidden_field_tag 'dataverse_url', dataverse_url %>
       <%= hidden_field_tag 'persistent_id', @persistent_id %>
@@ -19,7 +19,7 @@
           <tr>
             <th scope="col">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="select_all_files">
+                <input class="form-check-input" type="checkbox" id="select_all_files" data-dataverse--dataset-files-target="selectAll" data-action="dataverse--dataset-files#toggleSelectAll">
               </div>
             </th>
             <th scope="col">File name</th>
@@ -34,7 +34,7 @@
         </table>
       </div>
       <div class="text-center">
-        <%= submit_tag "Add Files to Active Project", class: "btn btn-primary", id: "submit_button" %>
+        <%= submit_tag "Add Files to Active Project", class: "btn btn-primary", id: "submit_button", data: {"dataverse--dataset-files-target" => "submitButton"} %>
       </div>
     <% end %>
   <% else %>
