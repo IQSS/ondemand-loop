@@ -10,8 +10,8 @@ module Dataverse
       @connector_metadata = file.upload_collection.connector_metadata
       @cancelled = false
       @status_context = nil
-      Command::CommandRegistry.instance.register('cancel.upload', self)
-      Command::CommandRegistry.instance.register('status.upload', self)
+      Command::CommandRegistry.instance.register('upload.cancel', self)
+      Command::CommandRegistry.instance.register('upload.status', self)
     end
 
     def upload
@@ -41,7 +41,7 @@ module Dataverse
     end
 
     def process(request)
-      if request.command == 'cancel.upload'
+      if request.command == 'upload.cancel'
         if file.id == request.body.file_id
           # CANCELLATION IS FOR THIS FILE
           @cancelled = true
@@ -49,7 +49,7 @@ module Dataverse
         end
       end
 
-      if request.command == 'status.upload'
+      if request.command == 'upload.status'
         if file.id == request.body.file_id
           return {message: 'upload in progress', status: @status_context}
         end

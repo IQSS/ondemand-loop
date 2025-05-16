@@ -109,7 +109,7 @@ class UploadFilesController < ApplicationController
 
     if file.status.uploading?
       command_client = Command::CommandClient.new(socket_path: ::Configuration.download_server_socket_file)
-      request = Command::Request.new(command: 'cancel.upload', body: {project_id: project_id, collection_id: collection_id, file_id: file_id})
+      request = Command::Request.new(command: 'upload.cancel', body: {project_id: project_id, collection_id: collection_id, file_id: file_id})
       response = command_client.request(request)
       return  head :not_found if response.status != 200
     end
