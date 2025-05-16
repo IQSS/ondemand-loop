@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-end align-items-center gap-2">
     <%= render partial: "shared/inline_field_submit", locals: {
-      url: project_uploads_path(project_id: project.id),
+      url: project_upload_collections_path(project_id: project.id),
       type: 'form',
       field_name: "dataset_url",
       label: "Create Upload Collection",
