@@ -62,7 +62,7 @@
       </button>
     <% else %>
       <%= render partial: "shared/button_to", locals: {
-        url: project_set_active_path(id: project.id),
+        url: set_active_project_path(id: project.id),
         title: 'Set as Active Project',
         class: 'btn-sm btn-project-neutral',
         icon: "bi bi-pin-angle-fill"

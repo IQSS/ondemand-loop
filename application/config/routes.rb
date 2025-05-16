@@ -13,12 +13,11 @@ Rails.application.routes.draw do
   get "uploads/:project_id/:collection_id/files" => "upload_files#files", as: :uploads_file_files
   delete "uploads/:project_id/:collection_id/:file_id" => "upload_files#delete_file", as: :uploads_file_delete
   post "uploads/:project_id/create" => "upload_collections#create", as: :uploads_file_create_collection
-  post "/projects/:id/set_active" => "projects#set_active", as: :project_set_active
 
   # CRUD over /projects and /projects/:id
   # post /projects/:id/set_active => set project as active
   resources :projects do
-    post "set_active" => "projects#set_active", on: :member
+    post :set_active, on: :member
 
     # post /projects/:project_id/download_files/:id/cancel => cancel download file
     # delete /projects/:project_id/download_files/:id => delete download file

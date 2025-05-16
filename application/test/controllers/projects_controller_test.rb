@@ -47,14 +47,14 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
   test "should set active project" do
     @user_settings_mock.expects(:update_user_settings).with({active_project: @project.id.to_s})
-    post project_set_active_url(id: @project.id)
+    post set_active_project_url(id: @project.id)
     assert_redirected_to projects_url
     follow_redirect!
     assert_match "#{@project.name} is now the active project.", flash[:notice]
   end
 
   test "should not set active project if not found" do
-    post project_set_active_url(id: "missing-id")
+    post set_active_project_url(id: "missing-id")
     assert_redirected_to projects_url
     follow_redirect!
     assert_match "Project missing-id not found", flash[:alert]
