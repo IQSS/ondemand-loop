@@ -2,7 +2,7 @@ class DownloadsController < ApplicationController
 
   def index
     @files = Download::DownloadFilesProvider.new.recent_files
-    SpawnedProcess.new.start_process
+    ScriptLauncher.new.start_process
   end
 
   def files

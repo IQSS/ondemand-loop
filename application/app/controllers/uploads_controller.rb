@@ -3,7 +3,7 @@ class UploadsController < ApplicationController
 
   def index
     @files = Upload::UploadFilesProvider.new.recent_files
-    SpawnedProcess.new.start_process
+    ScriptLauncher.new.start_process
   end
 
   def files
