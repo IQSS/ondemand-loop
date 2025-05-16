@@ -21,9 +21,9 @@ Rails.application.routes.draw do
   resources :projects do
     post :set_active, on: :member
 
-    # post /projects/:project_id/download_files/:id/cancel => cancel download file
-    # delete /projects/:project_id/download_files/:id => delete download file
-    resources :download_files, only: [:destroy] do
+    # post /projects/:project_id/downloads/files/:id/cancel => cancel download file
+    # delete /projects/:project_id/downloads/files/:id => delete download file
+    resources :download_files, path: 'downloads/files', only: [:destroy] do
       post "cancel" => "download_files#cancel", on: :member, as: :downloads_file_cancel
     end
 
