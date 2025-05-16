@@ -36,7 +36,7 @@
             <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger <%= cancel_button_class(data.file.status) %>" title="Cancel download"
                     data-controller="download-file-cancellation"
                     data-action="click->download-file-cancellation#cancel"
-                    data-download-file-cancellation-url-value="<%= downloads_file_cancel_path(project_id: data.file.project_id, file_id: data.file.id) %>">
+                    data-download-file-cancellation-url-value="<%= cancel_project_download_file_path(project_id: data.file.project_id, id: data.file.id) %>">
               <span data-download-file-cancellation-target="spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
               <span data-download-file-cancellation-target="label"><i class="bi bi-sign-stop"></i></span>
             </button>

@@ -4,10 +4,10 @@ class DownloadFilesController < ApplicationController
 
   def cancel
     project_id = params[:project_id]
-    file_id = params[:file_id]
+    file_id = params[:id]
 
     if project_id.blank? || file_id.blank?
-      render json: 'project_id and file_id are compulsory', status: :bad_request
+      render json: 'project_id and id are compulsory', status: :bad_request
       return
     end
 

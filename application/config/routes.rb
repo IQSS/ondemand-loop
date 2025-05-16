@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   get "uploads/files" => "uploads#files", as: :uploads_files
 
   #old routes
-  post "downloads/:project_id/:file_id/cancel" => "download_files#cancel", as: :downloads_file_cancel
   post "uploads/:project_id/:collection_id/:file_id/cancel" => "upload_files#cancel", as: :uploads_file_cancel
   post "uploads/:project_id/:collection_id/add" => "upload_files#add", as: :uploads_file_add
   get "uploads/:project_id/:collection_id/files" => "upload_files#files", as: :uploads_file_files
@@ -15,15 +14,15 @@ Rails.application.routes.draw do
   #projects/<project_id>/downloads/files/<file_id>
   #projects/<project_id>/uploads/<collection_id>/files/<file_id>
 
-  # CRUD over /projects and /projects/:id
+  # REST routes over /projects and /projects/:id
   # post /projects/:id/set_active => set project as active
   resources :projects do
     post :set_active, on: :member
 
-    # post /projects/:project_id/downloads/files/:id/cancel => cancel download file
     # delete /projects/:project_id/downloads/files/:id => delete download file
+    # post /projects/:project_id/downloads/files/:id/cancel => cancel download file
     resources :download_files, path: 'downloads/files', only: [ :destroy ] do
-      post "cancel" => "download_files#cancel", on: :member, as: :downloads_file_cancel
+      post :cancel, on: :member
     end
 
     # post /projects/:project_id/uploads => create new collection
@@ -33,7 +32,7 @@ Rails.application.routes.draw do
       # delete /projects/:project_id/uploads/:upload_collection_id/files/:id => delete upload_file
       # post /projects/:project_id/uploads/:upload_collection_id/files/:id/cancel => cancel upload_file
       resources :files, controller: 'upload_files', only: [ :create, :index, :destroy ] do
-        post "cancel" => "upload_files#cancel", on: :member, as: :uploads_file_cancel
+        post "cancel" => "upload_files#cancel", on: :member
       end
     end
   end

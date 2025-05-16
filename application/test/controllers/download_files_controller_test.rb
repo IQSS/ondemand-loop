@@ -14,7 +14,7 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
   test "cancel should return not_found if file is nil" do
     DownloadFile.stubs(:find).with(@project_id, @file_id).returns(nil)
 
-    post downloads_file_cancel_url(project_id: @project_id, file_id: @file_id)
+    post cancel_project_download_file_url(project_id: @project_id, id: @file_id)
     assert_response :not_found
     assert_match "file not found", @response.body
   end
@@ -27,7 +27,7 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
     mock_client.expects(:request).returns(OpenStruct.new(status: 500))
     Command::CommandClient.stubs(:new).returns(mock_client)
 
-    post downloads_file_cancel_url(project_id: @project_id, file_id: @file_id)
+    post cancel_project_download_file_url(project_id: @project_id, id: @file_id)
 
     assert_response :not_found
   end
@@ -42,7 +42,7 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
     mock_client.expects(:request).returns(OpenStruct.new(status: 200))
     Command::CommandClient.stubs(:new).returns(mock_client)
 
-    post downloads_file_cancel_url(project_id: @project_id, file_id: @file_id)
+    post cancel_project_download_file_url(project_id: @project_id, id: @file_id)
 
     assert_response :no_content
   end
@@ -53,7 +53,7 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
 
     DownloadFile.stubs(:find).returns(@file)
 
-    post downloads_file_cancel_url(project_id: @project_id, file_id: @file_id)
+    post cancel_project_download_file_url(project_id: @project_id, id: @file_id)
 
     assert_response :no_content
   end
