@@ -6,7 +6,9 @@ class UploadCollectionTest < ActiveSupport::TestCase
     UploadCollection.stubs(:metadata_root_directory).returns(@tmp_dir)
     Project.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
-      'id' => '123-321', 'project_id' => '456-789', 'type' => ConnectorType::DATAVERSE,
+      'id' => '123-321', 'project_id' => '456-789',
+      'dataset_url' => 'https://demo.repo.com/dataset',
+      'type' => ConnectorType::DATAVERSE,
       'name' => 'foo',
       'creation_date' => nil,
       'metadata' => {
@@ -77,6 +79,17 @@ class UploadCollectionTest < ActiveSupport::TestCase
     refute @upload_collection.save
     refute File.exist?(@expected_filename), 'File was not created in the file system'
   end
+
+  test 'destroy removes the file from the filesystem' do
+    assert @upload_collection.save
+    assert File.exist?(@expected_filename), 'File was not created in the file system'
+
+    assert @upload_collection.destroy, 'Destroy did not return true'
+    refute File.exist?(@expected_filename), 'File was not deleted from the file system'
+
+    refute UploadCollection.find('456-789', '123-321'), 'Collection should not be found after destroy'
+  end
+
 
   test 'find does not find the record if it was not saved' do
     refute UploadCollection.find('456-789', '123-321')
