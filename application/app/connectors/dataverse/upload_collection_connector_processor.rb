@@ -66,7 +66,6 @@ module Dataverse
 
       dv_service = Dataverse::DataverseService.new(repo_url.repo_url)
       dataset = dv_service.find_dataset_version_by_persistent_id(repo_url.doi)
-      log_info('dataset', {dataset: dataset.inspect})
 
       metadata = collection.metadata
       metadata[:title] = dataset.metadata_field('title').to_s
