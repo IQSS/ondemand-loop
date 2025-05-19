@@ -20,6 +20,10 @@ class ConnectorClassDispatcher
     self.load(upload_file.type, 'UploadConnectorMetadata', upload_file)
   end
 
+  def self.upload_collection_connector_processor(type)
+    self.load(type, 'UploadCollectionConnectorProcessor', nil)
+  end
+
   def self.upload_collection_connector_metadata(upload_collection)
     self.load(upload_collection.type, 'UploadCollectionConnectorMetadata', upload_collection)
   end

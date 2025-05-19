@@ -24,4 +24,16 @@ class ApplicationDiskRecord
 
     save
   end
+
+  def to_json
+    to_hash.to_json
+  end
+
+  def to_yaml
+    to_hash.to_yaml
+  end
+
+  def to_s
+    to_json
+  end
 end

@@ -1,0 +1,34 @@
+
+<% file_status = OpenStruct.new(project_progress_data(project.count)) %>
+<div class="card mb-3 shadow-sm rounded overflow-hidden">
+  <div class="card-header d-flex justify-content-between align-items-center bg-light-darker">
+    <div class="d-flex align-items-center gap-3">
+      <a href="<%= files_app_url(project.download_dir) %>"
+         target="_blank"
+         class="btn btn-sm btn-outline-secondary"
+         title="Open downloads folder">
+        <i class="bi bi-folder-fill"></i>
+      </a>
+      <div class="d-flex flex-column">
+        <h5 class="mb-0">Download Files</h5>
+        <small class="text-muted"><%= project.download_dir %></small>
+      </div>
+    </div>
+
+    <div class="d-flex align-items-center gap-2">
+      <div>
+        <span class="badge badge-project-pending px-4 cursor-default" title="Number of pending files"><%= file_status.pending %></span>
+        <span class="badge badge-project-completed px-4 cursor-default" title="Number of completed files"><%= file_status.completed %></span>
+        <span class="badge badge-half badge-project-cancel px-4 cursor-default" title="Number of cancelled files"><%= file_status.cancelled %></span>
+        <span class="badge badge-half badge-project-error px-4 cursor-default" title="Number of error files"><%= file_status.error %></span>
+        <span class="badge badge-project-total px-4 cursor-default" title="Total files"><%= file_status.total %></span>
+      </div>
+
+      <button class="btn btn-sm btn-outline-secondary ms-4"
+              title="Edit download settings">
+        <i class="bi bi-gear-fill"></i>
+      </button>
+    </div>
+  </div>
+
+</div>

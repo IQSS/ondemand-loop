@@ -1,0 +1,22 @@
+<%= form_with url: project_upload_collection_path(collection.project_id, collection.id), method: :put, local: true, html: { class: 'needs-validation', novalidate: true } do |f| %>
+  <div class="mb-3">
+    <%= f.label :dataset_url, 'Dataset URL', class: 'form-label fw-bold' %>
+    <%= f.url_field :dataset_url, name: 'collection[dataset_url]', value: collection.dataset_url, class: 'form-control', placeholder: 'https://example.org/dataset/123', required: true %>
+    <div class="form-text">Enter the URL of the dataset where files will be uploaded.</div>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :api_key, 'API Key', class: 'form-label fw-bold' %>
+    <%= f.text_field :api_key, name: 'collection[api_key]', value: collection.connector_metadata.api_key, class: 'form-control', placeholder: 'Enter your API key', required: true %>
+    <div class="form-text">Provide the API key required to authenticate with the connector.</div>
+  </div>
+
+  <div class="d-flex justify-content-end gap-2">
+    <button type="submit" class="btn btn-sm btn-primary">
+      <i class="bi bi-save-fill me-1"></i> Save Changes
+    </button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">
+      Cancel
+    </button>
+  </div>
+<% end %>

@@ -1,21 +1,29 @@
-
-<div class="card mb-3 shadow-sm rounded">
-  <div class="card-header d-flex justify-content-between align-items-center">
+<% file_status = OpenStruct.new(project_progress_data(collection.count)) %>
+<div class="card mb-3 shadow-sm rounded overflow-hidden">
+  <div class="card-header d-flex justify-content-between align-items-center bg-light-darker">
     <div class="d-flex align-items-center gap-3">
       <%= render partial: '/shared/file_row_date', locals: { date: collection.creation_date, title: 'Creation date'} if collection.creation_date %>
 
-      <span class="fs-2"><%= connector_icon(collection.type) %></span>
       <div>
         <!-- PROJECT METADATA -->
         <div class="d-flex flex-column">
-          <h5 class="mb-0"><%= collection.name %></h5>
-          <small class="text-muted"><%= collection.name %></small>
+          <%= link_to collection.dataset_url, target: '_blank', class: "position-relative project-name-link text-reset text-decoration-none rounded-end  ps-1 pe-3" do %>
+            <h5 class="mb-0"><%= collection.name %></h5>
+          <% end %>
         </div>
       </div>
 
     </div>
 
     <div class="d-flex align-items-center gap-2">
+      <div class="me-4">
+        <span class="badge badge-project-pending px-4 cursor-default" title="Number of pending files"><%= file_status.pending %></span>
+        <span class="badge badge-project-completed px-4 cursor-default" title="Number of completed files"><%= file_status.completed %></span>
+        <span class="badge badge-half badge-project-cancel px-4 cursor-default" title="Number of cancelled files"><%= file_status.cancelled %></span>
+        <span class="badge badge-half badge-project-error px-4 cursor-default" title="Number of error files"><%= file_status.error %></span>
+        <span class="badge badge-project-total px-4 cursor-default" title="Total files"><%= file_status.total %></span>
+      </div>
+
       <button data-controller="lazy-loader add-upload-files"
               data-lazy-loader-container-id-value="<%= file_browser_id %>"
               data-lazy-loader-url-value="<%= file_browser_path %>"
@@ -33,7 +41,7 @@
       </button>
 
       <%= render partial: "shared/button_to", locals: {
-        url: project_path(id: collection.id),
+        url: project_upload_collection_path(project_id: collection.project_id, id: collection.id),
         method: 'DELETE',
         title: "Delete Collection",
         class: 'btn btn-sm btn-outline-secondary icon-hover-danger',
@@ -41,4 +49,7 @@
       } %>
     </div>
   </div>
+
+  <%= render partial: upload_collection_connector_bar(collection), locals: { collection: collection } %>
+
 </div>

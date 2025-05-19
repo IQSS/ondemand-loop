@@ -1,46 +1,48 @@
 <% files = project.download_files %>
 <div id="tab-download-files" class="tab-pane fade show" role="tabpanel" aria-labelledby="tab-download-files">
-<div class="container files rounded border">
-  <% files.each_with_index do |file, index| %>
-    <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
-      <div class="col-md-10">
-        <div class="d-flex align-items-center">
-          <%= render partial: '/shared/file_row_date', locals: { date: file.creation_date, title: 'Schedule date', classes: 'mx-2'} %>
+  <%= render partial: '/projects/show/download_actions', locals: { project: project } %>
 
-          <%= render partial: 'shared/repo_badge', locals: {
-            repo_url: file.connector_metadata.files_url,
-            icon_html: connector_icon(file.type),
-            name: file.connector_metadata.repo_name,
-            tooltip: "Repository Files"
+  <div class="container files rounded border">
+    <% files.each_with_index do |file, index| %>
+      <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
+        <div class="col-md-10">
+          <div class="d-flex align-items-center">
+            <%= render partial: '/shared/file_row_date', locals: { date: file.creation_date, title: 'Schedule date', classes: 'mx-2'} %>
+
+            <%= render partial: 'shared/repo_badge', locals: {
+              repo_url: file.connector_metadata.files_url,
+              icon_html: connector_icon(file.type),
+              name: file.connector_metadata.repo_name,
+              tooltip: "Repository Files"
+            } %>
+
+            <span class="me-2"><%= file.filename %></span>
+            <small class="text-muted me-2"><%= number_to_human_size(file.size) %></small>
+          </div>
+
+        </div>
+
+        <div class="col-md-2 file-status d-flex justify-content-end gap-1">
+          <div class="d-flex flex-column justify-content-center align-items-center">
+            <%= status_badge(file.status, file.end_date) %>
+            <% if file.status.success? %>
+              <span class="creation-date"><%= elapsed_string(file.start_date, file.end_date) %></span>
+            <% end %>
+          </div>
+
+          <%= render partial: '/shared/file_row_date', locals: { date: file.end_date, title: 'Completion date', classes: 'mx-2'} if file.end_date %>
+          <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: 'Download start date', classes: 'mx-2'} if file.status.downloading? %>
+
+          <%= render partial: "shared/button_to", locals: {
+            url: project_download_file_path(project_id: project.id, id: file.id),
+            method: 'DELETE',
+            title: "Delete File",
+            class: 'btn-sm btn-outline-secondary',
+            icon: "bi bi-trash"
           } %>
 
-          <span class="me-2"><%= file.filename %></span>
-          <small class="text-muted me-2"><%= number_to_human_size(file.size) %></small>
         </div>
-
       </div>
-
-      <div class="col-md-2 file-status d-flex justify-content-end gap-1">
-        <div class="d-flex flex-column justify-content-center align-items-center">
-          <%= status_badge(file.status, file.end_date) %>
-          <% if file.status.success? %>
-            <span class="creation-date"><%= elapsed_string(file.start_date, file.end_date) %></span>
-          <% end %>
-        </div>
-
-        <%= render partial: '/shared/file_row_date', locals: { date: file.end_date, title: 'Completion date', classes: 'mx-2'} if file.end_date %>
-        <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: 'Download start date', classes: 'mx-2'} if file.status.downloading? %>
-
-        <%= render partial: "shared/button_to", locals: {
-          url: project_download_file_path(project_id: project.id, id: file.id),
-          method: 'DELETE',
-          title: "Delete File",
-          class: 'btn-sm btn-outline-secondary',
-          icon: "bi bi-trash"
-        } %>
-
-      </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
 </div>

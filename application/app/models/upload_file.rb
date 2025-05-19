@@ -18,6 +18,7 @@ class UploadFile < ApplicationDiskRecord
     load_from_file(filename)
   end
 
+  #TODO: Remove from UploadFile - UploadCollection is the one with the type
   def type=(value)
     raise ArgumentError, "Invalid type: #{value}" unless value.is_a?(ConnectorType)
 

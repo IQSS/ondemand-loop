@@ -19,8 +19,7 @@ Rails.application.routes.draw do
 
     # post /projects/:project_id/uploads => create new collection
     # get /projects/:project_id/uploads => get collections from a project
-    resources :upload_collections, path: 'uploads', only: [ :create, :index ] do
-
+    resources :upload_collections, path: 'uploads', only: [ :create, :index, :edit, :update, :destroy ] do
       # post /projects/:project_id/uploads/:upload_collection_id/files => create new upload_file
       # get /projects/:project_id/uploads/:upload_collection_id/files => gets upload_files from a collection
       # delete /projects/:project_id/uploads/:upload_collection_id/files/:id => delete upload_file

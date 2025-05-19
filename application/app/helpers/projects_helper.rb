@@ -8,18 +8,18 @@ module ProjectsHelper
     active ? 'border-primary-subtle' : ''
   end
 
-  def project_progress_data(project)
-    pending = project.count.pending.to_i + project.count.downloading.to_i
-    completed = project.count.success.to_i
-    cancelled = project.count.cancelled.to_i
-    error = project.count.error.to_i
+  def project_progress_data(file_status_count)
+    pending = file_status_count.pending.to_i + file_status_count.downloading.to_i
+    completed = file_status_count.success.to_i
+    cancelled = file_status_count.cancelled.to_i
+    error = file_status_count.error.to_i
     {
-      id: project.id,
+      id: SecureRandom.uuid,
       pending: pending,
       completed: completed,
       cancelled: cancelled,
       error: error,
-      total: project.count.total
+      total: file_status_count.total
     }
   end
 

@@ -2,13 +2,14 @@
 
 class UploadCollection < ApplicationDiskRecord
   include ActiveModel::Model
+  include YamlStorage
   include LoggingCommon
 
-  ATTRIBUTES = %w[id project_id type name creation_date metadata].freeze
+  ATTRIBUTES = %w[id project_id dataset_url type name creation_date metadata].freeze
 
   attr_accessor *ATTRIBUTES
 
-  validates_presence_of :id, :project_id, :type
+  validates_presence_of :id, :project_id, :dataset_url, :type, :name
 
   def self.find(project_id, collection_id)
     filename = filename_by_ids(project_id, collection_id)
@@ -34,27 +35,19 @@ class UploadCollection < ApplicationDiskRecord
     end
   end
 
-  def to_json
-    to_hash.to_json
-  end
-
-  def to_yaml
-    to_hash.to_yaml
-  end
-
-  def to_s
-    to_json
-  end
-
   def save
     return false unless valid?
 
-    FileUtils.mkdir_p(File.join(self.class.directory_by_ids(project_id, id), "files"))
-    filename = self.class.filename_by_ids(project_id, id)
-    File.open(filename, "w") do |file|
-      file.write(to_hash.deep_stringify_keys.to_yaml)
-    end
-    true
+    store_to_file
+  end
+
+  def destroy
+    collection_path = self.class.directory_by_ids(project_id, id)
+    FileUtils.rm_rf(collection_path)
+  end
+
+  def storage_file
+    self.class.filename_by_ids(project_id, id)
   end
 
   def files
@@ -69,6 +62,12 @@ class UploadCollection < ApplicationDiskRecord
       end
   end
 
+  def count
+    counts = files.group_by{|f| f.status.to_s}.transform_values(&:count)
+    counts[:total] = files.size
+    OpenStruct.new(counts)
+  end
+
   def connector_metadata
     ConnectorClassDispatcher.upload_collection_connector_metadata(self)
   end
@@ -81,22 +80,5 @@ class UploadCollection < ApplicationDiskRecord
 
   def self.filename_by_ids(project_id, collection_id)
     File.join(self.directory_by_ids(project_id, collection_id), "metadata.yml")
-  end
-
-  def self.load_from_file(filename)
-    data = YAML.safe_load(File.read(filename), permitted_classes: [Hash], aliases: true)
-    new.tap do |file|
-      ATTRIBUTES.each do |attr|
-        case attr
-        when 'type'
-          file.type = ConnectorType.get(data['type'])
-        else
-          file.send("#{attr}=", data[attr])
-        end
-      end
-    end
-  rescue StandardError => e
-    LoggingCommon.log_error('Cannon load file metadata', {file: filename}, e)
-    nil
   end
 end

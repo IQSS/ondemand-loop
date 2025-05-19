@@ -1,0 +1,10 @@
+.form-control:focus,
+.form-select:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+  border-color: #ccc; /* Light grey border */
+  box-shadow: 0 0 0 0.2rem rgba(204, 204, 204, 0.25); /* Light grey shadow */
+  outline: none;
+}

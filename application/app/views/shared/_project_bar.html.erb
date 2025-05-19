@@ -1,4 +1,4 @@
-<% files = OpenStruct.new(project_progress_data(project)) %>
+<% files = OpenStruct.new(project_progress_data(project.count)) %>
 <div class="border-bottom py-2 px-5 d-flex justify-content-between align-items-center shadow-sm <%= project_header_class(true) %>">
   <div class="d-flex align-items-center gap-3">
     <a href="<%= files_app_url(project.download_dir) %>"
