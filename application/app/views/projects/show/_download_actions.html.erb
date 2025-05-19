@@ -17,11 +17,7 @@
 
     <div class="d-flex align-items-center gap-2">
       <div>
-        <span class="badge badge-project-pending px-4 cursor-default" title="Number of pending files"><%= file_status.pending %></span>
-        <span class="badge badge-project-completed px-4 cursor-default" title="Number of completed files"><%= file_status.completed %></span>
-        <span class="badge badge-half badge-project-cancel px-4 cursor-default" title="Number of cancelled files"><%= file_status.cancelled %></span>
-        <span class="badge badge-half badge-project-error px-4 cursor-default" title="Number of error files"><%= file_status.error %></span>
-        <span class="badge badge-project-total px-4 cursor-default" title="Total files"><%= file_status.total %></span>
+        <%= render partial: '/shared/file_stats_inline', locals: { count: project.count} %>
       </div>
 
       <button class="btn btn-sm btn-outline-secondary ms-4"

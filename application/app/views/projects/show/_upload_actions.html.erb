@@ -1,4 +1,3 @@
-<% file_status = OpenStruct.new(project_progress_data(collection.count)) %>
 <div class="card mb-3 shadow-sm rounded overflow-hidden">
   <div class="card-header d-flex justify-content-between align-items-center bg-light-darker">
     <div class="d-flex align-items-center gap-3">
@@ -17,11 +16,7 @@
 
     <div class="d-flex align-items-center gap-2">
       <div class="me-4">
-        <span class="badge badge-project-pending px-4 cursor-default" title="Number of pending files"><%= file_status.pending %></span>
-        <span class="badge badge-project-completed px-4 cursor-default" title="Number of completed files"><%= file_status.completed %></span>
-        <span class="badge badge-half badge-project-cancel px-4 cursor-default" title="Number of cancelled files"><%= file_status.cancelled %></span>
-        <span class="badge badge-half badge-project-error px-4 cursor-default" title="Number of error files"><%= file_status.error %></span>
-        <span class="badge badge-project-total px-4 cursor-default" title="Total files"><%= file_status.total %></span>
+        <%= render partial: '/shared/file_stats_inline', locals: { count: collection.count} %>
       </div>
 
       <button data-controller="lazy-loader add-upload-files"

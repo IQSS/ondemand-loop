@@ -1,4 +1,3 @@
-<% files = OpenStruct.new(project_progress_data(project.count)) %>
 <div class="border-bottom py-2 px-5 d-flex justify-content-between align-items-center shadow-sm <%= project_header_class(true) %>">
   <div class="d-flex align-items-center gap-3">
     <a href="<%= files_app_url(project.download_dir) %>"
@@ -20,11 +19,7 @@
   </div>
 
   <div>
-    <span class="badge badge-project-pending px-4 cursor-default" title="Number of pending files"><%= files.pending %></span>
-    <span class="badge badge-project-completed px-4 cursor-default" title="Number of completed files"><%= files.completed %></span>
-    <span class="badge badge-half badge-project-cancel px-4 cursor-default" title="Number of cancelled files"><%= files.cancelled %></span>
-    <span class="badge badge-half badge-project-error px-4 cursor-default" title="Number of error files"><%= files.error %></span>
-    <span class="badge badge-project-total px-4 cursor-default" title="Total files"><%= files.total %></span>
+    <%= render partial: '/shared/file_stats_inline', locals: { count: project.count} %>
 
     <a href="<%= files_app_url(Project.project_metadata_dir(project.id)) %>"
        target="_blank"
