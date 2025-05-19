@@ -28,7 +28,7 @@ module Dataverse
         c.id = file_utils.normalize_name(File.join(repo_url.domain, UploadCollection.generate_code))
         c.name = repo_url.domain
         c.project_id = project.id
-        c.dataset_url = dataset_url
+        c.remote_repo_url = dataset_url
         c.type = ConnectorType::DATAVERSE
         c.creation_date = now
         c.metadata = {
@@ -54,7 +54,7 @@ module Dataverse
     end
 
     def update(collection, request_params)
-      dataset_url = request_params[:dataset_url]
+      dataset_url = request_params[:remote_repo_url]
       repo_key = request_params[:api_key]
       repo_url = Repo::RepoUrlParser.parse(dataset_url)
       if repo_url.nil? || repo_url.domain.blank? || repo_url.doi.blank?
@@ -72,7 +72,7 @@ module Dataverse
       metadata[:dataverse_url] = repo_url.repo_url
       metadata[:persistent_id] = repo_url.doi
       metadata[:api_key] = repo_key
-      collection.update({dataset_url: dataset_url, metadata: metadata})
+      collection.update({remote_repo_url: dataset_url, metadata: metadata})
 
       ConnectorResult.new(
         message: { notice: "Upload Collection updated: #{collection.name}" },

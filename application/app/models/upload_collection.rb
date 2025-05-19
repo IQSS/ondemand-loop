@@ -5,11 +5,11 @@ class UploadCollection < ApplicationDiskRecord
   include YamlStorage
   include LoggingCommon
 
-  ATTRIBUTES = %w[id project_id dataset_url type name creation_date metadata].freeze
+  ATTRIBUTES = %w[id project_id remote_repo_url type name creation_date metadata].freeze
 
   attr_accessor *ATTRIBUTES
 
-  validates_presence_of :id, :project_id, :dataset_url, :type, :name
+  validates_presence_of :id, :project_id, :remote_repo_url, :type, :name
 
   def self.find(project_id, collection_id)
     filename = filename_by_ids(project_id, collection_id)
