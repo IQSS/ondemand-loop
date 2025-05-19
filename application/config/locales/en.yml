@@ -28,6 +28,17 @@
 #       enabled: "ON"
 
 en:
+  connectors:
+    dataverse:
+      upload_collection_bar:
+        edit_dataset: "Edit Dataset"
+      upload_collection_form:
+        dataset_url: "Dataset URL"
+        dataset_url_form_text: "Enter the URL of the dataset where files will be uploaded."
+        api_key: "API Key"
+        api_key_form_text: "Provide the API key required to authenticate with the connector."
+        save_changes: "Save Changes"
+        cancel: "Cancel"
   layouts:
     nav:
       navigation:
