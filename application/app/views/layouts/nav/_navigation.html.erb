@@ -7,20 +7,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <%= nav_link_to "Projects", projects_path, class: 'nav-link' %>
+          <%= nav_link_to t(".projects"), projects_path, class: 'nav-link' %>
         </li>
         <li class="nav-item">
-          <%= nav_link_to "Downloads", download_status_path, class: 'nav-link' %>
+          <%= nav_link_to t(".downloads"), download_status_path, class: 'nav-link' %>
         </li>
         <li class="nav-item">
-          <%= nav_link_to "Uploads", upload_status_path, class: 'nav-link' %>
+          <%= nav_link_to t(".uploads"), upload_status_path, class: 'nav-link' %>
         </li>
         <li class="nav-item">
-          <%= nav_link_to "DOI Search", doi_search_path, class: 'nav-link' %>
+          <%= nav_link_to t(".doi_search"), doi_search_path, class: 'nav-link' %>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Repositories
+            <%= t(".repositories") %>
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="<%= view_dataverse_landing_path %>">Dataverse</a></li>
@@ -30,7 +30,7 @@
       <ul class="navbar-nav ms-auto"> <!-- ms-auto pushes this section to the right -->
         <li class="nav-item">
           <%= link_to "#", class: "nav-link d-flex align-items-center", data: { action: "click->utils--toggle#toggle", "utils--toggle-id-param": "repo-resolver-bar" } do %>
-            <%= image_tag('icon.png', alt: 'Loop Application Icon', class: 'icon-class me-1') %> Explore
+            <%= image_tag('icon.png', alt: 'Loop Application Icon', class: 'icon-class me-1') %> <%= t(".explore") %>
           <% end %>
         </li>
         <li class="nav-item">

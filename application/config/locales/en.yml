@@ -28,4 +28,16 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  layouts:
+    nav:
+      navigation:
+        projects: "Projects"
+        downloads: "Downloads"
+        uploads: "Uploads"
+        doi_search: "DOI Search"
+        repositories: "Repositories"
+        explore: "Explore"
+  projects:
+    actions:
+      downloads_root_directory: "Downloads Root Directory"
+      create_project: "Create Project"
