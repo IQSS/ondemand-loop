@@ -87,6 +87,13 @@ en:
       index:
         home: "Home"
         dataverse_icon: "Dataverse icon"
+  doi_search:
+    index:
+      doi_search: "DOI Search"
+      doi_logo: "DOI Logo"
+      doi_lookup: "DOI Lookup"
+      doi_placeholder: "Enter DOI..."
+      search: "Search"
   layouts:
     nav:
       navigation:
