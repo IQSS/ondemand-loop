@@ -1,18 +1,18 @@
 <div class="list-group-item flex-column align-items-start">
   <div class="d-flex w-100 justify-content-between">
     <h5 class="mb-1">
-      <%= link_to_dataset item.name.presence || "Untitled Dataset", dataverse_url, item.global_id, {class: "text-decoration-none"} %>
+      <%= link_to_dataset item.name.presence || t('.untitled_dataset'), dataverse_url, item.global_id, {class: "text-decoration-none"} %>
     </h5>
     <% if item.published_at %>
-      <small class="text-muted">Published: <%= item.published_at.to_date.to_s %></small>
+      <small class="text-muted"><%= t('.published') %>: <%= item.published_at.to_date.to_s %></small>
     <% end %>
   </div>
 
   <p class="mb-1"><%= truncate(item.description, length: 200) %></p>
 
   <small class="text-muted">
-    <strong>Type:</strong> <%= item.type %> |
-    <strong>Publisher:</strong> <%= link_to_dataverse item.publisher, dataverse_url, item.identifier_of_dataverse, {class: "text-decoration-none"} %> |
-    <strong>Files:</strong> <%= item.file_count %>
+    <strong><%= t('.type') %>:</strong> <%= item.type %> |
+    <strong><%= t('.publisher') %>:</strong> <%= link_to_dataverse item.publisher, dataverse_url, item.identifier_of_dataverse, {class: "text-decoration-none"} %> |
+    <strong><%= t('.files') %>:</strong> <%= item.file_count %>
   </small>
 </div>

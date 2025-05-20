@@ -3,7 +3,7 @@
     <%= search_results_count(search_result) %>
     <span class="ms-auto">
       <%= link_to_search_results_prev_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none"}) %>
-      <%= "page #{search_result.data.page}" %>
+      <%= t(".page", page: search_result.data.page) %>
       <%= link_to_search_results_next_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none"}) %>
     </span>
   </div>
@@ -12,13 +12,13 @@
       <%= render partial: 'item', collection: search_result.data.items, as: :item, locals: {dataverse_url: dataverse_url} %>
       <div class="list-group-item d-flex justify-content-center">
         <%= link_to_search_results_prev_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none bottom-page-link"}) %>
-        <%= "page #{search_result.data.page}" %>
+        <%= t(".page", page: search_result.data.page) %>
         <%= link_to_search_results_next_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none bottom-page-link"}) %>
       </div>
     </div>
   <% else %>
     <div class="alert alert-warning mt-3">
-      No items found.
+      <%= t('.no_items_found') %>
     </div>
   <% end %>
 </div>

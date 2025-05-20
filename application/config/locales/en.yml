@@ -61,6 +61,32 @@ en:
         authors: "Authors:"
         subjects: "Subjects:"
         license: "License:"
+    dataverses:
+      breadcrumbs:
+        home: "Home"
+      dataset_item:
+        untitled_dataset: "Untitled Dataset"
+        published: "Published"
+        type: "Type"
+        publisher: "Publisher"
+        files: "Files"
+      dataverse_info:
+        dataverse: "Dataverse"
+      dataverse_item:
+        unnamed_dataverse: "Unnamed Dataverse"
+        published: "Published"
+        type: "Type"
+        affiliation: "Affiliation"
+        parent: "Parent"
+      installation_items:
+        page: "page %{page}"
+        no_items_found: "No items found."
+      search_items:
+        page: "page %{page}"
+        no_items_found: "No items found."
+      index:
+        home: "Home"
+        dataverse_icon: "Dataverse icon"
   layouts:
     nav:
       navigation:
