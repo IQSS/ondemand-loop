@@ -36,9 +36,31 @@ en:
         dataset_url: "Dataset URL"
         dataset_url_form_text: "Enter the URL of the dataset where files will be uploaded."
         api_key: "API Key"
+        api_key_placeholder: "Enter your API key"
         api_key_form_text: "Provide the API key required to authenticate with the connector."
         save_changes: "Save Changes"
         cancel: "Cancel"
+  dataverse:
+    datasets:
+      breadcrumbs:
+        home: "Home"
+      dataset_files:
+        page: "page %{page}"
+        file_name: "File name"
+        size: "Size"
+        storage: "Storage"
+        published: "Published"
+        add_files_submit: "Add Files to Active Project"
+        empty_dataset_msg: "The dataset does not contain files to download"
+      dataset_info:
+        dataset: "Dataset"
+        description: "Description"
+      dataset_metadata:
+        dataset_metadata: "Dataset Metadata"
+        publication_date: "Publication date:"
+        authors: "Authors:"
+        subjects: "Subjects:"
+        license: "License:"
   layouts:
     nav:
       navigation:

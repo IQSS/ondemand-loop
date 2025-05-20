@@ -1,17 +1,17 @@
 <div class="card dataset-header">
-  <div class="card-header">Dataset Metadata</div>
+  <div class="card-header"><%= t('.dataset_metadata') %></div>
   <div class="list-group list-group-flush">
     <span class="list-group-item list-group-item-action">
-      <b>Publication date:</b> <%= dataset.data.publication_date %>
+      <b><%= t('.publication_date') %></b> <%= dataset.data.publication_date %>
     </span>
     <span class="list-group-item list-group-item-action">
-      <b>Authors:</b> <%= dataset.authors %>
+      <b><%= t('.authors') %></b> <%= dataset.authors %>
     </span>
     <span class="list-group-item list-group-item-action">
-      <b>Subjects:</b> <%= dataset.subjects %>
+      <b><%= t('.subjects') %></b> <%= dataset.subjects %>
     </span>
     <span class="list-group-item list-group-item-action">
-      <b>License:</b> <%= image_tag dataset.data.license.icon_uri if dataset.data.license.icon_uri %>
+      <b><%= t('.license') %></b> <%= image_tag dataset.data.license.icon_uri if dataset.data.license.icon_uri %>
       <%= dataset.data.license.name %>
     </span>
   </div>

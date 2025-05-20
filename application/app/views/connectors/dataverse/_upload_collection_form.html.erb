@@ -7,7 +7,7 @@
 
   <div class="mb-3">
     <%= f.label :api_key, t('.api_key'), class: 'form-label fw-bold' %>
-    <%= f.text_field :api_key, name: 'collection[api_key]', value: collection.connector_metadata.api_key, class: 'form-control', placeholder: 'Enter your API key', required: true %>
+    <%= f.text_field :api_key, name: 'collection[api_key]', value: collection.connector_metadata.api_key, class: 'form-control', placeholder: t('.api_key_placeholder'), required: true %>
     <div class="form-text"><%= t('.api_key_form_text') %></div>
   </div>
 

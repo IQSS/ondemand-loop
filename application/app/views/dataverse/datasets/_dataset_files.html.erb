@@ -3,7 +3,7 @@
     <%= files_page.to_s %>
     <span class="ms-auto">
       <%= link_to_dataset_prev_page(dataverse_url, @persistent_id, files_page, {class: "text-decoration-none"}) %>
-      <%= "page #{files_page.page}" %>
+      <%= t('.page', page: files_page.page) %>
       <%= link_to_dataset_next_page(dataverse_url, @persistent_id, files_page, {class: "text-decoration-none"}) %>
     </span>
   </div>
@@ -22,10 +22,10 @@
                 <input class="form-check-input" type="checkbox" id="select_all_files" data-dataverse--dataset-files-target="selectAll" data-action="dataverse--dataset-files#toggleSelectAll">
               </div>
             </th>
-            <th scope="col">File name</th>
-            <th scope="col">Size</th>
-            <th scope="col">Storage</th>
-            <th scope="col">Published</th>
+            <th scope="col"><%= t('.file_name') %></th>
+            <th scope="col"><%= t('.size') %></th>
+            <th scope="col"><%= t('.storage') %></th>
+            <th scope="col"><%= t('.published') %></th>
           </tr>
           </thead>
           <tbody>
@@ -34,13 +34,13 @@
         </table>
       </div>
       <div class="text-center">
-        <%= submit_tag "Add Files to Active Project", class: "btn btn-primary", id: "submit_button", data: {"dataverse--dataset-files-target" => "submitButton"} %>
+        <%= submit_tag t('.add_files_submit'), class: "btn btn-primary", id: "submit_button", data: {"dataverse--dataset-files-target" => "submitButton"} %>
       </div>
     <% end %>
   <% else %>
     <div class="list-group list-group-flush">
       <span class="list-group-item list-group-item-action">
-        The dataset does not contain files to download
+        <%= t('.empty_dataset_msg') %>
       </span>
     </div>
   <% end %>

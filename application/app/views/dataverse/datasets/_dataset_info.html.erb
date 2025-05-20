@@ -1,5 +1,5 @@
 <div class="card dataset-header">
-  <div class="card-header">Dataset</div>
+  <div class="card-header"><%= t('.dataset') %></div>
   <div class="list-group list-group-flush">
     <span class="list-group-item list-group-item-action">
        <b><%= dataset.metadata_field('title').to_s %></b>
@@ -10,7 +10,7 @@
   </div>
 </div>
 <div class="card dataset-header">
-  <div class="card-header">Description</div>
+  <div class="card-header"><%= t(".description") %></div>
   <div class="list-group list-group-flush">
     <span class="list-group-item list-group-item-action">
       <%= truncate(strip_tags(dataset.description), length: 300) %>
