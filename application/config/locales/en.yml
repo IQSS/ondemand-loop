@@ -111,6 +111,8 @@ en:
       parent_folder: "Parent folder"
   layouts:
     nav:
+      logo:
+        logo_alt_text: "OnDemand Loop Logo"
       navigation:
         projects: "Projects"
         downloads: "Downloads"
@@ -118,6 +120,11 @@ en:
         doi_search: "DOI Search"
         repositories: "Repositories"
         explore: "Explore"
+        icon_alt_text: "Loop Application Icon"
+        ood_icon_alt_text: "Open OnDemand Icon"
+        restart: "Restart"
+    footer:
+      version: "OnDemand Loop version: %{version}"
   projects:
     actions:
       downloads_root_directory: "Downloads Root Directory"
