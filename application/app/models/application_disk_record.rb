@@ -1,4 +1,6 @@
 class ApplicationDiskRecord
+  include YamlStorage
+  include LoggingCommon
 
   def self.metadata_root_directory
     Configuration.metadata_root

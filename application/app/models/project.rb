@@ -2,7 +2,6 @@
 
 class Project < ApplicationDiskRecord
   include ActiveModel::Model
-  include YamlStorage
   include LoggingCommon
 
   ATTRIBUTES = %w[id name download_dir creation_date].freeze

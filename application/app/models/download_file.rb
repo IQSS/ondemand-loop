@@ -2,8 +2,6 @@
 
 class DownloadFile < ApplicationDiskRecord
   include ActiveModel::Model
-  include YamlStorage
-  include LoggingCommon
 
   ATTRIBUTES = %w[id project_id type filename status size creation_date start_date end_date metadata].freeze
 

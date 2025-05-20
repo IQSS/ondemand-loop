@@ -2,8 +2,6 @@
 
 class UploadFile < ApplicationDiskRecord
   include ActiveModel::Model
-  include YamlStorage
-  include LoggingCommon
 
   ATTRIBUTES = %w[id project_id collection_id type file_location filename status size creation_date start_date end_date].freeze
 

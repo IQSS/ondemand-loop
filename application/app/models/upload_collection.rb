@@ -2,8 +2,6 @@
 
 class UploadCollection < ApplicationDiskRecord
   include ActiveModel::Model
-  include YamlStorage
-  include LoggingCommon
 
   ATTRIBUTES = %w[id project_id remote_repo_url type name creation_date metadata].freeze
 
