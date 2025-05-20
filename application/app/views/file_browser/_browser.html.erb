@@ -35,7 +35,7 @@
     <!-- Actions (right) -->
     <div>
       <button class="btn btn-sm btn-outline-dark"
-              title="Edit path"
+              title="<%= t('.edit_path') %>"
               data-action="click->file-browser#editPath">
         <i class="bi bi-pencil"></i>
       </button>
@@ -62,7 +62,7 @@
             data-entry-type="folder"
             data-action="dblclick->file-browser#handleDoubleClick">
           <i class="bi bi-arrow-up fs-6"></i>
-          <span>.. (Parent Folder)</span>
+          <span>.. (<%= t('.parent_folder') %>)</span>
         </li>
       <% end %>
 

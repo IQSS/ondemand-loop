@@ -105,6 +105,10 @@ en:
       cancel_download: "Cancel download"
     index:
       downloads: "Downloads"
+  file_browser:
+    browser:
+      edit_path: "Edit path"
+      parent_folder: "Parent folder"
   layouts:
     nav:
       navigation:
