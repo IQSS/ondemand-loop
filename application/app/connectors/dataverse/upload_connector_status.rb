@@ -15,7 +15,7 @@ module Dataverse
       return 0 if FileStatus.new_statuses.include?(file.status)
       return 100 if FileStatus.completed_statuses.include?(file.status)
 
-      command_client = Command::CommandClient.new(socket_path: ::Configuration.download_server_socket_file)
+      command_client = Command::CommandClient.new(socket_path: ::Configuration.command_server_socket_file)
       request = Command::Request.new(command: 'upload.status', body: {project_id: file.project_id, collection_id: file.collection_id, file_id: file.id})
       response = command_client.request(request)
       total = response.body.status[:total].to_i

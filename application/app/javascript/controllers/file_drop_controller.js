@@ -40,16 +40,16 @@ export default class extends Controller {
     handleDrop(event) {
         event.preventDefault()
         this.wasDropped = true
-        const path = event.dataTransfer.getData("text/plain")
-        this.uploadPath(path)
+        const filePath = event.dataTransfer.getData("text/plain")
+        this.uploadPath(filePath)
     }
 
     handleExternalSelect(event) {
         event.preventDefault()
 
         this.showDroppingZone()
-        const path = event.detail.path
-        this.uploadPath(path)
+        const filePath = event.detail.path
+        this.uploadPath(filePath)
     }
 
     uploadPath(filePath) {
@@ -65,7 +65,7 @@ export default class extends Controller {
         }).then(response => {
             return response.json().then(data => {
                 if (response.ok) {
-                    this.showFeedback(data.message); // pass message to showFeedback
+                    this.showFeedback(filePath, data.message); // pass message to showFeedback
                 } else {
                     const msg = data.message || `Error saving path: ${filePath}`;
                     showFlash('error', msg, this.element.id);
@@ -80,7 +80,7 @@ export default class extends Controller {
         });
     }
 
-    showFeedback(message) {
+    showFeedback(filePath, message) {
         const uiDelay = window.loop_app_config.ui_feedback_delay
 
         this.feedbackTarget.textContent = message
@@ -92,7 +92,7 @@ export default class extends Controller {
             this.feedbackTarget.textContent = ""
 
             const event = new CustomEvent(`file-drop:file-submitted:${this.element.id}`, {
-                detail: { path: fileName },
+                detail: { path: filePath },
                 bubbles: true
             })
             this.element.dispatchEvent(event)
