@@ -1,7 +1,7 @@
 <div class="card mb-3 shadow-sm rounded overflow-hidden">
   <div class="card-header d-flex justify-content-between align-items-center bg-light-darker">
     <div class="d-flex align-items-center gap-3">
-      <%= render partial: '/shared/file_row_date', locals: { date: collection.creation_date, title: 'Creation date'} if collection.creation_date %>
+      <%= render partial: '/shared/file_row_date', locals: { date: collection.creation_date, title: t('.creation_date') } if collection.creation_date %>
 
       <div>
         <!-- PROJECT METADATA -->
@@ -27,18 +27,18 @@
               data-action="click->lazy-loader#load click->add-upload-files#toggleFileBrowser"
               class="btn btn-outline-secondary btn-sm">
         <i class="bi bi-plus-square-fill"></i>
-        <span class="ps-1">Add Files</span>
+        <span class="ps-1"><%= t('.add_files') %></span>
       </button>
 
       <button class="btn btn-sm btn-outline-secondary"
-              title="Edit upload collection settings">
+              title="<%= t('.edit_upload_collection_settings') %>">
         <i class="bi bi-gear-fill"></i>
       </button>
 
       <%= render partial: "shared/button_to", locals: {
         url: project_upload_collection_path(project_id: collection.project_id, id: collection.id),
         method: 'DELETE',
-        title: "Delete Collection",
+        title: t('.delete_collection'),
         class: 'btn btn-sm btn-outline-secondary icon-hover-danger',
         icon: "bi bi-trash"
       } %>

@@ -4,12 +4,12 @@
     <div class="col-md-8 mb-3">
       <div class="card shadow-sm">
         <div class="card-header">
-          <h5 class="mb-0">Project Details</h5>
+          <h5 class="mb-0"><%= t('.project_details') %></h5>
         </div>
         <div class="card-body">
-          <p><strong>Name:</strong> <%= project.name %></p>
-          <p><strong>Download Directory:</strong> <%= project.download_dir %></p>
-          <p><strong>Created At:</strong> <%= project.creation_date %></p>
+          <p><strong><%= t('.name') %>:</strong> <%= project.name %></p>
+          <p><strong><%= t('.download_directory') %>:</strong> <%= project.download_dir %></p>
+          <p><strong><%= t('.created_at') %>:</strong> <%= project.creation_date %></p>
           <!-- Add more metadata as needed -->
         </div>
       </div>
@@ -19,12 +19,12 @@
     <div class="col-md-4 mb-3">
       <div class="card shadow-sm border-success">
         <div class="card-header bg-success text-white">
-          <h6 class="mb-0">File Summary</h6>
+          <h6 class="mb-0"><%= t('.file_summary') %></h6>
         </div>
         <div class="card-body">
-          <p><strong>Total Files:</strong> HERE</p>
-          <p><strong>Missing Files:</strong> HERE</p>
-          <p><strong>Last Sync:</strong> HERE</p>
+          <p><strong><%= t('.total_files') %>:</strong> <%= t('.here') %></p>
+          <p><strong><%= t('.missing_files') %>:</strong> <%= t('.here') %></p>
+          <p><strong><%= t('.last_sync') %>:</strong> <%= t('.here') %></p>
           <!-- More summary info here -->
         </div>
       </div>

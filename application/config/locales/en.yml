@@ -126,6 +126,46 @@ en:
     footer:
       version: "OnDemand Loop version: %{version}"
   projects:
+    show:
+      download_actions:
+        open_downloads_folder: "Open Downloads folder"
+        download_files: "Download Files"
+        edit_download_settings: "Edit Download settings"
+      download_files:
+        schedule_date: "Schedule date"
+        repository_files: "Repository Files"
+        completion_date: "Completion date"
+        download_start_date: "Download start date"
+        delete_file: "Delete File"
+      project_actions:
+        open_project_folder: "Open project folder"
+        create_upload_collection: "Create Upload Collection"
+        delete_project: "Delete Project"
+        open_project_metadata: "Open Project Metadata"
+      project_metadata:
+        project_details: "Project Details"
+        name: "Name"
+        download_directory: "Download Directory"
+        created_at: "Created At"
+        file_summary: "File Summary"
+        total_files: "Total Files"
+        missing_files: "Missing Files"
+        last_sync: "Last Sync"
+        here: "HERE"
+      project_tabs:
+        project: "Project"
+        download_files: "Download Files"
+      upload_actions:
+        creation_date: "Creation date"
+        add_files: "Add Files"
+        edit_upload_collection_settings: "Edit upload collection settings"
+        delete_collection: "Delete Collection"
+      upload_files:
+        no_upload_files: "No Upload Files"
+        schedule_date: "Schedule date"
+        completion_date: "Completion date"
+        download_start_date: "Download start date"
+        delete_file: "Delete File"
     actions:
       downloads_root_directory: "Downloads Root Directory"
       create_project: "Create Project"

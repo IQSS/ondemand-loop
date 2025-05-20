@@ -2,14 +2,14 @@
 <div id="<%= collection.id %>-upload-files" class="container files">
   <% if files.empty? %>
     <div class="row py-2 justify-content-center custom-stripe">
-      No Upload Files
+      <%= t('.no_upload_files') %>
     </div>
   <% end %>
   <% files.each_with_index do |file, index| %>
     <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
       <div class="col-md-10">
         <div class="d-flex align-items-center">
-          <%= render partial: '/shared/file_row_date', locals: { date: file.creation_date, title: 'Schedule date', classes: 'mx-2'} %>
+          <%= render partial: '/shared/file_row_date', locals: { date: file.creation_date, title: t('.schedule_date'), classes: 'mx-2'} %>
 
           <span class="me-2"><%= file.filename %></span>
           <small class="text-muted me-2"><%= number_to_human_size(file.size) %></small>
@@ -25,13 +25,13 @@
           <% end %>
         </div>
 
-        <%= render partial: '/shared/file_row_date', locals: { date: file.end_date, title: 'Completion date', classes: 'mx-2'} if file.end_date %>
-        <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: 'Download start date', classes: 'mx-2'} if file.status.downloading? %>
+        <%= render partial: '/shared/file_row_date', locals: { date: file.end_date, title: t('.completion_date'), classes: 'mx-2'} if file.end_date %>
+        <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: t('.download_start_date'), classes: 'mx-2'} if file.status.downloading? %>
 
         <%= render partial: "shared/button_to", locals: {
           url: project_upload_collection_upload_file_path(project_id: collection.project_id, upload_collection_id: collection.id, id: file.id),
           method: 'DELETE',
-          title: "Delete File",
+          title: t(".delete_file"),
           class: 'btn-sm btn-outline-secondary icon-hover-danger',
           icon: "bi bi-trash"
         } %>

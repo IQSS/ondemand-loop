@@ -6,11 +6,11 @@
       <a href="<%= files_app_url(project.download_dir) %>"
          target="_blank"
          class="btn btn-sm btn-outline-secondary"
-         title="Open downloads folder">
+         title="<%= t('.open_downloads_folder') %>">
         <i class="bi bi-folder-fill"></i>
       </a>
       <div class="d-flex flex-column">
-        <h5 class="mb-0">Download Files</h5>
+        <h5 class="mb-0"><%= t('download_files') %></h5>
         <small class="text-muted"><%= project.download_dir %></small>
       </div>
     </div>
@@ -21,7 +21,7 @@
       </div>
 
       <button class="btn btn-sm btn-outline-secondary ms-4"
-              title="Edit download settings">
+              title="<%= t('edit_download_settings') %>">
         <i class="bi bi-gear-fill"></i>
       </button>
     </div>
