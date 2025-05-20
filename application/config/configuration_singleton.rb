@@ -23,8 +23,8 @@ class ConfigurationSingleton
     ].freeze
   end
 
-  def download_server_socket_file
-    File.join(metadata_root, 'download.server.sock')
+  def command_server_socket_file
+    File.join(metadata_root, 'command.server.sock')
   end
 
   def config

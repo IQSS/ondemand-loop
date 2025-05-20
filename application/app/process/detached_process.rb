@@ -40,7 +40,7 @@ class DetachedProcess
   private
 
   def startup
-    @command_server = Command::CommandServer.new(socket_path: Configuration.download_server_socket_file)
+    @command_server = Command::CommandServer.new(socket_path: Configuration.command_server_socket_file)
     @command_server.start
 
     @services << Download::DownloadService.new(Download::DownloadFilesProvider.new)
