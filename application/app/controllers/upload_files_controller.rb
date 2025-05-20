@@ -11,6 +11,7 @@ class UploadFilesController < ApplicationController
     render partial: '/projects/show/upload_files', layout: false, locals: { collection: upload_collection }
   end
 
+  # JSON based create method to add a local filepath to an upload collection
   def create
     project_id = params[:project_id]
     collection_id = params[:upload_collection_id]
@@ -20,11 +21,10 @@ class UploadFilesController < ApplicationController
       return
     end
 
-
     path = params[:path]
     files = list_files(path)
-    files.each do |file|
-      upload_file = UploadFile.new.tap do |f|
+    upload_files = files.map do |file|
+      UploadFile.new.tap do |f|
         f.id = UploadFile.generate_id
         f.project_id = project_id
         f.collection_id = collection_id
@@ -35,11 +35,24 @@ class UploadFilesController < ApplicationController
         f.status = FileStatus::PENDING
         f.size = file.size
       end
-      upload_file.save
-      log_info('Add path to upload collection', {project_id: project_id, upload_collection_id: collection_id, file: file})
     end
 
-    head :ok
+    upload_files.each do |file|
+      unless file.valid?
+        errors = file.errors.full_messages.join(", ")
+        log_error('UploadFile validation error', {error: errors, project_id: project_id, upload_collection_id: collection_id, file: file.to_s})
+        render json: { message: "Invalid file in selection: #{file.filename} errors: #{errors}" }, status: :bad_request
+        return
+      end
+    end
+
+    upload_files.each do |file|
+      file.save
+      log_info('Added file to upload collection', {project_id: project_id, upload_collection_id: collection_id, file: file.filename})
+    end
+
+    message = upload_files.size > 1 ? "#{} Files added from: #{path_folder}" : "File added: #{upload_files.first.filename}"
+    render json: { message: message }, status: :ok
   end
 
   def destroy

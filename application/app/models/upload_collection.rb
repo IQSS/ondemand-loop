@@ -12,6 +12,8 @@ class UploadCollection < ApplicationDiskRecord
   validates_presence_of :id, :project_id, :remote_repo_url, :type, :name
 
   def self.find(project_id, collection_id)
+    return nil if project_id.blank? || collection_id.blank?
+
     filename = filename_by_ids(project_id, collection_id)
     return nil unless File.exist?(filename)
 
@@ -38,16 +40,12 @@ class UploadCollection < ApplicationDiskRecord
   def save
     return false unless valid?
 
-    store_to_file
+    store_to_file(self.class.filename_by_ids(project_id, id))
   end
 
   def destroy
     collection_path = self.class.directory_by_ids(project_id, id)
     FileUtils.rm_rf(collection_path)
-  end
-
-  def storage_file
-    self.class.filename_by_ids(project_id, id)
   end
 
   def files

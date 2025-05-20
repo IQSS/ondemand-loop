@@ -28,15 +28,13 @@ export default class extends Controller {
             event.stopPropagation();
         }
 
-        this.element.classList.add("drop-hover")
-        this.iconTarget.classList.remove("d-none")
+        this.showDroppingZone()
     }
 
     dragLeave(event) {
         if (this.wasDropped) return
 
-        this.element.classList.remove("drop-hover")
-        this.iconTarget.classList.add("d-none")
+        this.hideDroppingZone()
     }
 
     handleDrop(event) {
@@ -49,8 +47,7 @@ export default class extends Controller {
     handleExternalSelect(event) {
         event.preventDefault()
 
-        this.element.classList.add("drop-hover")
-        this.iconTarget.classList.remove("d-none")
+        this.showDroppingZone()
         const path = event.detail.path
         this.uploadPath(path)
     }
@@ -66,27 +63,33 @@ export default class extends Controller {
             },
             body: JSON.stringify({ path: filePath })
         }).then(response => {
-            if (response.ok) {
-                this.showFeedback(filePath)
-            } else {
-                showFlash('error', `Error saving path: ${filePath}`, this.element.id)
-                this.wasDropped = false
-            }
-        })
+            return response.json().then(data => {
+                if (response.ok) {
+                    this.showFeedback(data.message); // pass message to showFeedback
+                } else {
+                    const msg = data.message || `Error saving path: ${filePath}`;
+                    showFlash('error', msg, this.element.id);
+                    this.hideDroppingZone()
+                    this.wasDropped = false
+                }
+            });
+        }).catch(error => {
+            console.error('Network error:', error);
+            showFlash('error', `Network error while saving path: ${filePath}`, this.element.id);
+            this.wasDropped = false;
+        });
     }
 
-    showFeedback(fileName) {
+    showFeedback(message) {
         const uiDelay = window.loop_app_config.ui_feedback_delay
 
-        const filenameSpan = this.feedbackTarget.querySelector(".feedback-filename")
-        filenameSpan.textContent = fileName
+        this.feedbackTarget.textContent = message
         this.feedbackTarget.classList.remove("d-none")
 
         setTimeout(() => {
-            this.element.classList.remove("drop-hover")
+            this.hideDroppingZone()
             this.feedbackTarget.classList.add("d-none")
-            this.iconTarget.classList.add("d-none")
-            filenameSpan.textContent = ""
+            this.feedbackTarget.textContent = ""
 
             const event = new CustomEvent(`file-drop:file-submitted:${this.element.id}`, {
                 detail: { path: fileName },
@@ -96,5 +99,15 @@ export default class extends Controller {
 
             this.wasDropped = false
         }, uiDelay)
+    }
+
+    showDroppingZone() {
+        this.element.classList.add("drop-hover")
+        this.iconTarget.classList.remove("d-none")
+    }
+
+    hideDroppingZone() {
+        this.element.classList.remove("drop-hover")
+        this.iconTarget.classList.add("d-none")
     }
 }

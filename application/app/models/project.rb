@@ -2,6 +2,7 @@
 
 class Project < ApplicationDiskRecord
   include ActiveModel::Model
+  include YamlStorage
   include LoggingCommon
 
   ATTRIBUTES = %w[id name download_dir creation_date].freeze
@@ -19,6 +20,8 @@ class Project < ApplicationDiskRecord
   end
 
   def self.find(project_id)
+    return nil if project_id.blank?
+
     filename = filename_by_id(project_id)
     return nil unless File.exist?(filename)
 
@@ -66,32 +69,7 @@ class Project < ApplicationDiskRecord
 
     FileUtils.mkdir_p(self.class.download_files_directory(id))
     FileUtils.mkdir_p(download_dir)
-    filename = self.class.filename_by_id(id)
-    File.open(filename, "w") do |file|
-      file.write(to_yaml)
-    end
-    true
-  rescue => e
-    log_error('Unable to save project', {id: id, project_path: self.class.download_files_directory(id)}, e)
-    false
-  end
-
-  def to_hash
-    ATTRIBUTES.each_with_object({}) do |attr, hash|
-      hash[attr] = send(attr)
-    end
-  end
-
-  def to_json
-    to_hash.to_json
-  end
-
-  def to_yaml
-    to_hash.to_yaml
-  end
-
-  def to_s
-    to_json
+    store_to_file(self.class.filename_by_id(id))
   end
 
   def destroy

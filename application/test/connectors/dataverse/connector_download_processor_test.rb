@@ -8,7 +8,7 @@ class Dataverse::ConnectorDownloadProcessorTest < ActiveSupport::TestCase
     @tmp_dir = Dir.mktmpdir
     Project.stubs(:metadata_root_directory).returns(@tmp_dir)
 
-    @project = create_download_project
+    @project = create_project
     @project.save
 
     @file = create_download_file(@project)

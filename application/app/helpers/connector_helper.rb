@@ -14,7 +14,7 @@ module ConnectorHelper
     if collection.connector_metadata.api_key.blank?
       # Missing API key – use a softer alert red
       content_tag(:span, class: 'badge badge-soft-danger') do
-        raw('<i class="bi bi-exclamation-circle me-1"></i><span class="ms-1">Missing</span>')
+        raw('<i class="bi bi-exclamation-circle me-1"></i><span class="ms-1">Key Missing</span>')
       end
     elsif collection.connector_metadata.verification_date.blank?
       # Provided but not yet verified – use a muted or secondary tone
@@ -24,7 +24,7 @@ module ConnectorHelper
     else
       # Verified – use a soft green tone
       content_tag(:span, class: 'badge badge-soft-success') do
-        raw('<i class="bi bi-check-circle-fill me-1"></i><span class="ms-1">Verified</span>')
+        raw('<i class="bi bi-check-circle-fill me-1"></i><span class="ms-1">Key Verified</span>')
       end
     end
   end

@@ -44,9 +44,9 @@ class UploadCollectionTest < ActiveSupport::TestCase
     assert_includes @upload_collection.errors[:id], "can't be blank"
   end
 
-  test 'to_hash' do
+  test 'to_h' do
     expected_hash = map_objects(@valid_attributes)
-    assert_equal expected_hash, @upload_collection.to_hash
+    assert_equal expected_hash, @upload_collection.to_h
   end
 
   test 'to_json' do

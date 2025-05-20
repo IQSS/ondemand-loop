@@ -110,4 +110,120 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     assert_select "input[type=checkbox][name='file_ids[]']", 2
   end
 
+  test "should redirect if project fails to save" do
+    dataset = Dataverse::DatasetVersionResponse.new(dataset_valid_json)
+    files_page = Dataverse::DatasetFilesResponse.new(files_valid_json)
+
+    project = Project.new
+    project.stubs(:save).returns(false)
+    project.errors.add(:base, "Project save failed")
+
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
+    Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(files_page)
+    Dataverse::DataverseService.any_instance.stubs(:initialize_project).returns(project)
+
+    post download_dataverse_dataset_files_url, params: {
+      file_ids: ["123"],
+      project_id: nil,
+      dataverse_url: "https://example.dataverse.org",
+      persistent_id: "doi:10.5072/FK2/GCN7US",
+      page: 1
+    }
+
+    assert_redirected_to root_path
+    assert_equal "Error generating project: Project save failed", flash[:alert]
+  end
+
+  test "should redirect if any download file is invalid" do
+    dataset = Dataverse::DatasetVersionResponse.new(dataset_valid_json)
+    files_page = Dataverse::DatasetFilesResponse.new(files_valid_json)
+
+    project = Project.new(name: "Test Project")
+    project.stubs(:save).returns(true)
+
+    invalid_file = DownloadFile.new(filename: "bad_file.txt")
+    invalid_file.stubs(:valid?).returns(false)
+    invalid_file.errors.add(:base, "Invalid file")
+    valid_file = DownloadFile.new(filename: "good_file.txt")
+    valid_file.stubs(:valid?).returns(true)
+
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
+    Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(files_page)
+    Dataverse::DataverseService.any_instance.stubs(:initialize_project).returns(project)
+    Dataverse::DataverseService.any_instance.stubs(:initialize_download_files).returns([valid_file, invalid_file])
+
+    post download_dataverse_dataset_files_url, params: {
+      file_ids: ["1", "2"],
+      project_id: nil,
+      dataverse_url: "https://example.dataverse.org",
+      persistent_id: "doi:10.5072/FK2/GCN7US",
+      page: 1
+    }
+
+    assert_redirected_to root_path
+    assert_match "Invalid file in selection", flash[:alert]
+    assert_match "bad_file.txt", flash[:alert]
+  end
+
+  test "should redirect if download file save fails" do
+    dataset = Dataverse::DatasetVersionResponse.new(dataset_valid_json)
+    files_page = Dataverse::DatasetFilesResponse.new(files_valid_json)
+
+    project = Project.new(name: "Test Project")
+    project.stubs(:save).returns(true)
+
+    valid_file = DownloadFile.new(filename: "file.txt")
+    valid_file.stubs(:valid?).returns(true)
+    valid_file.stubs(:save).returns(false)
+
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
+    Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(files_page)
+    Dataverse::DataverseService.any_instance.stubs(:initialize_project).returns(project)
+    Dataverse::DataverseService.any_instance.stubs(:initialize_download_files).returns([valid_file])
+
+    post download_dataverse_dataset_files_url, params: {
+      file_ids: ["1"],
+      project_id: nil,
+      dataverse_url: "https://example.dataverse.org",
+      persistent_id: "doi:10.5072/FK2/GCN7US",
+      page: 1
+    }
+
+    assert_redirected_to root_path
+    assert_equal "Error generating the download file", flash[:alert]
+  end
+
+  test "should redirect with notice if download files are saved successfully" do
+    dataset = Dataverse::DatasetVersionResponse.new(dataset_valid_json)
+    files_page = Dataverse::DatasetFilesResponse.new(files_valid_json)
+
+    project = Project.new(name: "Test Project")
+    project.stubs(:id).returns(1)
+    project.stubs(:save).returns(true)
+
+    file1 = DownloadFile.new(filename: "file1.txt")
+    file1.stubs(:valid?).returns(true)
+    file1.stubs(:save).returns(true)
+
+    file2 = DownloadFile.new(filename: "file2.txt")
+    file2.stubs(:valid?).returns(true)
+    file2.stubs(:save).returns(true)
+
+    Dataverse::DataverseService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
+    Dataverse::DataverseService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(files_page)
+    Dataverse::DataverseService.any_instance.stubs(:initialize_project).returns(project)
+    Dataverse::DataverseService.any_instance.stubs(:initialize_download_files).returns([file1, file2])
+
+    post download_dataverse_dataset_files_url, params: {
+      file_ids: ["1", "2"],
+      project_id: nil,
+      dataverse_url: "https://example.dataverse.org",
+      persistent_id: "doi:10.5072/FK2/GCN7US",
+      page: 1
+    }
+
+    assert_redirected_to root_path
+    assert_equal "Files added to project: Test Project", flash[:notice]
+  end
+
 end

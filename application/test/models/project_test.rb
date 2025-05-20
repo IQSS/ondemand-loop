@@ -36,10 +36,10 @@ class ProjectTest < ActiveSupport::TestCase
     assert_includes target.errors[:creation_date], "can't be blank"
   end
 
-  test "to_hash" do
+  test "to_h" do
     target = create_valid_project
     expected_hash = project_hash(target)
-    assert_equal expected_hash, target.to_hash
+    assert_equal expected_hash, target.to_h
   end
 
   test "to_json" do

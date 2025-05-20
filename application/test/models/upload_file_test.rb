@@ -56,9 +56,16 @@ class UploadFileTest < ActiveSupport::TestCase
     assert_includes @upload_file.errors[:size], 'must be greater than or equal to 0'
   end
 
-  test 'to_hash' do
+  test 'should validate max file size' do
+    assert @upload_file.valid?
+    @upload_file.size = 2.gigabytes
+    refute @upload_file.valid?
+    assert_includes @upload_file.errors[:size], 'is too large (maximum allowed is 1 GB)'
+  end
+
+  test 'to_h' do
     expected_hash = map_objects(@valid_attributes)
-    assert_equal expected_hash, @upload_file.to_hash
+    assert_equal expected_hash, @upload_file.to_h
   end
 
   test 'to_json' do
@@ -125,7 +132,7 @@ class UploadFileTest < ActiveSupport::TestCase
   end
 
   test 'update' do
-    project = create_upload_project
+    project = create_project
     collection = create_upload_collection(project)
     target = create_upload_file(project, collection)
     target.update(status: FileStatus::CANCELLED)

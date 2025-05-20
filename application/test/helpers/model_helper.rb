@@ -1,14 +1,13 @@
 module ModelHelper
 
+  def create_project
+    Project.new(id: random_id, name: 'test_project')
+  end
   def download_project(type: ConnectorType::DATAVERSE, files:)
-    Project.new(id: random_id, name: 'test_project').tap do |project|
+    create_project.tap do |project|
       download_files = Array.new(files) { create_download_file(project, type: type) }
       project.stubs(:download_files).returns(download_files)
     end
-  end
-
-  def create_download_project
-    Project.new(id: random_id, name: 'test_project')
   end
 
   def create_download_file(project, id: nil, type: ConnectorType::DATAVERSE)
@@ -23,17 +22,14 @@ module ModelHelper
     end
   end
 
-  def create_upload_project
-    Project.new(id: random_id, name: 'test_project')
-  end
-
-  def create_upload_collection(project, type: ConnectorType::DATAVERSE)
+  def create_upload_collection(project, type: ConnectorType::DATAVERSE, files: [])
     UploadCollection.new.tap do |collection|
       collection.project_id = project.id
       collection.id = random_id
       collection.name = "sample name"
       collection.type = type
       collection.metadata = {test: 'test'}
+      collection.stubs(:files).returns(files)
     end
   end
 

@@ -47,9 +47,16 @@ class DownloadFileTest < ActiveSupport::TestCase
     assert_includes @download_file.errors[:size], 'must be greater than or equal to 0'
   end
 
-  test 'to_hash' do
+  test 'should validate max file size' do
+    assert @download_file.valid?
+    @download_file.size = 11.gigabytes
+    refute @download_file.valid?
+    assert_includes @download_file.errors[:size], 'is too large (maximum allowed is 10 GB)'
+  end
+
+  test 'to_h' do
     expected_hash = map_objects(@valid_attributes)
-    assert_equal expected_hash, @download_file.to_hash
+    assert_equal expected_hash, @download_file.to_h
   end
 
   test 'to_json' do
@@ -115,7 +122,7 @@ class DownloadFileTest < ActiveSupport::TestCase
   end
 
   test 'update' do
-    project = create_download_project
+    project = create_project
     target = create_download_file(project)
     target.update(status: FileStatus::CANCELLED)
     assert_equal FileStatus::CANCELLED, target.status

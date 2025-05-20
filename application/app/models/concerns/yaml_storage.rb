@@ -44,20 +44,18 @@ module YamlStorage
     end
   end
 
-  def store_to_file
-    raise NotImplementedError, "Model must implement #storage_file" unless respond_to?(:storage_file)
-
-    ensure_storage_directory!
-    File.open(storage_file, "w") { |f| f.write(to_h.deep_stringify_keys.to_yaml) }
+  def store_to_file(file_path)
+    ensure_storage_directory!(file_path)
+    File.open(file_path, "w") { |f| f.write(to_h.deep_stringify_keys.to_yaml) }
     true
   rescue => e
-    LoggingCommon.log_error("Cannot store YAML file", { file: storage_file }, e)
+    LoggingCommon.log_error("Cannot store YAML file", { file: file_path }, e)
     false
   end
 
   private
 
-  def ensure_storage_directory!
-    FileUtils.mkdir_p(File.dirname(storage_file))
+  def ensure_storage_directory!(file_path)
+    FileUtils.mkdir_p(File.dirname(file_path))
   end
 end
