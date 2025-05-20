@@ -166,6 +166,38 @@ en:
         completion_date: "Completion date"
         download_start_date: "Download start date"
         delete_file: "Delete File"
+      projects: "Projects"
+
     actions:
       downloads_root_directory: "Downloads Root Directory"
       create_project: "Create Project"
+    download_files:
+      schedule_date: "Schedule date"
+      repository_files: "Repository Files"
+      completion_date: "Completion date"
+      download_start_date: "Download start date"
+      delete_file: "Delete file"
+    project_footer:
+      files: "Files"
+      view_files: "View files"
+      open_project_metadata: "Open Project metadata"
+      download_files: "Download Files"
+      uploads: "Uploads"
+    project_header:
+      open_project_folder: "Open project folder"
+      creation_date: "Creation Date"
+      save_project_name: "Save project name"
+      cancel: "Cancel"
+      edit_project_name: "Edit Project name"
+      delete_project: "Delete project"
+      active_project: "Active project"
+      set_as_active_project: "Set as Active Project"
+    upload_collection:
+      schedule_date: "Schedule date"
+      repository_files: "Repository Files"
+      completion_date: "Completion date"
+      upload_start_date: "Upload start date"
+      delete_file: "Delete file"
+    index:
+      projects: "Projects"
+

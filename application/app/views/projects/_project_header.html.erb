@@ -7,11 +7,11 @@
     <a href="<%= files_app_url(project.download_dir) %>"
        target="_blank"
        class="btn btn-sm btn-outline-secondary"
-       title="Open project folder">
+       title="<%= t('.open_project_folder') %>">
       <i class="bi bi-folder-fill"></i>
     </a>
 
-    <%= render partial: '/shared/file_row_date', locals: { date: project.creation_date, title: 'Creation date'} if project.creation_date %>
+    <%= render partial: '/shared/file_row_date', locals: { date: project.creation_date, title: t('.creation_date') } if project.creation_date %>
     <div>
       <!-- PROJECT METADATA -->
       <div data-project-name-target="display" class="d-flex flex-column">
@@ -28,13 +28,13 @@
                value="<%= project.name %>">
         <button class="btn btn-sm btn-outline-primary"
                 data-action="click->project-name#save"
-                title="Save project name">
+                title="<%= t('.save_project_name') %>">
           <i class="bi bi-check-lg"></i>
         </button>
         <button class="btn btn-sm btn-outline-danger"
                 type="button"
                 data-action="click->project-name#cancel"
-                title="Cancel">
+                title="<%= t('.cancel') %>">
           <i class="bi bi-x-lg"></i>
         </button>
       </div>
@@ -44,26 +44,26 @@
   <div class="d-flex align-items-center gap-2">
     <button class="btn btn-sm btn-secondary"
             data-action="click->project-name#edit"
-            title="Edit project name">
+            title="<%= t('.edit_project_name') %>">
       <i class="bi bi-pencil"></i>
     </button>
 
     <%= render partial: "shared/button_to", locals: {
       url: project_path(id: project.id),
       method: 'DELETE',
-      title: "Delete Project",
+      title: t('.delete_project'),
       class: 'btn-sm btn-project-muted',
       icon: "bi bi-trash"
     } %>
 
     <% if active %>
-      <button class="btn btn-sm btn-primary" title="Active project" disabled>
+      <button class="btn btn-sm btn-primary" title="<%= t('.active_project') %>" disabled>
         <i class="bi bi-check-circle-fill text-light"></i>
       </button>
     <% else %>
       <%= render partial: "shared/button_to", locals: {
         url: set_active_project_path(id: project.id),
-        title: 'Set as Active Project',
+        title: t('.set_as_active_project'),
         class: 'btn-sm btn-project-neutral',
         icon: "bi bi-pin-angle-fill"
       } %>

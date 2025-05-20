@@ -1,5 +1,5 @@
 <div class="card-header border-top d-flex justify-content-between align-items-center bg-light">
-  <span class="text-muted">Files</span>
+  <span class="text-muted"><%= t('.files') %></span>
 
   <div>
     <button class="btn btn-outline-secondary btn-sm"
@@ -9,13 +9,13 @@
             aria-expanded="false"
             aria-controls="project-files-<%= project.id %>">
       <i class="bi bi-folder2-open me-1"></i>
-      View Files
+      <%= t('.view_files') %>
     </button>
 
     <a href="<%= files_app_url(Project.project_metadata_dir(project.id)) %>"
        target="_blank"
        class="btn btn-sm btn-outline-secondary"
-       title="Open project metadata">
+       title="<%= t('.open_project_metadata') %>">
       <i class="bi bi-card-list"></i>
     </a>
   </div>
@@ -30,7 +30,7 @@
         <button class="nav-link text-secondary active" id="download-tab-<%= project.id %>" data-bs-toggle="tab"
                 data-bs-target="#download-files-<%= project.id %>" type="button" role="tab"
                 aria-controls="download-files-<%= project.id %>" aria-selected="true">
-          <i class="bi bi-download me-1"></i>Download Files
+          <i class="bi bi-download me-1"></i><%= t('.download_files') %>
         </button>
       </li>
       <% project.upload_collections.each do |collection| %>
@@ -38,7 +38,7 @@
           <button class="nav-link text-secondary" id="upload-tab-<%= collection.id %>" data-bs-toggle="tab"
                   data-bs-target="#upload-files-<%= collection.id %>" type="button" role="tab"
                   aria-controls="upload-files-<%= collection.id %>" aria-selected="false">
-            <i class="bi bi-upload me-1"></i>Uploads (<%= collection.name %>)
+            <i class="bi bi-upload me-1"></i><%= t('.uploads') %> (<%= collection.name %>)
           </button>
         </li>
       <% end %>

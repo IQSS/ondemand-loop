@@ -4,13 +4,13 @@
     <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
       <div class="col-md-10">
         <div class="d-flex align-items-center">
-          <%= render partial: '/shared/file_row_date', locals: { date: file.creation_date, title: 'Schedule date', classes: 'mx-2'} %>
+          <%= render partial: '/shared/file_row_date', locals: { date: file.creation_date, title: t('.schedule_date'), classes: 'mx-2'} %>
 
           <%= render partial: 'shared/repo_badge', locals: {
             repo_url: file.connector_metadata.files_url,
             icon_html: connector_icon(file.type),
             name: truncate(file.connector_metadata.repo_name, length: 20),
-            tooltip: "Repository Files"
+            tooltip: t('.repository_files')
           } %>
 
           <span class="me-2"><%= file.filename %></span>
@@ -27,13 +27,13 @@
           <% end %>
         </div>
 
-        <%= render partial: '/shared/file_row_date', locals: { date: file.end_date, title: 'Completion date', classes: 'mx-2'} if file.end_date %>
-        <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: 'Upload start date', classes: 'mx-2'} if file.status.uploading? %>
+        <%= render partial: '/shared/file_row_date', locals: { date: file.end_date, title: t('.completion_date'), classes: 'mx-2'} if file.end_date %>
+        <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: t('.upload_start_date'), classes: 'mx-2'} if file.status.uploading? %>
 
         <%= render partial: "shared/button_to", locals: {
           url: project_upload_collection_upload_file_path(project_id: project.id, upload_collection_id: file.collection_id, id: file.id),
           method: 'DELETE',
-          title: "Delete File",
+          title: t('.delete_file'),
           class: 'btn-sm btn-outline-secondary',
           icon: "bi bi-trash"
         } %>
