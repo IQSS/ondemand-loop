@@ -1,9 +1,9 @@
 <div class="text-end sticky-top bg-white z-index-999">
   <%= link_to(files_app_url(Configuration.download_root), class: 'btn btn-outline-dark btn-sm', target: '_blank') do %>
-    <i class="bi bi-folder-fill"></i><span class="ps-1">Downloads Directory</span>
+    <i class="bi bi-folder-fill"></i><span class="ps-1"><%= t('.downloads_directory') %></span>
   <% end %>
   <%= link_to(download_status_path, class: 'btn btn-outline-dark btn-sm') do %>
-    <i class="bi bi-arrow-clockwise bold"></i><span class="ps-1">Reload</span>
+    <i class="bi bi-arrow-clockwise bold"></i><span class="ps-1"><%= t('.reload') %></span>
   <% end %>
 </div>
 

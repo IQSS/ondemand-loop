@@ -94,6 +94,17 @@ en:
       doi_lookup: "DOI Lookup"
       doi_placeholder: "Enter DOI..."
       search: "Search"
+  download_status:
+    actions:
+      downloads_directory: "Downloads Directory"
+      reload: "Reload"
+    files:
+      scheduled_downloads: "Scheduled Downloads"
+      browse_file: "Browse file"
+      creation_date: "Creation date"
+      cancel_download: "Cancel download"
+    index:
+      downloads: "Downloads"
   layouts:
     nav:
       navigation:
