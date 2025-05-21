@@ -22,10 +22,19 @@ module ModelHelper
     end
   end
 
-  def create_upload_collection(project, type: ConnectorType::DATAVERSE, files: [])
+  def upload_project(type: ConnectorType::DATAVERSE, files:)
+    create_project.tap do |project|
+      upload_collection = create_upload_collection(project, type: type)
+      upload_files = Array.new(files) { create_upload_file(project, upload_collection, type: type) }
+      upload_collection.stubs(:files).returns(upload_files)
+      project.stubs(:upload_collections).returns([upload_collection])
+    end
+  end
+
+  def create_upload_collection(project, id: random_id, type: ConnectorType::DATAVERSE, files: [])
     UploadCollection.new.tap do |collection|
       collection.project_id = project.id
-      collection.id = random_id
+      collection.id = id
       collection.name = "sample name"
       collection.type = type
       collection.metadata = {test: 'test'}
@@ -42,6 +51,7 @@ module ModelHelper
       file.filename = "#{random_id}.txt"
       file.status = FileStatus::PENDING
       file.size = 200
+      file.stubs(:upload_collection).returns(collection)
     end
   end
   def random_id

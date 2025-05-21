@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Dataverse
   # Dataverse connector download processor. Responsible for downloading files of type Dataverse
-  class ConnectorDownloadProcessor
+  class DownloadConnectorProcessor
     include LoggingCommon
 
     attr_reader :file, :connector_metadata, :cancelled

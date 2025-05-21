@@ -29,11 +29,11 @@ class ConnectorClassDispatcher
   end
 
   def self.download_processor(download_file)
-    self.load(download_file.type, 'ConnectorDownloadProcessor', download_file)
+    self.load(download_file.type, 'DownloadConnectorProcessor', download_file)
   end
 
   def self.upload_processor(upload_file)
-    self.load(upload_file.type, 'ConnectorUploadProcessor', upload_file)
+    self.load(upload_file.type, 'UploadConnectorProcessor', upload_file)
   end
 
   private
