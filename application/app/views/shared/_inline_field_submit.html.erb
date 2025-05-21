@@ -1,7 +1,7 @@
 <%
   type = local_assigns.fetch(:type, 'form')
   button_classes = local_assigns.fetch(:class, 'btn-outline-dark btn-sm')
-  placeholder = local_assigns.fetch(:placeholder, 'Enter value')
+  placeholder = local_assigns.fetch(:placeholder, t('.default_placeholder'))
 %>
 <div data-controller="inline-field-submit"
      data-inline-field-submit-url-value="<%= url %>"
@@ -26,14 +26,14 @@
             type="submit"
             data-action="inline-field-submit#submit"
             data-inline-field-submit-target="label"
-            title="Submit">
+            title="<%= t('.submit') %>">
       <i class="bi bi-check-lg"></i>
     </button>
     <button class="btn btn-sm btn-outline-danger"
             type="button"
             data-action="inline-field-submit#cancel"
             data-inline-field-submit-target="label"
-            title="Cancel">
+            title="<%= t('.cancel') %>">
       <i class="bi bi-x-lg"></i>
     </button>
 
@@ -41,7 +41,7 @@
     <div data-inline-field-submit-target="spinner"
          class="position-absolute top-50 start-50 translate-middle d-none">
       <div class="spinner-border spinner-border-sm" role="status">
-        <span class="visually-hidden">Loading...</span>
+        <span class="visually-hidden"><%= t('.loading') %></span>
       </div>
     </div>
   </div>

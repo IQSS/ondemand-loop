@@ -58,13 +58,13 @@
 
     <!-- Badges -->
     <div class="progress-badge-stack cursor-default">
-      <span class="badge badge-project-pending" title="Pending files"><%= pending %></span>
-      <span class="badge badge-project-completed" title="Completed files"><%= completed %></span>
+      <span class="badge badge-project-pending" title="<%= t('.pending_files') %>"><%= pending %></span>
+      <span class="badge badge-project-completed" title="<%= t('.completed_files') %>"><%= completed %></span>
       <div class="d-flex gap-1">
-        <span class="badge badge-half badge-project-cancel" title="Cancelled files"><%= cancelled %></span>
-        <span class="badge badge-half badge-project-error" title="Error files"><%= error %></span>
+        <span class="badge badge-half badge-project-cancel" title="<%= t('.cancelled_files') %>"><%= cancelled %></span>
+        <span class="badge badge-half badge-project-error" title="<%= t('.error_files') %>"><%= error %></span>
       </div>
-      <span class="badge badge-project-total" title="Total files"><%= total %></span>
+      <span class="badge badge-project-total" title="<%= t('.total_files') %>"><%= total %></span>
     </div>
   </div>
 </div>

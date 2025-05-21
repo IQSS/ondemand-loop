@@ -2,7 +2,7 @@
 <nav aria-label="Breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item active">
-      <a href="<%= root_path %>">Home</a>
+      <a href="<%= root_path %>"><%= t('.home') %></a>
     </li>
     <% links.each_with_index do |link, idx| %>
       <%= tag.li class: current_page?(link) ? 'breadcrumb-item' : 'breadcrumb-item active' do %>

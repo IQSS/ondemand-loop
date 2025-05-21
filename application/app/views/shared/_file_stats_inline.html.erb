@@ -1,6 +1,6 @@
 <% file_status = OpenStruct.new(project_progress_data(count)) %>
-<span class="badge badge-project-pending px-4 cursor-default" title="Pending files"><%= file_status.pending %></span>
-<span class="badge badge-project-completed px-4 cursor-default" title="Completed files"><%= file_status.completed %></span>
-<span class="badge badge-half badge-project-cancel px-4 cursor-default" title="Cancelled files"><%= file_status.cancelled %></span>
-<span class="badge badge-half badge-project-error px-4 cursor-default" title="Error files"><%= file_status.error %></span>
-<span class="badge badge-project-total px-4 cursor-default" title="Total files"><%= file_status.total %></span>
+<span class="badge badge-project-pending px-4 cursor-default" title="<%= t('.pending_files') %>"><%= file_status.pending %></span>
+<span class="badge badge-project-completed px-4 cursor-default" title="<%= t('.completed_files') %>"><%= file_status.completed %></span>
+<span class="badge badge-half badge-project-cancel px-4 cursor-default" title="<%= t('.cancelled_files') %>"><%= file_status.cancelled %></span>
+<span class="badge badge-half badge-project-error px-4 cursor-default" title="<%= t('.error_files') %>"><%= file_status.error %></span>
+<span class="badge badge-project-total px-4 cursor-default" title="<%= t('.total_files') %>"><%= file_status.total %></span>

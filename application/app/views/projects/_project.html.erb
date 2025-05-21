@@ -12,7 +12,7 @@
       </div>
 
       <div class="col-auto">
-        <%= render partial: '/shared/file_stats_widget', locals: project_progress_data(project.count, 'Download Files') %>
+        <%= render partial: '/shared/file_stats_widget', locals: project_progress_data(project.count, t('.download_files')) %>
       </div>
     </div>
   </div>

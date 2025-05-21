@@ -140,6 +140,7 @@ en:
       project_actions:
         open_project_folder: "Open project folder"
         create_upload_collection: "Create Upload Collection"
+        create_upload_collection_placeholder: "Dataset URL"
         delete_project: "Delete Project"
         open_project_metadata: "Open Project Metadata"
       project_metadata:
@@ -167,7 +168,6 @@ en:
         download_start_date: "Download start date"
         delete_file: "Delete File"
       projects: "Projects"
-
     actions:
       downloads_root_directory: "Downloads Root Directory"
       create_project: "Create Project"
@@ -177,6 +177,8 @@ en:
       completion_date: "Completion date"
       download_start_date: "Download start date"
       delete_file: "Delete file"
+    project:
+      download_files: "Download Files"
     project_footer:
       files: "Files"
       view_files: "View files"
@@ -200,4 +202,37 @@ en:
       delete_file: "Delete file"
     index:
       projects: "Projects"
-
+  shared:
+    breadcrumbs:
+      home: "Home"
+    file_stats_inline:
+      pending_files: "Pending files"
+      completed_files: "Completed files"
+      cancelled_files: "Cancelled files"
+      error_files: "Error files"
+      total_files: "Total files"
+    file_stats_widget:
+      pending_files: "Pending files"
+      completed_files: "Completed files"
+      cancelled_files: "Cancelled files"
+      error_files: "Error files"
+      total_files: "Total files"
+    inline_field_submit:
+      default_placeholder: "Enter value"
+      submit: "Submit"
+      cancel: "Cancel"
+      loading: "Loading..."
+    modal:
+      close: "Close"
+    ood_folder_button:
+      ood_icon_alt: "Open OnDemand Icon"
+    project_bar:
+      open_project_folder: "Open Project folder"
+      creation_date: "Creation date"
+      open_project_metadata: "Open Project metadata"
+      active_project: "Active Project"
+    repo_resolver_bar:
+      repo_url_placeholder: "Paste Repository URL"
+      repo_url: "Repository URL"
+      connect: "Connect"
+  upload_status:
