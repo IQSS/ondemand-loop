@@ -43,3 +43,11 @@ en:
     resolve:
       blank_url_error: 'Please provide repo URL'
       url_not_supported: "URL not supported: %{url} type: %{type}"
+  upload_collections:
+    create:
+      invalid_project_id: "Invalid project id: %{id}"
+    edit:
+      invalid_parameters: "Invalid parameters project_id: %{project_id} collection_id: %{collection_id}"
+    update:
+      upload_collection_not_found: "Upload Collection not found: %{collection_id}"
+      upload_collection_deleted: "Upload collection deleted: %{collection_name}"
