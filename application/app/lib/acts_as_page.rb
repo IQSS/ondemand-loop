@@ -15,7 +15,7 @@ module ActsAsPage
   def to_s
     start_index = (@page - 1) * @per_page
     end_index = [start_index + @per_page, total_count].min
-    "#{start_index + 1} to #{end_index} of #{total_count} results"
+    I18n.t("acts_as_page.results_summary", start_index: start_index + 1, end_index: end_index, total_count: total_count)
   end
 
   def total_pages

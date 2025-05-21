@@ -19,10 +19,10 @@ module Dataverse::DataversesHelper
   end
 
   def search_results_count(search_result)
-    return "0 of #{search_result.data.total_count} results" if search_result.data.out_of_range?
+    return I18n.t("acts_as_page.out_of_range") if search_result.data.out_of_range?
     first = search_result.data.start + 1
     last = [search_result.data.start + search_result.data.per_page, search_result.data.total_count].min
-    "#{first} to #{last} of #{search_result.data.total_count} results"
+    I18n.t("acts_as_page.results_summary", start_index: first, end_index: last, total_count: search_result.data.total_count)
   end
 
   def link_to_search_results_prev_page(dataverse_url, dataverse, search_result, html_options = {})
