@@ -1,5 +1,5 @@
 module Dataverse
-  class HubRegistry
+  class DataverseHub
     include LoggingCommon
     DEFAULT_CACHE_EXPIRY = 24.hours.freeze
     HUB_API_URL = 'https://hub.dataverse.org/api/installation'

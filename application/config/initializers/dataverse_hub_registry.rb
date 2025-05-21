@@ -4,7 +4,7 @@ module DataverseHubRegistry
   mattr_accessor :registry
 
   def self.build_initializers
-    Dataverse::HubRegistry.new
+    Dataverse::DataverseHub.new
   end
 
 end

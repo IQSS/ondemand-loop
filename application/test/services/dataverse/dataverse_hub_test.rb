@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class Dataverse::HubRegistryTest < ActiveSupport::TestCase
+class Dataverse::DataverseHubTest < ActiveSupport::TestCase
   include ActiveSupport::Testing::TimeHelpers
 
   TEST_URL = 'https://my.hub.com/api/installation'
@@ -10,7 +10,7 @@ class Dataverse::HubRegistryTest < ActiveSupport::TestCase
   setup do
     @mock_client = mock('HttpClient')
     @expiry = 1.second
-    @target = Dataverse::HubRegistry.new(
+    @target = Dataverse::DataverseHub.new(
       url: TEST_URL,
       http_client: @mock_client,
       expires_in: @expiry
