@@ -1,12 +1,4 @@
 es:
-  acts_as_page:
-    results_summary: "%{start_index} a %{end_index} de %{total_count} resultados"
-    out_of_range: "Fuera de rango"
-  helpers:
-    invalid_dataverse_hostname: "Nombre da Dataverse inválido"
-    key_missing: "Credencial no suministrada"
-    key_not_verified: "Credencial no verificada"
-    key_verified: "Credencial verificada"
   connectors:
     dataverse:
       upload_collection_bar:
