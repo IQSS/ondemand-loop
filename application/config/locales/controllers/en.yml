@@ -19,3 +19,7 @@ en:
         dataverse_not_found: "Dataverse not found. Dataverse: %{dataverse_url} Id: %{id}"
         dataverse_requires_authorization: "Dataverse requires authorization. Dataverse: %{dataverse_url} Id: %{id}"
         dataverse_service_error: "Dataverse service error. Dataverse: %{dataverse_url} Id: %{id}"
+  download_files:
+    destroy:
+      file_not_found_for_project: "File: %{file_id} not found for project: %{project_id}"
+      download_file_deleted_successfully: 'Download file deleted successfully'
