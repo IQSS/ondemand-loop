@@ -1,4 +1,14 @@
 en:
   dataverse:
     datasets:
-      error_generating_project: "Error generating project: %{errors}"
+      download:
+        error_generating_project: "Error generating project: %{errors}"
+        invalid_file_in_selection: "Invalid file in selection: %{filename} errors: %{errors}"
+        error_generating_the_download_file: "Error generating the download file"
+        files_added_to_project: "Files added to project: %{project_name}"
+      dataset_not_found: "Dataset not found. Dataverse: %{dataverse_url} persistentId: %{persistent_id}"
+      dataset_requires_authorization: "Dataset requires authorization. Dataverse: %{dataverse_url} persistentId: %{persistent_id}"
+      dataverse_service_error: "Dataverse service error. Dataverse: %{dataverse_url} persistentId: %{persistent_id}"
+      dataset_files_not_found: "Dataset files not found. Dataverse: %{dataverse_url} persistentId: %{persistent_id} page: %{page}"
+      dataset_files_endpoint_requires_authorization: "Dataset files endpoint requires authorization. Dataverse: %{dataverse_url} persistentId: %{persistent_id} page: %{page}"
+      dataverse_service_error_searching_files: "Dataverse service error while searching files. Dataverse: %{dataverse_url} persistentId: %{persistent_id} page: %{page}"
