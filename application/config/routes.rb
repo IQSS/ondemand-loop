@@ -42,10 +42,6 @@ Rails.application.routes.draw do
   get "/view/dataverse/*dv_hostname/datasets/*persistent_id" => "dataverse/datasets#show", as: :view_dataverse_dataset, format: false
   get "/view/dataverse/*dv_hostname/dataverses/:id" => "dataverse/dataverses#show", as: :view_dataverse, format: false
 
-  # DOI ROUTES
-  get "/view/doi/search" => 'doi_search#index', as: :doi_search
-  post '/view/doi/search' => 'doi_search#search', as: :doi_search_post
-  get "/view/doi/search/*doi" => 'doi_search#search', as: :doi_resolve
   # REPO RESOLVER ROUTES
   post '/view/repo/resolve' => 'repo_resolver#resolve', as: :repo_resolver
 

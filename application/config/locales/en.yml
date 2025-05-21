@@ -66,13 +66,6 @@ en:
       index:
         home: "Home"
         dataverse_icon: "Dataverse icon"
-  doi_search:
-    index:
-      doi_search: "DOI Search"
-      doi_logo: "DOI Logo"
-      doi_lookup: "DOI Lookup"
-      doi_placeholder: "Enter DOI..."
-      search: "Search"
   download_status:
     actions:
       downloads_directory: "Downloads Directory"
@@ -96,7 +89,6 @@ en:
         projects: "Projects"
         downloads: "Downloads"
         uploads: "Uploads"
-        doi_search: "DOI Search"
         repositories: "Repositories"
         explore: "Explore"
         icon_alt_text: "Loop Application Icon"

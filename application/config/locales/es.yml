@@ -66,13 +66,6 @@ es:
       index:
         home: "Inicio"
         dataverse_icon: "Icono de Dataverse"
-  doi_search:
-    index:
-      doi_search: "Búsqueda DOI"
-      doi_logo: "Logo DOI"
-      doi_lookup: "Búsqueda DOI"
-      doi_placeholder: "Ingrese DOI..."
-      search: "Buscar"
   download_status:
     actions:
       downloads_directory: "Directorio de descargas"
@@ -96,7 +89,6 @@ es:
         projects: "Proyectos"
         downloads: "Descargas"
         uploads: "Cargas"
-        doi_search: "Búsqueda DOI"
         repositories: "Repositorios"
         explore: "Explorar"
         icon_alt_text: "Icono de la aplicación Loop"
