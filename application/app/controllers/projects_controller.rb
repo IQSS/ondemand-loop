@@ -13,9 +13,9 @@ class ProjectsController < ApplicationController
     project_name = params[:project_name] || ProjectNameGenerator.generate
     project = Project.new(id: project_name, name: project_name)
     if project.save
-      flash[:notice] = "Project #{project_name} created"
+      flash[:notice] = t(".project_created", project_name: project_name)
     else
-      flash[:alert] = "Error generating the project: #{project.errors.full_messages}"
+      flash[:alert] = t(".project_create_error", errors: project.errors.full_messages)
     end
 
     redirect_to projects_path
@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
     project_id = params[:id]
     project = Project.find(project_id)
     if project.nil?
-      error_message = "Project #{project_id} not found"
+      error_message = t(".project_not_found", id: project_id)
       respond_to do |format|
         format.html { redirect_to projects_path, alert: error_message }
         format.json { render json: { error: error_message }, status: :not_found }
@@ -37,12 +37,12 @@ class ProjectsController < ApplicationController
 
     if project.update(update_params)
       respond_to do |format|
-        format.html { redirect_to projects_path, notice: 'Project updated successfully' }
+        format.html { redirect_to projects_path, notice: t(".project_updated_successfully") }
         format.json { render json: project.to_json, status: :ok }
       end
     else
       respond_to do |format|
-        format.html { redirect_to projects_path, alert: "Failed to update project: #{project.errors.full_messages}" }
+        format.html { redirect_to projects_path, alert: t(".project_update_error", errors: project.errors.full_messages) }
         format.json { render json: { error: project.errors.full_messages }, status: :unprocessable_entity }
       end
     end
@@ -52,23 +52,23 @@ class ProjectsController < ApplicationController
     project_id = params[:id]
     project = Project.find(project_id)
     if project.nil?
-      redirect_to projects_path, alert: "Project #{project_id} not found"
+      redirect_to projects_path, alert: t(".project_not_found", id: project_id)
       return
     end
 
     Current.settings.update_user_settings({active_project: project_id})
-    redirect_to projects_path, notice: "#{project.name} is now the active project."
+    redirect_to projects_path, notice: t(".project_is_now_the_active_project", project_name: project.name)
   end
 
   def destroy
     project_id = params[:id]
     project = Project.find(project_id)
     if project.nil?
-      redirect_to projects_path, alert: "Project #{project_id} not found"
+      redirect_to projects_path, alert: t(".project_not_found", id: project_id)
       return
     end
 
     project.destroy
-    redirect_to projects_path, notice: "Project #{project.name} deleted successfully"
+    redirect_to projects_path, notice: t(".project_deleted_successfully", project_name: project.name)
   end
 end

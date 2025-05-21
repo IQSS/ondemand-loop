@@ -20,7 +20,22 @@ en:
         dataverse_requires_authorization: "Dataverse requires authorization. Dataverse: %{dataverse_url} Id: %{id}"
         dataverse_service_error: "Dataverse service error. Dataverse: %{dataverse_url} Id: %{id}"
   download_files:
+    compulsory_fields_error: "project_id and id are compulsory"
+    file_not_found_for_project: "File: %{file_id} not found for project: %{project_id}"
+    download_file_deleted_successfully: 'Download file deleted successfully'
+  file_browser:
+    directory_forbidden: "You do not have permission to access this directory."
+  projects:
+    create:
+      project_created: "Project %{project_name} created"
+      project_create_error: "Error generating the project: %{errors}"
+    update:
+      project_not_found: "Project %{id} not found"
+      project_updated_successfully: "Project updated successfully"
+      project_update_error: "Failed to update project: %{errors}"
+    set_active:
+      project_not_found: "Project %{id} not found"
+      project_is_now_the_active_project: "%{project_name} is now the active project."
     destroy:
-      compulsory_fields_error: "project_id and id are compulsory"
-      file_not_found_for_project: "File: %{file_id} not found for project: %{project_id}"
-      download_file_deleted_successfully: 'Download file deleted successfully'
+      project_not_found: "Project %{id} not found"
+      project_deleted_successfully: "Project %{project_name} deleted successfully"
