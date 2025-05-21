@@ -1,21 +1,38 @@
 module Dataverse
   class HubRegistry
     include LoggingCommon
-    CACHE_KEY = 'dataverse_hub_installations'
-    CACHE_EXPIRY = 24.hours.freeze
+    DEFAULT_CACHE_EXPIRY = 24.hours.freeze
     HUB_API_URL = 'https://hub.dataverse.org/api/installation'
 
-    def initialize(url: HubRegistry::HUB_API_URL, http_client: Common::HttpClient.new(base_url: HUB_API_URL), cache: Rails.cache)
+    def initialize(
+      url: HUB_API_URL,
+      http_client: Common::HttpClient.new(base_url: HUB_API_URL),
+      expires_in: DEFAULT_CACHE_EXPIRY
+    )
       @url = url
       @http_client = http_client
-      @cache = cache
+      @expires_in = expires_in
+      @installations = []
+      @last_fetched_at = nil
     end
 
     def installations
-      @cache.fetch(CACHE_KEY, expires_in: CACHE_EXPIRY) do
-        log_info('Fetching Dataverse Hub installations...', {url: @url})
-        fetch_installations
+      if cache_expired?
+        log_info('Fetching Dataverse Hub installations...', { url: @url })
+        result = fetch_installations
+        if result.present?
+          @installations = result
+          @last_fetched_at = Time.current
+        end
       end
+
+      @installations
+    end
+
+    private
+
+    def cache_expired?
+      @last_fetched_at.nil? || Time.current - @last_fetched_at > @expires_in
     end
 
     private
