@@ -41,7 +41,7 @@ class UploadFilesController < ApplicationController
       unless file.valid?
         errors = file.errors.full_messages.join(", ")
         log_error('UploadFile validation error', {error: errors, project_id: project_id, upload_collection_id: collection_id, file: file.to_s})
-        render json: { message: "Invalid file in selection: #{file.filename} errors: #{errors}" }, status: :bad_request
+        render json: { message: t(".invalid_file", filename: file.filename, errors: errors) }, status: :bad_request
         return
       end
     end
@@ -51,7 +51,7 @@ class UploadFilesController < ApplicationController
       log_info('Added file to upload collection', {project_id: project_id, upload_collection_id: collection_id, file: file.filename})
     end
 
-    message = upload_files.size > 1 ? "#{} Files added from: #{path_folder}" : "File added: #{upload_files.first.filename}"
+    message = upload_files.size > 1 ? t(".files_added", count: upload_files.size, path_folder: path_folder) : t(".file_added", filename: upload_files.first.filename)
     render json: { message: message }, status: :ok
   end
 
@@ -61,12 +61,12 @@ class UploadFilesController < ApplicationController
     file_id = params[:id]
     upload_file = UploadFile.find(project_id, collection_id, file_id)
     if upload_file.nil?
-      redirect_back fallback_location: root_path, alert: "File: #{file_id} not found for project: #{project_id}"
+      redirect_back fallback_location: root_path, alert: t(".file_not_found", file_id: file_id, project_id: project_id)
       return
     end
 
     upload_file.destroy
-    redirect_back fallback_location: root_path, notice: "Upload file removed from collection. #{upload_file.filename}"
+    redirect_back fallback_location: root_path, notice: t(".upload_file_removed", filename: upload_file.filename)
   end
 
   def cancel
@@ -75,14 +75,14 @@ class UploadFilesController < ApplicationController
     file_id = params[:id]
 
     if project_id.blank? || collection_id.blank? || file_id.blank?
-      render json: 'project_id and file_id are compulsory', status: :bad_request
+      render json: t(".compulsory_fields_error"), status: :bad_request
       return
     end
 
     file = UploadFile.find(project_id, collection_id, file_id)
 
     if file.nil?
-      render json: "file not found project_id=#{project_id} upload_collection_id=#{collection_id} id=#{file_id}", status: :not_found
+      render json: t(".file_not_found", project_id: project_id, collection_id: collection_id, file_id: file_id), status: :not_found
       return
     end
 

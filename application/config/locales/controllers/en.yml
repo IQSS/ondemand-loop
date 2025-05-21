@@ -50,4 +50,17 @@ en:
       invalid_parameters: "Invalid parameters project_id: %{project_id} collection_id: %{collection_id}"
     update:
       upload_collection_not_found: "Upload Collection not found: %{collection_id}"
+    destroy:
+      upload_collection_not_found: "Upload Collection not found: %{collection_id}"
       upload_collection_deleted: "Upload collection deleted: %{collection_name}"
+  upload_files:
+    create:
+      invalid_file: "Invalid file in selection: %{filename} errors: %{errors}"
+      files_added: "%{count} files added from: %{path_folder}"
+      file_added: "File added: %{filename}"
+    destroy:
+      file_not_found: "File: #{file_id} not found for project: %{project_id}"
+      upload_file_removed: "Upload file removed from collection. %{filename}"
+    cancel:
+      compulsory_fields_error: 'project_id and file_id are compulsory'
+      file_not_found: "file not found project_id=%{project_id} upload_collection_id=%{collection_id} id=%{file_id}"
