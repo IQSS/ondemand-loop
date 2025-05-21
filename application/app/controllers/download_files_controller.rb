@@ -7,14 +7,14 @@ class DownloadFilesController < ApplicationController
     file_id = params[:id]
 
     if project_id.blank? || file_id.blank?
-      render json: 'project_id and id are compulsory', status: :bad_request
+      render json: t('.compulsory_fields_error'), status: :bad_request
       return
     end
 
     file = DownloadFile.find(project_id, file_id)
 
     if file.nil?
-      render json: "file not found project_id=#{project_id} file_id=#{file_id}", status: :not_found
+      render json: t('.file_not_found_for_project', file_id: file_id, project_id: project_id), status: :not_found
       return
     end
 

@@ -21,5 +21,6 @@ en:
         dataverse_service_error: "Dataverse service error. Dataverse: %{dataverse_url} Id: %{id}"
   download_files:
     destroy:
+      compulsory_fields_error: "project_id and id are compulsory"
       file_not_found_for_project: "File: %{file_id} not found for project: %{project_id}"
       download_file_deleted_successfully: 'Download file deleted successfully'
