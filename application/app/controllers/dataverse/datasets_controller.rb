@@ -17,7 +17,7 @@ class Dataverse::DatasetsController < ApplicationController
       project = @service.initialize_project(@dataset)
       unless project.save
         errors = project.errors.full_messages.join(", ")
-        redirect_back fallback_location: root_path, alert: "Error generating project: #{errors}"
+        redirect_back fallback_location: root_path, alert: I18n.t(".error_generating_project", errors: errors)
         return
       end
     end

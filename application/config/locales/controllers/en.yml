@@ -1,0 +1,4 @@
+en:
+  dataverse:
+    datasets:
+      error_generating_project: "Error generating project: %{errors}"
