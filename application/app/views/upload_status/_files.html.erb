@@ -1,7 +1,7 @@
 <% files ||= [] %>
 <div id="schedule-uploads" class="card">
   <div class="card-header">
-    <h4>Scheduled Uploads</h4>
+    <h4><%= t('.scheduled_uploads') %></h4>
   </div>
   <div class="card-body bg-light px-0">
     <div class="container files">
@@ -9,16 +9,16 @@
         <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
           <div class="col-md-8">
             <div class="d-flex align-items-center">
-            <%= link_to(files_app_url(File.dirname(data.file.file_location)), class: 'btn btn-sm btn-outline-secondary me-2', title: 'Browse file', target: '_blank') do %>
+            <%= link_to(files_app_url(File.dirname(data.file.file_location)), class: 'btn btn-sm btn-outline-secondary me-2', title: t('.browse_file'), target: '_blank') do %>
               <i class="bi bi-folder"></i>
             <% end %>
               <%= render partial: 'shared/repo_badge', locals: {
                 repo_url: data.file.connector_metadata.files_url,
                 icon_html: connector_icon(data.file.type),
                 name: truncate(data.file.connector_metadata.repo_name, length: 20),
-                tooltip: "External dataset"
+                tooltip: t(".external_dataset")
               } %>
-              <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-2" title="Schedule creation date">
+              <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-2" title="<%= t('.schedule_creation_date') %>">
                 <span><%= get_date(data.file.creation_date) %></span>
                 <span><%= get_time(data.file.creation_date) %></span>
               </div>
@@ -40,7 +40,7 @@
           <div class="download-actions col-md-2 text-end">
             <%= status_badge(data.file.status) %>
 
-            <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger <%= cancel_button_class(data.file.status) %>" title="Cancel upload"
+            <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger <%= cancel_button_class(data.file.status) %>" title="<%= t('.cancel_upload') %>"
                     data-controller="upload-file-cancellation"
                     data-action="click->upload-file-cancellation#cancel"
                     data-upload-file-cancellation-url-value="<%= cancel_project_upload_collection_upload_file_path(project_id: data.file.project_id, upload_collection_id: data.file.collection_id, id: data.file.id) %>">

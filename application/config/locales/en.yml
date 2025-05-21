@@ -236,3 +236,13 @@ en:
       repo_url: "Repository URL"
       connect: "Connect"
   upload_status:
+    actions:
+      reload: "Reload"
+    files:
+      scheduled_uploads: "Scheduled Uploads"
+      browse_file: "Browse file"
+      external_dataset: "External dataset"
+      schedule_creation_date: "Schedule creation date"
+      cancel_upload: "Cancel upload"
+    index:
+      uploads: "Uploads"
