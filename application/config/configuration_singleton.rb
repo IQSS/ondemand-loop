@@ -14,6 +14,7 @@ class ConfigurationSingleton
       ::ConfigurationProperty.property(:files_app_path, default: '/pun/sys/dashboard/files/fs'),
       ::ConfigurationProperty.property(:ood_dashboard_path, default: '/pun/sys/dashboard'),
       ::ConfigurationProperty.property(:connector_status_poll_interval, default: '5000'),
+      ::ConfigurationProperty.property(:locale, default: :en),
       ::ConfigurationProperty.integer(:download_files_retention_period, default: 24 * 60 * 60),
       ::ConfigurationProperty.integer(:upload_files_retention_period, default: 24 * 60 * 60),
       ::ConfigurationProperty.integer(:ui_feedback_delay, default: 1500),

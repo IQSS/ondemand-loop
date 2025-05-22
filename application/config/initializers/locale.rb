@@ -2,4 +2,4 @@
 I18n.available_locales = [ :en, :es ]
 
 # Set default locale
-I18n.default_locale = :en
+I18n.default_locale = ::Configuration.locale || :en
