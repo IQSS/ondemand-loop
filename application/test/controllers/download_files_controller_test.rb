@@ -16,7 +16,7 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
 
     post cancel_project_download_file_url(project_id: @project_id, id: @file_id)
     assert_response :not_found
-    assert_match "file not found", @response.body
+    assert_match "not found for project", @response.body
   end
 
   test "cancel should return 404 if file is downloading and command fails" do
