@@ -11,6 +11,15 @@ module Dataverse
       @file_utils = file_utils
     end
 
+    def get_citation_metadata
+      url = "/api/metadatablocks/citation"
+      response = @http_client.get(url)
+      return nil if response.not_found?
+      raise UnauthorizedException if response.unauthorized?
+      raise "Error getting dataverse citation metadata: #{response.status} - #{response.body}" unless response.success?
+      CitationMetadataResponse.new(response.body)
+    end
+
     def find_dataset_version_by_persistent_id(persistent_id, version: ':latest-published')
       url = "/api/datasets/:persistentId/versions/#{version}?persistentId=#{persistent_id}&returnOwners=true&excludeFiles=true"
       response = @http_client.get(url)
