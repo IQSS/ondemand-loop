@@ -18,3 +18,17 @@ es:
     download:
       cancel:
         error: "No se pudo cancelar la descarga."
+    drop:
+      path:
+        save_error: "Error guardando la ruta: "
+        network_error: "Error de red misntras se guardaba la ruta:"
+    inline_field:
+      submit:
+        success: "Valor guardado con éxito"
+        error: "Ha habido un error guardando tus datos."
+    project_name:
+      save:
+        error: "No se pudo actualizar el nombre del proyecto."
+    upload:
+      cancel:
+        error: "No se pudo cancelar la subida del fichero."

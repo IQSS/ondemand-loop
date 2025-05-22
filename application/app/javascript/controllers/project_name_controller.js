@@ -48,7 +48,7 @@ export default class extends Controller {
             })
             .catch(error => {
                 console.error(error)
-                showFlash("error", loop_app_config.i18n.project_name.save.error)
+                showFlash("error", window.loop_app_config.i18n.project_name.save.error)
             })
     }
 
