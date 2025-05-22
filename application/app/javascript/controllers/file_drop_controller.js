@@ -67,7 +67,7 @@ export default class extends Controller {
                 if (response.ok) {
                     this.showFeedback(filePath, data.message); // pass message to showFeedback
                 } else {
-                    const msg = data.message || `Error saving path: ${filePath}`;
+                    const msg = data.message || `${loop_app_config.i18n.drop.path.save_error} ${filePath}`;
                     showFlash('error', msg, this.element.id);
                     this.hideDroppingZone()
                     this.wasDropped = false
@@ -75,7 +75,7 @@ export default class extends Controller {
             });
         }).catch(error => {
             console.error('Network error:', error);
-            showFlash('error', `Network error while saving path: ${filePath}`, this.element.id);
+            showFlash('error', `${loop_app_config.i18n.drop.path.network_error} ${filePath}`, this.element.id);
             this.wasDropped = false;
         });
     }

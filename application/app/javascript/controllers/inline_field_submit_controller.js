@@ -83,11 +83,11 @@ export default class extends Controller {
             })
             .then(data => {
                 this.cancel(event)
-                showFlash("success", "Saved successfully")
+                showFlash("success", loop_app_config.i18n.inline_field.submit.success)
             })
             .catch(error => {
                 console.error("Submission failed", error)
-                showFlash("error", "There was an error saving your data.")
+                showFlash("error", loop_app_config.i18n.inline_field.submit.error)
             })
             .finally(() => {
                 this.hideSpinner()

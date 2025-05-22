@@ -14,3 +14,21 @@ en:
     key_missing: "Key missing"
     key_not_verified: "Key not verified"
     key_verified: "Key verified"
+  js:
+    download:
+      cancel:
+        error: "Could not cancel download."
+    drop:
+      path:
+        save_error: "Error saving path: "
+        network_error: "Network error while saving path:"
+    inline_field:
+      submit:
+        success: "Saved successfully"
+        error: "There was an error saving your data."
+    project_name:
+      save:
+        error: "Could not update project name."
+    upload:
+      cancel:
+        error: "Could not cancel upload."

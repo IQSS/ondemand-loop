@@ -48,7 +48,7 @@ export default class extends Controller {
             })
             .catch(error => {
                 console.error(error)
-                showFlash("error", "Could not update project name.")
+                showFlash("error", loop_app_config.i18n.project_name.save.error)
             })
     }
 

@@ -31,7 +31,7 @@ export default class extends SpinnerToggleMixin(Controller) {
             }
         }).catch(err => {
             console.error(err)
-            showFlash("alert", "Could not cancel download.")
+            showFlash("alert", loop_app_config.i18n.download.cancel.error)
         }).finally(() => {
             setTimeout(() => {
                 this.hideSpinner(button)

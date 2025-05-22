@@ -7,5 +7,6 @@
       connector_status_poll_interval: <%= Configuration.connector_status_poll_interval.to_i%>,
       ui_feedback_delay: <%= Configuration.ui_feedback_delay.to_i%>,
       file_drop_target_id: null,
+      i18n: <%= I18n.t('js').to_json.html_safe %>
   }
 </script>

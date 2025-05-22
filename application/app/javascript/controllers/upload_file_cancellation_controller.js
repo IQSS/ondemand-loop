@@ -31,7 +31,7 @@ export default class extends SpinnerToggleMixin(Controller) {
             }
         }).catch(err => {
             console.error(err)
-            showFlash("alert", "Could not cancel upload.")
+            showFlash("alert", window.loop_app_config.i18n.upload.cancel.error)
         }).finally(() => {
             setTimeout(() => {
                 this.hideSpinner(button)
