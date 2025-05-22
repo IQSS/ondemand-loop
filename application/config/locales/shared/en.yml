@@ -2,6 +2,13 @@ en:
   acts_as_page:
     results_summary: "%{start_index} to %{end_index} of %{total_count} results"
     out_of_range: "Out of range"
+  status:
+    pending: "pending"
+    downloading: "downloading"
+    uploading: "uploading"
+    success: "success"
+    error: "error"
+    cancelled: "cancelled"
   helpers:
     invalid_dataverse_hostname: "Invalid Dataverse hostname"
     key_missing: "Key missing"

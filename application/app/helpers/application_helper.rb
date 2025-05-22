@@ -42,6 +42,8 @@ module ApplicationHelper
       color = 'bg-success'
     when FileStatus::ERROR
       color = 'bg-danger'
+    when FileStatus::UPLOADING
+      color = 'bg-info'
     when FileStatus::DOWNLOADING
       color = 'bg-info'
     else
@@ -49,6 +51,6 @@ module ApplicationHelper
     end
 
     # Return a span with the appropriate class and status text
-    content_tag(:span, status.to_s, class: "badge file-status #{color}", title: title)
+    content_tag(:span, t("status.#{status}"), class: "badge file-status #{color}", title: title)
   end
 end

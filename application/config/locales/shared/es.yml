@@ -2,6 +2,13 @@ es:
   acts_as_page:
     results_summary: "%{start_index} a %{end_index} de %{total_count} resultados"
     out_of_range: "Fuera de rango"
+  status:
+    pending: "pendiente"
+    downloading: "descargando"
+    uploading: "transfiriendo"
+    success: "completado"
+    error: "error"
+    cancelled: "cancelado"
   helpers:
     invalid_dataverse_hostname: "Nombre da Dataverse inválido"
     key_missing: "Credencial no suministrada"
