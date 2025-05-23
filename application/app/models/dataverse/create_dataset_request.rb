@@ -10,7 +10,7 @@ module Dataverse
       @subjects = subjects
     end
 
-    def to_json
+    def to_body
       {
         datasetVersion: {
           metadataBlocks: {
