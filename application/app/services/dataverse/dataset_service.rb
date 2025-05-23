@@ -16,8 +16,10 @@ module Dataverse
 
     def create_dataset(dataverse_id, dataset_data)
       raise ApiKeyRequiredException unless @api_key
+
+      headers = { 'Content-Type' => 'application/json', AUTH_HEADER => @api_key }
       url = "/api/dataverses/#{dataverse_id}/datasets"
-      response = @http_client.post(url, body: dataset_data.to_body, headers: { AUTH_HEADER => @api_key })
+      response = @http_client.post(url, body: dataset_data.to_body, headers: headers)
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?
       raise "Error creating dataset: #{response.status} - #{response.body}" unless response.success?
