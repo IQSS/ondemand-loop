@@ -64,18 +64,18 @@ module Dataverse
     def edit(collection, request_params)
       case request_params[:form].to_s
       when 'dataset_create'
-        Dataverse::Services::DatasetCreate.new.edit(collection, request_params)
+        Dataverse::Actions::DatasetCreate.new.edit(collection, request_params)
       else
-        Dataverse::Services::ConnectorEdit.new.edit(collection, request_params)
+        Dataverse::Actions::ConnectorEdit.new.edit(collection, request_params)
       end
     end
 
     def update(collection, request_params)
       case request_params[:form].to_s
       when 'dataset_create'
-        Dataverse::Services::DatasetCreate.new.update(collection, request_params)
+        Dataverse::Actions::DatasetCreate.new.update(collection, request_params)
       else
-        Dataverse::Services::ConnectorEdit.new.update(collection, request_params)
+        Dataverse::Actions::ConnectorEdit.new.update(collection, request_params)
       end
     end
 

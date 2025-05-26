@@ -1,15 +1,13 @@
-module Dataverse::Services
+module Dataverse::Actions
   class ConnectorEdit
     def edit(collection, request_params)
       ConnectorResult.new(
         partial: '/connectors/dataverse/connector_edit_form',
-        locals: { collection: collection },
-        message: { notice: "Loaded connector form" }
+        locals: { collection: collection }
       )
     end
 
     def update(collection, request_params)
-      sleep(10)
       repo_key = request_params[:api_key]
       scope = request_params[:key_scope]
       if scope == 'collection'
@@ -22,7 +20,7 @@ module Dataverse::Services
       end
 
       ConnectorResult.new(
-        message: { notice: "API Key updated: #{collection.name}" },
+        message: { notice: I18n.t('dataverse.actions.connector_edit.success', name: collection.name) },
         success: true
       )
     end

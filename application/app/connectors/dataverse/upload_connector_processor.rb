@@ -20,7 +20,7 @@ module Dataverse
       source_location = file.file_location
       temp_location ="#{source_location}.part"
       headers = { "X-Dataverse-key" => connector_metadata.api_key&.value }
-      payload = { "description" => "Sample description" }
+      payload = { "description" => "File uploaded from OnDemand Loop application" }
 
       connector_metadata.upload_url = upload_url
       connector_metadata.temp_location = temp_location

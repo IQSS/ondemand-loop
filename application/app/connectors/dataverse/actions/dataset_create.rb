@@ -1,4 +1,4 @@
-module Dataverse::Services
+module Dataverse::Actions
   class DatasetCreate
     def edit(collection, request_params)
       connector_metadata = collection.connector_metadata
@@ -14,14 +14,13 @@ module Dataverse::Services
 
       ConnectorResult.new(
         partial: '/connectors/dataverse/dataset_create_form',
-        locals: { collection: collection, subjects: subjects },
-        message: { notice: "Loaded connector form" }
+        locals: { collection: collection, subjects: subjects }
       )
     end
 
     def update(collection, request_params)
       dataverse_url = collection.connector_metadata.dataverse_url
-      api_key = collection.connector_metadata.api_key
+      api_key = collection.connector_metadata.api_key.value
       collection_id = collection.connector_metadata.collection_id
 
       request = Dataverse::CreateDatasetRequest.new(
@@ -41,7 +40,7 @@ module Dataverse::Services
       collection.update({ metadata: metadata })
 
       ConnectorResult.new(
-        message: { notice: "Dataset created: #{response.persistent_id} > #{request.title}" },
+        message: { notice: I18n.t('dataverse.actions.dataset_create.success', id: response.persistent_id, title: request.title) },
         success: true
       )
     end

@@ -40,14 +40,14 @@ module Dataverse
     end
 
     def select_collection?
-      collection_id.nil? && persistent_id.nil?
+      collection_id.nil? && dataset_id.nil?
     end
 
     def display_dataset?
       dataset_title.present?
     end
     def select_dataset?
-      collection_id.present? && persistent_id.nil?
+      collection_id.present? && dataset_id.nil?
     end
 
     def to_h
