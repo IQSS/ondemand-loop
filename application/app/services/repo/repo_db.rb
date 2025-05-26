@@ -19,19 +19,15 @@ module Repo
       end
     end
 
-    attr_reader :db_path, :expiry
+    attr_reader :db_path
 
-    def initialize(db_path:, expiry: 30.days)
+    def initialize(db_path:)
       @db_path = db_path
-      @expiry = expiry
       @data = load_data
     end
 
     def get(domain)
-      entry = @data[domain]
-      return nil if entry.nil? || expired?(entry)
-
-      entry
+      @data[domain]
     end
 
     def set(domain, type:, metadata: nil)
@@ -58,6 +54,10 @@ module Repo
       log_info('Entry updated', { domain: domain, type: entry.type })
     end
 
+    def delete(domain)
+      @data.delete(domain)
+    end
+
     def size
       @data.size
     end
@@ -67,10 +67,6 @@ module Repo
     end
 
     private
-
-    def expired?(entry)
-      Time.parse(entry.last_updated.to_s) < Time.now - expiry
-    end
 
     def load_data
       return {} unless File.exist?(db_path)

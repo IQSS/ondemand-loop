@@ -28,10 +28,7 @@ module RepoRegistry
   end
 
   def self.build_repo_db
-    Repo::RepoDb.new(
-      db_path: ::Configuration.repo_db_file,
-      expiry: ::Configuration.repo_entry_expiry
-    )
+    Repo::RepoDb.new(db_path: ::Configuration.repo_db_file)
   end
 end
 
