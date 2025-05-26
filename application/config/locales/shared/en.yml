@@ -12,8 +12,7 @@ en:
   helpers:
     invalid_dataverse_hostname: "Invalid Dataverse hostname"
     key_missing: "Key missing"
-    key_not_verified: "Key not verified"
-    key_verified: "Key verified"
+    key_present: "Key present"
   js:
     download:
       cancel:

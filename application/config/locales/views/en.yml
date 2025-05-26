@@ -37,13 +37,9 @@ en:
         submit: "Create Dataset"
         cancel: "Cancel"
       connector_edit_form:
-        field_remote_repo_url_label: "Dataset URL"
-        field_remote_repo_url_placeholder: "https://example.org/dataset/123"
-        field_remote_repo_url_help: "Enter the URL of the dataset where files will be uploaded."
-
         field_api_key_label: "API Key"
         field_api_key_placeholder: "Enter your API key"
-        field_api_key_help: "Provide the API key required to authenticate with the connector."
+        field_api_key_help: "Provide the API key required to authenticate with the Dataverse server."
 
         field_key_scope_label: "Store API key for this collection only"
         field_key_scope_help: "Leave unchecked to store this key for all collections using the same Dataverse server."

@@ -36,7 +36,6 @@ class UploadCollectionsController < ApplicationController
 
     processor = ConnectorClassDispatcher.upload_collection_connector_processor(upload_collection.type)
     processor_params = params.permit(*processor.params_schema).to_h
-    log_info("params", {params: processor_params})
     result = processor.edit(upload_collection, processor_params)
 
     render partial: result.partial, layout: false, locals: result.locals

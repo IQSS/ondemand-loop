@@ -1,7 +1,0 @@
-en:
-  dataverse:
-    actions:
-      connector_edit:
-        success: "API Key updated: %{name}"
-      dataset_create:
-        success: "Dataset created: %{id} > %{title}"

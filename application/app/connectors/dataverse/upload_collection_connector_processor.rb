@@ -21,11 +21,15 @@ module Dataverse
       dv_service = Dataverse::DataverseService.new(dataverse_url.dataverse_url)
       if dataverse_url.collection?
         collection = dv_service.find_dataverse_by_id(dataverse_url.collection_id)
+        return error(I18n.t('connectors.dataverse.upload_collections.collection_not_found', url: remote_repo_url)) unless collection
+
         root_dv = collection.data.parents.first
         root_title = root_dv[:name]
         collection_title = collection.data.name
       elsif dataverse_url.dataset?
         dataset = dv_service.find_dataset_version_by_persistent_id(dataverse_url.dataset_id)
+        return error(I18n.t('connectors.dataverse.upload_collections.dataset_not_found', url: remote_repo_url)) unless dataset
+
         parent_dv = dataset.data.parents.last
         root_dv = dataset.data.parents.first
         root_title = root_dv[:name]
@@ -77,6 +81,15 @@ module Dataverse
       else
         Dataverse::Actions::ConnectorEdit.new.update(collection, request_params)
       end
+    end
+
+    private
+
+    def error(message)
+      ConnectorResult.new(
+        message: { alert: message },
+        success: true
+      )
     end
 
   end
