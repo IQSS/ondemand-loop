@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = ["content", "title"]
+    static targets = ["content", "title", "spinner"]
     static values = { url: String, id: String, title: String }
 
     load() {
@@ -13,6 +13,7 @@ export default class extends Controller {
         if (!modalController) return;
 
         // Call a public method on the modal controller (you define this)
+        modalController.showSpinner();
         modalController.loadFromUrl(this.urlValue, this.titleValue);
     }
 
@@ -22,20 +23,27 @@ export default class extends Controller {
         }
 
         if (this.hasContentTarget) {
-            this.contentTarget.innerHTML = `
-        <div class="text-center py-5">
-          <div class="spinner-border text-primary" role="status"></div>
-        </div>
-      `;
-
             fetch(url)
                 .then(response => response.text())
                 .then(html => {
                     this.contentTarget.innerHTML = html;
-                });
+                })
+                .finally( () => this.hideSpinner())
         }
 
         const bsModal = new bootstrap.Modal(this.element);
         bsModal.show();
+    }
+
+    showSpinner() {
+        if (this.hasSpinnerTarget) {
+            this.spinnerTarget.classList.remove("d-none")
+        }
+    }
+
+    hideSpinner() {
+        if (this.hasSpinnerTarget) {
+            this.spinnerTarget.classList.add("d-none")
+        }
     }
 }

@@ -15,16 +15,16 @@ class ConnectorResult
     data[:success] != false
   end
 
+  def redirect_url
+    data[:redirect_url]
+  end
+
   def partial
     data[:partial]
   end
 
   def locals
     data[:locals] || {}
-  end
-
-  def [](key)
-    data[key]
   end
 
   def to_h

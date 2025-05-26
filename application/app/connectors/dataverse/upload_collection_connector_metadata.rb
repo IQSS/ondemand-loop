@@ -15,12 +15,39 @@ module Dataverse
       nil
     end
 
+    def server_domain
+      @server_domain ||= URI.parse(dataverse_url).host
+    end
+
+    # TODO: Improve this logic
+    def api_key
+      return OpenStruct.new({ collection?: true, server?: false, value: @metadata[:api_key] }) if @metadata[:api_key]
+
+      repo_info = RepoRegistry.repo_db.get(server_domain)
+      OpenStruct.new({ collection?: false, server?: true, value: repo_info.metadata.api_key }) if repo_info && repo_info.metadata.api_key
+    end
+
     def repo_name
       dataverse_url
     end
 
     def files_url
       "#{dataverse_url}/dataset.xhtml?persistentId=#{persistent_id}"
+    end
+
+    def display_collection?
+      collection_title.present?
+    end
+
+    def select_collection?
+      collection_id.nil? && persistent_id.nil?
+    end
+
+    def display_dataset?
+      dataset_title.present?
+    end
+    def select_dataset?
+      collection_id.present? && persistent_id.nil?
     end
 
     def to_h

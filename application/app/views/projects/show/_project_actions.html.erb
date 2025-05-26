@@ -13,7 +13,7 @@
     <%= render partial: 'shared/inline_field_submit', locals: {
       url: project_upload_collections_path(project_id: project.id),
       type: 'form',
-      field_name: 'collection[dataset_url]',
+      field_name: 'remote_repo_url',
       label: t('.create_upload_collection'),
       class: 'btn-sm btn-outline-secondary',
       icon: 'bi bi-folder-plus',

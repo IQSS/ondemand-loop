@@ -36,6 +36,10 @@ class ConnectorClassDispatcher
     self.load(upload_file.type, 'UploadConnectorProcessor', upload_file)
   end
 
+  def self.repo_controller_resolver(type)
+    self.load(type, 'DisplayRepoControllerResolver', nil)
+  end
+
   private
 
   def self.load(module_name, class_name, object)

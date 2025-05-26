@@ -21,11 +21,16 @@ class ConfigurationSingleton
       ::ConfigurationProperty.integer(:detached_controller_interval, default: 10),
       ::ConfigurationProperty.integer(:max_download_file_size, default: 10 * 1024 * 1024 * 1024), # 10 GIGABYTE
       ::ConfigurationProperty.integer(:max_upload_file_size, default: 1024 * 1024 * 1024), # 1 GIGABYTE
+      ::ConfigurationProperty.integer(:repo_entry_expiry, default: 10 * 24 * 60 * 60), # 10 DAYS
     ].freeze
   end
 
   def command_server_socket_file
     File.join(metadata_root, 'command.server.sock')
+  end
+
+  def repo_db_file
+    File.join(metadata_root, 'repos', 'repo_db.yml')
   end
 
   def config

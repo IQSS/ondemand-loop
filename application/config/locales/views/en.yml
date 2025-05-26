@@ -2,14 +2,47 @@ en:
   connectors:
     dataverse:
       upload_collection_bar:
-        edit_dataset: "Edit Dataset"
-      upload_collection_form:
-        dataset_url: "Dataset URL"
-        dataset_url_form_text: "Enter the URL of the dataset where files will be uploaded."
-        api_key: "API Key"
-        api_key_placeholder: "Enter your API key"
-        api_key_form_text: "Provide the API key required to authenticate with the connector."
-        save_changes: "Save Changes"
+        button_edit_dataset_title: "Edit Dataset"
+        modal_edit_dataset_title: "Edit Dataset"
+
+        button_create_dataset_title: "Create Dataset"
+        modal_create_dataset_title: "Create Dataset"
+      dataset_create_form:
+        field_title_label: "Dataset Title"
+        field_title_placeholder: "Enter a descriptive title for the dataset"
+        field_title_help: "Provide a clear and descriptive title to help identify the dataset."
+
+        field_description_label: "Dataset Description"
+        field_description_placeholder: "Describe the contents and purpose of the dataset"
+        field_description_help: "Include key details about what the dataset contains, how it was collected, and its purpose."
+
+        field_author_label: "Author Name"
+        field_author_placeholder: "Full name of the dataset author"
+        field_author_help: "Enter the name of the person or organization responsible for creating the dataset."
+
+        field_contact_email_label: "Contact Email"
+        field_contact_email_placeholder: "Email address for dataset inquiries"
+        field_contact_email_help: "Provide an email address for users to contact with questions about this dataset."
+
+        field_subject_label: "Dataset Subject Area"
+        field_subject_prompt: "Select a subject area"
+        field_subject_help: "Choose the subject area that best categorizes this dataset."
+
+        submit: "Create Dataset"
+        cancel: "Cancel"
+      connector_edit_form:
+        field_remote_repo_url_label: "Dataset URL"
+        field_remote_repo_url_placeholder: "https://example.org/dataset/123"
+        field_remote_repo_url_help: "Enter the URL of the dataset where files will be uploaded."
+
+        field_api_key_label: "API Key"
+        field_api_key_placeholder: "Enter your API key"
+        field_api_key_help: "Provide the API key required to authenticate with the connector."
+
+        field_key_scope_label: "Store API key for this collection only"
+        field_key_scope_help: "Leave unchecked to store this key for all collections using the same Dataverse server."
+
+        submit: "Save Changes"
         cancel: "Cancel"
   dataverse:
     datasets:

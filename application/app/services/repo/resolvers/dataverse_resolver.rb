@@ -20,22 +20,27 @@ module Repo
       def resolve(context)
         return unless context.object_url
 
-        repo_url = RepoUrlParser.parse(context.object_url)
+        repo_url = Dataverse::DataverseUrl.parse(context.object_url)
 
         domain = repo_url.domain
         return unless domain
 
+        log_info('Checking RepoCache', {domain: domain})
+        repo_info = context.repo_db.get(domain)
+        if repo_info
+          context.type = repo_info.type
+          return
+        end
+
         log_info('Checking DataverseHub', {domain: domain})
         if known_dataverse_installation?(domain)
-          context.type = 'dataverse'
-          context.doi = repo_url.doi
+          success(context, domain)
           return
         end
 
         log_info('Checking Dataverse API', {domain: domain})
         if responds_to_api?(context.http_client, domain)
-          context.type = 'dataverse'
-          context.doi = repo_url.doi
+          success(context, domain)
           return
         end
       end
@@ -58,6 +63,11 @@ module Repo
       rescue => e
         log_error('Error while trying Dataverse API', {api_url: api_url}, e)
         false
+      end
+
+      def success(context, domain)
+        context.type = ConnectorType::DATAVERSE
+        context.repo_db.set(domain, type: ConnectorType::DATAVERSE)
       end
 
     end

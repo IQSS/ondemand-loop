@@ -1,0 +1,42 @@
+<%= form_with url: project_upload_collection_path(collection.project_id, collection.id), method: :put, data: { action: "submit->modal#showSpinner" }, local: true do |f| %>
+  <%= hidden_field_tag :form, 'dataset_create' %>
+
+  <div class="mb-3">
+    <%= f.label :title, t('.field_title_label'), class: 'form-label fw-bold' %>
+    <%= f.text_field :title, class: 'form-control', placeholder: t('.field_title_placeholder'), required: true %>
+    <div class="form-text"><%= t('.field_title_help') %></div>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :description, t('.field_description_label'), class: 'form-label fw-bold' %>
+    <%= f.text_area :description, class: 'form-control', placeholder: t('.field_description_placeholder'), required: true %>
+    <div class="form-text"><%= t('.field_description_help') %></div>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :author, t('.field_author_label'), class: 'form-label fw-bold' %>
+    <%= f.text_field :author, class: 'form-control', placeholder: t('.field_author_placeholder'), required: true %>
+    <div class="form-text"><%= t('.field_author_help') %></div>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :contact_email, t('.field_contact_email_label'), class: 'form-label fw-bold' %>
+    <%= f.email_field :contact_email, class: 'form-control', placeholder: t('.field_contact_email_placeholder'), required: true %>
+    <div class="form-text"><%= t('.field_contact_email_help') %></div>
+  </div>
+
+  <div class="mb-3">
+    <%= f.label :subject, t('.field_subject_label'), class: 'form-label fw-bold' %>
+    <%= f.select :subject, subjects, { prompt: t('.field_subject_prompt') }, class: 'form-select', required: true %>
+    <div class="form-text"><%= t('.field_subject_help') %></div>
+  </div>
+
+  <div class="d-flex justify-content-end gap-2">
+    <button type="submit" class="btn btn-sm btn-primary">
+      <i class="bi bi-save-fill me-1"></i> <%= t('.submit') %>
+    </button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">
+      <%= t('.cancel') %>
+    </button>
+  </div>
+<% end %>

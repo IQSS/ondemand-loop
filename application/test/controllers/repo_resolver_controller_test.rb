@@ -14,7 +14,7 @@ class RepoResolverControllerTest < ActionDispatch::IntegrationTest
       object_url: 'https://demo.dataverse.org/dataset.xhtml?persistentId=doi:10.1234/abcde'
     }
 
-    RepoResolversRegistry.stubs(:resolvers).returns([])
+    RepoRegistry.stubs(:resolvers).returns([])
     Repo::RepoResolverService.any_instance.stubs(:resolve).returns(mock_repo_info)
 
     post repo_resolver_url, params: { url: 'https://demo.dataverse.org/dataset.xhtml?persistentId=doi:10.1234/abcde' }
@@ -29,7 +29,7 @@ class RepoResolverControllerTest < ActionDispatch::IntegrationTest
       object_url: 'http://demo.dataverse.org:33000/dataset.xhtml?persistentId=doi:10.1234/abcde'
     }
 
-    RepoResolversRegistry.stubs(:resolvers).returns([])
+    RepoRegistry.stubs(:resolvers).returns([])
     Repo::RepoResolverService.any_instance.stubs(:resolve).returns(mock_repo_info)
 
     post repo_resolver_url, params: { url: 'https://demo.dataverse.org/dataset.xhtml?persistentId=doi:10.1234/abcde' }
@@ -40,7 +40,7 @@ class RepoResolverControllerTest < ActionDispatch::IntegrationTest
   test 'redirects back with alert when resolver returns unknown type' do
     mock_repo_info = { type: 'Unknown' }
 
-    RepoResolversRegistry.stubs(:resolvers).returns([])
+    RepoRegistry.stubs(:resolvers).returns([])
     Repo::RepoResolverService.any_instance.stubs(:resolve).returns(mock_repo_info)
 
     url = 'https://unknown-repo.org/object/123'

@@ -9,10 +9,20 @@ class UploadCollectionsController < ApplicationController
       return
     end
 
-    processor = ConnectorClassDispatcher.upload_collection_connector_processor(ConnectorType::DATAVERSE)
-    result = processor.create(project, collection_params)
-    flash_message = result[:message] || {}
-    redirect_back fallback_location: root_path, **flash_message
+    repo_url = params[:remote_repo_url]
+    repo_resolver = Repo::RepoResolverService.new(RepoRegistry.resolvers)
+    url_resolution = repo_resolver.resolve(repo_url)
+
+    if url_resolution.unknown?
+      redirect_back fallback_location: root_path, alert: "Invalid repo URL: #{repo_url}"
+      return
+    end
+
+    processor = ConnectorClassDispatcher.upload_collection_connector_processor(url_resolution.type)
+    processor_params = params.permit(*processor.params_schema).to_h
+    processor_params[:object_url] = url_resolution.object_url
+    result = processor.create(project, processor_params)
+    redirect_back fallback_location: root_path, **result.message
   end
 
   def edit
@@ -25,7 +35,10 @@ class UploadCollectionsController < ApplicationController
     end
 
     processor = ConnectorClassDispatcher.upload_collection_connector_processor(upload_collection.type)
-    result = processor.edit(upload_collection)
+    processor_params = params.permit(*processor.params_schema).to_h
+    log_info("params", {params: processor_params})
+    result = processor.edit(upload_collection, processor_params)
+
     render partial: result.partial, layout: false, locals: result.locals
   end
 
@@ -40,10 +53,11 @@ class UploadCollectionsController < ApplicationController
     end
 
     processor = ConnectorClassDispatcher.upload_collection_connector_processor(upload_collection.type)
-    result = processor.update(upload_collection, collection_params)
+    processor_params = params.permit(*processor.params_schema).to_h
+    log_info("params", {params: processor_params})
+    result = processor.update(upload_collection, processor_params)
 
-    flash_message = result[:message] || {}
-    redirect_back fallback_location: root_path, **flash_message
+    redirect_back fallback_location: root_path, **result.message
   end
 
   def destroy
@@ -60,11 +74,4 @@ class UploadCollectionsController < ApplicationController
     redirect_back fallback_location: root_path, notice: t(".upload_collection_deleted", collection_name: upload_collection.name)
   end
 
-  private
-
-  def collection_params
-    return {} unless params[:collection].present?
-
-    params.require(:collection).permit!.to_h
-  end
 end

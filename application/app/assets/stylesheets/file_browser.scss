@@ -14,3 +14,26 @@
 .drop-hover .no-scroll {
   overflow: hidden !important;
 }
+
+.drop-overlay {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(1px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.drop-hover .drop-overlay {
+  opacity: 1;
+}
+
+.feedback-color {
+  color: #f1f3f5;
+  font-weight: bold;
+}

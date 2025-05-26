@@ -18,13 +18,12 @@ module Repo
 
       def resolve(context)
         if context.parsed_input.nil?
-          context.doi = context.input
           doi_url = URI.parse(File.join(@api_url, context.input)).to_s
+          object_url = check_url(context, doi_url)
         else
-          doi_url = context.parsed_input.repo_url
+          object_url = context.input
         end
 
-        object_url = doi_url.include?(@api_url) ? check_url(context, doi_url) : context.input
         context.object_url = object_url
       end
 

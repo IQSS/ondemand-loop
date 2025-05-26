@@ -16,10 +16,10 @@ module Dataverse
     end
 
     def upload
-      upload_url = "#{connector_metadata.dataverse_url}/api/datasets/:persistentId/add?persistentId=#{connector_metadata.persistent_id}"
+      upload_url = "#{connector_metadata.dataverse_url}/api/datasets/:persistentId/add?persistentId=#{connector_metadata.dataset_id}"
       source_location = file.file_location
       temp_location ="#{source_location}.part"
-      headers = { "X-Dataverse-key" => connector_metadata.api_key }
+      headers = { "X-Dataverse-key" => connector_metadata.api_key&.value }
       payload = { "description" => "Sample description" }
 
       connector_metadata.upload_url = upload_url
@@ -38,6 +38,7 @@ module Dataverse
 
       #TODO verify md5 checksum in the server once the file is uploaded
 
+      connector_metadata.key_verified!
       response(FileStatus::SUCCESS, 'file upload completed')
     end
 

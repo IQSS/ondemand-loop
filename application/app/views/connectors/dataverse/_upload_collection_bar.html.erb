@@ -1,3 +1,11 @@
+<style>
+    .btn-badge {
+        padding: 0.4rem 0.4rem;
+        font-size: 0.75rem;
+        line-height: 1;
+    }
+
+</style>
 <div class="card-header d-flex justify-content-between align-items-center bg-light">
   <div class="d-flex align-items-center flex-wrap gap-3">
     <div class="fs-5 text-primary">
@@ -5,24 +13,64 @@
     </div>
 
     <div class="mb-1"><%= connector_icon(collection.type) %></div>
-    <!-- DATASET TITLE -->
+    <!-- UPLOAD DATASET INFO -->
     <div class="d-flex flex-column">
-      <span><%= collection.connector_metadata.title %></span>
+        <span>
+          <%= collection.connector_metadata.dataverse_title %>
+          <span class="text-muted mx-1 position-relative" style="font-size: 1.2rem;">»</span>
+
+          <% if collection.connector_metadata.display_collection? %>
+            <%= collection.connector_metadata.collection_title %>
+          <% end %>
+          <% if collection.connector_metadata.select_collection? %>
+            <button type="button"
+                    class="btn btn-outline-primary btn-badge position-relative"
+                    style="top: -1px;"
+                    title="<%= t('.button_create_dataset_title') %>"
+                    data-controller="modal"
+                    data-action="click->modal#load"
+                    data-modal-url-value="<%= edit_project_upload_collection_path(collection.project_id, collection.id, form: 'dataset_create') %>"
+                    data-modal-title-value="<%= t('.modal_create_dataset_title') %>"
+                    data-modal-id-value="global-modal">
+            <i class="bi bi-file-earmark-plus me-1"></i>Select Collection
+          </button>
+          <% end %>
+          <% if collection.connector_metadata.display_dataset? %>
+            <small class="text-muted mx-1 position-relative" style="top: -0.8px;">&gt;</small>
+            <%= collection.connector_metadata.dataset_title %>
+          <% end %>
+          <% if collection.connector_metadata.select_dataset? %>
+            <small class="text-muted mx-1 position-relative" style="top: -0.8px;">&gt;</small>
+            <button type="button"
+                    class="btn btn-outline-primary btn-badge position-relative"
+                    style="top: -1px;"
+                    title="<%= t('.button_create_dataset_title') %>"
+                    data-controller="modal"
+                    data-action="click->modal#load"
+                    data-modal-url-value="<%= edit_project_upload_collection_path(collection.project_id, collection.id, form: 'dataset_create') %>"
+                    data-modal-title-value="<%= t('.modal_create_dataset_title') %>"
+                    data-modal-id-value="global-modal">
+            <i class="bi bi-file-earmark-plus me-1"></i>Select or Create Dataset
+          </button>
+          <% end %>
+        </span>
+
       <small class="text-muted"><%= collection.remote_repo_url %></small>
     </div>
 
   </div>
 
-  <div class="d-flex align-items-center gap-3 flex-wrap">
+  <div class="d-flex align-items-center gap-2 flex-wrap">
     <!-- API Key Status: compact with icon -->
     <%= api_key_status_badge(collection) %>
 
     <button type="button"
             class="btn btn-sm btn-outline-primary"
+            title="<%= t(".button_edit_dataset_title") %>"
             data-controller="modal"
             data-action="click->modal#load"
             data-modal-url-value="<%= edit_project_upload_collection_path(collection.project_id, collection.id) %>"
-            data-modal-title-value="<%= t(".edit_dataset") %>"
+            data-modal-title-value="<%= t(".modal_edit_dataset_title") %>"
             data-modal-id-value="global-modal">
       <i class="bi bi-pencil-fill"></i>
     </button>
