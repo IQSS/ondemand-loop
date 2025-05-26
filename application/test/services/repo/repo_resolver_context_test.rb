@@ -1,37 +1,46 @@
+# frozen_string_literal: true
 require 'test_helper'
 
 class Repo::RepoResolverContextTest < ActiveSupport::TestCase
-  class MockHttpClient; end
-
-  test 'initializes with input and parses input' do
-    input = 'https://example.com/repo/object'
-    parsed_result = { repo: 'example', id: 'object' }
-
-    context = Repo::RepoResolverContext.new(input, http_client: MockHttpClient.new)
+  test 'should initialize with valid input' do
+    input = 'https://demo.repo.org/dataset.xhtml?persistentId=doi:10.1234/XYZ'
+    context = Repo::RepoResolverContext.new(input)
 
     assert_equal input, context.input
-    assert_instance_of MockHttpClient, context.http_client
-    assert_equal 'https', context.parsed_input.scheme
-    assert_equal 'example.com', context.parsed_input.domain
+    assert context.parsed_input
+    assert_instance_of UrlParser, context.parsed_input
+    assert_instance_of Common::HttpClient, context.http_client
+    assert context.repo_db
   end
 
-  test 'result returns nil when type is not set' do
-    context = Repo::RepoResolverContext.new('dummy')
-    assert_nil context.result
+  test 'should return a RepoResolverResponse with object_url and type' do
+    context = Repo::RepoResolverContext.new('https://demo.repo.org/file.xhtml')
+    context.object_url = 'https://demo.repo.org/file.xhtml?persistentId=doi:10.1234/XYZ/ABC&fileId=123'
+    context.type = :dataverse
+
+    result = context.result
+
+    assert_instance_of Repo::RepoResolverResponse, result
+    assert_equal context.object_url, result.object_url
+    assert_equal :dataverse, result.type
+    assert result.resolved?
+    refute result.unknown?
   end
 
-  test 'result returns hash when type is set' do
-    context = Repo::RepoResolverContext.new('dummy')
-    context.doi = '10.1234/abcde'
-    context.object_url = 'https://example.com/object'
-    context.type = 'dataset'
+  test 'should return unknown result when type is nil' do
+    context = Repo::RepoResolverContext.new('https://demo.repo.org/file.xhtml')
+    context.object_url = 'https://demo.repo.org/file.xhtml?persistentId=doi:10.1234/XYZ/ABC&fileId=123'
+    context.type = nil
 
-    expected_result = {
-      doi: '10.1234/abcde',
-      object_url: 'https://example.com/object',
-      type: 'dataset'
-    }
+    result = context.result
 
-    assert_equal expected_result, context.result
+    assert result.unknown?
+    refute result.resolved?
+  end
+
+  test 'should return nil parsed_input for invalid URL' do
+    context = Repo::RepoResolverContext.new('not a url')
+
+    assert_nil context.parsed_input
   end
 end

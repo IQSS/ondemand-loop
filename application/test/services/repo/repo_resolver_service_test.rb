@@ -1,72 +1,70 @@
+# frozen_string_literal: true
 require 'test_helper'
 
-class RepoResolverServiceTest < ActiveSupport::TestCase
-  class MockResolver
-    attr_reader :called
-
-    def initialize(response: nil, error: false)
-      @response = response
-      @error = error
-      @called = false
-    end
-
+class Repo::RepoResolverServiceTest < ActiveSupport::TestCase
+  DummyResolver = Struct.new(:should_resolve, :raise_error) do
     def resolve(context)
-      @called = true
+      raise raise_error if raise_error
 
-      raise StandardError, 'Resolver error' if @error
-
-      if @response
-        context.type = @response[:type]
-        context.doi = @response[:doi]
-        context.object_url = @response[:object_url]
+      if should_resolve
+        context.object_url = context.input
+        context.type = ConnectorType::DATAVERSE
       end
     end
   end
 
-  test 'returns resolved result when a resolver succeeds' do
-    resolver = MockResolver.new(response: { type: 'dataset', doi: '10.1234/abcde', object_url: 'https://example.com/object' })
-    service = Repo::RepoResolverService.new([resolver])
+  test 'should return unknown result when URL is blank' do
+    service = Repo::RepoResolverService.new([DummyResolver.new(true)])
+    result = service.resolve('')
 
-    result = service.resolve('https://example.com/object')
-
-    expected_result = {
-      doi: '10.1234/abcde',
-      object_url: 'https://example.com/object',
-      type: 'dataset'
-    }
-
-    assert_equal expected_result, result
+    assert result.unknown?
+    assert_nil result.type
   end
 
-  test 'returns Unknown type when all resolvers cannot resolve' do
-    empty_response = MockResolver.new
-    service = Repo::RepoResolverService.new([empty_response, empty_response])
+  test 'should resolve when first resolver succeeds' do
+    resolvers = [DummyResolver.new(true)]
+    service = Repo::RepoResolverService.new(resolvers)
 
-    result = service.resolve('https://example.com/nonexistent')
+    result = service.resolve('https://demo.dataverse.org')
 
-    assert_equal({ type: 'Unknown' }, result)
+    assert result.resolved?
+    assert_equal ConnectorType::DATAVERSE, result.type
+    assert_equal 'https://demo.dataverse.org', result.object_url
   end
 
-  test 'returns Unknown type when a resolver raises an exception' do
-    resolver = MockResolver.new(error: true)
-    service = Repo::RepoResolverService.new([resolver])
+  test 'should skip first resolver and resolve with second' do
+    resolvers = [
+      DummyResolver.new(false),
+      DummyResolver.new(true)
+    ]
+    service = Repo::RepoResolverService.new(resolvers)
 
-    assert_nothing_raised do
-      result = service.resolve('https://example.com/error-case')
-      assert_equal({ type: 'Unknown' }, result)
-    end
+    result = service.resolve('https://demo.dataverse.org/dataset.xhtml')
+
+    assert result.resolved?
+    assert_equal ConnectorType::DATAVERSE, result.type
   end
 
-  test 'stops resolver chain after first successful resolve' do
-    resolver1 = MockResolver.new(response: { type: 'dataset', doi: '10.1234/abcde', object_url: 'https://example.com/object' })
-    resolver2 = MockResolver.new(response: { type: 'dataset', doi: '10.1234/abcde', object_url: 'https://example.com/object' })
+  test 'should stop on error and return unknown' do
+    resolvers = [
+      DummyResolver.new(false, RuntimeError.new('Unexpected failure'))
+    ]
+    service = Repo::RepoResolverService.new(resolvers)
 
-    service = Repo::RepoResolverService.new([resolver1, resolver2])
+    result = service.resolve('https://demo.dataverse.org/failure')
 
-    result = service.resolve('https://example.com/object')
+    assert result.unknown?
+  end
 
-    assert_equal 'dataset', result[:type]
-    assert resolver1.called, 'First resolver should have been called'
-    refute resolver2.called, 'Second resolver should NOT have been called after success'
+  test 'should ignore non-resolving resolvers and return unknown if none succeed' do
+    resolvers = [
+      DummyResolver.new(false),
+      DummyResolver.new(false)
+    ]
+    service = Repo::RepoResolverService.new(resolvers)
+
+    result = service.resolve('https://demo.dataverse.org/nothing')
+
+    assert result.unknown?
   end
 end

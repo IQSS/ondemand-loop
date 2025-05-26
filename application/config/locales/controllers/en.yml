@@ -41,8 +41,8 @@ en:
       project_deleted_successfully: "Project %{project_name} deleted successfully"
   repo_resolver:
     resolve:
-      blank_url_error: 'Please provide repo URL'
-      url_not_supported: "URL not supported: %{url} type: %{type}"
+      blank_url_error: "Please provide repo URL"
+      url_not_supported: "URL not supported: %{url}"
   upload_collections:
     create:
       invalid_project: "Invalid project id: %{id}"

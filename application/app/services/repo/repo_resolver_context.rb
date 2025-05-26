@@ -1,7 +1,7 @@
 module Repo
   class RepoResolverContext
     attr_reader :input, :parsed_input, :http_client, :repo_db
-    attr_accessor :doi, :object_url, :type
+    attr_accessor :object_url, :type
 
     def initialize(input, http_client: Common::HttpClient.new, repo_db: RepoRegistry.repo_db)
       @input = input

@@ -7,9 +7,8 @@ module Repo
     end
 
     def resolve(object_url)
-      return { type: nil } if object_url.blank?
-
       context = RepoResolverContext.new(object_url)
+      return context.result if object_url.blank?
 
       @resolvers.each do |resolver|
         resolver.resolve(context)
