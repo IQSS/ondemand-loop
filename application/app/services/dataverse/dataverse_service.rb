@@ -64,9 +64,11 @@ module Dataverse
       DataverseResponse.new(response.body)
     end
 
-    def search_dataverse_items(dataverse_id, page = 1, per_page = 10)
+    def search_dataverse_items(dataverse_id, page = 1, per_page = 10, include_collections = true, include_datasets = true)
       start = (page-1) * per_page
-      query_string = "q=*&show_facets=true&sort=date&order=desc&show_type_counts=true&per_page=#{per_page}&start=#{start}&type=dataverse&type=dataset&subtree=#{dataverse_id}"
+      type_collection = include_collections ? "&type=dataverse" : ""
+      type_dataset = include_datasets ? "&type=dataset" : ""
+      query_string = "q=*&show_facets=true&sort=date&order=desc&show_type_counts=true&per_page=#{per_page}&start=#{start}#{type_collection}#{type_dataset}&subtree=#{dataverse_id}"
       url = "/api/search?#{query_string}"
       response = @http_client.get(url)
       return nil if response.not_found?
