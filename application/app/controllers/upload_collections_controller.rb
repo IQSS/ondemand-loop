@@ -5,7 +5,7 @@ class UploadCollectionsController < ApplicationController
     project_id = params[:project_id]
     project = Project.find(project_id)
     if project.nil?
-      redirect_back fallback_location: root_path, alert: t(".invalid_project_id", id: project_id)
+      redirect_back fallback_location: root_path, alert: t(".invalid_project", id: project_id)
       return
     end
 
@@ -14,7 +14,7 @@ class UploadCollectionsController < ApplicationController
     url_resolution = repo_resolver.resolve(repo_url)
 
     if url_resolution.unknown?
-      redirect_back fallback_location: root_path, alert: "Invalid repo URL: #{repo_url}"
+      redirect_back fallback_location: root_path,  alert: t(".invalid_repo", url: repo_url)
       return
     end
 
@@ -48,7 +48,7 @@ class UploadCollectionsController < ApplicationController
     upload_collection = UploadCollection.find(project_id, collection_id)
 
     if upload_collection.nil?
-      redirect_back fallback_location: root_path, alert: t(".upload_collection_not_found", collection_id: collection_id)
+      redirect_back fallback_location: root_path, alert: t(".not_found", collection_id: collection_id)
       return
     end
 
@@ -66,12 +66,12 @@ class UploadCollectionsController < ApplicationController
     upload_collection = UploadCollection.find(project_id, collection_id)
 
     if upload_collection.nil?
-      redirect_back fallback_location: root_path, alert: t(".upload_collection_not_found", collection_id: collection_id)
+      redirect_back fallback_location: root_path, alert: t(".not_found", collection_id: collection_id)
       return
     end
 
     upload_collection.destroy
-    redirect_back fallback_location: root_path, notice: t(".upload_collection_deleted", collection_name: upload_collection.name)
+    redirect_back fallback_location: root_path, notice: t(".success", collection_name: upload_collection.name)
   end
 
 end
