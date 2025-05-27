@@ -1,4 +1,4 @@
-class Dataverse::LandingController < ApplicationController
+class Dataverse::LandingPageController < ApplicationController
   include LoggingCommon
 
   def index

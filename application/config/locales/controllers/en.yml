@@ -17,7 +17,7 @@ en:
       dataset_files_not_found: "Dataset files not found. Dataverse: %{dataverse_url} persistentId: %{persistent_id} page: %{page}"
       dataset_files_endpoint_requires_authorization: "Dataset files endpoint requires authorization. Dataverse: %{dataverse_url} persistentId: %{persistent_id} page: %{page}"
       dataverse_service_error_searching_files: "Dataverse service error while searching files. Dataverse: %{dataverse_url} persistentId: %{persistent_id} page: %{page}"
-    landing:
+    landing_page:
       index:
         dataverse_installations_service_error: "Dataverse Installations service error."
   download_files:

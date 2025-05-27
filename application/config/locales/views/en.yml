@@ -110,7 +110,7 @@ en:
         authors: "Authors:"
         subjects: "Subjects:"
         license: "License:"
-    landing:
+    landing_page:
       installation_items:
         page: "page %{page}"
         no_items_found: "No items found."
