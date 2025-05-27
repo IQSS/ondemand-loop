@@ -3,8 +3,8 @@ require "test_helper"
 class Dataverse::CollectionsControllerTest < ActionDispatch::IntegrationTest
 
   def setup
-    dataverse_json = load_file_fixture(File.join('dataverse', 'dataverse_response', 'valid_response.json'))
-    @dataverse = Dataverse::DataverseResponse.new(dataverse_json)
+    dataverse_json = load_file_fixture(File.join('dataverse', 'collection_response', 'valid_response.json'))
+    @dataverse = Dataverse::CollectionResponse.new(dataverse_json)
     search_json = load_file_fixture(File.join('dataverse', 'search_response', 'valid_response.json'))
     @search_response = Dataverse::SearchResponse.new(search_json, 1, 20)
   end

@@ -54,7 +54,7 @@ module Dataverse
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?
       raise "Error getting dataverse: #{response.status} - #{response.body}" unless response.success?
-      DataverseResponse.new(response.body)
+      CollectionResponse.new(response.body)
     end
 
     def search_collection_items(dataverse_id, page: 1, per_page: 10, include_collections: true, include_datasets: true)

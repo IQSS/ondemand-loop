@@ -1,5 +1,5 @@
 module Dataverse
-  class DataverseResponse
+  class CollectionResponse
     attr_reader :status, :data
 
     def initialize(json)
