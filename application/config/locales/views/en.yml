@@ -87,15 +87,9 @@ en:
         type: "Type"
         affiliation: "Affiliation"
         parent: "Parent"
-      installation_items:
-        page: "page %{page}"
-        no_items_found: "No items found."
       search_items:
         page: "page %{page}"
         no_items_found: "No items found."
-      index:
-        home: "Home"
-        dataverse_icon: "Dataverse icon"
     datasets:
       breadcrumbs:
         home: "Home"
@@ -116,6 +110,13 @@ en:
         authors: "Authors:"
         subjects: "Subjects:"
         license: "License:"
+    landing:
+      installation_items:
+        page: "page %{page}"
+        no_items_found: "No items found."
+      index:
+        home: "Home"
+        dataverse_icon: "Dataverse icon"
   download_status:
     actions:
       downloads_directory: "Downloads Directory"

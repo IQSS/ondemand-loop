@@ -1,8 +1,6 @@
 en:
   dataverse:
     collections:
-      index:
-        dataverse_installations_service_error: "Dataverse Installations service error."
       show:
         dataverse_not_found: "Dataverse not found. Dataverse: %{dataverse_url} Id: %{id}"
         dataverse_requires_authorization: "Dataverse requires authorization. Dataverse: %{dataverse_url} Id: %{id}"
@@ -19,6 +17,9 @@ en:
       dataset_files_not_found: "Dataset files not found. Dataverse: %{dataverse_url} persistentId: %{persistent_id} page: %{page}"
       dataset_files_endpoint_requires_authorization: "Dataset files endpoint requires authorization. Dataverse: %{dataverse_url} persistentId: %{persistent_id} page: %{page}"
       dataverse_service_error_searching_files: "Dataverse service error while searching files. Dataverse: %{dataverse_url} persistentId: %{persistent_id} page: %{page}"
+    landing:
+      index:
+        dataverse_installations_service_error: "Dataverse Installations service error."
   download_files:
     compulsory_fields_error: "project_id and id are compulsory"
     file_not_found_for_project: "File: %{file_id} not found for project: %{project_id}"
