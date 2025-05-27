@@ -21,7 +21,7 @@ class Dataverse::DataversesController < ApplicationController
     begin
       @page = params[:page] ? params[:page].to_i : 1
       @dataverse = @service.find_dataverse_by_id(params[:id])
-      @search_result = @service.search_dataverse_items(params[:id], page: @page)
+      @search_result = @service.search_collection_items(params[:id], page: @page)
       if @dataverse.nil? || @search_result.nil?
         log_error('Dataverse not found.', {dataverse: @dataverse_url, id: params[:id]})
         flash[:alert] = t(".dataverse_not_found", dataverse_url: @dataverse_url, id: params[:id])
