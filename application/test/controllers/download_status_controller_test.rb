@@ -35,7 +35,7 @@ class DownloadStatusControllerTest < ActionDispatch::IntegrationTest
     file_ids = [4,5]
 
     parsed_url = URI.parse("http://localhost:3000")
-    service = Dataverse::DataverseService.new(parsed_url.to_s)
+    service = Dataverse::CollectionService.new(parsed_url.to_s)
     project = service.initialize_project(dataset)
     project.save
 

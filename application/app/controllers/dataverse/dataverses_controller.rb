@@ -17,7 +17,7 @@ class Dataverse::DataversesController < ApplicationController
 
   def show
     @dataverse_url = current_dataverse_url
-    @service = Dataverse::DataverseService.new(@dataverse_url)
+    @service = Dataverse::CollectionService.new(@dataverse_url)
     begin
       @page = params[:page] ? params[:page].to_i : 1
       @dataverse = @service.find_dataverse_by_id(params[:id])
@@ -28,7 +28,7 @@ class Dataverse::DataversesController < ApplicationController
         redirect_to root_path
         return
       end
-    rescue Dataverse::DataverseService::UnauthorizedException => e
+    rescue Dataverse::CollectionService::UnauthorizedException => e
       log_error('Dataverse requires authorization', {dataverse: @dataverse_url, id: params[:id]}, e)
       flash[:alert] = t(".dataverse_requires_authorization", dataverse_url: @dataverse_url, id: params[:id])
       redirect_to root_path

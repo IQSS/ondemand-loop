@@ -8,7 +8,7 @@ class Dataverse::DataverseServiceTest < ActiveSupport::TestCase
     @tmp_dir = Dir.mktmpdir
     Project.stubs(:metadata_root_directory).returns(@tmp_dir)
     @sample_uri = URI('https://example.com:443')
-    @service = Dataverse::DataverseService.new(@sample_uri.to_s)
+    @service = Dataverse::CollectionService.new(@sample_uri.to_s)
   end
 
   def teardown
@@ -16,7 +16,7 @@ class Dataverse::DataverseServiceTest < ActiveSupport::TestCase
   end
 
   test 'the class is initialized' do
-    assert @service.kind_of?(Dataverse::DataverseService)
+    assert @service.kind_of?(Dataverse::CollectionService)
   end
 
   test 'initialize project' do

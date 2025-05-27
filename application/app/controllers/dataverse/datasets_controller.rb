@@ -48,7 +48,7 @@ class Dataverse::DatasetsController < ApplicationController
   end
 
   def init_service
-    @service = Dataverse::DataverseService.new(@dataverse_url)
+    @service = Dataverse::CollectionService.new(@dataverse_url)
   end
 
   def find_dataset_by_persistent_id
@@ -60,7 +60,7 @@ class Dataverse::DatasetsController < ApplicationController
         redirect_back fallback_location: root_path, alert: t(".dataset_not_found", dataverse_url: @dataverse_url, persistent_id: @persistent_id)
         return
       end
-    rescue Dataverse::DataverseService::UnauthorizedException => e
+    rescue Dataverse::CollectionService::UnauthorizedException => e
       log_error('Dataset requires authorization', {dataverse: @dataverse_url, persistent_id: @persistent_id}, e)
       redirect_back fallback_location: root_path, alert: t(".dataset_requires_authorization", dataverse_url: @dataverse_url, persistent_id: @persistent_id)
     rescue Exception => e
@@ -80,7 +80,7 @@ class Dataverse::DatasetsController < ApplicationController
         redirect_to root_path
         return
       end
-    rescue Dataverse::DataverseService::UnauthorizedException => e
+    rescue Dataverse::CollectionService::UnauthorizedException => e
       log_error('Dataset files endpoint requires authorization', {dataverse: @dataverse_url, persistent_id: @persistent_id, page: @page}, e)
       flash[:alert] = t(".dataset_files_endpoint_requires_authorization", dataverse_url: @dataverse_url, persistent_id: @persistent_id, page: @page)
       redirect_to root_path

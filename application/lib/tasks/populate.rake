@@ -11,7 +11,7 @@ namespace :dev do
     end
 
     parsed_url = URI.parse("http://localhost:3000")
-    service = Dataverse::DataverseService.new(parsed_url.to_s)
+    service = Dataverse::CollectionService.new(parsed_url.to_s)
 
     valid_json = load_file_fixture(File.join('dataverse', 'dataset_response', 'valid_response.json'))
     dataset = Dataverse::DatasetResponse.new(valid_json)
