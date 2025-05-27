@@ -58,7 +58,7 @@ module Dataverse
       DataverseResponse.new(response.body)
     end
 
-    def search_dataverse_items(dataverse_id, page = 1, per_page = 10, include_collections = true, include_datasets = true)
+    def search_dataverse_items(dataverse_id, page: 1, per_page: 10, include_collections: true, include_datasets: true)
       start = (page-1) * per_page
       type_collection = include_collections ? "&type=dataverse" : ""
       type_dataset = include_datasets ? "&type=dataset" : ""
