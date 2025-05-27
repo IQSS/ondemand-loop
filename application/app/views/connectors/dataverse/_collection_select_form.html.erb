@@ -1,0 +1,37 @@
+<div data-controller="list-filter">
+<%= form_with url: project_upload_collection_path(collection.project_id, collection.id), method: :put, data: { action: "submit->modal#showSpinner" }, local: true do |f| %>
+  <%= hidden_field_tag :form, 'collection_select' %>
+
+  <div class="mb-3">
+    <%= label_tag :search, t('.search_label'), class: 'form-label fw-bold' %>
+    <%= text_field_tag :search, nil, class: 'form-control', placeholder: t('.search_placeholder'), data: { action: "input->list-filter#apply" } %>
+  </div>
+
+  <div class="d-flex justify-content-end mb-2 me-2">
+    <small class="text-muted"><%= t('.total_collections', total: data.total_count) %></small>
+  </div>
+  <div class="list-group mb-3" data-list-filter-target="list" style="max-height: 50vh; overflow-y: auto;">
+    <% data.items.each do |item| %>
+      <label class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+             data-filter-item>
+        <%= radio_button_tag :collection_id, item.identifier, false, class: 'form-check-input me-2' %>
+        <div class="flex-grow-1">
+          <span class="text-muted"><%= item.parent_dataverse_name %></span> &gt; <%= item.name %>
+        </div>
+      </label>
+    <% end %>
+  </div>
+
+  <div class="d-flex justify-content-end gap-2">
+    <button type="submit" class="btn btn-sm btn-primary">
+      <i class="bi bi-save-fill me-1"></i> <%= t('.submit') %>
+    </button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">
+      <%= t('.cancel') %>
+    </button>
+  </div>
+<% end %>
+</div>
+
+
+

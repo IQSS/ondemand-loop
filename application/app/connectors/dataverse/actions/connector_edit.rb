@@ -20,7 +20,7 @@ module Dataverse::Actions
       end
 
       ConnectorResult.new(
-        message: { notice: I18n.t('dataverse.actions.connector_edit.success', name: collection.name) },
+        message: { notice: I18n.t('connectors.dataverse.actions.connector_edit.success', name: collection.name) },
         success: true
       )
     end

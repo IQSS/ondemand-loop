@@ -8,8 +8,14 @@ en:
         button_select_collection_title: "Select Collection"
         modal_select_collection_title: "Select Dataverse Collection"
 
+        button_dataset_form_tabs_title: "Select/Create Dataset"
+        modal_dataset_form_tabs_title: "Select/Create %{collection} Dataset"
+
         button_create_dataset_title: "Create Dataset"
         modal_create_dataset_title: "Create Dataset"
+
+        button_select_dataset_title: "Select Dataset"
+        modal_select_dataset_title: "Select Dataset"
 
         button_edit_key_title: "Add/Edit API Key"
         modal_edit_key_title: "Add/Edit Dataverse API Key"
@@ -45,6 +51,23 @@ en:
         field_key_scope_help: "Leave unchecked to store this key for all collections using the same Dataverse server."
 
         submit: "Save Changes"
+        cancel: "Cancel"
+      collection_select_form:
+        search_label: "Filter collections"
+        search_placeholder: "Type at least 3 characters to filter"
+        total_collections: "%{total} collections found"
+
+        submit: "Select Collection"
+        cancel: "Cancel"
+      dataset_form_tabs:
+        select_dataset: "Select Dataset"
+        create_dataset: "Create Dataset"
+      dataset_select_form:
+        search_label: "Filter datasets"
+        search_placeholder: "Type at least 3 characters to filter"
+        total_datasets: "%{total} datasets found"
+
+        submit: "Select Dataset"
         cancel: "Cancel"
   dataverse:
     datasets:

@@ -7,7 +7,7 @@
     <div class="mb-1"><%= connector_icon(collection.type) %></div>
     <!-- UPLOAD DATASET INFO -->
     <div class="d-flex flex-column">
-        <span>
+        <span class="text-truncate d-inline-block" style="max-width: 800px;" title="<%= collection.connector_metadata.dataset_title %>">
           <%= collection.connector_metadata.dataverse_title %>
           <span class="text-muted mx-1 position-relative" style="font-size: 1.2rem;">»</span>
 
@@ -24,7 +24,7 @@
                     data-modal-url-value="<%= edit_project_upload_collection_path(collection.project_id, collection.id, form: 'collection_select') %>"
                     data-modal-title-value="<%= t('.modal_select_collection_title') %>"
                     data-modal-id-value="global-modal">
-            <i class="bi bi-file-earmark-plus me-1"></i><%= t('.button_select_collection_title') %>
+            <i class="bi bi-database-add me-1"></i><%= t('.button_select_collection_title') %>
           </button>
           <% end %>
           <% if collection.connector_metadata.display_dataset? %>
@@ -36,14 +36,14 @@
             <button type="button"
                     class="btn btn-outline-primary btn-badge position-relative"
                     style="top: -1px;"
-                    title="<%= t('.button_create_dataset_title') %>"
+                    title="<%= t('.button_dataset_form_tabs_title') %>"
                     data-controller="modal"
                     data-action="click->modal#load"
-                    data-modal-url-value="<%= edit_project_upload_collection_path(collection.project_id, collection.id, form: 'dataset_create') %>"
-                    data-modal-title-value="<%= t('.modal_create_dataset_title') %>"
+                    data-modal-url-value="<%= edit_project_upload_collection_path(collection.project_id, collection.id, form: 'dataset_form_tabs') %>"
+                    data-modal-title-value="<%= t('.modal_dataset_form_tabs_title', collection: collection.connector_metadata.collection_title) %>"
                     data-modal-id-value="global-modal">
-            <i class="bi bi-file-earmark-plus me-1"></i><%= t('.button_create_dataset_title') %>
-          </button>
+              <i class="bi bi-file-earmark-plus me-1"></i><%= t('.button_dataset_form_tabs_title') %>
+            </button>
           <% end %>
         </span>
 

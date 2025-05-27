@@ -11,7 +11,7 @@ module Dataverse
     end
 
     def params_schema
-      %i[remote_repo_url api_key key_scope form title description author contact_email subject]
+      %i[remote_repo_url form api_key key_scope collection_id dataset_id title description author contact_email subject]
     end
 
     def create(project, request_params)
@@ -67,8 +67,14 @@ module Dataverse
 
     def edit(collection, request_params)
       case request_params[:form].to_s
+      when 'dataset_form_tabs'
+        Dataverse::Actions::DatasetFormTabs.new.edit(collection, request_params)
       when 'dataset_create'
         Dataverse::Actions::DatasetCreate.new.edit(collection, request_params)
+      when 'dataset_select'
+        Dataverse::Actions::DatasetSelect.new.edit(collection, request_params)
+      when 'collection_select'
+        Dataverse::Actions::CollectionSelect.new.edit(collection, request_params)
       else
         Dataverse::Actions::ConnectorEdit.new.edit(collection, request_params)
       end
@@ -76,8 +82,14 @@ module Dataverse
 
     def update(collection, request_params)
       case request_params[:form].to_s
+      when 'dataset_form_tabs'
+        Dataverse::Actions::DatasetFormTabs.new.update(collection, request_params)
       when 'dataset_create'
         Dataverse::Actions::DatasetCreate.new.update(collection, request_params)
+      when 'dataset_select'
+        Dataverse::Actions::DatasetSelect.new.update(collection, request_params)
+      when 'collection_select'
+        Dataverse::Actions::CollectionSelect.new.update(collection, request_params)
       else
         Dataverse::Actions::ConnectorEdit.new.update(collection, request_params)
       end
