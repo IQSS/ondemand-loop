@@ -1,16 +1,9 @@
 module Dataverse
-  class UserService
-    include LoggingCommon
-    include DateTimeCommon
-
-    AUTH_HEADER = 'X-Dataverse-key'
-    class UnauthorizedException < Exception; end
-    class ApiKeyRequiredException < Exception; end
+  class UserService < Dataverse::ApiService
 
     def initialize(dataverse_url, http_client: Common::HttpClient.new(base_url: dataverse_url), api_key: nil)
       @dataverse_url = dataverse_url
       @http_client = http_client
-      @file_utils = file_utils
       @api_key = api_key
     end
 
