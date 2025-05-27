@@ -10,7 +10,7 @@ class Dataverse::DataversesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect to root path after not finding a dataverse" do
-    Dataverse::CollectionService.any_instance.stubs(:find_dataverse_by_id).raises("error")
+    Dataverse::CollectionService.any_instance.stubs(:find_collection_by_id).raises("error")
     Dataverse::CollectionService.any_instance.stubs(:search_collection_items).raises("error")
     get view_dataverse_url("example.com", ":root")
     assert_redirected_to root_path
@@ -18,7 +18,7 @@ class Dataverse::DataversesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect to root path after finding an unauthorized dataverse" do
-    Dataverse::CollectionService.any_instance.stubs(:find_dataverse_by_id).returns(nil)
+    Dataverse::CollectionService.any_instance.stubs(:find_collection_by_id).returns(nil)
     Dataverse::CollectionService.any_instance.stubs(:search_collection_items).raises(Dataverse::CollectionService::UnauthorizedException)
     get view_dataverse_url("example.com", ":root")
     assert_redirected_to root_path
@@ -26,7 +26,7 @@ class Dataverse::DataversesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect to root path after not finding neither dataverse nor dataverse results" do
-    Dataverse::CollectionService.any_instance.stubs(:find_dataverse_by_id).returns(nil)
+    Dataverse::CollectionService.any_instance.stubs(:find_collection_by_id).returns(nil)
     Dataverse::CollectionService.any_instance.stubs(:search_collection_items).returns(nil)
     get view_dataverse_url("example.com", ":root")
     assert_redirected_to root_path
@@ -34,7 +34,7 @@ class Dataverse::DataversesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect to root path after not finding dataverse response" do
-    Dataverse::CollectionService.any_instance.stubs(:find_dataverse_by_id).returns(nil)
+    Dataverse::CollectionService.any_instance.stubs(:find_collection_by_id).returns(nil)
     Dataverse::CollectionService.any_instance.stubs(:search_collection_items).returns(@search_response)
     get view_dataverse_url("example.com", ":root")
     assert_redirected_to root_path
@@ -42,7 +42,7 @@ class Dataverse::DataversesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect to root path after not finding search response" do
-    Dataverse::CollectionService.any_instance.stubs(:find_dataverse_by_id).returns(@dataverse)
+    Dataverse::CollectionService.any_instance.stubs(:find_collection_by_id).returns(@dataverse)
     Dataverse::CollectionService.any_instance.stubs(:search_collection_items).returns(nil)
     get view_dataverse_url("example.com", ":root")
     assert_redirected_to root_path
@@ -50,7 +50,7 @@ class Dataverse::DataversesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should display the datavers view with the results" do
-    Dataverse::CollectionService.any_instance.stubs(:find_dataverse_by_id).returns(@dataverse)
+    Dataverse::CollectionService.any_instance.stubs(:find_collection_by_id).returns(@dataverse)
     Dataverse::CollectionService.any_instance.stubs(:search_collection_items).returns(@search_response)
     get view_dataverse_url("example.com", ":root")
     assert_response :success

@@ -49,7 +49,7 @@ module Dataverse
       DatasetFilesResponse.new(response.body, page: page, per_page: per_page)
     end
 
-    def find_dataverse_by_id(id)
+    def find_collection_by_id(id)
       url = "/api/dataverses/#{id}?returnOwners=true"
       response = @http_client.get(url)
       return nil if response.not_found?
