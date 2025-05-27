@@ -1,0 +1,12 @@
+<div class="dataverse container-md content" role="main">
+  <%= render partial: 'dataverse/collections/breadcrumbs', locals: { dataverse_url: @dataverse_url, dataverse: @dataverse } %>
+  <div class="row">
+    <div class="col-md-3">
+      <%= render partial: 'dataverse/collections/dataverse_info', locals: { dataverse: @dataverse } %>
+    </div>
+    <div class="col-md-9">
+      <%= render partial: 'dataverse/collections/search_items', locals: { search_result: @search_result, dataverse_url: @dataverse_url, dataverse: @dataverse} %>
+    </div>
+  </div>
+</div>
+

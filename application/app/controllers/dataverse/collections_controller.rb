@@ -1,4 +1,4 @@
-class Dataverse::DataversesController < ApplicationController
+class Dataverse::CollectionsController < ApplicationController
   include LoggingCommon
   include Dataverse::CommonHelper
 
