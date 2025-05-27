@@ -4,6 +4,7 @@ class Dataverse::DatasetsController < ApplicationController
 
   before_action :get_dv_full_hostname
   before_action :init_service
+  before_action :init_project_service, only: [ :download ]
   before_action :find_dataset_by_persistent_id
   before_action :search_files_page
 
@@ -14,7 +15,7 @@ class Dataverse::DatasetsController < ApplicationController
     file_ids = params[:file_ids]
     project = Project.find(params[:project_id])
     if project.nil?
-      project = @service.initialize_project(@dataset)
+      project = @project_service.initialize_project
       unless project.save
         errors = project.errors.full_messages.join(", ")
         redirect_back fallback_location: root_path, alert: t(".error_generating_project", errors: errors)
@@ -22,7 +23,7 @@ class Dataverse::DatasetsController < ApplicationController
       end
     end
 
-    download_files = @service.initialize_download_files(project, @dataset, @files_page, file_ids)
+    download_files = @project_service.initialize_download_files(project, @dataset, @files_page, file_ids)
     download_files.each do |file|
       unless file.valid?
         errors = file.errors.full_messages.join(", ")
@@ -49,6 +50,10 @@ class Dataverse::DatasetsController < ApplicationController
 
   def init_service
     @service = Dataverse::CollectionService.new(@dataverse_url)
+  end
+
+  def init_project_service
+    @project_service = Dataverse::ProjectService.new(@dataverse_url)
   end
 
   def find_dataset_by_persistent_id

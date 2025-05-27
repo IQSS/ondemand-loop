@@ -120,7 +120,7 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
 
     Dataverse::CollectionService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
     Dataverse::CollectionService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(files_page)
-    Dataverse::CollectionService.any_instance.stubs(:initialize_project).returns(project)
+    Dataverse::ProjectService.any_instance.stubs(:initialize_project).returns(project)
 
     post download_dataverse_dataset_files_url, params: {
       file_ids: ["123"],
@@ -149,8 +149,8 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
 
     Dataverse::CollectionService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
     Dataverse::CollectionService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(files_page)
-    Dataverse::CollectionService.any_instance.stubs(:initialize_project).returns(project)
-    Dataverse::CollectionService.any_instance.stubs(:initialize_download_files).returns([valid_file, invalid_file])
+    Dataverse::ProjectService.any_instance.stubs(:initialize_project).returns(project)
+    Dataverse::ProjectService.any_instance.stubs(:initialize_download_files).returns([valid_file, invalid_file])
 
     post download_dataverse_dataset_files_url, params: {
       file_ids: ["1", "2"],
@@ -178,8 +178,8 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
 
     Dataverse::CollectionService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
     Dataverse::CollectionService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(files_page)
-    Dataverse::CollectionService.any_instance.stubs(:initialize_project).returns(project)
-    Dataverse::CollectionService.any_instance.stubs(:initialize_download_files).returns([valid_file])
+    Dataverse::ProjectService.any_instance.stubs(:initialize_project).returns(project)
+    Dataverse::ProjectService.any_instance.stubs(:initialize_download_files).returns([valid_file])
 
     post download_dataverse_dataset_files_url, params: {
       file_ids: ["1"],
@@ -211,8 +211,8 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
 
     Dataverse::CollectionService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
     Dataverse::CollectionService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(files_page)
-    Dataverse::CollectionService.any_instance.stubs(:initialize_project).returns(project)
-    Dataverse::CollectionService.any_instance.stubs(:initialize_download_files).returns([file1, file2])
+    Dataverse::ProjectService.any_instance.stubs(:initialize_project).returns(project)
+    Dataverse::ProjectService.any_instance.stubs(:initialize_download_files).returns([file1, file2])
 
     post download_dataverse_dataset_files_url, params: {
       file_ids: ["1", "2"],
