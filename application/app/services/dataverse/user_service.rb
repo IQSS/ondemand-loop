@@ -7,7 +7,7 @@ module Dataverse
     class UnauthorizedException < Exception; end
     class ApiKeyRequiredException < Exception; end
 
-    def initialize(dataverse_url, http_client: Common::HttpClient.new(base_url: dataverse_url), api_key: nil, file_utils: Common::FileUtils.new)
+    def initialize(dataverse_url, http_client: Common::HttpClient.new(base_url: dataverse_url), api_key: nil)
       @dataverse_url = dataverse_url
       @http_client = http_client
       @file_utils = file_utils
