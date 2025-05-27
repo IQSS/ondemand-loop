@@ -1,6 +1,6 @@
 require "test_helper"
 
-class Dataverse::DataversesControllerTest < ActionDispatch::IntegrationTest
+class Dataverse::CollectionsControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     dataverse_json = load_file_fixture(File.join('dataverse', 'dataverse_response', 'valid_response.json'))
