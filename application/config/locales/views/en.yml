@@ -70,27 +70,7 @@ en:
         submit: "Select Dataset"
         cancel: "Cancel"
   dataverse:
-    datasets:
-      breadcrumbs:
-        home: "Home"
-      dataset_files:
-        page: "page %{page}"
-        file_name: "File name"
-        size: "Size"
-        storage: "Storage"
-        published: "Published"
-        add_files_submit: "Add Files to Active Project"
-        empty_dataset_msg: "The dataset does not contain files to download"
-      dataset_info:
-        dataset: "Dataset"
-        description: "Description"
-      dataset_metadata:
-        dataset_metadata: "Dataset Metadata"
-        publication_date: "Publication date:"
-        authors: "Authors:"
-        subjects: "Subjects:"
-        license: "License:"
-    dataverses:
+    collections:
       breadcrumbs:
         home: "Home"
       dataset_item:
@@ -116,6 +96,26 @@ en:
       index:
         home: "Home"
         dataverse_icon: "Dataverse icon"
+    datasets:
+      breadcrumbs:
+        home: "Home"
+      dataset_files:
+        page: "page %{page}"
+        file_name: "File name"
+        size: "Size"
+        storage: "Storage"
+        published: "Published"
+        add_files_submit: "Add Files to Active Project"
+        empty_dataset_msg: "The dataset does not contain files to download"
+      dataset_info:
+        dataset: "Dataset"
+        description: "Description"
+      dataset_metadata:
+        dataset_metadata: "Dataset Metadata"
+        publication_date: "Publication date:"
+        authors: "Authors:"
+        subjects: "Subjects:"
+        license: "License:"
   download_status:
     actions:
       downloads_directory: "Downloads Directory"
