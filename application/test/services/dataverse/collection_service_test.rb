@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class Dataverse::DataverseServiceTest < ActiveSupport::TestCase
+class Dataverse::CollectionServiceTest < ActiveSupport::TestCase
 
   def setup
     @tmp_dir = Dir.mktmpdir

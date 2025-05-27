@@ -28,9 +28,9 @@ module Dataverse::Actions
     def datasets(collection)
       dataverse_url = collection.connector_metadata.dataverse_url
       api_key = collection.connector_metadata.api_key.value
-      service = Dataverse::DataverseService.new(dataverse_url, api_key: api_key)
+      service = Dataverse::CollectionService.new(dataverse_url, api_key: api_key)
       collection_id = collection.connector_metadata.collection_id
-      service.search_dataverse_items(collection_id, 1, 100, false, true).data
+      service.search_collection_items(collection_id, page: 1, per_page: 100, include_collections: false).data
     end
 
     def dataset_title(collection, dataset_id)

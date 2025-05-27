@@ -28,7 +28,7 @@ module Dataverse::Actions
     def collections(collection)
       dataverse_url = collection.connector_metadata.dataverse_url
       api_key = collection.connector_metadata.api_key.value
-      service = Dataverse::DataverseService.new(dataverse_url, api_key: api_key)
+      service = Dataverse::CollectionService.new(dataverse_url, api_key: api_key)
       service.get_my_collections
     end
 
