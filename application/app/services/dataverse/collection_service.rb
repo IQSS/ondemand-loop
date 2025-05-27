@@ -29,25 +29,6 @@ module Dataverse
       MyDataverseCollectionsResponse.new(response.body, page: page, per_page: per_page)
     end
 
-    def find_dataset_version_by_persistent_id(persistent_id, version: ':latest-published')
-      url = "/api/datasets/:persistentId/versions/#{version}?persistentId=#{persistent_id}&returnOwners=true&excludeFiles=true"
-      response = @http_client.get(url)
-      return nil if response.not_found?
-      raise UnauthorizedException if response.unauthorized?
-      raise "Error getting dataset: #{response.status} - #{response.body}" unless response.success?
-      DatasetVersionResponse.new(response.body)
-    end
-
-    def search_dataset_files_by_persistent_id(persistent_id, version: ':latest-published', page: 1, per_page: 10)
-      start = (page-1) * per_page
-      url = "/api/datasets/:persistentId/versions/#{version}/files?persistentId=#{persistent_id}&offset=#{start}&limit=#{per_page}"
-      response = @http_client.get(url)
-      return nil if response.not_found?
-      raise UnauthorizedException if response.unauthorized?
-      raise "Error getting dataset files: #{response.status} - #{response.body}" unless response.success?
-      DatasetFilesResponse.new(response.body, page: page, per_page: per_page)
-    end
-
     def find_collection_by_id(id)
       url = "/api/dataverses/#{id}?returnOwners=true"
       response = @http_client.get(url)
