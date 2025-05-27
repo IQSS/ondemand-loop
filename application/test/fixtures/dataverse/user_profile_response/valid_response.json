@@ -1,0 +1,18 @@
+{
+  "status": "OK",
+  "data": {
+    "id": 1234,
+    "identifier": "@johndoe",
+    "displayName": "John Doe",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "johndoe@example.com",
+    "superuser": false,
+    "deactivated": false,
+    "persistentUserId": "johndoe",
+    "createdTime": "2024-12-10T12:19:20Z",
+    "lastLoginTime": "2025-05-26T10:23:04Z",
+    "lastApiUseTime": "2025-05-27T10:01:10Z",
+    "authenticationProviderId": "builtin"
+  }
+}
