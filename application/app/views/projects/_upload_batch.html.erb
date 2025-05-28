@@ -1,4 +1,4 @@
-<% files = upload_collection.files %>
+<% files = upload_batch.files %>
 <div class="container files">
   <% files.each_with_index do |file, index| %>
     <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
@@ -7,10 +7,10 @@
           <%= render partial: '/shared/file_row_date', locals: { date: file.creation_date, title: t('.schedule_date'), classes: 'mx-2'} %>
 
           <%= render partial: 'shared/repo_badge', locals: {
-            repo_url: upload_collection.connector_metadata.dataset_url,
+            repo_url: upload_batch.connector_metadata.dataset_url,
             target: '_blank',
             icon_html: connector_icon(file.type),
-            name: upload_collection.connector_metadata.dataverse_title,
+            name: upload_batch.connector_metadata.dataverse_title,
             tooltip: t('.repository_files')
           } %>
 

@@ -1,12 +1,12 @@
 <div class="card mb-3 shadow-sm rounded overflow-hidden">
   <div class="card-header d-flex justify-content-between align-items-center bg-light-darker">
     <div class="d-flex align-items-center gap-3">
-      <%= render partial: '/shared/file_row_date', locals: { date: collection.creation_date, title: t('.creation_date') } if collection.creation_date %>
+      <%= render partial: '/shared/file_row_date', locals: { date: batch.creation_date, title: t('.creation_date') } if batch.creation_date %>
 
       <div>
         <!-- PROJECT METADATA -->
         <div class="d-flex flex-column">
-          <h5 class="mb-0"><%= collection.name %></h5>
+          <h5 class="mb-0"><%= batch.name %></h5>
         </div>
       </div>
 
@@ -14,7 +14,7 @@
 
     <div class="d-flex align-items-center gap-2">
       <div class="me-4">
-        <%= render partial: '/shared/file_stats_inline', locals: { count: collection.count} %>
+        <%= render partial: '/shared/file_stats_inline', locals: { count: batch.count} %>
       </div>
 
       <button data-controller="lazy-loader add-upload-files"
@@ -34,7 +34,7 @@
       </button>
 
       <%= render partial: "shared/button_to", locals: {
-        url: project_upload_collection_path(project_id: collection.project_id, id: collection.id),
+        url: project_upload_collection_path(project_id: batch.project_id, id: batch.id),
         method: 'DELETE',
         title: t('.delete_collection'),
         class: 'btn btn-sm btn-outline-secondary icon-hover-danger',
@@ -43,6 +43,6 @@
     </div>
   </div>
 
-  <%= render partial: upload_collection_connector_bar(collection), locals: { collection: collection } %>
+  <%= render partial: upload_collection_connector_bar(batch), locals: { collection: batch } %>
 
 </div>

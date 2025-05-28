@@ -216,7 +216,7 @@ en:
       delete_project: "Delete project"
       active_project: "Active project"
       set_as_active_project: "Set as Active Project"
-    upload_collection:
+    upload_batch:
       schedule_date: "Schedule date"
       repository_files: "Repository Files"
       completion_date: "Completion date"
