@@ -120,13 +120,13 @@ class UploadBatchTest < ActiveSupport::TestCase
   end
 
   test 'project upload collections methods returns empty list' do
-    assert_empty @project.upload_collections
+    assert_empty @project.upload_batches
   end
 
   test 'project upload collections methods returns list with the collection' do
     assert @upload_collection.save
-    assert_equal 1, @project.upload_collections.count
-    collection = @project.upload_collections.first
+    assert_equal 1, @project.upload_batches.count
+    collection = @project.upload_batches.first
     assert_instance_of UploadBatch, collection
     assert_equal @upload_collection.id, collection.id
     assert_equal @upload_collection.project_id, collection.project_id

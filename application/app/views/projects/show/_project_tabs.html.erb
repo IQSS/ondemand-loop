@@ -16,7 +16,7 @@
       </button>
     </li>
 
-    <% project.upload_collections.each do |collection| %>
+    <% project.upload_batches.each do |collection| %>
       <li class="nav-item" role="presentation">
         <button class="nav-link text-secondary" id="upload-tab-<%= collection.id %>" data-bs-toggle="tab"
                 data-bs-target="#tab-collection-<%= collection.id %>" type="button" role="tab"

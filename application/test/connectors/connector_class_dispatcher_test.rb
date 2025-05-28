@@ -11,7 +11,7 @@ class ConnectorClassDispatcherTest < ActiveSupport::TestCase
 
   test 'upload_file_connector_status should return Dataverse::UploadConnectorStatus class for dataverse files' do
     project = upload_project(type: ConnectorType::DATAVERSE, files: 1)
-    result = ConnectorClassDispatcher.upload_file_connector_status(project.upload_collections.first.files.first)
+    result = ConnectorClassDispatcher.upload_file_connector_status(project.upload_batches.first.files.first)
     assert_instance_of Dataverse::UploadConnectorStatus, result
   end
 
@@ -23,7 +23,7 @@ class ConnectorClassDispatcherTest < ActiveSupport::TestCase
 
   test 'upload_connector_metadata should return Dataverse::UploadConnectorMetadata class for dataverse files' do
     project = upload_project(type: ConnectorType::DATAVERSE, files: 1)
-    result = ConnectorClassDispatcher.upload_connector_metadata(project.upload_collections.first.files.first)
+    result = ConnectorClassDispatcher.upload_connector_metadata(project.upload_batches.first.files.first)
     assert_instance_of Dataverse::UploadConnectorMetadata, result
   end
 
@@ -47,7 +47,7 @@ class ConnectorClassDispatcherTest < ActiveSupport::TestCase
 
   test 'upload_processor should return Dataverse::UploadConnectorProcessor class for dataverse files' do
     project = upload_project(type: ConnectorType::DATAVERSE, files: 1)
-    result = ConnectorClassDispatcher.upload_processor(project.upload_collections.first.files.first)
+    result = ConnectorClassDispatcher.upload_processor(project.upload_batches.first.files.first)
     assert_instance_of Dataverse::UploadConnectorProcessor, result
   end
 

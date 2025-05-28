@@ -46,7 +46,7 @@ class Project < ApplicationDiskRecord
       end
   end
 
-  def upload_collections
+  def upload_batches
     @upload_collections ||=
       begin
         Dir.glob(File.join(self.class.upload_batches_directory(id), '*'))

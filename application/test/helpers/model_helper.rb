@@ -27,7 +27,7 @@ module ModelHelper
       upload_collection = create_upload_collection(project, type: type)
       upload_files = Array.new(files) { create_upload_file(project, upload_collection, type: type) }
       upload_collection.stubs(:files).returns(upload_files)
-      project.stubs(:upload_collections).returns([upload_collection])
+      project.stubs(:upload_batches).returns([upload_collection])
     end
   end
 
