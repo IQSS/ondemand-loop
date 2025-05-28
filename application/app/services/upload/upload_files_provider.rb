@@ -38,7 +38,7 @@ module Upload
       Project.all.flat_map do |project|
         project.upload_batches.flat_map do |collection|
           collection.files.map do |file|
-            OpenStruct.new(file: file, project: project, upload_collection: collection)
+            OpenStruct.new(file: file, project: project, upload_batch: collection)
           end
         end
       end

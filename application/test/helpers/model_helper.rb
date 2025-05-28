@@ -51,7 +51,7 @@ module ModelHelper
       file.filename = "#{random_id}.txt"
       file.status = FileStatus::PENDING
       file.size = 200
-      file.stubs(:upload_collection).returns(collection)
+      file.stubs(:upload_batch).returns(collection)
     end
   end
   def random_id

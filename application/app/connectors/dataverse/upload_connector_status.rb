@@ -8,7 +8,7 @@ module Dataverse
 
     def initialize(file)
       @file = file
-      @connector_metadata = file.upload_collection.connector_metadata
+      @connector_metadata = file.upload_batch.connector_metadata
     end
 
     def upload_progress
