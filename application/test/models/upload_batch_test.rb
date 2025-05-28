@@ -20,7 +20,7 @@ class UploadBatchTest < ActiveSupport::TestCase
     @project = Project.new id: '456-789', name: 'Test Project'
     @project.save
     @upload_collection = UploadBatch.new(@valid_attributes)
-    @expected_filename = File.join(Project.upload_collections_directory('456-789'), '123-321', 'metadata.yml')
+    @expected_filename = File.join(Project.upload_batches_directory('456-789'), '123-321', 'metadata.yml')
   end
 
   def teardown
@@ -65,7 +65,7 @@ class UploadBatchTest < ActiveSupport::TestCase
   end
 
   test 'save twice only creates one file' do
-    files_directory = Pathname.new(Project.upload_collections_directory('456-789'))
+    files_directory = Pathname.new(Project.upload_batches_directory('456-789'))
     assert @upload_collection.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
     assert_equal 1, files_directory.children.count

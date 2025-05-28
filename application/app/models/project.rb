@@ -49,7 +49,7 @@ class Project < ApplicationDiskRecord
   def upload_collections
     @upload_collections ||=
       begin
-        Dir.glob(File.join(self.class.upload_collections_directory(id), '*'))
+        Dir.glob(File.join(self.class.upload_batches_directory(id), '*'))
            .select { |path| File.directory?(path) }
            .sort { |a, b| File.ctime(b) <=> File.ctime(a) }
            .map { |directory| UploadBatch.find(id, File.basename(directory)) }
@@ -90,7 +90,7 @@ class Project < ApplicationDiskRecord
     File.join(metadata_directory, id, 'download_files')
   end
 
-  def self.upload_collections_directory(id)
+  def self.upload_batches_directory(id)
     File.join(metadata_directory, id, 'upload_collections')
   end
 

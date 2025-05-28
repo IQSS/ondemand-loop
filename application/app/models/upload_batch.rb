@@ -71,7 +71,7 @@ class UploadBatch < ApplicationDiskRecord
   private
 
   def self.directory_by_ids(project_id, collection_id)
-    File.join(Project.upload_collections_directory(project_id), collection_id)
+    File.join(Project.upload_batches_directory(project_id), collection_id)
   end
 
   def self.filename_by_ids(project_id, collection_id)

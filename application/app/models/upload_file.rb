@@ -66,6 +66,6 @@ class UploadFile < ApplicationDiskRecord
   private
 
   def self.filename_by_ids(project_id, collection_id, file_id)
-    File.join(Project.upload_collections_directory(project_id), collection_id, "files", "#{file_id}.yml")
+    File.join(Project.upload_batches_directory(project_id), collection_id, "files", "#{file_id}.yml")
   end
 end
