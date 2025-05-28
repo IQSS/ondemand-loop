@@ -38,7 +38,7 @@
           <button class="nav-link text-secondary" id="upload-tab-<%= collection.id %>" data-bs-toggle="tab"
                   data-bs-target="#upload-files-<%= collection.id %>" type="button" role="tab"
                   aria-controls="upload-files-<%= collection.id %>" aria-selected="false">
-            <i class="bi bi-upload me-1"></i><%= t('.uploads') %> (<%= collection.name %>)
+            <i class="bi bi-upload me-1"></i><%= collection.name %>
           </button>
         </li>
       <% end %>

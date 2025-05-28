@@ -31,8 +31,8 @@ module Dataverse
       dataverse_url
     end
 
-    def files_url
-      "#{dataverse_url}/dataset.xhtml?persistentId=#{persistent_id}"
+    def dataset_url
+      "#{dataverse_url}/dataset.xhtml?persistentId=#{dataset_id}&version=DRAFT"
     end
 
     def display_collection?

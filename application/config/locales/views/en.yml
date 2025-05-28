@@ -161,7 +161,7 @@ en:
         delete_file: "Delete File"
       project_actions:
         open_project_folder: "Open project folder"
-        create_upload_collection: "Create Upload Collection"
+        create_upload_collection: "Create Upload Batch"
         create_upload_collection_placeholder: "Dataset URL"
         delete_project: "Delete Project"
         open_project_metadata: "Open Project Metadata"

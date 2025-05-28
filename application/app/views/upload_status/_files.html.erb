@@ -9,22 +9,24 @@
         <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
           <div class="col-md-8">
             <div class="d-flex align-items-center">
-            <%= link_to(files_app_url(File.dirname(data.file.file_location)), class: 'btn btn-sm btn-outline-secondary me-2', title: t('.browse_file'), target: '_blank') do %>
-              <i class="bi bi-folder"></i>
-            <% end %>
-              <%= render partial: 'shared/repo_badge', locals: {
-                repo_url: data.file.connector_metadata.files_url,
-                icon_html: connector_icon(data.file.type),
-                name: truncate(data.file.connector_metadata.repo_name, length: 20),
-                tooltip: t(".external_dataset")
-              } %>
+              <%= link_to(files_app_url(File.dirname(data.file.file_location)), class: 'btn btn-sm btn-outline-secondary me-2', title: t('.browse_file'), target: '_blank') do %>
+                <i class="bi bi-folder"></i>
+              <% end %>
+
               <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-2" title="<%= t('.schedule_creation_date') %>">
                 <span><%= get_date(data.file.creation_date) %></span>
                 <span><%= get_time(data.file.creation_date) %></span>
               </div>
 
+              <%= render partial: 'shared/repo_badge', locals: {
+                repo_url: data.upload_collection.connector_metadata.dataset_url,
+                target: '_blank',
+                icon_html: connector_icon(data.file.type),
+                name: data.upload_collection.connector_metadata.dataverse_title,
+                tooltip: t(".external_dataset")
+              } %>
+
               <span class="me-2"><%= data.project.name %> ></span>
-              <span class="me-2"><%= data.file.upload_collection.name %> ></span>
               <span class="me-2" title="<%= data.file.file_location %>"><%= data.file.filename %></span>
               <small class="text-muted me-2"><%= number_to_human_size(data.file.size) %></small>
             </div>
