@@ -162,7 +162,7 @@ en:
       project_actions:
         open_project_folder: "Open project folder"
         create_upload_collection: "Create Upload Batch"
-        create_upload_collection_placeholder: "Dataset URL"
+        create_upload_batch_placeholder: "Dataset URL"
         delete_project: "Delete Project"
         open_project_metadata: "Open Project Metadata"
       project_metadata:
@@ -181,7 +181,7 @@ en:
       upload_actions:
         creation_date: "Creation date"
         add_files: "Add Files"
-        edit_upload_collection_settings: "Edit upload collection settings"
+        edit_upload_batch_settings: "Edit upload batch settings"
         delete_collection: "Delete Collection"
       upload_files:
         no_upload_files: "No Upload Files"

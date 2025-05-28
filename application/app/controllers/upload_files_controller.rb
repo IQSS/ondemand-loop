@@ -6,15 +6,15 @@ class UploadFilesController < ApplicationController
 
   def index
     project_id = params[:project_id]
-    upload_batch_id = params[:upload_collection_id]
+    upload_batch_id = params[:upload_batch_id]
     upload_batch = UploadBatch.find(project_id, upload_batch_id)
     render partial: '/projects/show/upload_files', layout: false, locals: { batch: upload_batch }
   end
 
-  # JSON based create method to add a local filepath to an upload collection
+  # JSON based create method to add a local filepath to an upload batch
   def create
     project_id = params[:project_id]
-    upload_batch_id = params[:upload_collection_id]
+    upload_batch_id = params[:upload_batch_id]
     upload_batch = UploadBatch.find(project_id, upload_batch_id)
     if upload_batch.nil?
       head :not_found
@@ -40,7 +40,7 @@ class UploadFilesController < ApplicationController
     upload_files.each do |file|
       unless file.valid?
         errors = file.errors.full_messages.join(", ")
-        log_error('UploadFile validation error', {error: errors, project_id: project_id, upload_collection_id: upload_batch_id, file: file.to_s})
+        log_error('UploadFile validation error', {error: errors, project_id: project_id, upload_batch_id: upload_batch_id, file: file.to_s})
         render json: { message: t(".invalid_file", filename: file.filename, errors: errors) }, status: :bad_request
         return
       end
@@ -48,7 +48,7 @@ class UploadFilesController < ApplicationController
 
     upload_files.each do |file|
       file.save
-      log_info('Added file to upload collection', {project_id: project_id, upload_collection_id: upload_batch_id, file: file.filename})
+      log_info('Added file to upload batch', {project_id: project_id, upload_batch_id: upload_batch_id, file: file.filename})
     end
 
     message = upload_files.size > 1 ? t(".files_added", count: upload_files.size, path_folder: path_folder) : t(".file_added", filename: upload_files.first.filename)
@@ -57,7 +57,7 @@ class UploadFilesController < ApplicationController
 
   def destroy
     project_id = params[:project_id]
-    upload_batch_id = params[:upload_collection_id]
+    upload_batch_id = params[:upload_batch_id]
     file_id = params[:id]
     upload_file = UploadFile.find(project_id, upload_batch_id, file_id)
     if upload_file.nil?
@@ -71,7 +71,7 @@ class UploadFilesController < ApplicationController
 
   def cancel
     project_id = params[:project_id]
-    upload_batch_id = params[:upload_collection_id]
+    upload_batch_id = params[:upload_batch_id]
     file_id = params[:id]
 
     if project_id.blank? || upload_batch_id.blank? || file_id.blank?

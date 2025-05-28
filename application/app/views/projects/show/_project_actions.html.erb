@@ -11,13 +11,13 @@
 
   <div class="d-flex align-items-center gap-2 flex-grow-1">
     <%= render partial: 'shared/inline_field_submit', locals: {
-      url: project_upload_collections_path(project_id: project.id),
+      url: project_upload_batches_path(project_id: project.id),
       type: 'form',
       field_name: 'remote_repo_url',
       label: t('.create_upload_collection'),
       class: 'btn-sm btn-outline-secondary',
       icon: 'bi bi-folder-plus',
-      placeholder: t('.create_upload_collection_placeholder'),
+      placeholder: t('.create_upload_batch_placeholder'),
     } %>
 
     <%= render partial: "shared/button_to", locals: {

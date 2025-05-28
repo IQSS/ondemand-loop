@@ -119,11 +119,11 @@ class UploadBatchTest < ActiveSupport::TestCase
     refute UploadBatch.find('456-789', '123-322')
   end
 
-  test 'project upload collections methods returns empty list' do
+  test 'project upload batchs methods returns empty list' do
     assert_empty @project.upload_batches
   end
 
-  test 'project upload collections methods returns list with the collection' do
+  test 'project upload batchs methods returns list with the collection' do
     assert @upload_collection.save
     assert_equal 1, @project.upload_batches.count
     collection = @project.upload_batches.first

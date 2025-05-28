@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Dataverse
-  # Dataverse upload collection connector processor. Responsible for managing updates to collections of type Dataverse
+  # Dataverse upload batch connector processor. Responsible for managing updates to collections of type Dataverse
   class UploadBatchConnectorProcessor
     include LoggingCommon
     include DateTimeCommon
@@ -21,7 +21,7 @@ module Dataverse
       if dataverse_url.collection?
         collection_service = Dataverse::CollectionService.new(dataverse_url.dataverse_url)
         collection = collection_service.find_collection_by_id(dataverse_url.collection_id)
-        return error(I18n.t('connectors.dataverse.upload_collections.collection_not_found', url: remote_repo_url)) unless collection
+        return error(I18n.t('connectors.dataverse.upload_batches.collection_not_found', url: remote_repo_url)) unless collection
 
         root_dv = collection.data.parents.first
         root_title = root_dv[:name]
@@ -29,7 +29,7 @@ module Dataverse
       elsif dataverse_url.dataset?
         dataset_service = Dataverse::DatasetService.new(dataverse_url.dataverse_url)
         dataset = dataset_service.find_dataset_version_by_persistent_id(dataverse_url.dataset_id)
-        return error(I18n.t('connectors.dataverse.upload_collections.dataset_not_found', url: remote_repo_url)) unless dataset
+        return error(I18n.t('connectors.dataverse.upload_batches.dataset_not_found', url: remote_repo_url)) unless dataset
 
         parent_dv = dataset.data.parents.last
         root_dv = dataset.data.parents.first
@@ -37,12 +37,13 @@ module Dataverse
         collection_title = parent_dv[:name]
         dataset_title = dataset.metadata_field('title').to_s
       else
-        collection = dv_service.find_collection_by_id(':root')
+        collection_service = Dataverse::CollectionService.new(dataverse_url.dataverse_url)
+        collection = collection_service.find_collection_by_id(':root')
         root_title = collection.data.name
       end
 
       file_utils = Common::FileUtils.new
-      upload_collection = UploadBatch.new.tap do |c|
+      upload_batch = UploadBatch.new.tap do |c|
         c.id = file_utils.normalize_name(File.join(dataverse_url.domain, UploadBatch.generate_code))
         c.name = c.id
         c.project_id = project.id
@@ -58,10 +59,10 @@ module Dataverse
           dataset_id: dataverse_url.dataset_id,
         }
       end
-      upload_collection.save
+      upload_batch.save
 
       ConnectorResult.new(
-        message: { notice: "Upload Collection created: #{upload_collection.name}" },
+        message: { notice: "Upload Batch created: #{upload_batch.name}" },
         success: true
       )
     end

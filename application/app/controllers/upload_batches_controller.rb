@@ -1,4 +1,4 @@
-class UploadCollectionsController < ApplicationController
+class UploadBatchesController < ApplicationController
   include LoggingCommon
 
   def create

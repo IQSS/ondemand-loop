@@ -65,4 +65,4 @@ en:
       upload_file_removed: "Upload file removed from collection. %{filename}"
     cancel:
       compulsory_fields_error: 'project_id and file_id are compulsory'
-      file_not_found: "file not found project_id=%{project_id} upload_collection_id=%{collection_id} id=%{file_id}"
+      file_not_found: "file not found project_id=%{project_id} upload_batch_id=%{collection_id} id=%{file_id}"

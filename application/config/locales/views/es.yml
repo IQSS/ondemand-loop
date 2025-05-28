@@ -103,7 +103,7 @@ es:
       project_actions:
         open_project_folder: "Abrir carpeta del proyecto"
         create_upload_collection: "Crear colección de carga"
-        create_upload_collection_placeholder: "URL del conjunto de datos"
+        create_upload_batch_placeholder: "URL del conjunto de datos"
         delete_project: "Eliminar proyecto"
         open_project_metadata: "Abrir metadatos del proyecto"
       project_metadata:
@@ -122,7 +122,7 @@ es:
       upload_actions:
         creation_date: "Fecha de creación"
         add_files: "Agregar archivos"
-        edit_upload_collection_settings: "Editar configuración de la colección de carga"
+        edit_upload_batch_settings: "Editar configuración de la colección de carga"
         delete_collection: "Eliminar colección"
       upload_files:
         no_upload_files: "Sin archivos para cargar"

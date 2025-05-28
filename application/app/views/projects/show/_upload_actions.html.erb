@@ -29,12 +29,12 @@
       </button>
 
       <button class="btn btn-sm btn-outline-secondary"
-              title="<%= t('.edit_upload_collection_settings') %>">
+              title="<%= t('.edit_upload_batch_settings') %>">
         <i class="bi bi-gear-fill"></i>
       </button>
 
       <%= render partial: "shared/button_to", locals: {
-        url: project_upload_collection_path(project_id: batch.project_id, id: batch.id),
+        url: project_upload_batch_path(project_id: batch.project_id, id: batch.id),
         method: 'DELETE',
         title: t('.delete_collection'),
         class: 'btn btn-sm btn-outline-secondary icon-hover-danger',
