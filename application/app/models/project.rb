@@ -91,7 +91,7 @@ class Project < ApplicationDiskRecord
   end
 
   def self.upload_batches_directory(id)
-    File.join(metadata_directory, id, 'upload_collections')
+    File.join(metadata_directory, id, 'upload_batches')
   end
 
   def self.filename_by_id(id)
