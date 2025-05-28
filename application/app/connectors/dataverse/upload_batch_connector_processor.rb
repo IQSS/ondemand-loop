@@ -62,7 +62,7 @@ module Dataverse
       upload_batch.save
 
       ConnectorResult.new(
-        message: { notice: "Upload Batch created: #{upload_batch.name}" },
+        message: { notice: I18n.t('connectors.dataverse.upload_batches.created', name: upload_batch.name) },
         success: true
       )
     end
