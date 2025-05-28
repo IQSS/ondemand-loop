@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class UploadCollectionTest < ActiveSupport::TestCase
+class UploadBatchTest < ActiveSupport::TestCase
   def setup
     @tmp_dir = Dir.mktmpdir
     UploadBatch.stubs(:metadata_root_directory).returns(@tmp_dir)
