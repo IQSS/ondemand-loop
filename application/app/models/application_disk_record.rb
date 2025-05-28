@@ -8,7 +8,7 @@ class ApplicationDiskRecord
 
   def self.generate_id
     SecureRandom.uuid.to_s
-    end
+  end
 
   def self.generate_code(length = 4)
     SecureRandom.alphanumeric(length)
