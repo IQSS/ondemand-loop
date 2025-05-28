@@ -3,7 +3,7 @@ require 'test_helper'
 class UploadCollectionTest < ActiveSupport::TestCase
   def setup
     @tmp_dir = Dir.mktmpdir
-    UploadCollection.stubs(:metadata_root_directory).returns(@tmp_dir)
+    UploadBatch.stubs(:metadata_root_directory).returns(@tmp_dir)
     Project.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
       'id' => '123-321', 'project_id' => '456-789',
@@ -19,7 +19,7 @@ class UploadCollectionTest < ActiveSupport::TestCase
     }
     @project = Project.new id: '456-789', name: 'Test Project'
     @project.save
-    @upload_collection = UploadCollection.new(@valid_attributes)
+    @upload_collection = UploadBatch.new(@valid_attributes)
     @expected_filename = File.join(Project.upload_collections_directory('456-789'), '123-321', 'metadata.yml')
   end
 
@@ -87,24 +87,24 @@ class UploadCollectionTest < ActiveSupport::TestCase
     assert @upload_collection.destroy, 'Destroy did not return true'
     refute File.exist?(@expected_filename), 'File was not deleted from the file system'
 
-    refute UploadCollection.find('456-789', '123-321'), 'Collection should not be found after destroy'
+    refute UploadBatch.find('456-789', '123-321'), 'Collection should not be found after destroy'
   end
 
 
   test 'find does not find the record if it was not saved' do
-    refute UploadCollection.find('456-789', '123-321')
+    refute UploadBatch.find('456-789', '123-321')
   end
 
   test 'find retrieves the record if it was saved' do
     assert @upload_collection.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
-    assert UploadCollection.find('456-789', '123-321')
+    assert UploadBatch.find('456-789', '123-321')
   end
 
   test 'find retrieves the record with the same stored values' do
     assert @upload_collection.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
-    loaded_file = UploadCollection.find('456-789', '123-321')
+    loaded_file = UploadBatch.find('456-789', '123-321')
     assert loaded_file
     assert_equal '123-321', loaded_file.id
     assert_equal '456-789', loaded_file.project_id
@@ -114,9 +114,9 @@ class UploadCollectionTest < ActiveSupport::TestCase
   test 'find retrieves the record only if both ids match' do
     assert @upload_collection.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
-    assert UploadCollection.find('456-789', '123-321')
-    refute UploadCollection.find('456-780', '123-321')
-    refute UploadCollection.find('456-789', '123-322')
+    assert UploadBatch.find('456-789', '123-321')
+    refute UploadBatch.find('456-780', '123-321')
+    refute UploadBatch.find('456-789', '123-322')
   end
 
   test 'project upload collections methods returns empty list' do
@@ -127,7 +127,7 @@ class UploadCollectionTest < ActiveSupport::TestCase
     assert @upload_collection.save
     assert_equal 1, @project.upload_collections.count
     collection = @project.upload_collections.first
-    assert_instance_of UploadCollection, collection
+    assert_instance_of UploadBatch, collection
     assert_equal @upload_collection.id, collection.id
     assert_equal @upload_collection.project_id, collection.project_id
   end

@@ -32,7 +32,7 @@ module ModelHelper
   end
 
   def create_upload_collection(project, id: random_id, type: ConnectorType::DATAVERSE, files: [])
-    UploadCollection.new.tap do |collection|
+    UploadBatch.new.tap do |collection|
       collection.project_id = project.id
       collection.id = id
       collection.name = "sample name"

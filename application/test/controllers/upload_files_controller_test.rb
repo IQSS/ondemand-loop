@@ -11,7 +11,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
 
   test 'index should return success' do
     collection = create_upload_collection(create_project)
-    UploadCollection.stubs(:find).returns(collection)
+    UploadBatch.stubs(:find).returns(collection)
 
     get project_upload_collection_upload_files_url(@project_id, @collection_id)
 
@@ -19,7 +19,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'create should return not found if upload collection does not exist' do
-    UploadCollection.stubs(:find).returns(nil)
+    UploadBatch.stubs(:find).returns(nil)
 
     post project_upload_collection_upload_files_url(@project_id, @collection_id), params: {
       path: @test_path
@@ -30,7 +30,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
 
   test 'should return bad request if file is invalid' do
     collection = create_upload_collection(create_project)
-    UploadCollection.stubs(:find).returns(collection)
+    UploadBatch.stubs(:find).returns(collection)
 
     UploadFilesController.any_instance.stubs(:list_files)
                          .returns([OpenStruct.new(fullpath: @test_path, filename: 'invalid.txt', size: 2.gigabytes)])
@@ -44,7 +44,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'create should create and return ok if files are valid' do
-    UploadCollection.stubs(:find).returns(mock)
+    UploadBatch.stubs(:find).returns(mock)
 
     UploadFilesController.any_instance.stubs(:list_files)
                          .returns([OpenStruct.new(fullpath: @test_path, filename: 'valid.txt', size: 456)])

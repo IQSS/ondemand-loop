@@ -42,8 +42,8 @@ module Dataverse
       end
 
       file_utils = Common::FileUtils.new
-      upload_collection = UploadCollection.new.tap do |c|
-        c.id = file_utils.normalize_name(File.join(dataverse_url.domain, UploadCollection.generate_code))
+      upload_collection = UploadBatch.new.tap do |c|
+        c.id = file_utils.normalize_name(File.join(dataverse_url.domain, UploadBatch.generate_code))
         c.name = c.id
         c.project_id = project.id
         c.remote_repo_url = remote_repo_url

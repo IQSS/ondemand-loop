@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UploadCollection < ApplicationDiskRecord
+class UploadBatch < ApplicationDiskRecord
   include ActiveModel::Model
 
   ATTRIBUTES = %w[id project_id remote_repo_url type name creation_date metadata].freeze

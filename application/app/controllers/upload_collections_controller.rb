@@ -28,7 +28,7 @@ class UploadCollectionsController < ApplicationController
   def edit
     project_id = params[:project_id]
     collection_id = params[:id]
-    upload_collection = UploadCollection.find(project_id, collection_id)
+    upload_collection = UploadBatch.find(project_id, collection_id)
     if upload_collection.nil?
       redirect_back fallback_location: root_path, alert: t(".invalid_parameters", project_id: project_id, collection_id: collection_id)
       return
@@ -44,7 +44,7 @@ class UploadCollectionsController < ApplicationController
   def update
     project_id = params[:project_id]
     collection_id = params[:id]
-    upload_collection = UploadCollection.find(project_id, collection_id)
+    upload_collection = UploadBatch.find(project_id, collection_id)
 
     if upload_collection.nil?
       redirect_back fallback_location: root_path, alert: t(".not_found", collection_id: collection_id)
@@ -62,7 +62,7 @@ class UploadCollectionsController < ApplicationController
   def destroy
     project_id = params[:project_id]
     collection_id = params[:id]
-    upload_collection = UploadCollection.find(project_id, collection_id)
+    upload_collection = UploadBatch.find(project_id, collection_id)
 
     if upload_collection.nil?
       redirect_back fallback_location: root_path, alert: t(".not_found", collection_id: collection_id)

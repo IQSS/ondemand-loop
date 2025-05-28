@@ -5,7 +5,7 @@ class UploadFileTest < ActiveSupport::TestCase
     @tmp_dir = Dir.mktmpdir
     UploadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
     Project.stubs(:metadata_root_directory).returns(@tmp_dir)
-    UploadCollection.stubs(:metadata_root_directory).returns(@tmp_dir)
+    UploadBatch.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
       'id' => '123-321', 'project_id' => '456-789', 'collection_id' => '111-222', 'type' => ConnectorType::DATAVERSE,
       'file_location' => 'path/to/file.jpg',
@@ -26,7 +26,7 @@ class UploadFileTest < ActiveSupport::TestCase
     }
     @project = Project.new id: '456-789', name: 'Test Project'
     @project.save
-    @upload_collection = UploadCollection.new(@collection_attributes)
+    @upload_collection = UploadBatch.new(@collection_attributes)
     @upload_collection.save
     @upload_file = UploadFile.new(@valid_attributes)
     @expected_filename = File.join(Project.upload_collections_directory('456-789'), '111-222', 'files', '123-321.yml')

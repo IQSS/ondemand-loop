@@ -7,7 +7,7 @@ class UploadFilesController < ApplicationController
   def index
     project_id = params[:project_id]
     collection_id = params[:upload_collection_id]
-    upload_collection = UploadCollection.find(project_id, collection_id)
+    upload_collection = UploadBatch.find(project_id, collection_id)
     render partial: '/projects/show/upload_files', layout: false, locals: { collection: upload_collection }
   end
 
@@ -15,7 +15,7 @@ class UploadFilesController < ApplicationController
   def create
     project_id = params[:project_id]
     collection_id = params[:upload_collection_id]
-    upload_collection = UploadCollection.find(project_id, collection_id)
+    upload_collection = UploadBatch.find(project_id, collection_id)
     if upload_collection.nil?
       head :not_found
       return
