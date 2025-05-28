@@ -7,15 +7,6 @@ module Dataverse
       @api_key = api_key
     end
 
-    def get_citation_metadata
-      url = "/api/metadatablocks/citation"
-      response = @http_client.get(url)
-      return nil if response.not_found?
-      raise UnauthorizedException if response.unauthorized?
-      raise "Error getting dataverse citation metadata: #{response.status} - #{response.body}" unless response.success?
-      CitationMetadataResponse.new(response.body)
-    end
-
     def get_my_collections(page: 1, per_page: 100)
       raise ApiKeyRequiredException unless @api_key
 

@@ -5,8 +5,8 @@ module Dataverse::Actions
       repo_db = RepoRegistry.repo_db
       dataverse_data = repo_db.get(connector_metadata.server_domain)
       if dataverse_data.metadata.subjects.nil?
-        dv_service = Dataverse::CollectionService.new(connector_metadata.dataverse_url)
-        subjects = dv_service.get_citation_metadata.subjects
+        dv_metadata_service = Dataverse::MetadataService.new(connector_metadata.dataverse_url)
+        subjects = dv_metadata_service.get_citation_metadata.subjects
         repo_db.update(connector_metadata.server_domain, metadata: { subjects: subjects })
       else
         subjects = dataverse_data.metadata.subjects
