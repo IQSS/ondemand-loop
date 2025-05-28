@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Dataverse
-  class UploadCollectionConnectorMetadata
+  class UploadBatchConnectorMetadata
     def initialize(upload_collection)
       @metadata = upload_collection.metadata.to_h.deep_symbolize_keys
       @metadata.each_key do |key|

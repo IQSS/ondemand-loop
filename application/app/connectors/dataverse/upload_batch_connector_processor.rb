@@ -2,7 +2,7 @@
 
 module Dataverse
   # Dataverse upload collection connector processor. Responsible for managing updates to collections of type Dataverse
-  class UploadCollectionConnectorProcessor
+  class UploadBatchConnectorProcessor
     include LoggingCommon
     include DateTimeCommon
 

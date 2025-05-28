@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Dataverse
-  class UploadConnectorMetadata < UploadCollectionConnectorMetadata
+  class UploadConnectorMetadata < UploadBatchConnectorMetadata
     def initialize(upload_file)
       super(upload_file.upload_collection)
     end

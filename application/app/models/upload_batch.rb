@@ -65,7 +65,7 @@ class UploadBatch < ApplicationDiskRecord
   end
 
   def connector_metadata
-    ConnectorClassDispatcher.upload_collection_connector_metadata(self)
+    ConnectorClassDispatcher.upload_batch_connector_metadata(self)
   end
 
   private

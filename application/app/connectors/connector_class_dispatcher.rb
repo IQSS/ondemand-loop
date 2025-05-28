@@ -21,11 +21,11 @@ class ConnectorClassDispatcher
   end
 
   def self.upload_batch_connector_processor(type)
-    self.load(type, 'UploadCollectionConnectorProcessor', nil)
+    self.load(type, 'UploadBatchConnectorProcessor', nil)
   end
 
-  def self.upload_collection_connector_metadata(upload_collection)
-    self.load(upload_collection.type, 'UploadCollectionConnectorMetadata', upload_collection)
+  def self.upload_batch_connector_metadata(upload_batch)
+    self.load(upload_batch.type, 'UploadBatchConnectorMetadata', upload_batch)
   end
 
   def self.download_processor(download_file)
