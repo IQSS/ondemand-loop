@@ -28,7 +28,7 @@ class ConnectorClassDispatcherTest < ActiveSupport::TestCase
   end
 
   test 'upload_collection_connector_processor should return Dataverse::UploadCollectionConnectorProcessor class for dataverse type' do
-    result = ConnectorClassDispatcher.upload_collection_connector_processor(ConnectorType::DATAVERSE)
+    result = ConnectorClassDispatcher.upload_batch_connector_processor(ConnectorType::DATAVERSE)
     assert_instance_of Dataverse::UploadCollectionConnectorProcessor, result
   end
 
