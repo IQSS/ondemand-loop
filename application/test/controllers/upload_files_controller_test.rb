@@ -4,16 +4,16 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @project_id = 'test-project'
-    @collection_id = 'test-collection'
+    @upload_batch_id = 'test-collection'
     @file_id = 'file-123'
     @test_path = Rails.root.join('test/fixtures/files/sample.txt').to_s
   end
 
   test 'index should return success' do
-    collection = create_upload_collection(create_project)
+    collection = create_upload_batch(create_project)
     UploadBatch.stubs(:find).returns(collection)
 
-    get project_upload_batch_upload_files_url(@project_id, @collection_id)
+    get project_upload_batch_upload_files_url(@project_id, @upload_batch_id)
 
     assert_response :ok
   end
@@ -21,7 +21,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
   test 'create should return not found if upload batch does not exist' do
     UploadBatch.stubs(:find).returns(nil)
 
-    post project_upload_batch_upload_files_url(@project_id, @collection_id), params: {
+    post project_upload_batch_upload_files_url(@project_id, @upload_batch_id), params: {
       path: @test_path
     }
 
@@ -29,13 +29,13 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should return bad request if file is invalid' do
-    collection = create_upload_collection(create_project)
+    collection = create_upload_batch(create_project)
     UploadBatch.stubs(:find).returns(collection)
 
     UploadFilesController.any_instance.stubs(:list_files)
                          .returns([OpenStruct.new(fullpath: @test_path, filename: 'invalid.txt', size: 2.gigabytes)])
 
-    post project_upload_batch_upload_files_url(@project_id, @collection_id), params: {
+    post project_upload_batch_upload_files_url(@project_id, @upload_batch_id), params: {
       path: @test_path
     }
 
@@ -53,7 +53,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     UploadFile.any_instance.stubs(:save).returns(true)
     UploadFile.any_instance.stubs(:filename).returns('valid.txt')
 
-    post project_upload_batch_upload_files_url(@project_id, @collection_id), params: {
+    post project_upload_batch_upload_files_url(@project_id, @upload_batch_id), params: {
       path: @test_path
     }
 
@@ -67,9 +67,9 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     file.stubs(:filename).returns('delete.txt')
     file.expects(:destroy)
 
-    UploadFile.stubs(:find).with(@project_id, @collection_id, @file_id).returns(file)
+    UploadFile.stubs(:find).with(@project_id, @upload_batch_id, @file_id).returns(file)
 
-    delete project_upload_batch_upload_file_url(@project_id, @collection_id, @file_id)
+    delete project_upload_batch_upload_file_url(@project_id, @upload_batch_id, @file_id)
 
     assert_redirected_to root_path
     assert_equal 'Upload file removed from collection. delete.txt', flash[:notice]
@@ -78,7 +78,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
   test 'cancel should return not found if file is missing on cancel' do
     UploadFile.stubs(:find).returns(nil)
 
-    post cancel_project_upload_batch_upload_file_url(@project_id, @collection_id, @file_id)
+    post cancel_project_upload_batch_upload_file_url(@project_id, @upload_batch_id, @file_id)
 
     assert_response :not_found
     assert_match /file not found/, @response.body
@@ -96,7 +96,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
 
     Command::CommandClient.any_instance.stubs(:request).returns(mock_response)
 
-    post cancel_project_upload_batch_upload_file_url(@project_id, @collection_id, @file_id)
+    post cancel_project_upload_batch_upload_file_url(@project_id, @upload_batch_id, @file_id)
 
     assert_response :no_content
   end

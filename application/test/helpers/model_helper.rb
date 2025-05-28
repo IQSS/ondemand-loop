@@ -24,14 +24,14 @@ module ModelHelper
 
   def upload_project(type: ConnectorType::DATAVERSE, files:)
     create_project.tap do |project|
-      upload_collection = create_upload_collection(project, type: type)
+      upload_collection = create_upload_batch(project, type: type)
       upload_files = Array.new(files) { create_upload_file(project, upload_collection, type: type) }
       upload_collection.stubs(:files).returns(upload_files)
       project.stubs(:upload_batches).returns([upload_collection])
     end
   end
 
-  def create_upload_collection(project, id: random_id, type: ConnectorType::DATAVERSE, files: [])
+  def create_upload_batch(project, id: random_id, type: ConnectorType::DATAVERSE, files: [])
     UploadBatch.new.tap do |collection|
       collection.project_id = project.id
       collection.id = id

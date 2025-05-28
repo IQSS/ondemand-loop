@@ -34,7 +34,7 @@ class ConnectorClassDispatcherTest < ActiveSupport::TestCase
 
   test 'upload_collection_connector_metadata should return Dataverse::UploadBatchConnectorMetadata class for dataverse collections' do
     project = create_project
-    upload_collection = create_upload_collection(project, type: ConnectorType::DATAVERSE)
+    upload_collection = create_upload_batch(project, type: ConnectorType::DATAVERSE)
     result = ConnectorClassDispatcher.upload_batch_connector_metadata(upload_collection)
     assert_instance_of Dataverse::UploadBatchConnectorMetadata, result
   end

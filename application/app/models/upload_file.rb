@@ -44,7 +44,7 @@ class UploadFile < ApplicationDiskRecord
   end
 
   def upload_batch
-    @upload_collection ||= UploadBatch.find(project_id, collection_id)
+    @upload_batch ||= UploadBatch.find(project_id, collection_id)
   end
 
   def project
