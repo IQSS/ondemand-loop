@@ -54,7 +54,7 @@ en:
       not_found: "Upload Collection not found: %{upload_batch_id}"
     destroy:
       not_found: "Upload Collection not found: %{upload_batch_id}"
-      success: "Upload collection deleted: %{collection_name}"
+      success: "Upload collection deleted: %{batch_name}"
   upload_files:
     create:
       invalid_file: "Invalid file in selection: %{filename} errors: %{errors}"

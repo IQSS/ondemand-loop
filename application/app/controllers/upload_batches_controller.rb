@@ -70,7 +70,7 @@ class UploadBatchesController < ApplicationController
     end
 
     upload_batch.destroy
-    redirect_back fallback_location: root_path, notice: t(".success", collection_name: upload_batch.name)
+    redirect_back fallback_location: root_path, notice: t(".success", batch_name: upload_batch.name)
   end
 
 end
