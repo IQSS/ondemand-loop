@@ -3,10 +3,11 @@ module Dataverse::Actions
     def edit(collection, request_params)
       datasets = datasets(collection)
       subjects = subjects(collection)
+      profile = profile(collection)
 
       ConnectorResult.new(
         partial: '/connectors/dataverse/dataset_form_tabs',
-        locals: { collection: collection, data: datasets, subjects: subjects },
+        locals: { collection: collection, data: datasets, profile: profile, subjects: subjects },
       )
     end
 
@@ -37,6 +38,13 @@ module Dataverse::Actions
       end
 
       subjects
+    end
+
+    def profile(collection)
+      connector_metadata = collection.connector_metadata
+      api_key = connector_metadata.api_key.value
+      user_service = Dataverse::UserService.new(connector_metadata.dataverse_url, api_key: api_key)
+      user_service.get_user_profile
     end
   end
 end

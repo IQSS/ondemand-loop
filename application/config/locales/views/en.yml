@@ -19,6 +19,8 @@ en:
 
         button_edit_key_title: "Add/Edit API Key"
         modal_edit_key_title: "Add/Edit Dataverse API Key"
+
+        missing_key_disabled_features_text: "Add key to enable Collection/Dataset features"
       dataset_create_form:
         field_title_label: "Dataset Title"
         field_title_placeholder: "Enter a descriptive title for the dataset"
@@ -28,13 +30,15 @@ en:
         field_description_placeholder: "Describe the contents and purpose of the dataset"
         field_description_help: "Include key details about what the dataset contains, how it was collected, and its purpose."
 
-        field_author_label: "Author Name"
-        field_author_placeholder: "Full name of the dataset author"
-        field_author_help: "Enter the name of the person or organization responsible for creating the dataset."
+        fields_optional_title: "Dataset Author Info"
 
-        field_contact_email_label: "Contact Email"
-        field_contact_email_placeholder: "Email address for dataset inquiries"
-        field_contact_email_help: "Provide an email address for users to contact with questions about this dataset."
+        field_author_label: 'Author Name'
+        field_author_placeholder: 'e.g., Smith, John or Organization Name'
+        field_author_help: 'Use "Surname, First name" format for individuals or full name for organizations.'
+
+        field_contact_email_label: 'Contact Email'
+        field_contact_email_placeholder: 'e.g., john.smith@example.com'
+        field_contact_email_help: 'Email address for the point of contact for this dataset.'
 
         field_subject_label: "Dataset Subject Area"
         field_subject_prompt: "Select a subject area"

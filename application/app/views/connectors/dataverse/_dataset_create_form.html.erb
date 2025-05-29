@@ -14,21 +14,34 @@
   </div>
 
   <div class="mb-3">
-    <%= f.label :author, t('.field_author_label'), class: 'form-label fw-bold' %>
-    <%= f.text_field :author, class: 'form-control', placeholder: t('.field_author_placeholder'), required: true %>
-    <div class="form-text"><%= t('.field_author_help') %></div>
-  </div>
-
-  <div class="mb-3">
-    <%= f.label :contact_email, t('.field_contact_email_label'), class: 'form-label fw-bold' %>
-    <%= f.email_field :contact_email, class: 'form-control', placeholder: t('.field_contact_email_placeholder'), required: true %>
-    <div class="form-text"><%= t('.field_contact_email_help') %></div>
-  </div>
-
-  <div class="mb-3">
     <%= f.label :subject, t('.field_subject_label'), class: 'form-label fw-bold' %>
     <%= f.select :subject, subjects, { prompt: t('.field_subject_prompt') }, class: 'form-select', required: true %>
     <div class="form-text"><%= t('.field_subject_help') %></div>
+  </div>
+
+  <div class="mb-3">
+    <div class="card">
+      <div class="card-header">
+        <button class="btn btn-link text-secondary text-decoration-none p-0 fw-bold w-100 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#authorContactCollapse" aria-expanded="false" aria-controls="authorContactCollapse">
+          <i class="bi bi-person-circle me-1"></i> <%= t('.fields_optional_title') %>
+        </button>
+      </div>
+      <div id="authorContactCollapse" class="collapse">
+        <div class="card-body">
+          <div class="mb-3">
+            <%= f.label :author, t('.field_author_label'), class: 'form-label fw-bold' %>
+            <%= f.text_field :author, value: profile.full_name, class: 'form-control', placeholder: t('.field_author_placeholder') %>
+            <div class="form-text"><%= t('.field_author_help') %></div>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :contact_email, t('.field_contact_email_label'), class: 'form-label fw-bold' %>
+            <%= f.email_field :contact_email, value: profile.email, class: 'form-control', placeholder: t('.field_contact_email_placeholder') %>
+            <div class="form-text"><%= t('.field_contact_email_help') %></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="d-flex justify-content-end gap-2">

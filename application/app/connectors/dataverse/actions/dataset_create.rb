@@ -12,9 +12,13 @@ module Dataverse::Actions
         subjects = dataverse_data.metadata.subjects
       end
 
+      api_key = connector_metadata.api_key.value
+      user_service = Dataverse::UserService.new(connector_metadata.dataverse_url, api_key: api_key)
+      user_profile = user_service.get_user_profile
+
       ConnectorResult.new(
         partial: '/connectors/dataverse/dataset_create_form',
-        locals: { collection: collection, subjects: subjects }
+        locals: { collection: collection, profile: user_profile, subjects: subjects }
       )
     end
 

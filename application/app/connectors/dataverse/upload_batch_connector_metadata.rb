@@ -27,6 +27,10 @@ module Dataverse
       OpenStruct.new({ collection?: false, server?: true, value: repo_info.metadata.api_key }) if repo_info && repo_info.metadata.api_key
     end
 
+    def api_key?
+      api_key.present?
+    end
+
     def repo_name
       dataverse_url
     end
@@ -40,14 +44,14 @@ module Dataverse
     end
 
     def select_collection?
-      collection_id.nil? && dataset_id.nil?
+      api_key? && collection_id.nil? && dataset_id.nil?
     end
 
     def display_dataset?
       dataset_title.present?
     end
     def select_dataset?
-      collection_id.present? && dataset_id.nil?
+      api_key? && collection_id.present? && dataset_id.nil?
     end
 
     def to_h

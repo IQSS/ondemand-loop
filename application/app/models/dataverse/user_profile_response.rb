@@ -15,5 +15,9 @@ module Dataverse
       @deactivated = parsed.dig(:data, :deactivated)
       @persistent_user_id = parsed.dig(:data, :persistentUserId)
     end
+
+    def full_name
+      "#{last_name}, #{first_name}"
+    end
   end
 end

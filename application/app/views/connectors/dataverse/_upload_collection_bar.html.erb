@@ -45,6 +45,13 @@
               <i class="bi bi-file-earmark-plus me-1"></i><%= t('.button_dataset_form_tabs_title') %>
             </button>
           <% end %>
+
+          <% unless collection.connector_metadata.api_key? %>
+            <small class="text-muted mx-1 position-relative" style="top: -0.8px;">&gt;</small>
+            <span class="badge badge-soft-danger position-relative" style="top: -1px;">
+              <i class="bi bi-exclamation-circle me-1"></i><span class="ms-1"><%= t('.missing_key_disabled_features_text') %></span>
+            </span>
+          <% end %>
         </span>
 
       <small class="text-muted"><%= collection.remote_repo_url %></small>
@@ -54,7 +61,7 @@
 
   <div class="d-flex align-items-center gap-2 flex-wrap">
     <!-- API Key Status: compact with icon -->
-    <%= api_key_status_badge(collection) %>
+    <%= api_key_status_badge(collection.connector_metadata.api_key.present?) %>
 
     <button type="button"
             class="btn btn-sm btn-outline-primary"

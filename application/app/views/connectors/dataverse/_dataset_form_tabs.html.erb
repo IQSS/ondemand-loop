@@ -21,9 +21,9 @@
 <div class="tab-content">
   <div id="tab-upload-select-dataset" class="tab-pane fade show active" role="tabpanel" aria-labelledby="upload-select-dataset-tab">
 
-    <%= render partial: '/connectors/dataverse/dataset_select_form', locals: { collection: collection, data: data } %>
+    <%= render partial: '/connectors/dataverse/dataset_select_form', locals: local_assigns %>
   </div>
   <div id="tab-upload-create-dataset" class="tab-pane fade show" role="tabpanel" aria-labelledby="upload-create-dataset-tab">
-    <%= render partial: '/connectors/dataverse/dataset_create_form', locals: { collection: collection, subjects: subjects } %>
+    <%= render partial: '/connectors/dataverse/dataset_create_form', locals: local_assigns %>
   </div>
 </div>
