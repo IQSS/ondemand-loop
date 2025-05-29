@@ -27,15 +27,15 @@ class ConnectorClassDispatcherTest < ActiveSupport::TestCase
     assert_instance_of Dataverse::UploadConnectorMetadata, result
   end
 
-  test 'upload_collection_connector_processor should return Dataverse::UploadBatchConnectorProcessor class for dataverse type' do
+  test 'upload_batch_connector_processor should return Dataverse::UploadBatchConnectorProcessor class for dataverse type' do
     result = ConnectorClassDispatcher.upload_batch_connector_processor(ConnectorType::DATAVERSE)
     assert_instance_of Dataverse::UploadBatchConnectorProcessor, result
   end
 
-  test 'upload_collection_connector_metadata should return Dataverse::UploadBatchConnectorMetadata class for dataverse collections' do
+  test 'upload_batch_connector_metadata should return Dataverse::UploadBatchConnectorMetadata class for dataverse collections' do
     project = create_project
-    upload_collection = create_upload_batch(project, type: ConnectorType::DATAVERSE)
-    result = ConnectorClassDispatcher.upload_batch_connector_metadata(upload_collection)
+    upload_batch = create_upload_batch(project, type: ConnectorType::DATAVERSE)
+    result = ConnectorClassDispatcher.upload_batch_connector_metadata(upload_batch)
     assert_instance_of Dataverse::UploadBatchConnectorMetadata, result
   end
 
