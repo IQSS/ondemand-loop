@@ -9,10 +9,10 @@ class UploadBatch < ApplicationDiskRecord
 
   validates_presence_of :id, :project_id, :remote_repo_url, :type, :name
 
-  def self.find(project_id, collection_id)
-    return nil if project_id.blank? || collection_id.blank?
+  def self.find(project_id, upload_batch_id)
+    return nil if project_id.blank? || upload_batch_id.blank?
 
-    filename = filename_by_ids(project_id, collection_id)
+    filename = filename_by_ids(project_id, upload_batch_id)
     return nil unless File.exist?(filename)
 
     load_from_file(filename)
@@ -42,8 +42,8 @@ class UploadBatch < ApplicationDiskRecord
   end
 
   def destroy
-    collection_path = self.class.directory_by_ids(project_id, id)
-    FileUtils.rm_rf(collection_path)
+    upload_batch_path = self.class.directory_by_ids(project_id, id)
+    FileUtils.rm_rf(upload_batch_path)
   end
 
   def files
@@ -70,11 +70,11 @@ class UploadBatch < ApplicationDiskRecord
 
   private
 
-  def self.directory_by_ids(project_id, collection_id)
-    File.join(Project.upload_batches_directory(project_id), collection_id)
+  def self.directory_by_ids(project_id, upload_batch_id)
+    File.join(Project.upload_batches_directory(project_id), upload_batch_id)
   end
 
-  def self.filename_by_ids(project_id, collection_id)
-    File.join(self.directory_by_ids(project_id, collection_id), "metadata.yml")
+  def self.filename_by_ids(project_id, upload_batch_id)
+    File.join(self.directory_by_ids(project_id, upload_batch_id), "metadata.yml")
   end
 end
