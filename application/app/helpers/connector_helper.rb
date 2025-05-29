@@ -2,7 +2,7 @@
 
 module ConnectorHelper
 
-  def upload_collection_connector_bar(upload_batch)
+  def upload_batch_connector_bar(upload_batch)
     "/connectors/#{upload_batch.type.to_s}/upload_batch_bar"
   end
 
