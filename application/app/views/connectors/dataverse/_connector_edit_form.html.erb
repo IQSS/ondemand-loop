@@ -1,14 +1,14 @@
-<%= form_with url: project_upload_batch_path(collection.project_id, collection.id), method: :put, data: { action: "submit->modal#showSpinner" }, local: true do |f| %>
+<%= form_with url: project_upload_batch_path(upload_batch.project_id, upload_batch.id), method: :put, data: { action: "submit->modal#showSpinner" }, local: true do |f| %>
   <%= hidden_field_tag :form, 'connector_edit' %>
 
   <div class="mb-3">
     <%= f.label :api_key, t('.field_api_key_label'), class: 'form-label fw-bold' %>
-    <%= f.text_field :api_key, value: collection.connector_metadata.api_key&.value, class: 'form-control', placeholder: t('.field_api_key_placeholder'), required: true %>
+    <%= f.text_field :api_key, value: upload_batch.connector_metadata.api_key&.value, class: 'form-control', placeholder: t('.field_api_key_placeholder'), required: true %>
     <div class="form-text"><%= t('.field_api_key_help') %></div>
   </div>
 
   <div class="mb-3 form-check">
-    <%= f.check_box :key_scope, { class: 'form-check-input', checked: collection.connector_metadata.api_key&.collection? }, 'collection', 'server' %>
+    <%= f.check_box :key_scope, { class: 'form-check-input', checked: upload_batch.connector_metadata.api_key&.collection? }, 'collection', 'server' %>
     <%= f.label :type_collection, t('.field_key_scope_label'), class: 'form-check-label' %>
     <div class="form-text"><%= t('.field_key_scope_help') %></div>
   </div>

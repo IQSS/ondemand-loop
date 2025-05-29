@@ -1,5 +1,5 @@
 <div data-controller="list-filter">
-<%= form_with url: project_upload_batch_path(collection.project_id, collection.id), method: :put, data: { action: "submit->modal#showSpinner" }, local: true do |f| %>
+<%= form_with url: project_upload_batch_path(upload_batch.project_id, upload_batch.id), method: :put, data: { action: "submit->modal#showSpinner" }, local: true do |f| %>
   <%= hidden_field_tag :form, 'dataset_select' %>
 
   <div class="mb-3">

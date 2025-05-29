@@ -1,21 +1,21 @@
 module Dataverse::Actions
   class CollectionSelect
-    def edit(collection, request_params)
-      collections = collections(collection)
+    def edit(upload_batch, request_params)
+      collections = collections(upload_batch)
 
       ConnectorResult.new(
         partial: '/connectors/dataverse/collection_select_form',
-        locals: { collection: collection, data: collections },
+        locals: { upload_batch: upload_batch, data: collections },
       )
     end
 
-    def update(collection, request_params)
+    def update(upload_batch, request_params)
       collection_id = request_params[:collection_id]
-      collection_title = collection_title(collection, collection_id)
-      metadata = collection.metadata
+      collection_title = collection_title(upload_batch, collection_id)
+      metadata = upload_batch.metadata
       metadata[:collection_id] = collection_id
       metadata[:collection_title] = collection_title
-      collection.update({ metadata: metadata })
+      upload_batch.update({ metadata: metadata })
 
       ConnectorResult.new(
         message: { notice: I18n.t('connectors.dataverse.actions.collection_select.success', title: collection_title) },
@@ -25,15 +25,15 @@ module Dataverse::Actions
 
     private
 
-    def collections(collection)
-      dataverse_url = collection.connector_metadata.dataverse_url
-      api_key = collection.connector_metadata.api_key.value
+    def collections(upload_batch)
+      dataverse_url = upload_batch.connector_metadata.dataverse_url
+      api_key = upload_batch.connector_metadata.api_key.value
       service = Dataverse::CollectionService.new(dataverse_url, api_key: api_key)
       service.get_my_collections
     end
 
-    def collection_title(collection, collection_id)
-      collections = collections(collection)
+    def collection_title(upload_batch, collection_id)
+      collections = collections(upload_batch)
       collections.items.select{|c| c.identifier == collection_id}.first&.name
     end
   end

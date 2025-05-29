@@ -1,7 +1,7 @@
 module Dataverse::Actions
   class DatasetCreate
-    def edit(collection, request_params)
-      connector_metadata = collection.connector_metadata
+    def edit(upload_batch, request_params)
+      connector_metadata = upload_batch.connector_metadata
       repo_db = RepoRegistry.repo_db
       dataverse_data = repo_db.get(connector_metadata.server_domain)
       if dataverse_data.metadata.subjects.nil?
@@ -18,14 +18,14 @@ module Dataverse::Actions
 
       ConnectorResult.new(
         partial: '/connectors/dataverse/dataset_create_form',
-        locals: { collection: collection, profile: user_profile, subjects: subjects }
+        locals: { upload_batch: upload_batch, profile: user_profile, subjects: subjects }
       )
     end
 
-    def update(collection, request_params)
-      dataverse_url = collection.connector_metadata.dataverse_url
-      api_key = collection.connector_metadata.api_key.value
-      collection_id = collection.connector_metadata.collection_id
+    def update(upload_batch, request_params)
+      dataverse_url = upload_batch.connector_metadata.dataverse_url
+      api_key = upload_batch.connector_metadata.api_key.value
+      collection_id = upload_batch.connector_metadata.collection_id
 
       request = Dataverse::CreateDatasetRequest.new(
         title: request_params[:title],
@@ -38,10 +38,10 @@ module Dataverse::Actions
       service = Dataverse::DatasetService.new(dataverse_url, api_key: api_key)
       response = service.create_dataset(collection_id, request)
 
-      metadata = collection.metadata
+      metadata = upload_batch.metadata
       metadata[:dataset_id] = response.persistent_id
       metadata[:dataset_title] = request.title
-      collection.update({ metadata: metadata })
+      upload_batch.update({ metadata: metadata })
 
       ConnectorResult.new(
         message: { notice: I18n.t('connectors.dataverse.actions.dataset_create.success', id: response.persistent_id, title: request.title) },

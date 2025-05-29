@@ -1,7 +1,7 @@
 en:
   connectors:
     dataverse:
-      upload_collection_bar:
+      upload_batch_bar:
         button_edit_dataset_title: "Edit Dataset"
         modal_edit_dataset_title: "Edit Dataset"
 
@@ -186,7 +186,7 @@ en:
         creation_date: "Creation date"
         add_files: "Add Files"
         edit_upload_batch_settings: "Edit upload batch settings"
-        delete_collection: "Delete Collection"
+        delete_collection: "Delete Batch"
       upload_files:
         no_upload_files: "No Upload Files"
         schedule_date: "Schedule date"

@@ -1,32 +1,32 @@
 module Dataverse::Actions
   class DatasetFormTabs
-    def edit(collection, request_params)
-      datasets = datasets(collection)
-      subjects = subjects(collection)
-      profile = profile(collection)
+    def edit(upload_batch, request_params)
+      datasets = datasets(upload_batch)
+      subjects = subjects(upload_batch)
+      profile = profile(upload_batch)
 
       ConnectorResult.new(
         partial: '/connectors/dataverse/dataset_form_tabs',
-        locals: { collection: collection, data: datasets, profile: profile, subjects: subjects },
+        locals: { upload_batch: upload_batch, data: datasets, profile: profile, subjects: subjects },
       )
     end
 
-    def update(collection, request_params)
+    def update(upload_batch, request_params)
       raise NotImplementedError, 'Only edit is supported for DatasetFormTabs'
     end
 
     private
 
-    def datasets(collection)
-      dataverse_url = collection.connector_metadata.dataverse_url
-      api_key = collection.connector_metadata.api_key.value
+    def datasets(upload_batch)
+      dataverse_url = upload_batch.connector_metadata.dataverse_url
+      api_key = upload_batch.connector_metadata.api_key.value
       service = Dataverse::CollectionService.new(dataverse_url, api_key: api_key)
-      collection_id = collection.connector_metadata.collection_id
+      collection_id = upload_batch.connector_metadata.collection_id
       service.search_collection_items(collection_id, page: 1, per_page: 100, include_collections: false).data
     end
 
-    def subjects(collection)
-      connector_metadata = collection.connector_metadata
+    def subjects(upload_batch)
+      connector_metadata = upload_batch.connector_metadata
       repo_db = RepoRegistry.repo_db
       dataverse_data = repo_db.get(connector_metadata.server_domain)
       if dataverse_data.metadata.subjects.nil?
@@ -40,8 +40,8 @@ module Dataverse::Actions
       subjects
     end
 
-    def profile(collection)
-      connector_metadata = collection.connector_metadata
+    def profile(upload_batch)
+      connector_metadata = upload_batch.connector_metadata
       api_key = connector_metadata.api_key.value
       user_service = Dataverse::UserService.new(connector_metadata.dataverse_url, api_key: api_key)
       user_service.get_user_profile

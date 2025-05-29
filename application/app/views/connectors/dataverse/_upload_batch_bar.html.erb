@@ -4,34 +4,34 @@
       <i class="bi bi-plug-fill"></i>
     </div>
 
-    <div class="mb-1"><%= connector_icon(collection.type) %></div>
+    <div class="mb-1"><%= connector_icon(upload_batch.type) %></div>
     <!-- UPLOAD DATASET INFO -->
     <div class="d-flex flex-column">
-        <span class="text-truncate d-inline-block" style="max-width: 800px;" title="<%= collection.connector_metadata.dataset_title %>">
-          <%= collection.connector_metadata.dataverse_title %>
+        <span class="text-truncate d-inline-block" style="max-width: 800px;" title="<%= upload_batch.connector_metadata.dataset_title %>">
+          <%= upload_batch.connector_metadata.dataverse_title %>
           <span class="text-muted mx-1 position-relative" style="font-size: 1.2rem;">»</span>
 
-          <% if collection.connector_metadata.display_collection? %>
-            <%= collection.connector_metadata.collection_title %>
+          <% if upload_batch.connector_metadata.display_collection? %>
+            <%= upload_batch.connector_metadata.collection_title %>
           <% end %>
-          <% if collection.connector_metadata.select_collection? %>
+          <% if upload_batch.connector_metadata.select_collection? %>
             <button type="button"
                     class="btn btn-outline-primary btn-badge position-relative"
                     style="top: -1px;"
                     title="<%= t('.button_select_collection_title') %>"
                     data-controller="modal"
                     data-action="click->modal#load"
-                    data-modal-url-value="<%= edit_project_upload_batch_path(collection.project_id, collection.id, form: 'collection_select') %>"
+                    data-modal-url-value="<%= edit_project_upload_batch_path(upload_batch.project_id, upload_batch.id, form: 'collection_select') %>"
                     data-modal-title-value="<%= t('.modal_select_collection_title') %>"
                     data-modal-id-value="global-modal">
             <i class="bi bi-database-add me-1"></i><%= t('.button_select_collection_title') %>
           </button>
           <% end %>
-          <% if collection.connector_metadata.display_dataset? %>
+          <% if upload_batch.connector_metadata.display_dataset? %>
             <small class="text-muted mx-1 position-relative" style="top: -0.8px;">&gt;</small>
-            <%= collection.connector_metadata.dataset_title %>
+            <%= upload_batch.connector_metadata.dataset_title %>
           <% end %>
-          <% if collection.connector_metadata.select_dataset? %>
+          <% if upload_batch.connector_metadata.select_dataset? %>
             <small class="text-muted mx-1 position-relative" style="top: -0.8px;">&gt;</small>
             <button type="button"
                     class="btn btn-outline-primary btn-badge position-relative"
@@ -39,14 +39,14 @@
                     title="<%= t('.button_dataset_form_tabs_title') %>"
                     data-controller="modal"
                     data-action="click->modal#load"
-                    data-modal-url-value="<%= edit_project_upload_batch_path(collection.project_id, collection.id, form: 'dataset_form_tabs') %>"
-                    data-modal-title-value="<%= t('.modal_dataset_form_tabs_title', collection: collection.connector_metadata.collection_title) %>"
+                    data-modal-url-value="<%= edit_project_upload_batch_path(upload_batch.project_id, upload_batch.id, form: 'dataset_form_tabs') %>"
+                    data-modal-title-value="<%= t('.modal_dataset_form_tabs_title', collection: upload_batch.connector_metadata.collection_title) %>"
                     data-modal-id-value="global-modal">
               <i class="bi bi-file-earmark-plus me-1"></i><%= t('.button_dataset_form_tabs_title') %>
             </button>
           <% end %>
 
-          <% unless collection.connector_metadata.api_key? %>
+          <% unless upload_batch.connector_metadata.api_key? %>
             <small class="text-muted mx-1 position-relative" style="top: -0.8px;">&gt;</small>
             <span class="badge badge-soft-danger position-relative" style="top: -1px;">
               <i class="bi bi-exclamation-circle me-1"></i><span class="ms-1"><%= t('.missing_key_disabled_features_text') %></span>
@@ -54,21 +54,21 @@
           <% end %>
         </span>
 
-      <small class="text-muted"><%= collection.remote_repo_url %></small>
+      <small class="text-muted"><%= upload_batch.remote_repo_url %></small>
     </div>
 
   </div>
 
   <div class="d-flex align-items-center gap-2 flex-wrap">
     <!-- API Key Status: compact with icon -->
-    <%= api_key_status_badge(collection.connector_metadata.api_key.present?) %>
+    <%= api_key_status_badge(upload_batch.connector_metadata.api_key.present?) %>
 
     <button type="button"
             class="btn btn-sm btn-outline-primary"
             title="<%= t(".button_edit_key_title") %>"
             data-controller="modal"
             data-action="click->modal#load"
-            data-modal-url-value="<%= edit_project_upload_batch_path(collection.project_id, collection.id) %>"
+            data-modal-url-value="<%= edit_project_upload_batch_path(upload_batch.project_id, upload_batch.id) %>"
             data-modal-title-value="<%= t(".modal_edit_key_title") %>"
             data-modal-id-value="global-modal">
       <i class="bi bi-pencil-fill"></i>

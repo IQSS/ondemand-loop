@@ -1,26 +1,26 @@
 module Dataverse::Actions
   class ConnectorEdit
-    def edit(collection, request_params)
+    def edit(upload_batch, request_params)
       ConnectorResult.new(
         partial: '/connectors/dataverse/connector_edit_form',
-        locals: { collection: collection }
+        locals: { upload_batch: upload_batch }
       )
     end
 
-    def update(collection, request_params)
+    def update(upload_batch, request_params)
       repo_key = request_params[:api_key]
       scope = request_params[:key_scope]
       if scope == 'collection'
-        metadata = collection.metadata
+        metadata = upload_batch.metadata
         metadata[:api_key] = repo_key
-        collection.update({ metadata: metadata })
+        upload_batch.update({ metadata: metadata })
       else
-        server_domain = collection.connector_metadata.server_domain
+        server_domain = upload_batch.connector_metadata.server_domain
         RepoRegistry.repo_db.update(server_domain, metadata: {api_key: repo_key})
       end
 
       ConnectorResult.new(
-        message: { notice: I18n.t('connectors.dataverse.actions.connector_edit.success', name: collection.name) },
+        message: { notice: I18n.t('connectors.dataverse.actions.connector_edit.success', name: upload_batch.name) },
         success: true
       )
     end
