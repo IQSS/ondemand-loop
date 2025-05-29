@@ -16,12 +16,12 @@
       </button>
     </li>
 
-    <% project.upload_batches.each do |collection| %>
+    <% project.upload_batches.each do |upload_batch| %>
       <li class="nav-item" role="presentation">
-        <button class="nav-link text-secondary" id="upload-tab-<%= collection.id %>" data-bs-toggle="tab"
-                data-bs-target="#tab-collection-<%= collection.id %>" type="button" role="tab"
-                aria-controls="upload-files-<%= collection.id %>" aria-selected="false">
-          <i class="bi bi-upload me-1"></i><%= collection.name %>
+        <button class="nav-link text-secondary" id="upload-tab-<%= upload_batch.id %>" data-bs-toggle="tab"
+                data-bs-target="#tab-collection-<%= upload_batch.id %>" type="button" role="tab"
+                aria-controls="upload-files-<%= upload_batch.id %>" aria-selected="false">
+          <i class="bi bi-upload me-1"></i><%= upload_batch.name %>
         </button>
       </li>
     <% end %>
