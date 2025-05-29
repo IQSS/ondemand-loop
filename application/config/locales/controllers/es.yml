@@ -43,16 +43,16 @@ es:
     resolve:
       blank_url_error: "Por favor proporciona la URL del repositorio"
       url_not_supported: "URL no soportada: %{url} tipo: %{type}"
-  upload_collections:
+  upload_batchs:
     create:
       invalid_project_id: "ID de proyecto inválido: %{id}"
     edit:
       invalid_parameters: "Parámetros inválidos project_id: %{project_id} collection_id: %{collection_id}"
     update:
-      upload_collection_not_found: "Colección de carga no encontrada: %{collection_id}"
+      upload_batch_not_found: "Colección de carga no encontrada: %{collection_id}"
     destroy:
-      upload_collection_not_found: "Colección de carga no encontrada: %{collection_id}"
-      upload_collection_deleted: "Colección de carga eliminada: %{collection_name}"
+      upload_batch_not_found: "Colección de carga no encontrada: %{collection_id}"
+      upload_batch_deleted: "Colección de carga eliminada: %{collection_name}"
   upload_files:
     create:
       invalid_file: "Archivo inválido en la selección: %{filename} errores: %{errors}"
