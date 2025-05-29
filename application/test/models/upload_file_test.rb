@@ -7,7 +7,7 @@ class UploadFileTest < ActiveSupport::TestCase
     Project.stubs(:metadata_root_directory).returns(@tmp_dir)
     UploadBatch.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
-      'id' => '123-321', 'project_id' => '456-789', 'collection_id' => '111-222', 'type' => ConnectorType::DATAVERSE,
+      'id' => '123-321', 'project_id' => '456-789', 'upload_batch_id' => '111-222', 'type' => ConnectorType::DATAVERSE,
       'file_location' => 'path/to/file.jpg',
       'filename' => 'test.png',
       'status' => FileStatus::PENDING, 'size' => 1024,
@@ -39,7 +39,7 @@ class UploadFileTest < ActiveSupport::TestCase
   test 'should initialize with valid attributes' do
     assert_equal '123-321', @upload_file.id
     assert_equal '456-789', @upload_file.project_id
-    assert_equal '111-222', @upload_file.collection_id
+    assert_equal '111-222', @upload_file.upload_batch_id
     assert_equal 'test.png', @upload_file.filename
     assert_equal FileStatus::PENDING, @upload_file.status
     assert_equal 1024, @upload_file.size
