@@ -30,7 +30,7 @@ class UploadBatchesController < ApplicationController
     upload_batch_id = params[:id]
     upload_batch = UploadBatch.find(project_id, upload_batch_id)
     if upload_batch.nil?
-      redirect_back fallback_location: root_path, alert: t(".invalid_parameters", project_id: project_id, collection_id: upload_batch_id)
+      redirect_back fallback_location: root_path, alert: t(".invalid_parameters", project_id: project_id, upload_batch_id: upload_batch_id)
       return
     end
 
@@ -47,7 +47,7 @@ class UploadBatchesController < ApplicationController
     upload_batch = UploadBatch.find(project_id, upload_batch_id)
 
     if upload_batch.nil?
-      redirect_back fallback_location: root_path, alert: t(".not_found", collection_id: upload_batch_id)
+      redirect_back fallback_location: root_path, alert: t(".not_found", upload_batch_id: upload_batch_id)
       return
     end
 
@@ -65,7 +65,7 @@ class UploadBatchesController < ApplicationController
     upload_batch = UploadBatch.find(project_id, upload_batch_id)
 
     if upload_batch.nil?
-      redirect_back fallback_location: root_path, alert: t(".not_found", collection_id: upload_batch_id)
+      redirect_back fallback_location: root_path, alert: t(".not_found", upload_batch_id: upload_batch_id)
       return
     end
 

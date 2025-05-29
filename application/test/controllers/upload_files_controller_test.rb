@@ -29,8 +29,8 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should return bad request if file is invalid' do
-    collection = create_upload_batch(create_project)
-    UploadBatch.stubs(:find).returns(collection)
+    upload_batch = create_upload_batch(create_project)
+    UploadBatch.stubs(:find).returns(upload_batch)
 
     UploadFilesController.any_instance.stubs(:list_files)
                          .returns([OpenStruct.new(fullpath: @test_path, filename: 'invalid.txt', size: 2.gigabytes)])

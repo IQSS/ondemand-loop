@@ -27,7 +27,7 @@ class UploadFilesController < ApplicationController
       UploadFile.new.tap do |f|
         f.id = UploadFile.generate_id
         f.project_id = project_id
-        f.collection_id = upload_batch_id
+        f.upload_batch_id = upload_batch_id
         f.type = ConnectorType::DATAVERSE
         f.creation_date = now
         f.file_location = file.fullpath
@@ -82,13 +82,13 @@ class UploadFilesController < ApplicationController
     file = UploadFile.find(project_id, upload_batch_id, file_id)
 
     if file.nil?
-      render json: t(".file_not_found", project_id: project_id, collection_id: upload_batch_id, file_id: file_id), status: :not_found
+      render json: t(".file_not_found", project_id: project_id, upload_batch_id: upload_batch_id, file_id: file_id), status: :not_found
       return
     end
 
     if file.status.uploading?
       command_client = Command::CommandClient.new(socket_path: ::Configuration.command_server_socket_file)
-      request = Command::Request.new(command: 'upload.cancel', body: {project_id: project_id, collection_id: upload_batch_id, file_id: file_id})
+      request = Command::Request.new(command: 'upload.cancel', body: { project_id: project_id, upload_batch_id: upload_batch_id, file_id: file_id})
       response = command_client.request(request)
       return  head :not_found if response.status != 200
     end
