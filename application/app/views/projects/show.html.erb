@@ -7,7 +7,6 @@
 
       <%= render partial: '/projects/show/project_tabs', locals: { project: @project } %>
       <div class="tab-content">
-        <%= render partial: '/projects/show/project_metadata', locals: { project: @project, active: true } %>
         <%= render partial: '/projects/show/download_files', locals: { project: @project } %>
         <% @project.upload_batches.each do |batch| %>
           <%= render partial: '/projects/show/upload_batch', locals: { project: @project, batch: batch } %>

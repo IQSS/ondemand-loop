@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-between align-items-center">
+<div class="d-flex justify-content-between align-items-center mt-3">
   <div class="d-flex align-items-center gap-2">
     <a href="<%= files_app_url(project.download_dir) %>"
        target="_blank"
@@ -6,7 +6,8 @@
        title="<%= t('.open_project_folder') %>">
       <i class="bi bi-folder-fill"></i>
     </a>
-    <h5 class="mb-0 me-2"><%= project.name %></h5>
+    <%= render partial: '/shared/file_row_date', locals: { date: project.creation_date, title: t('.creation_date'), classes: ''} %>
+    <h5 class="mb-0 me-2 fs-4"><%= project.name %></h5>
   </div>
 
   <div class="d-flex align-items-center gap-2 flex-grow-1">

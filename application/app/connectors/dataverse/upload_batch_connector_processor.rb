@@ -11,7 +11,7 @@ module Dataverse
     end
 
     def params_schema
-      %i[remote_repo_url form api_key key_scope collection_id dataset_id title description author contact_email subject]
+      %i[remote_repo_url form active_tab api_key key_scope collection_id dataset_id title description author contact_email subject]
     end
 
     def create(project, request_params)
@@ -62,6 +62,7 @@ module Dataverse
       upload_batch.save
 
       ConnectorResult.new(
+        redirect_url: Rails.application.routes.url_helpers.project_path(id: project.id, anchor: "tab-#{upload_batch.id}"),
         message: { notice: I18n.t('connectors.dataverse.upload_batches.created', name: upload_batch.name) },
         success: true
       )

@@ -22,7 +22,8 @@ class UploadBatchesController < ApplicationController
     processor_params = params.permit(*processor.params_schema).to_h
     processor_params[:object_url] = url_resolution.object_url
     result = processor.create(project, processor_params)
-    redirect_back fallback_location: root_path, **result.message
+
+    redirect_to result.redirect_url, **result.message
   end
 
   def edit
@@ -56,7 +57,7 @@ class UploadBatchesController < ApplicationController
     log_info("params", {params: processor_params})
     result = processor.update(upload_batch, processor_params)
 
-    redirect_back fallback_location: root_path, **result.message
+    redirect_to result.redirect_url, **result.message
   end
 
   def destroy

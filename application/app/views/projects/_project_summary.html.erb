@@ -23,24 +23,24 @@
 </div>
 
 <!-- Collapsible Tabs -->
-<div class="collapse" id="project-files-<%= project.id %>">
+<div class="collapse" id="project-files-<%= project.id %>" data-controller="utils--tab-links">
   <div class="bg-light pt-2">
     <!-- Tabs -->
     <ul class="nav nav-tabs" id="tabs-<%= project.id %>" role="tablist">
       <li class="nav-item" role="presentation">
-        <button class="nav-link text-secondary active" id="download-tab-<%= project.id %>" data-bs-toggle="tab"
-                data-bs-target="#download-files-<%= project.id %>" type="button" role="tab"
-                aria-controls="download-files-<%= project.id %>" aria-selected="true">
+        <a class="nav-link text-secondary active" id="download-tab" data-bs-toggle="tab"
+           href="#download-files-<%= project.id %>" role="tab"
+           aria-controls="download-files-<%= project.id %>" aria-selected="true">
           <i class="bi bi-download me-1"></i><%= t('.tab_download_label') %>
-        </button>
+        </a>
       </li>
       <% project.upload_batches.each do |batch| %>
         <li class="nav-item" role="presentation">
-          <button class="nav-link text-secondary" id="upload-tab-<%= batch.id %>" data-bs-toggle="tab"
-                  data-bs-target="#upload-files-<%= batch.id %>" type="button" role="tab"
-                  aria-controls="upload-files-<%= batch.id %>" aria-selected="false">
+          <a class="nav-link text-secondary" id="upload-tab-<%= batch.id %>" data-bs-toggle="tab"
+             href="#upload-files-<%= batch.id %>" role="tab"
+             aria-controls="upload-files-<%= batch.id %>" aria-selected="false">
             <i class="bi bi-upload me-1"></i><%= batch.name %>
-          </button>
+          </a>
         </li>
       <% end %>
     </ul>

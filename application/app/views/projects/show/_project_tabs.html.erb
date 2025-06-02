@@ -1,28 +1,21 @@
 <!-- Project Tabs -->
-<div id="project-tabs" class="mb-3">
+<div id="project-tabs" class="mb-3" data-controller="utils--tab-links">
   <ul class="nav nav-tabs" id="project-tabs-<%= project.id %>" role="tablist">
     <li class="nav-item" role="presentation">
-      <button class="nav-link text-secondary active" id="metadata-tab" data-bs-toggle="tab"
-              data-bs-target="#tab-project-metadata" type="button" role="tab"
-              aria-controls="project-metadata" aria-selected="true">
-        <i class="bi bi-collection me-1"></i><%= t('.project') %>
-      </button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link text-secondary" id="download-tab" data-bs-toggle="tab"
-              data-bs-target="#tab-download-files" type="button" role="tab"
-              aria-controls="download-files" aria-selected="false">
+      <a class="nav-link text-secondary active" id="download-tab" data-bs-toggle="tab"
+         href="#tab-download-files" role="tab"
+         aria-controls="download-files" aria-selected="true">
         <i class="bi bi-download me-1"></i><%= t('.download_files') %>
-      </button>
+      </a>
     </li>
 
     <% project.upload_batches.each do |upload_batch| %>
       <li class="nav-item" role="presentation">
-        <button class="nav-link text-secondary" id="upload-tab-<%= upload_batch.id %>" data-bs-toggle="tab"
-                data-bs-target="#tab-upload-batch-<%= upload_batch.id %>" type="button" role="tab"
-                aria-controls="upload-files-<%= upload_batch.id %>" aria-selected="false">
+        <a class="nav-link text-secondary" id="upload-tab-<%= upload_batch.id %>" data-bs-toggle="tab"
+           href="#tab-<%= upload_batch.id %>" role="tab"
+           aria-controls="upload-files-<%= upload_batch.id %>" aria-selected="false">
           <i class="bi bi-upload me-1"></i><%= upload_batch.name %>
-        </button>
+        </a>
       </li>
     <% end %>
   </ul>

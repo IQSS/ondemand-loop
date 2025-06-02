@@ -28,11 +28,6 @@
         <span class="ps-1"><%= t('.add_files') %></span>
       </button>
 
-      <button class="btn btn-sm btn-outline-secondary"
-              title="<%= t('.edit_upload_batch_settings') %>">
-        <i class="bi bi-gear-fill"></i>
-      </button>
-
       <%= render partial: "shared/button_to", locals: {
         url: project_upload_batch_path(project_id: batch.project_id, id: batch.id),
         method: 'DELETE',

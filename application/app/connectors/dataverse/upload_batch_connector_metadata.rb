@@ -2,6 +2,8 @@
 
 module Dataverse
   class UploadBatchConnectorMetadata
+    include Dataverse::Concerns::DataverseUrlBuilder
+
     def initialize(upload_batch)
       @metadata = upload_batch.metadata.to_h.deep_symbolize_keys
       @metadata.each_key do |key|
@@ -33,10 +35,6 @@ module Dataverse
 
     def repo_name
       dataverse_url
-    end
-
-    def dataset_url
-      "#{dataverse_url}/dataset.xhtml?persistentId=#{dataset_id}&version=DRAFT"
     end
 
     def display_collection?

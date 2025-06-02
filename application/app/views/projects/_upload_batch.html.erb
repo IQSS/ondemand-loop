@@ -7,7 +7,7 @@
           <%= render partial: '/shared/file_row_date', locals: { date: file.creation_date, title: t('.schedule_date'), classes: 'mx-2'} %>
 
           <%= render partial: 'shared/repo_badge', locals: {
-            repo_url: upload_batch.connector_metadata.dataset_url,
+            repo_url: upload_batch.connector_metadata.dataverse_url,
             target: '_blank',
             icon_html: connector_icon(file.type),
             name: upload_batch.connector_metadata.dataverse_title,

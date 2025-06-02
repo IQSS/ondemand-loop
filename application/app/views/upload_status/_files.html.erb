@@ -19,7 +19,7 @@
               </div>
 
               <%= render partial: 'shared/repo_badge', locals: {
-                repo_url: data.upload_batch.connector_metadata.dataset_url,
+                repo_url: data.upload_batch.connector_metadata.dataverse_url,
                 target: '_blank',
                 icon_html: connector_icon(data.file.type),
                 name: data.upload_batch.connector_metadata.dataverse_title,

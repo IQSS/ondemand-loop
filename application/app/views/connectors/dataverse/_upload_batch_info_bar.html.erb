@@ -8,15 +8,21 @@
     <!-- UPLOAD DATASET INFO -->
     <div class="d-flex flex-column">
         <span class="text-truncate d-inline-block" style="max-width: 800px;" title="<%= upload_batch.connector_metadata.dataset_title %>">
-          <%= upload_batch.connector_metadata.dataverse_title %>
-          <span class="text-muted mx-1 position-relative" style="font-size: 1.2rem;">»</span>
+          <a href="<%= upload_batch.connector_metadata.dataverse_url %>" target="_blank" class="text-reset text-decoration-none" title="<%= upload_batch.connector_metadata.dataverse_title %>">
+            <%= upload_batch.connector_metadata.dataverse_title %>
+          </a>
+          <span class="text-muted mx-1 position-relative" style="font-size: 1.2rem;">&raquo;</span>
 
           <% if upload_batch.connector_metadata.display_collection? %>
-            <%= upload_batch.connector_metadata.collection_title %>
+            <a href="<%= upload_batch.connector_metadata.collection_url %>" target="_blank" class="text-reset text-decoration-none" title="<%= upload_batch.connector_metadata.collection_title %>">
+              <%= upload_batch.connector_metadata.collection_title %>
+            </a>
           <% end %>
           <% if upload_batch.connector_metadata.display_dataset? %>
             <small class="text-muted mx-1 position-relative" style="top: -0.8px;">&gt;</small>
-            <%= upload_batch.connector_metadata.dataset_title %>
+            <a href="<%= upload_batch.connector_metadata.dataset_url %>" target="_blank" class="text-reset text-decoration-none" title="<%= upload_batch.connector_metadata.dataset_title %>">
+               <%= upload_batch.connector_metadata.dataset_title %>
+             </a>
           <% end %>
         </span>
 

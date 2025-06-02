@@ -18,6 +18,7 @@ module Dataverse::Actions
       upload_batch.update({ metadata: metadata })
 
       ConnectorResult.new(
+        redirect_url: Rails.application.routes.url_helpers.project_path(id: upload_batch.project_id, anchor: "tab-#{upload_batch.id}"),
         message: { notice: I18n.t('connectors.dataverse.actions.dataset_select.success', title: dataset_title) },
         success: true
       )
