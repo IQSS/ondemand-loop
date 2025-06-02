@@ -51,6 +51,11 @@ class ConnectorClassDispatcherTest < ActiveSupport::TestCase
     assert_instance_of Dataverse::UploadConnectorProcessor, result
   end
 
+  test 'repo_controller_resolver should return Dataverse::DisplayRepoControllerResolver class for dataverse files' do
+    result = ConnectorClassDispatcher.repo_controller_resolver(ConnectorType::DATAVERSE)
+    assert_instance_of Dataverse::DisplayRepoControllerResolver, result
+  end
+
   test 'raises ConnectorNotSupported for unknown connector type' do
     file = OpenStruct.new(type: :unknown)
     error = assert_raises(ConnectorClassDispatcher::ConnectorNotSupported) do
