@@ -51,10 +51,10 @@ en:
     edit:
       invalid_parameters: "Invalid parameters project_id: %{project_id} upload_batch_id: %{upload_batch_id}"
     update:
-      not_found: "Upload Collection not found: %{upload_batch_id}"
+      not_found: "Upload Batch not found: %{upload_batch_id}"
     destroy:
-      not_found: "Upload Collection not found: %{upload_batch_id}"
-      success: "Upload collection deleted: %{batch_name}"
+      not_found: "Upload Batch not found: %{upload_batch_id}"
+      success: "Upload batch deleted: %{batch_name}"
   upload_files:
     create:
       invalid_file: "Invalid file in selection: %{filename} errors: %{errors}"
@@ -62,7 +62,7 @@ en:
       file_added: "File added: %{filename}"
     destroy:
       file_not_found: "File: #{file_id} not found for project: %{project_id}"
-      upload_file_removed: "Upload file removed from collection. %{filename}"
+      upload_file_removed: "Upload file removed from batch. %{filename}"
     cancel:
       compulsory_fields_error: 'project_id and file_id are compulsory'
       file_not_found: "file not found project_id=%{project_id} upload_batch_id=%{upload_batch_id} id=%{file_id}"
