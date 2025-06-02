@@ -189,7 +189,7 @@ en:
         creation_date: "Creation date"
         add_files: "Add Files"
         edit_upload_batch_settings: "Edit upload batch settings"
-        delete_collection: "Delete Batch"
+        delete: "Delete Batch"
       upload_files:
         no_upload_files: "No Upload Files"
         schedule_date: "Schedule date"
