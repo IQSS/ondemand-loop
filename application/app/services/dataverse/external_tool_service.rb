@@ -8,8 +8,6 @@ module Dataverse
     def process_callback(callback)
       decoded = Base64.decode64(callback)
       parsed_url = URI.parse(decoded)
-      #TODO: We need to remove this at some point
-      parsed_url.host = "host.docker.internal" if parsed_url.host == 'localhost'
 
       log_info("requesting #{parsed_url}", { parsed_url: parsed_url })
       response = @http_client.get(parsed_url)
