@@ -2,10 +2,10 @@
   <div class="card-header"><%= t('.dataverse') %></div>
   <div class="list-group list-group-flush">
     <span class="list-group-item list-group-item-action">
-       <b><%= dataverse.data.name %></b>
+       <b><%= collection.data.name %></b>
     </span>
     <span class="list-group-item list-group-item-action">
-      <%= truncate(strip_tags(dataverse.data.description), length: 200) %>
+      <%= truncate(strip_tags(collection.data.description), length: 200) %>
     </span>
   </div>
 </div>

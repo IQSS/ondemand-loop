@@ -7,10 +7,10 @@ class Dataverse::CollectionsController < ApplicationController
     @service = Dataverse::CollectionService.new(@dataverse_url)
     begin
       @page = params[:page] ? params[:page].to_i : 1
-      @dataverse = @service.find_collection_by_id(params[:id])
+      @collection = @service.find_collection_by_id(params[:id])
       @search_result = @service.search_collection_items(params[:id], page: @page)
-      if @dataverse.nil? || @search_result.nil?
-        log_error('Dataverse not found.', {dataverse: @dataverse_url, id: params[:id]})
+      if @collection.nil? || @search_result.nil?
+        log_error('Dataverse collection not found.', {dataverse: @dataverse_url, id: params[:id]})
         flash[:alert] = t(".dataverse_not_found", dataverse_url: @dataverse_url, id: params[:id])
         redirect_to root_path
         return
