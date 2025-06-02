@@ -12,7 +12,7 @@
 
   <small class="text-muted">
     <strong><%= t('.type') %>:</strong> <%= item.type %> |
-    <strong><%= t('.publisher') %>:</strong> <%= link_to_dataverse item.publisher, dataverse_url, item.identifier_of_dataverse, {class: "text-decoration-none"} %> |
+    <strong><%= t('.publisher') %>:</strong> <%= link_to_dataverse_collection item.publisher, dataverse_url, item.identifier_of_dataverse, { class: "text-decoration-none"} %> |
     <strong><%= t('.files') %>:</strong> <%= item.file_count %>
   </small>
 </div>
