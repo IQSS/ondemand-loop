@@ -79,14 +79,14 @@ en:
     collections:
       breadcrumbs:
         home: "Home"
+      collection_info:
+        dataverse: "Dataverse"
       dataset_item:
         untitled_dataset: "Untitled Dataset"
         published: "Published"
         type: "Type"
         publisher: "Publisher"
         files: "Files"
-      dataverse_info:
-        dataverse: "Dataverse"
       dataverse_item:
         unnamed_dataverse: "Unnamed Dataverse"
         published: "Published"
