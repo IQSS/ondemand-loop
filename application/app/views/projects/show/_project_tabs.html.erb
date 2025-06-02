@@ -19,7 +19,7 @@
     <% project.upload_batches.each do |upload_batch| %>
       <li class="nav-item" role="presentation">
         <button class="nav-link text-secondary" id="upload-tab-<%= upload_batch.id %>" data-bs-toggle="tab"
-                data-bs-target="#tab-collection-<%= upload_batch.id %>" type="button" role="tab"
+                data-bs-target="#tab-upload-batch-<%= upload_batch.id %>" type="button" role="tab"
                 aria-controls="upload-files-<%= upload_batch.id %>" aria-selected="false">
           <i class="bi bi-upload me-1"></i><%= upload_batch.name %>
         </button>

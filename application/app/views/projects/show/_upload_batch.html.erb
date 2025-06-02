@@ -3,7 +3,7 @@
   file_target_id = "fbt-#{batch.id}"
   upload_files_id = "upload-files-#{batch.id}"
 %>
-<div id="tab-collection-<%= batch.id %>" class="tab-pane fade" role="tabpanel" aria-labelledby="upload-tab-<%= batch.id %>">
+<div id="tab-upload-batch-<%= batch.id %>" class="tab-pane fade" role="tabpanel" aria-labelledby="upload-tab-<%= batch.id %>">
   <%= render partial: '/projects/show/upload_actions', locals: { batch: batch, file_browser_id: file_browser_id, upload_files_id: upload_files_id } %>
 
   <%= render layout: '/file_browser/file_drop', locals: { id: file_target_id, file_browser_id: file_browser_id, url: project_upload_batch_upload_files_path(project_id: project.id, upload_batch_id: batch.id) } do %>
