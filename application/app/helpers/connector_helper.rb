@@ -2,8 +2,12 @@
 
 module ConnectorHelper
 
-  def upload_batch_connector_bar(upload_batch)
-    "/connectors/#{upload_batch.type.to_s}/upload_batch_bar"
+  def upload_batch_connector_info_bar(upload_batch)
+    "/connectors/#{upload_batch.type.to_s}/upload_batch_info_bar"
+  end
+
+  def upload_batch_connector_actions_bar(upload_batch)
+    "/connectors/#{upload_batch.type.to_s}/upload_batch_actions_bar"
   end
 
   def connector_icon(type)

@@ -1,16 +1,14 @@
-
-<% file_status = OpenStruct.new(project_progress_data(project.status_summary)) %>
-<div class="card mb-3 shadow-sm rounded overflow-hidden">
-  <div class="card-header d-flex justify-content-between align-items-center bg-light-darker">
+<div class="mb-3 shadow-sm overflow-hidden">
+  <div class="d-flex p-3 border-bottom border-secondary-subtle justify-content-between align-items-center bg-light-darker">
     <div class="d-flex align-items-center gap-3">
       <a href="<%= files_app_url(project.download_dir) %>"
          target="_blank"
          class="btn btn-sm btn-outline-secondary"
-         title="<%= t('.open_downloads_folder') %>">
+         title="<%= t('.button_download_folder_title') %>">
         <i class="bi bi-folder-fill"></i>
       </a>
       <div class="d-flex flex-column">
-        <h5 class="mb-0"><%= t('.download_files') %></h5>
+        <h5 class="mb-0"><%= t('.title') %></h5>
         <small class="text-muted"><%= project.download_dir %></small>
       </div>
     </div>
@@ -19,7 +17,6 @@
       <div>
         <%= render partial: '/shared/file_summary_widget', locals: project_progress_data(project.status_summary) %>
       </div>
-
     </div>
   </div>
 

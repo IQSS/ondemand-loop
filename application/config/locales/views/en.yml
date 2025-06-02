@@ -1,7 +1,9 @@
 en:
   connectors:
     dataverse:
-      upload_batch_bar:
+      upload_batch_info_bar:
+
+      upload_batch_actions_bar:
         button_edit_dataset_title: "Edit Dataset"
         modal_edit_dataset_title: "Edit Dataset"
 
@@ -158,6 +160,7 @@ en:
         download_files: "Download Files"
         edit_download_settings: "Edit Download settings"
       download_files:
+        download_files_empty: "No Download Files"
         schedule_date: "Schedule date"
         repository_files: "Repository Files"
         completion_date: "Completion date"
@@ -220,6 +223,15 @@ en:
       delete_project: "Delete project"
       active_project: "Active project"
       set_as_active_project: "Set as Active Project"
+    project_summary:
+      button_toggle_label: "Project Summary"
+      button_metadata_folder_title: "Open project metadata folder"
+      tab_download_label: "Download Files"
+    project_summary_downloads:
+      title: "Download Files"
+      button_download_folder_title: "Open downloads folder"
+    project_summary_batch:
+      creation_date_title: "Creation date"
     upload_batch:
       schedule_date: "Schedule date"
       repository_files: "Repository Files"

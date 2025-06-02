@@ -1,0 +1,64 @@
+<%# Ensure values have defaults %>
+<% completed ||= 0 %>
+<% pending ||= 0 %>
+<% cancelled ||= 0 %>
+<% error ||= 0 %>
+<% total ||= 0 %>
+
+<%
+  percent = total == 0 ? 0 : ((completed + cancelled + error) * 100 / total.to_f).round(1).to_i
+  offset = (114 - (114 * percent.to_f / 100)).round(1).to_i
+%>
+
+<% title ||= nil %>
+<% progress_color ||= '#0d6efd' %>
+<% background_color ||= '#d7dce1' %>
+<% text_color ||= '#212529' %>
+
+<div class="d-inline-flex align-items-center gap-2 file-summary-inline">
+  <!-- Progress Circle -->
+  <div class="d-inline-block" style="width: 44px;" title="Completed <%= percent.to_i %>%">
+    <svg viewBox="0 0 44 44" width="100%" height="100%" class="progress-circle">
+      <circle cx="22" cy="22" r="18"
+              stroke="<%= background_color %>"
+              fill="none"
+              stroke-width="6" />
+      <g transform="rotate(-90 22 22)">
+        <circle cx="22" cy="22" r="18"
+                stroke="<%= progress_color %>"
+                fill="none"
+                stroke-width="6"
+                stroke-dasharray="114"
+                stroke-dashoffset="<%= offset %>"
+                stroke-linecap="butt"
+                style="transition: stroke-dashoffset 0.6s ease;" />
+      </g>
+      <text x="22" y="22"
+            dy="1.5"
+            font-size="0.8rem"
+            font-weight="600"
+            fill="<%= text_color %>"
+            dominant-baseline="middle"
+            text-anchor="middle">
+        <%= percent.to_i %>
+      </text>
+    </svg>
+  </div>
+
+  <!-- Title + Badges -->
+  <div class="d-flex flex-column justify-content-start">
+    <% if title.present? %>
+      <div class="fw-semibold small text-truncate" title="<%= title %>" style="margin-top: -5px;">
+        <%= title %>
+      </div>
+    <% end %>
+
+    <div class="d-flex flex-wrap align-items-center gap-2 file-summary">
+      <span class="badge badge-project-pending">Pending: <%= pending %></span>
+      <span class="badge badge-project-completed">Completed: <%= completed %></span>
+      <span class="badge badge-project-cancel">Cancelled: <%= cancelled %></span>
+      <span class="badge badge-project-error">Error: <%= error %></span>
+      <span class="badge badge-project-total">Total: <%= total %></span>
+    </div>
+  </div>
+</div>

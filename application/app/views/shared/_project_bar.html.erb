@@ -19,8 +19,6 @@
   </div>
 
   <div>
-    <%= render partial: '/shared/file_stats_inline', locals: { count: project.count} %>
-
     <a href="<%= files_app_url(Project.project_metadata_dir(project.id)) %>"
        target="_blank"
        class="btn btn-sm btn-outline-primary ms-3"

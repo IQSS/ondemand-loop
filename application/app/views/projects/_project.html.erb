@@ -4,18 +4,5 @@
   <!-- Header Section -->
   <%= render partial: "projects/project_header", locals: { project: project, active: active } %>
 
-  <!-- Main Content -->
-  <div class="card-body bg-light">
-    <div class="row align-items-center">
-      <div class="col">
-        <!--Project Metadata -->
-      </div>
-
-      <div class="col-auto">
-        <%= render partial: '/shared/file_stats_widget', locals: project_progress_data(project.count, t('.download_files')) %>
-      </div>
-    </div>
-  </div>
-
-  <%= render partial: "projects/project_footer", locals: { project: project } if footer %>
+  <%= render partial: "projects/project_summary", locals: { project: project } if footer %>
 </div>

@@ -26,9 +26,14 @@
       </ul>
       <ul class="navbar-nav ms-auto"> <!-- ms-auto pushes this section to the right -->
         <li class="nav-item">
-          <%= link_to "#", class: "nav-link d-flex align-items-center", data: { action: "click->utils--toggle#toggle", "utils--toggle-id-param": "repo-resolver-bar" } do %>
+          <a class="nav-link d-flex align-items-center"
+             data-bs-toggle="collapse"
+             href="#repo-resolver-bar"
+             role="button"
+             aria-expanded="false"
+             aria-controls="repo-resolver-bar">
             <%= image_tag('icon.png', alt: t('.icon_alt_text'), class: 'icon-class me-1') %> <%= t(".explore") %>
-          <% end %>
+          </a>
         </li>
         <li class="nav-item">
           <%= nav_link_to ood_dashboard_url, class: 'nav-link d-flex align-items-center', target: '_blank' do %>

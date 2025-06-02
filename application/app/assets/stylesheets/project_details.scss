@@ -1,15 +1,17 @@
 .project-details {
   .nav-tabs .nav-link {
-    border-bottom: 2px solid transparent;
+    border-bottom: 1px solid transparent;
   }
 
   .nav-tabs .nav-link:hover {
-    border-color: var(--bs-nav-tabs-link-hover-border-color);
+    color: #343a40;
+    background-color: #e9ecef;
   }
 
   .nav-tabs .nav-link.active {
-    background-color: #F8F9F9;
-    border-bottom: 3px solid #dee2e6;
+    color: #343a40 !important;
+    background-color: #e9ecef;
+    border-bottom: 1px solid #e9ecef;
   }
 
   .upload-files-container.restricted-height {

@@ -2,6 +2,7 @@
 
 class Project < ApplicationDiskRecord
   include ActiveModel::Model
+  include FileStatusSummary
   include LoggingCommon
 
   ATTRIBUTES = %w[id name download_dir creation_date].freeze
@@ -45,6 +46,7 @@ class Project < ApplicationDiskRecord
            .compact
       end
   end
+  alias_method :status_files, :download_files
 
   def upload_batches
     @upload_batches ||=
@@ -55,12 +57,6 @@ class Project < ApplicationDiskRecord
            .map { |directory| UploadBatch.find(id, File.basename(directory)) }
            .compact
       end
-  end
-
-  def count
-    counts = download_files.group_by{|f| f.status.to_s}.transform_values(&:count)
-    counts[:total] = download_files.size
-    OpenStruct.new(counts)
   end
 
   def save

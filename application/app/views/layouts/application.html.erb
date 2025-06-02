@@ -18,7 +18,7 @@
     <%= render partial: 'layouts/config' %>
   </head>
 
-  <body data-controller="utils--toggle">
+  <body>
     <%= render partial: 'layouts/nav/navigation' %>
     <%= render partial: '/shared/project_bar', locals: { project: @active_project }  if @active_project %>
     <%= render partial: '/shared/repo_resolver_bar' %>

@@ -6,7 +6,7 @@
   <div class="d-flex align-items-center gap-3">
     <a href="<%= files_app_url(project.download_dir) %>"
        target="_blank"
-       class="btn btn-sm btn-outline-secondary"
+       class="btn btn-sm btn-outline-dark"
        title="<%= t('.open_project_folder') %>">
       <i class="bi bi-folder-fill"></i>
     </a>
@@ -42,29 +42,29 @@
   </div>
 
   <div class="d-flex align-items-center gap-2">
-    <button class="btn btn-sm btn-secondary"
+    <button class="btn btn-sm btn-outline-dark"
             data-action="click->project-name#edit"
             title="<%= t('.edit_project_name') %>">
-      <i class="bi bi-pencil"></i>
+      <i class="bi bi-pencil-fill"></i>
     </button>
 
     <%= render partial: "shared/button_to", locals: {
       url: project_path(id: project.id),
       method: 'DELETE',
       title: t('.delete_project'),
-      class: 'btn-sm btn-project-muted',
-      icon: "bi bi-trash"
+      class: 'btn-sm btn-outline-dark icon-hover-danger',
+      icon: "bi bi-trash-fill"
     } %>
 
     <% if active %>
-      <button class="btn btn-sm btn-primary" title="<%= t('.active_project') %>" disabled>
-        <i class="bi bi-check-circle-fill text-light"></i>
+      <button class="btn btn-sm btn-outline-primary cursor-default" title="<%= t('.active_project') %>">
+        <i class="bi bi-check-circle-fill"></i>
       </button>
     <% else %>
       <%= render partial: "shared/button_to", locals: {
         url: set_active_project_path(id: project.id),
         title: t('.set_as_active_project'),
-        class: 'btn-sm btn-project-neutral',
+        class: 'btn-sm btn-outline-dark',
         icon: "bi bi-pin-angle-fill"
       } %>
     <% end %>

@@ -3,6 +3,11 @@
   <%= render partial: '/projects/show/download_actions', locals: { project: project } %>
 
   <div class="container files rounded border">
+    <% if files.empty? %>
+      <div class="row py-2 justify-content-center custom-stripe">
+        <%= t('.download_files_empty') %>
+      </div>
+    <% end %>
     <% files.each_with_index do |file, index| %>
       <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
         <div class="col-md-10">

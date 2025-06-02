@@ -2,6 +2,7 @@
 
 class UploadBatch < ApplicationDiskRecord
   include ActiveModel::Model
+  include FileStatusSummary
 
   ATTRIBUTES = %w[id project_id remote_repo_url type name creation_date metadata].freeze
 
@@ -57,12 +58,7 @@ class UploadBatch < ApplicationDiskRecord
            .compact
       end
   end
-
-  def count
-    counts = files.group_by{|f| f.status.to_s}.transform_values(&:count)
-    counts[:total] = files.size
-    OpenStruct.new(counts)
-  end
+  alias_method :status_files, :files
 
   def connector_metadata
     ConnectorClassDispatcher.upload_batch_connector_metadata(self)

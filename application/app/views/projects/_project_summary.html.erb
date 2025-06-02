@@ -1,0 +1,63 @@
+<div class="card-header border-top d-flex justify-content-between align-items-center bg-light">
+  <a class="d-flex align-items-center text-decoration-none text-secondary"
+     data-bs-toggle="collapse"
+     data-controller="utils--icon-toggle"
+     data-utils--icon-toggle-icon-on-value="bi-plus-square"
+     data-utils--icon-toggle-icon-off-value="bi-dash-square"
+     data-action="click->utils--icon-toggle#toggle"
+     href="#project-files-<%= project.id %>"
+     role="button"
+     aria-expanded="false"
+     aria-controls="project-files-<%= project.id %>">
+    <i data-utils--icon-toggle-target="icon" class="bi bi-plus-square me-2 transition" id="toggle-icon-<%= project.id %>"></i>
+    <strong><%= t('.button_toggle_label') %></strong>
+  </a>
+  <div>
+    <a href="<%= files_app_url(Project.project_metadata_dir(project.id)) %>"
+       target="_blank"
+       class="btn btn-sm btn-outline-secondary"
+       title="<%= t('.button_metadata_folder_title') %>">
+      <i class="bi bi-card-list"></i>
+    </a>
+  </div>
+</div>
+
+<!-- Collapsible Tabs -->
+<div class="collapse" id="project-files-<%= project.id %>">
+  <div class="bg-light pt-2">
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" id="tabs-<%= project.id %>" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link text-secondary active" id="download-tab-<%= project.id %>" data-bs-toggle="tab"
+                data-bs-target="#download-files-<%= project.id %>" type="button" role="tab"
+                aria-controls="download-files-<%= project.id %>" aria-selected="true">
+          <i class="bi bi-download me-1"></i><%= t('.tab_download_label') %>
+        </button>
+      </li>
+      <% project.upload_batches.each do |batch| %>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link text-secondary" id="upload-tab-<%= batch.id %>" data-bs-toggle="tab"
+                  data-bs-target="#upload-files-<%= batch.id %>" type="button" role="tab"
+                  aria-controls="upload-files-<%= batch.id %>" aria-selected="false">
+            <i class="bi bi-upload me-1"></i><%= batch.name %>
+          </button>
+        </li>
+      <% end %>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="download-files-<%= project.id %>" role="tabpanel"
+           aria-labelledby="download-tab-<%= project.id %>">
+        <%= render partial: '/projects/project_summary_downloads', locals: { project: project } %>
+      </div>
+      <% project.upload_batches.each do |batch| %>
+        <div class="tab-pane fade" id="upload-files-<%= batch.id %>" role="tabpanel"
+             aria-labelledby="upload-tab-<%= batch.id %>">
+          <%= render partial: '/projects/project_summary_batch', locals: { project: project, batch: batch } %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>
