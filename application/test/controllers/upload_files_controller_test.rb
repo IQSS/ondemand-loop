@@ -72,7 +72,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     delete project_upload_batch_upload_file_url(@project_id, @upload_batch_id, @file_id)
 
     assert_redirected_to root_path
-    assert_equal 'Upload file removed from collection. delete.txt', flash[:notice]
+    assert_equal 'Upload file removed from batch. delete.txt', flash[:notice]
   end
 
   test 'cancel should return not found if file is missing on cancel' do
