@@ -10,10 +10,10 @@ class UploadBundle < ApplicationDiskRecord
 
   validates_presence_of :id, :project_id, :remote_repo_url, :type, :name
 
-  def self.find(project_id, upload_batch_id)
-    return nil if project_id.blank? || upload_batch_id.blank?
+  def self.find(project_id, upload_bundle_id)
+    return nil if project_id.blank? || upload_bundle_id.blank?
 
-    filename = filename_by_ids(project_id, upload_batch_id)
+    filename = filename_by_ids(project_id, upload_bundle_id)
     return nil unless File.exist?(filename)
 
     load_from_file(filename)
@@ -43,8 +43,8 @@ class UploadBundle < ApplicationDiskRecord
   end
 
   def destroy
-    upload_batch_path = self.class.directory_by_ids(project_id, id)
-    FileUtils.rm_rf(upload_batch_path)
+    upload_bundle_path = self.class.directory_by_ids(project_id, id)
+    FileUtils.rm_rf(upload_bundle_path)
   end
 
   def files
@@ -61,16 +61,16 @@ class UploadBundle < ApplicationDiskRecord
   alias_method :status_files, :files
 
   def connector_metadata
-    ConnectorClassDispatcher.upload_batch_connector_metadata(self)
+    ConnectorClassDispatcher.upload_bundle_connector_metadata(self)
   end
 
   private
 
-  def self.directory_by_ids(project_id, upload_batch_id)
-    File.join(Project.upload_bundles_directory(project_id), upload_batch_id)
+  def self.directory_by_ids(project_id, upload_bundle_id)
+    File.join(Project.upload_bundles_directory(project_id), upload_bundle_id)
   end
 
-  def self.filename_by_ids(project_id, upload_batch_id)
-    File.join(self.directory_by_ids(project_id, upload_batch_id), "metadata.yml")
+  def self.filename_by_ids(project_id, upload_bundle_id)
+    File.join(self.directory_by_ids(project_id, upload_bundle_id), "metadata.yml")
   end
 end

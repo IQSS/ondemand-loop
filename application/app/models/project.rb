@@ -48,13 +48,13 @@ class Project < ApplicationDiskRecord
   end
   alias_method :status_files, :download_files
 
-  def upload_batches
-    @upload_batches ||=
+  def upload_bundles
+    @upload_bundles ||=
       begin
-        Dir.glob(File.join(self.class.upload_batches_directory(id), '*'))
+        Dir.glob(File.join(self.class.upload_bundles_directory(id), '*'))
            .select { |path| File.directory?(path) }
            .sort { |a, b| File.ctime(b) <=> File.ctime(a) }
-           .map { |directory| UploadBatch.find(id, File.basename(directory)) }
+           .map { |directory| UploadBundle.find(id, File.basename(directory)) }
            .compact
       end
   end
@@ -86,8 +86,8 @@ class Project < ApplicationDiskRecord
     File.join(metadata_directory, id, 'download_files')
   end
 
-  def self.upload_batches_directory(id)
-    File.join(metadata_directory, id, 'upload_batches')
+  def self.upload_bundles_directory(id)
+    File.join(metadata_directory, id, 'upload_bundles')
   end
 
   def self.filename_by_id(id)
