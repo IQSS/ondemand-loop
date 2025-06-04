@@ -1,9 +1,9 @@
 require 'test_helper'
 
-class UploadBatchTest < ActiveSupport::TestCase
+class UploadBundleTest < ActiveSupport::TestCase
   def setup
     @tmp_dir = Dir.mktmpdir
-    UploadBatch.stubs(:metadata_root_directory).returns(@tmp_dir)
+    UploadBundle.stubs(:metadata_root_directory).returns(@tmp_dir)
     Project.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
       'id' => '123-321', 'project_id' => '456-789',
@@ -19,8 +19,8 @@ class UploadBatchTest < ActiveSupport::TestCase
     }
     @project = Project.new id: '456-789', name: 'Test Project'
     @project.save
-    @upload_batch = UploadBatch.new(@valid_attributes)
-    @expected_filename = File.join(Project.upload_batches_directory('456-789'), '123-321', 'metadata.yml')
+    @upload_batch = UploadBundle.new(@valid_attributes)
+    @expected_filename = File.join(Project.upload_bundles_directory('456-789'), '123-321', 'metadata.yml')
   end
 
   def teardown
@@ -65,7 +65,7 @@ class UploadBatchTest < ActiveSupport::TestCase
   end
 
   test 'save twice only creates one file' do
-    files_directory = Pathname.new(Project.upload_batches_directory('456-789'))
+    files_directory = Pathname.new(Project.upload_bundles_directory('456-789'))
     assert @upload_batch.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
     assert_equal 1, files_directory.children.count
@@ -87,24 +87,24 @@ class UploadBatchTest < ActiveSupport::TestCase
     assert @upload_batch.destroy, 'Destroy did not return true'
     refute File.exist?(@expected_filename), 'File was not deleted from the file system'
 
-    refute UploadBatch.find('456-789', '123-321'), 'Upload Batch should not be found after destroy'
+    refute UploadBundle.find('456-789', '123-321'), 'Upload Bundle should not be found after destroy'
   end
 
 
   test 'find does not find the record if it was not saved' do
-    refute UploadBatch.find('456-789', '123-321')
+    refute UploadBundle.find('456-789', '123-321')
   end
 
   test 'find retrieves the record if it was saved' do
     assert @upload_batch.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
-    assert UploadBatch.find('456-789', '123-321')
+    assert UploadBundle.find('456-789', '123-321')
   end
 
   test 'find retrieves the record with the same stored values' do
     assert @upload_batch.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
-    loaded_file = UploadBatch.find('456-789', '123-321')
+    loaded_file = UploadBundle.find('456-789', '123-321')
     assert loaded_file
     assert_equal '123-321', loaded_file.id
     assert_equal '456-789', loaded_file.project_id
@@ -114,20 +114,20 @@ class UploadBatchTest < ActiveSupport::TestCase
   test 'find retrieves the record only if both ids match' do
     assert @upload_batch.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
-    assert UploadBatch.find('456-789', '123-321')
-    refute UploadBatch.find('456-780', '123-321')
-    refute UploadBatch.find('456-789', '123-322')
+    assert UploadBundle.find('456-789', '123-321')
+    refute UploadBundle.find('456-780', '123-321')
+    refute UploadBundle.find('456-789', '123-322')
   end
 
-  test 'project upload batches methods returns empty list' do
-    assert_empty @project.upload_batches
+  test 'project upload bundles methods returns empty list' do
+    assert_empty @project.upload_bundles
   end
 
-  test 'project upload batches methods returns list with the collection' do
+  test 'project upload bundles methods returns list with the collection' do
     assert @upload_batch.save
-    assert_equal 1, @project.upload_batches.count
-    upload_batch = @project.upload_batches.first
-    assert_instance_of UploadBatch, upload_batch
+    assert_equal 1, @project.upload_bundles.count
+    upload_batch = @project.upload_bundles.first
+    assert_instance_of UploadBundle, upload_batch
     assert_equal @upload_batch.id, upload_batch.id
     assert_equal @upload_batch.project_id, upload_batch.project_id
   end

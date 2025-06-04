@@ -5,9 +5,9 @@ class UploadFileTest < ActiveSupport::TestCase
     @tmp_dir = Dir.mktmpdir
     UploadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
     Project.stubs(:metadata_root_directory).returns(@tmp_dir)
-    UploadBatch.stubs(:metadata_root_directory).returns(@tmp_dir)
+    UploadBundle.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
-      'id' => '123-321', 'project_id' => '456-789', 'upload_batch_id' => '111-222', 'type' => ConnectorType::DATAVERSE,
+      'id' => '123-321', 'project_id' => '456-789', 'upload_bundle_id' => '111-222', 'type' => ConnectorType::DATAVERSE,
       'file_location' => 'path/to/file.jpg',
       'filename' => 'test.png',
       'status' => FileStatus::PENDING, 'size' => 1024,
@@ -26,10 +26,10 @@ class UploadFileTest < ActiveSupport::TestCase
     }
     @project = Project.new id: '456-789', name: 'Test Project'
     @project.save
-    @upload_batch = UploadBatch.new(@batch_attributes)
+    @upload_batch = UploadBundle.new(@batch_attributes)
     @upload_batch.save
     @upload_file = UploadFile.new(@valid_attributes)
-    @expected_filename = File.join(Project.upload_batches_directory('456-789'), '111-222', 'files', '123-321.yml')
+    @expected_filename = File.join(Project.upload_bundles_directory('456-789'), '111-222', 'files', '123-321.yml')
   end
 
   def teardown
@@ -39,7 +39,7 @@ class UploadFileTest < ActiveSupport::TestCase
   test 'should initialize with valid attributes' do
     assert_equal '123-321', @upload_file.id
     assert_equal '456-789', @upload_file.project_id
-    assert_equal '111-222', @upload_file.upload_batch_id
+    assert_equal '111-222', @upload_file.upload_bundle_id
     assert_equal 'test.png', @upload_file.filename
     assert_equal FileStatus::PENDING, @upload_file.status
     assert_equal 1024, @upload_file.size
@@ -84,7 +84,7 @@ class UploadFileTest < ActiveSupport::TestCase
   end
 
   test 'save twice only creates one file' do
-    files_directory = Pathname.new(File.join(Project.upload_batches_directory('456-789'), '111-222', 'files'))
+    files_directory = Pathname.new(File.join(Project.upload_bundles_directory('456-789'), '111-222', 'files'))
     assert @upload_file.save
     assert File.exist?(@expected_filename), 'File was not created in the file system'
     assert_equal 1, files_directory.children.count
