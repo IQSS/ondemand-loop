@@ -48,11 +48,11 @@ module Dataverse::Actions
           dataset_id: dataverse_url.dataset_id,
         }
       end
-      upload_batch.save
+      upload_bundle.save
 
       ConnectorResult.new(
         resource: upload_bundle,
-        message: { notice: I18n.t('connectors.dataverse.upload_bundles.created', name: upload_batch.name) },
+        message: { notice: I18n.t('connectors.dataverse.upload_bundles.created', name: upload_bundle.name) },
         success: true
       )
     end
