@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Dataverse
-  class UploadBatchConnectorMetadata
+  class UploadBundleConnectorMetadata
     include Dataverse::Concerns::DataverseUrlBuilder
 
     def initialize(upload_batch)

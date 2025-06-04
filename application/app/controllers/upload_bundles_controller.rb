@@ -1,4 +1,4 @@
-class UploadBatchesController < ApplicationController
+class UploadBundlesController < ApplicationController
   include LoggingCommon
 
   def create
@@ -18,7 +18,7 @@ class UploadBatchesController < ApplicationController
       return
     end
 
-    processor = ConnectorClassDispatcher.upload_batch_connector_processor(url_resolution.type)
+    processor = ConnectorClassDispatcher.upload_bundle_connector_processor(url_resolution.type)
     processor_params = params.permit(*processor.params_schema).to_h
     processor_params[:object_url] = url_resolution.object_url
     result = processor.create(project, processor_params)
@@ -28,50 +28,50 @@ class UploadBatchesController < ApplicationController
 
   def edit
     project_id = params[:project_id]
-    upload_batch_id = params[:id]
-    upload_batch = UploadBatch.find(project_id, upload_batch_id)
-    if upload_batch.nil?
-      redirect_back fallback_location: root_path, alert: t(".invalid_parameters", project_id: project_id, upload_batch_id: upload_batch_id)
+    upload_bundle_id = params[:id]
+    upload_bundle = UploadBundle.find(project_id, upload_bundle_id)
+    if upload_bundle.nil?
+      redirect_back fallback_location: root_path, alert: t(".invalid_parameters", project_id: project_id, upload_bundle_id: upload_bundle_id)
       return
     end
 
-    processor = ConnectorClassDispatcher.upload_batch_connector_processor(upload_batch.type)
+    processor = ConnectorClassDispatcher.upload_bundle_connector_processor(upload_bundle.type)
     processor_params = params.permit(*processor.params_schema).to_h
-    result = processor.edit(upload_batch, processor_params)
+    result = processor.edit(upload_bundle, processor_params)
 
     render partial: result.partial, layout: false, locals: result.locals
   end
 
   def update
     project_id = params[:project_id]
-    upload_batch_id = params[:id]
-    upload_batch = UploadBatch.find(project_id, upload_batch_id)
+    upload_bundle_id = params[:id]
+    upload_bundle = UploadBundle.find(project_id, upload_bundle_id)
 
-    if upload_batch.nil?
-      redirect_back fallback_location: root_path, alert: t(".not_found", upload_batch_id: upload_batch_id)
+    if upload_bundle.nil?
+      redirect_back fallback_location: root_path, alert: t(".not_found", upload_bundle_id: upload_bundle_id)
       return
     end
 
-    processor = ConnectorClassDispatcher.upload_batch_connector_processor(upload_batch.type)
+    processor = ConnectorClassDispatcher.upload_bundle_connector_processor(upload_bundle.type)
     processor_params = params.permit(*processor.params_schema).to_h
     log_info("params", {params: processor_params})
-    result = processor.update(upload_batch, processor_params)
+    result = processor.update(upload_bundle, processor_params)
 
     redirect_to result.redirect_url, **result.message
   end
 
   def destroy
     project_id = params[:project_id]
-    upload_batch_id = params[:id]
-    upload_batch = UploadBatch.find(project_id, upload_batch_id)
+    upload_bundle_id = params[:id]
+    upload_bundle = UploadBundle.find(project_id, upload_bundle_id)
 
-    if upload_batch.nil?
-      redirect_back fallback_location: root_path, alert: t(".not_found", upload_batch_id: upload_batch_id)
+    if upload_bundle.nil?
+      redirect_back fallback_location: root_path, alert: t(".not_found", upload_bundle_id: upload_bundle_id)
       return
     end
 
-    upload_batch.destroy
-    redirect_back fallback_location: root_path, notice: t(".success", batch_name: upload_batch.name)
+    upload_bundle.destroy
+    redirect_back fallback_location: root_path, notice: t(".success", batch_name: upload_bundle.name)
   end
 
 end

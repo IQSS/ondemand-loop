@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UploadBatch < ApplicationDiskRecord
+class UploadBundle < ApplicationDiskRecord
   include ActiveModel::Model
   include FileStatusSummary
 
@@ -67,7 +67,7 @@ class UploadBatch < ApplicationDiskRecord
   private
 
   def self.directory_by_ids(project_id, upload_batch_id)
-    File.join(Project.upload_batches_directory(project_id), upload_batch_id)
+    File.join(Project.upload_bundles_directory(project_id), upload_batch_id)
   end
 
   def self.filename_by_ids(project_id, upload_batch_id)
