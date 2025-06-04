@@ -1,20 +1,20 @@
 <%
-  file_browser_id = "fb-#{batch.id}"
-  file_target_id = "fbt-#{batch.id}"
-  upload_files_id = "upload-files-#{batch.id}"
+  file_browser_id = "fb-#{bundle.id}"
+  file_target_id = "fbt-#{bundle.id}"
+  upload_files_id = "upload-files-#{bundle.id}"
 %>
-<div id="tab-<%= batch.id %>" class="tab-pane fade" role="tabpanel" aria-labelledby="upload-tab-<%= batch.id %>">
-  <%= render partial: '/projects/show/upload_actions', locals: { batch: batch, file_browser_id: file_browser_id, upload_files_id: upload_files_id } %>
+<div id="tab-<%= bundle.id %>" class="tab-pane fade" role="tabpanel" aria-labelledby="upload-tab-<%= bundle.id %>">
+  <%= render partial: '/projects/show/upload_actions', locals: { bundle: bundle, file_browser_id: file_browser_id, upload_files_id: upload_files_id } %>
 
-  <%= render layout: '/file_browser/file_drop', locals: { id: file_target_id, file_browser_id: file_browser_id, url: project_upload_bundle_upload_files_path(project_id: project.id, upload_bundle_id: batch.id) } do %>
+  <%= render layout: '/file_browser/file_drop', locals: { id: file_target_id, file_browser_id: file_browser_id, url: project_upload_bundle_upload_files_path(project_id: project.id, upload_bundle_id: bundle.id) } do %>
     <div data-controller="lazy-loader"
-         data-lazy-loader-container-id-value="upload-files-<%= batch.id %>"
-         data-lazy-loader-url-value="<%= project_upload_bundle_upload_files_path(project_id: project.id, upload_bundle_id: batch.id) %>"
+         data-lazy-loader-container-id-value="upload-files-<%= bundle.id %>"
+         data-lazy-loader-url-value="<%= project_upload_bundle_upload_files_path(project_id: project.id, upload_bundle_id: bundle.id) %>"
          data-lazy-loader-event-name-value="file-drop:file-submitted:<%= file_target_id %>"
          class="position-relative rounded border border-2 file-drop-container">
 
       <div id="<%= upload_files_id %>" class="upload-files-container no-scroll">
-        <%= render partial: '/projects/show/upload_files', locals: { batch: batch } %>
+        <%= render partial: '/projects/show/upload_files', locals: { bundle: bundle } %>
       </div>
 
       <div class="drop-overlay"></div>

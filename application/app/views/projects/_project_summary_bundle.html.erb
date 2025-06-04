@@ -1,11 +1,11 @@
 <div class="mb-3 shadow-sm overflow-hidden">
   <div class="p-3 border-bottom border-secondary-subtle d-flex justify-content-between align-items-center bg-light-darker">
     <div class="d-flex align-items-center gap-3">
-      <%= render partial: '/shared/file_row_date', locals: { date: batch.creation_date, title: t('.creation_date_title') } if batch.creation_date %>
+      <%= render partial: '/shared/file_row_date', locals: { date: bundle.creation_date, title: t('.creation_date_title') } if bundle.creation_date %>
 
       <div>
         <div class="d-flex flex-column">
-          <h5 class="mb-0"><%= batch.name %></h5>
+          <h5 class="mb-0"><%= bundle.name %></h5>
         </div>
       </div>
 
@@ -13,11 +13,11 @@
 
     <div class="d-flex align-items-center gap-2">
       <div class="me-4">
-        <%= render partial: '/shared/file_summary_widget', locals: project_progress_data(batch.status_summary) %>
+        <%= render partial: '/shared/file_summary_widget', locals: project_progress_data(bundle.status_summary) %>
       </div>
     </div>
   </div>
 
-  <%= render partial: upload_bundle_connector_info_bar(batch), locals: { upload_bundle: batch } %>
+  <%= render partial: upload_bundle_connector_info_bar(bundle), locals: { upload_bundle: bundle } %>
 
 </div>
