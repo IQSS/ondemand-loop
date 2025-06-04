@@ -18,33 +18,33 @@ module Dataverse
       Dataverse::Actions::UploadBatchCreate.new.create(project, request_params)
     end
 
-    def edit(upload_batch, request_params)
+    def edit(upload_bundle, request_params)
       case request_params[:form].to_s
       when 'dataset_form_tabs'
-        Dataverse::Actions::DatasetFormTabs.new.edit(upload_batch, request_params)
+        Dataverse::Actions::DatasetFormTabs.new.edit(upload_bundle, request_params)
       when 'dataset_create'
-        Dataverse::Actions::DatasetCreate.new.edit(upload_batch, request_params)
+        Dataverse::Actions::DatasetCreate.new.edit(upload_bundle, request_params)
       when 'dataset_select'
-        Dataverse::Actions::DatasetSelect.new.edit(upload_batch, request_params)
+        Dataverse::Actions::DatasetSelect.new.edit(upload_bundle, request_params)
       when 'collection_select'
-        Dataverse::Actions::CollectionSelect.new.edit(upload_batch, request_params)
+        Dataverse::Actions::CollectionSelect.new.edit(upload_bundle, request_params)
       else
-        Dataverse::Actions::ConnectorEdit.new.edit(upload_batch, request_params)
+        Dataverse::Actions::ConnectorEdit.new.edit(upload_bundle, request_params)
       end
     end
 
-    def update(upload_batch, request_params)
+    def update(upload_bundle, request_params)
       case request_params[:form].to_s
       when 'dataset_form_tabs'
-        Dataverse::Actions::DatasetFormTabs.new.update(upload_batch, request_params)
+        Dataverse::Actions::DatasetFormTabs.new.update(upload_bundle, request_params)
       when 'dataset_create'
-        Dataverse::Actions::DatasetCreate.new.update(upload_batch, request_params)
+        Dataverse::Actions::DatasetCreate.new.update(upload_bundle, request_params)
       when 'dataset_select'
-        Dataverse::Actions::DatasetSelect.new.update(upload_batch, request_params)
+        Dataverse::Actions::DatasetSelect.new.update(upload_bundle, request_params)
       when 'collection_select'
-        Dataverse::Actions::CollectionSelect.new.update(upload_batch, request_params)
+        Dataverse::Actions::CollectionSelect.new.update(upload_bundle, request_params)
       else
-        Dataverse::Actions::ConnectorEdit.new.update(upload_batch, request_params)
+        Dataverse::Actions::ConnectorEdit.new.update(upload_bundle, request_params)
       end
     end
 
