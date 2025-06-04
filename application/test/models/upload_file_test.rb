@@ -15,7 +15,7 @@ class UploadFileTest < ActiveSupport::TestCase
       'start_date' => nil,
       'end_date' => nil
     }
-    @batch_attributes = {
+    @bundle_attributes = {
       'id' => '111-222', 'project_id' => '456-789', 'type' => ConnectorType::DATAVERSE,
       'creation_date' => nil,
       'metadata' => {
@@ -26,8 +26,8 @@ class UploadFileTest < ActiveSupport::TestCase
     }
     @project = Project.new id: '456-789', name: 'Test Project'
     @project.save
-    @upload_batch = UploadBundle.new(@batch_attributes)
-    @upload_batch.save
+    @upload_bundle = UploadBundle.new(@bundle_attributes)
+    @upload_bundle.save
     @upload_file = UploadFile.new(@valid_attributes)
     @expected_filename = File.join(Project.upload_bundles_directory('456-789'), '111-222', 'files', '123-321.yml')
   end
