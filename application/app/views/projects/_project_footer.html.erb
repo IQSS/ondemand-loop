@@ -33,12 +33,12 @@
           <i class="bi bi-download me-1"></i><%= t('.download_files') %>
         </button>
       </li>
-      <% project.upload_batches.each do |batch| %>
+      <% project.upload_bundles.each do |bundle| %>
         <li class="nav-item" role="presentation">
-          <button class="nav-link text-secondary" id="upload-tab-<%= batch.id %>" data-bs-toggle="tab"
-                  data-bs-target="#upload-files-<%= batch.id %>" type="button" role="tab"
-                  aria-controls="upload-files-<%= batch.id %>" aria-selected="false">
-            <i class="bi bi-upload me-1"></i><%= batch.name %>
+          <button class="nav-link text-secondary" id="upload-tab-<%= bundle.id %>" data-bs-toggle="tab"
+                  data-bs-target="#upload-files-<%= bundle.id %>" type="button" role="tab"
+                  aria-controls="upload-files-<%= bundle.id %>" aria-selected="false">
+            <i class="bi bi-upload me-1"></i><%= bundle.name %>
           </button>
         </li>
       <% end %>
@@ -50,10 +50,10 @@
            aria-labelledby="download-tab-<%= project.id %>">
         <%= render partial: '/projects/download_files', locals: { project: project } %>
       </div>
-      <% project.upload_batches.each do |batch| %>
-        <div class="tab-pane fade" id="upload-files-<%= batch.id %>" role="tabpanel"
-             aria-labelledby="upload-tab-<%= batch.id %>">
-          <%= render partial: '/projects/upload_batch', locals: { project: project, upload_batch: batch } %>
+      <% project.upload_bundles.each do |bundle| %>
+        <div class="tab-pane fade" id="upload-files-<%= bundle.id %>" role="tabpanel"
+             aria-labelledby="upload-tab-<%= bundle.id %>">
+          <%= render partial: '/projects/upload_bundle', locals: { project: project, upload_bundle: bundle } %>
         </div>
       <% end %>
     </div>

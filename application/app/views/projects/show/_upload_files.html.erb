@@ -1,5 +1,5 @@
-<% files = batch.files %>
-<div id="<%= batch.id %>-upload-files" class="container files">
+<% files = bundle.files %>
+<div id="<%= bundle.id %>-upload-files" class="container files">
   <% if files.empty? %>
     <div class="row py-2 justify-content-center custom-stripe">
       <%= t('.no_upload_files') %>
@@ -29,7 +29,7 @@
         <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: t('.download_start_date'), classes: 'mx-2'} if file.status.downloading? %>
 
         <%= render partial: "shared/button_to", locals: {
-          url: project_upload_batch_upload_file_path(project_id: batch.project_id, upload_batch_id: batch.id, id: file.id),
+          url: project_upload_bundle_upload_file_path(project_id: bundle.project_id, upload_bundle_id: bundle.id, id: file.id),
           method: 'DELETE',
           title: t(".delete_file"),
           class: 'btn-sm btn-outline-secondary icon-hover-danger',

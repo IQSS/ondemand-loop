@@ -1,12 +1,12 @@
 <div class="card mb-3 shadow-sm rounded overflow-hidden">
   <div class="card-header d-flex justify-content-between align-items-center bg-light-darker">
     <div class="d-flex align-items-center gap-3">
-      <%= render partial: '/shared/file_row_date', locals: { date: batch.creation_date, title: t('.creation_date') } if batch.creation_date %>
+      <%= render partial: '/shared/file_row_date', locals: { date: bundle.creation_date, title: t('.creation_date') } if bundle.creation_date %>
 
       <div>
         <!-- PROJECT METADATA -->
         <div class="d-flex flex-column">
-          <h5 class="mb-0"><%= batch.name %></h5>
+          <h5 class="mb-0"><%= bundle.name %></h5>
         </div>
       </div>
 
@@ -14,7 +14,7 @@
 
     <div class="d-flex align-items-center gap-2">
       <div class="me-4">
-        <%= render partial: '/shared/file_summary_widget', locals: project_progress_data(batch.status_summary) %>
+        <%= render partial: '/shared/file_summary_widget', locals: project_progress_data(bundle.status_summary) %>
       </div>
 
       <button data-controller="lazy-loader add-upload-files"
@@ -29,7 +29,7 @@
       </button>
 
       <%= render partial: "shared/button_to", locals: {
-        url: project_upload_batch_path(project_id: batch.project_id, id: batch.id),
+        url: project_upload_bundle_path(project_id: bundle.project_id, id: bundle.id),
         method: 'DELETE',
         title: t('.button_delete_title'),
         class: 'btn btn-sm btn-outline-secondary icon-hover-danger',
@@ -38,6 +38,6 @@
     </div>
   </div>
 
-  <%= render partial: upload_batch_connector_actions_bar(batch), locals: { upload_batch: batch } %>
+  <%= render partial: upload_bundle_connector_actions_bar(bundle), locals: { upload_bundle: bundle } %>
 
 </div>

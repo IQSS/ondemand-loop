@@ -19,10 +19,10 @@
               </div>
 
               <%= render partial: 'shared/repo_badge', locals: {
-                repo_url: data.upload_batch.connector_metadata.dataverse_url,
+                repo_url: data.upload_bundle.connector_metadata.dataverse_url,
                 target: '_blank',
                 icon_html: connector_icon(data.file.type),
-                name: data.upload_batch.connector_metadata.dataverse_title,
+                name: data.upload_bundle.connector_metadata.dataverse_title,
                 tooltip: t(".external_dataset")
               } %>
 
@@ -45,7 +45,7 @@
             <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger <%= cancel_button_class(data.file.status) %>" title="<%= t('.cancel_upload') %>"
                     data-controller="upload-file-cancellation"
                     data-action="click->upload-file-cancellation#cancel"
-                    data-upload-file-cancellation-url-value="<%= cancel_project_upload_batch_upload_file_path(project_id: data.file.project_id, upload_batch_id: data.file.upload_batch_id, id: data.file.id) %>">
+                    data-upload-file-cancellation-url-value="<%= cancel_project_upload_bundle_upload_file_path(project_id: data.file.project_id, upload_bundle_id: data.file.upload_bundle_id, id: data.file.id) %>">
               <span data-upload-file-cancellation-target="spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
               <span data-upload-file-cancellation-target="label"><i class="bi bi-sign-stop"></i></span>
             </button>
