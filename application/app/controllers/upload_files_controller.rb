@@ -27,8 +27,7 @@ class UploadFilesController < ApplicationController
       UploadFile.new.tap do |f|
         f.id = UploadFile.generate_id
         f.project_id = project_id
-        f.upload_bundle_id = upload_bundle_id
-        f.type = ConnectorType::DATAVERSE
+        f.upload_batch_id = upload_bundle_id
         f.creation_date = now
         f.file_location = file.fullpath
         f.filename = file.filename
@@ -51,7 +50,7 @@ class UploadFilesController < ApplicationController
       log_info('Added file to upload bundle', {project_id: project_id, upload_bundle_id: upload_bundle_id, file: file.filename})
     end
 
-    message = upload_files.size > 1 ? t(".files_added", count: upload_files.size, path_folder: path_folder) : t(".file_added", filename: upload_files.first.filename)
+    message = upload_files.size > 1 ? t(".files_added", count: upload_files.size, path_folder: path) : t(".file_added", filename: upload_files.first.filename)
     render json: { message: message }, status: :ok
   end
 
@@ -106,19 +105,20 @@ class UploadFilesController < ApplicationController
     if File.file?(path)
       return [OpenStruct.new(
         fullpath: File.expand_path(path),
-        filename: File.basename(path),
+        filename: File.join('/', File.basename(path)),
         size: File.size(path)
       )]
     end
 
     base_path = File.expand_path(path)
+    parent_dir = File.dirname(base_path)
 
     files = []
     Find.find(base_path) do |file|
       raise StandardError, "File size limit exceeded for #{path}" if files.size > limit
       next unless File.file?(file)
 
-      relative_path = file.sub(base_path, '')
+      relative_path = file.sub(parent_dir, '')
       files << OpenStruct.new(
         fullpath: file,
         filename: relative_path,

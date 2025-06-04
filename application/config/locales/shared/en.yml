@@ -11,8 +11,8 @@ en:
     cancelled: "cancelled"
   helpers:
     invalid_dataverse_hostname: "Invalid Dataverse hostname"
-    key_missing: "Key missing"
-    key_present: "Key present"
+    key_missing: "API Token missing"
+    key_present: "API Token present"
   js:
     download:
       cancel:

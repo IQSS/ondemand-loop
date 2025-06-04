@@ -27,11 +27,11 @@ module Upload
     end
 
     def pending_files
-      Project.all.flat_map(&:upload_bundles).flat_map(&:files).select{|f| f.status.pending?}
+      all.select{ |data| data.file.status.pending? }
     end
 
     def processing_files
-      Project.all.flat_map(&:upload_bundles).flat_map(&:files).select{|f| f.status.uploading?}
+      all.select{ |data| data.file.status.uploading? }
     end
 
     def all

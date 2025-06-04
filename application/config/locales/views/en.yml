@@ -19,8 +19,8 @@ en:
         button_select_dataset_title: "Select Dataset"
         modal_select_dataset_title: "Select Dataset"
 
-        button_edit_key_title: "Add/Edit API Key"
-        modal_edit_key_title: "Add/Edit Dataverse API Key"
+        button_edit_key_title: "Add/Edit API Token"
+        modal_edit_key_title: "Add/Edit Dataverse API Token"
 
         missing_key_disabled_features_text: "Add key to enable Collection/Dataset features"
       dataset_create_form:
@@ -32,7 +32,7 @@ en:
         field_description_placeholder: "Describe the contents and purpose of the dataset"
         field_description_help: "Include key details about what the dataset contains, how it was collected, and its purpose."
 
-        fields_optional_title: "Dataset Author Info"
+        fields_optional_title: "Dataset Author and Contact Information"
 
         field_author_label: 'Author Name'
         field_author_placeholder: 'e.g., Smith, John or Organization Name'
@@ -49,12 +49,12 @@ en:
         submit: "Create Dataset"
         cancel: "Cancel"
       connector_edit_form:
-        field_api_key_label: "API Key"
-        field_api_key_placeholder: "Enter your API key"
-        field_api_key_help: "Provide the API key required to authenticate with the Dataverse server."
+        field_api_key_label: "API Token"
+        field_api_key_placeholder: "Enter your API Token"
+        field_api_key_help: "Provide the API token required to authenticate with the Dataverse server."
 
-        field_key_scope_label: "Store API key for this collection only"
-        field_key_scope_help: "Leave unchecked to store this key for all collections using the same Dataverse server."
+        field_key_scope_label: "Store API token for this collection only"
+        field_key_scope_help: "Leave unchecked to store this API token for all collections using the same Dataverse server."
 
         submit: "Save Changes"
         cancel: "Cancel"

@@ -19,6 +19,9 @@ loop_down:
 loop_build:
 	docker run --platform=linux/amd64 --rm -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app $(LOOP_BUILDER_IMAGE) /usr/local/scripts/loop_build.sh
 
+remote_dev_build:
+	docker run --platform=linux/amd64 --rm -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app -e APP_ROOT=/pun/dev/loop -e APP_ENV=production $(LOOP_BUILDER_IMAGE) /usr/local/scripts/loop_build.sh
+
 loop_docker_builder:
 	docker build --platform=linux/amd64 --build-arg RUBY_VERSION=ruby:3.1 -t $(LOOP_BUILDER_IMAGE) -f docker/Dockerfile.builder .
 

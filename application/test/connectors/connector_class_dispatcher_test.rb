@@ -11,7 +11,7 @@ class ConnectorClassDispatcherTest < ActiveSupport::TestCase
 
   test 'upload_file_connector_status should return Dataverse::UploadConnectorStatus class for dataverse files' do
     project = upload_project(type: ConnectorType::DATAVERSE, files: 1)
-    result = ConnectorClassDispatcher.upload_file_connector_status(project.upload_bundles.first.files.first)
+    result = ConnectorClassDispatcher.upload_file_connector_status(project.upload_bundles.first, project.upload_bundles.first.files.first)
     assert_instance_of Dataverse::UploadConnectorStatus, result
   end
 
@@ -21,13 +21,7 @@ class ConnectorClassDispatcherTest < ActiveSupport::TestCase
     assert_instance_of Dataverse::DownloadConnectorMetadata, result
   end
 
-  test 'upload_connector_metadata should return Dataverse::UploadConnectorMetadata class for dataverse files' do
-    project = upload_project(type: ConnectorType::DATAVERSE, files: 1)
-    result = ConnectorClassDispatcher.upload_connector_metadata(project.upload_bundles.first.files.first)
-    assert_instance_of Dataverse::UploadConnectorMetadata, result
-  end
-
-  test 'upload_bundle_connector_processor should return Dataverse::UploadBundleConnectorProcessor class for dataverse type' do
+  test 'upload_bundle_connector_processor should return Dataverse::UploadBatchConnectorProcessor class for dataverse type' do
     result = ConnectorClassDispatcher.upload_bundle_connector_processor(ConnectorType::DATAVERSE)
     assert_instance_of Dataverse::UploadBundleConnectorProcessor, result
   end
@@ -47,7 +41,7 @@ class ConnectorClassDispatcherTest < ActiveSupport::TestCase
 
   test 'upload_processor should return Dataverse::UploadConnectorProcessor class for dataverse files' do
     project = upload_project(type: ConnectorType::DATAVERSE, files: 1)
-    result = ConnectorClassDispatcher.upload_processor(project.upload_bundles.first.files.first)
+    result = ConnectorClassDispatcher.upload_processor(project.upload_bundles.first, project.upload_bundles.first.files.first)
     assert_instance_of Dataverse::UploadConnectorProcessor, result
   end
 

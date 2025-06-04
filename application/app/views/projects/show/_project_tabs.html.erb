@@ -1,19 +1,19 @@
 <!-- Project Tabs -->
 <div id="project-tabs" class="mb-3" data-controller="utils--tab-links">
-  <ul class="nav nav-tabs" id="project-tabs-<%= project.id %>" role="tablist">
+  <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item" role="presentation">
-      <a class="nav-link text-secondary active" id="download-tab" data-bs-toggle="tab"
-         href="#tab-download-files" role="tab"
-         aria-controls="download-files" aria-selected="true">
+      <a class="nav-link text-secondary active" id="<%= tab_label_for(project) %>" data-bs-toggle="tab"
+         href="<%= tab_href_for(project) %>" role="tab"
+         aria-controls="<%= tab_anchor_for(project) %>" aria-selected="true">
         <i class="bi bi-download me-1"></i><%= t('.download_files') %>
       </a>
     </li>
 
     <% project.upload_bundles.each do |upload_bundle| %>
       <li class="nav-item" role="presentation">
-        <a class="nav-link text-secondary" id="upload-tab-<%= upload_bundle.id %>" data-bs-toggle="tab"
-           href="#tab-<%= upload_bundle.id %>" role="tab"
-           aria-controls="upload-files-<%= upload_bundle.id %>" aria-selected="false">
+        <a class="nav-link text-secondary" id="<%= tab_label_for(upload_bundle) %>" data-bs-toggle="tab"
+           href="<%= tab_href_for(upload_bundle) %>" role="tab"
+           aria-controls="<%= tab_anchor_for(upload_bundle) %>" aria-selected="false">
           <i class="bi bi-upload me-1"></i><%= upload_bundle.name %>
         </a>
       </li>

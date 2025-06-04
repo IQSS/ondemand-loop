@@ -7,7 +7,7 @@ class UploadFileTest < ActiveSupport::TestCase
     Project.stubs(:metadata_root_directory).returns(@tmp_dir)
     UploadBundle.stubs(:metadata_root_directory).returns(@tmp_dir)
     @valid_attributes = {
-      'id' => '123-321', 'project_id' => '456-789', 'upload_bundle_id' => '111-222', 'type' => ConnectorType::DATAVERSE,
+      'id' => '123-321', 'project_id' => '456-789', 'upload_bundle_id' => '111-222',
       'file_location' => 'path/to/file.jpg',
       'filename' => 'test.png',
       'status' => FileStatus::PENDING, 'size' => 1024,
@@ -116,7 +116,6 @@ class UploadFileTest < ActiveSupport::TestCase
     assert loaded_file
     assert_equal '123-321', loaded_file.id
     assert_equal '456-789', loaded_file.project_id
-    assert_equal ConnectorType::DATAVERSE, loaded_file.type
     assert_equal 'test.png', loaded_file.filename
     assert_equal FileStatus::PENDING, loaded_file.status
     assert_equal 1024, loaded_file.size
@@ -140,7 +139,6 @@ class UploadFileTest < ActiveSupport::TestCase
   end
 
   def map_objects(hash)
-    hash['type'] = hash['type'].to_s
     hash['status'] = hash['status'].to_s
     hash
   end

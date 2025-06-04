@@ -33,7 +33,7 @@
           <% end %>
           <% if upload_bundle.connector_metadata.display_dataset? %>
             <small class="text-muted mx-1 position-relative" style="top: -0.8px;">&gt;</small>
-            <a href="<%= upload_bundle.connector_metadata.dataset_url %>" target="_blank" class="text-reset text-decoration-none" title="<%= upload_bundle.connector_metadata.dataset_title %>">
+            <a href="<%= upload_bundle.connector_metadata.dataset_url(version: 'DRAFT') %>" target="_blank" class="text-reset text-decoration-none" title="<%= upload_bundle.connector_metadata.dataset_title %>">
               <%= upload_bundle.connector_metadata.dataset_title %>
             </a>
           <% end %>

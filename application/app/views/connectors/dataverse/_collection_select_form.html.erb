@@ -1,6 +1,7 @@
 <div data-controller="list-filter">
 <%= form_with url: project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id), method: :put, data: { action: "submit->modal#showSpinner" }, local: true do |f| %>
   <%= hidden_field_tag :form, 'collection_select' %>
+  <%= hidden_field_tag :anchor, "tab-#{upload_batch.id}" %>
 
   <div class="mb-3">
     <%= label_tag :search, t('.search_label'), class: 'form-label fw-bold' %>

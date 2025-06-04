@@ -8,16 +8,12 @@ class ConnectorClassDispatcher
     self.load(download_file.type, 'DownloadConnectorStatus', download_file)
   end
 
-  def self.upload_file_connector_status(upload_file)
-    self.load(upload_file.type, 'UploadConnectorStatus', upload_file)
+  def self.upload_file_connector_status(upload_bundle, upload_file)
+    self.load(upload_bundle.type, 'UploadConnectorStatus', upload_file)
   end
 
   def self.download_connector_metadata(download_file)
     self.load(download_file.type, 'DownloadConnectorMetadata', download_file)
-  end
-
-  def self.upload_connector_metadata(upload_file)
-    self.load(upload_file.type, 'UploadConnectorMetadata', upload_file)
   end
 
   def self.upload_bundle_connector_processor(type)
@@ -32,8 +28,8 @@ class ConnectorClassDispatcher
     self.load(download_file.type, 'DownloadConnectorProcessor', download_file)
   end
 
-  def self.upload_processor(upload_file)
-    self.load(upload_file.type, 'UploadConnectorProcessor', upload_file)
+  def self.upload_processor(upload_bundle, upload_file)
+    self.load(upload_bundle.type, 'UploadConnectorProcessor', upload_file)
   end
 
   def self.repo_controller_resolver(type)

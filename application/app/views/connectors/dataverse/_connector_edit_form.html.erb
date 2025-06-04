@@ -1,5 +1,6 @@
 <%= form_with url: project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id), method: :put, data: { action: "submit->modal#showSpinner" }, local: true do |f| %>
   <%= hidden_field_tag :form, 'connector_edit' %>
+  <%= hidden_field_tag :anchor, "tab-#{upload_batch.id}" %>
 
   <div class="mb-3">
     <%= f.label :api_key, t('.field_api_key_label'), class: 'form-label fw-bold' %>

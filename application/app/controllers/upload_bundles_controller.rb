@@ -1,5 +1,6 @@
 class UploadBundlesController < ApplicationController
   include LoggingCommon
+  include TabsHelper
 
   def create
     project_id = params[:project_id]
@@ -22,8 +23,9 @@ class UploadBundlesController < ApplicationController
     processor_params = params.permit(*processor.params_schema).to_h
     processor_params[:object_url] = url_resolution.object_url
     result = processor.create(project, processor_params)
+    params[:anchor] ||= tab_anchor_for(result.resource)
 
-    redirect_to result.redirect_url, **result.message
+    redirect_back fallback_location: root_path, **result.message
   end
 
   def edit
@@ -57,7 +59,7 @@ class UploadBundlesController < ApplicationController
     log_info("params", {params: processor_params})
     result = processor.update(upload_bundle, processor_params)
 
-    redirect_to result.redirect_url, **result.message
+    redirect_back fallback_location: root_path, **result.message
   end
 
   def destroy

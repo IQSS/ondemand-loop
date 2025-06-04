@@ -35,12 +35,12 @@ class DownloadFilesController < ApplicationController
     file_id = params[:id]
     file = DownloadFile.find(project_id, file_id)
     if file.nil?
-      redirect_to projects_path, alert: t('.file_not_found_for_project', file_id: file_id, project_id: project_id)
+      redirect_back fallback_location: root_path, alert: t('.file_not_found_for_project', file_id: file_id, project_id: project_id)
       return
     end
 
     file.destroy
-    redirect_to projects_path, notice: t('.download_file_deleted_successfully')
+    redirect_back fallback_location: root_path, notice: t('.download_file_deleted_successfully')
   end
 
 end

@@ -1,5 +1,5 @@
 <% files = project.download_files %>
-<div id="tab-download-files" class="tab-pane fade show active" role="tabpanel" aria-labelledby="tab-download-files">
+<div id="<%= tab_anchor_for(project) %>" class="tab-pane fade show active" role="tabpanel" aria-labelledby="<%= tab_label_for(project) %>">
   <%= render partial: '/projects/show/download_actions', locals: { project: project } %>
 
   <div class="container files rounded border">
@@ -38,13 +38,15 @@
           <%= render partial: '/shared/file_row_date', locals: { date: file.end_date, title: t('.completion_date'), classes: 'mx-2'} if file.end_date %>
           <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: t('.download_start_date'), classes: 'mx-2'} if file.status.downloading? %>
 
-          <%= render partial: "shared/button_to", locals: {
+          <%= render layout: 'shared/button_to', locals: {
             url: project_download_file_path(project_id: project.id, id: file.id),
             method: 'DELETE',
-            title: t(".delete_file"),
+            title: t('.delete_file'),
             class: 'btn-sm btn-outline-secondary',
-            icon: "bi bi-trash"
-          } %>
+            icon: 'bi bi-trash'
+          } do %>
+            <%= hidden_field_tag :anchor, 'tab-download-files' %>
+          <% end %>
 
         </div>
       </div>

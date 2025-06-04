@@ -15,24 +15,24 @@ module Upload
     def start
       log_info('start', {elapsed_time: elapsed_time})
       while true
-        files = files_provider.pending_files
+        pending = files_provider.pending_files
         in_progress = files_provider.processing_files
-        stats[:pending] = files.length
+        stats[:pending] = pending.length
         stats[:progress] = in_progress.length
 
         log_info('Processing', {elapsed_time: elapsed_time, stats: stats_to_s})
-        batch = files.first(1)
+        batch = pending.first(1)
         return if batch.empty?
 
-        upload_threads = batch.map do |file|
-          upload_processor = ConnectorClassDispatcher.upload_processor(file)
+        upload_threads = batch.map do |file_data|
+          upload_processor = ConnectorClassDispatcher.upload_processor(file_data.upload_batch, file_data.file)
           Thread.new do
-            file.update(start_date: now, status: FileStatus::UPLOADING)
+            file_data.file.update(start_date: now, status: FileStatus::UPLOADING)
             result = upload_processor.upload
-            file.update(end_date: now, status: result.status)
+            file_data.file.update(end_date: now, status: result.status)
           rescue => e
-            log_error('Error while processing file', {file_id: file.id}, e)
-            file.update(end_date: now, status: FileStatus::ERROR)
+            log_error('Error while processing file', {project_id: file_data.project.id, batch: file_data.upload_batch.id, file_id: file_data.file.id}, e)
+            file_data.file.update(end_date: now, status: FileStatus::ERROR)
           ensure
             stats[:completed] += 1
           end

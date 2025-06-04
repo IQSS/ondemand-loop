@@ -14,3 +14,5 @@ en:
         collection_not_found: "Dataverse collection not found: %{url}. Only public and published collections are supported"
         dataset_not_found: "Dataverse dataset not found: %{url}.<br />Only public and published datasets are supported"
         created: "Upload bundle created: %{name}"
+      upload_connector_processor:
+        description: "File uploaded from OnDemand Loop application"

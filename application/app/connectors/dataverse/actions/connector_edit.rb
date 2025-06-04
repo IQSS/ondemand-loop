@@ -20,7 +20,6 @@ module Dataverse::Actions
       end
 
       ConnectorResult.new(
-        redirect_url: Rails.application.routes.url_helpers.project_path(id: upload_bundle.project_id, anchor: "tab-#{upload_bundle.id}"),
         message: { notice: I18n.t('connectors.dataverse.actions.connector_edit.success', name: upload_bundle.name) },
         success: true
       )

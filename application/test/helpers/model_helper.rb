@@ -25,7 +25,7 @@ module ModelHelper
   def upload_project(type: ConnectorType::DATAVERSE, files:)
     create_project.tap do |project|
       upload_bundle = create_upload_bundle(project, type: type)
-      upload_files = Array.new(files) { create_upload_file(project, upload_bundle, type: type) }
+      upload_files = Array.new(files) { create_upload_file(project, upload_bundle) }
       upload_bundle.stubs(:files).returns(upload_files)
       project.stubs(:upload_bundles).returns([upload_bundle])
     end
@@ -42,12 +42,11 @@ module ModelHelper
     end
   end
 
-  def create_upload_file(project, upload_bundle, type: ConnectorType::DATAVERSE)
+  def create_upload_file(project, upload_batch)
     UploadFile.new.tap do |file|
       file.id = random_id
       file.project_id = project.id
       file.upload_bundle_id = upload_bundle.id
-      file.type = type
       file.filename = "#{random_id}.txt"
       file.status = FileStatus::PENDING
       file.size = 200

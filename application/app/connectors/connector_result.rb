@@ -15,6 +15,10 @@ class ConnectorResult
     data[:success] != false
   end
 
+  def resource
+    data[:resource]
+  end
+
   def redirect_url
     data[:redirect_url]
   end

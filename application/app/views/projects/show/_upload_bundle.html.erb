@@ -3,7 +3,7 @@
   file_target_id = "fbt-#{bundle.id}"
   upload_files_id = "upload-files-#{bundle.id}"
 %>
-<div id="tab-<%= bundle.id %>" class="tab-pane fade" role="tabpanel" aria-labelledby="upload-tab-<%= bundle.id %>">
+<div id="<%= tab_anchor_for(bundle) %>" class="tab-pane fade" role="tabpanel" aria-labelledby="<%= tab_label_for(bundle) %>">
   <%= render partial: '/projects/show/upload_actions', locals: { bundle: bundle, file_browser_id: file_browser_id, upload_files_id: upload_files_id } %>
 
   <%= render layout: '/file_browser/file_drop', locals: { id: file_target_id, file_browser_id: file_browser_id, url: project_upload_bundle_upload_files_path(project_id: project.id, upload_bundle_id: bundle.id) } do %>
