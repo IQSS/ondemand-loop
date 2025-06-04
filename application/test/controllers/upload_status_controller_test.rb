@@ -5,7 +5,7 @@ class UploadStatusControllerTest < ActionDispatch::IntegrationTest
   def setup
     @tmp_dir = Dir.mktmpdir
     Project.stubs(:metadata_root_directory).returns(@tmp_dir)
-    UploadBatch.stubs(:metadata_root_directory).returns(@tmp_dir)
+    UploadBundle.stubs(:metadata_root_directory).returns(@tmp_dir)
     UploadFile.stubs(:metadata_root_directory).returns(@tmp_dir)
   end
 
