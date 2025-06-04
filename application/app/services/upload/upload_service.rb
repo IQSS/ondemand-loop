@@ -25,13 +25,13 @@ module Upload
         return if batch.empty?
 
         upload_threads = batch.map do |file_data|
-          upload_processor = ConnectorClassDispatcher.upload_processor(file_data.upload_batch, file_data.file)
+          upload_processor = ConnectorClassDispatcher.upload_processor(file_data.upload_bundle, file_data.file)
           Thread.new do
             file_data.file.update(start_date: now, status: FileStatus::UPLOADING)
             result = upload_processor.upload
             file_data.file.update(end_date: now, status: result.status)
           rescue => e
-            log_error('Error while processing file', {project_id: file_data.project.id, batch: file_data.upload_batch.id, file_id: file_data.file.id}, e)
+            log_error('Error while processing file', {project_id: file_data.project.id, bundle: file_data.upload_bundle.id, file_id: file_data.file.id}, e)
             file_data.file.update(end_date: now, status: FileStatus::ERROR)
           ensure
             stats[:completed] += 1
