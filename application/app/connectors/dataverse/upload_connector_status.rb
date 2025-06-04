@@ -8,7 +8,7 @@ module Dataverse
 
     def initialize(file)
       @file = file
-      @connector_metadata = file.upload_batch.connector_metadata
+      @connector_metadata = file.upload_bundle.connector_metadata
     end
 
     def upload_progress
@@ -16,7 +16,7 @@ module Dataverse
       return 100 if FileStatus.completed_statuses.include?(file.status)
 
       command_client = Command::CommandClient.new(socket_path: ::Configuration.command_server_socket_file)
-      request = Command::Request.new(command: 'upload.status', body: {project_id: file.project_id, upload_batch_id: file.upload_batch_id, file_id: file.id})
+      request = Command::Request.new(command: 'upload.status', body: {project_id: file.project_id, upload_bundle_id: file.upload_bundle_id, file_id: file.id})
       response = command_client.request(request)
       total = response.body.status[:total].to_i
       uploaded = response.body.status[:uploaded].to_i

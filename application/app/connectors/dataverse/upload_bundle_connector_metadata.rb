@@ -4,8 +4,8 @@ module Dataverse
   class UploadBundleConnectorMetadata
     include Dataverse::Concerns::DataverseUrlBuilder
 
-    def initialize(upload_batch)
-      @metadata = upload_batch.metadata.to_h.deep_symbolize_keys
+    def initialize(upload_bundle)
+      @metadata = upload_bundle.metadata.to_h.deep_symbolize_keys
       @metadata.each_key do |key|
         define_singleton_method("#{key.to_s}="){ |value| @metadata[key] = value }
         define_singleton_method(key){ @metadata[key] }

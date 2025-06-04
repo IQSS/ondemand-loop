@@ -1,7 +1,7 @@
 module Dataverse::Actions
   class DatasetCreate
-    def edit(upload_batch, request_params)
-      connector_metadata = upload_batch.connector_metadata
+    def edit(upload_bundle, request_params)
+      connector_metadata = upload_bundle.connector_metadata
       repo_db = RepoRegistry.repo_db
       dataverse_data = repo_db.get(connector_metadata.server_domain)
       if dataverse_data.metadata.subjects.nil?
@@ -17,16 +17,16 @@ module Dataverse::Actions
       user_profile = user_service.get_user_profile
 
       ConnectorResult.new(
-        redirect_url: Rails.application.routes.url_helpers.project_path(id: upload_batch.project_id, anchor: "tab-#{upload_batch.id}"),
+        redirect_url: Rails.application.routes.url_helpers.project_path(id: upload_bundle.project_id, anchor: "tab-#{upload_bundle.id}"),
         partial: '/connectors/dataverse/dataset_create_form',
-        locals: { upload_batch: upload_batch, profile: user_profile, subjects: subjects }
+        locals: { upload_bundle: upload_bundle, profile: user_profile, subjects: subjects }
       )
     end
 
-    def update(upload_batch, request_params)
-      dataverse_url = upload_batch.connector_metadata.dataverse_url
-      api_key = upload_batch.connector_metadata.api_key.value
-      collection_id = upload_batch.connector_metadata.collection_id
+    def update(upload_bundle, request_params)
+      dataverse_url = upload_bundle.connector_metadata.dataverse_url
+      api_key = upload_bundle.connector_metadata.api_key.value
+      collection_id = upload_bundle.connector_metadata.collection_id
 
       request = Dataverse::CreateDatasetRequest.new(
         title: request_params[:title],
@@ -39,10 +39,10 @@ module Dataverse::Actions
       service = Dataverse::DatasetService.new(dataverse_url, api_key: api_key)
       response = service.create_dataset(collection_id, request)
 
-      metadata = upload_batch.metadata
+      metadata = upload_bundle.metadata
       metadata[:dataset_id] = response.persistent_id
       metadata[:dataset_title] = request.title
-      upload_batch.update({ metadata: metadata })
+      upload_bundle.update({ metadata: metadata })
 
       ConnectorResult.new(
         message: { notice: I18n.t('connectors.dataverse.actions.dataset_create.success', id: response.persistent_id, title: request.title) },

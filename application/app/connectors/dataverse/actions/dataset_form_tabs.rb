@@ -1,13 +1,13 @@
 module Dataverse::Actions
   class DatasetFormTabs
-    def edit(upload_batch, request_params)
-      datasets = datasets(upload_batch)
-      subjects = subjects(upload_batch)
-      profile = profile(upload_batch)
+    def edit(upload_bundle, request_params)
+      datasets = datasets(upload_bundle)
+      subjects = subjects(upload_bundle)
+      profile = profile(upload_bundle)
 
       ConnectorResult.new(
         partial: '/connectors/dataverse/dataset_form_tabs',
-        locals: { upload_batch: upload_batch, data: datasets, profile: profile, subjects: subjects },
+        locals: { upload_bundle: upload_bundle, data: datasets, profile: profile, subjects: subjects },
       )
     end
 
@@ -17,16 +17,16 @@ module Dataverse::Actions
 
     private
 
-    def datasets(upload_batch)
-      dataverse_url = upload_batch.connector_metadata.dataverse_url
-      api_key = upload_batch.connector_metadata.api_key.value
+    def datasets(upload_bundle)
+      dataverse_url = upload_bundle.connector_metadata.dataverse_url
+      api_key = upload_bundle.connector_metadata.api_key.value
       service = Dataverse::CollectionService.new(dataverse_url, api_key: api_key)
-      collection_id = upload_batch.connector_metadata.collection_id
+      collection_id = upload_bundle.connector_metadata.collection_id
       service.search_collection_items(collection_id, page: 1, per_page: 100, include_collections: false).data
     end
 
-    def subjects(upload_batch)
-      connector_metadata = upload_batch.connector_metadata
+    def subjects(upload_bundle)
+      connector_metadata = upload_bundle.connector_metadata
       repo_db = RepoRegistry.repo_db
       dataverse_data = repo_db.get(connector_metadata.server_domain)
       if dataverse_data.metadata.subjects.nil?
@@ -40,8 +40,8 @@ module Dataverse::Actions
       subjects
     end
 
-    def profile(upload_batch)
-      connector_metadata = upload_batch.connector_metadata
+    def profile(upload_bundle)
+      connector_metadata = upload_bundle.connector_metadata
       api_key = connector_metadata.api_key.value
       user_service = Dataverse::UserService.new(connector_metadata.dataverse_url, api_key: api_key)
       user_service.get_user_profile

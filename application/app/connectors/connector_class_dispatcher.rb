@@ -20,12 +20,12 @@ class ConnectorClassDispatcher
     self.load(upload_file.type, 'UploadConnectorMetadata', upload_file)
   end
 
-  def self.upload_batch_connector_processor(type)
-    self.load(type, 'UploadBatchConnectorProcessor', nil)
+  def self.upload_bundle_connector_processor(type)
+    self.load(type, 'UploadBundleConnectorProcessor', nil)
   end
 
-  def self.upload_batch_connector_metadata(upload_batch)
-    self.load(upload_batch.type, 'UploadBatchConnectorMetadata', upload_batch)
+  def self.upload_bundle_connector_metadata(upload_bundle)
+    self.load(upload_bundle.type, 'UploadBundleConnectorMetadata', upload_bundle)
   end
 
   def self.download_processor(download_file)
