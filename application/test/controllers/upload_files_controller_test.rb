@@ -10,7 +10,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'index should return success' do
-    collection = create_upload_batch(create_project)
+    collection = create_upload_bundle(create_project)
     UploadBundle.stubs(:find).returns(collection)
 
     get project_upload_bundle_upload_files_url(@project_id, @upload_bundle_id)
@@ -29,7 +29,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should return bad request if file is invalid' do
-    upload_batch = create_upload_batch(create_project)
+    upload_batch = create_upload_bundle(create_project)
     UploadBundle.stubs(:find).returns(upload_batch)
 
     UploadFilesController.any_instance.stubs(:list_files)
@@ -72,7 +72,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     delete project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
 
     assert_redirected_to root_path
-    assert_equal 'Upload file removed from batch. delete.txt', flash[:notice]
+    assert_equal 'Upload file removed from bundle. delete.txt', flash[:notice]
   end
 
   test 'cancel should return not found if file is missing on cancel' do

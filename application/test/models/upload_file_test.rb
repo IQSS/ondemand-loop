@@ -133,7 +133,7 @@ class UploadFileTest < ActiveSupport::TestCase
 
   test 'update' do
     project = create_project
-    upload_batch = create_upload_batch(project)
+    upload_batch = create_upload_bundle(project)
     target = create_upload_file(project, upload_batch)
     target.update(status: FileStatus::CANCELLED)
     assert_equal FileStatus::CANCELLED, target.status
