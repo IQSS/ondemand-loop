@@ -1,9 +1,9 @@
 en:
   connectors:
     dataverse:
-      upload_batch_info_bar:
+      upload_bundle_info_bar:
 
-      upload_batch_actions_bar:
+      upload_bundle_actions_bar:
         button_edit_dataset_title: "Edit Dataset"
         modal_edit_dataset_title: "Edit Dataset"
 
@@ -169,8 +169,8 @@ en:
       project_actions:
         open_project_folder: "Open project folder"
         creation_date: "Creation date"
-        create_upload_batch: "Create Upload Batch"
-        create_upload_batch_placeholder: "Dataset URL"
+        create_upload_bundle: "Create Upload Bundle"
+        create_upload_bundle_placeholder: "Dataset URL"
         delete_project: "Delete Project"
         open_project_metadata: "Open Project Metadata"
       project_metadata:
@@ -189,8 +189,8 @@ en:
       upload_actions:
         creation_date: "Creation date"
         add_files: "Add Files"
-        edit_upload_batch_settings: "Edit upload batch settings"
-        button_delete_title: "Delete Batch"
+        edit_upload_bundle_settings: "Edit upload bundle settings"
+        button_delete_title: "Delete Bundle"
       upload_files:
         no_upload_files: "No Upload Files"
         schedule_date: "Schedule date"
@@ -231,9 +231,9 @@ en:
     project_summary_downloads:
       title: "Download Files"
       button_download_folder_title: "Open downloads folder"
-    project_summary_batch:
+    project_summary_bundle:
       creation_date_title: "Creation date"
-    upload_batch:
+    upload_bundle:
       schedule_date: "Schedule date"
       repository_files: "Repository Files"
       completion_date: "Completion date"

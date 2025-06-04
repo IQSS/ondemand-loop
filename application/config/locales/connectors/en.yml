@@ -10,7 +10,7 @@ en:
           success: "Collection selected: %{title}"
         dataset_select:
           success: "Dataset selected: %{title}"
-      upload_batches:
+      upload_bundles:
         collection_not_found: "Dataverse collection not found: %{url}. Only public and published collections are supported"
         dataset_not_found: "Dataverse dataset not found: %{url}.<br />Only public and published datasets are supported"
-        created: "Upload batch created: %{name}"
+        created: "Upload bundle created: %{name}"

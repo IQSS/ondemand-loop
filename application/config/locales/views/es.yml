@@ -1,9 +1,9 @@
 es:
   connectors:
     dataverse:
-      upload_batch_bar:
+      upload_bundle_bar:
         edit_dataset: "Editar conjunto de datos"
-      upload_batch_form:
+      upload_bundle_form:
         dataset_url: "URL del conjunto de datos"
         dataset_url_form_text: "Ingrese la URL del conjunto de datos donde se cargarán los archivos."
         api_key: "Clave API"
@@ -102,8 +102,8 @@ es:
         delete_file: "Eliminar archivo"
       project_actions:
         open_project_folder: "Abrir carpeta del proyecto"
-        create_upload_batch: "Crear colección de carga"
-        create_upload_batch_placeholder: "URL del conjunto de datos"
+        create_upload_bundle: "Crear colección de carga"
+        create_upload_bundle_placeholder: "URL del conjunto de datos"
         delete_project: "Eliminar proyecto"
         open_project_metadata: "Abrir metadatos del proyecto"
       project_metadata:
@@ -122,7 +122,7 @@ es:
       upload_actions:
         creation_date: "Fecha de creación"
         add_files: "Agregar archivos"
-        edit_upload_batch_settings: "Editar configuración de la colección de carga"
+        edit_upload_bundle_settings: "Editar configuración de la colección de carga"
         delete_collection: "Eliminar colección"
       upload_files:
         no_upload_files: "Sin archivos para cargar"
@@ -157,7 +157,7 @@ es:
       delete_project: "Eliminar proyecto"
       active_project: "Proyecto activo"
       set_as_active_project: "Establecer como proyecto activo"
-    upload_batch:
+    upload_bundle:
       schedule_date: "Fecha programada"
       repository_files: "Archivos del repositorio"
       completion_date: "Fecha de finalización"
