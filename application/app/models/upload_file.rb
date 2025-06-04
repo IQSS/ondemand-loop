@@ -3,11 +3,11 @@
 class UploadFile < ApplicationDiskRecord
   include ActiveModel::Model
 
-  ATTRIBUTES = %w[id project_id upload_batch_id type file_location filename status size creation_date start_date end_date].freeze
+  ATTRIBUTES = %w[id project_id upload_bundle_id file_location filename status size creation_date start_date end_date].freeze
 
   attr_accessor *ATTRIBUTES
 
-  validates_presence_of :id, :project_id, :upload_batch_id, :file_location, :filename, :status, :size
+  validates_presence_of :id, :project_id, :upload_bundle_id, :file_location, :filename, :status, :size
   validates :size, file_size: { max: :max_file_size }
 
   def self.find(project_id, upload_bundle_id, file_id)

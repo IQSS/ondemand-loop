@@ -27,7 +27,7 @@ class UploadFilesController < ApplicationController
       UploadFile.new.tap do |f|
         f.id = UploadFile.generate_id
         f.project_id = project_id
-        f.upload_batch_id = upload_bundle_id
+        f.upload_bundle_id = upload_bundle_id
         f.creation_date = now
         f.file_location = file.fullpath
         f.filename = file.filename

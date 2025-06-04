@@ -42,7 +42,7 @@ module ModelHelper
     end
   end
 
-  def create_upload_file(project, upload_batch)
+  def create_upload_file(project, upload_bundle)
     UploadFile.new.tap do |file|
       file.id = random_id
       file.project_id = project.id

@@ -36,7 +36,7 @@
       </li>
       <% project.upload_bundles.each do |bundle| %>
         <li class="nav-item" role="presentation">
-          <a class="nav-link text-secondary" id="<%= tab_label_for(batch) %>" data-bs-toggle="tab"
+          <a class="nav-link text-secondary" id="<%= tab_label_for(bundle) %>" data-bs-toggle="tab"
              href="<%= tab_href_for(bundle) %>" role="tab"
              aria-controls="<%= tab_anchor_for(bundle) %>" aria-selected="false">
             <i class="bi bi-upload me-1"></i><%= bundle.name %>
@@ -51,7 +51,7 @@
            aria-labelledby="<%= tab_label_for(project) %>">
         <%= render partial: '/projects/project_summary_downloads', locals: { project: project } %>
       </div>
-      <% project.upload_batches.each do |bundle| %>
+      <% project.upload_bundles.each do |bundle| %>
         <div class="tab-pane fade" id="<%= tab_anchor_for(bundle) %>" role="tabpanel"
              aria-labelledby="<%= tab_label_for(bundle) %>">
           <%= render partial: '/projects/project_summary_batch', locals: { project: project, bundle: bundle } %>

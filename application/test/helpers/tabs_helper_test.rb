@@ -20,17 +20,17 @@ class TabsHelperTest < ActionView::TestCase
   end
 
   test 'tab_label_for should return correct label ID for UploadBatch' do
-    batch = create_upload_batch(create_project)
+    batch = create_upload_bundle(create_project)
     assert_equal "tab-label-#{batch.id}", tab_label_for(batch)
   end
 
   test 'tab_anchor_for should return correct anchor ID for UploadBatch' do
-    batch = create_upload_batch(create_project)
+    batch = create_upload_bundle(create_project)
     assert_equal "tab-#{batch.id}", tab_anchor_for(batch)
   end
 
   test 'tab_href_for should return correct href for UploadBatch' do
-    batch = create_upload_batch(create_project)
+    batch = create_upload_bundle(create_project)
     assert_equal "#tab-#{batch.id}", tab_href_for(batch)
   end
 end
