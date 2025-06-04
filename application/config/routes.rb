@@ -19,11 +19,11 @@ Rails.application.routes.draw do
 
     # post /projects/:project_id/uploads => create new upload batch
     # get /projects/:project_id/uploads => get batches from a project
-    resources :upload_batches, path: 'uploads', only: [:create, :index, :edit, :update, :destroy ] do
-      # post /projects/:project_id/uploads/:upload_batch_id/files => create new upload_file
-      # get /projects/:project_id/uploads/:upload_batch_id/files => gets upload_files from a collection
-      # delete /projects/:project_id/uploads/:upload_batch_id/files/:id => delete upload_file
-      # post /projects/:project_id/uploads/:upload_batch_id/files/:id/cancel => cancel upload_file
+    resources :upload_bundles, path: 'uploads', only: [:create, :index, :edit, :update, :destroy ] do
+      # post /projects/:project_id/uploads/:upload_bundle_id/files => create new upload_file
+      # get /projects/:project_id/uploads/:upload_bundle_id/files => gets upload_files from a collection
+      # delete /projects/:project_id/uploads/:upload_bundle_id/files/:id => delete upload_file
+      # post /projects/:project_id/uploads/:upload_bundle_id/files/:id/cancel => cancel upload_file
       resources :upload_files, path: 'files', only: [ :create, :index, :destroy ] do
         post :cancel, on: :member
       end
