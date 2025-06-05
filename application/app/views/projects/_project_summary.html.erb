@@ -54,7 +54,7 @@
       <% project.upload_bundles.each do |bundle| %>
         <div class="tab-pane fade" id="<%= tab_anchor_for(bundle) %>" role="tabpanel"
              aria-labelledby="<%= tab_label_for(bundle) %>">
-          <%= render partial: '/projects/project_summary_batch', locals: { project: project, bundle: bundle } %>
+          <%= render partial: '/projects/project_summary_bundle', locals: { project: project, bundle: bundle } %>
         </div>
       <% end %>
     </div>
