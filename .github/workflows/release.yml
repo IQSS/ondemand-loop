@@ -54,7 +54,7 @@ jobs:
       - name: Checkout Loop Production branch
         uses: actions/checkout@v4
         with:
-          repository: IQSS/ondemand_loop
+          repository: IQSS/ondemand-loop
           ref: iqss_production
           path: target
 
