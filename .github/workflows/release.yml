@@ -1,0 +1,82 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump_type:
+        description: 'Select the version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Loop SRC - ${{ github.sha }}
+        uses: actions/checkout@v4
+        with:
+          path: src
+
+      - name: Read current version
+        id: version
+        working-directory: src
+        run: |
+          version=$(cat VERSION)
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      - name: Create and push tag
+        working-directory: src
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git tag "v${{ steps.version.outputs.version }}"
+          git push origin "v${{ steps.version.outputs.version }}"
+
+      - name: Checkout tag
+        working-directory: src
+        run: |
+          git checkout "v${{ steps.version.outputs.version }}"
+
+      - name: Build release using Docker via Make
+        working-directory: src
+        run: make build_release
+
+      - name: Run tests using Docker via Make
+        working-directory: src
+        run: make test
+
+      - name: Checkout Loop Production branch
+        uses: actions/checkout@v4
+        with:
+          repository: IQSS/ondemand_loop
+          ref: iqss_production
+          path: target
+
+      - name: Copy Loop release build
+        run: |
+          rm -rf target/*
+          cp -R src/application/. target
+
+      - name: Commit production release
+        working-directory: target
+        run: |
+          git add .
+          git commit -m "Release application for version ${{ steps.version.outputs.version }}"
+          git push
+
+      - name: Bump version using Docker via Make
+        working-directory: src
+        run: make version VERSION_TYPE=${{ github.event.inputs.bump_type }}
+
+      - name: Commit bumped version
+        working-directory: src
+        run: |
+          git add VERSION
+          git commit -m "Bump version after release"
+          git push origin main

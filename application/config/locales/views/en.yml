@@ -152,7 +152,7 @@ en:
         ood_icon_alt_text: "Open OnDemand Icon"
         restart: "Restart"
     footer:
-      version: "OnDemand Loop version: %{version}"
+      version_text: "OnDemand Loop"
   projects:
     show:
       download_actions:

@@ -24,6 +24,10 @@ class ConfigurationSingleton
     ].freeze
   end
 
+  def version
+    @version ||= File.read(Rails.root.join('VERSION')).strip.freeze
+  end
+
   def command_server_socket_file
     File.join(metadata_root, 'command.server.sock')
   end

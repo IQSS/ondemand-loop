@@ -35,7 +35,7 @@
           class: 'btn-sm btn-outline-secondary icon-hover-danger',
           icon: "bi bi-trash"
         } do %>
-          <%= hidden_field_tag :anchor, "tab-#{batch.id}" %>
+          <%= hidden_field_tag :anchor, tab_anchor_for(bundle) %>
         <% end %>
 
       </div>
