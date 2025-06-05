@@ -45,7 +45,7 @@ jobs:
 
       - name: Build release using Docker via Make
         working-directory: src
-        run: make build_release
+        run: make release_build
 
       - name: Run tests using Docker via Make
         working-directory: src
