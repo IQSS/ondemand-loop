@@ -1,0 +1,18 @@
+<footer class="d-flex m-0 mt-4 justify-content-between align-items-center p-4">
+  <div class="me-2">
+    <%= link_to "https://www.iq.harvard.edu/research-computing" do %>
+      <%=
+        image_tag(
+          "iqss_logo.png",
+          class: "footer-logo",
+          alt: "IQSS Reserch Computing",
+          height: "40px",
+        )
+      %>
+    <% end %>
+  </div>
+  <div class="d-flex flex-column align-items-center text-muted">
+    <span><%= t('.version_text') %></span>
+    <span><%= ::Configuration.version %></span>
+  </div>
+</footer>

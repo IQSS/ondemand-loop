@@ -1,0 +1,981 @@
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nio4r-2.7.4/ext/nio4r
+/usr/bin/ruby -I /usr/share/rubygems extconf.rb
+checking for unistd.h... yes
+checking for rb_io_descriptor()... yes
+checking for linux/aio_abi.h... yes
+checking for linux/io_uring.h... yes
+checking for sys/select.h... yes
+checking for port_event_t in poll.h... no
+checking for sys/epoll.h... yes
+checking for sys/event.h... no
+checking for port_event_t in port.h... no
+checking for sys/resource.h... yes
+creating Makefile
+
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nio4r-2.7.4/ext/nio4r
+make DESTDIR\= sitearchdir\=./.gem.20250605-37-9b0mt sitelibdir\=./.gem.20250605-37-9b0mt clean
+rm -f 
+rm -fr nio4r_ext.so false *.o  *.bak mkmf.log .*.time
+
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nio4r-2.7.4/ext/nio4r
+make DESTDIR\= sitearchdir\=./.gem.20250605-37-9b0mt sitelibdir\=./.gem.20250605-37-9b0mt
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_UNISTD_H -DHAVE_RB_IO_DESCRIPTOR -DHAVE_LINUX_AIO_ABI_H -DEV_USE_LINUXAIO -DHAVE_LINUX_IO_URING_H -DEV_USE_IOURING -DHAVE_SYS_SELECT_H -DEV_USE_SELECT -DHAVE_SYS_EPOLL_H -DEV_USE_EPOLL -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_RESOURCE_H -DEV_STANDALONE    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o bytebuffer.o -c bytebuffer.c
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_UNISTD_H -DHAVE_RB_IO_DESCRIPTOR -DHAVE_LINUX_AIO_ABI_H -DEV_USE_LINUXAIO -DHAVE_LINUX_IO_URING_H -DEV_USE_IOURING -DHAVE_SYS_SELECT_H -DEV_USE_SELECT -DHAVE_SYS_EPOLL_H -DEV_USE_EPOLL -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_RESOURCE_H -DEV_STANDALONE    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o monitor.o -c monitor.c
+In file included from libev.h:7,
+                 from nio4r.h:9,
+                 from monitor.c:6:
+monitor.c: In function 'NIO_Monitor_initialize':
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+monitor.c:126:5: note: in expansion of macro 'ev_io_init'
+     ev_io_init(&monitor->ev_io, NIO_Selector_monitor_callback, descriptor, monitor->interests);
+     ^~~~~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+monitor.c:126:5: note: in expansion of macro 'ev_io_init'
+     ev_io_init(&monitor->ev_io, NIO_Selector_monitor_callback, descriptor, monitor->interests);
+     ^~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+monitor.c:126:5: note: in expansion of macro 'ev_io_init'
+     ev_io_init(&monitor->ev_io, NIO_Selector_monitor_callback, descriptor, monitor->interests);
+     ^~~~~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+monitor.c:126:5: note: in expansion of macro 'ev_io_init'
+     ev_io_init(&monitor->ev_io, NIO_Selector_monitor_callback, descriptor, monitor->interests);
+     ^~~~~~~~~~
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_UNISTD_H -DHAVE_RB_IO_DESCRIPTOR -DHAVE_LINUX_AIO_ABI_H -DEV_USE_LINUXAIO -DHAVE_LINUX_IO_URING_H -DEV_USE_IOURING -DHAVE_SYS_SELECT_H -DEV_USE_SELECT -DHAVE_SYS_EPOLL_H -DEV_USE_EPOLL -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_RESOURCE_H -DEV_STANDALONE    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o nio4r_ext.o -c nio4r_ext.c
+In file included from nio4r_ext.c:6:
+../libev/ev.c:573:48: warning: "/*" within comment [-Wcomment]
+ /*#define MIN_INTERVAL  0.00000095367431640625 /* 1/2**20, good till 2200 */
+                                                 
+In file included from nio4r_ext.c:6:
+../libev/ev.c:2136:31: warning: 'ev_default_loop_ptr' initialized and declared 'extern'
+   EV_API_DECL struct ev_loop *ev_default_loop_ptr = 0; /* needs to be initialised to make it a definition despite extern */
+                               ^~~~~~~~~~~~~~~~~~~
+In file included from ../libev/ev.c:231,
+                 from nio4r_ext.c:6:
+../libev/ev.c: In function 'evpipe_init':
+../libev/ev.h:727:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_is_active(ev)                     (0 + ((ev_watcher *)(void *)(ev))->active) /* ro, true when the watcher has been started */
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:2728:8: note: in expansion of macro 'ev_is_active'
+   if (!ev_is_active (&pipe_w))
+        ^~~~~~~~~~~~
+../libev/ev.c: In function 'evtimerfd_init':
+../libev/ev.h:727:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_is_active(ev)                     (0 + ((ev_watcher *)(void *)(ev))->active) /* ro, true when the watcher has been started */
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:3050:8: note: in expansion of macro 'ev_is_active'
+   if (!ev_is_active (&timerfd_w))
+        ^~~~~~~~~~~~
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:3058:11: note: in expansion of macro 'ev_io_init'
+           ev_io_init (&timerfd_w, timerfdcb, timerfd, EV_READ);
+           ^~~~~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:3058:11: note: in expansion of macro 'ev_io_init'
+           ev_io_init (&timerfd_w, timerfdcb, timerfd, EV_READ);
+           ^~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:3058:11: note: in expansion of macro 'ev_io_init'
+           ev_io_init (&timerfd_w, timerfdcb, timerfd, EV_READ);
+           ^~~~~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:3058:11: note: in expansion of macro 'ev_io_init'
+           ev_io_init (&timerfd_w, timerfdcb, timerfd, EV_READ);
+           ^~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:3059:11: note: in expansion of macro 'ev_set_priority'
+           ev_set_priority (&timerfd_w, EV_MINPRI);
+           ^~~~~~~~~~~~~~~
+In file included from ../libev/ev.c:3086,
+                 from nio4r_ext.c:6:
+../libev/ev_linuxaio.c: In function 'linuxaio_poll':
+../libev/ev_linuxaio.c:467:10: warning: suggest explicit braces to avoid ambiguous 'else' [-Wdangling-else]
+       if (ecb_expect_false (res < 0))
+          ^
+In file included from ../libev/ev.c:231,
+                 from nio4r_ext.c:6:
+../libev/ev_linuxaio.c: In function 'linuxaio_init':
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev_linuxaio.c:571:3: note: in expansion of macro 'ev_io_init'
+   ev_io_init  (&linuxaio_epoll_w, linuxaio_epoll_cb, backend_fd, EV_READ);
+   ^~~~~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev_linuxaio.c:571:3: note: in expansion of macro 'ev_io_init'
+   ev_io_init  (&linuxaio_epoll_w, linuxaio_epoll_cb, backend_fd, EV_READ);
+   ^~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev_linuxaio.c:571:3: note: in expansion of macro 'ev_io_init'
+   ev_io_init  (&linuxaio_epoll_w, linuxaio_epoll_cb, backend_fd, EV_READ);
+   ^~~~~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev_linuxaio.c:571:3: note: in expansion of macro 'ev_io_init'
+   ev_io_init  (&linuxaio_epoll_w, linuxaio_epoll_cb, backend_fd, EV_READ);
+   ^~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev_linuxaio.c:572:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority (&linuxaio_epoll_w, EV_MAXPRI);
+   ^~~~~~~~~~~~~~~
+../libev/ev_linuxaio.c: In function 'linuxaio_fork':
+../libev/ev.h:180:20: warning: left-hand operand of comma expression has no effect [-Wunused-value]
+ # define EV_A_ EV_A,                              /* a loop as first of multiple arguments */
+                    ^
+../libev/ev.h:698:52: note: in definition of macro 'ev_io_set'
+ #define ev_io_set(ev,fd_,events_)            do { (ev)->fd = (fd_); (ev)->events = (events_) | EV__IOFDSET; } while (0)
+                                                    ^~
+../libev/ev_linuxaio.c:617:16: note: in expansion of macro 'EV_A_'
+   ev_io_set   (EV_A_ &linuxaio_epoll_w, backend_fd, EV_READ);
+                ^~~~~
+../libev/ev.h:180:20: warning: left-hand operand of comma expression has no effect [-Wunused-value]
+ # define EV_A_ EV_A,                              /* a loop as first of multiple arguments */
+                    ^
+../libev/ev.h:698:70: note: in definition of macro 'ev_io_set'
+ #define ev_io_set(ev,fd_,events_)            do { (ev)->fd = (fd_); (ev)->events = (events_) | EV__IOFDSET; } while (0)
+                                                                      ^~
+../libev/ev_linuxaio.c:617:16: note: in expansion of macro 'EV_A_'
+   ev_io_set   (EV_A_ &linuxaio_epoll_w, backend_fd, EV_READ);
+                ^~~~~
+In file included from ../libev/ev.c:3089,
+                 from nio4r_ext.c:6:
+../libev/ev_iouring.c: In function 'iouring_sqe_submit':
+../libev/ev_iouring.c:298:31: warning: "/*" within comment [-Wcomment]
+   /*ECB_MEMORY_FENCE_RELEASE; /* for the time being we assume this is not needed */
+                                
+In file included from ../libev/ev.c:231,
+                 from nio4r_ext.c:6:
+../libev/ev_iouring.c: In function 'iouring_internal_destroy':
+../libev/ev.h:727:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_is_active(ev)                     (0 + ((ev_watcher *)(void *)(ev))->active) /* ro, true when the watcher has been started */
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev_iouring.c:326:7: note: in expansion of macro 'ev_is_active'
+   if (ev_is_active (&iouring_tfd_w))
+       ^~~~~~~~~~~~
+../libev/ev_iouring.c: In function 'iouring_fork':
+../libev/ev.h:180:20: warning: left-hand operand of comma expression has no effect [-Wunused-value]
+ # define EV_A_ EV_A,                              /* a loop as first of multiple arguments */
+                    ^
+../libev/ev.h:698:52: note: in definition of macro 'ev_io_set'
+ #define ev_io_set(ev,fd_,events_)            do { (ev)->fd = (fd_); (ev)->events = (events_) | EV__IOFDSET; } while (0)
+                                                    ^~
+../libev/ev_iouring.c:428:16: note: in expansion of macro 'EV_A_'
+   ev_io_set   (EV_A_ &iouring_tfd_w, iouring_tfd, EV_READ);
+                ^~~~~
+../libev/ev.h:180:20: warning: left-hand operand of comma expression has no effect [-Wunused-value]
+ # define EV_A_ EV_A,                              /* a loop as first of multiple arguments */
+                    ^
+../libev/ev.h:698:70: note: in definition of macro 'ev_io_set'
+ #define ev_io_set(ev,fd_,events_)            do { (ev)->fd = (fd_); (ev)->events = (events_) | EV__IOFDSET; } while (0)
+                                                                      ^~
+../libev/ev_iouring.c:428:16: note: in expansion of macro 'EV_A_'
+   ev_io_set   (EV_A_ &iouring_tfd_w, iouring_tfd, EV_READ);
+                ^~~~~
+../libev/ev_iouring.c: In function 'iouring_init':
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev_iouring.c:677:3: note: in expansion of macro 'ev_io_init'
+   ev_io_init  (&iouring_tfd_w, iouring_tfd_cb, iouring_tfd, EV_READ);
+   ^~~~~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev_iouring.c:677:3: note: in expansion of macro 'ev_io_init'
+   ev_io_init  (&iouring_tfd_w, iouring_tfd_cb, iouring_tfd, EV_READ);
+   ^~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev_iouring.c:677:3: note: in expansion of macro 'ev_io_init'
+   ev_io_init  (&iouring_tfd_w, iouring_tfd_cb, iouring_tfd, EV_READ);
+   ^~~~~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev_iouring.c:677:3: note: in expansion of macro 'ev_io_init'
+   ev_io_init  (&iouring_tfd_w, iouring_tfd_cb, iouring_tfd, EV_READ);
+   ^~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev_iouring.c:678:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority (&iouring_tfd_w, EV_MINPRI);
+   ^~~~~~~~~~~~~~~
+../libev/ev.c: In function 'loop_init':
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:719:51: note: in expansion of macro 'ev_init'
+ #define ev_prepare_init(ev,cb)               do { ev_init ((ev), (cb)); ev_prepare_set ((ev)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:3343:7: note: in expansion of macro 'ev_prepare_init'
+       ev_prepare_init (&pending_w, pendingcb);
+       ^~~~~~~~~~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:719:51: note: in expansion of macro 'ev_init'
+ #define ev_prepare_init(ev,cb)               do { ev_init ((ev), (cb)); ev_prepare_set ((ev)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:3343:7: note: in expansion of macro 'ev_prepare_init'
+       ev_prepare_init (&pending_w, pendingcb);
+       ^~~~~~~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:719:51: note: in expansion of macro 'ev_init'
+ #define ev_prepare_init(ev,cb)               do { ev_init ((ev), (cb)); ev_prepare_set ((ev)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:3343:7: note: in expansion of macro 'ev_prepare_init'
+       ev_prepare_init (&pending_w, pendingcb);
+       ^~~~~~~~~~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.h:719:51: note: in expansion of macro 'ev_init'
+ #define ev_prepare_init(ev,cb)               do { ev_init ((ev), (cb)); ev_prepare_set ((ev)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:3343:7: note: in expansion of macro 'ev_prepare_init'
+       ev_prepare_init (&pending_w, pendingcb);
+       ^~~~~~~~~~~~~~~
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:3346:7: note: in expansion of macro 'ev_init'
+       ev_init (&pipe_w, pipecb);
+       ^~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:3346:7: note: in expansion of macro 'ev_init'
+       ev_init (&pipe_w, pipecb);
+       ^~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.c:3346:7: note: in expansion of macro 'ev_init'
+       ev_init (&pipe_w, pipecb);
+       ^~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.c:3346:7: note: in expansion of macro 'ev_init'
+       ev_init (&pipe_w, pipecb);
+       ^~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:3347:7: note: in expansion of macro 'ev_set_priority'
+       ev_set_priority (&pipe_w, EV_MAXPRI);
+       ^~~~~~~~~~~~~~~
+../libev/ev.c: In function 'ev_loop_destroy':
+../libev/ev.h:727:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_is_active(ev)                     (0 + ((ev_watcher *)(void *)(ev))->active) /* ro, true when the watcher has been started */
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:3375:36: note: in expansion of macro 'ev_is_active'
+   if (ev_is_default_loop (EV_A) && ev_is_active (&childev))
+                                    ^~~~~~~~~~~~
+../libev/ev.h:727:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_is_active(ev)                     (0 + ((ev_watcher *)(void *)(ev))->active) /* ro, true when the watcher has been started */
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:3382:7: note: in expansion of macro 'ev_is_active'
+   if (ev_is_active (&pipe_w))
+       ^~~~~~~~~~~~
+../libev/ev.h:727:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_is_active(ev)                     (0 + ((ev_watcher *)(void *)(ev))->active) /* ro, true when the watcher has been started */
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:3392:7: note: in expansion of macro 'ev_is_active'
+   if (ev_is_active (&sigfd_w))
+       ^~~~~~~~~~~~
+../libev/ev.h:727:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_is_active(ev)                     (0 + ((ev_watcher *)(void *)(ev))->active) /* ro, true when the watcher has been started */
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:3397:7: note: in expansion of macro 'ev_is_active'
+   if (ev_is_active (&timerfd_w))
+       ^~~~~~~~~~~~
+../libev/ev.c: In function 'loop_fork':
+../libev/ev.h:727:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_is_active(ev)                     (0 + ((ev_watcher *)(void *)(ev))->active) /* ro, true when the watcher has been started */
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:3508:13: note: in expansion of macro 'ev_is_active'
+         if (ev_is_active (&timerfd_w))
+             ^~~~~~~~~~~~
+../libev/ev.h:727:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_is_active(ev)                     (0 + ((ev_watcher *)(void *)(ev))->active) /* ro, true when the watcher has been started */
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:3523:13: note: in expansion of macro 'ev_is_active'
+         if (ev_is_active (&pipe_w))
+             ^~~~~~~~~~~~
+../libev/ev.c: In function 'ev_default_loop':
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:715:51: note: in expansion of macro 'ev_init'
+ #define ev_signal_init(ev,cb,signum)         do { ev_init ((ev), (cb)); ev_signal_set ((ev), (signum)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:3710:11: note: in expansion of macro 'ev_signal_init'
+           ev_signal_init (&childev, childcb, SIGCHLD);
+           ^~~~~~~~~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:715:51: note: in expansion of macro 'ev_init'
+ #define ev_signal_init(ev,cb,signum)         do { ev_init ((ev), (cb)); ev_signal_set ((ev), (signum)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:3710:11: note: in expansion of macro 'ev_signal_init'
+           ev_signal_init (&childev, childcb, SIGCHLD);
+           ^~~~~~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:715:51: note: in expansion of macro 'ev_init'
+ #define ev_signal_init(ev,cb,signum)         do { ev_init ((ev), (cb)); ev_signal_set ((ev), (signum)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:3710:11: note: in expansion of macro 'ev_signal_init'
+           ev_signal_init (&childev, childcb, SIGCHLD);
+           ^~~~~~~~~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.h:715:51: note: in expansion of macro 'ev_init'
+ #define ev_signal_init(ev,cb,signum)         do { ev_init ((ev), (cb)); ev_signal_set ((ev), (signum)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:3710:11: note: in expansion of macro 'ev_signal_init'
+           ev_signal_init (&childev, childcb, SIGCHLD);
+           ^~~~~~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:3711:11: note: in expansion of macro 'ev_set_priority'
+           ev_set_priority (&childev, EV_MAXPRI);
+           ^~~~~~~~~~~~~~~
+In file included from nio4r_ext.c:6:
+../libev/ev.c: In function 'ev_io_start':
+../libev/ev.c:4417:34: warning: suggest parentheses around arithmetic in operand of '|' [-Wparentheses]
+   fd_change (EV_A_ fd, w->events & EV__IOFDSET | EV_ANFD_REIFY);
+                        ~~~~~~~~~~^~~~~~~~~~~~~
+In file included from ../libev/ev.c:231,
+                 from nio4r_ext.c:6:
+../libev/ev.c: In function 'ev_signal_start':
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:4650:11: note: in expansion of macro 'ev_io_init'
+           ev_io_init (&sigfd_w, sigfdcb, sigfd, EV_READ);
+           ^~~~~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:4650:11: note: in expansion of macro 'ev_io_init'
+           ev_io_init (&sigfd_w, sigfdcb, sigfd, EV_READ);
+           ^~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:4650:11: note: in expansion of macro 'ev_io_init'
+           ev_io_init (&sigfd_w, sigfdcb, sigfd, EV_READ);
+           ^~~~~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:4650:11: note: in expansion of macro 'ev_io_init'
+           ev_io_init (&sigfd_w, sigfdcb, sigfd, EV_READ);
+           ^~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:4651:11: note: in expansion of macro 'ev_set_priority'
+           ev_set_priority (&sigfd_w, EV_MAXPRI);
+           ^~~~~~~~~~~~~~~
+../libev/ev.c: In function 'infy_add':
+../libev/ev.h:727:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_is_active(ev)                     (0 + ((ev_watcher *)(void *)(ev))->active) /* ro, true when the watcher has been started */
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:4865:7: note: in expansion of macro 'ev_is_active'
+   if (ev_is_active (&w->timer)) ev_ref (EV_A);
+       ^~~~~~~~~~~~
+../libev/ev.h:727:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_is_active(ev)                     (0 + ((ev_watcher *)(void *)(ev))->active) /* ro, true when the watcher has been started */
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:4867:7: note: in expansion of macro 'ev_is_active'
+   if (ev_is_active (&w->timer)) ev_unref (EV_A);
+       ^~~~~~~~~~~~
+../libev/ev.c: In function 'infy_init':
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:4974:7: note: in expansion of macro 'ev_io_init'
+       ev_io_init (&fs_w, infy_cb, fs_fd, EV_READ);
+       ^~~~~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:4974:7: note: in expansion of macro 'ev_io_init'
+       ev_io_init (&fs_w, infy_cb, fs_fd, EV_READ);
+       ^~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:4974:7: note: in expansion of macro 'ev_io_init'
+       ev_io_init (&fs_w, infy_cb, fs_fd, EV_READ);
+       ^~~~~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:4974:7: note: in expansion of macro 'ev_io_init'
+       ev_io_init (&fs_w, infy_cb, fs_fd, EV_READ);
+       ^~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:4975:7: note: in expansion of macro 'ev_set_priority'
+       ev_set_priority (&fs_w, EV_MAXPRI);
+       ^~~~~~~~~~~~~~~
+../libev/ev.c: In function 'infy_fork':
+../libev/ev.h:727:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_is_active(ev)                     (0 + ((ev_watcher *)(void *)(ev))->active) /* ro, true when the watcher has been started */
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:5019:19: note: in expansion of macro 'ev_is_active'
+               if (ev_is_active (&w->timer)) ev_ref (EV_A);
+                   ^~~~~~~~~~~~
+../libev/ev.h:727:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_is_active(ev)                     (0 + ((ev_watcher *)(void *)(ev))->active) /* ro, true when the watcher has been started */
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:5021:19: note: in expansion of macro 'ev_is_active'
+               if (ev_is_active (&w->timer)) ev_unref (EV_A);
+                   ^~~~~~~~~~~~
+../libev/ev.c: In function 'ev_stat_start':
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:713:51: note: in expansion of macro 'ev_init'
+ #define ev_timer_init(ev,cb,after,repeat)    do { ev_init ((ev), (cb)); ev_timer_set ((ev),(after),(repeat)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5096:3: note: in expansion of macro 'ev_timer_init'
+   ev_timer_init (&w->timer, stat_timer_cb, 0., w->interval ? w->interval : DEF_STAT_INTERVAL);
+   ^~~~~~~~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:713:51: note: in expansion of macro 'ev_init'
+ #define ev_timer_init(ev,cb,after,repeat)    do { ev_init ((ev), (cb)); ev_timer_set ((ev),(after),(repeat)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5096:3: note: in expansion of macro 'ev_timer_init'
+   ev_timer_init (&w->timer, stat_timer_cb, 0., w->interval ? w->interval : DEF_STAT_INTERVAL);
+   ^~~~~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:713:51: note: in expansion of macro 'ev_init'
+ #define ev_timer_init(ev,cb,after,repeat)    do { ev_init ((ev), (cb)); ev_timer_set ((ev),(after),(repeat)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5096:3: note: in expansion of macro 'ev_timer_init'
+   ev_timer_init (&w->timer, stat_timer_cb, 0., w->interval ? w->interval : DEF_STAT_INTERVAL);
+   ^~~~~~~~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.h:713:51: note: in expansion of macro 'ev_init'
+ #define ev_timer_init(ev,cb,after,repeat)    do { ev_init ((ev), (cb)); ev_timer_set ((ev),(after),(repeat)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5096:3: note: in expansion of macro 'ev_timer_init'
+   ev_timer_init (&w->timer, stat_timer_cb, 0., w->interval ? w->interval : DEF_STAT_INTERVAL);
+   ^~~~~~~~~~~~~
+../libev/ev.h:699:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_timer_set(ev,after_,repeat_)      do { ((ev_watcher_time *)(ev))->at = (after_); (ev)->repeat = (repeat_); } while (0)
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:713:73: note: in expansion of macro 'ev_timer_set'
+ #define ev_timer_init(ev,cb,after,repeat)    do { ev_init ((ev), (cb)); ev_timer_set ((ev),(after),(repeat)); } while (0)
+                                                                         ^~~~~~~~~~~~
+../libev/ev.c:5096:3: note: in expansion of macro 'ev_timer_init'
+   ev_timer_init (&w->timer, stat_timer_cb, 0., w->interval ? w->interval : DEF_STAT_INTERVAL);
+   ^~~~~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:5097:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority (&w->timer, ev_priority (w));
+   ^~~~~~~~~~~~~~~
+../libev/ev.c: In function 'ev_stat_stop':
+../libev/ev.h:727:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_is_active(ev)                     (0 + ((ev_watcher *)(void *)(ev))->active) /* ro, true when the watcher has been started */
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:5129:7: note: in expansion of macro 'ev_is_active'
+   if (ev_is_active (&w->timer))
+       ^~~~~~~~~~~~
+../libev/ev.c: In function 'ev_embed_start':
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5335:5: note: in expansion of macro 'ev_io_init'
+     ev_io_init (&w->io, embed_io_cb, backend_fd, EV_READ);
+     ^~~~~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5335:5: note: in expansion of macro 'ev_io_init'
+     ev_io_init (&w->io, embed_io_cb, backend_fd, EV_READ);
+     ^~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5335:5: note: in expansion of macro 'ev_io_init'
+     ev_io_init (&w->io, embed_io_cb, backend_fd, EV_READ);
+     ^~~~~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5335:5: note: in expansion of macro 'ev_io_init'
+     ev_io_init (&w->io, embed_io_cb, backend_fd, EV_READ);
+     ^~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:5340:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority (&w->io, ev_priority (w));
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:719:51: note: in expansion of macro 'ev_init'
+ #define ev_prepare_init(ev,cb)               do { ev_init ((ev), (cb)); ev_prepare_set ((ev)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5343:3: note: in expansion of macro 'ev_prepare_init'
+   ev_prepare_init (&w->prepare, embed_prepare_cb);
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:719:51: note: in expansion of macro 'ev_init'
+ #define ev_prepare_init(ev,cb)               do { ev_init ((ev), (cb)); ev_prepare_set ((ev)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5343:3: note: in expansion of macro 'ev_prepare_init'
+   ev_prepare_init (&w->prepare, embed_prepare_cb);
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:719:51: note: in expansion of macro 'ev_init'
+ #define ev_prepare_init(ev,cb)               do { ev_init ((ev), (cb)); ev_prepare_set ((ev)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5343:3: note: in expansion of macro 'ev_prepare_init'
+   ev_prepare_init (&w->prepare, embed_prepare_cb);
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.h:719:51: note: in expansion of macro 'ev_init'
+ #define ev_prepare_init(ev,cb)               do { ev_init ((ev), (cb)); ev_prepare_set ((ev)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5343:3: note: in expansion of macro 'ev_prepare_init'
+   ev_prepare_init (&w->prepare, embed_prepare_cb);
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:5344:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority (&w->prepare, EV_MINPRI);
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:722:51: note: in expansion of macro 'ev_init'
+ #define ev_fork_init(ev,cb)                  do { ev_init ((ev), (cb)); ev_fork_set ((ev)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5348:3: note: in expansion of macro 'ev_fork_init'
+   ev_fork_init (&w->fork, embed_fork_cb);
+   ^~~~~~~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:722:51: note: in expansion of macro 'ev_init'
+ #define ev_fork_init(ev,cb)                  do { ev_init ((ev), (cb)); ev_fork_set ((ev)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5348:3: note: in expansion of macro 'ev_fork_init'
+   ev_fork_init (&w->fork, embed_fork_cb);
+   ^~~~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:722:51: note: in expansion of macro 'ev_init'
+ #define ev_fork_init(ev,cb)                  do { ev_init ((ev), (cb)); ev_fork_set ((ev)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5348:3: note: in expansion of macro 'ev_fork_init'
+   ev_fork_init (&w->fork, embed_fork_cb);
+   ^~~~~~~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.h:722:51: note: in expansion of macro 'ev_init'
+ #define ev_fork_init(ev,cb)                  do { ev_init ((ev), (cb)); ev_fork_set ((ev)); } while (0)
+                                                   ^~~~~~~
+../libev/ev.c:5348:3: note: in expansion of macro 'ev_fork_init'
+   ev_fork_init (&w->fork, embed_fork_cb);
+   ^~~~~~~~~~~~
+../libev/ev.c: In function 'ev_once':
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:5555:3: note: in expansion of macro 'ev_init'
+   ev_init (&once->io, once_cb_io);
+   ^~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:5555:3: note: in expansion of macro 'ev_init'
+   ev_init (&once->io, once_cb_io);
+   ^~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.c:5555:3: note: in expansion of macro 'ev_init'
+   ev_init (&once->io, once_cb_io);
+   ^~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.c:5555:3: note: in expansion of macro 'ev_init'
+   ev_init (&once->io, once_cb_io);
+   ^~~~~~~
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:5562:3: note: in expansion of macro 'ev_init'
+   ev_init (&once->to, once_cb_to);
+   ^~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:5562:3: note: in expansion of macro 'ev_init'
+   ev_init (&once->to, once_cb_to);
+   ^~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.c:5562:3: note: in expansion of macro 'ev_init'
+   ev_init (&once->to, once_cb_to);
+   ^~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.c:5562:3: note: in expansion of macro 'ev_init'
+   ev_init (&once->to, once_cb_to);
+   ^~~~~~~
+../libev/ev.h:699:52: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ #define ev_timer_set(ev,after_,repeat_)      do { ((ev_watcher_time *)(ev))->at = (after_); (ev)->repeat = (repeat_); } while (0)
+                                                   ~^~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:5565:7: note: in expansion of macro 'ev_timer_set'
+       ev_timer_set (&once->to, timeout, 0.);
+       ^~~~~~~~~~~~
+In file included from nio4r_ext.c:6:
+../libev/ev.c: At top level:
+../libev/ev.c:5682:27: warning: "/*" within comment [-Wcomment]
+ /* EV_STAT     0x00001000 /* stat data changed */
+                            
+../libev/ev.c:5683:27: warning: "/*" within comment [-Wcomment]
+ /* EV_EMBED    0x00010000 /* embedded event loop needs sweep */
+                            
+In file included from nio4r_ext.c:6:
+../libev/ev.c: In function 'evpipe_write':
+../libev/ev.c:2798:11: warning: ignoring return value of 'write', declared with attribute warn_unused_result [-Wunused-result]
+           write (evpipe [1], &counter, sizeof (uint64_t));
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:2810:11: warning: ignoring return value of 'write', declared with attribute warn_unused_result [-Wunused-result]
+           write (evpipe [1], &(evpipe [1]), 1);
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c: In function 'pipecb':
+../libev/ev.c:2831:11: warning: ignoring return value of 'read', declared with attribute warn_unused_result [-Wunused-result]
+           read (evpipe [1], &counter, sizeof (uint64_t));
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:2845:11: warning: ignoring return value of 'read', declared with attribute warn_unused_result [-Wunused-result]
+           read (evpipe [0], &dummy, sizeof (dummy));
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_UNISTD_H -DHAVE_RB_IO_DESCRIPTOR -DHAVE_LINUX_AIO_ABI_H -DEV_USE_LINUXAIO -DHAVE_LINUX_IO_URING_H -DEV_USE_IOURING -DHAVE_SYS_SELECT_H -DEV_USE_SELECT -DHAVE_SYS_EPOLL_H -DEV_USE_EPOLL -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_RESOURCE_H -DEV_STANDALONE    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o selector.o -c selector.c
+In file included from libev.h:7,
+                 from nio4r.h:9,
+                 from selector.c:6:
+selector.c: In function 'NIO_Selector_allocate':
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+selector.c:124:5: note: in expansion of macro 'ev_init'
+     ev_init(&selector->timer, NIO_Selector_timeout_callback);
+     ^~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+selector.c:124:5: note: in expansion of macro 'ev_init'
+     ev_init(&selector->timer, NIO_Selector_timeout_callback);
+     ^~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+selector.c:124:5: note: in expansion of macro 'ev_init'
+     ev_init(&selector->timer, NIO_Selector_timeout_callback);
+     ^~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+selector.c:124:5: note: in expansion of macro 'ev_init'
+     ev_init(&selector->timer, NIO_Selector_timeout_callback);
+     ^~~~~~~
+../libev/ev.h:691:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->active  = \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+selector.c:129:5: note: in expansion of macro 'ev_io_init'
+     ev_io_init(&selector->wakeup, NIO_Selector_wakeup_callback, selector->wakeup_reader, EV_READ);
+     ^~~~~~~~~~
+../libev/ev.h:692:4: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+   ((ev_watcher *)(void *)(ev))->pending = 0; \
+   ~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+selector.c:129:5: note: in expansion of macro 'ev_io_init'
+     ev_io_init(&selector->wakeup, NIO_Selector_wakeup_callback, selector->wakeup_reader, EV_READ);
+     ^~~~~~~~~~
+../libev/ev.h:737:50: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_priority(ev,pri)             (   (ev_watcher *)(void *)(ev))->priority = (pri)
+                                              ~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.h:693:3: note: in expansion of macro 'ev_set_priority'
+   ev_set_priority ((ev), 0);   \
+   ^~~~~~~~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+selector.c:129:5: note: in expansion of macro 'ev_io_init'
+     ev_io_init(&selector->wakeup, NIO_Selector_wakeup_callback, selector->wakeup_reader, EV_READ);
+     ^~~~~~~~~~
+../libev/ev.h:744:79: warning: dereferencing type-punned pointer will break strict-aliasing rules [-Wstrict-aliasing]
+ # define ev_set_cb(ev,cb_)                   (ev_cb_ (ev) = (cb_), memmove (&((ev_watcher *)(ev))->cb, &ev_cb_ (ev), sizeof (ev_cb_ (ev))))
+                                                                              ~^~~~~~~~~~~~~~~~~~~
+../libev/ev.h:694:3: note: in expansion of macro 'ev_set_cb'
+   ev_set_cb ((ev), cb_);   \
+   ^~~~~~~~~
+../libev/ev.h:712:51: note: in expansion of macro 'ev_init'
+ #define ev_io_init(ev,cb,fd,events)          do { ev_init ((ev), (cb)); ev_io_set ((ev),(fd),(events)); } while (0)
+                                                   ^~~~~~~
+selector.c:129:5: note: in expansion of macro 'ev_io_init'
+     ev_io_init(&selector->wakeup, NIO_Selector_wakeup_callback, selector->wakeup_reader, EV_READ);
+     ^~~~~~~~~~
+selector.c: In function 'NIO_Selector_wakeup':
+selector.c:525:5: warning: ignoring return value of 'write', declared with attribute warn_unused_result [-Wunused-result]
+     write(selector->wakeup_writer, "\0", 1);
+     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+rm -f nio4r_ext.so
+gcc -shared -o nio4r_ext.so bytebuffer.o monitor.o nio4r_ext.o selector.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld  -m64  -lruby  -lm  -lc
+
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nio4r-2.7.4/ext/nio4r
+make DESTDIR\= sitearchdir\=./.gem.20250605-37-9b0mt sitelibdir\=./.gem.20250605-37-9b0mt install
+/usr/bin/mkdir -p . ./.gem.20250605-37-9b0mt
+exit > .sitearchdir.time
+/usr/bin/install -c -m 0755 nio4r_ext.so ./.gem.20250605-37-9b0mt

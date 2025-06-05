@@ -1,0 +1,2024 @@
+[DataverseHubRegistry] Loaded
+[RepoRegistry] Resolvers loaded: Repo::Resolvers::DoiResolver (99000), Repo::Resolvers::DataverseResolver (10000), Repo::Resolvers::DataCiteResolver (100)
+[RepoRegistry] RepoDb created entries: 0 path: /root/.downloads-for-ondemand/repos/repo_db.yml
+---------------------------------------------------------------
+UploadStatusControllerTest: test_should_get_index_on_empty_disk
+---------------------------------------------------------------
+-------------------------------------------------------------------
+UploadStatusControllerTest: test_should_get_index_on_disk_with_data
+-------------------------------------------------------------------
+------------------------------------------------------------------------
+ProjectNameGeneratorTest: test_should_use_custom_delimiter_when_provided
+------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+ProjectNameGeneratorTest: test_should_generate_a_name_with_token_if_specified
+-----------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+ProjectNameGeneratorTest: test_should_pick_adjectives_and_nouns_from_defined_lists
+----------------------------------------------------------------------------------
+-------------------------------------------------------------------------
+ProjectNameGeneratorTest: test_should_generate_a_name_with_default_format
+-------------------------------------------------------------------------
+---------------------------------------------------------------------
+ProjectNameGeneratorTest: test_should_not_generate_nil_or_empty_names
+---------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+RepoResolverControllerTest: test_should_redirect_back_with_error_if_repo_url_is_blank
+-------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+RepoResolverControllerTest: test_should_redirect_back_with_error_if_URL_is_unknown
+----------------------------------------------------------------------------------
+Started POST "/view/repo/resolve" for 127.0.0.1 at 2025-06-05 11:15:33 +0000
+Started POST "/view/repo/resolve" for 127.0.0.1 at 2025-06-05 11:15:33 +0000
+Started GET "/uploads" for 127.0.0.1 at 2025-06-05 11:15:33 +0000
+Processing by RepoResolverController#resolve as HTML
+  Parameters: {"repo_url"=>""}
+Processing by RepoResolverController#resolve as HTML
+  Parameters: {"repo_url"=>"https://unknown.repo.org"}
+Started GET "/uploads" for 127.0.0.1 at 2025-06-05 11:15:33 +0000
+Processing by UploadStatusController#index as HTML
+Processing by UploadStatusController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering upload_status/index.html.erb within layouts/application
+  Rendering layout layouts/application.html.erb
+  Rendering upload_status/index.html.erb within layouts/application
+  Rendered shared/_breadcrumbs.html.erb (Duration: 1.9ms | GC: 0.0ms)
+Redirected to http://www.example.com/
+  Rendered upload_status/_actions.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 302 Found in 52ms (GC: 0.0ms)
+  Rendered shared/_breadcrumbs.html.erb (Duration: 1.8ms | GC: 0.0ms)
+Redirected to http://www.example.com/
+Completed 302 Found in 52ms (GC: 0.0ms)
+  Rendered upload_status/_actions.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered upload_status/_files.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered upload_status/index.html.erb within layouts/application (Duration: 19.4ms | GC: 0.0ms)
+  Rendered upload_status/_files.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered upload_status/index.html.erb within layouts/application (Duration: 15.3ms | GC: 0.0ms)
+-------------------------------------------------------------------------------------------------
+RepoResolverControllerTest: test_should_redirect_to_resolved_controller_URL_with_optional_message
+-------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------
+UploadBundleTest: test_find_retrieves_the_record_only_if_both_ids_match
+-----------------------------------------------------------------------
+Started POST "/view/repo/resolve" for 127.0.0.1 at 2025-06-05 11:15:33 +0000
+Processing by RepoResolverController#resolve as HTML
+  Parameters: {"repo_url"=>"https://demo.repo.org/some/path"}
+Redirected to http://www.example.com/projects/123
+Completed 302 Found in 1ms (GC: 0.0ms)
+  Rendered layouts/_config.html.erb (Duration: 3.0ms | GC: 0.0ms)
+  Rendered layouts/_config.html.erb (Duration: 3.1ms | GC: 0.0ms)
+------------------------------------------------------------------
+UploadBundleTest: test_should_be_invalid_because_of_invalid_values
+------------------------------------------------------------------
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.4ms | GC: 0.0ms)
+---------------------------
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.5ms | GC: 0.0ms)
+UploadBundleTest: test_to_h
+---------------------------
+  Rendered layouts/nav/_navigation.html.erb (Duration: 2.1ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 2.1ms | GC: 0.0ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.5ms | GC: 0.0ms)
+------------------------------
+UploadBundleTest: test_to_yaml
+------------------------------
+  Rendered shared/_modal.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 35.8ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.5ms | GC: 0.0ms)
+Completed 200 OK in 56ms (Views: 42.4ms | GC: 0.0ms)
+  Rendered shared/_modal.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 31.6ms | GC: 0.0ms)
+Completed 200 OK in 47ms (Views: 34.8ms | GC: 0.0ms)
+--------------------------------------------------------------------------------------
+UploadBundleTest: test_project_upload_bundles_methods_returns_list_with_the_collection
+--------------------------------------------------------------------------------------
+------------------------------
+UploadBundleTest: test_to_json
+------------------------------
+-------------------------------------------------------------------
+UploadBundleTest: test_destroy_removes_the_file_from_the_filesystem
+-------------------------------------------------------------------
+------------------------------------------------------------------------
+UploadBundleTest: test_find_does_not_find_the_record_if_it_was_not_saved
+------------------------------------------------------------------------
+-------------------------------------------------------
+UploadBundleTest: test_save_twice_only_creates_one_file
+-------------------------------------------------------
+--------------------------------------
+UploadBundleTest: test_should_be_valid
+--------------------------------------
+-------------------------------------------------
+UploadBundleTest: test_save_with_valid_attributes
+-------------------------------------------------
+-------------------------------------------------------------
+UploadBundleTest: test_save_stopped_due_to_invalid_attributes
+-------------------------------------------------------------
+------------------------------------------------------------------------
+UploadBundleTest: test_project_upload_bundles_methods_returns_empty_list
+------------------------------------------------------------------------
+----------------------------------------------------------------------------
+UploadBundleTest: test_find_retrieves_the_record_with_the_same_stored_values
+----------------------------------------------------------------------------
+--------------------------------------------------------------
+UploadBundleTest: test_should_initialize_with_valid_attributes
+--------------------------------------------------------------
+----------------------------------------------------------------
+UploadBundleTest: test_find_retrieves_the_record_if_it_was_saved
+----------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+Dataverse::DatasetVersionResponseTest: test_empty_string_raises_JSON::ParserError_on_version
+--------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+Dataverse::DatasetVersionResponseTest: test_valid_json_parses_@dataset_version_response
+---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------
+Dataverse::DatasetVersionResponseTest: test_valid_json_parses_dataset_version_response_files_metadata_fields_subjects
+---------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------
+Dataverse::DatasetVersionResponseTest: test_valid_json_parses_dataset_version_response_files_metadata_fields_title
+------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+Dataverse::DatasetVersionResponseTest: test_valid_json_parses_dataset_version_response_files_metadata_fields_description
+Dataverse::DatasetVersionResponseTest: test_valid_json_parses_dataset_response_license
+--------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Dataverse::DatasetVersionResponseTest: test_dataset_incomplete_with_no_license
+------------------------------------------------------------------------------
+---------------------------------------------------------------------------
+Dataverse::DatasetVersionResponseTest: test_dataset_incomplete_with_no_data
+---------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+Dataverse::DatasetVersionResponseTest: test_valid_json_parses_dataset_version_response_files_metadata_fields_author
+-------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+Dataverse::DatasetVersionResponseTest: test_valid_json_parses_@dataset_version_response_data
+--------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+Dataverse::DatasetVersionResponseTest: test_incomplete_json_does_not_throw_exception
+------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+Dataverse::DatasetVersionResponseTest: test_empty_version_json_does_not_throw_exception
+---------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+Dataverse::DatasetVersionResponseTest: test_dataset_incomplete_with_no_metadata_blocks
+--------------------------------------------------------------------------------------
+----------------------------------------------------------------------------
+FileBrowserControllerTest: test_should_not_allow_access_to_unauthorized_path
+----------------------------------------------------------------------------
+--------------------------------------------------------------------------
+FileBrowserControllerTest: test_should_get_index_with_valid_directory_path
+--------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+Dataverse::CollectionsControllerTest: test_should_redirect_to_root_path_after_not_finding_dataverse_response
+------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+Dataverse::CollectionsControllerTest: test_should_redirect_to_root_path_after_not_finding_search_response
+---------------------------------------------------------------------------------------------------------
+Started GET "/file_browser?path=%2Ftmp%2Fd20250605-88-sp4oc3" for 127.0.0.1 at 2025-06-05 11:15:33 +0000
+Started GET "/file_browser?path=%2Funauthorized%2Fpath" for 127.0.0.1 at 2025-06-05 11:15:33 +0000
+Processing by FileBrowserController#index as HTML
+  Parameters: {"path"=>"/tmp/d20250605-88-sp4oc3"}
+Processing by FileBrowserController#index as HTML
+  Parameters: {"path"=>"/unauthorized/path"}
+Completed 403 Forbidden in 1ms (Views: 0.3ms | GC: 0.0ms)
+---------------------------------------------------------------------------------------------------------------
+Dataverse::CollectionsControllerTest: test_should_redirect_to_root_path_after_finding_an_unauthorized_dataverse
+---------------------------------------------------------------------------------------------------------------
+Started GET "/view/dataverse/example.com/dataverses/:root" for 127.0.0.1 at 2025-06-05 11:15:33 +0000
+Processing by Dataverse::CollectionsController#show as HTML
+  Parameters: {"dv_hostname"=>"example.com", "id"=>":root"}
+Started GET "/view/dataverse/example.com/dataverses/:root" for 127.0.0.1 at 2025-06-05 11:15:33 +0000
+[ERROR](16660) Dataverse::CollectionsController 2025-06-05 11:15:33 UTC - Dataverse collection not found. dataverse=https://example.com id=:root
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (GC: 0.0ms)
+Processing by Dataverse::CollectionsController#show as HTML
+  Parameters: {"dv_hostname"=>"example.com", "id"=>":root"}
+--------------------------------------------------------------------------------------------
+Dataverse::CollectionsControllerTest: test_should_display_the_datavers_view_with_the_results
+--------------------------------------------------------------------------------------------
+[ERROR](16660) Dataverse::CollectionsController 2025-06-05 11:15:33 UTC - Dataverse requires authorization dataverse=https://example.com id=:root
+[STACK] Dataverse::ApiService::UnauthorizedException
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/exception_raiser.rb:12:in `evaluate'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/return_values.rb:18:in `next'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/invocation.rb:26:in `call'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/expectation.rb:691:in `invoke'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/mock.rb:337:in `handle_method_call'
+Redirected to http://www.example.com/
+Completed 302 Found in 2ms (GC: 0.0ms)
+Started GET "/view/dataverse/example.com/dataverses/:root" for 127.0.0.1 at 2025-06-05 11:15:33 +0000
+---------------------------------------------------------------------------------------------------------------------------------
+Dataverse::CollectionsControllerTest: test_should_redirect_to_root_path_after_not_finding_neither_dataverse_nor_dataverse_results
+---------------------------------------------------------------------------------------------------------------------------------
+Processing by Dataverse::CollectionsController#show as HTML
+  Parameters: {"dv_hostname"=>"example.com", "id"=>":root"}
+Started GET "/view/dataverse/example.com/dataverses/:root" for 127.0.0.1 at 2025-06-05 11:15:33 +0000
+Processing by Dataverse::CollectionsController#show as HTML
+  Parameters: {"dv_hostname"=>"example.com", "id"=>":root"}
+[ERROR](16660) Dataverse::CollectionsController 2025-06-05 11:15:33 UTC - Dataverse collection not found. dataverse=https://example.com id=:root
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (GC: 0.0ms)
+-----------------------------------------------------------------------------------------------------
+Dataverse::CollectionsControllerTest: test_should_redirect_to_root_path_after_not_finding_a_dataverse
+-----------------------------------------------------------------------------------------------------
+  Rendered shared/_ood_folder_button.html.erb (Duration: 0.6ms | GC: 0.0ms)
+Started GET "/view/dataverse/example.com/dataverses/:root" for 127.0.0.1 at 2025-06-05 11:15:33 +0000
+  Rendered file_browser/_browser.html.erb (Duration: 6.7ms | GC: 1.5ms)
+Completed 200 OK in 28ms (Views: 27.4ms | GC: 21.4ms)
+Processing by Dataverse::CollectionsController#show as HTML
+  Parameters: {"dv_hostname"=>"example.com", "id"=>":root"}
+[ERROR](16920) Dataverse::CollectionsController 2025-06-05 11:15:33 UTC - Dataverse collection not found. dataverse=https://example.com id=:root
+-------------------------------------------------------------------------------------------------
+Dataverse::DatasetFilesResponseTest: test_empty_string_raises_JSON::ParserError_for_dataset_files
+-------------------------------------------------------------------------------------------------
+Redirected to http://www.example.com/
+Completed 302 Found in 3ms (GC: 1.2ms)
+----------------------------------------------------------------------------------------------------------
+Dataverse::DatasetFilesResponseTest: test_find_files_matches_no_files_with_multiple_array_in_dataset_files
+----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+Dataverse::DatasetFilesResponseTest: test_valid_json_parses_@dataset_files_response
+-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+Dataverse::DatasetFilesResponseTest: test_valid_json_parses_@dataset_files_response_files
+-----------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+Dataverse::DatasetFilesResponseTest: test_find_files_matches_one_file_in_dataset_files
+--------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+Dataverse::DatasetFilesResponseTest: test_find_files_matches_no_files_with_wrong_id_in_dataset_files
+----------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+Dataverse::DatasetFilesResponseTest: test_dataset_incomplete_with_no_data_file_in_some_files
+--------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+Dataverse::DatasetFilesResponseTest: test_dataset_files_incomplete_with_no_data
+-------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+Dataverse::DatasetFilesResponseTest: test_find_files_matches_one_file_as_string_id_in_dataset_files
+---------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+Dataverse::DatasetFilesResponseTest: test_find_files_matches_no_files_with_nil_in_dataset_files
+-----------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+Dataverse::DatasetFilesResponseTest: test_find_files_matches_no_files_with_empty_array_in_dataset_files
+-------------------------------------------------------------------------------------------------------
+  Rendering layout layouts/application.html.erb
+  Rendering dataverse/collections/show.html.erb within layouts/application
+Started GET "/view/dataverse/example.com/dataverses/:root" for 127.0.0.1 at 2025-06-05 11:15:33 +0000
+-----------------------------------------------------------------------
+Dataverse::DatasetFilesResponseTest: test_files_method_in_dataset_files
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+Dataverse::DatasetFilesResponseTest: test_empty_json_for_dataset_files_does_not_throw_exception
+-----------------------------------------------------------------------------------------------
+Processing by Dataverse::CollectionsController#show as HTML
+  Parameters: {"dv_hostname"=>"example.com", "id"=>":root"}
+---------------------------------------------------------------------------
+Dataverse::SearchResponseTest: test_valid_dataverse_item_in_search_response
+---------------------------------------------------------------------------
+--------------------------------------------------------------------------
+Dataverse::SearchResponseTest: test_valid_json_parses_search_response_data
+--------------------------------------------------------------------------
+  Rendered dataverse/collections/_breadcrumbs.html.erb (Duration: 1.5ms | GC: 0.0ms)
+[ERROR](16660) Dataverse::CollectionsController 2025-06-05 11:15:33 UTC - Dataverse service error dataverse=https://example.com id=:root
+[STACK] error
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/exception_raiser.rb:12:in `evaluate'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/return_values.rb:18:in `next'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/invocation.rb:26:in `call'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/expectation.rb:691:in `invoke'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/mock.rb:337:in `handle_method_call'
+Redirected to http://www.example.com/
+Completed 302 Found in 3ms (GC: 1.6ms)
+----------------------------------------------------------------------------------------------
+Dataverse::SearchResponseTest: test_search_response_with_empty_string_raises_JSON::ParserError
+----------------------------------------------------------------------------------------------
+  Rendered dataverse/collections/_collection_info.html.erb (Duration: 1.0ms | GC: 0.0ms)
+---------------------------------------------------------------------
+Dataverse::SearchResponseTest: test_valid_json_parses_search_response
+---------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+Dataverse::SearchResponseTest: test_search_response_on_empty_json_does_not_throw_exception
+------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------
+Dataverse::SearchResponseTest: test_valid_dataset_item_in_search_response
+-------------------------------------------------------------------------
+  Rendered dataverse/collections/_dataset_item.html.erb (Duration: 1.6ms | GC: 0.0ms)
+-------------------------------------------------------------------
+DateTimeCommonTest: test_get_date_should_return_date_part_as_string
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+DateTimeCommonTest: test_get_time_should_return_time_part_as_string
+-------------------------------------------------------------------
+---------------------------------------------------------------------
+DateTimeCommonTest: test_to_time_should_parse_string_into_Time_object
+---------------------------------------------------------------------
+------------------------------------------------------------------
+DateTimeCommonTest: test_to_time_should_return_nil_for_blank_input
+------------------------------------------------------------------
+  Rendered dataverse/collections/_dataverse_item.html.erb (Duration: 2.3ms | GC: 1.1ms)
+----------------------------------------------------------------------
+DateTimeCommonTest: test_to_time_should_parse_integer_into_Time_object
+----------------------------------------------------------------------
+  Rendered dataverse/collections/_dataset_item.html.erb (Duration: 0.5ms | GC: 0.0ms)
+----------------------------------------------------------
+DateTimeCommonTest: test_to_time_should_accept_Time_object
+----------------------------------------------------------
+  Rendered dataverse/collections/_dataset_item.html.erb (Duration: 0.5ms | GC: 0.0ms)
+----------------------------------------------------------------------------
+DateTimeCommonTest: test_elapsed_should_default_to_now_if_to_is_not_provided
+----------------------------------------------------------------------------
+  Rendered dataverse/collections/_dataset_item.html.erb (Duration: 0.5ms | GC: 0.0ms)
+---------------------------------------------------------------------------
+DateTimeCommonTest: test_elapsed_should_calculate_seconds_between_two_times
+---------------------------------------------------------------------------
+  Rendered dataverse/collections/_dataset_item.html.erb (Duration: 0.5ms | GC: 0.0ms)
+------------------------------------------------------------------
+DateTimeCommonTest: test_to_time_should_convert_DateTime_into_Time
+------------------------------------------------------------------
+  Rendered dataverse/collections/_dataset_item.html.erb (Duration: 0.5ms | GC: 0.0ms)
+---------------------------------------------------------------------------------------------
+DateTimeCommonTest: test_now_should_return_current_time_formatted_as_ISO8601_without_timezone
+---------------------------------------------------------------------------------------------
+---------------------------------------------------------------------
+DateTimeCommonTest: test_get_time_should_return_nil_if_input_is_blank
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+DateTimeCommonTest: test_get_date_should_return_nil_if_input_is_blank
+---------------------------------------------------------------------
+  Rendered dataverse/collections/_dataverse_item.html.erb (Duration: 1.8ms | GC: 1.2ms)
+------------------------------------------------------------------------
+DateTimeCommonTest: test_to_time_should_raise_error_for_unsupported_type
+------------------------------------------------------------------------
+  Rendered dataverse/collections/_dataset_item.html.erb (Duration: 0.6ms | GC: 0.0ms)
+------------------------------------------------------------------------------
+DateTimeCommonTest: test_elapsed_string_should_format_elapsed_time_as_HH:MM:SS
+------------------------------------------------------------------------------
+----------------------------------------------------------------------
+Dataverse::ExternalToolResponseTest: test_parses_signed_URLs_correctly
+----------------------------------------------------------------------
+  Rendered dataverse/collections/_dataset_item.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered dataverse/collections/_dataverse_item.html.erb (Duration: 0.4ms | GC: 0.0ms)
+---------------------------------------------------------------------
+Dataverse::ExternalToolResponseTest: test_parses_the_status_correctly
+---------------------------------------------------------------------
+  Rendered dataverse/collections/_dataset_item.html.erb (Duration: 0.5ms | GC: 0.0ms)
+---------------------------------------------------------------------------
+Dataverse::ExternalToolResponseTest: test_parses_query_parameters_correctly
+---------------------------------------------------------------------------
+  Rendered dataverse/collections/_dataset_item.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered dataverse/collections/_dataset_item.html.erb (Duration: 0.5ms | GC: 0.0ms)
+----------------------------------------------------------------------------
+DownloadFileTest: test_find_retrieves_the_record_with_the_same_stored_values
+----------------------------------------------------------------------------
+-------------------------------------------------
+DownloadFileTest: test_save_with_valid_attributes
+-------------------------------------------------
+------------------------------
+DownloadFileTest: test_to_yaml
+------------------------------
+  Rendered dataverse/collections/_dataverse_item.html.erb (Duration: 1.8ms | GC: 1.3ms)
+  Rendered dataverse/collections/_dataverse_item.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered dataverse/collections/_dataset_item.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered dataverse/collections/_dataset_item.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered dataverse/collections/_dataset_item.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered dataverse/collections/_dataset_item.html.erb (Duration: 0.4ms | GC: 0.0ms)
+-----------------------------
+  Rendered collection of dataverse/collections/_item.html.erb [20 times] (Duration: 18.2ms | GC: 3.6ms)
+DownloadFileTest: test_update
+-----------------------------
+  Rendered dataverse/collections/_search_items.html.erb (Duration: 19.5ms | GC: 3.6ms)
+  Rendered dataverse/collections/show.html.erb within layouts/application (Duration: 25.4ms | GC: 5.2ms)
+---------------------------
+DownloadFileTest: test_to_h
+---------------------------
+--------------------------------------
+DownloadFileTest: test_should_be_valid
+--------------------------------------
+----------------------------------------------------------------
+DownloadFileTest: test_find_retrieves_the_record_if_it_was_saved
+----------------------------------------------------------------
+------------------------------------------------------------------------
+DownloadFileTest: test_find_does_not_find_the_record_if_it_was_not_saved
+------------------------------------------------------------------------
+----------------------------------------------------
+DownloadFileTest: test_should_validate_max_file_size
+----------------------------------------------------
+--------------------------------------------------------------
+DownloadFileTest: test_should_initialize_with_valid_attributes
+--------------------------------------------------------------
+------------------------------------------------------------------
+DownloadFileTest: test_should_be_invalid_because_of_invalid_values
+------------------------------------------------------------------
+-------------------------------------------------------
+DownloadFileTest: test_save_twice_only_creates_one_file
+-------------------------------------------------------
+-------------------------------------------------------------
+DownloadFileTest: test_save_stopped_due_to_invalid_attributes
+-------------------------------------------------------------
+------------------------------
+DownloadFileTest: test_to_json
+------------------------------
+  Rendered layouts/_config.html.erb (Duration: 1.7ms | GC: 0.7ms)
+-----------------------------------------------------------------------
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.4ms | GC: 0.0ms)
+DownloadFileTest: test_find_retrieves_the_record_only_if_both_ids_match
+-----------------------------------------------------------------------
+  Rendered layouts/nav/_navigation.html.erb (Duration: 2.0ms | GC: 0.0ms)
+----------------------------------------------------------------------------
+TabsHelperTest: test_tab_href_for_should_return_correct_href_for_UploadBatch
+----------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+TabsHelperTest: test_tab_label_for_should_return_correct_label_ID_for_UploadBatch
+---------------------------------------------------------------------------------
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.8ms | GC: 0.4ms)
+-----------------------------------------------------------------------------------
+TabsHelperTest: test_tab_anchor_for_should_return_correct_anchor_ID_for_UploadBatch
+-----------------------------------------------------------------------------------
+  Rendered layouts/_footer.html.erb (Duration: 0.5ms | GC: 0.0ms)
+-------------------------------------------------------------------------------
+TabsHelperTest: test_tab_anchor_for_should_return_correct_anchor_ID_for_Project
+-------------------------------------------------------------------------------
+  Rendered shared/_modal.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 44.2ms | GC: 9.8ms)
+Completed 200 OK in 72ms (Views: 69.5ms | GC: 30.4ms)
+-----------------------------------------------------------------------------
+TabsHelperTest: test_tab_label_for_should_return_correct_label_ID_for_Project
+-----------------------------------------------------------------------------
+------------------------------------------------------------------------
+TabsHelperTest: test_tab_href_for_should_return_correct_href_for_Project
+------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+Dataverse::UserProfileResponseTest: test_user_profile_response_with_empty_string_raises_JSON::ParserError
+---------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+Dataverse::UserProfileResponseTest: test_user_profile_response_on_empty_json_does_not_throw_exception
+-----------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Dataverse::UserProfileResponseTest: test_valid_json_parses_user_profile_response
+--------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+Repo::RepoResolverContextTest: test_should_return_a_RepoResolverResponse_with_object_url_and_type
+-------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Repo::RepoResolverContextTest: test_should_return_unknown_result_when_type_is_nil
+---------------------------------------------------------------------------------
+----------------------------------------------------------------------
+Repo::RepoResolverContextTest: test_should_initialize_with_valid_input
+----------------------------------------------------------------------
+----------------------------------------------------------------------------------
+Repo::RepoResolverContextTest: test_should_return_nil_parsed_input_for_invalid_URL
+----------------------------------------------------------------------------------
+----------------------------------------------------------------------------
+Dataverse::CollectionResponseTest: test_valid_json_parses_dataverse_response
+----------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+Dataverse::CollectionResponseTest: test_dataverse_response_with_empty_string_raises_JSON::ParserError
+-----------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+Dataverse::CollectionResponseTest: test_valid_json_parses_child_dataverse_response_data
+---------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+Dataverse::CollectionResponseTest: test_dataverse_response_on_empty_json_does_not_throw_exception
+-------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+Dataverse::CollectionResponseTest: test_valid_json_parses_:root_dataverse_response_data
+---------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------
+Dataverse::DownloadConnectorProcessorTest: test_should_return_success_response_when_download_and_md5_match
+----------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+Dataverse::DownloadConnectorProcessorTest: test_should_update_file_metadata_with_download_url_and_locations
+-----------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
+Dataverse::DownloadConnectorProcessorTest: test_should_return_cancelled_response_if_download_is_cancelled
+---------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+Dataverse::DownloadConnectorProcessorTest: test_should_ignore_request_if_file_id_does_not_match
+-----------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+Dataverse::DownloadConnectorProcessorTest: test_should_set_cancelled_true_when_process_receives_matching_request
+----------------------------------------------------------------------------------------------------------------
+[INFO](16660) Dataverse::DownloadConnectorProcessor 2025-06-05 11:15:33 UTC - Verifying file file_path=/root/downloads-ondemand/bba3edf5-ddea-49e6-9bf8-6aaefdfe390c/data.csv expected_md5=9473fdd0d880a43c21b7778d34872157
+[INFO](16660) Dataverse::DownloadConnectorProcessor 2025-06-05 11:15:33 UTC - Verifying file file_path=/root/downloads-ondemand/6c3a483d-6fef-4ba7-9860-a8136992b3bb/data.csv expected_md5=9473fdd0d880a43c21b7778d34872157
+[INFO](16660) Dataverse::DownloadConnectorProcessor 2025-06-05 11:15:33 UTC - Checksum verification success file_path=/root/downloads-ondemand/bba3edf5-ddea-49e6-9bf8-6aaefdfe390c/data.csv expected_md5=9473fdd0d880a43c21b7778d34872157
+[INFO](16660) Dataverse::DownloadConnectorProcessor 2025-06-05 11:15:33 UTC - Download completed id=file-123 location=/root/downloads-ondemand/bba3edf5-ddea-49e6-9bf8-6aaefdfe390c/data.csv md5_valid=true
+[INFO](16660) Dataverse::DownloadConnectorProcessor 2025-06-05 11:15:33 UTC - Checksum verification success file_path=/root/downloads-ondemand/6c3a483d-6fef-4ba7-9860-a8136992b3bb/data.csv expected_md5=9473fdd0d880a43c21b7778d34872157
+[INFO](16660) Dataverse::DownloadConnectorProcessor 2025-06-05 11:15:33 UTC - Download completed id=file-123 location=/root/downloads-ondemand/6c3a483d-6fef-4ba7-9860-a8136992b3bb/data.csv md5_valid=true
+--------------------------------------------------------------------------------------------------
+Dataverse::DownloadConnectorProcessorTest: test_should_return_error_response_if_md5_does_not_match
+--------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
+ConnectorClassDispatcherTest: test_upload_processor_should_return_Dataverse::UploadConnectorProcessor_class_for_dataverse_files
+-------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------
+ConnectorClassDispatcherTest: test_upload_bundle_connector_processor_should_return_Dataverse::UploadBatchConnectorProcessor_class_for_dataverse_type
+----------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
+ConnectorClassDispatcherTest: test_download_connector_metadata_should_return_Dataverse::DownloadConnectorMetadata_class_for_dataverse_files
+-------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+ConnectorClassDispatcherTest: test_raises_ConnectorNotSupported_for_unknown_connector_type
+------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------
+ConnectorClassDispatcherTest: test_download_connector_status_should_return_Dataverse::DownloadConnectorStatus_class_for_dataverse_files
+---------------------------------------------------------------------------------------------------------------------------------------
+[INFO](16920) Dataverse::DownloadConnectorProcessor 2025-06-05 11:15:33 UTC - Verifying file file_path=/root/downloads-ondemand/9d60dc85-e733-430e-961b-57c439c31ba1/data.csv expected_md5=9473fdd0d880a43c21b7778d34872157
+[ERROR](16920) Dataverse::DownloadConnectorProcessor 2025-06-05 11:15:33 UTC - Checksum verification failed file_path=/root/downloads-ondemand/9d60dc85-e733-430e-961b-57c439c31ba1/data.csv expected_md5=9473fdd0d880a43c21b7778d34872157 current_md5=4eea91e7a2009ecd9bbf1242b4eaf267
+[INFO](16920) Dataverse::DownloadConnectorProcessor 2025-06-05 11:15:33 UTC - Download completed id=file-123 location=/root/downloads-ondemand/9d60dc85-e733-430e-961b-57c439c31ba1/data.csv md5_valid=false
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+ConnectorClassDispatcherTest: test_upload_bundle_connector_metadata_should_return_Dataverse::UploadBundleConnectorMetadata_class_for_dataverse_collections
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
+ConnectorClassDispatcherTest: test_upload_file_connector_status_should_return_Dataverse::UploadConnectorStatus_class_for_dataverse_files
+----------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------
+ConnectorClassDispatcherTest: test_repo_controller_resolver_should_return_Dataverse::DisplayRepoControllerResolver_class_for_dataverse_files
+--------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
+ConnectorClassDispatcherTest: test_download_processor_should_return_Dataverse::DownloadConnectorProcessor_class_for_dataverse_files
+-----------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------
+DetachedProcessControllerTest: test_controller_calls_shutdown_on_all_services_even_if_one_raises_an_exception_during_shutdown
+-----------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+DetachedProcessControllerTest: test_controller_starts_all_services_and_shuts_down_when_all_are_idle
+---------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------
+DetachedProcessControllerTest: test_controller_calls_shutdown_and_exits_cleanly_even_if_a_service_raises_an_exception
+---------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------
+DetachedProcessControllerTest: test_controller_only_restarts_dead_services
+--------------------------------------------------------------------------
+[INFO](16660) DetachedProcessController 2025-06-05 11:15:33 UTC - Process controller started executors=2
+[INFO](16660) DetachedProcessController 2025-06-05 11:15:33 UTC - Launching executor name=DetachedProcessControllerTest::MockService
+[INFO](16660) ProcessExecutor 2025-06-05 11:15:33 UTC - Starting service name=DetachedProcessControllerTest::MockService
+[INFO](16660) DetachedProcessController 2025-06-05 11:15:33 UTC - Launching executor name=DetachedProcessControllerTest::MockService
+[INFO](16660) ProcessExecutor 2025-06-05 11:15:33 UTC - Starting service name=DetachedProcessControllerTest::MockService
+[INFO](16660) DetachedProcessController 2025-06-05 11:15:33 UTC - Process controller started executors=2
+[INFO](17120) DetachedProcessController 2025-06-05 11:15:33 UTC - Process controller started executors=2
+[INFO](16660) DetachedProcessController 2025-06-05 11:15:33 UTC - Launching executor name=Mocha::Mock
+[INFO](16920) DetachedProcessController 2025-06-05 11:15:33 UTC - Process controller started executors=2
+[INFO](16660) ProcessExecutor 2025-06-05 11:15:33 UTC - Starting service name=Mocha::Mock
+[INFO](16920) DetachedProcessController 2025-06-05 11:15:33 UTC - Launching executor name=Mocha::Mock
+[INFO](17120) DetachedProcessController 2025-06-05 11:15:33 UTC - Launching executor name=DetachedProcessControllerTest::MockService
+[INFO](16920) ProcessExecutor 2025-06-05 11:15:33 UTC - Starting service name=Mocha::Mock
+[INFO](17120) ProcessExecutor 2025-06-05 11:15:33 UTC - Starting service name=DetachedProcessControllerTest::MockService
+[INFO](16660) DetachedProcessController 2025-06-05 11:15:33 UTC - Launching executor name=DetachedProcessControllerTest::MockService
+[INFO](16660) ProcessExecutor 2025-06-05 11:15:33 UTC - Starting service name=DetachedProcessControllerTest::MockService
+[INFO](17120) DetachedProcessController 2025-06-05 11:15:33 UTC - Launching executor name=DetachedProcessControllerTest::MockService
+[INFO](17120) ProcessExecutor 2025-06-05 11:15:33 UTC - Starting service name=DetachedProcessControllerTest::MockService
+[INFO](16920) DetachedProcessController 2025-06-05 11:15:33 UTC - Launching executor name=DetachedProcessControllerTest::MockService
+[INFO](16920) ProcessExecutor 2025-06-05 11:15:33 UTC - Starting service name=DetachedProcessControllerTest::MockService
+[ERROR](17260) ProcessExecutor 2025-06-05 11:15:33 UTC - Error executing service name=Mocha::Mock
+[STACK] Service failed
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/exception_raiser.rb:11:in `evaluate'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/return_values.rb:18:in `next'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/invocation.rb:26:in `call'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/expectation.rb:691:in `invoke'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/mock.rb:337:in `handle_method_call'
+[INFO](17200) ProcessExecutor 2025-06-05 11:15:33 UTC - Finished service name=Mocha::Mock
+[INFO](17140) ProcessExecutor 2025-06-05 11:15:33 UTC - Finished service name=DetachedProcessControllerTest::MockService
+[INFO](17160) ProcessExecutor 2025-06-05 11:15:33 UTC - Finished service name=DetachedProcessControllerTest::MockService
+[INFO](17120) DetachedProcessController 2025-06-05 11:15:33 UTC - All executors idle. Shutting down... executors=2
+[INFO](16980) ProcessExecutor 2025-06-05 11:15:33 UTC - Finished service name=DetachedProcessControllerTest::MockService
+[INFO](17120) ProcessExecutor 2025-06-05 11:15:33 UTC - Shutting down name=DetachedProcessControllerTest::MockService
+[ERROR](17120) ProcessExecutor 2025-06-05 11:15:33 UTC - Error shutting down service name=DetachedProcessControllerTest::MockService
+[STACK] Shutdown failed
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/exception_raiser.rb:11:in `evaluate'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/return_values.rb:18:in `next'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/invocation.rb:26:in `call'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/expectation.rb:691:in `invoke'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/mock.rb:337:in `handle_method_call'
+[INFO](17120) ProcessExecutor 2025-06-05 11:15:33 UTC - Shutting down name=DetachedProcessControllerTest::MockService
+[INFO](17120) DetachedProcessController 2025-06-05 11:15:33 UTC - Completed executors=2
+[INFO](17000) ProcessExecutor 2025-06-05 11:15:33 UTC - Finished service name=DetachedProcessControllerTest::MockService
+[INFO](17280) ProcessExecutor 2025-06-05 11:15:33 UTC - Finished service name=DetachedProcessControllerTest::MockService
+--------------------------------------------------------------------------------
+Common::FileUtilsTest: test_metadata_file_handles_nested_directories_in_filename
+--------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Common::FileUtilsTest: test_normalize_name_handles_filenames_without_extension
+------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Common::FileUtilsTest: test_unique_filename_should_raise_error_after_max_attempts
+---------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------
+Common::FileUtilsTest: test_unique_filename_should_return_original_filename_if_metadata_file_does_not_exist
+-----------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------
+Common::FileUtilsTest: test_unique_filename_handles_files_with_no_extension
+---------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+Common::FileUtilsTest: test_normalize_name_should_parameterize_string_with_underscores
+--------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+Common::FileUtilsTest: test_make_download_file_unique_should_update_filename_and_id
+-----------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+Common::FileUtilsTest: test_make_download_file_unique_normalizes_updated_filename_correctly
+-------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+Common::FileUtilsTest: test_unique_filename_handles_filenames_with_multiple_dots
+--------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Common::FileUtilsTest: test_normalize_name_handles_unicode_and_special_characters
+---------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+Common::FileUtilsTest: test_normalize_name_handles_filenames_with_multiple_dots
+-------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+Common::FileUtilsTest: test_metadata_file_should_generate_yml_path_from_normalized_filename
+-------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
+Common::FileUtilsTest: test_unique_filename_should_return_incremented_filename_if_metadata_file_exists
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
+Common::FileUtilsTest: test_metadata_file_handles_file_with_no_extension
+------------------------------------------------------------------------
+---------------------------------------------------------------
+FileStatusTest: test_should_be_able_to_check_different_statuses
+---------------------------------------------------------------
+-----------------------------------------------------------------------
+FileStatusTest: test_should_return_correct_status_using_dynamic_methods
+-----------------------------------------------------------------------
+-------------------------------------------------
+FileStatusTest: test_should_not_be_case_sensitive
+-------------------------------------------------
+----------------------------------------------------------
+FileStatusTest: test_should_have_constants_for_each_status
+----------------------------------------------------------
+----------------------------------------------------------------------------
+FileStatusTest: test_should_raise_error_when_invalid_status_constant_is_used
+----------------------------------------------------------------------------
+----------------------------------------------------------
+FileStatusTest: test_should_raise_error_for_invalid_status
+----------------------------------------------------------
+----------------------------------------------------------
+FileStatusTest: test_should_initialize_with_a_valid_status
+----------------------------------------------------------
+------------------------------------------------------
+Dataverse::ProjectServiceTest: test_initialize_project
+------------------------------------------------------
+-------------------------------------------------------------
+Dataverse::ProjectServiceTest: test_initialize_download_files
+-------------------------------------------------------------
+------------------------------------------------------------
+Dataverse::ProjectServiceTest: test_the_class_is_initialized
+------------------------------------------------------------
+-----------------------------------------------------
+UrlParserTest: test_should_return_nil_for_invalid_URL
+-----------------------------------------------------
+--------------------------------------------------
+UrlParserTest: test_should_parse_standard_HTTP_URL
+--------------------------------------------------
+--------------------------------------------
+UrlParserTest: test_path_should_default_to_/
+--------------------------------------------
+---------------------------------------------------------------
+UrlParserTest: test_should_normalize_path_with_multiple_slashes
+---------------------------------------------------------------
+----------------------------------------------------------
+UrlParserTest: test_should_handle_URL_with_no_query_params
+----------------------------------------------------------
+---------------------------------------------------
+UrlParserTest: test_should_parse_standard_HTTPS_URL
+---------------------------------------------------
+------------------------------------------------------------------------
+UrlParserTest: test_should_raise_NoMethodError_when_calling_new_directly
+------------------------------------------------------------------------
+----------------------------------------------------------
+UrlParserTest: test_should_parse_HTTP_URL_with_custom_port
+----------------------------------------------------------
+------------------------------------------------------
+UrlParserTest: test_should_handle_URL_with_only_domain
+------------------------------------------------------
+--------------------------------------------------------------------------------------------
+RedirectBackWithAnchorTest: test_redirects_to_referer_with_anchor_if_anchor_param_is_present
+--------------------------------------------------------------------------------------------
+Processing by RedirectBackWithAnchorTest::DummyController#test_action as HTML
+  Parameters: {"anchor"=>"section"}
+Redirected to http://test.host/referer_path#section
+Completed 302 Found in 0ms (GC: 0.0ms)
+----------------------------------------------------------------------------
+RedirectBackWithAnchorTest: test_redirects_to_fallback_if_referer_is_missing
+----------------------------------------------------------------------------
+Processing by RedirectBackWithAnchorTest::DummyController#test_action as HTML
+Redirected to http://test.host/fallback
+Completed 302 Found in 0ms (GC: 0.0ms)
+-------------------------------------------------------------------------------
+RedirectBackWithAnchorTest: test_redirects_to_referer_if_present_without_anchor
+-------------------------------------------------------------------------------
+Processing by RedirectBackWithAnchorTest::DummyController#test_action as HTML
+Redirected to http://test.host/referer_path
+Completed 302 Found in 0ms (GC: 0.0ms)
+-----------------------------------------------------------------------
+RedirectBackWithAnchorTest: test_handles_invalid_referer_URL_gracefully
+-----------------------------------------------------------------------
+Processing by RedirectBackWithAnchorTest::DummyController#test_action as HTML
+  Parameters: {"anchor"=>"bad"}
+Redirected to [FILTERED]
+Completed 302 Found in 0ms (GC: 0.0ms)
+----------------------------------------------------------------------------------------
+RedirectBackWithAnchorTest: test_redirects_to_fallback_with_anchor_if_referer_is_missing
+----------------------------------------------------------------------------------------
+Processing by RedirectBackWithAnchorTest::DummyController#test_action as HTML
+  Parameters: {"anchor"=>"bottom"}
+Redirected to http://test.host/fallback#bottom
+Completed 302 Found in 0ms (GC: 0.0ms)
+--------------------------------------------------------------------------------------
+Command::CommandClientTest: test_Should_return_response_when_server_responds_correctly
+--------------------------------------------------------------------------------------
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:33 UTC - UNIXServer created 
+[INFO](17560) Command::CommandServer 2025-06-05 11:15:33 UTC - Server start socket=/tmp/d20250605-88-98hukc/command.sock
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:33 UTC - Shutting down server... 
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:33 UTC - Shutdown completed 
+-----------------------------------------------------------------------------------
+Command::CommandClientTest: test_Should_raise_CommandError_if_socket_is_unavailable
+-----------------------------------------------------------------------------------
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:33 UTC - UNIXServer created 
+[INFO](17580) Command::CommandServer 2025-06-05 11:15:33 UTC - Server start socket=/tmp/d20250605-88-50n4t9/command.sock
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutting down server... 
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutdown completed 
+[ERROR](17120) Command::CommandClient 2025-06-05 11:15:34 UTC - Error processing request request=#<Command::Request:0x00007f40f3b33720 @command="status", @headers={}, @body=#<OpenStruct>>
+[STACK] No such file or directory - connect(2) for /tmp/d20250605-88-50n4t9/command.sock
+[STACK] /usr/local/app/app/services/command/command_client.rb:20:in `initialize'
+[STACK] /usr/local/app/app/services/command/command_client.rb:20:in `new'
+[STACK] /usr/local/app/app/services/command/command_client.rb:20:in `block in request'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/timeout-0.4.3/lib/timeout.rb:185:in `block in timeout'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/timeout-0.4.3/lib/timeout.rb:38:in `handle_timeout'
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutting down server... 
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutdown completed 
+----------------------------------------------------------------------------------
+Command::CommandClientTest: test_Should_return_error_for_a_command_with_no_handler
+----------------------------------------------------------------------------------
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - UNIXServer created 
+[INFO](17620) Command::CommandServer 2025-06-05 11:15:34 UTC - Server start socket=/tmp/d20250605-88-26848l/command.sock
+[INFO](16660) DetachedProcessController 2025-06-05 11:15:34 UTC - All executors idle. Shutting down... executors=2
+[INFO](16660) ProcessExecutor 2025-06-05 11:15:34 UTC - Shutting down name=DetachedProcessControllerTest::MockService
+[INFO](16660) ProcessExecutor 2025-06-05 11:15:34 UTC - Shutting down name=DetachedProcessControllerTest::MockService
+[INFO](16660) DetachedProcessController 2025-06-05 11:15:34 UTC - Completed executors=2
+[INFO](16660) DetachedProcessController 2025-06-05 11:15:34 UTC - All executors idle. Shutting down... executors=2
+[INFO](16920) DetachedProcessController 2025-06-05 11:15:34 UTC - Launching executor name=Mocha::Mock
+[INFO](16660) ProcessExecutor 2025-06-05 11:15:34 UTC - Shutting down name=Mocha::Mock
+[INFO](16920) ProcessExecutor 2025-06-05 11:15:34 UTC - Starting service name=Mocha::Mock
+[INFO](16660) ProcessExecutor 2025-06-05 11:15:34 UTC - Shutting down name=DetachedProcessControllerTest::MockService
+[INFO](17220) ProcessExecutor 2025-06-05 11:15:34 UTC - Finished service name=Mocha::Mock
+[INFO](16660) DetachedProcessController 2025-06-05 11:15:34 UTC - Completed executors=2
+-------------------------------------------------------------------------------------------
+Command::CommandClientTest: test_Should_raise_CommandError_if_error_processing_the_response
+-------------------------------------------------------------------------------------------
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - UNIXServer created 
+-----------------------------------------------------------------------------------------------
+[INFO](17020) Command::CommandServer 2025-06-05 11:15:34 UTC - Server start socket=/tmp/d20250605-92-50n4t9/command.sock
+Command::CommandClientTest: test_Should_raise_TimeoutError_when_server_does_not_respond_in_time
+-----------------------------------------------------------------------------------------------
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - UNIXServer created 
+[INFO](17320) Command::CommandServer 2025-06-05 11:15:34 UTC - Server start socket=/tmp/d20250605-94-hjl26l/command.sock
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutting down server... 
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutdown completed 
+-------------------------------------------------------------------------------------------------------------------
+Dataverse::CitationMetadataResponseTest: test_citation_metadata_response_with_empty_string_raises_JSON::ParserError
+-------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Dataverse::CitationMetadataResponseTest: test_valid_json_parses_valid_subjects
+------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+Dataverse::CitationMetadataResponseTest: test_citation_metadata_response_on_empty_json_does_not_throw_exception
+---------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+Dataverse::CitationMetadataResponseTest: test_valid_json_parses_CitationMetadata_response
+-----------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+Download::BasicHttpRubyDownloadTest: test_Should_store_the_download_URL_in_the_expected_location
+------------------------------------------------------------------------------------------------
+[INFO](17120) Download::BasicHttpRubyDownloader 2025-06-05 11:15:34 UTC - Downloading... url=https://doi.org/10.xxxx file=/tmp/d20250605-88-s8xhl8/output.txt temp=/tmp/d20250605-88-s8xhl8/output.txt.part
+---------------------------------------------------------------------------------------
+ConfigurationSingletonTest: test_should_return_overridden_string_config_values_from_ENV
+---------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+ConfigurationSingletonTest: test_rails_env_should_respect_RACK_ENV_if_RAILS_ENV_is_not_set
+------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+ConfigurationSingletonTest: test_should_return_default_string_config_values_when_ENV_is_not_set
+-----------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+ConfigurationSingletonTest: test_rails_env_should_fall_back_to_development_if_no_ENV_vars_are_set
+-------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------
+ConfigurationSingletonTest: test_rails_env_should_respect_RAILS_ENV_when_set
+----------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
+Dataverse::ExternalToolServiceTest: test_process_callback_should_return_Dataverse_URL_and_the_external_tool_API_response
+------------------------------------------------------------------------------------------------------------------------
+[INFO](17120) Dataverse::ExternalToolService 2025-06-05 11:15:34 UTC - requesting http://dataverse.test.com:8080/external/tool?name=value parsed_url=http://dataverse.test.com:8080/external/tool?name=value
+-----------------------------------------------------------------
+DownloadStatusControllerTest: test_should_get_index_on_empty_disk
+-----------------------------------------------------------------
+[ERROR](17020) Command::CommandServer 2025-06-05 11:15:34 UTC - Error processing request request={"command":"status","headers":{},"body":{}}
+
+[STACK] JSON parsing failed
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/exception_raiser.rb:11:in `evaluate'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/return_values.rb:18:in `next'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/invocation.rb:26:in `call'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/expectation.rb:691:in `invoke'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/mock.rb:337:in `handle_method_call'
+[ERROR](16660) Command::CommandClient 2025-06-05 11:15:34 UTC - Error processing request request=#<Command::Request:0x00007f40f2638d98 @command="status", @headers={}, @body=#<OpenStruct>>
+[STACK] JSON parsing failed
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/exception_raiser.rb:11:in `evaluate'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/return_values.rb:18:in `next'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/invocation.rb:26:in `call'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/expectation.rb:691:in `invoke'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/mock.rb:337:in `handle_method_call'
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutting down server... 
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutdown completed 
+Started GET "/downloads" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+---------------------------------------------------------------------
+DownloadStatusControllerTest: test_should_get_index_on_disk_with_data
+---------------------------------------------------------------------
+Processing by DownloadStatusController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering download_status/index.html.erb within layouts/application
+  Rendered shared/_breadcrumbs.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered download_status/_actions.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered download_status/_files.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered download_status/index.html.erb within layouts/application (Duration: 1.9ms | GC: 0.0ms)
+Started GET "/downloads" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+  Rendered layouts/_config.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.1ms | GC: 0.0ms)
+Processing by DownloadStatusController#index as HTML
+  Rendered shared/_modal.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.1ms | GC: 0.1ms)
+Completed 200 OK in 6ms (Views: 4.6ms | GC: 0.1ms)
+-----------------------------------------------------------------------------------------------------------------------------------
+Dataverse::DataverseRestrictionsServiceTest: test_should_validate_dataset_always_as_valid_since_there_is_no_limit_on_the_file_count
+-----------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+Dataverse::DataverseRestrictionsServiceTest: test_should_validate_file_within_max_size_constraint
+-------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+Dataverse::DataverseRestrictionsServiceTest: test_should_return_invalid_file_for_exceeding_max_size_constraint
+--------------------------------------------------------------------------------------------------------------
+  Rendering layout layouts/application.html.erb
+  Rendering download_status/index.html.erb within layouts/application
+---------------------------------------------------------------------------------------------------------------
+Dataverse::DataverseRestrictionsServiceTest: test_should_validate_file_size_constraint_with_custom_restrictions
+---------------------------------------------------------------------------------------------------------------
+  Rendered shared/_breadcrumbs.html.erb (Duration: 1.7ms | GC: 0.3ms)
+-----------------------------------------------------------------------------------------------------
+Dataverse::DataverseHubTest: test_installations_returns_stored_data_without_refetching_if_not_expired
+-----------------------------------------------------------------------------------------------------
+[INFO](17120) Dataverse::DataverseHub 2025-06-05 11:15:34 UTC - Fetching Dataverse Hub installations... url=https://my.hub.com/api/installation
+[INFO](17120) Dataverse::DataverseHub 2025-06-05 11:15:34 UTC - Completed loading Dataverse installations servers=1
+  Rendered download_status/_actions.html.erb (Duration: 0.6ms | GC: 0.0ms)
+------------------------------------------------------------------------------------
+Dataverse::DataverseHubTest: test_installations_fetches_and_stores_non-empty_results
+------------------------------------------------------------------------------------
+[INFO](17120) Dataverse::DataverseHub 2025-06-05 11:15:34 UTC - Fetching Dataverse Hub installations... url=https://my.hub.com/api/installation
+[INFO](17120) Dataverse::DataverseHub 2025-06-05 11:15:34 UTC - Completed loading Dataverse installations servers=2
+-------------------------------------------------------------------------------------------
+Dataverse::DataverseHubTest: test_installations_returns_existing_data_if_fetch_raises_error
+-------------------------------------------------------------------------------------------
+[INFO](17120) Dataverse::DataverseHub 2025-06-05 11:15:34 UTC - Fetching Dataverse Hub installations... url=https://my.hub.com/api/installation
+[INFO](17120) Dataverse::DataverseHub 2025-06-05 11:15:34 UTC - Completed loading Dataverse installations servers=1
+[INFO](17120) Dataverse::DataverseHub 2025-06-05 11:15:36 UTC - Fetching Dataverse Hub installations... url=https://my.hub.com/api/installation
+[ERROR](17120) Dataverse::DataverseHub 2025-06-05 11:15:36 UTC - Error fetching Dataverse Hub data url=https://my.hub.com/api/installation
+[STACK] boom
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/exception_raiser.rb:11:in `evaluate'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/return_values.rb:18:in `next'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/invocation.rb:26:in `call'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/expectation.rb:691:in `invoke'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/mock.rb:337:in `handle_method_call'
+------------------------------------------------------------------------------------------------------
+Dataverse::DataverseHubTest: test_installations_does_not_update_stored_data_when_fetch_result_is_empty
+------------------------------------------------------------------------------------------------------
+[INFO](17120) Dataverse::DataverseHub 2025-06-05 11:15:34 UTC - Fetching Dataverse Hub installations... url=https://my.hub.com/api/installation
+[INFO](17120) Dataverse::DataverseHub 2025-06-05 11:15:34 UTC - Completed loading Dataverse installations servers=1
+[INFO](17120) Dataverse::DataverseHub 2025-06-05 11:15:36 UTC - Fetching Dataverse Hub installations... url=https://my.hub.com/api/installation
+[INFO](17120) Dataverse::DataverseHub 2025-06-05 11:15:36 UTC - Completed loading Dataverse installations servers=0
+--------------------------------------------------------------------------------------------------------
+Dataverse::DataverseHubTest: test_installations_re-fetches_after_expiry_and_updates_cache_with_new_value
+--------------------------------------------------------------------------------------------------------
+[INFO](17120) Dataverse::DataverseHub 2025-06-05 11:15:34 UTC - Fetching Dataverse Hub installations... url=https://my.hub.com/api/installation
+[INFO](17120) Dataverse::DataverseHub 2025-06-05 11:15:34 UTC - Completed loading Dataverse installations servers=1
+[INFO](17120) Dataverse::DataverseHub 2025-06-05 11:15:36 UTC - Fetching Dataverse Hub installations... url=https://my.hub.com/api/installation
+[INFO](17120) Dataverse::DataverseHub 2025-06-05 11:15:36 UTC - Completed loading Dataverse installations servers=1
+---------------------------------------------------------------------
+ProjectsControllerTest: test_should_get_index_and_load_active_project
+---------------------------------------------------------------------
+Started GET "/projects" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  Rendered shared/_breadcrumbs.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered projects/_actions.html.erb (Duration: 1.5ms | GC: 0.0ms)
+  Rendered shared/_file_row_date.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered projects/_project_header.html.erb (Duration: 3.1ms | GC: 0.1ms)
+  Rendered shared/_file_summary_widget.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered projects/_project_summary_downloads.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered projects/_project_summary.html.erb (Duration: 2.3ms | GC: 0.1ms)
+  Rendered projects/_project.html.erb (Duration: 6.1ms | GC: 0.2ms)
+  Rendered projects/index.html.erb within layouts/application (Duration: 9.0ms | GC: 0.3ms)
+  Rendered layouts/_config.html.erb (Duration: 0.4ms | GC: 0.1ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_modal.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 11.5ms | GC: 0.4ms)
+Completed 200 OK in 13ms (Views: 11.9ms | GC: 0.4ms)
+-----------------------------------------------------------------------------------
+ProjectsControllerTest: test_should_handle_update_failure_via_JSON_with_both_fields
+-----------------------------------------------------------------------------------
+Started PUT "/projects/b7667234-e897-4fc7-9bcf-2ab8e0043435" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#update as JSON
+  Parameters: {"name"=>"Bad Name", "download_dir"=>"/bad/path", "id"=>"b7667234-e897-4fc7-9bcf-2ab8e0043435", "project"=>{"name"=>"Bad Name", "download_dir"=>"/bad/path"}}
+[31mUnpermitted parameters: :id, :project. Context: { controller: ProjectsController, action: update, request: #<ActionDispatch::Request:0x00007f40f2caef10>, params: {"name"=>"Bad Name", "download_dir"=>"/bad/path", "controller"=>"projects", "action"=>"update", "id"=>"b7667234-e897-4fc7-9bcf-2ab8e0043435", "project"=>{"name"=>"Bad Name", "download_dir"=>"/bad/path"}} }[0m
+Completed 422 Unprocessable Content in 1ms (Views: 0.1ms | GC: 0.0ms)
+------------------------------------------------------
+ProjectsControllerTest: test_should_set_active_project
+------------------------------------------------------
+Started POST "/projects/9362e3e8-96a3-4919-9e8a-2f0483a96b21/set_active" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#set_active as HTML
+  Parameters: {"id"=>"9362e3e8-96a3-4919-9e8a-2f0483a96b21"}
+Redirected to http://www.example.com/projects
+Completed 302 Found in 1ms (GC: 0.0ms)
+Started GET "/projects" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  Rendered shared/_breadcrumbs.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered projects/_actions.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_file_row_date.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered projects/_project_header.html.erb (Duration: 1.2ms | GC: 0.1ms)
+  Rendered shared/_file_summary_widget.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered projects/_project_summary_downloads.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered projects/_project_summary.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered projects/_project.html.erb (Duration: 1.9ms | GC: 0.1ms)
+  Rendered projects/index.html.erb within layouts/application (Duration: 2.8ms | GC: 0.1ms)
+  Rendered layouts/_config.html.erb (Duration: 5.5ms | GC: 0.1ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_modal.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 16.9ms | GC: 6.7ms)
+Completed 200 OK in 18ms (Views: 17.2ms | GC: 6.7ms)
+--------------------------------------------------------------------------------------
+ProjectsControllerTest: test_should_update_project_via_JSON_with_name_and_download_dir
+--------------------------------------------------------------------------------------
+Started PUT "/projects/a2a77a18-d7d0-4295-bf6c-1b4cfb59d742" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#update as JSON
+  Parameters: {"name"=>"Updated JSON Name", "download_dir"=>"/some/json/path", "id"=>"a2a77a18-d7d0-4295-bf6c-1b4cfb59d742", "project"=>{"name"=>"Updated JSON Name", "download_dir"=>"/some/json/path"}}
+[31mUnpermitted parameters: :id, :project. Context: { controller: ProjectsController, action: update, request: #<ActionDispatch::Request:0x00007f40f31042b8>, params: {"name"=>"Updated JSON Name", "download_dir"=>"/some/json/path", "controller"=>"projects", "action"=>"update", "id"=>"a2a77a18-d7d0-4295-bf6c-1b4cfb59d742", "project"=>{"name"=>"Updated JSON Name", "download_dir"=>"/some/json/path"}} }[0m
+Completed 200 OK in 1ms (Views: 0.1ms | GC: 0.0ms)
+-----------------------------------------------------------------------
+ProjectsControllerTest: test_should_not_update_missing_project_via_JSON
+-----------------------------------------------------------------------
+Started PUT "/projects/missing-id" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#update as JSON
+  Parameters: {"name"=>"Should Fail", "download_dir"=>"/fail/path", "id"=>"missing-id", "project"=>{"name"=>"Should Fail", "download_dir"=>"/fail/path"}}
+Completed 404 Not Found in 0ms (Views: 0.1ms | GC: 0.0ms)
+-----------------------------------------------------------------------
+ProjectsControllerTest: test_should_not_set_active_project_if_not_found
+-----------------------------------------------------------------------
+Started POST "/projects/missing-id/set_active" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#set_active as HTML
+  Parameters: {"id"=>"missing-id"}
+Redirected to http://www.example.com/projects
+Completed 302 Found in 1ms (GC: 0.0ms)
+Started GET "/projects" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  Rendered shared/_breadcrumbs.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered projects/_actions.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered shared/_file_row_date.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered projects/_project_header.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered shared/_file_summary_widget.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered projects/_project_summary_downloads.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered projects/_project_summary.html.erb (Duration: 0.8ms | GC: 0.1ms)
+  Rendered projects/_project.html.erb (Duration: 2.1ms | GC: 0.1ms)
+  Rendered projects/index.html.erb within layouts/application (Duration: 3.0ms | GC: 0.1ms)
+  Rendered layouts/_config.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_modal.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 5.9ms | GC: 0.2ms)
+Completed 200 OK in 7ms (Views: 6.2ms | GC: 0.2ms)
+---------------------------------------------------------------------
+ProjectsControllerTest: test_should_create_project_with_provided_name
+---------------------------------------------------------------------
+Started POST "/projects" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#create as HTML
+  Parameters: {"project_name"=>"manual_project"}
+Redirected to http://www.example.com/projects
+Completed 302 Found in 1ms (GC: 0.0ms)
+Started GET "/projects" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  Rendered shared/_breadcrumbs.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered projects/_actions.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered shared/_file_row_date.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered projects/_project_header.html.erb (Duration: 1.1ms | GC: 0.0ms)
+  Rendered shared/_file_summary_widget.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered projects/_project_summary_downloads.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered projects/_project_summary.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered projects/_project.html.erb (Duration: 1.9ms | GC: 0.0ms)
+  Rendered shared/_file_row_date.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered projects/_project_header.html.erb (Duration: 1.1ms | GC: 0.1ms)
+  Rendered shared/_file_summary_widget.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered projects/_project_summary_downloads.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered projects/_project_summary.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered projects/_project.html.erb (Duration: 1.9ms | GC: 0.1ms)
+  Rendered projects/index.html.erb within layouts/application (Duration: 4.8ms | GC: 0.2ms)
+  Rendered layouts/_config.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 0.9ms | GC: 0.1ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_modal.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.7ms | GC: 0.3ms)
+Completed 200 OK in 9ms (Views: 8.0ms | GC: 0.3ms)
+----------------------------------------------------------------------
+ProjectsControllerTest: test_should_create_project_with_generated_name
+----------------------------------------------------------------------
+Started POST "/projects" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#create as HTML
+Redirected to http://www.example.com/projects
+Completed 302 Found in 1ms (GC: 0.0ms)
+Started GET "/projects" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  Rendered shared/_breadcrumbs.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered projects/_actions.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered shared/_file_row_date.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered projects/_project_header.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered shared/_file_summary_widget.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered projects/_project_summary_downloads.html.erb (Duration: 0.5ms | GC: 0.1ms)
+  Rendered projects/_project_summary.html.erb (Duration: 0.8ms | GC: 0.1ms)
+  Rendered projects/_project.html.erb (Duration: 2.2ms | GC: 0.1ms)
+  Rendered shared/_file_row_date.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered projects/_project_header.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered shared/_file_summary_widget.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered projects/_project_summary_downloads.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered projects/_project_summary.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered projects/_project.html.erb (Duration: 2.1ms | GC: 0.0ms)
+  Rendered projects/index.html.erb within layouts/application (Duration: 5.3ms | GC: 0.1ms)
+  Rendered layouts/_config.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 1.0ms | GC: 0.2ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_modal.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 8.5ms | GC: 0.2ms)
+Completed 200 OK in 10ms (Views: 8.8ms | GC: 0.3ms)
+-----------------------------------------------------------------------
+ProjectsControllerTest: test_should_not_update_missing_project_via_HTML
+-----------------------------------------------------------------------
+Started PUT "/projects/missing-id" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#update as HTML
+  Parameters: {"name"=>"Should Fail", "download_dir"=>"/fail/path", "id"=>"missing-id"}
+Redirected to http://www.example.com/projects
+Completed 302 Found in 0ms (GC: 0.0ms)
+Started GET "/projects" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  Rendered shared/_breadcrumbs.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered projects/_actions.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_file_row_date.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered projects/_project_header.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered shared/_file_summary_widget.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered projects/_project_summary_downloads.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered projects/_project_summary.html.erb (Duration: 0.6ms | GC: 0.1ms)
+  Rendered projects/_project.html.erb (Duration: 1.6ms | GC: 0.1ms)
+  Rendered projects/index.html.erb within layouts/application (Duration: 2.3ms | GC: 0.1ms)
+  Rendered layouts/_config.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_modal.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.2ms | GC: 0.1ms)
+Completed 200 OK in 5ms (Views: 4.4ms | GC: 0.2ms)
+---------------------------------------------------------------
+ProjectsControllerTest: test_should_not_destroy_missing_project
+---------------------------------------------------------------
+Started DELETE "/projects/missing-id" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#destroy as HTML
+  Parameters: {"id"=>"missing-id"}
+Redirected to http://www.example.com/projects
+Completed 302 Found in 0ms (GC: 0.0ms)
+Started GET "/projects" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  Rendered shared/_breadcrumbs.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered projects/_actions.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_file_row_date.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered projects/_project_header.html.erb (Duration: 1.0ms | GC: 0.1ms)
+  Rendered shared/_file_summary_widget.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered projects/_project_summary_downloads.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered projects/_project_summary.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered projects/_project.html.erb (Duration: 1.7ms | GC: 0.1ms)
+  Rendered projects/index.html.erb within layouts/application (Duration: 2.4ms | GC: 0.1ms)
+  Rendered layouts/_config.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_modal.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.8ms | GC: 0.3ms)
+Completed 200 OK in 5ms (Views: 5.0ms | GC: 0.3ms)
+-----------------------------------------------------------------------------------
+ProjectsControllerTest: test_should_handle_update_failure_via_HTML_with_both_fields
+-----------------------------------------------------------------------------------
+Started PUT "/projects/5dde393e-42a9-4d87-8023-8af16d8207da" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#update as HTML
+  Parameters: {"name"=>"Bad Name", "download_dir"=>"/bad/path", "id"=>"5dde393e-42a9-4d87-8023-8af16d8207da"}
+[31mUnpermitted parameter: :id. Context: { controller: ProjectsController, action: update, request: #<ActionDispatch::Request:0x00007f40f3184e40>, params: {"name"=>"Bad Name", "download_dir"=>"/bad/path", "controller"=>"projects", "action"=>"update", "id"=>"5dde393e-42a9-4d87-8023-8af16d8207da"} }[0m
+Redirected to http://www.example.com/projects
+Completed 302 Found in 1ms (GC: 0.0ms)
+Started GET "/projects" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  Rendered shared/_breadcrumbs.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered projects/_actions.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_file_row_date.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered projects/_project_header.html.erb (Duration: 0.8ms | GC: 0.0ms)
+  Rendered shared/_file_summary_widget.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered projects/_project_summary_downloads.html.erb (Duration: 0.4ms | GC: 0.1ms)
+  Rendered projects/_project_summary.html.erb (Duration: 0.6ms | GC: 0.1ms)
+  Rendered projects/_project.html.erb (Duration: 1.6ms | GC: 0.1ms)
+  Rendered projects/index.html.erb within layouts/application (Duration: 2.3ms | GC: 0.1ms)
+  Rendered layouts/_config.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_modal.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.6ms | GC: 0.3ms)
+Completed 200 OK in 5ms (Views: 4.8ms | GC: 0.3ms)
+------------------------------------------------------------
+ProjectsControllerTest: test_should_get_project_details_page
+------------------------------------------------------------
+Started GET "/projects/0ffecd11-2bf8-4064-85ff-54ea43f09935" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#show as HTML
+  Parameters: {"id"=>"0ffecd11-2bf8-4064-85ff-54ea43f09935"}
+  Rendering layout layouts/application.html.erb
+  Rendering projects/show.html.erb within layouts/application
+  Rendered shared/_breadcrumbs.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_file_row_date.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered shared/_inline_field_submit.html.erb (Duration: 0.7ms | GC: 0.1ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered projects/show/_project_actions.html.erb (Duration: 2.1ms | GC: 0.1ms)
+  Rendered projects/show/_project_tabs.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered shared/_file_summary_widget.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered projects/show/_download_actions.html.erb (Duration: 0.7ms | GC: 0.1ms)
+  Rendered projects/show/_download_files.html.erb (Duration: 1.5ms | GC: 0.1ms)
+  Rendered projects/show.html.erb within layouts/application (Duration: 5.3ms | GC: 0.2ms)
+  Rendered layouts/_config.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_modal.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 7.2ms | GC: 0.2ms)
+Completed 200 OK in 8ms (Views: 7.4ms | GC: 0.4ms)
+--------------------------------------------------------------------------------------
+ProjectsControllerTest: test_should_update_project_via_HTML_with_name_and_download_dir
+--------------------------------------------------------------------------------------
+Started PUT "/projects/cd5bfe09-5a1a-475e-af73-0d6a0dbcba07" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#update as HTML
+  Parameters: {"name"=>"Updated Name", "download_dir"=>"/some/new/path", "id"=>"cd5bfe09-5a1a-475e-af73-0d6a0dbcba07"}
+[31mUnpermitted parameter: :id. Context: { controller: ProjectsController, action: update, request: #<ActionDispatch::Request:0x00007f40f2d13848>, params: {"name"=>"Updated Name", "download_dir"=>"/some/new/path", "controller"=>"projects", "action"=>"update", "id"=>"cd5bfe09-5a1a-475e-af73-0d6a0dbcba07"} }[0m
+Redirected to http://www.example.com/projects
+Completed 302 Found in 2ms (GC: 0.2ms)
+Started GET "/projects" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  Rendered shared/_breadcrumbs.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.5ms | GC: 0.3ms)
+  Rendered projects/_actions.html.erb (Duration: 0.7ms | GC: 0.3ms)
+  Rendered shared/_file_row_date.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered projects/_project_header.html.erb (Duration: 1.3ms | GC: 0.0ms)
+  Rendered shared/_file_summary_widget.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered projects/_project_summary_downloads.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered projects/_project_summary.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered projects/_project.html.erb (Duration: 2.1ms | GC: 0.0ms)
+  Rendered projects/index.html.erb within layouts/application (Duration: 3.4ms | GC: 0.3ms)
+  Rendered layouts/_config.html.erb (Duration: 0.6ms | GC: 0.2ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 0.9ms | GC: 0.0ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_modal.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.7ms | GC: 0.4ms)
+Completed 200 OK in 7ms (Views: 6.9ms | GC: 0.4ms)
+---------------------------------------------------
+ProjectsControllerTest: test_should_destroy_project
+---------------------------------------------------
+Started DELETE "/projects/32a22139-1985-4a2c-9844-b94f7514a517" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#destroy as HTML
+  Parameters: {"id"=>"32a22139-1985-4a2c-9844-b94f7514a517"}
+Redirected to http://www.example.com/projects
+Completed 302 Found in 1ms (GC: 0.0ms)
+Started GET "/projects" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by ProjectsController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering projects/index.html.erb within layouts/application
+  Rendered shared/_breadcrumbs.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered shared/_button_to.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered projects/_actions.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered projects/index.html.erb within layouts/application (Duration: 0.6ms | GC: 0.0ms)
+  Rendered layouts/_config.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 0.7ms | GC: 0.1ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_modal.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 2.8ms | GC: 0.1ms)
+Completed 200 OK in 3ms (Views: 3.0ms | GC: 0.1ms)
+-------------------------------------------------------------------------------------
+FileStatusSummaryTest: test_status_summary_returns_correct_counts_by_status_and_total
+-------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+FileStatusSummaryTest: test_status_summary_returns_total_0_when_status_files_is_nil
+-----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+FileStatusSummaryTest: test_status_summary_returns_0_for_statuses_that_are_not_present
+--------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+FileStatusSummaryTest: test_status_summary_returns_total_0_when_status_files_is_empty
+-------------------------------------------------------------------------------------
+-------------------------------------------------------
+Repo::RepoDbTest: test_should_add_and_retrieve_an_entry
+-------------------------------------------------------
+[INFO](17120) Repo::RepoDb 2025-06-05 11:15:34 UTC - Entry added domain=demo.org type=dataverse
+---------------------------------------------
+Repo::RepoDbTest: test_should_update_metadata
+---------------------------------------------
+[INFO](17120) Repo::RepoDb 2025-06-05 11:15:34 UTC - Entry added domain=demo.org type=dataverse
+[INFO](17120) Repo::RepoDb 2025-06-05 11:15:34 UTC - Entry updated domain=demo.org type=dataverse
+----------------------------------------------------------
+Repo::RepoDbTest: test_should_persist_and_reload_from_file
+----------------------------------------------------------
+[INFO](17120) Repo::RepoDb 2025-06-05 11:15:34 UTC - Entry added domain=demo.org type=dataverse
+---------------------------------------------
+Repo::RepoDbTest: test_should_delete_an_entry
+---------------------------------------------
+[INFO](17120) Repo::RepoDb 2025-06-05 11:15:34 UTC - Entry added domain=demo.org type=dataverse
+-----------------------------------------------------------------
+Repo::RepoDbTest: test_should_return_correct_size_and_all_entries
+-----------------------------------------------------------------
+[INFO](17120) Repo::RepoDb 2025-06-05 11:15:34 UTC - Entry added domain=demo.org type=dataverse
+[INFO](17120) Repo::RepoDb 2025-06-05 11:15:34 UTC - Entry added domain=example.com type=dataverse
+----------------------------------------------------------------------
+Repo::RepoDbTest: test_should_raise_error_when_updating_unknown_domain
+----------------------------------------------------------------------
+------------------------------------------------------
+Repo::RepoDbTest: test_should_not_persist_invalid_type
+------------------------------------------------------
+-----------------------------------------------------------
+ConnectorTypeTest: test_should_initialize_with_a_valid_type
+-----------------------------------------------------------
+-----------------------------------------------------------
+ConnectorTypeTest: test_should_raise_error_for_invalid_type
+-----------------------------------------------------------
+--------------------------------------------
+ConnectorTypeTest: test_should_be_dataverse?
+--------------------------------------------
+----------------------------------------------------
+ConnectorTypeTest: test_should_not_be_case_sensitive
+----------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------
+Command::CommandRegistryTest: test_dispatch_executes_only_the_first_handler_that_returns_non-nil_and_skips_the_rest
+-------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
+Command::CommandRegistryTest: test_reset!_clears_all_registered_handlers
+------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+Command::CommandRegistryTest: test_dispatch_returns_error_if_no_handlers_registered
+-----------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+Command::CommandRegistryTest: test_dispatch_handles_exception_in_handler_and_logs_error
+---------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+Command::CommandRegistryTest: test_registers_valid_service_and_dispatch_returns_first_result
+--------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+Command::CommandRegistryTest: test_raises_ArgumentError_when_registering_non-processable_service
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+Command::CommandRegistryTest: test_dispatch_returns_error_if_all_handlers_return_nil
+------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
+DetachedProcessTest: test_launch_starts_controller,_services,_command_server_and_logs_process_lifecycle
+-------------------------------------------------------------------------------------------------------
+[INFO](17120) DetachedProcess 2025-06-05 11:15:34 UTC - Process launched pid=88 elapsed_time=00:00:00
+[INFO](17120) DetachedProcess 2025-06-05 11:15:34 UTC - Completed pid=88 elapsed_time=00:00:00
+--------------------------------------------------------------------
+DetachedProcessTest: test_launch_exits_early_if_lock_is_already_held
+--------------------------------------------------------------------
+[INFO](17120) DetachedProcess 2025-06-05 11:15:34 UTC - Process launched pid=88 elapsed_time=00:00:00
+[INFO](17120) DetachedProcess 2025-06-05 11:15:34 UTC - Exit. Other DetachedProcess already running pid=88 elapsed_time=00:00:00
+-----------------------------------------------------------------------------------------------
+DetachedProcessTest: test_launch_still_shuts_down_command_server_if_error_raised_during_startup
+-----------------------------------------------------------------------------------------------
+[INFO](17120) DetachedProcess 2025-06-05 11:15:34 UTC - Process launched pid=88 elapsed_time=00:00:00
+[ERROR](17120) DetachedProcess 2025-06-05 11:15:34 UTC - Exit. Error while executing DetachedProcess pid=88 elapsed_time=00:00:00
+[STACK] Startup failure
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/exception_raiser.rb:11:in `evaluate'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/return_values.rb:18:in `next'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/invocation.rb:26:in `call'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/expectation.rb:691:in `invoke'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/mock.rb:337:in `handle_method_call'
+------------------------------------------------------------------------------------------------------
+Dataverse::DownloadConnectorStatusTest: test_should_return_100_if_the_destination_file_already_created
+------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Dataverse::DownloadConnectorStatusTest: test_should_return_0_for_missing_files
+------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+Dataverse::DownloadConnectorStatusTest: test_should_return_100_for_completed_files
+----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+Dataverse::DownloadConnectorStatusTest: test_should_calculated_percentage_for_downloading_files
+-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Dataverse::DownloadConnectorStatusTest: test_should_return_0_for_pending_files
+------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+DownloadFilesControllerTest: test_cancel_should_return_200_and_update_file_if_downloading_and_command_succeeds
+--------------------------------------------------------------------------------------------------------------
+Started POST "/projects/test_project/downloads/files/file_123/cancel" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by DownloadFilesController#cancel as HTML
+  Parameters: {"project_id"=>"test_project", "id"=>"file_123"}
+Completed 204 No Content in 1ms (GC: 0.0ms)
+-------------------------------------------------------------------------------
+DownloadFilesControllerTest: test_cancel_should_return_not_found_if_file_is_nil
+-------------------------------------------------------------------------------
+Started POST "/projects/test_project/downloads/files/file_123/cancel" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by DownloadFilesController#cancel as HTML
+  Parameters: {"project_id"=>"test_project", "id"=>"file_123"}
+Completed 404 Not Found in 0ms (Views: 0.1ms | GC: 0.0ms)
+-------------------------------------------------------------------------------------------
+DownloadFilesControllerTest: test_cancel_should_return_200_and_save_file_if_not_downloading
+-------------------------------------------------------------------------------------------
+Started POST "/projects/test_project/downloads/files/file_123/cancel" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by DownloadFilesController#cancel as HTML
+  Parameters: {"project_id"=>"test_project", "id"=>"file_123"}
+Completed 204 No Content in 0ms (GC: 0.1ms)
+---------------------------------------------------------------------------------------------------
+DownloadFilesControllerTest: test_cancel_should_return_404_if_file_is_downloading_and_command_fails
+---------------------------------------------------------------------------------------------------
+Started POST "/projects/test_project/downloads/files/file_123/cancel" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by DownloadFilesController#cancel as HTML
+  Parameters: {"project_id"=>"test_project", "id"=>"file_123"}
+Completed 404 Not Found in 0ms (GC: 0.2ms)
+--------------------------------------------------------------------------------------------
+ProcessExecutorTest: test_start_should_run_service_in_a_new_thread_and_call_start_on_service
+--------------------------------------------------------------------------------------------
+[INFO](17120) ProcessExecutor 2025-06-05 11:15:34 UTC - Starting service name=Mocha::Mock
+[INFO](19520) ProcessExecutor 2025-06-05 11:15:34 UTC - Finished service name=Mocha::Mock
+------------------------------------------------------------------
+ProcessExecutorTest: test_shutdown_should_call_shutdown_on_service
+------------------------------------------------------------------
+[INFO](17120) ProcessExecutor 2025-06-05 11:15:34 UTC - Shutting down name=Mocha::Mock
+------------------------------------------------------------------------------------
+ApplicationDiskRecordTest: test_save_method_raises_NotImplementedError_in_base_class
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------
+ApplicationDiskRecordTest: test_update_updates_attributes_and_calls_save
+------------------------------------------------------------------------
+-----------------------------------------------------------------
+ApplicationDiskRecordTest: test_generate_id_returns_a_UUID_string
+-----------------------------------------------------------------
+-----------------------------------------------------------------------------------------
+ApplicationDiskRecordTest: test_generate_code_returns_alphanumeric_string_of_given_length
+-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------
+ApplicationDiskRecordTest: test_update_skips_attributes_without_setters
+-----------------------------------------------------------------------
+----------------------------------------------------------------------------------
+ApplicationDiskRecordTest: test_metadata_root_directory_returns_configuration_root
+----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+Dataverse::DataverseUrlTest: test_should_raise_when_constructing_dataset_url_without_dataset_id
+-----------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+Dataverse::DataverseUrlTest: test_should_parse_file_URL_with_persistentId_and_fileId
+------------------------------------------------------------------------------------
+-----------------------------------------------------------------------
+Dataverse::DataverseUrlTest: test_should_expose_scheme,_domain_and_port
+-----------------------------------------------------------------------
+----------------------------------------------------------
+Dataverse::DataverseUrlTest: test_should_parse_dataset_URL
+----------------------------------------------------------
+-----------------------------------------------------------------------------
+Dataverse::DataverseUrlTest: test_should_omit_port_if_using_default_for_https
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+Dataverse::DataverseUrlTest: test_should_raise_when_constructing_collection_url_without_collection_id
+-----------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------
+Dataverse::DataverseUrlTest: test_should_parse_dataverse_root_URL
+-----------------------------------------------------------------
+-------------------------------------------------------------
+Dataverse::DataverseUrlTest: test_should_parse_collection_URL
+-------------------------------------------------------------
+-------------------------------------------------------------------------------------------
+Command::CommandServerTest: test_Should_return_error_response_when_handler_raises_exception
+-------------------------------------------------------------------------------------------
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - UNIXServer created 
+[INFO](19540) Command::CommandServer 2025-06-05 11:15:34 UTC - Server start socket=/tmp/d20250605-88-9eakyo/command_server.sock
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutting down server... 
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutdown completed 
+-----------------------------------------------------------------------------
+Command::CommandServerTest: test_shutdown_can_be_called_multiple_times_safely
+-----------------------------------------------------------------------------
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - UNIXServer created 
+[INFO](19580) Command::CommandServer 2025-06-05 11:15:34 UTC - Server start socket=/tmp/d20250605-88-9pzvfy/command_server.sock
+[INFO](16920) DetachedProcessController 2025-06-05 11:15:34 UTC - Launching executor name=Mocha::Mock
+[INFO](16920) ProcessExecutor 2025-06-05 11:15:34 UTC - Starting service name=Mocha::Mock
+[INFO](17240) ProcessExecutor 2025-06-05 11:15:34 UTC - Finished service name=Mocha::Mock
+  Rendered download_status/_files.html.erb (Duration: 392.2ms | GC: 20.0ms)
+  Rendered download_status/index.html.erb within layouts/application (Duration: 395.9ms | GC: 20.4ms)
+  Rendered layouts/_config.html.erb (Duration: 0.7ms | GC: 0.0ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 1.2ms | GC: 0.0ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.6ms | GC: 0.1ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered shared/_modal.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 404.9ms | GC: 20.9ms)
+Completed 200 OK in 411ms (Views: 406.6ms | GC: 21.3ms)
+-----------------------------------------------------------------------------------------
+Command::CommandServerTest: test_Should_recover_from_simulated_socket_failure_via_restart
+-----------------------------------------------------------------------------------------
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - UNIXServer created 
+[INFO](17660) Command::CommandServer 2025-06-05 11:15:34 UTC - Server start socket=/tmp/d20250605-92-s8xhl8/command_server.sock
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutting down server... 
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutdown completed 
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutting down server... 
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutdown completed 
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutting down server... 
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutdown completed 
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutting down server... 
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutdown completed 
+--------------------------------------------------------------------------------------
+Command::CommandServerTest: test_Should_dispatch_request_and_return_response_correctly
+--------------------------------------------------------------------------------------
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - UNIXServer created 
+[INFO](19600) Command::CommandServer 2025-06-05 11:15:34 UTC - Server start socket=/tmp/d20250605-88-mv8yyq/command_server.sock
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutting down server... 
+[ERROR](17660) Command::CommandServer 2025-06-05 11:15:34 UTC - Server socket error socket=/tmp/d20250605-92-s8xhl8/command_server.sock
+[STACK] stream closed in another thread
+[STACK] /usr/local/app/app/services/command/command_server.rb:20:in `accept'
+[STACK] /usr/local/app/app/services/command/command_server.rb:20:in `block (2 levels) in start'
+[STACK] /usr/local/app/app/services/command/command_server.rb:19:in `loop'
+[STACK] /usr/local/app/app/services/command/command_server.rb:19:in `block in start'
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - Restarting server... 
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutting down server... 
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutdown completed 
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - UNIXServer created 
+[INFO](17680) Command::CommandServer 2025-06-05 11:15:34 UTC - Server start socket=/tmp/d20250605-92-s8xhl8/command_server.sock
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutting down server... 
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutdown completed 
+-----------------------------------------------------------------------------------------
+Command::CommandServerTest: test_Should_return_error_response_when_receiving_invalid_JSON
+-----------------------------------------------------------------------------------------
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - UNIXServer created 
+[INFO](19620) Command::CommandServer 2025-06-05 11:15:34 UTC - Server start socket=/tmp/d20250605-88-2sjfx9/command_server.sock
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutting down server... 
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutdown completed 
+------------------------------------------------------------------------------------------
+Command::CommandServerTest: test_Should_restart_the_server_and_respond_again_after_restart
+------------------------------------------------------------------------------------------
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - UNIXServer created 
+[INFO](17700) Command::CommandServer 2025-06-05 11:15:34 UTC - Server start socket=/tmp/d20250605-92-9c9m2i/command_server.sock
+[ERROR](19620) Command::CommandServer 2025-06-05 11:15:34 UTC - Error processing request request=this is not json
+
+[STACK] unexpected token at 'this is not json'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/json-2.10.2/lib/json/common.rb:248:in `parse'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/json-2.10.2/lib/json/common.rb:248:in `parse'
+[STACK] /usr/local/app/app/services/command/request.rb:22:in `from_json'
+[STACK] /usr/local/app/app/services/command/command_server.rb:58:in `handle_request'
+[STACK] /usr/local/app/app/services/command/command_server.rb:21:in `block (2 levels) in start'
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutting down server... 
+[INFO](17120) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutdown completed 
+-----------------------------------------------------------------------------------------
+UploadFilesControllerTest: test_cancel_should_cancel_uploading_file_and_return_no_content
+-----------------------------------------------------------------------------------------
+Started POST "/projects/test-project/uploads/test-collection/files/file-123/cancel" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by UploadFilesController#cancel as HTML
+  Parameters: {"project_id"=>"test-project", "upload_bundle_id"=>"test-collection", "id"=>"file-123"}
+Completed 204 No Content in 0ms (GC: 0.0ms)
+----------------------------------------------------------------------------
+UploadFilesControllerTest: test_should_return_bad_request_if_file_is_invalid
+----------------------------------------------------------------------------
+Started POST "/projects/test-project/uploads/test-collection/files" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by UploadFilesController#create as HTML
+  Parameters: {"path"=>"/usr/local/app/test/fixtures/files/sample.txt", "project_id"=>"test-project", "upload_bundle_id"=>"test-collection"}
+[ERROR](17120) UploadFilesController 2025-06-05 11:15:34 UTC - UploadFile validation error error=Size is too large (maximum allowed is 1 GB) project_id=test-project upload_bundle_id=test-collection file={"id":"91153998-587a-4e36-9e34-acf158fb2428","project_id":"test-project","upload_bundle_id":"test-collection","file_location":"/usr/local/app/test/fixtures/files/sample.txt","filename":"invalid.txt","status":"pending","size":2147483648,"creation_date":"2025-06-05T11:15:34","start_date":null,"end_date":null}
+Completed 400 Bad Request in 1ms (Views: 0.1ms | GC: 0.0ms)
+---------------------------------------------------------------------------------------------
+UploadFilesControllerTest: test_create_should_return_not_found_if_upload_batch_does_not_exist
+---------------------------------------------------------------------------------------------
+Started POST "/projects/test-project/uploads/test-collection/files" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by UploadFilesController#create as HTML
+  Parameters: {"path"=>"/usr/local/app/test/fixtures/files/sample.txt", "project_id"=>"test-project", "upload_bundle_id"=>"test-collection"}
+Completed 404 Not Found in 0ms (GC: 0.0ms)
+-------------------------------------------------------------------------------------------
+UploadFilesControllerTest: test_cancel_should_return_not_found_if_file_is_missing_on_cancel
+-------------------------------------------------------------------------------------------
+Started POST "/projects/test-project/uploads/test-collection/files/file-123/cancel" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by UploadFilesController#cancel as HTML
+  Parameters: {"project_id"=>"test-project", "upload_bundle_id"=>"test-collection", "id"=>"file-123"}
+Completed 404 Not Found in 0ms (Views: 0.0ms | GC: 0.0ms)
+-----------------------------------------------------------
+UploadFilesControllerTest: test_index_should_return_success
+-----------------------------------------------------------
+Started GET "/projects/test-project/uploads/test-collection/files" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by UploadFilesController#index as HTML
+  Parameters: {"project_id"=>"test-project", "upload_bundle_id"=>"test-collection"}
+  Rendered projects/show/_upload_files.html.erb (Duration: 0.8ms | GC: 0.1ms)
+Completed 200 OK in 1ms (Views: 1.2ms | GC: 0.1ms)
+------------------------------------------------------------------------------
+UploadFilesControllerTest: test_delete_should_destroy_upload_file_and_redirect
+------------------------------------------------------------------------------
+Started DELETE "/projects/test-project/uploads/test-collection/files/file-123" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by UploadFilesController#destroy as HTML
+  Parameters: {"project_id"=>"test-project", "upload_bundle_id"=>"test-collection", "id"=>"file-123"}
+Redirected to http://www.example.com/
+Completed 302 Found in 0ms (GC: 0.0ms)
+-------------------------------------------------------------------------------------
+UploadFilesControllerTest: test_create_should_create_and_return_ok_if_files_are_valid
+-------------------------------------------------------------------------------------
+Started POST "/projects/test-project/uploads/test-collection/files" for 127.0.0.1 at 2025-06-05 11:15:34 +0000
+Processing by UploadFilesController#create as HTML
+  Parameters: {"path"=>"/usr/local/app/test/fixtures/files/sample.txt", "project_id"=>"test-project", "upload_bundle_id"=>"test-collection"}
+[INFO](17120) UploadFilesController 2025-06-05 11:15:34 UTC - Added file to upload bundle project_id=test-project upload_bundle_id=test-collection file=valid.txt
+Completed 200 OK in 0ms (Views: 0.1ms | GC: 0.1ms)
+-------------------------------------------------------------------------------
+ConfigurationPropertyTest: test_IntegerMapper_should_parse_valid_integer_string
+-------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+ConfigurationPropertyTest: test_should_not_set_environment_names_if_read_from_env_is_false
+------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------
+ConfigurationPropertyTest: test_should_initialize_with_correct_attributes
+-------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+ConfigurationPropertyTest: test_should_default_environment_name_if_none_provided
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+ConfigurationPropertyTest: test_PathMapper_should_create_directory_and_return_Pathname
+--------------------------------------------------------------------------------------
+--------------------------------------------------------------
+ConfigurationPropertyTest: test_map_string_delegates_to_mapper
+--------------------------------------------------------------
+---------------------------------------------------------------------------
+ConfigurationPropertyTest: test_BooleanMapper_should_map_false-like_strings
+---------------------------------------------------------------------------
+--------------------------------------------------------------------------
+ConfigurationPropertyTest: test_BooleanMapper_should_map_true-like_strings
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+ConfigurationPropertyTest: test_PathMapper_should_return_nil_for_nil_input
+--------------------------------------------------------------------------
+----------------------------------------------------------------------------
+ConfigurationPropertyTest: test_PassThroughMapper_should_return_string_as-is
+----------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------
+ConfigurationPropertyTest: test_IntegerMapper_should_throw_exception_for_invalid_integer_string
+-----------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+ConfigurationPropertyTest: test_BooleanMapper_should_return_true_for_unknown_values
+-----------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------
+Dataverse::ConnectorMetadataTest: test_should_not_throw_error_when_calling_invalid_methods
+------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+Dataverse::ConnectorMetadataTest: test_should_create_read/write_methods_for_any_hash_field_names
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
+Dataverse::ConnectorMetadataTest: test_to_h_should_hash_with_string_keys
+------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
+LoggingCommonTest: test_log_error_should_call_Rails.logger.error_with_formatted_message
+---------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+LoggingCommonTest: test_log_info_should_call_Rails.logger.info_with_formatted_message
+-------------------------------------------------------------------------------------
+----------------------------------------------------------------------
+LoggingCommonTest: test_format_log_should_format_log_message_correctly
+----------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+LoggingCommonTest: test_log_error_should_include_exception_stack_trace_if_exception_provided
+--------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------
+Repo::RepoResolverServiceTest: test_should_stop_on_error_and_return_unknown
+---------------------------------------------------------------------------
+[ERROR](17120) Repo::RepoResolverService 2025-06-05 11:15:34 UTC - Error while executing URL resolvers resolver=Repo::RepoResolverServiceTest::DummyResolver
+[STACK] Unexpected failure
+[STACK] /usr/local/app/test/services/repo/repo_resolver_service_test.rb:7:in `resolve'
+[STACK] /usr/local/app/app/services/repo/repo_resolver_service.rb:14:in `block in resolve'
+[STACK] /usr/local/app/app/services/repo/repo_resolver_service.rb:13:in `each'
+[STACK] /usr/local/app/app/services/repo/repo_resolver_service.rb:13:in `resolve'
+[STACK] /usr/local/app/test/services/repo/repo_resolver_service_test.rb:54:in `block in <class:RepoResolverServiceTest>'
+-------------------------------------------------------------------------------
+Repo::RepoResolverServiceTest: test_should_resolve_when_first_resolver_succeeds
+-------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------
+Repo::RepoResolverServiceTest: test_should_skip_first_resolver_and_resolve_with_second
+--------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------
+Repo::RepoResolverServiceTest: test_should_ignore_non-resolving_resolvers_and_return_unknown_if_none_succeed
+------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+Repo::RepoResolverServiceTest: test_should_return_unknown_result_when_URL_is_blank
+----------------------------------------------------------------------------------
+--------------------------------------------------------------------------
+UploadFileTest: test_find_retrieves_the_record_with_the_same_stored_values
+--------------------------------------------------------------------------
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - Restarting server... 
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutting down server... 
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - Shutdown completed 
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:34 UTC - UNIXServer created 
+[INFO](17720) Command::CommandServer 2025-06-05 11:15:34 UTC - Server start socket=/tmp/d20250605-92-9c9m2i/command_server.sock
+-----------------------------------------------
+UploadFileTest: test_save_with_valid_attributes
+-----------------------------------------------
+----------------------------
+UploadFileTest: test_to_yaml
+----------------------------
+---------------------------
+UploadFileTest: test_update
+---------------------------
+-------------------------
+UploadFileTest: test_to_h
+-------------------------
+------------------------------------
+UploadFileTest: test_should_be_valid
+------------------------------------
+--------------------------------------------------------------
+UploadFileTest: test_find_retrieves_the_record_if_it_was_saved
+--------------------------------------------------------------
+----------------------------------------------------------------------
+UploadFileTest: test_find_does_not_find_the_record_if_it_was_not_saved
+----------------------------------------------------------------------
+--------------------------------------------------
+UploadFileTest: test_should_validate_max_file_size
+--------------------------------------------------
+------------------------------------------------------------
+UploadFileTest: test_should_initialize_with_valid_attributes
+------------------------------------------------------------
+----------------------------------------------------------------
+UploadFileTest: test_should_be_invalid_because_of_invalid_values
+----------------------------------------------------------------
+-----------------------------------------------------
+UploadFileTest: test_save_twice_only_creates_one_file
+-----------------------------------------------------
+-----------------------------------------------------------
+UploadFileTest: test_save_stopped_due_to_invalid_attributes
+-----------------------------------------------------------
+----------------------------
+UploadFileTest: test_to_json
+----------------------------
+---------------------------------------------------------------------
+UploadFileTest: test_find_retrieves_the_record_only_if_both_ids_match
+---------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+Download::DownloadServiceTest: test_Should_update_the_file_status_to_downloading_and_error_when_error
+-----------------------------------------------------------------------------------------------------
+[INFO](17120) Download::DownloadService 2025-06-05 11:15:34 UTC - start elapsed_time=00:00:00
+[INFO](17120) Download::DownloadService 2025-06-05 11:15:34 UTC - Processing elapsed_time=00:00:00 stats=in_progress=0 pending=1 completed=0
+[ERROR](20140) Download::DownloadService 2025-06-05 11:15:34 UTC - Error while processing file file_id=
+[STACK] An error occurred
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/exception_raiser.rb:11:in `evaluate'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/return_values.rb:18:in `next'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/invocation.rb:26:in `call'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/expectation.rb:691:in `invoke'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/mock.rb:337:in `handle_method_call'
+[INFO](17120) Download::DownloadService 2025-06-05 11:15:34 UTC - Processing elapsed_time=00:00:00 stats=in_progress=0 pending=0 completed=1
+------------------------------------------------------------------------------------------
+Download::DownloadServiceTest: test_Only_one_download_service_should_run_at_any_given_time
+------------------------------------------------------------------------------------------
+[INFO](20160) Download::DownloadService 2025-06-05 11:15:34 UTC - start elapsed_time=00:00:00
+[INFO](20160) Download::DownloadService 2025-06-05 11:15:34 UTC - Processing elapsed_time=00:00:00 stats=in_progress=0 pending=1 completed=0
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:35 UTC - Shutting down server... 
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:35 UTC - Shutdown completed 
+---------------------------------------------------------------------------------------------------------
+Download::DownloadServiceTest: test_Should_update_the_file_status_to_downloading_and_success_when_success
+---------------------------------------------------------------------------------------------------------
+[INFO](16660) Download::DownloadService 2025-06-05 11:15:35 UTC - start elapsed_time=00:00:00
+[INFO](16660) Download::DownloadService 2025-06-05 11:15:35 UTC - Processing elapsed_time=00:00:00 stats=in_progress=0 pending=1 completed=0
+[INFO](16660) Download::DownloadService 2025-06-05 11:15:35 UTC - Processing elapsed_time=00:00:00 stats=in_progress=0 pending=0 completed=1
+------------------------------------------------------------
+ProjectTest: test_validations_should_fail_due_to_blank_value
+------------------------------------------------------------
+-----------------------------------------------------------
+ProjectTest: test_all_returns_an_array_with_the_saved_entry
+-----------------------------------------------------------
+-------------------------------------------------------------------
+ProjectTest: test_find_does_not_find_the_record_if_it_was_not_saved
+-------------------------------------------------------------------
+-------------------------
+ProjectTest: test_to_json
+-------------------------
+--------------------------------------------------------
+ProjectTest: test_save_stopped_due_to_invalid_attributes
+--------------------------------------------------------
+----------------------------------------------------
+ProjectTest: test_files_default_value_is_empty_array
+----------------------------------------------------
+---------------------------------------------
+ProjectTest: test_initialization_should_works
+---------------------------------------------
+----------------------
+ProjectTest: test_to_h
+----------------------
+-----------------------------------------------------------------------------------------------
+ProjectTest: test_all_returns_an_array_with_multiple_entries_sorted_by_creation_date_descendant
+-----------------------------------------------------------------------------------------------
+[INFO](20180) Download::DownloadService 2025-06-05 11:15:35 UTC - start elapsed_time=00:00:00
+[INFO](20180) Download::DownloadService 2025-06-05 11:15:35 UTC - Processing elapsed_time=00:00:00 stats=in_progress=0 pending=0 completed=0
+[INFO](20160) Download::DownloadService 2025-06-05 11:15:35 UTC - Processing elapsed_time=00:00:00 stats=in_progress=0 pending=0 completed=1
+-------------------------
+ProjectTest: test_to_yaml
+-------------------------
+-----------------------------------------------------------
+ProjectTest: test_find_retrieves_the_record_if_it_was_saved
+-----------------------------------------------------------
+---------------------------------------------------------------
+ProjectTest: test_should_be_valid_when_all_fields_are_populated
+---------------------------------------------------------------
+-----------------------------------------------------------------------
+ProjectTest: test_find_retrieves_the_record_with_the_same_stored_values
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+ProjectTest: test_find_retrieves_the_correct_record_on_multiple_records
+-----------------------------------------------------------------------
+--------------------------------------------
+ProjectTest: test_save_with_valid_attributes
+--------------------------------------------
+--------------------------------------------------------------------------------
+ProjectTest: test_files_handle_multiple_files_sorted_by_creation_date_descendent
+--------------------------------------------------------------------------------
+[INFO](17260) ProcessExecutor 2025-06-05 11:15:35 UTC - Finished service name=DetachedProcessControllerTest::MockService
+[INFO](16920) DetachedProcessController 2025-06-05 11:15:35 UTC - All executors idle. Shutting down... executors=2
+[INFO](16920) ProcessExecutor 2025-06-05 11:15:35 UTC - Shutting down name=Mocha::Mock
+[INFO](16920) ProcessExecutor 2025-06-05 11:15:35 UTC - Shutting down name=DetachedProcessControllerTest::MockService
+[INFO](16920) DetachedProcessController 2025-06-05 11:15:35 UTC - Completed executors=2
+--------------------------------------------
+ProjectTest: test_files_handle_a_single_file
+--------------------------------------------
+--------------------------------------------------
+ProjectTest: test_save_twice_only_creates_one_file
+--------------------------------------------------
+--------------------------------------------------------------
+ProjectTest: test_all_returns_empty_array_if_no_records_stored
+--------------------------------------------------------------
+---------------------------------------------------------------------------------------
+Dataverse::DatasetsControllerTest: test_should_redirect_if_any_download_file_is_invalid
+---------------------------------------------------------------------------------------
+Started POST "/view/dataverse/download/dataset" for 127.0.0.1 at 2025-06-05 11:15:35 +0000
+Processing by Dataverse::DatasetsController#download as HTML
+  Parameters: {"file_ids"=>["1", "2"], "project_id"=>nil, "dataverse_url"=>"https://example.dataverse.org", "persistent_id"=>"doi:10.5072/FK2/GCN7US", "page"=>"1"}
+[ERROR](16920) Dataverse::DatasetsController 2025-06-05 11:15:35 UTC - DownloadFile validation error error=Invalid file project_id=749444e5-67fb-4271-b2db-bba92447f84b file={"id":null,"project_id":null,"type":"","filename":"bad_file.txt","status":"","size":null,"creation_date":null,"start_date":null,"end_date":null,"metadata":null}
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (GC: 0.0ms)
+------------------------------------------------------------------------------------------------------------
+Dataverse::DatasetsControllerTest: test_should_redirect_with_notice_if_download_files_are_saved_successfully
+------------------------------------------------------------------------------------------------------------
+Started POST "/view/dataverse/download/dataset" for 127.0.0.1 at 2025-06-05 11:15:35 +0000
+Processing by Dataverse::DatasetsController#download as HTML
+  Parameters: {"file_ids"=>["1", "2"], "project_id"=>nil, "dataverse_url"=>"https://example.dataverse.org", "persistent_id"=>"doi:10.5072/FK2/GCN7US", "page"=>"1"}
+Redirected to http://www.example.com/
+Completed 302 Found in 0ms (GC: 0.0ms)
+--------------------------------------------------------------------------------------------
+Dataverse::DatasetsControllerTest: test_should_redirect_to_root_path_after_raising_exception
+--------------------------------------------------------------------------------------------
+Started GET "/view/dataverse/f0872073-2d01-4406-aced-01d0a0983210/datasets/random_id" for 127.0.0.1 at 2025-06-05 11:15:35 +0000
+Processing by Dataverse::DatasetsController#show as HTML
+  Parameters: {"dv_hostname"=>"f0872073-2d01-4406-aced-01d0a0983210", "persistent_id"=>"random_id"}
+[ERROR](16920) Dataverse::DatasetsController 2025-06-05 11:15:35 UTC - Dataverse service error dataverse=https://f0872073-2d01-4406-aced-01d0a0983210 persistent_id=random_id
+[STACK] error
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/exception_raiser.rb:12:in `evaluate'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/return_values.rb:18:in `next'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/invocation.rb:26:in `call'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/expectation.rb:691:in `invoke'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/mock.rb:337:in `handle_method_call'
+Redirected to http://www.example.com/
+Filter chain halted as :find_dataset_by_persistent_id rendered or redirected
+Completed 302 Found in 1ms (GC: 0.0ms)
+----------------------------------------------------------------------------------------------------------------------------
+Dataverse::DatasetsControllerTest: test_should_redirect_to_root_path_after_raising_Unauthorized_exception_only_in_files_page
+----------------------------------------------------------------------------------------------------------------------------
+Started GET "/view/dataverse/5a58e172-6e36-4f47-a514-a3302577e340/datasets/random_id" for 127.0.0.1 at 2025-06-05 11:15:35 +0000
+Processing by Dataverse::DatasetsController#show as HTML
+  Parameters: {"dv_hostname"=>"5a58e172-6e36-4f47-a514-a3302577e340", "persistent_id"=>"random_id"}
+[ERROR](16920) Dataverse::DatasetsController 2025-06-05 11:15:35 UTC - Dataset files endpoint requires authorization dataverse=https://5a58e172-6e36-4f47-a514-a3302577e340 persistent_id=random_id page=1
+[STACK] Dataverse::ApiService::UnauthorizedException
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/exception_raiser.rb:12:in `evaluate'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/return_values.rb:18:in `next'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/invocation.rb:26:in `call'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/expectation.rb:691:in `invoke'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/mock.rb:337:in `handle_method_call'
+Redirected to http://www.example.com/
+Filter chain halted as :search_files_page rendered or redirected
+Completed 302 Found in 1ms (GC: 0.0ms)
+------------------------------------------------------------------------------------------------
+Dataverse::DatasetsControllerTest: test_should_redirect_to_root_path_after_not_finding_a_dataset
+------------------------------------------------------------------------------------------------
+Started GET "/view/dataverse/c9e54a57-9f7d-4611-89ee-eb7851f6e69e/datasets/random_id" for 127.0.0.1 at 2025-06-05 11:15:35 +0000
+Processing by Dataverse::DatasetsController#show as HTML
+  Parameters: {"dv_hostname"=>"c9e54a57-9f7d-4611-89ee-eb7851f6e69e", "persistent_id"=>"random_id"}
+[ERROR](16920) Dataverse::DatasetsController 2025-06-05 11:15:35 UTC - Dataset not found. dataverse=https://c9e54a57-9f7d-4611-89ee-eb7851f6e69e persistent_id=random_id
+Redirected to http://www.example.com/
+Filter chain halted as :find_dataset_by_persistent_id rendered or redirected
+Completed 302 Found in 0ms (GC: 0.0ms)
+---------------------------------------------------------------------------------------------------------
+Dataverse::DatasetsControllerTest: test_should_redirect_to_root_path_after_raising_Unauthorized_exception
+---------------------------------------------------------------------------------------------------------
+Started GET "/view/dataverse/dc080c45-4c31-4f71-a844-29378ee7f655/datasets/random_id" for 127.0.0.1 at 2025-06-05 11:15:35 +0000
+Processing by Dataverse::DatasetsController#show as HTML
+  Parameters: {"dv_hostname"=>"dc080c45-4c31-4f71-a844-29378ee7f655", "persistent_id"=>"random_id"}
+[ERROR](16920) Dataverse::DatasetsController 2025-06-05 11:15:35 UTC - Dataset requires authorization dataverse=https://dc080c45-4c31-4f71-a844-29378ee7f655 persistent_id=random_id
+[STACK] Dataverse::ApiService::UnauthorizedException
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/exception_raiser.rb:12:in `evaluate'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/return_values.rb:18:in `next'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/invocation.rb:26:in `call'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/expectation.rb:691:in `invoke'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/mock.rb:337:in `handle_method_call'
+Redirected to http://www.example.com/
+Filter chain halted as :find_dataset_by_persistent_id rendered or redirected
+Completed 302 Found in 1ms (GC: 0.0ms)
+------------------------------------------------------------------------------------------
+Dataverse::DatasetsControllerTest: test_should_display_the_dataset_incomplete_with_no_data
+------------------------------------------------------------------------------------------
+Started GET "/view/dataverse/c25553a6-7553-4a82-980c-a4dbbc606d93/datasets/doi:10.5072/FK2/LLIZ6Q" for 127.0.0.1 at 2025-06-05 11:15:35 +0000
+Processing by Dataverse::DatasetsController#show as HTML
+  Parameters: {"dv_hostname"=>"c25553a6-7553-4a82-980c-a4dbbc606d93", "persistent_id"=>"doi:10.5072/FK2/LLIZ6Q"}
+  Rendering layout layouts/application.html.erb
+  Rendering dataverse/datasets/show.html.erb within layouts/application
+  Rendered dataverse/datasets/_breadcrumbs.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered dataverse/datasets/_dataset_info.html.erb (Duration: 0.3ms | GC: 0.0ms)
+  Rendered dataverse/datasets/_dataset_metadata.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered collection of dataverse/datasets/_dataset_file_row.html.erb [0 times] (Duration: 0.0ms | GC: 0.0ms)
+  Rendered dataverse/datasets/_dataset_files.html.erb (Duration: 1.6ms | GC: 0.2ms)
+  Rendered dataverse/datasets/show.html.erb within layouts/application (Duration: 4.2ms | GC: 0.2ms)
+  Rendered layouts/_config.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 0.6ms | GC: 0.0ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.4ms | GC: 0.2ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_modal.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 6.6ms | GC: 0.5ms)
+Completed 200 OK in 7ms (Views: 7.0ms | GC: 0.5ms)
+-----------------------------------------------------------------------------------------------
+Dataverse::DatasetsControllerTest: test_should_display_the_dataset_incomplete_with_no_data_file
+-----------------------------------------------------------------------------------------------
+Started GET "/view/dataverse/75be420f-5980-4729-bc61-c486d8bba298/datasets/doi:10.5072/FK2/LLIZ6Q" for 127.0.0.1 at 2025-06-05 11:15:35 +0000
+Processing by Dataverse::DatasetsController#show as HTML
+  Parameters: {"dv_hostname"=>"75be420f-5980-4729-bc61-c486d8bba298", "persistent_id"=>"doi:10.5072/FK2/LLIZ6Q"}
+  Rendering layout layouts/application.html.erb
+  Rendering dataverse/datasets/show.html.erb within layouts/application
+  Rendered dataverse/datasets/_breadcrumbs.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered dataverse/datasets/_dataset_info.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered dataverse/datasets/_dataset_metadata.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered collection of dataverse/datasets/_dataset_file_row.html.erb [2 times] (Duration: 1.0ms | GC: 0.2ms)
+  Rendered dataverse/datasets/_dataset_files.html.erb (Duration: 1.5ms | GC: 0.2ms)
+  Rendered dataverse/datasets/show.html.erb within layouts/application (Duration: 2.1ms | GC: 0.2ms)
+  Rendered layouts/_config.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.2ms | GC: 0.1ms)
+  Rendered shared/_modal.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.0ms | GC: 0.3ms)
+Completed 200 OK in 4ms (Views: 4.3ms | GC: 0.3ms)
+-------------------------------------------------------------------------------------------------------
+Dataverse::DatasetsControllerTest: test_should_redirect_to_root_path_after_not_finding_a_dataverse_host
+-------------------------------------------------------------------------------------------------------
+Started GET "/view/dataverse/random/datasets/random_id" for 127.0.0.1 at 2025-06-05 11:15:35 +0000
+Processing by Dataverse::DatasetsController#show as HTML
+  Parameters: {"dv_hostname"=>"random", "persistent_id"=>"random_id"}
+[ERROR](16920) Dataverse::DatasetsController 2025-06-05 11:15:35 UTC - Dataverse service error dataverse=https://random persistent_id=random_id
+[STACK] error
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/exception_raiser.rb:12:in `evaluate'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/return_values.rb:18:in `next'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/invocation.rb:26:in `call'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/expectation.rb:691:in `invoke'
+[STACK] /usr/local/app/vendor/bundle/ruby/3.1.0/gems/mocha-2.7.1/lib/mocha/mock.rb:337:in `handle_method_call'
+Redirected to http://www.example.com/
+Filter chain halted as :find_dataset_by_persistent_id rendered or redirected
+Completed 302 Found in 1ms (GC: 0.0ms)
+--------------------------------------------------------------------------------
+Dataverse::DatasetsControllerTest: test_should_redirect_if_project_fails_to_save
+--------------------------------------------------------------------------------
+Started POST "/view/dataverse/download/dataset" for 127.0.0.1 at 2025-06-05 11:15:35 +0000
+Processing by Dataverse::DatasetsController#download as HTML
+  Parameters: {"file_ids"=>["123"], "project_id"=>nil, "dataverse_url"=>"https://example.dataverse.org", "persistent_id"=>"doi:10.5072/FK2/GCN7US", "page"=>"1"}
+Redirected to http://www.example.com/
+Completed 302 Found in 0ms (GC: 0.0ms)
+-----------------------------------------------------------------------------------
+Dataverse::DatasetsControllerTest: test_should_redirect_if_download_file_save_fails
+-----------------------------------------------------------------------------------
+Started POST "/view/dataverse/download/dataset" for 127.0.0.1 at 2025-06-05 11:15:35 +0000
+Processing by Dataverse::DatasetsController#download as HTML
+  Parameters: {"file_ids"=>["1"], "project_id"=>nil, "dataverse_url"=>"https://example.dataverse.org", "persistent_id"=>"doi:10.5072/FK2/GCN7US", "page"=>"1"}
+Redirected to http://www.example.com/
+Completed 302 Found in 1ms (GC: 0.1ms)
+-------------------------------------------------------------------------------------
+Dataverse::DatasetsControllerTest: test_should_display_the_dataset_view_with_the_file
+-------------------------------------------------------------------------------------
+Started GET "/view/dataverse/7b2970d5-8acd-4afe-b557-82b09b0e9fc4/datasets/doi:10.5072/FK2/GCN7US" for 127.0.0.1 at 2025-06-05 11:15:35 +0000
+Processing by Dataverse::DatasetsController#show as HTML
+  Parameters: {"dv_hostname"=>"7b2970d5-8acd-4afe-b557-82b09b0e9fc4", "persistent_id"=>"doi:10.5072/FK2/GCN7US"}
+  Rendering layout layouts/application.html.erb
+  Rendering dataverse/datasets/show.html.erb within layouts/application
+  Rendered dataverse/datasets/_breadcrumbs.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered dataverse/datasets/_dataset_info.html.erb (Duration: 0.4ms | GC: 0.0ms)
+  Rendered dataverse/datasets/_dataset_metadata.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered collection of dataverse/datasets/_dataset_file_row.html.erb [2 times] (Duration: 0.6ms | GC: 0.1ms)
+  Rendered dataverse/datasets/_dataset_files.html.erb (Duration: 1.1ms | GC: 0.1ms)
+  Rendered dataverse/datasets/show.html.erb within layouts/application (Duration: 2.4ms | GC: 0.1ms)
+  Rendered layouts/_config.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/nav/_logo.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered layouts/nav/_navigation.html.erb (Duration: 0.5ms | GC: 0.0ms)
+  Rendered shared/_repo_resolver_bar.html.erb (Duration: 0.2ms | GC: 0.0ms)
+  Rendered layouts/_flash_messages.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layouts/_footer.html.erb (Duration: 0.1ms | GC: 0.0ms)
+  Rendered shared/_modal.html.erb (Duration: 0.0ms | GC: 0.0ms)
+  Rendered layout layouts/application.html.erb (Duration: 4.2ms | GC: 0.1ms)
+Completed 200 OK in 5ms (Views: 4.4ms | GC: 0.1ms)
+[ERROR](17320) Command::CommandServer 2025-06-05 11:15:36 UTC - Error processing request request={"command":"long_task","headers":{},"body":{}}
+
+[STACK] Broken pipe
+[STACK] /usr/local/app/app/services/command/command_server.rb:61:in `write'
+[STACK] /usr/local/app/app/services/command/command_server.rb:61:in `puts'
+[STACK] /usr/local/app/app/services/command/command_server.rb:61:in `handle_request'
+[STACK] /usr/local/app/app/services/command/command_server.rb:21:in `block (2 levels) in start'
+[STACK] /usr/local/app/app/services/command/command_server.rb:19:in `loop'
+[INFO](16660) Command::CommandServer 2025-06-05 11:15:36 UTC - Shutdown completed 

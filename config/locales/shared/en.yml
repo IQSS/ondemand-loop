@@ -1,0 +1,33 @@
+en:
+  acts_as_page:
+    results_summary: "%{start_index} to %{end_index} of %{total_count} results"
+    out_of_range: "Out of range"
+  status:
+    pending: "pending"
+    downloading: "downloading"
+    uploading: "uploading"
+    success: "success"
+    error: "error"
+    cancelled: "cancelled"
+  helpers:
+    invalid_dataverse_hostname: "Invalid Dataverse hostname"
+    key_missing: "API Token missing"
+    key_present: "API Token present"
+  js:
+    download:
+      cancel:
+        error: "Could not cancel download."
+    drop:
+      path:
+        save_error: "Error saving path: "
+        network_error: "Network error while saving path:"
+    inline_field:
+      submit:
+        success: "Saved successfully"
+        error: "There was an error saving your data."
+    project_name:
+      save:
+        error: "Could not update project name."
+    upload:
+      cancel:
+        error: "Could not cancel upload."

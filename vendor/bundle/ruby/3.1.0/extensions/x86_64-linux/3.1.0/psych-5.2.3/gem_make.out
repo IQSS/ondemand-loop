@@ -1,0 +1,29 @@
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/psych-5.2.3/ext/psych
+/usr/bin/ruby -I /usr/share/rubygems extconf.rb
+checking for yaml.h... yes
+checking for yaml_get_version() in -lyaml... yes
+creating Makefile
+
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/psych-5.2.3/ext/psych
+make DESTDIR\= sitearchdir\=./.gem.20250605-37-ytngzg sitelibdir\=./.gem.20250605-37-ytngzg clean
+cd libyaml && make clean
+/bin/sh: line 0: cd: libyaml: No such file or directory
+make: [Makefile:282: clean-so] Error 1 (ignored)
+rm -f 
+rm -fr psych.so false *.o  *.bak mkmf.log .*.time
+
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/psych-5.2.3/ext/psych
+make DESTDIR\= sitearchdir\=./.gem.20250605-37-ytngzg sitelibdir\=./.gem.20250605-37-ytngzg
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC  -m64 -o psych.o -c psych.c
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC  -m64 -o psych_emitter.o -c psych_emitter.c
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC  -m64 -o psych_parser.o -c psych_parser.c
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC  -m64 -o psych_to_ruby.o -c psych_to_ruby.c
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC  -m64 -o psych_yaml_tree.o -c psych_yaml_tree.c
+rm -f psych.so
+gcc -shared -o psych.so psych.o psych_emitter.o psych_parser.o psych_to_ruby.o psych_yaml_tree.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed  -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld  -m64  -lruby -lyaml  -lyaml -lm  -lc
+
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/psych-5.2.3/ext/psych
+make DESTDIR\= sitearchdir\=./.gem.20250605-37-ytngzg sitelibdir\=./.gem.20250605-37-ytngzg install
+/usr/bin/mkdir -p . ./.gem.20250605-37-ytngzg
+exit > .sitearchdir.time
+/usr/bin/install -c -m 0755 psych.so ./.gem.20250605-37-ytngzg
