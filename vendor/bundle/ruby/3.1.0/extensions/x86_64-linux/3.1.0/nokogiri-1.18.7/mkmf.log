@@ -473,7 +473,7 @@ checked program was:
 /* end */
 
 LD_LIBRARY_PATH=.:/usr/lib64 "gcc -o conftest -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -I/usr/include/libxml2    -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.7/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/include -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -std=c99 -Wno-declaration-after-statement -O2 -g -Winline -Wmissing-noreturn -Wconversion  conftest.c  -L. -L/usr/lib64 -L/usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.7/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/lib -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed   -m64  -lexslt -lxslt -lxml2 -lz  -lxml2 /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.7/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/lib/libgumbo.a -lruby -lexslt -lxslt -lxml2 -lz  -lxml2 /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.7/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/lib/libgumbo.a -lm  -lc"
-/tmp/cciahiZf.o: In function `t':
+/tmp/cccPoOuS.o: In function `t':
 /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.7/ext/nokogiri/conftest.c:15: undefined reference to `xmlCtxtSetOptions'
 collect2: error: ld returned 1 exit status
 checked program was:
@@ -524,7 +524,7 @@ checked program was:
 /* end */
 
 LD_LIBRARY_PATH=.:/usr/lib64 "gcc -o conftest -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -I/usr/include/libxml2    -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.7/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/include -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -std=c99 -Wno-declaration-after-statement -O2 -g -Winline -Wmissing-noreturn -Wconversion  conftest.c  -L. -L/usr/lib64 -L/usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.7/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/lib -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed   -m64  -lexslt -lxslt -lxml2 -lz  -lxml2 /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.7/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/lib/libgumbo.a -lruby -lexslt -lxslt -lxml2 -lz  -lxml2 /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.7/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/lib/libgumbo.a -lm  -lc"
-/tmp/ccIm3lZa.o: In function `t':
+/tmp/ccNbrl4x.o: In function `t':
 /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.7/ext/nokogiri/conftest.c:15: undefined reference to `xmlCtxtGetOptions'
 collect2: error: ld returned 1 exit status
 checked program was:
@@ -575,7 +575,7 @@ checked program was:
 /* end */
 
 LD_LIBRARY_PATH=.:/usr/lib64 "gcc -o conftest -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -I/usr/include/libxml2    -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.7/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/include -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -std=c99 -Wno-declaration-after-statement -O2 -g -Winline -Wmissing-noreturn -Wconversion  conftest.c  -L. -L/usr/lib64 -L/usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.7/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/lib -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed   -m64  -lexslt -lxslt -lxml2 -lz  -lxml2 /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.7/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/lib/libgumbo.a -lruby -lexslt -lxslt -lxml2 -lz  -lxml2 /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.7/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/lib/libgumbo.a -lm  -lc"
-/tmp/ccyJaNTF.o: In function `t':
+/tmp/ccfkzF2r.o: In function `t':
 /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.7/ext/nokogiri/conftest.c:15: undefined reference to `xmlSwitchEncodingName'
 collect2: error: ld returned 1 exit status
 checked program was:
