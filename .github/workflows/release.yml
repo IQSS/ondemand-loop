@@ -76,12 +76,10 @@ jobs:
 
       - name: Commit bumped version
         working-directory: src
-        env:
-          TOKEN: ${{ secrets.PAT_GIT_PUSH }}
         run: |
           git checkout main
           git pull origin main
           git add application/VERSION
           git commit -m "Bump version after release"
-          git push https://x-access-token:$TOKEN@github.com/${{ github.repository }} main
+          git push origin main
 
