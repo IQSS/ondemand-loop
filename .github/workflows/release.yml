@@ -84,4 +84,4 @@ jobs:
           git add application/VERSION
           git commit -m "Bump version after release"
           git push https://x-access-token:$TOKEN@github.com/${{ github.repository }} main
-          git push origin main
+
