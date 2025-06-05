@@ -77,6 +77,8 @@ jobs:
       - name: Commit bumped version
         working-directory: src
         run: |
+          git checkout main
+          git pull origin main
           git add application/VERSION
           git commit -m "Bump version after release"
           git push origin main
