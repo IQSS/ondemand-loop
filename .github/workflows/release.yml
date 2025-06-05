@@ -35,8 +35,8 @@ jobs:
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
-          git tag "v${{ steps.version.outputs.version }}"
-          git push origin "v${{ steps.version.outputs.version }}"
+          git tag -f "v${{ steps.version.outputs.version }}"
+          git push origin "v${{ steps.version.outputs.version }}" --force
 
       - name: Checkout tag
         working-directory: src
