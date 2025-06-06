@@ -1,0 +1,55 @@
+{
+  "status": "OK",
+  "data": [
+    {
+      "label": "screenshot.png",
+      "restricted": false,
+      "version": 1,
+      "datasetVersionId": 2,
+      "dataFile": {
+        "id": 4,
+        "persistentId": "",
+        "filename": "screenshot.png",
+        "contentType": "image/png",
+        "friendlyType": "PNG Image",
+        "filesize": 272314,
+        "storageIdentifier": "local://1946f5acedb-fdf849a8d0f3",
+        "rootDataFileId": -1,
+        "md5": "13035cba04a51f54dd8101fe726cda5c",
+        "checksum": {
+          "type": "MD5",
+          "value": "13035cba04a51f54dd8101fe726cda5c"
+        },
+        "tabularData": false,
+        "creationDate": "2025-01-16",
+        "publicationDate": "2025-01-20",
+        "fileAccessRequest": true
+      }
+    },
+    {
+      "label": "396944036-79689c96-38e6-49e4-b22d-773953a40e4c.png",
+      "restricted": false,
+      "version": 1,
+      "datasetVersionId": 2,
+      "dataFile": {
+        "id": 5,
+        "persistentId": "",
+        "filename": "396944036-79689c96-38e6-49e4-b22d-773953a40e4c.png",
+        "contentType": "image/png",
+        "friendlyType": "PNG Image",
+        "filesize": 144887,
+        "storageIdentifier": "local://1949312ad71-5ce5d22b4eb8",
+        "rootDataFileId": -1,
+        "md5": "a8aad87fae7780f0d46f85070065b56c",
+        "checksum": {
+          "type": "MD5",
+          "value": "a8aad87fae7780f0d46f85070065b56c"
+        },
+        "tabularData": false,
+        "creationDate": "2025-01-23",
+        "publicationDate": "2025-01-23",
+        "fileAccessRequest": true
+      }
+    }
+  ]
+}
