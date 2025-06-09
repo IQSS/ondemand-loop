@@ -1,5 +1,5 @@
 all:: loop_up
-.PHONY: loop_up loop_down loop_build loop_docker_builder logs bash test
+.PHONY: loop_up loop_down loop_build remote_dev_build release_build loop_docker_builder clean logs bash test test_bash version release_notes
 
 COMPOSE_CMD = docker compose
 OOD_UID := $(shell id -u)

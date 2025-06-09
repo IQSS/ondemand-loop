@@ -2,15 +2,53 @@
 
 # OnDemand Loop
 
-
 Application to transfer data from heterogeneous research data repositories into Open OnDemand. With the possibility of syncing the data back.
 
 Creating the perfect loop for research data
 
-The first repository integration is for Dataverse.
+The first remote repository integration is Dataverse.
 Dataverse will be used as the reference implementation for all features related to this application.
 
-## 🚀 Getting Started
+OnDemand Loop has been designed from the ground up to be a companion to the Open OnDemand application.
+It is deployed into the Open OnDemand environment as another passenger app.
+It has been configured to be deployed under /var/www/ood/apps/sys/loop
+
+The OnDemand environment will launch the application in the same way as the Dashboard app.
+The URL will be https://<ood-server>/pun/sys/loop
+
+## 🚀 Deployment
+The application has been designed to be installed as a OnDemand passenger app.
+
+### System Requirements
+- `Ruby`
+- `NodeJS`
+
+The application has been built to work with the same Ruby and NodeJS requirements as Open OnDemand.
+
+### Installation
+Select a version to deploy, we recommend to install the [latest version ](https://github.com/IQSS/ondemand-loop/releases/latest)
+To install the application as a system application, checkout the release into the OnDemand server sys folder and build the application:
+
+```bash
+cd /var/www/ood/apps/sys
+git clone --branch v1.0.0#2025-06-06 --depth 1 https://github.com/IQSS/ondemand-loop.git loop
+cd loop
+./loop_build.sh
+```
+
+The build process simply install the dependencies into the `vendor/bundle` application folder and compile the CSS and Javascript files.
+
+Now launch the application: `https://<your-server>/pun/sys/loop`
+
+## 🛠️ Development
+To try the application locally or to update or create new features,
+we have created a Docker based local environment to build and run the application.
+
+The required Docker images to build and run has been created and uploaded into the official DockerHub:
+ - [App Builder Images](https://hub.docker.com/r/hmdc/ondemand-loop/tags)
+ - [OnDemand Environment Images](https://hub.docker.com/r/hmdc/sid-ood/tags)
+
+The versions used are referenced in the [Makefile file](./Makefile)
 
 ### Prerequisites
 Ensure you have the following installed:
@@ -18,147 +56,51 @@ Ensure you have the following installed:
 - [Docker Compose](https://docs.docker.com/compose/)
 - `make` (usually pre-installed on Linux/macOS, Windows users may need to install it via WSL or Git Bash)
 
+### Local Environment
+The local environment uses Docker compose to start the following containers:
+ - Open OnDemand v3.1.7
+ - SMTP server
 
-## 📦 Available commands
+Docker compose will mount the local `application` directory into the OOD `/var/www/ood/apps/sys/loop` folder.
 
-The following `make` commands are available to manage the application:
-
-### Build and Install Dependencies
-- **Build the Docker container to build the application:**
-  ```sh
-  make loop_docker_builder
-  ```
-- **Install dependencies and compile assets:**
+To run the application locally, build the application and start Docker compose.
+These commands have been abstracted into Make targets:
   ```sh
   make loop_build
-  ```
-
-### Start and Stop Containers
-- **Start the container in the background:**
-  ```sh
   make loop_up
   ```
-- **Stop the container:**
-  ```sh
-  make loop_down
-  ```
 
-### Debugging and Logs
-- **View development logs for the OnDemand Loop application:**
-  ```sh
-  make logs
-  ```
-- **Open a Bash shell inside the OOD container running OOD and OnDemand Loop:**
-  ```sh
-  make bash
-  ```
+The local environment has configured a test user with the following credentials:
+ - username: ood
+ - password: ood
 
+Launch the application: [https://localhost:33000/pun/sys/loop](https://localhost:33000/pun/sys/loop)  
+Launch OOD: [https://localhost:33000/pun/sys/dashboard](https://localhost:33000/pun/sys/dashboard)
 
-### Running Tests
-- **Run tests using Minitest:**
-  ```sh
-  make test
-  ```
-  
-## Start developing and running the application
-
-To start developing or running the developer server, run the following commands:
-
-```sh
-make loop_build
-```
-To build the developer container image
-
-```sh
-make loop_up
-```
-To install all gem dependencies and build the assets
-
-The application will be running under `https://localhost:33000/pun/sys/loop`
-
-### Populate local environment with development data
-
-to load the special project folder with sample files to view the application
-with some data, run this task:
-
-```sh
-rake dev:populate
-```
-
-## Install External Tool in Dataverse
-
-Assuming that Dataverse is running locally in `localhost:8080` and this application running standalone in
-`localhost:3000`, this will be the command to install the dataset External Tool manifest into Dataverse to
-connect both applications:
-
-```bash
-curl --location 'http://localhost:8080/api/admin/externalTools' \
---header 'Content-Type: application/json' \
---data '{
-  "displayName": "Explore in OOD",
-  "description": "A external tool to Explore datasets in OOD and download their files",
-  "toolName": "dataverse_on_demand_dataset_tool",
-  "scope": "dataset",  
-  "types": [
-    "explore"
-  ],
-  "toolUrl": "http://localhost:33000/pun/sys/loop/integrations/dataverse/external_tool/dataset",
-  "httpMethod":"GET",
-  "toolParameters": {
-    "queryParameters": [      
-      {
-        "datasetPid": "{datasetPid}"
-      },
-      {
-        "datasetId": "{datasetId}"
-      },
-      {
-        "locale":"{localeCode}"
-      }
-    ]
-  },
-  "allowedApiCalls": [    
-    {
-      "name":"getDatasetDetailsFromPid",
-      "httpMethod":"GET",
-      "urlTemplate":"/api/datasets/:persistentId/?persistentId={datasetPid}",
-      "timeOut":270
-    },
-    {
-      "name":"getDatasetDetails",
-      "httpMethod":"GET",
-      "urlTemplate":"/api/datasets/{datasetId}",
-      "timeOut":270
-    }
-  ]
-}'
-```
-
-For production deployments, please change the Dataverse server location in the curl command and use the full path of the OOD 
-Passenger app in the `fullUrl` JSON property.
+> **⚠️ Self-Signed Certificate Warning**
+>
+> When running the app locally, you will encounter a browser warning about the connection not being secure.
+> This is because the development environment uses a self-signed SSL certificate.
+> You can proceed safely by accepting the exception in your browser.
 
 
-### Technical Notes
-Adding vanilla JS to the app
-app/javascript/collections_status_refresh.js
+## ⚙️ Available Make Commands
 
-config/importmap.rb
-pin "collections_status_refresh"
-```erb
-<script type="module" src="<%= asset_path('collections_status_refresh') %>"></script>
-```
+The following `make` commands are available to manage the application locally:
 
-```javascript
-import { cssBadgeForState } from "./utils"
-  document.addEventListener("DOMContentLoaded", function () {
-    console.log("JavaScript file loaded!");
-    myFunction();
-  });
+| Command                  | Description                                                       |
+|--------------------------|-------------------------------------------------------------------|
+| `make clean`             | 🧹 Removes temporary build artifacts, logs, and compiled files.   |
+| `make loop_docker_builder` | 🐳 Builds the Docker image used for compiling/building the app.   |
+| `make loop_build`        | 🏗️ Builds the app inside the Docker builder container.           |
+| `make loop_up`           | 🚀 Starts the app and its dependencies in Docker containers.      |
+| `make loop_down`         | ⛔ Stops and removes the Docker containers and associated networks. |
+| `make bash`              | 🐚 Opens an interactive shell in the app's running Docker container. |
+| `make logs`              | 📜 Tails application logs from the running app container. |
+| `make test`              | 🧪 Runs the full test suite (e.g., Minitest).                     |
+| `make test_bash`         | 🔬 Opens a shell in the test container for manual testing/debugging. |
 
-  function myFunction() {
-    console.log("MyFunction")
-    setInterval(() => {
-      console.log(cssBadgeForState('error'))
-    }, loop_app_config.connector_status_poll_interval)
-  }
-```
+
+
+
+
