@@ -16,6 +16,10 @@ It has been configured to be deployed under /var/www/ood/apps/sys/loop
 The OnDemand environment will launch the application in the same way as the Dashboard app.
 The URL will be https://<ood-server>/pun/sys/loop
 
+### 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
 ## 🚀 Deployment
 The application has been designed to be installed as a OnDemand passenger app.
 
