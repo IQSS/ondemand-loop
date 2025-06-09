@@ -48,7 +48,7 @@ Before submitting code changes:
 1. **Open an issue** to discuss the problem or feature.
 2. **Fork the repository** and create a new branch with a meaningful name.
 3. Follow the style conventions of the project:
-    - Ruby 3.1.5+, Rails 7.2
+    - Ruby 3.1.5+, Rails 7.2.2.1
     - Bootstrap 5.3, Stimulus
     - Use single quotes in Ruby whenever possible
 4. Add **tests using Minitest with Mocha**.
