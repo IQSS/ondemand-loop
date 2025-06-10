@@ -11,9 +11,9 @@
           <div class="col-sm-12 d-md-none" role="cell">
             <div class="d-flex align-items-center">
               <%= link_to(files_app_url(data.project.download_dir), class: 'btn btn-sm btn-outline-secondary me-2',
-                          title: t('.browse_file'), "aria-label" =>  t('.browse_file_for', filename: data.file.filename),
-                          target: '_blank', role: 'button') do %>
+                          title: t('.browse_file'), target: '_blank') do %>
                 <i class="bi bi-folder" aria-hidden="true"></i>
+                <span class="visually-hidden"><%= t('.browse_file_for', filename: data.file.filename) %></span>
               <% end %>
               <span class="me-2"><%= connector_icon(data.file.type) %></span>
               <span class="me-2"><%= data.file.filename %></span>
@@ -25,9 +25,9 @@
           <div class="col-md-8 d-none d-sm-none d-md-block" role="cell">
             <div class="d-flex align-items-center">
             <%= link_to(files_app_url(data.project.download_dir), class: 'btn btn-sm btn-outline-secondary me-2',
-                        title: t('.browse_file'), "aria-label" =>  t('.browse_file_for', filename: data.file.filename),
-                        target: '_blank', role: 'button') do %>
+                        title: t('.browse_file'), target: '_blank') do %>
               <i class="bi bi-folder" aria-hidden="true"></i>
+              <span class="visually-hidden"><%= t('.browse_file_for', filename: data.file.filename) %></span>
             <% end %>
               <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-2"
                    aria-label="<%= t('.creation_date') %>"
@@ -53,13 +53,13 @@
             <%= status_badge(data.file.status, filename: data.file.filename) %>
 
             <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger <%= cancel_button_class(data.file.status) %>" title="<%= t('.cancel_download') %>"
-                    aria-label="<%= t('.cancel_download_for', filename: data.file.filename) %>"
                     data-controller="download-file-cancellation"
                     data-action="click->download-file-cancellation#cancel"
                     <%= 'disabled' unless data.file.status.downloading? %>
                     data-download-file-cancellation-url-value="<%= cancel_project_download_file_path(project_id: data.file.project_id, id: data.file.id) %>">
               <span data-download-file-cancellation-target="spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-              <span data-download-file-cancellation-target="label"><i class="bi bi-sign-stop"></i></span>
+              <span data-download-file-cancellation-target="label"><i class="bi bi-sign-stop" aria-hidden="true"></i></span>
+              <span class="visually-hidden"><%= t('.cancel_download_for', filename: data.file.filename) %></span>
             </button>
           </div>
         </div>
