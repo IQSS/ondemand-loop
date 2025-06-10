@@ -5,7 +5,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" role="menubar">
         <li class="nav-item">
           <%= nav_link_to t(".projects"), projects_path, class: 'nav-link' %>
         </li>
@@ -20,7 +20,7 @@
             <%= t(".repositories") %>
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<%= view_dataverse_landing_path %>">Dataverse</a></li>
+            <li><a class="dropdown-item" href="<%= view_dataverse_landing_path %>" role="menuitem">Dataverse</a></li>
           </ul>
         </li>
       </ul>
