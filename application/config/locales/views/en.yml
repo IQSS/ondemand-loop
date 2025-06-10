@@ -130,8 +130,10 @@ en:
     files:
       scheduled_downloads: "Scheduled Downloads"
       browse_file: "Browse file"
+      browse_file_for: "Browse file %{filename}"
       creation_date: "Creation date"
       cancel_download: "Cancel download"
+      cancel_download_for: "Cancel download of %{filename}"
     index:
       downloads: "Downloads"
   file_browser:
@@ -280,6 +282,7 @@ en:
     files:
       scheduled_uploads: "Scheduled Uploads"
       browse_file: "Browse file"
+      browse_file_for: "Browse file %(filename)"
       external_dataset: "External dataset"
       schedule_creation_date: "Schedule creation date"
       cancel_upload: "Cancel upload"

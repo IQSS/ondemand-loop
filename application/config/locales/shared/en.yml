@@ -2,6 +2,7 @@ en:
   acts_as_page:
     results_summary: "%{start_index} to %{end_index} of %{total_count} results"
     out_of_range: "Out of range"
+  connector_type: "Connector type %{type}"
   status:
     pending: "pending"
     downloading: "downloading"
@@ -9,6 +10,8 @@ en:
     success: "success"
     error: "error"
     cancelled: "cancelled"
+  file_status: "File status"
+  file_status_for: "File status for %{filename}"
   helpers:
     invalid_dataverse_hostname: "Invalid Dataverse hostname"
     key_missing: "API Token missing"

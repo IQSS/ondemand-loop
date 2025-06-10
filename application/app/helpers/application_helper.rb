@@ -36,7 +36,7 @@ module ApplicationHelper
     "alert alert-#{class_type}"
   end
 
-  def status_badge(status, title = nil)
+  def status_badge(status, title: nil, filename: nil)
     # Determine the color of the badge based on the status
     case status
     when FileStatus::SUCCESS
@@ -50,8 +50,8 @@ module ApplicationHelper
     else
       color = 'bg-secondary'
     end
-
+    aria_label = filename ? t("file_status_for", filename: filename) : t("file_status")
     # Return a span with the appropriate class and status text
-    content_tag(:span, t("status.#{status}"), class: "badge file-status #{color}", title: title, role: 'status')
+    content_tag(:span, t("status.#{status}"), class: "badge file-status #{color}", title: title, role: 'status', "aria-label" => aria_label)
   end
 end
