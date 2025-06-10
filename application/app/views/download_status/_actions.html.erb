@@ -1,9 +1,10 @@
-<div class="text-end sticky-top bg-white z-index-999">
-  <%= link_to(files_app_url(Configuration.download_root), class: 'btn btn-outline-dark btn-sm', target: '_blank', role: 'button', title: t('.downloads_directory')) do %>
-    <i class="bi bi-folder-fill"></i><span class="ps-1"><%= t('.downloads_directory') %></span>
+<div class="text-end sticky-top bg-white z-index-999" aria-label="<%= t('.downloads_actions_bar') %>">
+  <%= link_to(files_app_url(Configuration.download_root), class: 'btn btn-outline-dark btn-sm', target: '_blank',
+              role: 'button', title: t('.downloads_directory'), "aria-label" => t('.downloads_directory')) do %>
+    <i class="bi bi-folder-fill" aria-hidden="true"></i><span class="ps-1"><%= t('.downloads_directory') %></span>
   <% end %>
-  <%= link_to(download_status_path, class: 'btn btn-outline-dark btn-sm', role: 'button', title: t('.reload')) do %>
-    <i class="bi bi-arrow-clockwise bold"></i><span class="ps-1"><%= t('.reload') %></span>
+  <%= link_to(download_status_path, class: 'btn btn-outline-dark btn-sm', role: 'button', title: t('.reload'), "aria-label" => t('.reload')) do %>
+    <i class="bi bi-arrow-clockwise bold" aria-hidden="true"></i><span class="ps-1"><%= t('.reload') %></span>
   <% end %>
 </div>
 

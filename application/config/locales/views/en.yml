@@ -127,6 +127,7 @@ en:
     actions:
       downloads_directory: "Downloads Directory"
       reload: "Reload"
+      downloads_actions_bar: "Downloads actions bar"
     files:
       scheduled_downloads: "Scheduled Downloads"
       browse_file: "Browse file"
