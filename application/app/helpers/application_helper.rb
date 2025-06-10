@@ -22,7 +22,6 @@ module ApplicationHelper
     end
 
     overridden_options[:aria] ||= {}
-    overridden_options[:role] ||= 'menuitem'
     if current_page?(path)
       overridden_options[:aria][:current] = 'page'
       existing_classes = overridden_options[:class].to_s.split

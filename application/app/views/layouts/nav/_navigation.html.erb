@@ -6,13 +6,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0" role="menubar">
-        <li class="nav-item">
+        <li class="nav-item" role="menuitem">
           <%= nav_link_to t(".projects"), projects_path, class: 'nav-link' %>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" role="menuitem">
           <%= nav_link_to t(".downloads"), download_status_path, class: 'nav-link' %>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" role="menuitem">
           <%= nav_link_to t(".uploads"), upload_status_path, class: 'nav-link' %>
         </li>
         <li class="nav-item dropdown">
@@ -20,12 +20,12 @@
             <%= t(".repositories") %>
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="<%= view_dataverse_landing_path %>" role="menuitem">Dataverse</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="<%= view_dataverse_landing_path %>">Dataverse</a></li>
           </ul>
         </li>
       </ul>
-      <ul class="navbar-nav ms-auto"> <!-- ms-auto pushes this section to the right -->
-        <li class="nav-item">
+      <ul class="navbar-nav ms-auto" role="menubar"> <!-- ms-auto pushes this section to the right -->
+        <li class="nav-item" role="menuitem">
           <a class="nav-link d-flex align-items-center"
              data-bs-toggle="collapse"
              href="#repo-resolver-bar"
@@ -35,12 +35,12 @@
             <%= image_tag('icon.png', alt: t('.icon_alt_text'), class: 'icon-class me-1') %> <%= t(".explore") %>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" role="menuitem">
           <%= nav_link_to ood_dashboard_url, class: 'nav-link d-flex align-items-center', target: '_blank' do %>
             <%= image_tag('ood_icon.svg', alt: t('.ood_icon_alt_text'), class: 'icon-class me-1') %> Open OnDemand
           <% end %>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" role="menuitem">
           <%= nav_link_to t(".restart"), restart_url, class: 'nav-link d-flex align-items-center' %>
         </li>
       </ul>
