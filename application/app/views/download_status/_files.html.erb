@@ -14,7 +14,9 @@
                         target: '_blank', role: 'button') do %>
               <i class="bi bi-folder" aria-hidden="true"></i>
             <% end %>
-              <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-2" title="<%= t('.creation_date') %>">
+              <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-2"
+                   aria-label="<%= t('.creation_date') %>"
+                   title="<%= t('.creation_date') %>">
                 <span><%= get_date(data.file.creation_date) %></span>
                 <span><%= get_time(data.file.creation_date) %></span>
               </div>
