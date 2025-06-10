@@ -137,6 +137,7 @@ en:
       cancel_download_for: "Cancel download of %{filename}"
     index:
       downloads: "Downloads"
+      title: "Downloads"
   file_browser:
     browser:
       edit_path: "Edit path"
