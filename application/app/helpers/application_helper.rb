@@ -52,6 +52,6 @@ module ApplicationHelper
     end
 
     # Return a span with the appropriate class and status text
-    content_tag(:span, t("status.#{status}"), class: "badge file-status #{color}", title: title)
+    content_tag(:span, t("status.#{status}"), class: "badge file-status #{color}", title: title, role: 'status')
   end
 end
