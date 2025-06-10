@@ -56,6 +56,7 @@
                     aria-label="<%= t('.cancel_download_for', filename: data.file.filename) %>"
                     data-controller="download-file-cancellation"
                     data-action="click->download-file-cancellation#cancel"
+                    <%= 'disabled' unless data.file.status.downloading? %>
                     data-download-file-cancellation-url-value="<%= cancel_project_download_file_path(project_id: data.file.project_id, id: data.file.id) %>">
               <span data-download-file-cancellation-target="spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
               <span data-download-file-cancellation-target="label"><i class="bi bi-sign-stop"></i></span>
