@@ -7,7 +7,7 @@
     <div class="container files" role="table">
       <% files.each_with_index do |data, index| %>
         <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>" role="row">
-          <div class="col-md-8">
+          <div class="col-md-8" role="cell">
             <div class="d-flex align-items-center">
             <%= link_to(files_app_url(data.project.download_dir), class: 'btn btn-sm btn-outline-secondary me-2',
                         title: t('.browse_file'), "aria-label" =>  t('.browse_file_for', filename: data.file.filename),
@@ -26,13 +26,13 @@
 
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-2" role="cell">
             <% if data.file.status.downloading? %>
-              <%= render partial: '/shared/progress_bar', locals: { progress: data.file.connector_status.download_progress } %>
+              <%= render partial: '/shared/progress_bar', locals: { progress: data.file.connector_status.download_progress, file: data.file } %>
             <% end %>
           </div>
 
-          <div class="download-actions col-md-2 text-end">
+          <div class="download-actions col-md-2 text-end" role="cell">
             <%= status_badge(data.file.status, filename: data.file.filename) %>
 
             <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger <%= cancel_button_class(data.file.status) %>" title="<%= t('.cancel_download') %>"

@@ -3,7 +3,8 @@
   <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
        role="progressbar"
        style="width: <%= progress %>%"
+       aria-labelledby="progress-bar-label-<%= file.id %>"
        aria-valuenow="<%= progress%>" aria-valuemin="0" aria-valuemax="100">
   </div>
-  <span class="progress-text text-secondary"><%= progress %>%</span>
+  <span class="progress-text text-secondary" id="progress-bar-label-<%= file.id %>"><%= progress %>%</span>
 </div>

@@ -35,7 +35,7 @@
 
           <div class="col-md-2">
             <% if data.file.status.uploading? %>
-              <%= render partial: '/shared/progress_bar', locals: { progress: data.file.connector_status.upload_progress } %>
+              <%= render partial: '/shared/progress_bar', locals: { progress: data.file.connector_status.upload_progress, file: data.file } %>
             <% end %>
           </div>
 
