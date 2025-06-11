@@ -44,6 +44,7 @@
             <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger <%= cancel_button_class(data.file.status) %>" title="<%= t('.button.cancel_upload.title') %>"
                     data-controller="upload-file-cancellation"
                     data-action="click->upload-file-cancellation#cancel"
+                    <%= 'disabled' unless data.file.status.uploading? %>
                     data-upload-file-cancellation-url-value="<%= cancel_project_upload_bundle_upload_file_path(project_id: data.file.project_id, upload_bundle_id: data.file.upload_bundle_id, id: data.file.id) %>">
               <span data-upload-file-cancellation-target="spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
               <span data-upload-file-cancellation-target="label"><i class="bi bi-sign-stop" aria-hidden="true"></i></span>
