@@ -1,0 +1,53 @@
+<%# Ensure values have defaults %>
+<% completed = summary.success + summary.cancelled + summary.error %>
+<% total = summary.total %>
+
+<%
+  percent = total == 0 ? 0 : (completed * 100 / total.to_f).round(1).to_i
+  offset = (114 - (114 * percent.to_f / 100)).round(1).to_i
+%>
+
+<% progress_color ||= '#0d6efd' %>
+<% background_color ||= '#d7dce1' %>
+<% text_color ||= '#212529' %>
+
+<div class="d-inline-flex align-items-center gap-2 file-summary-inline">
+  <!-- Progress Circle -->
+  <div class="d-inline-block" style="width: 44px;" title="Completed <%= percent.to_i %>%">
+    <svg viewBox="0 0 44 44" width="100%" height="100%" class="progress-circle">
+      <circle cx="22" cy="22" r="18"
+              stroke="<%= background_color %>"
+              fill="none"
+              stroke-width="6" />
+      <g transform="rotate(-90 22 22)">
+        <circle cx="22" cy="22" r="18"
+                stroke="<%= progress_color %>"
+                fill="none"
+                stroke-width="6"
+                stroke-dasharray="114"
+                stroke-dashoffset="<%= offset %>"
+                stroke-linecap="butt"
+                style="transition: stroke-dashoffset 0.6s ease;" />
+      </g>
+      <text x="22" y="22"
+            dy="1.5"
+            font-size="0.8rem"
+            font-weight="600"
+            fill="<%= text_color %>"
+            dominant-baseline="middle"
+            text-anchor="middle">
+        <%= percent.to_i %>
+      </text>
+    </svg>
+  </div>
+
+  <!-- Title + Badges -->
+  <div class="d-flex flex-column justify-content-start">
+    <div class="d-flex flex-wrap align-items-center gap-2 file-summary">
+      <span class="badge badge-project-pending">Pending: <%= summary.pending %></span>
+      <span class="badge badge-project-progress">In Progress: <%= summary.downloading %></span>
+      <span class="badge badge-project-completed">Completed: <%= completed %></span>
+      <span class="badge badge-project-total">Total: <%= summary.total %></span>
+    </div>
+  </div>
+</div>

@@ -23,7 +23,7 @@ class DetachedProcessTest < ActiveSupport::TestCase
     controller = mock('DetachedProcessController')
     controller.expects(:run).once
 
-    DetachedProcessController.stubs(:new).returns(controller)
+    DetachedProcessManager.stubs(:new).returns(controller)
     Command::CommandServer.stubs(:new).returns(command_server)
     Download::DownloadService.stubs(:new)
     Upload::UploadService.stubs(:new)
@@ -45,7 +45,7 @@ class DetachedProcessTest < ActiveSupport::TestCase
 
       # Expect nothing else to be initialized
       Command::CommandServer.expects(:new).never
-      DetachedProcessController.expects(:new).never
+      DetachedProcessManager.expects(:new).never
 
       process.launch
     end

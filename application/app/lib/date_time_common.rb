@@ -53,5 +53,5 @@ module DateTimeCommon
     end
   end
 
-  module_function :now
+  module_function :now, :elapsed, :elapsed_string, :to_time
 end

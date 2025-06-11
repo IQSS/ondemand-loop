@@ -45,5 +45,16 @@
         </li>
       </ul>
     </div>
+
+    <div id="process-status"
+         data-controller="lazy-loader"
+         data-lazy-loader-url-value="<%= detached_process_status_path %>"
+         data-lazy-loader-interval-value="10000">
+      <div id="file-activity-status"
+           class="d-flex justify-content-center align-items-start py-2"
+           style="min-width: 100px; height: 100%;">
+        <span class="text-light spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      </div>
+    </div>
   </div>
 </nav>

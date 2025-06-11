@@ -10,6 +10,7 @@ module Upload
       @files_provider = upload_files_provider
       @start_time = Time.now
       @stats = { pending: 0, completed: 0 }
+      Command::CommandRegistry.instance.register('detached.upload.status', self)
     end
 
     def start
@@ -41,6 +42,10 @@ module Upload
         upload_threads.each(&:join)
       end
 
+    end
+
+    def process(request)
+      stats.merge({start_date: @start_time, elapsed: elapsed_time})
     end
 
     def shutdown

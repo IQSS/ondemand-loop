@@ -14,6 +14,7 @@ module Command
 
     def request(request, timeout: 1)
       socket = nil
+      return Response.error(status: 521, message: 'Socket file not found') unless File.exist?(@socket_path)
 
       Timeout.timeout(timeout) do
         begin
@@ -22,7 +23,7 @@ module Command
           raw_response = socket.gets
 
           if raw_response.nil?
-            raise CommandError, "No response from server for request=#{request.inspect}"
+            return Response.error(message: "No response from server for request=#{request.inspect}")
           end
 
           Command::Response.from_json(raw_response.strip)

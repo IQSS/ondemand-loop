@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# DetachedProcessController: orchestrates multiple ProcessExecutors
-class DetachedProcessController
+# DetachedProcessManager: orchestrates multiple ProcessExecutors
+class DetachedProcessManager
   include LoggingCommon
 
   def initialize(services, interval: Configuration.detached_controller_interval)

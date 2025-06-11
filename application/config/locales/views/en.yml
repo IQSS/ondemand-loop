@@ -123,6 +123,10 @@ en:
       index:
         home: "Home"
         dataverse_icon: "Dataverse icon"
+  detached_process:
+    file_activity_status:
+      icon_downloads_title: "Download process status"
+      icon_uploads_title: "Upload process status"
   download_status:
     actions:
       actions_bar:
@@ -268,6 +272,19 @@ en:
       cancelled_files: "Cancelled files"
       error_files: "Error files"
       total_files: "Total files"
+    files_process_header:
+      download:
+        icon_idle_title: "Download process is idle"
+        icon_running_title: "Download process is running"
+        date_title: "Last batch process start date"
+        title: "Scheduled Downloads"
+        elapsed_title: "Elapsed"
+      upload:
+        icon_idle_title: "Upload process is idle"
+        icon_running_title: "Upload process is running"
+        date_title: "Last batch process start date"
+        title: "Scheduled Uploads"
+        elapsed_title: "Elapsed"
     inline_field_submit:
       default_placeholder: "Enter value"
       submit: "Submit"

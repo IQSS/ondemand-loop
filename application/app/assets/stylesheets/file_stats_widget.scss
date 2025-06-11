@@ -20,30 +20,50 @@ div.project-progress {
   min-width: 30px;
 }
 
+.badge-project-pending {
+  background-color: #bcd4ee;
+  color: #3a5c78;
+  border: 1px solid #a7c4e2;
+}
+
+.badge-project-pending:hover {
+  background-color: #aac5e5;
+}
+
+.badge-project-progress {
+  background-color: #c0d8f9;
+  color: #084298;
+  border: 1px solid #aacdf3;
+}
+
+.badge-project-progress:hover {
+  background-color: #b0cef2;
+}
+
+.badge-project-completed {
+  background-color: #8fb9ec;
+  color: #063a78;
+  border: 1px solid #7aadce;
+}
+
+.badge-project-completed:hover {
+  background-color: #7eabdd;
+}
+
+.badge-project-total {
+  background-color: #4793e8;
+  color: #c9def4;
+  border: 1px solid #3e83ce;
+}
+
+.badge-project-total:hover {
+  background-color: #3f86d8;
+}
+
 .badge-project-error {
   background-color: #e8b3b9;
   color: #842029;
   border: 1px solid #d19ca1;
-}
-
-.badge-project-completed {
-  background-color: #b3cbe9;
-  color: #0d6efd;
-  border: 1px solid #a3bee0;
-}
-
-.badge-project-completed:hover {
-  background-color: #a3bee0;
-}
-
-.badge-project-pending {
-  background-color: #dee2e6;
-  color: #6c757d;
-  border: 1px solid #ced4da;
-}
-
-.badge-project-pending:hover {
-  background-color: #c7ced4;
 }
 
 .badge-project-error {
@@ -66,12 +86,33 @@ div.project-progress {
   background-color: #ebd5c5;
 }
 
-.badge-project-total {
-  background-color: #d7dce1;
-  color: #343a40;
-  border: 1px solid #c1c7cd;
+.badge-project-elapsed {
+  background-color: #ffe8a1;
+  color: #664d03;
+  border: 1px solid #ffdd85;
 }
 
-.badge-project-total:hover {
-  background-color: #c7ced4;
+.badge-project-elapsed:hover {
+  background-color: #ffdf91;
 }
+
+#file-activity-status {
+  .btn-outline-warning:hover i,
+  .btn-outline-warning:focus i,
+  .btn-outline-info:hover i,
+  .btn-outline-info:focus i{
+    color: #000 !important;
+  }
+}
+
+@keyframes pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.15); opacity: 0.5; }
+  100% { transform: scale(1); }
+}
+
+.pulse {
+  animation: pulse 2s ease-in-out 2;
+}
+
+

@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
+  <!-- Status Section: icon + dynamic details -->
+  <div class="d-flex align-items-center gap-3 text-muted small">
+    <% if @status.idle? %>
+      <i class="bi bi-pause-circle-fill text-secondary fs-3" title="<%= t(".#{type}.icon_idle_title") %>"></i>
+    <% else %>
+      <i class="bi bi-play-circle-fill text-success fs-3" title="<%= t(".#{type}.icon_running_title") %>"></i>
+    <% end %>
+    <%= render partial: '/shared/file_row_date', locals: { date: @status.start_date, title: t(".#{type}.date_title"), classes: ''} %>
+  </div>
+
+  <!-- Header Title -->
+  <div class="flex-grow-1 d-flex flex-column">
+    <h5 class="mb-0 text-nowrap"><%= t(".#{type}.title") %></h5>
+    <span class="text-muted" style="font-size: 0.8rem;"><strong><%= t(".#{type}.elapsed_title") %></strong> <%= @status.elapsed %></span>
+  </div>
+
+  <!-- Status Summary Widget -->
+  <%= render partial: '/shared/process_summary_widget', locals: { summary: @summary } %>
+
+</div>

@@ -1,8 +1,9 @@
 <% files ||= [] %>
 <div id="schedule-downloads" class="card">
   <div class="card-header">
-    <h1><%= t('.header.scheduled_downloads.text') %></h1>
+    <%= render partial: '/shared/files_process_header', locals: { type: 'download' } %>
   </div>
+
   <div class="card-body bg-light px-0">
     <div class="container files" role="table">
       <% files.each_with_index do |data, index| %>

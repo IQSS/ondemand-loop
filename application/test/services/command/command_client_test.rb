@@ -58,17 +58,15 @@ class Command::CommandClientTest < ActiveSupport::TestCase
     end
   end
 
-  test 'Should raise CommandError if socket is unavailable' do
+  test 'Should return 521 error response if socket is unavailable' do
     @server.shutdown
 
     client = Command::CommandClient.new(socket_path: @socket_path)
+    request = Command::Request.new(command: 'status')
+    result = client.request(request)
 
-    error = assert_raises(Command::CommandClient::CommandError) do
-      request = Command::Request.new(command: 'status')
-      client.request(request)
-    end
-
-    assert_match 'Error processing request', error.message
+    assert_equal 521, result.status
+    assert_equal 'Socket file not found', result.body.message
   end
 
   test 'Should raise CommandError if error processing the response' do

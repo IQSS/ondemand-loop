@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class DetachedProcessControllerTest < ActiveSupport::TestCase
+class DetachedProcessManagerTest < ActiveSupport::TestCase
   class MockService
     def initialize(work_time: 0.1, shutdown_error: false)
       @work_time = work_time
@@ -25,7 +25,7 @@ class DetachedProcessControllerTest < ActiveSupport::TestCase
     service1.expects(:shutdown).once
     service2.expects(:shutdown).once
 
-    controller = DetachedProcessController.new([service1, service2], interval: 0.5)
+    controller = DetachedProcessManager.new([service1, service2], interval: 0.5)
 
     assert_nothing_raised do
       controller.run
@@ -40,7 +40,7 @@ class DetachedProcessControllerTest < ActiveSupport::TestCase
     slow_service = MockService.new(work_time: 1.5)
     slow_service.expects(:shutdown).once
 
-    controller = DetachedProcessController.new([fast_service, slow_service], interval: 0.5)
+    controller = DetachedProcessManager.new([fast_service, slow_service], interval: 0.5)
 
     assert_nothing_raised do
       controller.run
@@ -55,7 +55,7 @@ class DetachedProcessControllerTest < ActiveSupport::TestCase
     good_service = MockService.new(work_time: 0.2)
     good_service.expects(:shutdown).once
 
-    controller = DetachedProcessController.new([faulty_service, good_service], interval: 0.5)
+    controller = DetachedProcessManager.new([faulty_service, good_service], interval: 0.5)
 
     assert_nothing_raised do
       controller.run
@@ -69,7 +69,7 @@ class DetachedProcessControllerTest < ActiveSupport::TestCase
     faulty_service = MockService.new(work_time: 0.1, shutdown_error: true)
     faulty_service.expects(:shutdown).once.raises(StandardError, 'Shutdown failed')
 
-    controller = DetachedProcessController.new([faulty_service, good_service], interval: 0.2)
+    controller = DetachedProcessManager.new([faulty_service, good_service], interval: 0.2)
 
     assert_nothing_raised do
       controller.run

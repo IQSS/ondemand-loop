@@ -5,7 +5,7 @@
         <%= render partial: 'actions' %>
 
         <div data-controller="upload-files-status-refresh">
-          <%= render partial: 'files', locals: { files: @files } %>
+          <%= render partial: 'files', locals: { files: @files, status: @status } %>
         </div>
 
       </div>

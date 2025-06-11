@@ -1,7 +1,7 @@
 <% files ||= [] %>
 <div id="schedule-uploads" class="card">
   <div class="card-header">
-    <h4><%= t('.scheduled_uploads') %></h4>
+    <%= render partial: '/shared/files_process_header', locals: { type: 'download' } %>
   </div>
   <div class="card-body bg-light px-0">
     <div class="container files">
