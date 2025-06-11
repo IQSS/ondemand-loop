@@ -13,10 +13,7 @@
                 <i class="bi bi-folder"></i>
               <% end %>
 
-              <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-2" title="<%= t('.schedule_creation_date') %>">
-                <span><%= get_date(data.file.creation_date) %></span>
-                <span><%= get_time(data.file.creation_date) %></span>
-              </div>
+              <%= render partial: '/shared/file_row_date', locals: { date: data.file.creation_date, title: t('.field.creation_date.title'), classes: "mx-2" } %>
 
               <%= render partial: 'shared/repo_badge', locals: {
                 repo_url: data.upload_bundle.connector_metadata.dataverse_url,
