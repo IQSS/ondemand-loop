@@ -132,12 +132,17 @@ en:
         downloads_directory: { title: "Downloads Directory" }
         reload: { title: "Reload" }
     files:
-      scheduled_downloads: "Scheduled Downloads"
-      browse_file: "Browse file"
-      browse_file_for: "Browse file %{filename}"
-      creation_date: "Creation date"
-      cancel_download: "Cancel download"
-      cancel_download_for: "Cancel download of %{filename}"
+      button:
+        browse_file:
+          title: "Browse file"
+          a11y: { text: "Browse file %{filename}" }
+        cancel_download:
+          title: "Cancel download"
+          a11y: { text: "Cancel download of %{filename}" }
+      field:
+        creation_date: { title: "Creation date" }
+      header:
+        scheduled_downloads: { text: "Scheduled Downloads" }
     index:
       breadcrumbs: { text: "Downloads" }
       page: { title: "Downloads" }
