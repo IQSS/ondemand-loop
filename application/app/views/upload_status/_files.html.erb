@@ -22,7 +22,7 @@
                 target: '_blank',
                 icon_html: connector_icon(data.upload_bundle.type),
                 name: data.upload_bundle.connector_metadata.dataverse_title,
-                tooltip: t(".external_dataset")
+                tooltip: t(".badge.repo.tooltip")
               } %>
 
               <span class="me-2"><%= data.project.name %> ></span>
@@ -39,14 +39,15 @@
           </div>
 
           <div class="download-actions col-md-2 text-end" role="cell">
-            <%= status_badge(data.file.status) %>
+            <%= status_badge(data.file.status, filename: data.file.filename) %>
 
-            <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger <%= cancel_button_class(data.file.status) %>" title="<%= t('.cancel_upload') %>"
+            <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger <%= cancel_button_class(data.file.status) %>" title="<%= t('.button.cancel_upload.title') %>"
                     data-controller="upload-file-cancellation"
                     data-action="click->upload-file-cancellation#cancel"
                     data-upload-file-cancellation-url-value="<%= cancel_project_upload_bundle_upload_file_path(project_id: data.file.project_id, upload_bundle_id: data.file.upload_bundle_id, id: data.file.id) %>">
               <span data-upload-file-cancellation-target="spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-              <span data-upload-file-cancellation-target="label"><i class="bi bi-sign-stop"></i></span>
+              <span data-upload-file-cancellation-target="label"><i class="bi bi-sign-stop" aria-hidden="true"></i></span>
+              <span class="visually-hidden"><%= t('.button.cancel_upload.a11y.text', filename: data.file.filename) %></span>
             </button>
           </div>
         </div>

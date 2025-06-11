@@ -138,11 +138,11 @@ en:
     files:
       button:
         browse_file:
-          title: "Browse file"
           a11y: { text: "Browse file %{filename}" }
+          title: "Browse file"
         cancel_download:
-          title: "Cancel download"
           a11y: { text: "Cancel download of %{filename}" }
+          title: "Cancel download"
       field:
         creation_date: { title: "Creation date" }
       header:
@@ -311,12 +311,16 @@ en:
       button:
         reload: { title: "Reload" }
     files:
+      badge:
+        repo:
+          tooltip: "External dataset"
       button:
         browse_file:
-          title: "Browse file"
           a11y: { text: "Browse file %{filename}" }
-      external_dataset: "External dataset"
-      cancel_upload: "Cancel upload"
+          title: "Browse file"
+        cancel_upload:
+          a11y: { text: "Cancel upload of %{filename}" }
+          title: "Cancel upload"
       field:
         creation_date: { title: "Creation date" }
       header:
