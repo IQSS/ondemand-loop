@@ -2,7 +2,7 @@ en:
   acts_as_page:
     results_summary: "%{start_index} to %{end_index} of %{total_count} results"
     out_of_range: "Out of range"
-  connector_type: "Connector type %{type}"
+  connector.icon.a11y.label: "Connector type %{type}"
   status:
     pending: "pending"
     downloading: "downloading"
