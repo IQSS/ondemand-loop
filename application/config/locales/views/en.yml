@@ -139,9 +139,8 @@ en:
       cancel_download: "Cancel download"
       cancel_download_for: "Cancel download of %{filename}"
     index:
-      downloads: "Downloads"
-      page:
-        title: "Downloads"
+      breadcrumbs: { text: "Downloads" }
+      page: { title: "Downloads" }
   file_browser:
     browser:
       edit_path: "Edit path"
