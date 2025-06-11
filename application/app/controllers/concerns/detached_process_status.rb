@@ -17,7 +17,7 @@ module DetachedProcessStatus
   private
 
   def parse_response(response)
-    idle = response.status.to_s != '200' || response.body.pending == 0 || response.body.progress == 0
+    idle = response.status.to_s != '200' || (response.body.pending == 0 && response.body.progress == 0)
     data = { idle?: idle }.merge(response.body.to_h)
     OpenStruct.new(data)
   end

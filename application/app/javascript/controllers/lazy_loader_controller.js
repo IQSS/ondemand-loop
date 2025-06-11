@@ -40,7 +40,12 @@ export default class extends Controller {
         fetch(this.urlValue, {
             headers: { "Accept": "text/html" }
         })
-            .then(res => res.text())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
             .then(html => {
                 this.container.classList.remove("d-none")
                 this.container.innerHTML = html

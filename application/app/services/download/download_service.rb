@@ -61,7 +61,7 @@ module Download
     end
 
     def stats_to_s
-      "in_progress=#{stats[:progress]} pending=#{stats[:pending]} completed=#{stats[:completed]}"
+      "zombies=#{stats[:zombies]} in_progress=#{stats[:progress]} pending=#{stats[:pending]} completed=#{stats[:completed]}"
     end
 
   end

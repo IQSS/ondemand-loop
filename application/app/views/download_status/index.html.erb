@@ -5,7 +5,9 @@
       <div class="col-md-12">
         <%= render partial: 'actions' %>
 
-        <div data-controller="files-status-refresh">
+        <div data-controller="lazy-loader"
+             data-lazy-loader-url-value="<%= download_status_files_path %>"
+             data-lazy-loader-interval-value="<%= Configuration.connector_status_poll_interval.to_i%>">
           <%= render partial: 'files', locals: { files: @files, status: @status } %>
         </div>
 
