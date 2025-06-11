@@ -311,8 +311,10 @@ en:
       button:
         reload: { title: "Reload" }
     files:
-      browse_file: "Browse file"
-      browse_file_for: "Browse file %(filename)"
+      button:
+        browse_file:
+          title: "Browse file"
+          a11y: { text: "Browse file %{filename}" }
       external_dataset: "External dataset"
       cancel_upload: "Cancel upload"
       field:

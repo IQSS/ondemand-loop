@@ -4,13 +4,15 @@
     <%= render partial: '/shared/files_process_header', locals: { type: 'upload' } %>
   </div>
   <div class="card-body bg-light px-0">
-    <div class="container files">
+    <div class="container files" role="table">
       <% files.each_with_index do |data, index| %>
-        <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
-          <div class="col-md-8">
+        <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>" role="row">
+          <div class="col-md-8" role="cell">
             <div class="d-flex align-items-center">
-              <%= link_to(files_app_url(File.dirname(data.file.file_location)), class: 'btn btn-sm btn-outline-secondary me-2', title: t('.browse_file'), target: '_blank') do %>
-                <i class="bi bi-folder"></i>
+              <%= link_to(files_app_url(File.dirname(data.file.file_location)), class: 'btn btn-sm btn-outline-secondary me-2',
+                          title: t('.button.browse_file.title'), target: '_blank') do %>
+                <i class="bi bi-folder" aria-hidden="true"></i>
+                <span class="visually-hidden"><%= t('.button.browse_file.a11y.text', filename: data.file.filename) %></span>
               <% end %>
 
               <%= render partial: '/shared/file_row_date', locals: { date: data.file.creation_date, title: t('.field.creation_date.title'), classes: "mx-2" } %>
@@ -30,13 +32,13 @@
 
           </div>
 
-          <div class="col-md-2">
+          <div class="col-md-2" role="cell">
             <% if data.file.status.uploading? %>
               <%= render partial: '/shared/progress_bar', locals: { progress: data.file.connector_status.upload_progress, file: data.file } %>
             <% end %>
           </div>
 
-          <div class="download-actions col-md-2 text-end">
+          <div class="download-actions col-md-2 text-end" role="cell">
             <%= status_badge(data.file.status) %>
 
             <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger <%= cancel_button_class(data.file.status) %>" title="<%= t('.cancel_upload') %>"
