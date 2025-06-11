@@ -305,7 +305,11 @@ en:
       connect: "Connect"
   upload_status:
     actions:
-      reload: "Reload"
+      actions_bar:
+        title:
+          a11y: { label: "Uploads actions bar" }
+      button:
+        reload: { title: "Reload" }
     files:
       scheduled_uploads: "Scheduled Uploads"
       browse_file: "Browse file"
