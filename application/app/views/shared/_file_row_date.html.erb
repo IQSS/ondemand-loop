@@ -1,5 +1,7 @@
 <% classes = classes || '' %>
-<div class="d-flex flex-column align-items-center fs-7 text-muted creation-date <%= classes %>" title="<%= title %>">
+<div class="d-flex flex-column align-items-center fs-7 text-muted creation-date <%= classes %>"
+     aria-label="<%= title %>"
+     title="<%= title %>">
   <span><%= get_date(date) %></span>
   <span><%= get_time(date) %></span>
 </div>

@@ -29,12 +29,7 @@
               <i class="bi bi-folder" aria-hidden="true"></i>
               <span class="visually-hidden"><%= t('.browse_file_for', filename: data.file.filename) %></span>
             <% end %>
-              <div class="d-flex flex-column align-items-center fs-7 text-muted creation-date mx-2"
-                   aria-label="<%= t('.creation_date') %>"
-                   title="<%= t('.creation_date') %>">
-                <span><%= get_date(data.file.creation_date) %></span>
-                <span><%= get_time(data.file.creation_date) %></span>
-              </div>
+              <%= render partial: '/shared/file_row_date', locals: { date: data.file.creation_date, title: t('.creation_date'), classes: "mx-2" } %>
               <span class="me-2"><%= connector_icon(data.file.type) %></span>
               <span class="me-2"><%= data.project.name %> ></span>
               <span class="me-2"><%= data.file.filename %></span>
