@@ -125,9 +125,12 @@ en:
         dataverse_icon: "Dataverse icon"
   download_status:
     actions:
-      downloads_directory: "Downloads Directory"
-      reload: "Reload"
-      downloads_actions_bar: "Downloads actions bar"
+      actions_bar:
+        title:
+          a11y: { label: "Downloads actions bar" }
+      button:
+        downloads_directory: { title: "Downloads Directory" }
+        reload: { title: "Reload" }
     files:
       scheduled_downloads: "Scheduled Downloads"
       browse_file: "Browse file"
