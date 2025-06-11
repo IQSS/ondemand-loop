@@ -311,12 +311,13 @@ en:
       button:
         reload: { title: "Reload" }
     files:
-      scheduled_uploads: "Scheduled Uploads"
       browse_file: "Browse file"
       browse_file_for: "Browse file %(filename)"
       external_dataset: "External dataset"
       schedule_creation_date: "Schedule creation date"
       cancel_upload: "Cancel upload"
+      header:
+        scheduled_uploads: { text: "Scheduled Uploads" }
     index:
       page_title: "OnDemand Loop - Uploads Management"
       uploads: "Uploads"
