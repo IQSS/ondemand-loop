@@ -148,8 +148,8 @@ en:
       header:
         scheduled_downloads: { text: "Scheduled Downloads" }
     index:
+      page_title: "OnDemand Loop - Downloads Management"
       breadcrumbs: { text: "Downloads" }
-      page: { title: "Downloads" }
   file_browser:
     browser:
       edit_path: "Edit path"
@@ -314,4 +314,5 @@ en:
       schedule_creation_date: "Schedule creation date"
       cancel_upload: "Cancel upload"
     index:
+      page_title: "OnDemand Loop - Uploads Management"
       uploads: "Uploads"
