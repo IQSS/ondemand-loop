@@ -297,11 +297,8 @@ en:
       connect: "Connect"
   upload_status:
     actions:
-      actions_bar:
-        title:
-          a11y: { label: "Uploads actions bar" }
-      button:
-        reload: { title: "Reload" }
+      actions_bar_title_a11y_label: "Uploads actions bar"
+      button_reload_title: "Reload"
     files:
       badge:
         repo:
