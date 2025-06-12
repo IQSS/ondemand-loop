@@ -129,27 +129,19 @@ en:
       icon_uploads_title: "Upload process status"
   download_status:
     actions:
-      actions_bar:
-        title:
-          a11y: { label: "Downloads actions bar" }
-      button:
-        downloads_directory: { title: "Downloads Directory" }
-        reload: { title: "Reload" }
+      actions_bar_title_a11y_label: "Downloads actions bar"
+      button_downloads_directory_title: "Downloads Directory"
+      button_reload_title: "Reload"
     files:
-      button:
-        browse_file:
-          a11y: { text: "Browse file %{filename}" }
-          title: "Browse file"
-        cancel_download:
-          a11y: { text: "Cancel download of %{filename}" }
-          title: "Cancel download"
-      field:
-        creation_date: { title: "Creation date" }
-      header:
-        scheduled_downloads: { text: "Scheduled Downloads" }
+      button_browse_file_a11y_text: "Browse file %{filename}"
+      button_browse_file_title: "Browse file"
+      button_cancel_download_a11y_text: "Cancel download of %{filename}"
+      button_cancel_download_title: "Cancel download"
+      field_creation_date_title: "Creation date"
+      header_scheduled_downloads_text: "Scheduled Downloads"
     index:
+      breadcrumbs_text: "Downloads"
       page_title: "OnDemand Loop - Downloads Management"
-      breadcrumbs: { text: "Downloads" }
   file_browser:
     browser:
       edit_path: "Edit path"
