@@ -315,5 +315,5 @@ en:
       header:
         scheduled_uploads: { text: "Scheduled Uploads" }
     index:
+      breadcrumbs_text: "Uploads"
       page_title: "OnDemand Loop - Uploads Management"
-      uploads: "Uploads"
