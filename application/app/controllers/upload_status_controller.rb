@@ -7,7 +7,7 @@ class UploadStatusController < ApplicationController
     @files = files_provider.recent_files
     @summary = FileStatusSummary.compute_summary(@files.map(&:file))
     uploads = upload_status
-    @status = uploads.idle? ? FileStatusSummary.files_summary(@files) : uploads
+    @status = uploads.idle? ? from_files_summary(@summary) : uploads
   end
 
   def files
@@ -15,7 +15,7 @@ class UploadStatusController < ApplicationController
     @files = files_provider.recent_files
     @summary = FileStatusSummary.compute_summary(@files.map(&:file))
     uploads = upload_status
-    @status = uploads.idle? ? FileStatusSummary.files_summary(@files) : uploads
+    @status = uploads.idle? ? from_files_summary(@summary) : uploads
     render partial: '/upload_status/files', layout: false, locals: { files: @files, status: @status }
   end
 

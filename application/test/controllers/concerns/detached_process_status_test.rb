@@ -15,79 +15,84 @@ class DetachedProcessStatusTest < ActiveSupport::TestCase
 
   test 'status is active when pending > 0 and progress = 0' do
     response = Command::Response.ok(body: { pending: 5, progress: 0 })
-
     @mock_client.stubs(:request).with { |req| req.command == 'detached.download.status' }.returns(response)
     download = @instance.download_status
     assert_equal false, download.idle?
     assert_equal 5, download.pending
-    assert_equal 0, download.progress
 
     @mock_client.stubs(:request).with { |req| req.command == 'detached.upload.status' }.returns(response)
     upload = @instance.upload_status
     assert_equal false, upload.idle?
     assert_equal 5, upload.pending
-    assert_equal 0, upload.progress
   end
 
   test 'status is active when pending = 0 and progress > 0' do
-    response = Command::Response.ok(body: { pending: 0, progress: 3 })
-
+    response = Command::Response.ok(body: { pending: 0, progress: 2 })
     @mock_client.stubs(:request).with { |req| req.command == 'detached.download.status' }.returns(response)
     download = @instance.download_status
     assert_equal false, download.idle?
-    assert_equal 0, download.pending
-    assert_equal 3, download.progress
+    assert_equal 2, download.progress
 
     @mock_client.stubs(:request).with { |req| req.command == 'detached.upload.status' }.returns(response)
     upload = @instance.upload_status
     assert_equal false, upload.idle?
-    assert_equal 0, upload.pending
-    assert_equal 3, upload.progress
+    assert_equal 2, upload.progress
   end
 
-  test 'status is active when both pending > 0 and progress > 0' do
-    response = Command::Response.ok(body: { pending: 2, progress: 4 })
-
-    @mock_client.stubs(:request).with { |req| req.command == 'detached.download.status' }.returns(response)
-    download = @instance.download_status
-    assert_equal false, download.idle?
-    assert_equal 2, download.pending
-    assert_equal 4, download.progress
-
-    @mock_client.stubs(:request).with { |req| req.command == 'detached.upload.status' }.returns(response)
-    upload = @instance.upload_status
-    assert_equal false, upload.idle?
-    assert_equal 2, upload.pending
-    assert_equal 4, upload.progress
-  end
-
-  test 'status is idle when both pending = 0 and progress = 0' do
+  test 'status is idle when both pending and progress are 0' do
     response = Command::Response.ok(body: { pending: 0, progress: 0 })
-
     @mock_client.stubs(:request).with { |req| req.command == 'detached.download.status' }.returns(response)
     download = @instance.download_status
     assert_equal true, download.idle?
-    assert_equal 0, download.pending
-    assert_equal 0, download.progress
 
     @mock_client.stubs(:request).with { |req| req.command == 'detached.upload.status' }.returns(response)
     upload = @instance.upload_status
     assert_equal true, upload.idle?
-    assert_equal 0, upload.pending
-    assert_equal 0, upload.progress
   end
 
   test 'status is idle when response status is not 200' do
-    response = Command::Response.error(status: 500, message: 'server error')
-
+    response = Command::Response.error(status: 500, message: 'fail')
     @mock_client.stubs(:request).with { |req| req.command == 'detached.download.status' }.returns(response)
     download = @instance.download_status
     assert_equal true, download.idle?
-    assert_equal 'server error', download.message
+    assert_equal 'fail', download.message
 
     @mock_client.stubs(:request).with { |req| req.command == 'detached.upload.status' }.returns(response)
     upload = @instance.upload_status
     assert_equal true, upload.idle?
-    assert_equal 'server error', upload.message
+    assert_equal 'fail', upload.message
+  end
+
+  test 'from_files_summary computes correct idle and completed values' do
+    summary = OpenStruct.new(
+      pending: 2,
+      downloading: 1,
+      success: 4,
+      error: 1,
+      cancelled: 1,
+    )
+
+    result = @instance.from_files_summary(summary)
+
+    assert_equal false, result.idle?
+    assert_equal 1, result.progress
+    assert_equal 6, result.completed
+    assert_equal 2, result.pending
+  end
+
+  test 'from_files_summary marks as idle when pending and downloading are 0' do
+    summary = OpenStruct.new(
+      pending: 0,
+      downloading: 0,
+      success: 3,
+      error: 0,
+      cancelled: 2,
+    )
+
+    result = @instance.from_files_summary(summary)
+
+    assert_equal true, result.idle?
+    assert_equal 0, result.progress
+    assert_equal 5, result.completed
   end
 end

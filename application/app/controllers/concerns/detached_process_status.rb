@@ -14,6 +14,13 @@ module DetachedProcessStatus
     parse_response(command_client.request(request))
   end
 
+  def from_files_summary(files_summary)
+    idle = files_summary.downloading == 0 && files_summary.pending == 0
+    completed = files_summary.success + files_summary.error + files_summary.cancelled
+    data = { idle?: idle, progress: files_summary.downloading, completed: completed }.merge(files_summary.to_h)
+    OpenStruct.new(data)
+  end
+
   private
 
   def parse_response(response)

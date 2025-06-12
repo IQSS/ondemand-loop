@@ -6,7 +6,7 @@ class DownloadStatusController < ApplicationController
     @files = files_provider.recent_files
     @summary = FileStatusSummary.compute_summary(@files.map(&:file))
     downloads = download_status
-    @status = downloads.idle? ? FileStatusSummary.files_summary(@files) : downloads
+    @status = downloads.idle? ? from_files_summary(@summary) : downloads
 
   end
 
@@ -15,7 +15,7 @@ class DownloadStatusController < ApplicationController
     @files = files_provider.recent_files
     @summary = FileStatusSummary.compute_summary(@files.map(&:file))
     downloads = download_status
-    @status = downloads.idle? ? FileStatusSummary.files_summary(@files) : downloads
+    @status = downloads.idle? ? from_files_summary(@summary) : downloads
     render partial: '/download_status/files', layout: false, locals: { files: @files }
   end
 
