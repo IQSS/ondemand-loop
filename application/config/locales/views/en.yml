@@ -300,20 +300,12 @@ en:
       actions_bar_title_a11y_label: "Uploads actions bar"
       button_reload_title: "Reload"
     files:
-      badge:
-        repo:
-          tooltip: "External dataset"
-      button:
-        browse_file:
-          a11y: { text: "Browse file %{filename}" }
-          title: "Browse file"
-        cancel_upload:
-          a11y: { text: "Cancel upload of %{filename}" }
-          title: "Cancel upload"
-      field:
-        creation_date: { title: "Creation date" }
-      header:
-        scheduled_uploads: { text: "Scheduled Uploads" }
+      badge_repo_tooltip: "External dataset"
+      button_browse_file_a11y_text: "Browse file %{filename}"
+      button_browse_file_title: "Browse file"
+      button_cancel_upload_a11y_text: "Cancel upload of %{filename}"
+      button_cancel_upload_title: "Cancel upload"
+      field_creation_date_title: "Creation date"
     index:
       breadcrumbs_text: "Uploads"
       page_title: "OnDemand Loop - Uploads Management"

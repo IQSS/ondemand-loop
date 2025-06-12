@@ -10,19 +10,19 @@
           <div class="col-md-8" role="cell">
             <div class="d-flex align-items-center">
               <%= link_to(files_app_url(File.dirname(data.file.file_location)), class: 'btn btn-sm btn-outline-secondary me-2',
-                          title: t('.button.browse_file.title'), target: '_blank') do %>
+                          title: t('.button_browse_file_title'), target: '_blank') do %>
                 <i class="bi bi-folder" aria-hidden="true"></i>
-                <span class="visually-hidden"><%= t('.button.browse_file.a11y.text', filename: data.file.filename) %></span>
+                <span class="visually-hidden"><%= t('.button_browse_file_a11y_text', filename: data.file.filename) %></span>
               <% end %>
 
-              <%= render partial: '/shared/file_row_date', locals: { date: data.file.creation_date, title: t('.field.creation_date.title'), classes: "mx-2" } %>
+              <%= render partial: '/shared/file_row_date', locals: { date: data.file.creation_date, title: t('.field_creation_date_title'), classes: "mx-2" } %>
 
               <%= render partial: 'shared/repo_badge', locals: {
                 repo_url: data.upload_bundle.connector_metadata.dataverse_url,
                 target: '_blank',
                 icon_html: connector_icon(data.upload_bundle.type),
                 name: data.upload_bundle.connector_metadata.dataverse_title,
-                tooltip: t(".badge.repo.tooltip")
+                tooltip: t(".badge_repo_tooltip")
               } %>
 
               <span class="me-2"><%= data.project.name %> ></span>
@@ -41,14 +41,14 @@
           <div class="download-actions col-md-2 text-end" role="cell">
             <%= status_badge(data.file.status, filename: data.file.filename) %>
 
-            <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger <%= cancel_button_class(data.file.status) %>" title="<%= t('.button.cancel_upload.title') %>"
+            <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger <%= cancel_button_class(data.file.status) %>" title="<%= t('.button_cancel_upload_title') %>"
                     data-controller="upload-file-cancellation"
                     data-action="click->upload-file-cancellation#cancel"
                     <%= 'disabled' unless data.file.status.uploading? %>
                     data-upload-file-cancellation-url-value="<%= cancel_project_upload_bundle_upload_file_path(project_id: data.file.project_id, upload_bundle_id: data.file.upload_bundle_id, id: data.file.id) %>">
               <span data-upload-file-cancellation-target="spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
               <span data-upload-file-cancellation-target="label"><i class="bi bi-sign-stop" aria-hidden="true"></i></span>
-              <span class="visually-hidden"><%= t('.button.cancel_upload.a11y.text', filename: data.file.filename) %></span>
+              <span class="visually-hidden"><%= t('.button_cancel_upload_a11y_text', filename: data.file.filename) %></span>
             </button>
           </div>
         </div>
