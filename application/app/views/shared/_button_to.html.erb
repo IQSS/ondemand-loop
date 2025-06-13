@@ -1,17 +1,24 @@
 <%= form_with url: url,
               method: (local_assigns[:method] || :post),
               class: (local_assigns[:form_class] || "d-inline"),
-              data: (local_assigns[:form_data] || {}) do %>
+              data: {
+                controller: "submit-button",
+                'submit-button-modal-id-value': local_assigns[:modal_id],
+                'submit-button-modal-title-value': local_assigns[:modal_title],
+                'submit-button-modal-subtitle-value': local_assigns[:modal_subtitle],
+                'submit-button-modal-content-value': local_assigns[:modal_content],
+                'submit-button-modal-confirm-text-value': local_assigns[:modal_confirm_text],
+              } do %>
 
   <%= yield %>
 
-  <%= button_tag type: "submit",
+  <%= button_tag type: 'submit',
                  class: "btn #{local_assigns[:class] || 'btn-outline-dark btn-sm'}",
                  title: local_assigns[:title],
                  data: {
-                   controller: "submit-button",
-                   action: "click->submit-button#click"
-                 }.merge(local_assigns[:button_data] || {}) do %>
+                   action: 'click->submit-button#click',
+                   submit_button_target: 'button'
+                 } do %>
 
     <span data-submit-button-target="spinner"
           class="spinner-border spinner-border-sm me-1 d-none"
@@ -27,5 +34,4 @@
     </span>
 
   <% end %>
-
 <% end %>

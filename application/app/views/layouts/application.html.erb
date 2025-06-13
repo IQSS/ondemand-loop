@@ -15,22 +15,23 @@
     <%= stylesheet_link_tag "application" %>
     <%= javascript_importmap_tags %>
 
-    <%= render partial: 'layouts/config' %>
+    <%= render partial: '/layouts/config' %>
   </head>
 
   <body>
-    <%= render partial: 'layouts/nav/navigation' %>
-    <%= render partial: '/shared/project_bar', locals: { project: @active_project }  if @active_project %>
-    <%= render partial: '/shared/repo_resolver_bar' %>
+    <%= render partial: '/layouts/nav/navigation' %>
+    <%= render partial: '/layouts/project_bar', locals: { project: @active_project }  if @active_project %>
+    <%= render partial: '/layouts/repo_resolver_bar' %>
     <h1 class="visually-hidden"><%= content_for(:title) || 'OnDemand Loop' %></h1>
     <div id="main_container" class="container-md content mt-4" role="main">
-      <%= render partial: 'layouts/flash_messages' %>
+      <%= render partial: '/layouts/flash_messages' %>
       <%= yield %>
     </div>
 
 
-    <%= render partial: "layouts/footer" %>
+    <%= render partial: "/layouts/footer" %>
 
-    <%= render partial: '/shared/modal' %>
+    <%= render partial: '/layouts/modal' %>
+    <%= render partial: '/layouts/modal_delete_confirmation' %>
   </body>
 </html>
