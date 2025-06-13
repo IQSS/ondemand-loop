@@ -31,6 +31,9 @@ module DataverseForOndemand
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    # Autoload connector code placed under the +connectors+ directory
+    config.eager_load_paths << Rails.root.join('connectors')
+
     # ALLOW ANY DOMAINS
     config.hosts.clear
     # Configuration for the application, engines, and railties goes here.
