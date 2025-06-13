@@ -126,7 +126,7 @@ en:
       installation_items:
         paginator_bar_a11y_label: "Landing page pagination"
         paginator_page_text: "page %{page}"
-        no_items_found: "No items found."
+        msg_no_items_text: "No items found."
       index:
         breadcrumb_dataverse_title: "Dataverse landing page"
         breadcrumb_home_text: "Home"
