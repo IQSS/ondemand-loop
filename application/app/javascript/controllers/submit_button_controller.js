@@ -36,7 +36,7 @@ export default class extends Controller {
     submit_form() {
         const uiDelay = window.loop_app_config.ui_feedback_delay
 
-        this.element.disabled = true
+        this.buttonTarget.disabled = true
         const width = this.buttonTarget.offsetWidth
         const height = this.buttonTarget.offsetHeight
         this.buttonTarget.style.width = `${width}px`

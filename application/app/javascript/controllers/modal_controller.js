@@ -32,8 +32,8 @@ export default class extends Controller {
     }
 
     confirm(event) {
-        if (this.confirmCallback) this.confirmCallback()
         this.modal.hide()
+        if (this.confirmCallback) this.confirmCallback()
     }
 
     load() {

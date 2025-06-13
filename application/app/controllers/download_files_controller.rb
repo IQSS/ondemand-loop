@@ -40,7 +40,7 @@ class DownloadFilesController < ApplicationController
     end
 
     file.destroy
-    redirect_back fallback_location: root_path, notice: t('.download_file_deleted_successfully')
+    redirect_back fallback_location: root_path, notice: t('.download_file_deleted_successfully', filename: file.filename)
   end
 
 end
