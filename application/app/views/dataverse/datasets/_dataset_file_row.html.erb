@@ -8,7 +8,8 @@
       <% if restrictions_response.valid? %>
         <%= check_box_tag("file_ids[]", file&.data_file&.id, false, class: "form-check-input", id: "file_checkbox_#{file&.data_file&.id}", data: {"dataverse--dataset-files-target" => "item", action: "dataverse--dataset-files#updateState"}) %>
     <% else %>
-        <i class="fas fa-circle-info"></i>
+        <i class="fas fa-circle-info" aria-hidden="true"></i>
+        <span class="visually-hidden"><%= restrictions_response.message %></span>
       <% end %>
     </div>
   </td>
