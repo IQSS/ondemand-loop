@@ -119,11 +119,11 @@ en:
         header_dataset_text: "Dataset"
         header_description_text: "Description"
       dataset_metadata:
-        dataset_metadata: "Dataset Metadata"
-        publication_date: "Publication date:"
-        authors: "Authors:"
-        subjects: "Subjects:"
-        license: "License:"
+        field_authors_text: "Authors:"
+        field_license_text: "License:"
+        field_publication_date_text: "Publication date:"
+        field_subjects_text: "Subjects:"
+        header_dataset_metadata_text: "Dataset Metadata"
       show:
         page_title: "OnDemand Loop - Dataverse Dataset"
     landing_page:
