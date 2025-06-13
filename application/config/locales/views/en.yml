@@ -168,7 +168,7 @@ en:
     footer:
       version_text: "OnDemand Loop"
     modal:
-      close: "Close"
+      button_close_label: "Close"
     modal_delete_confirmation:
       header_title: "Delete"
       content_text: "Are you sure you want to delete this element? This action cannot be undone."
@@ -176,14 +176,14 @@ en:
       button_confirm_text: "Delete"
       button_cancel_text: "Cancel"
     project_bar:
-      open_project_folder: "Open Project folder"
-      creation_date: "Creation date"
-      open_project_metadata: "Open Project metadata"
-      active_project: "Active Project"
+      link_open_downloads_title: "Open Project folder"
+      creation_date_title: "Creation date"
+      link_open_metadata_title: "Open Project metadata"
+      button_active_project_title: "Active Project"
     repo_resolver_bar:
-      repo_url_placeholder: "Paste Repository URL"
-      repo_url: "Repository URL"
-      connect: "Connect"
+      input_repo_url_placeholder: "Paste Repository URL"
+      input_repo_url_label: "Repository URL"
+      button_submit_text: "Connect"
   projects:
     show:
       download_actions:
@@ -197,16 +197,16 @@ en:
         completion_date: "Completion date"
         download_start_date: "Download start date"
         delete_file: "Delete File"
-        delete_confirmation_title: "Delete File"
-        delete_confirmation_content: "The file will no longer appear in the application, but it won’t be deleted from the server."
+        modal_delete_confirmation_title: "Delete File"
+        modal_delete_confirmation_content: "The file will no longer appear in the application, but it won’t be deleted from the server."
       project_actions:
         open_project_folder: "Open project folder"
         creation_date: "Creation date"
         create_upload_bundle: "Create Upload Bundle"
         create_upload_bundle_placeholder: "Dataset URL"
         delete_project: "Delete Project"
-        delete_confirmation_title: "Delete Project"
-        delete_confirmation_content: "This will remove the project from the app. Files on disk and in remote repositories will remain untouched."
+        modal_delete_confirmation_title: "Delete Project"
+        modal_delete_confirmation_content: "This will remove the project from the app. Files on disk and in remote repositories will remain untouched."
         open_project_metadata: "Open Project Metadata"
       project_tabs:
         project: "Project"
@@ -216,16 +216,16 @@ en:
         add_files: "Add Files"
         edit_upload_bundle_settings: "Edit upload bundle settings"
         button_delete_title: "Delete Bundle"
-        delete_confirmation_title: "Delete Upload Bundle"
-        delete_confirmation_content: "This will remove the upload bundle from the app. Files on disk and any already uploaded files will remain unchanged. To upload again, you’ll need to create a new bundle."
+        modal_delete_confirmation_title: "Delete Upload Bundle"
+        modal_delete_confirmation_content: "This will remove the upload bundle from the app. Files on disk and any already uploaded files will remain unchanged. To upload again, you’ll need to create a new bundle."
       upload_files:
         no_upload_files: "No Upload Files"
         schedule_date: "Schedule date"
         completion_date: "Completion date"
         download_start_date: "Download start date"
         delete_file: "Delete File"
-        delete_confirmation_title: "Delete File from Bundle"
-        delete_confirmation_content: "This will remove the file from the upload bundle. The file will remain on disk and in the remote repository if already uploaded."
+        modal_delete_confirmation_title: "Delete File from Bundle"
+        modal_delete_confirmation_content: "This will remove the file from the upload bundle. The file will remain on disk and in the remote repository if already uploaded."
       projects: "Projects"
     actions:
       downloads_root_directory: "Downloads Root Directory"
@@ -251,8 +251,8 @@ en:
       cancel: "Cancel"
       edit_project_name: "Edit Project name"
       delete_project: "Delete project"
-      delete_confirmation_title: "Delete Project"
-      delete_confirmation_content: "This will remove the project from the app. Files on disk and in remote repositories will remain untouched."
+      modal_delete_confirmation_title: "Delete Project"
+      modal_delete_confirmation_content: "This will remove the project from the app. Files on disk and in remote repositories will remain untouched."
       active_project: "Active project"
       set_as_active_project: "Set as Active Project"
     project_summary:
