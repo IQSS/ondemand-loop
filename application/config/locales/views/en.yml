@@ -83,17 +83,17 @@ en:
       collection_info:
         header_dataverse_text: "Dataverse"
       dataset_item:
-        untitled_dataset: "Untitled Dataset"
-        published: "Published"
-        type: "Type"
-        publisher: "Publisher"
-        files: "Files"
+        field_files_label: "Files"
+        field_published_label: "Published"
+        field_publisher_label: "Publisher"
+        field_type_label: "Type"
+        unnamed_dataset_text: "Untitled Dataset"
       dataverse_item:
-        unnamed_dataverse: "Unnamed Dataverse"
-        published: "Published"
-        type: "Type"
-        affiliation: "Affiliation"
-        parent: "Parent"
+        field_affiliation_label: "Affiliation"
+        field_parent_label: "Parent"
+        field_published_label: "Published"
+        field_type_label: "Type"
+        unnamed_dataverse_text: "Unnamed Dataverse"
       search_items:
         content_no_items_found_text: "No items found."
         header_search_results_a11y_text: "Search results"
