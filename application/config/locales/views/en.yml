@@ -132,6 +132,7 @@ en:
         breadcrumb_home_text: "Home"
         breadcrumb_home_title: "Home"
         image_dataverse_icon_alt: "Dataverse icon"
+        page_title: "OnDemand Loop - Dataverse Landing page"
   detached_process:
     file_activity_status:
       icon_downloads_title: "Download process status"
