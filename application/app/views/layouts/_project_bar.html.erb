@@ -3,11 +3,11 @@
     <a href="<%= files_app_url(project.download_dir) %>"
        target="_blank"
        class="btn btn-sm btn-outline-secondary"
-       title="<%= t('.open_project_folder') %>">
+       title="<%= t('.link_open_downloads_title') %>">
       <i class="bi bi-folder-fill"></i>
     </a>
 
-    <%= render partial: '/shared/file_row_date', locals: { date: project.creation_date, title: t('.creation_date')} if project.creation_date %>
+    <%= render partial: '/shared/file_row_date', locals: { date: project.creation_date, title: t('.creation_date_title')} if project.creation_date %>
 
     <!-- PROJECT METADATA -->
     <div data-project-name-target="display" class="d-flex flex-column">
@@ -22,10 +22,10 @@
     <a href="<%= files_app_url(Project.project_metadata_dir(project.id)) %>"
        target="_blank"
        class="btn btn-sm btn-outline-primary ms-3"
-       title="<%= t('.open_project_metadata') %>">
+       title="<%= t('.link_open_metadata_title') %>">
       <i class="bi bi-card-list"></i>
     </a>
-    <button class="btn btn-sm btn-outline-primary cursor-default" title="<%= t('.active_project') %>">
+    <button class="btn btn-sm btn-outline-primary cursor-default" title="<%= t('.button_active_project_title') %>">
       <i class="bi bi-check-circle-fill"></i>
     </button>
   </div>

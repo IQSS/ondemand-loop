@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
 
     if project.update(update_params)
       respond_to do |format|
-        format.html { redirect_to projects_path, notice: t(".project_updated_successfully") }
+        format.html { redirect_to projects_path, notice: t(".project_updated_successfully", project_name: project.name) }
         format.json { render json: project.to_json, status: :ok }
       end
     else

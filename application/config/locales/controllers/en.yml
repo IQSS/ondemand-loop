@@ -23,7 +23,7 @@ en:
   download_files:
     compulsory_fields_error: "project_id and id are compulsory"
     file_not_found_for_project: "File: %{file_id} not found for project: %{project_id}"
-    download_file_deleted_successfully: 'Download file deleted successfully'
+    download_file_deleted_successfully: 'Download file deleted: %{filename}'
   file_browser:
     directory_forbidden: "You do not have permission to access this directory."
   projects:
@@ -32,7 +32,7 @@ en:
       project_create_error: "Error generating the project: %{errors}"
     update:
       project_not_found: "Project %{id} not found"
-      project_updated_successfully: "Project updated successfully"
+      project_updated_successfully: "Project updated: %{project_name}"
       project_update_error: "Failed to update project: %{errors}"
     set_active:
       project_not_found: "Project %{id} not found"
@@ -62,7 +62,7 @@ en:
       file_added: "File added: %{filename}"
     destroy:
       file_not_found: "File: #{file_id} not found for project: %{project_id}"
-      upload_file_removed: "Upload file removed from bundle. %{filename}"
+      upload_file_removed: "Upload file removed from bundle: %{filename}"
     cancel:
       compulsory_fields_error: 'project_id and file_id are compulsory'
       file_not_found: "file not found project_id=%{project_id} upload_bundle_id=%{upload_bundle_id} id=%{file_id}"
