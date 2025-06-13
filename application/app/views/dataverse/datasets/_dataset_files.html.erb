@@ -1,11 +1,11 @@
 <div class="card dataset-header">
   <div class="card-header d-flex align-items-center">
     <%= files_page.to_s %>
-    <span class="ms-auto">
+    <nav aria-label="<%= t('.paginator_bar_a11y_label') %>" class="ms-auto">
       <%= link_to_dataset_prev_page(dataverse_url, @persistent_id, files_page, {class: "text-decoration-none"}) %>
-      <%= t('.page', page: files_page.page) %>
+      <%= t('.paginator_page_text', page: files_page.page) %>
       <%= link_to_dataset_next_page(dataverse_url, @persistent_id, files_page, {class: "text-decoration-none"}) %>
-    </span>
+    </nav>
   </div>
   <% if files_page.total_count > 0 %>
     <%= form_with url: download_dataverse_dataset_files_path, method: :post, local: true, class: "p-3 rounded bg-light", data: {controller: "dataverse--dataset-files"} do %>
@@ -14,18 +14,23 @@
       <%= hidden_field_tag 'persistent_id', @persistent_id %>
       <%= hidden_field_tag 'page', @page %>
       <div class="row">
+        <h2 id="search-results-heading" class="visually-hidden"><%= t('.header_dataset_files_a11y_text') %></h2>
         <table class="table table-bordered table-hover align-middle">
+          <caption class="visually-hidden"><%= t('.table_dataset_files_caption') %></caption>
           <thead class="table-light">
           <tr>
             <th scope="col">
               <div class="form-check">
+                <label class="form-check-label visually-hidden" for="select_all_files">
+                  <%= t('.checkbox_select_all_label') %>
+                </label>
                 <input class="form-check-input" type="checkbox" id="select_all_files" data-dataverse--dataset-files-target="selectAll" data-action="dataverse--dataset-files#toggleSelectAll">
               </div>
             </th>
-            <th scope="col"><%= t('.file_name') %></th>
-            <th scope="col"><%= t('.size') %></th>
-            <th scope="col"><%= t('.storage') %></th>
-            <th scope="col"><%= t('.published') %></th>
+            <th scope="col"><%= t('.col_file_name_text') %></th>
+            <th scope="col"><%= t('.col_size_text') %></th>
+            <th scope="col"><%= t('.col_storage_text') %></th>
+            <th scope="col"><%= t('.col_published_text') %></th>
           </tr>
           </thead>
           <tbody>
@@ -34,13 +39,13 @@
         </table>
       </div>
       <div class="text-center">
-        <%= submit_tag t('.add_files_submit'), class: "btn btn-primary", id: "submit_button", data: {"dataverse--dataset-files-target" => "submitButton"} %>
+        <%= submit_tag t('.button_add_files_text'), class: "btn btn-primary", id: "submit_button", data: {"dataverse--dataset-files-target" => "submitButton"} %>
       </div>
     <% end %>
   <% else %>
     <div class="list-group list-group-flush">
-      <span class="list-group-item list-group-item-action">
-        <%= t('.empty_dataset_msg') %>
+      <span class="list-group-item list-group-item-action" role="status">
+        <%= t('.msg_empty_dataset_text') %>
       </span>
     </div>
   <% end %>

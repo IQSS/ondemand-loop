@@ -3,6 +3,7 @@
   error_message = restrictions_response.valid? ? nil : restrictions_response.message
 %>
 
+<% content_for :title, t('.page_title') %>
 <div class="dataverse container-md content" role="main">
   <%= render partial: 'dataverse/datasets/breadcrumbs', locals: { dataverse_url: @dataverse_url, dataset: @dataset} %>
   <div class="row">

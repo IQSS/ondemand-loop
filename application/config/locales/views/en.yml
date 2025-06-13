@@ -104,24 +104,32 @@ en:
         page_title: "OnDemand Loop - Dataverse Collection"
     datasets:
       breadcrumbs:
-        home: "Home"
+        breadcrumb_dataverse_title: "Dataverse landing page"
+        breadcrumb_home_text: "Home"
+        breadcrumb_home_title: "Home"
       dataset_files:
-        page: "page %{page}"
-        file_name: "File name"
-        size: "Size"
-        storage: "Storage"
-        published: "Published"
-        add_files_submit: "Add Files to Active Project"
-        empty_dataset_msg: "The dataset does not contain files to download"
+        button_add_files_text: "Add Files to Active Project"
+        col_file_name_text: "File name"
+        col_published_text: "Published"
+        col_size_text: "Size"
+        col_storage_text: "Storage"
+        checkbox_select_all_label: "Select all files"
+        header_dataset_files_a11y_text: "Dataset files"
+        msg_empty_dataset_text: "The dataset does not contain files to download"
+        paginator_bar_a11y_label: "Search result pagination"
+        paginator_page_text: "page %{page}"
+        table_dataset_files_caption: "Dataset files"
       dataset_info:
-        dataset: "Dataset"
-        description: "Description"
+        header_dataset_text: "Dataset"
+        header_description_text: "Description"
       dataset_metadata:
-        dataset_metadata: "Dataset Metadata"
-        publication_date: "Publication date:"
-        authors: "Authors:"
-        subjects: "Subjects:"
-        license: "License:"
+        field_authors_text: "Authors:"
+        field_license_text: "License:"
+        field_publication_date_text: "Publication date:"
+        field_subjects_text: "Subjects:"
+        header_dataset_metadata_text: "Dataset Metadata"
+      show:
+        page_title: "OnDemand Loop - Dataverse Dataset"
     landing_page:
       installation_items:
         page: "page %{page}"

@@ -1,21 +1,21 @@
 <nav aria-label="Breadcrumb">
   <ol class="breadcrumb">
-    <li class="breadcrumb-item active">
-      <a href="<%= root_path %>"><%= t('.home') %></a>
+    <li class="breadcrumb-item">
+      <a href="<%= root_path %>" title="<%= t(".breadcrumb_home_title") %>"><%= t('.breadcrumb_home_text') %></a>
     </li>
     <li class="breadcrumb-item">
-      <%= link_to "Dataverse", view_dataverse_landing_path %>
+      <%= link_to "Dataverse", view_dataverse_landing_path, { 'title' => t(".breadcrumb_dataverse_title"), 'aria-label' => t(".breadcrumb_dataverse_title")} %>
     </li>
     <li class="breadcrumb-item">
-      <%= link_to_root_dataverse_collection(dataverse_url) %>
+      <%= link_to_root_dataverse_collection(dataverse_url, {title: dataverse_url, 'aria-label' => dataverse_url }) %>
     </li>
     <% dataset.data.parents.each do |parent| %>
       <li class="breadcrumb-item">
-        <%= link_to_dataverse_collection(parent[:identifier], dataverse_url, parent[:identifier], { 'title' => parent[:name], 'aria-current' => 'page'}) %>
+        <%= link_to_dataverse_collection(parent[:identifier], dataverse_url, parent[:identifier], { 'title' => parent[:name], 'aria-label' => parent[:name]}) %>
       </li>
     <% end %>
-    <li class="breadcrumb-item active">
-      <a aria-current="page"><%= dataset.data.dataset_persistent_id %></a>
+    <li class="breadcrumb-item active" aria-current="page">
+      <a><%= dataset.data.dataset_persistent_id %></a>
     </li>
   </ol>
 </nav>

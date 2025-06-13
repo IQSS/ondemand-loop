@@ -23,6 +23,8 @@ module Dataverse::DatasetsHelper
       url_options[:dv_port] = uri.port if uri.port != 443
       url_options[:dv_scheme] = uri.scheme if uri.scheme != 'https'
       url_options[:page] = page.prev_page
+      html_options['aria-label'] = I18n.t("acts_as_page.link_prev_page_a11y_label")
+      html_options[:title] = I18n.t("acts_as_page.link_prev_page_title")
       link_to("<", view_dataverse_dataset_path(uri.hostname, persistent_id, url_options), html_options)
     end
   end
@@ -34,6 +36,8 @@ module Dataverse::DatasetsHelper
       url_options[:dv_port] = uri.port if uri.port != 443
       url_options[:dv_scheme] = uri.scheme if uri.scheme != 'https'
       url_options[:page] = page.next_page
+      html_options['aria-label'] = I18n.t("acts_as_page.link_next_page_a11y_label")
+      html_options[:title] = I18n.t("acts_as_page.link_next_page_title")
       link_to(">", view_dataverse_dataset_path(uri.hostname, persistent_id, url_options), html_options)
     end
   end

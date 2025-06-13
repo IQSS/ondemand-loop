@@ -1,19 +1,19 @@
 <div class="card dataset-header">
-  <div class="card-header"><%= t('.dataset') %></div>
-  <div class="list-group list-group-flush">
-    <span class="list-group-item list-group-item-action">
-       <b><%= dataset.metadata_field('title').to_s %></b>
-    </span>
-    <span class="list-group-item list-group-item-action">
+  <div class="card-header"><%= t('.header_dataset_text') %></div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+       <strong><%= dataset.metadata_field('title').to_s %></strong>
+    </li>
+    <li class="list-group-item">
        <%= dataset.data.dataset_persistent_id %>
-    </span>
-  </div>
+    </li>
+  </ul>
 </div>
 <div class="card dataset-header">
-  <div class="card-header"><%= t(".description") %></div>
-  <div class="list-group list-group-flush">
-    <span class="list-group-item list-group-item-action">
+  <div class="card-header"><%= t(".header_description_text") %></div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
       <%= truncate(strip_tags(dataset.description), length: 300) %>
-    </span>
-  </div>
+    </li>
+  </ul>
 </div>

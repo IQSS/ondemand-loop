@@ -1,18 +1,18 @@
 <div class="card dataset-header">
-  <div class="card-header"><%= t('.dataset_metadata') %></div>
-  <div class="list-group list-group-flush">
-    <span class="list-group-item list-group-item-action">
-      <b><%= t('.publication_date') %></b> <%= dataset.data.publication_date %>
-    </span>
-    <span class="list-group-item list-group-item-action">
-      <b><%= t('.authors') %></b> <%= dataset.authors %>
-    </span>
-    <span class="list-group-item list-group-item-action">
-      <b><%= t('.subjects') %></b> <%= dataset.subjects %>
-    </span>
-    <span class="list-group-item list-group-item-action">
-      <b><%= t('.license') %></b> <%= image_tag dataset.data.license.icon_uri if dataset.data.license.icon_uri %>
+  <div class="card-header"><%= t('.header_dataset_metadata_text') %></div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <strong><%= t('.field_publication_date_text') %></strong> <%= dataset.data.publication_date %>
+    </li>
+    <li class="list-group-item">
+      <strong><%= t('.field_authors_text') %></strong> <%= dataset.authors %>
+    </li>
+    <li class="list-group-item">
+      <strong><%= t('.field_subjects_text') %></strong> <%= dataset.subjects %>
+    </li>
+    <li class="list-group-item">
+      <strong><%= t('.field_license_text') %></strong> <%= image_tag dataset.data.license&.icon_uri, alt: dataset.data.license&.name if dataset.data.license&.icon_uri %>
       <%= dataset.data.license.name %>
-    </span>
-  </div>
+    </li>
+  </ul>
 </div>
