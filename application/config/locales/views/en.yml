@@ -80,6 +80,7 @@ en:
       breadcrumbs:
         breadcrumb_dataverse_title: "Dataverse landing page"
         breadcrumb_home_text: "Home"
+        breadcrumb_home_title: "Home"
       collection_info:
         header_dataverse_text: "Dataverse"
       dataset_item:
