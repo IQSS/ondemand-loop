@@ -124,11 +124,15 @@ en:
         license: "License:"
     landing_page:
       installation_items:
-        page: "page %{page}"
-        no_items_found: "No items found."
+        paginator_bar_a11y_label: "Landing page pagination"
+        paginator_page_text: "page %{page}"
+        msg_no_items_text: "No items found."
       index:
-        home: "Home"
-        dataverse_icon: "Dataverse icon"
+        breadcrumb_dataverse_title: "Dataverse landing page"
+        breadcrumb_home_text: "Home"
+        breadcrumb_home_title: "Home"
+        image_dataverse_icon_alt: "Dataverse icon"
+        page_title: "OnDemand Loop - Dataverse Landing page"
   detached_process:
     file_activity_status:
       icon_downloads_title: "Download process status"

@@ -1,24 +1,24 @@
 <div class="card dataset-header">
   <div class="card-header d-flex align-items-center">
     <%= installations_page.to_s %>
-    <span class="ms-auto">
-      <%= link_to("<", view_dataverse_landing_path(page: installations_page.prev_page), {class: "text-decoration-none"}) unless installations_page.first_page? %>
-      <%= t(".page", page: installations_page.page) %>
-      <%= link_to(">", view_dataverse_landing_path(page: installations_page.next_page), {class: "text-decoration-none"}) unless installations_page.last_page? %>
-    </span>
+    <nav aria-label="<%= t('.paginator_bar_a11y_label') %>" class="ms-auto">
+      <%= link_to_landing_prev_page(installations_page, {class: "text-decoration-none"}) %>
+      <%= t(".paginator_page_text", page: installations_page.page) %>
+      <%= link_to_landing_next_page(installations_page, {class: "text-decoration-none"}) %>
+    </nav>
   </div>
   <% if installations_page.page_items.any? %>
-    <div class="list-group">
+    <ul class="list-group">
       <%= render partial: 'installation', collection: installations_page.page_items, as: :installation %>
-      <div class="list-group-item d-flex justify-content-center">
-        <%= link_to("<", view_dataverse_landing_path(page: installations_page.prev_page), {class: "text-decoration-none bottom-page-link"}) unless installations_page.first_page? %>
-        <%= t(".page", page: installations_page.page) %>
-        <%= link_to(">", view_dataverse_landing_path(page: installations_page.next_page), {class: "text-decoration-none bottom-page-link"}) unless installations_page.last_page? %>
-      </div>
-    </div>
+      <nav aria-label="<%= t('.paginator_bar_a11y_label') %>" class="list-group-item d-flex justify-content-center">
+        <%= link_to_landing_prev_page(installations_page, {class: "text-decoration-none bottom-page-link"}) %>
+        <%= t(".paginator_page_text", page: installations_page.page) %>
+        <%= link_to_landing_next_page(installations_page, {class: "text-decoration-none bottom-page-link"}) %>
+      </nav>
+    </ul>
   <% else %>
-    <div class="alert alert-warning mt-3">
-      <%= t('.no_items_found') %>
+    <div class="alert alert-warning mt-3" role="status">
+      <%= t('.msg_no_items_text') %>
     </div>
   <% end %>
 </div>
