@@ -1,3 +1,4 @@
+<% content_for :title, t('.page_title') %>
 <div class="dataverse container-md content" role="main">
   <%= render partial: 'dataverse/collections/breadcrumbs', locals: { dataverse_url: @dataverse_url, collection: @collection } %>
   <div class="row">

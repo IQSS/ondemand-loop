@@ -96,6 +96,8 @@ en:
       search_items:
         page: "page %{page}"
         no_items_found: "No items found."
+      show:
+        page_title: "OnDemand Loop - Dataverse Collection"
     datasets:
       breadcrumbs:
         home: "Home"
