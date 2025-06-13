@@ -124,7 +124,8 @@ en:
         license: "License:"
     landing_page:
       installation_items:
-        page: "page %{page}"
+        paginator_bar_a11y_label: "Landing page pagination"
+        paginator_page_text: "page %{page}"
         no_items_found: "No items found."
       index:
         breadcrumb_dataverse_title: "Dataverse landing page"
