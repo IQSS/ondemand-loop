@@ -1,4 +1,4 @@
-<div class="list-group-item flex-column align-items-start">
+<li class="list-group-item flex-column align-items-start">
   <div class="d-flex w-100 justify-content-between">
     <h5 class="mb-1">
       <%= link_to_dataverse_collection item.name.presence || t(".unnamed_dataverse"), dataverse_url, item.identifier, { class: "text-decoration-none"} %>
@@ -19,4 +19,4 @@
       <strong><%= t('.parent') %>:</strong> <%= link_to_dataverse_collection item.parent_dataverse_name, dataverse_url, item.parent_dataverse_identifier, { class: "text-decoration-none"} %>
     <% end %>
   </small>
-</div>
+</li>

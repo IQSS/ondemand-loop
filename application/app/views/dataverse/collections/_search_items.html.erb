@@ -1,24 +1,25 @@
 <div class="card dataset-header">
   <div class="card-header d-flex align-items-center">
     <%= search_results_count(search_result) %>
-    <span class="ms-auto">
+    <nav aria-label="<%= t('.paginator_bar_a11y_label') %>" class="ms-auto">
       <%= link_to_search_results_prev_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none"}) %>
-      <%= t(".page", page: search_result.data.page) %>
+      <%= t(".paginator_page_text", page: search_result.data.page) %>
       <%= link_to_search_results_next_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none"}) %>
-    </span>
+    </nav>
   </div>
   <% if search_result.data.items.any? %>
-    <div class="list-group">
+    <h2 id="search-results-heading" class="visually-hidden"><%= t('.header_search_results_a11y_text') %></h2>
+    <ul class="list-group">
       <%= render partial: 'item', collection: search_result.data.items, as: :item, locals: {dataverse_url: dataverse_url} %>
-      <div class="list-group-item d-flex justify-content-center">
+      <nav aria-label="<%= t('.paginator_bar_a11y_label') %>" class="list-group-item d-flex justify-content-center pagination">
         <%= link_to_search_results_prev_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none bottom-page-link"}) %>
-        <%= t(".page", page: search_result.data.page) %>
+        <%= t(".paginator_page_text", page: search_result.data.page) %>
         <%= link_to_search_results_next_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none bottom-page-link"}) %>
-      </div>
-    </div>
+      </nav>
+    </ul>
   <% else %>
-    <div class="alert alert-warning mt-3">
-      <%= t('.no_items_found') %>
+    <div class="alert alert-warning mt-3" role="status">
+      <%= t('.content_no_items_found_text') %>
     </div>
   <% end %>
 </div>

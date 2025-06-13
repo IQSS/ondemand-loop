@@ -1,4 +1,4 @@
-<div class="list-group-item flex-column align-items-start">
+<li class="list-group-item flex-column align-items-start">
   <div class="d-flex w-100 justify-content-between">
     <h5 class="mb-1">
       <%= link_to_dataset item.name.presence || t('.untitled_dataset'), dataverse_url, item.global_id, {class: "text-decoration-none"} %>
@@ -15,4 +15,4 @@
     <strong><%= t('.publisher') %>:</strong> <%= link_to_dataverse_collection item.publisher, dataverse_url, item.identifier_of_dataverse, { class: "text-decoration-none"} %> |
     <strong><%= t('.files') %>:</strong> <%= item.file_count %>
   </small>
-</div>
+</li>

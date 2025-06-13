@@ -95,8 +95,10 @@ en:
         affiliation: "Affiliation"
         parent: "Parent"
       search_items:
-        page: "page %{page}"
-        no_items_found: "No items found."
+        content_no_items_found_text: "No items found."
+        header_search_results_a11y_text: "Search results"
+        paginator_bar_a11y_label: "Search result pagination"
+        paginator_page_text: "page %{page}"
       show:
         page_title: "OnDemand Loop - Dataverse Collection"
     datasets:
