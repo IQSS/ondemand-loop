@@ -1,10 +1,10 @@
 <div class="card dataset-header">
-  <div class="card-header"><%= t('.dataverse') %></div>
+  <div class="card-header"><%= t('.header_dataverse_text') %></div>
   <div class="list-group list-group-flush">
-    <span class="list-group-item list-group-item-action">
-       <b><%= collection.data.name %></b>
+    <span class="list-group-item">
+       <strong><%= collection.data.name %></strong>
     </span>
-    <span class="list-group-item list-group-item-action">
+    <span class="list-group-item">
       <%= truncate(strip_tags(collection.data.description), length: 200) %>
     </span>
   </div>

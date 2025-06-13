@@ -81,7 +81,7 @@ en:
         breadcrumb_dataverse_title: "Dataverse landing page"
         breadcrumb_home_text: "Home"
       collection_info:
-        dataverse: "Dataverse"
+        header_dataverse_text: "Dataverse"
       dataset_item:
         untitled_dataset: "Untitled Dataset"
         published: "Published"
