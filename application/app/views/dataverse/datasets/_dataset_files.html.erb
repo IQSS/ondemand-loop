@@ -3,7 +3,7 @@
     <%= files_page.to_s %>
     <span class="ms-auto">
       <%= link_to_dataset_prev_page(dataverse_url, @persistent_id, files_page, {class: "text-decoration-none"}) %>
-      <%= t('.page', page: files_page.page) %>
+      <%= t('.paginator_page_text', page: files_page.page) %>
       <%= link_to_dataset_next_page(dataverse_url, @persistent_id, files_page, {class: "text-decoration-none"}) %>
     </span>
   </div>

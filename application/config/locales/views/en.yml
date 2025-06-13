@@ -106,7 +106,7 @@ en:
       breadcrumbs:
         breadcrumb_home_text: "Home"
       dataset_files:
-        page: "page %{page}"
+        paginator_page_text: "page %{page}"
         file_name: "File name"
         size: "Size"
         storage: "Storage"
