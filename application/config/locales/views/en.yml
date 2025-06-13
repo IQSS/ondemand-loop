@@ -116,8 +116,8 @@ en:
         add_files_submit: "Add Files to Active Project"
         empty_dataset_msg: "The dataset does not contain files to download"
       dataset_info:
-        dataset: "Dataset"
-        description: "Description"
+        header_dataset_text: "Dataset"
+        header_description_text: "Description"
       dataset_metadata:
         dataset_metadata: "Dataset Metadata"
         publication_date: "Publication date:"
