@@ -127,7 +127,9 @@ en:
         page: "page %{page}"
         no_items_found: "No items found."
       index:
-        home: "Home"
+        breadcrumb_dataverse_title: "Dataverse landing page"
+        breadcrumb_home_text: "Home"
+        breadcrumb_home_title: "Home"
         dataverse_icon: "Dataverse icon"
   detached_process:
     file_activity_status:
