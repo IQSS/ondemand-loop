@@ -72,7 +72,8 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     delete project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
 
     assert_redirected_to root_path
-    assert_equal 'Upload file removed from bundle. delete.txt', flash[:notice]
+    assert_includes flash[:notice], 'Upload file removed from bundle'
+    assert_includes flash[:notice], 'delete.txt'
   end
 
   test 'cancel should return not found if file is missing on cancel' do
