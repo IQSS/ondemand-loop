@@ -8,14 +8,14 @@
     </span>
   </div>
   <% if installations_page.page_items.any? %>
-    <div class="list-group">
+    <ul class="list-group">
       <%= render partial: 'installation', collection: installations_page.page_items, as: :installation %>
-      <div class="list-group-item d-flex justify-content-center">
+      <nav class="list-group-item d-flex justify-content-center">
         <%= link_to("<", view_dataverse_landing_path(page: installations_page.prev_page), {class: "text-decoration-none bottom-page-link"}) unless installations_page.first_page? %>
         <%= t(".page", page: installations_page.page) %>
         <%= link_to(">", view_dataverse_landing_path(page: installations_page.next_page), {class: "text-decoration-none bottom-page-link"}) unless installations_page.last_page? %>
-      </div>
-    </div>
+      </nav>
+    </ul>
   <% else %>
     <div class="alert alert-warning mt-3">
       <%= t('.no_items_found') %>
