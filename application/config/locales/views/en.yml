@@ -104,7 +104,7 @@ en:
         page_title: "OnDemand Loop - Dataverse Collection"
     datasets:
       breadcrumbs:
-        home: "Home"
+        breadcrumb_home_text: "Home"
       dataset_files:
         page: "page %{page}"
         file_name: "File name"
@@ -122,6 +122,8 @@ en:
         authors: "Authors:"
         subjects: "Subjects:"
         license: "License:"
+      show:
+        page_title: "OnDemand Loop - Dataverse Dataset"
     landing_page:
       installation_items:
         page: "page %{page}"
