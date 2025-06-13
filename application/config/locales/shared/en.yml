@@ -1,7 +1,11 @@
 en:
   acts_as_page:
-    results_summary: "%{start_index} to %{end_index} of %{total_count} results"
+    link_next_page_a11y_label: "Go to next page"
+    link_next_page_title: "Next page"
+    link_prev_page_a11y_label: "Go to previous page"
+    link_prev_page_title: "Previous page"
     out_of_range: "Out of range"
+    results_summary: "%{start_index} to %{end_index} of %{total_count} results"
   badge:
     status:
       a11y: { text: "File status for %{filename}" }
