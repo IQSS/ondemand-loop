@@ -130,7 +130,7 @@ en:
         breadcrumb_dataverse_title: "Dataverse landing page"
         breadcrumb_home_text: "Home"
         breadcrumb_home_title: "Home"
-        dataverse_icon: "Dataverse icon"
+        image_dataverse_icon_alt: "Dataverse icon"
   detached_process:
     file_activity_status:
       icon_downloads_title: "Download process status"
