@@ -1,4 +1,4 @@
-module Dataverse::DataversesHelper
+module Dataverse::CollectionsHelper
 
   def link_to_dataverse_collection(body, dataverse_url, identifier, html_options = {})
     url_options = {}
