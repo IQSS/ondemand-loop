@@ -11,7 +11,7 @@
       <strong><%= t('.field_subjects_text') %></strong> <%= dataset.subjects %>
     </li>
     <li class="list-group-item">
-      <strong><%= t('.field_license_text') %></strong> <%= image_tag dataset.data.license.icon_uri if dataset.data.license.icon_uri %>
+      <strong><%= t('.field_license_text') %></strong> <%= image_tag dataset.data.license&.icon_uri, alt: dataset.data.license&.name if dataset.data.license&.icon_uri %>
       <%= dataset.data.license.name %>
     </li>
   </ul>
