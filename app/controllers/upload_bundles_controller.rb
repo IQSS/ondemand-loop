@@ -73,7 +73,7 @@ class UploadBundlesController < ApplicationController
     end
 
     upload_bundle.destroy
-    redirect_back fallback_location: root_path, notice: t(".success", batch_name: upload_bundle.name)
+    redirect_back fallback_location: root_path, notice: t(".success", bundle_name: upload_bundle.name)
   end
 
 end
