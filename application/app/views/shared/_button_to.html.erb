@@ -26,7 +26,7 @@
 
     <span data-submit-button-target="label">
       <% if local_assigns[:icon] %>
-        <i class="<%= icon %>"></i>
+        <i class="<%= icon %>" aria-hidden="true"></i>
       <% end %>
       <% if local_assigns[:label] %>
         <span class="ps-1"><%= label %></span>

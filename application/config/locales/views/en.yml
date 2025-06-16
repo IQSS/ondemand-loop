@@ -242,8 +242,8 @@ en:
         modal_delete_confirmation_content: "This will remove the file from the upload bundle. The file will remain on disk and in the remote repository if already uploaded."
       projects: "Projects"
     actions:
-      downloads_root_directory: "Downloads Root Directory"
-      create_project: "Create Project"
+      button_create_project_text: "Create Project"
+      button_downloads_root_directory_text: "Downloads Root Directory"
     download_files:
       schedule_date: "Schedule date"
       repository_files: "Repository Files"
@@ -285,8 +285,8 @@ en:
       upload_start_date: "Upload start date"
       delete_file: "Delete file"
     index:
+      breadcrumbs_text: "Projects"
       page_title: "OnDemand Loop - Projects"
-      projects: "Projects"
   shared:
     breadcrumbs:
       home: "Home"
