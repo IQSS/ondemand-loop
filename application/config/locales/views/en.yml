@@ -285,6 +285,7 @@ en:
       upload_start_date: "Upload start date"
       delete_file: "Delete file"
     index:
+      page_title: "OnDemand Loop - Projects"
       projects: "Projects"
   shared:
     breadcrumbs:
