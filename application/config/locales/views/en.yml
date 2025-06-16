@@ -290,6 +290,8 @@ en:
   shared:
     breadcrumbs:
       home: "Home"
+    button_to:
+      button_accessibility_default_label: "Action"
     file_stats_inline:
       pending_files: "Pending files"
       completed_files: "Completed files"
