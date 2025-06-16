@@ -87,7 +87,7 @@ export default class extends Controller {
     startAutoRefresh() {
         this.interval = setInterval(() => {
             if(this.stopOnInactiveValue && document.visibilityState === 'hidden'){
-                console.log('Stopping requests due to inactivity')
+                console.log('Reload request skipped du to user inactivity')
             } else {
                 this.load()
             }
