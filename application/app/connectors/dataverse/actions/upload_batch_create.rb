@@ -15,6 +15,7 @@ module Dataverse::Actions
         root_dv = collection.data.parents.first
         root_title = root_dv[:name]
         collection_title = collection.data.name
+        collection_id = collection.data.alias
       elsif url_data.dataset?
         dataset_service = Dataverse::DatasetService.new(url_data.dataverse_url)
         dataset = dataset_service.find_dataset_version_by_persistent_id(url_data.dataset_id)
@@ -24,6 +25,7 @@ module Dataverse::Actions
         root_dv = dataset.data.parents.first
         root_title = root_dv[:name]
         collection_title = parent_dv[:name]
+        collection_id = parent_dv[:identifier]
         dataset_title = dataset.metadata_field('title').to_s
       else
         collection_service = Dataverse::CollectionService.new(url_data.dataverse_url)
@@ -44,7 +46,7 @@ module Dataverse::Actions
           dataverse_title: root_title,
           collection_title: collection_title,
           dataset_title: dataset_title,
-          collection_id: url_data.collection_id,
+          collection_id: collection_id,
           dataset_id: url_data.dataset_id,
         }
       end
