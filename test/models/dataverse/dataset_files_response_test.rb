@@ -94,6 +94,15 @@ class Dataverse::DatasetFilesResponseTest < ActiveSupport::TestCase
     assert_equal 2, files.size
   end
 
+  test "dataset files with no pagination is supported" do
+    json = load_file_fixture(File.join('dataverse', 'dataset_files_response', 'valid_response_no_pagination.json'))
+    @target = Dataverse::DatasetFilesResponse.new(json, page: 1, per_page: 1)
+    assert_instance_of Dataverse::DatasetFilesResponse, @target
+    assert_equal 1, @target.files.count
+    assert_equal 2, @target.total_count
+    assert_equal 2, @target.next_page
+  end
+
   test "dataset files incomplete with no data" do
     json = load_file_fixture(File.join('dataverse', 'dataset_files_response', 'incomplete_no_data.json'))
     @dataset_files_incomplete = Dataverse::DatasetFilesResponse.new(json)

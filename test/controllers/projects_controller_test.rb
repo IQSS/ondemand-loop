@@ -82,7 +82,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to projects_url
     follow_redirect!
-    assert_match "Project updated successfully", flash[:notice]
+    assert_match "Project updated", flash[:notice]
   end
 
   test "should update project via JSON with name and download_dir" do

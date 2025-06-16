@@ -69,10 +69,10 @@ module Dataverse
         attr_reader :name, :uri, :icon_uri
 
         def initialize(license)
-          license = license || {}
-          @name = license[:name]
-          @uri = license[:uri]
-          @icon_uri = license[:iconUri]
+          license_hash = license.is_a?(Hash) ? license : { name: license }
+          @name = license_hash[:name]
+          @uri = license_hash[:uri]
+          @icon_uri = license_hash[:iconUri]
         end
       end
 

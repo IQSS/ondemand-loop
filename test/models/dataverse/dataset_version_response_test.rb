@@ -81,6 +81,11 @@ class Dataverse::DatasetVersionResponseTest < ActiveSupport::TestCase
     assert_raises(JSON::ParserError) { Dataverse::DatasetVersionResponse.new(empty_string) }
   end
 
+  test "licence as string is supported" do
+    @target = Dataverse::DatasetVersionResponse.new(load_file_fixture(File.join('dataverse', 'dataset_version_response', 'license_as_string_response.json')))
+    assert_equal "string-license", @target.data.license.name
+  end
+
   test "incomplete json does not throw exception" do
     @invalid_dataset = Dataverse::DatasetVersionResponse.new(incomplete_json_body)
     assert_instance_of Dataverse::DatasetVersionResponse, @invalid_dataset

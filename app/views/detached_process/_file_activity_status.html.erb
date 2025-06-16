@@ -1,0 +1,21 @@
+<%
+  downloads = process_status_class(download_status, type: :download)
+  uploads = process_status_class(upload_status, type: :upload)
+%>
+<div id="file-activity-status"
+     class="d-flex justify-content-center align-items-start gap-0 py-2"
+     style="min-width: 100px; height: 100%;">
+
+  <a href="<%= download_status_path %>"
+     class="btn btn-sm <%= downloads.button %> border-0"
+     title="<%= t('.icon_downloads_title') %>">
+    <i class="bi <%= downloads.icon %> fs-3 <%= downloads.text %>"></i>
+  </a>
+
+  <a href="<%= upload_status_path %>"
+     class="btn btn-sm <%= uploads.button %> border-0"
+     title="<%= t('.icon_uploads_title') %>">
+    <i class="bi <%= uploads.icon %> fs-3 <%= uploads.text %>"></i>
+  </a>
+
+</div>

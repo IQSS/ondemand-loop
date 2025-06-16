@@ -10,12 +10,16 @@ module Command
       @body = OpenStruct.new(body)
     end
 
-    def to_json
+    def to_h
       {
         status: status,
         headers: headers,
         body: body.to_h
-      }.to_json
+      }
+    end
+
+    def to_json
+      to_h.to_json
     end
 
     def self.from_json(json)

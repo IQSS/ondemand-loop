@@ -7,7 +7,13 @@
 module DateTimeCommon
 
   def now
-    Time.now.strftime('%Y-%m-%dT%H:%M:%S')
+    to_string(Time.now)
+  end
+
+  def to_string(date)
+    return nil if date.nil?
+
+    date.strftime('%Y-%m-%dT%H:%M:%S')
   end
 
   def elapsed(from, to = nil)
@@ -17,7 +23,10 @@ module DateTimeCommon
   end
 
   def elapsed_string(from, to = nil)
-    total_seconds = elapsed(from, to)
+    format_elapsed(elapsed(from, to))
+  end
+
+  def format_elapsed(total_seconds)
     Time.at(total_seconds).utc.strftime('%H:%M:%S')
   end
 
@@ -53,5 +62,5 @@ module DateTimeCommon
     end
   end
 
-  module_function :now
+  module_function :now, :to_string, :elapsed, :elapsed_string, :format_elapsed, :to_time
 end

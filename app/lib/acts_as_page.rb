@@ -41,4 +41,8 @@ module ActsAsPage
   def prev_page
     @page - 1 unless first_page? || out_of_range?
   end
+
+  def offset
+    (page - 1) * per_page
+  end
 end

@@ -1,11 +1,14 @@
+<% content_for :title, t('.page_title') %>
 <div class="container-md content" role="main">
-  <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: t('.uploads')}]} %>
+  <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: t('.breadcrumbs_text')}]} %>
   <div class="row">
       <div class="col-md-12">
         <%= render partial: 'actions' %>
 
-        <div data-controller="upload-files-status-refresh">
-          <%= render partial: 'files', locals: { files: @files } %>
+        <div data-controller="lazy-loader"
+             data-lazy-loader-url-value="<%= upload_status_files_path %>"
+             data-lazy-loader-interval-value="<%= Configuration.connector_status_poll_interval.to_i%>">
+          <%= render partial: 'files', locals: { files: @files, status: @status } %>
         </div>
 
       </div>

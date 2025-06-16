@@ -46,7 +46,7 @@ class DetachedProcess
     @services << Download::DownloadService.new(Download::DownloadFilesProvider.new)
     @services << Upload::UploadService.new(Upload::UploadFilesProvider.new)
 
-    controller = DetachedProcessController.new(@services)
+    controller = DetachedProcessManager.new(@services)
     controller.run
   end
 

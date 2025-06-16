@@ -1,8 +1,40 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-    static targets = ["content", "title", "spinner"]
+    static targets = ["title", "subtitle", "content", "spinner", "confirmButton", "confirmText"]
     static values = { url: String, id: String, title: String }
+
+    connect() {
+        // Initialize the Bootstrap Modal instance on connect
+        this.modal = bootstrap.Modal.getOrCreateInstance(this.element)
+        this.confirmCallback = null
+    }
+
+
+    /**
+     * Update modal content dynamically via trigger controller
+     * @param {Object} options
+     * @param {String} options.title - Title text
+     * @param {String} options.subtitle - Subtitle text
+     * @param {String} options.content - Body content
+     * @param {String} options.confirmText - Text for confirm button
+     * @param {Function} options.onConfirm - Callback function
+     */
+    updateContent({ title, subtitle, content, confirmText, onConfirm }) {
+        if (title) this.titleTarget.textContent = title
+        if (subtitle) this.subtitleTarget.textContent = subtitle
+        if (content) this.contentTarget.textContent = content
+        if (confirmText) this.confirmTextTarget.textContent = confirmText
+
+        this.confirmCallback = typeof onConfirm === 'function' ? onConfirm : null
+
+        this.modal.show();
+    }
+
+    confirm(event) {
+        this.modal.hide()
+        if (this.confirmCallback) this.confirmCallback()
+    }
 
     load() {
         const modalElement = document.getElementById(this.idValue);

@@ -10,11 +10,19 @@ module Dataverse
     def initialize(json, page: 1, per_page: 10)
       parsed = JSON.parse(json, symbolize_names: true)
       @status = parsed[:status]
-      @total_count = parsed[:totalCount]
-      @data = (parsed[:data] || []).map { |file| DatasetFile.new(file) }
       @page = page
       @per_page = per_page
-    end
+      all_data = (parsed[:data] || []).map { |file| DatasetFile.new(file) }
+
+      if parsed[:totalCount]
+        @total_count = parsed[:totalCount]
+        @data = all_data
+      else
+        # Manual pagination for APIs without native support
+        @total_count = all_data.size
+        @data = all_data.slice(offset, @per_page) || []
+      end
+  end
 
     def files
       data || []

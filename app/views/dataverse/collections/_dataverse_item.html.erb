@@ -1,22 +1,25 @@
-<div class="list-group-item flex-column align-items-start">
+<li class="list-group-item flex-column align-items-start">
   <div class="d-flex w-100 justify-content-between">
     <h5 class="mb-1">
-      <%= link_to_dataverse_collection item.name.presence || t(".unnamed_dataverse"), dataverse_url, item.identifier, { class: "text-decoration-none"} %>
+      <%= link_to_dataverse_collection item.name.presence || t(".unnamed_dataverse_text"), dataverse_url, item.identifier, { class: "text-decoration-none", title: item.name, 'aria-label' => item.name } %>
     </h5>
     <% if item.published_at %>
       <small class="text-muted">
-        <%= t('.published') %>: <%= item.published_at.to_date.to_s %>
+        <%= t('.field_published_label') %>:
+        <time datetime="<%= item.published_at %>">
+          <%= item.published_at.to_date.to_s %>
+        </time>
       </small>
     <% end %>
   </div>
 
   <small class="text-muted d-block">
-    <strong><%= t('.type') %>:</strong> <%= item.type %>
+    <strong><%= t('.field_type_label') %>:</strong> <%= item.type %>
     <% if item.affiliation.present? %> |
-      <strong><%= t('.affiliation') %>:</strong> <%= item.affiliation %>
+      <strong><%= t('.field_affiliation_label') %>:</strong> <%= item.affiliation %>
     <% end %>
     <% if item.parent_dataverse_name.present? %> |
-      <strong><%= t('.parent') %>:</strong> <%= link_to_dataverse_collection item.parent_dataverse_name, dataverse_url, item.parent_dataverse_identifier, { class: "text-decoration-none"} %>
+      <strong><%= t('.field_parent_label') %>:</strong> <%= link_to_dataverse_collection item.parent_dataverse_name, dataverse_url, item.parent_dataverse_identifier, { class: "text-decoration-none", title: item.parent_dataverse_name, 'aria-label' => item.parent_dataverse_name } %>
     <% end %>
   </small>
-</div>
+</li>

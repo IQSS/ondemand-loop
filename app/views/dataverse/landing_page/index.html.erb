@@ -1,12 +1,13 @@
-<div class="my-4"><%= image_tag('dataverse_project.svg', alt: t('.dataverse_icon'), style: 'width: 300px;') %></div>
+<% content_for :title, t('.page_title') %>
+<div class="my-4"><%= image_tag('dataverse_project.svg', alt: t('.image_dataverse_icon_alt'), style: 'width: 300px;') %></div>
 <div class="dataverse container-md content" role="main">
   <nav aria-label="Breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item active">
-        <a href="<%= root_path %>"><%= t('.home') %></a>
-      </li>
       <li class="breadcrumb-item">
-        <%= link_to "Dataverse", view_dataverse_landing_path %>
+        <a href="<%= root_path %>" title="<%= t(".breadcrumb_home_title") %>"><%= t(".breadcrumb_home_text") %></a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= link_to "Dataverse", view_dataverse_landing_path, { 'title' => t(".breadcrumb_dataverse_title"), 'aria-label' => t(".breadcrumb_dataverse_title")} %>
       </li>
     </ol>
   </nav>

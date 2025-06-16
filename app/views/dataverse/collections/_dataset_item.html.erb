@@ -1,18 +1,23 @@
-<div class="list-group-item flex-column align-items-start">
+<li class="list-group-item flex-column align-items-start">
   <div class="d-flex w-100 justify-content-between">
     <h5 class="mb-1">
-      <%= link_to_dataset item.name.presence || t('.untitled_dataset'), dataverse_url, item.global_id, {class: "text-decoration-none"} %>
+      <%= link_to_dataset item.name.presence || t('.unnamed_dataset_text'), dataverse_url, item.global_id, {class: "text-decoration-none", title: item.name, 'aria-label' => item.name} %>
     </h5>
     <% if item.published_at %>
-      <small class="text-muted"><%= t('.published') %>: <%= item.published_at.to_date.to_s %></small>
+      <small class="text-muted"><%= t('.field_published_label') %>:
+        <time datetime="<%= item.published_at %>">
+          <%= item.published_at.to_date.to_s %>
+        </time>
+      </small>
     <% end %>
   </div>
 
   <p class="mb-1"><%= truncate(item.description, length: 200) %></p>
 
   <small class="text-muted">
-    <strong><%= t('.type') %>:</strong> <%= item.type %> |
-    <strong><%= t('.publisher') %>:</strong> <%= link_to_dataverse_collection item.publisher, dataverse_url, item.identifier_of_dataverse, { class: "text-decoration-none"} %> |
-    <strong><%= t('.files') %>:</strong> <%= item.file_count %>
+    <strong><%= t('.field_type_label') %>:</strong> <%= item.type %> |
+    <strong><%= t('.field_publisher_label') %>:</strong>
+    <%= link_to_dataverse_collection item.publisher, dataverse_url, item.identifier_of_dataverse, { class: "text-decoration-none", title: item.publisher, 'aria-label' => item.publisher } %> |
+    <strong><%= t('.field_files_label') %>:</strong> <%= item.file_count %>
   </small>
-</div>
+</li>

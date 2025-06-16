@@ -26,7 +26,11 @@
       method: 'DELETE',
       title: t('.delete_project'),
       class: "btn-sm btn-outline-secondary icon-hover-danger",
-      icon: "bi bi-trash"
+      icon: "bi bi-trash",
+      modal_id: 'modal-delete-confirmation',
+      modal_title: t('.modal_delete_confirmation_title'),
+      modal_subtitle: project.name,
+      modal_content: t('.modal_delete_confirmation_content'),
     } %>
 
     <a href="<%= files_app_url(Project.project_metadata_dir(project.id)) %>"
