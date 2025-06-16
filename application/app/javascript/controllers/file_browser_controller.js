@@ -1,6 +1,6 @@
 // app/javascript/controllers/file_browser_controller.js
 import { Controller } from "@hotwired/stimulus"
-import { showFlash } from "../flash_message"
+import { showFlash } from 'utils/flash_message'
 
 export default class extends Controller {
     static targets = [

@@ -19,6 +19,7 @@ class ConfigurationSingleton
       ::ConfigurationProperty.integer(:upload_files_retention_period, default: 24 * 60 * 60),
       ::ConfigurationProperty.integer(:ui_feedback_delay, default: 1500),
       ::ConfigurationProperty.integer(:detached_controller_interval, default: 10),
+      ::ConfigurationProperty.integer(:detached_process_status_interval, default: 10 * 1000), # 10s in MILLISECONDS
       ::ConfigurationProperty.integer(:max_download_file_size, default: 10 * 1024 * 1024 * 1024), # 10 GIGABYTE
       ::ConfigurationProperty.integer(:max_upload_file_size, default: 1024 * 1024 * 1024), # 1 GIGABYTE
     ].freeze
@@ -29,7 +30,7 @@ class ConfigurationSingleton
   end
 
   def command_server_socket_file
-    File.join(metadata_root, 'command.server.sock')
+    ENV['OOD_LOOP_COMMAND_SERVER_FILE'] || File.join(metadata_root, 'command.server.sock')
   end
 
   def repo_db_file

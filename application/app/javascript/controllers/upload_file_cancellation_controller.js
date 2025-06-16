@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
-import SpinnerToggleMixin from "../mixins/spinner_toggle"
-import { showFlash } from "../flash_message"
+import SpinnerToggleMixin from 'utils/spinner_toggle'
+import { showFlash } from 'utils/flash_message'
 
 // Connects to data-controller="upload-cancellation"
 export default class extends SpinnerToggleMixin(Controller) {

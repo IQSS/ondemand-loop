@@ -30,6 +30,7 @@ loop_docker_builder:
 
 clean:
 	rm -rf ./application/node_modules
+	rm -rf ./application/.bundle
 	rm -rf ./application/vendor/bundle
 	rm -rf ./application/public/assets
 	rm -f ./application/log/*

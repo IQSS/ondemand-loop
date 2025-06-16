@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { showFlash } from "../flash_message"
+import { showFlash } from 'utils/flash_message'
 
 export default class extends Controller {
     static targets = ["form", "input", "label", "button", "cancel", "spinner"]
