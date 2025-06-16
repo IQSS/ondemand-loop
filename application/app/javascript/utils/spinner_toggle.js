@@ -14,6 +14,7 @@ export default function SpinnerToggleMixin(Base) {
 
             if (this.hasSpinnerTarget) {
                 this.spinnerTarget.classList.remove("d-none")
+                this.spinnerTarget.setAttribute('aria-busy', 'true')
             }
 
             if (this.hasLabelTarget) {
@@ -31,6 +32,7 @@ export default function SpinnerToggleMixin(Base) {
 
             if (this.hasSpinnerTarget) {
                 this.spinnerTarget.classList.add("d-none")
+                this.spinnerTarget.setAttribute('aria-busy', 'false')
             }
 
             if (this.hasLabelTarget) {

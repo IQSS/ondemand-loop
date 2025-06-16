@@ -26,6 +26,7 @@ export default class extends Controller {
         this.formTarget.style.width = `${width}px`
         this.formTarget.style.height = `${height}px`
         this.spinnerTarget.classList.remove("d-none")
+        this.spinnerTarget.setAttribute('aria-busy', 'true')
         this.labelTargets.forEach(el => el.classList.add("d-none"))
     }
 
@@ -38,6 +39,7 @@ export default class extends Controller {
             this.spinnerTarget.classList.add("d-none")
             this.formTarget.style.width = ""
             this.formTarget.style.height = ""
+            this.spinnerTarget.setAttribute('aria-busy', 'false')
         }, uiDelay)
     }
 
