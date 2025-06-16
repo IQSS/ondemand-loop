@@ -11,7 +11,7 @@ module ConnectorHelper
   end
 
   def connector_icon(type)
-    image_tag(type.to_s.downcase, class: 'icon-class', title: type.to_s, alt: type.to_s, "aria-label": t("connector.icon.a11y.label", type: type.to_s))
+    image_tag("#{type.to_s.downcase}.svg", class: 'icon-class', title: type.to_s, alt: type.to_s, "aria-label": t("connector.icon.a11y.label", type: type.to_s))
   end
 
   def api_key_status_badge(provided)
