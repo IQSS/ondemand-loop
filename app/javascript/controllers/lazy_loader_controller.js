@@ -4,6 +4,7 @@ export default class extends Controller {
     static values = {
         url: String,
         interval: Number,
+        stopOnInactive: Boolean,
         containerId: String,
         eventName: String
     }
@@ -85,7 +86,11 @@ export default class extends Controller {
 
     startAutoRefresh() {
         this.interval = setInterval(() => {
-            this.load()
+            if(this.stopOnInactiveValue && document.visibilityState === 'hidden'){
+                console.log('Reload request skipped du to user inactivity')
+            } else {
+                this.load()
+            }
         }, this.intervalValue)
     }
 }
