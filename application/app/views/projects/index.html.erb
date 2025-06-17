@@ -4,12 +4,12 @@
   <div class="row">
       <div class="col-md-12">
         <%= render partial: 'actions' %>
-
-        <%= render partial: 'project', locals: { project: @active_project, active: true } if @active_project %>
-        <% @projects.each do |project| %>
-          <%= render partial: 'project', locals: { project: project } unless project.id == @active_project&.id %>
-        <% end %>
-
+        <ul class="list-group">
+          <%= render partial: 'project', locals: { project: @active_project, active: true } if @active_project %>
+          <% @projects.each do |project| %>
+            <%= render partial: 'project', locals: { project: project } unless project.id == @active_project&.id %>
+          <% end %>
+        </ul>
       </div>
   </div>
 </div>
