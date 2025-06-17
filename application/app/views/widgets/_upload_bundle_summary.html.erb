@@ -1,0 +1,8 @@
+<%
+  project_id = params[:project_id]
+  upload_bundle_id = params[:upload_bundle_id]
+  upload_bundle = UploadBundle.find(project_id, upload_bundle_id)
+%>
+<% unless upload_bundle.nil? %>
+  <%= render partial: '/shared/file_summary_widget', locals: project_progress_data(upload_bundle.status_summary) %>
+<% end %>

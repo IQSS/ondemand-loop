@@ -13,7 +13,9 @@
     </div>
 
     <div class="d-flex align-items-center gap-2">
-      <div class="me-4">
+      <div class="me-4" data-controller="lazy-loader"
+           data-lazy-loader-url-value="<%= widgets_path(widget_path: 'upload_bundle_summary', project_id: project.id, upload_bundle_id: bundle.id) %>"
+           data-lazy-loader-event-name-value="file-drop:file-submitted:<%= file_target_id %>">
         <%= render partial: '/shared/file_summary_widget', locals: project_progress_data(bundle.status_summary) %>
       </div>
 
