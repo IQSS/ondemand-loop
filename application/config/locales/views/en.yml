@@ -252,12 +252,6 @@ en:
       delete_file: "Delete file"
     project:
       download_files: "Download Files"
-    project_footer:
-      files: "Files"
-      view_files: "View files"
-      open_project_metadata: "Open Project metadata"
-      download_files: "Download Files"
-      uploads: "Uploads"
     project_header:
       button_active_project_title: "Active project"
       button_cancel_title: "Cancel"
@@ -272,8 +266,8 @@ en:
       section_project_actions_label: "Project actions section"
       section_rename_project_label: "Rename project section"
     project_summary:
-      button_toggle_label: "Project Summary"
       button_metadata_folder_title: "Open project metadata folder"
+      button_toggle_label: "Project Summary"
       tab_download_label: "Download Files"
     project_summary_downloads:
       title: "Download Files"
