@@ -13,14 +13,4 @@
     background-color: #e9ecef;
     border-bottom: 1px solid #e9ecef;
   }
-
-  .upload-files-container.restricted-height {
-    max-height: 150px;
-    overflow-y: auto;
-    transition: max-height 0.3s ease;
-  }
-
-  .drop-hover .file-drop-container {
-    border: 2px dashed #0d6efd !important;
-  }
 }

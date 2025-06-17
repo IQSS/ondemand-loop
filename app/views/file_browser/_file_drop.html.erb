@@ -1,14 +1,19 @@
-<%
-     container_id = local_assigns.fetch(:id)
-     file_browser_id = local_assigns.fetch(:file_browser_id)
-     file_post_url = local_assigns[:url]
-%>
-<div id="<%= container_id %>"
-     class="file-drop-container"
+<div id="<%= id %>"
+     class="file-drop-container position-relative rounded no-scroll"
      data-controller="file-drop"
      data-file-drop-file-browser-id-value="<%= file_browser_id %>"
-     data-file-drop-url-value="<%= file_post_url %>">
+     data-file-drop-url-value="<%= url %>">
 
   <%= yield %>
+
+  <div class="drop-overlay rounded"></div>
+  <div data-file-drop-target="text" class="position-absolute top-50 start-50 translate-middle text-center drop-text fs-4 file-drop-text" style="z-index: 100;">
+    <%= t('.file_drop_text') %>
+  </div>
+  <div data-file-drop-target="icon" class="position-absolute translate-middle-y drop-text d-none" style="top: 50%; left: 1rem; z-index: 100;">
+    <i class="bi bi-plus-square-fill fs-1"></i>
+  </div>
+  <div data-file-drop-target="feedback" class="position-absolute top-50 start-50 translate-middle text-center drop-text fs-4 d-none" style="z-index: 100;">
+  </div>
 
 </div>

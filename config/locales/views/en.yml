@@ -164,6 +164,8 @@ en:
     browser:
       edit_path: "Edit path"
       parent_folder: "Parent folder"
+    file_drop:
+      file_drop_text: "Drop Files Here"
   layouts:
     nav:
       logo:

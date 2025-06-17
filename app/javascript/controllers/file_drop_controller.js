@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { showFlash } from 'utils/flash_message'
 
 export default class extends Controller {
-    static targets = ["icon", "feedback"]
+    static targets = ["icon", "text", "feedback"]
     static values = { url: String, fileBrowserId: String }
 
     connect() {
@@ -14,12 +14,18 @@ export default class extends Controller {
         document.addEventListener(`file-browser:file-selected:${this.fileBrowserIdValue}`, this.handleExternalSelect.bind(this))
         document.addEventListener(`file-browser:dragstart:${this.fileBrowserIdValue}`, this.dragOver.bind(this))
         document.addEventListener(`file-browser:dragend:${this.fileBrowserIdValue}`, this.dragLeave.bind(this))
+        document.addEventListener(`file-browser:close:${this.fileBrowserIdValue}`, this.toggleFileDrop.bind(this))
     }
 
     disconnect() {
         document.removeEventListener(`file-browser:file-selected:${this.fileBrowserIdValue}`, this.handleExternalSelect.bind(this))
         document.removeEventListener(`file-browser:dragstart:${this.fileBrowserIdValue}`, this.dragOver.bind(this))
         document.removeEventListener(`file-browser:dragend:${this.fileBrowserIdValue}`, this.dragLeave.bind(this))
+        document.removeEventListener(`file-browser:close:${this.fileBrowserIdValue}`, this.toggleFileDrop.bind(this))
+    }
+
+    toggleFileDrop(event) {
+        this.element.classList.toggle("drop-active")
     }
 
     dragOver(event) {
@@ -103,11 +109,13 @@ export default class extends Controller {
 
     showDroppingZone() {
         this.element.classList.add("drop-hover")
+        this.textTarget.classList.add("d-none")
         this.iconTarget.classList.remove("d-none")
     }
 
     hideDroppingZone() {
         this.element.classList.remove("drop-hover")
+        this.textTarget.classList.remove("d-none")
         this.iconTarget.classList.add("d-none")
     }
 }
