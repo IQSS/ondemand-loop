@@ -17,12 +17,11 @@
         <%= render partial: '/shared/file_summary_widget', locals: project_progress_data(bundle.status_summary) %>
       </div>
 
-      <button data-controller="lazy-loader add-upload-files"
+      <button data-controller="lazy-loader file-drop-activation"
               data-lazy-loader-container-id-value="<%= file_browser_id %>"
               data-lazy-loader-url-value="<%= file_browser_path %>"
-              data-add-upload-files-upload-files-id-value="<%= upload_files_id %>"
-              data-add-upload-files-file-browser-id-value="<%= file_browser_id %>"
-              data-action="click->lazy-loader#load click->add-upload-files#toggleFileBrowser"
+              data-file-drop-activation-file-drop-id-value="<%= file_target_id %>"
+              data-action="click->lazy-loader#toggle click->file-drop-activation#toggleFileDrop"
               class="btn btn-outline-secondary btn-sm">
         <i class="bi bi-plus-square-fill"></i>
         <span class="ps-1"><%= t('.add_files') %></span>

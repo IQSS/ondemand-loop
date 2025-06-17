@@ -1,31 +1,22 @@
 <%
-  file_browser_id = "fb-#{bundle.id}"
-  file_target_id = "fbt-#{bundle.id}"
   upload_files_id = "upload-files-#{bundle.id}"
 %>
 <div id="<%= tab_anchor_for(bundle) %>" class="tab-pane fade" role="tabpanel" aria-labelledby="<%= tab_label_for(bundle) %>">
-  <%= render partial: '/projects/show/upload_actions', locals: { bundle: bundle, file_browser_id: file_browser_id, upload_files_id: upload_files_id } %>
+  <%= render partial: '/projects/show/upload_actions', locals: { bundle: bundle, file_browser_id: file_drop_browser_id(bundle), file_target_id: file_drop_target_id(bundle) } %>
 
-  <%= render layout: '/file_browser/file_drop', locals: { id: file_target_id, file_browser_id: file_browser_id, url: project_upload_bundle_upload_files_path(project_id: project.id, upload_bundle_id: bundle.id) } do %>
+  <%= render layout: '/file_browser/file_drop', locals: { id: file_drop_target_id(bundle), file_browser_id: file_drop_browser_id(bundle), url: project_upload_bundle_upload_files_path(project_id: project.id, upload_bundle_id: bundle.id) } do %>
     <div data-controller="lazy-loader"
          data-lazy-loader-container-id-value="<%= upload_files_id %>"
          data-lazy-loader-url-value="<%= project_upload_bundle_upload_files_path(project_id: project.id, upload_bundle_id: bundle.id) %>"
-         data-lazy-loader-event-name-value="file-drop:file-submitted:<%= file_target_id %>"
-         class="position-relative rounded border border-2 file-drop-container">
+         data-lazy-loader-event-name-value="file-drop:file-submitted:<%= file_drop_target_id(bundle) %>"
+         class="position-relative rounded border border-2">
 
-      <div id="<%= upload_files_id %>" class="upload-files-container no-scroll">
+      <div id="<%= upload_files_id %>" class="upload-files-container">
         <%= render partial: '/projects/show/upload_files', locals: { bundle: bundle } %>
-      </div>
-
-      <div class="drop-overlay"></div>
-      <div data-file-drop-target="icon" class="position-absolute translate-middle-y feedback-color d-none" style="top: 50%; left: 1rem; z-index: 100">
-        <i class="bi bi-plus-square-fill fs-1"></i>
-      </div>
-      <div data-file-drop-target="feedback" class="position-absolute top-50 start-50 translate-middle text-center feedback-color fs-4 d-none" style="z-index: 100">
       </div>
     </div>
   <% end %>
 
-  <%= render partial: '/file_browser/file_browser', locals: { id: file_browser_id, class: "my-3 d-none" } %>
+  <%= render partial: '/file_browser/file_browser', locals: { id: file_drop_browser_id(bundle), class: "my-3 d-none" } %>
 
 </div>
