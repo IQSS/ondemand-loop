@@ -231,12 +231,12 @@ en:
         download_files: "Download Files"
         edit_download_settings: "Edit Download settings"
       download_files:
-        download_files_empty: "No Download Files"
-        schedule_date: "Schedule date"
-        repository_files: "Repository Files"
-        completion_date: "Completion date"
-        download_start_date: "Download start date"
-        delete_file: "Delete File"
+        badge_repository_files_tooltip: "Repository Files"
+        button_delete_file_title: "Delete File"
+        field_completion_date_title: "Completion date"
+        field_download_start_date_title: "Download start date"
+        field_schedule_date_title: "Schedule date"
+        message_download_files_empty_text: "No Download Files"
         modal_delete_confirmation_title: "Delete File"
         modal_delete_confirmation_content: "The file will no longer appear in the application, but it won’t be deleted from the server."
       project_actions:
