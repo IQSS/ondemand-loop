@@ -8,6 +8,12 @@ class WidgetsControllerTest < ActionDispatch::IntegrationTest
     assert_includes @response.body, '400 Bad Request'
   end
 
+  test 'should return 400 for possible hacks' do
+    get widgets_path(widget_path: '$HOME/private/file')
+    assert_response :bad_request
+    assert_includes @response.body, '400 Bad Request'
+  end
+
   test 'should return 404 for non-existent widget' do
     get widgets_path(widget_path: 'nonexistent_widget')
     assert_response :not_found
