@@ -2,6 +2,7 @@
   type = local_assigns.fetch(:type, 'form')
   button_classes = local_assigns.fetch(:class, 'btn-outline-dark btn-sm')
   placeholder = local_assigns.fetch(:placeholder, t('.default_placeholder'))
+  title = local_assigns.fetch(:title, '')
 %>
 <div data-controller="inline-field-submit"
      data-inline-field-submit-url-value="<%= url %>"
@@ -11,8 +12,8 @@
 
   <!-- Action button (initial state) -->
   <div data-inline-field-submit-target="button">
-    <%= link_to "#", class: "btn #{button_classes}", data: { action: "click->inline-field-submit#showForm" } do %>
-      <i class="<%= icon %>"></i>
+    <%= link_to "#", class: "btn #{button_classes}", title: title, data: { action: "click->inline-field-submit#showForm" } do %>
+      <i class="<%= icon %>" aria-hidden="true"></i>
       <span class="ps-1"><%= label %></span>
     <% end %>
   </div>
@@ -27,14 +28,16 @@
             data-action="inline-field-submit#submit"
             data-inline-field-submit-target="label"
             title="<%= t('.submit') %>">
-      <i class="bi bi-check-lg"></i>
+      <i class="bi bi-check-lg" aria-hidden="true"></i>
+      <span class="visually-hidden"><%= t('.submit') %></span>
     </button>
     <button class="btn btn-sm btn-outline-danger"
             type="button"
             data-action="inline-field-submit#cancel"
             data-inline-field-submit-target="label"
             title="<%= t('.cancel') %>">
-      <i class="bi bi-x-lg"></i>
+      <i class="bi bi-x-lg" aria-hidden="true"></i>
+      <span class="visually-hidden"><%= t('.cancel') %></span>
     </button>
 
     <!-- Spinner placeholder -->
