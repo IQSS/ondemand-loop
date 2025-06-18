@@ -54,18 +54,12 @@
     <% end %>
 
     <div class="d-flex flex-wrap align-items-center gap-2 file-summary">
-      <span class="badge badge-project-pending">Pending: <%= pending %></span>
-      <span class="badge badge-project-completed">Completed: <%= completed %></span>
-      <span class="badge badge-project-cancel">Cancelled: <%= cancelled %></span>
-      <span class="badge badge-project-error">Error: <%= error %></span>
-      <span class="badge badge-project-total">Total: <%= total %></span>
+      <span class="badge badge-project-pending"><%= t('.badge_pending_text') %>: <%= pending %></span>
+      <span class="badge badge-project-completed"><%= t('.badge_completed_text') %>: <%= completed %></span>
+      <span class="badge badge-project-cancel"><%= t('.badge_cancelled_text') %>: <%= cancelled %></span>
+      <span class="badge badge-project-error"><%= t('.badge_error_text') %>: <%= error %></span>
+      <span class="badge badge-project-total"><%= t('.badge_total_text') %>: <%= total %></span>
     </div>
-    <dl class="visually-hidden">
-      <dt>Pending</dt><dd><%= pending %></dd>
-      <dt>Completed</dt><dd><%= completed %></dd>
-      <dt>Cancelled</dt><dd><%= cancelled %>/dd>
-      <dt>Error</dt><dd><%= error %></dd>
-      <dt>Total</dt><dd><%= total %></dd>
-    </dl>
+
   </div>
 </div>

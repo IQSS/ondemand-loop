@@ -300,6 +300,12 @@ en:
       cancelled_files: "Cancelled files"
       error_files: "Error files"
       total_files: "Total files"
+    file_summary_widget:
+      badge_cancelled_text: "Cancelled"
+      badge_completed_text: "Completed"
+      badge_error_text: "Error"
+      badge_pending_text: "Pending"
+      badge_total_text: "Total"
     files_process_header:
       download:
         icon_idle_title: "Download process is idle"
