@@ -12,7 +12,7 @@
 
   <!-- Action button (initial state) -->
   <div data-inline-field-submit-target="button">
-    <%= link_to "#", class: "btn #{button_classes}", title: title, data: { action: "click->inline-field-submit#showForm" } do %>
+    <%= link_to "#", class: "btn #{button_classes}", title: title, role: 'button', data: { action: "click->inline-field-submit#showForm" } do %>
       <i class="<%= icon %>" aria-hidden="true"></i>
       <span class="ps-1"><%= label %></span>
     <% end %>
