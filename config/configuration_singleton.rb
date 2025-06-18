@@ -29,6 +29,10 @@ class ConfigurationSingleton
     @version ||= File.read(Rails.root.join('VERSION')).strip.freeze
   end
 
+  def detached_process_lock_file
+    ENV['OOD_LOOP_DETACHED_PROCESS_FILE'] || File.join(metadata_root, 'detached.process.lock')
+  end
+
   def command_server_socket_file
     ENV['OOD_LOOP_COMMAND_SERVER_FILE'] || File.join(metadata_root, 'command.server.sock')
   end

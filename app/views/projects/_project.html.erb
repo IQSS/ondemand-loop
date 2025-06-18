@@ -1,8 +1,8 @@
 <% active = active.nil? ? false : active %>
 <% footer = footer.nil? ? true : footer %>
-<div class="card mb-3 shadow-sm rounded <%= project_border_class(active) %>">
+<li class="card mb-3 shadow-sm rounded <%= project_border_class(active) %>" role="listitem" <%= 'aria-current="true"' if active %>>
   <!-- Header Section -->
   <%= render partial: "projects/project_header", locals: { project: project, active: active } %>
 
   <%= render partial: "projects/project_summary", locals: { project: project } if footer %>
-</div>
+</li>

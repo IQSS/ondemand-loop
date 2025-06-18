@@ -1,4 +1,4 @@
-<div class="card-header d-flex justify-content-between align-items-center <%= project_header_class(active) %>"
+<header class="card-header d-flex justify-content-between align-items-center <%= project_header_class(active) %>"
      data-controller="project-name"
      data-project-name-initial-name-value="<%= project.name %>"
      data-project-name-url-value="<%= project_path(id: project.id) %>"
@@ -7,51 +7,55 @@
     <a href="<%= files_app_url(project.download_dir) %>"
        target="_blank"
        class="btn btn-sm btn-outline-dark"
-       title="<%= t('.open_project_folder') %>">
+       title="<%= t('.button_open_project_folder_title') %>">
       <i class="bi bi-folder-fill"></i>
+      <span class="visually-hidden"><%= t('.button_open_project_folder_title') %></span>
     </a>
 
-    <%= render partial: '/shared/file_row_date', locals: { date: project.creation_date, title: t('.creation_date') } if project.creation_date %>
+    <%= render partial: '/shared/file_row_date', locals: { date: project.creation_date, title: t('.field_creation_date_title') } if project.creation_date %>
     <div>
       <!-- PROJECT METADATA -->
       <div data-project-name-target="display" class="d-flex flex-column">
         <%= link_to project_path(id: project.id), class: "position-relative project-name-link text-reset text-decoration-none rounded-end  ps-1 pe-3" do %>
-          <h5 class="mb-0"><%= project.name %></h5>
+          <h2 class="mb-0 h5"><%= project.name %></h2>
           <small class="text-muted"><%= project.download_dir %></small>
         <% end %>
       </div>
       <!-- PROJECT ACTIONS -->
-      <div data-project-name-target="form" class="d-flex align-items-center gap-2 d-none">
+      <div data-project-name-target="form" class="d-flex align-items-center gap-2 d-none" role="group" aria-label="<%= t('.section_rename_project_label') %>">
         <input type="text"
                class="form-control form-control-sm"
                data-project-name-target="input"
                value="<%= project.name %>">
         <button class="btn btn-sm btn-outline-primary"
                 data-action="click->project-name#save"
-                title="<%= t('.save_project_name') %>">
-          <i class="bi bi-check-lg"></i>
+                title="<%= t('.button_save_project_name_title') %>">
+          <i class="bi bi-check-lg" aria-hidden="true"></i>
+          <span class="visually-hidden"><%= t('.button_save_project_name_title') %></span>
         </button>
         <button class="btn btn-sm btn-outline-danger"
                 type="button"
                 data-action="click->project-name#cancel"
-                title="<%= t('.cancel') %>">
-          <i class="bi bi-x-lg"></i>
+                title="<%= t('.button_cancel_title') %>">
+          <i class="bi bi-x-lg" aria-hidden="true"></i>
+          <span class="visually-hidden"><%= t('.button_cancel_title') %></span>
         </button>
       </div>
     </div>
   </div>
 
-  <div class="d-flex align-items-center gap-2">
+  <div class="d-flex align-items-center gap-2" role="group" aria-label="<%= t('.section_project_actions_label') %>">
     <button class="btn btn-sm btn-outline-dark"
             data-action="click->project-name#edit"
-            title="<%= t('.edit_project_name') %>">
-      <i class="bi bi-pencil-fill"></i>
+            title="<%= t('.button_edit_project_name_title') %>">
+      <i class="bi bi-pencil-fill" aria-hidden="true"></i>
+      <span class="visually-hidden"><%= t('.button_edit_project_name_title') %></span>
     </button>
 
     <%= render partial: "shared/button_to", locals: {
       url: project_path(id: project.id),
       method: 'DELETE',
-      title: t('.delete_project'),
+      title: t('.button_delete_project_title'),
       class: 'btn-sm btn-outline-dark icon-hover-danger',
       icon: "bi bi-trash-fill",
       modal_id: 'modal-delete-confirmation',
@@ -61,16 +65,17 @@
     } %>
 
     <% if active %>
-      <button class="btn btn-sm btn-outline-primary cursor-default" title="<%= t('.active_project') %>">
-        <i class="bi bi-check-circle-fill"></i>
+      <button class="btn btn-sm btn-outline-primary cursor-default" title="<%= t('.button_active_project_title') %>">
+        <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+        <span class="visually-hidden"><%= t('.button_active_project_title') %></span>
       </button>
     <% else %>
       <%= render partial: "shared/button_to", locals: {
         url: set_active_project_path(id: project.id),
-        title: t('.set_as_active_project'),
+        title: t('.button_set_as_active_project_title'),
         class: 'btn-sm btn-outline-dark',
         icon: "bi bi-pin-angle-fill"
       } %>
     <% end %>
   </div>
-</div>
+</header>

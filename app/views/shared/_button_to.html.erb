@@ -12,9 +12,11 @@
 
   <%= yield %>
 
+  <% accessible_label = local_assigns[:label] || local_assigns[:title] || t('.button_accessibility_default_label') %>
   <%= button_tag type: 'submit',
                  class: "btn #{local_assigns[:class] || 'btn-outline-dark btn-sm'}",
-                 title: local_assigns[:title],
+                 title: local_assigns[:title] || accessible_label,
+                 "aria-label" => accessible_label,
                  data: {
                    action: 'click->submit-button#click',
                    submit_button_target: 'button'
@@ -26,7 +28,7 @@
 
     <span data-submit-button-target="label">
       <% if local_assigns[:icon] %>
-        <i class="<%= icon %>"></i>
+        <i class="<%= icon %>" aria-hidden="true"></i>
       <% end %>
       <% if local_assigns[:label] %>
         <span class="ps-1"><%= label %></span>

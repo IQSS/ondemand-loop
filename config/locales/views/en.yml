@@ -242,8 +242,8 @@ en:
         modal_delete_confirmation_content: "This will remove the file from the upload bundle. The file will remain on disk and in the remote repository if already uploaded."
       projects: "Projects"
     actions:
-      downloads_root_directory: "Downloads Root Directory"
-      create_project: "Create Project"
+      button_create_project_text: "Create Project"
+      button_downloads_root_directory_text: "Downloads Root Directory"
     download_files:
       schedule_date: "Schedule date"
       repository_files: "Repository Files"
@@ -252,29 +252,25 @@ en:
       delete_file: "Delete file"
     project:
       download_files: "Download Files"
-    project_footer:
-      files: "Files"
-      view_files: "View files"
-      open_project_metadata: "Open Project metadata"
-      download_files: "Download Files"
-      uploads: "Uploads"
     project_header:
-      open_project_folder: "Open project folder"
-      creation_date: "Creation Date"
-      save_project_name: "Save project name"
-      cancel: "Cancel"
-      edit_project_name: "Edit Project name"
-      delete_project: "Delete project"
+      button_active_project_title: "Active project"
+      button_cancel_title: "Cancel"
+      button_delete_project_title: "Delete project"
+      button_edit_project_name_title: "Edit Project name"
+      button_open_project_folder_title: "Open project folder"
+      button_save_project_name_title: "Save project name"
+      button_set_as_active_project_title: "Set as Active Project"
+      field_creation_date_title: "Creation Date"
       modal_delete_confirmation_title: "Delete Project"
       modal_delete_confirmation_content: "This will remove the project from the app. Files on disk and in remote repositories will remain untouched."
-      active_project: "Active project"
-      set_as_active_project: "Set as Active Project"
+      section_project_actions_label: "Project actions section"
+      section_rename_project_label: "Rename project section"
     project_summary:
-      button_toggle_label: "Project Summary"
       button_metadata_folder_title: "Open project metadata folder"
+      button_toggle_label: "Project Summary"
       tab_download_label: "Download Files"
     project_summary_downloads:
-      title: "Download Files"
+      tab_title: "Download Files"
       button_download_folder_title: "Open downloads folder"
     project_summary_bundle:
       creation_date_title: "Creation date"
@@ -285,10 +281,13 @@ en:
       upload_start_date: "Upload start date"
       delete_file: "Delete file"
     index:
-      projects: "Projects"
+      breadcrumbs_text: "Projects"
+      page_title: "OnDemand Loop - Projects"
   shared:
     breadcrumbs:
       home: "Home"
+    button_to:
+      button_accessibility_default_label: "Action"
     file_stats_inline:
       pending_files: "Pending files"
       completed_files: "Completed files"
@@ -301,6 +300,12 @@ en:
       cancelled_files: "Cancelled files"
       error_files: "Error files"
       total_files: "Total files"
+    file_summary_widget:
+      badge_cancelled_text: "Cancelled"
+      badge_completed_text: "Completed"
+      badge_error_text: "Error"
+      badge_pending_text: "Pending"
+      badge_total_text: "Total"
     files_process_header:
       download:
         icon_idle_title: "Download process is idle"

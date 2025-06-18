@@ -10,10 +10,12 @@ export default class extends Controller {
     startSubmitting() {
         this.submitButtonTarget.disabled = true
         this.spinnerTarget.classList.remove("d-none")
+        this.spinnerTarget.setAttribute('aria-busy', 'true')
     }
 
     stopSubmitting() {
         this.submitButtonTarget.disabled = false
         this.spinnerTarget.classList.add("d-none")
+        this.spinnerTarget.setAttribute('aria-busy', 'false')
     }
 }

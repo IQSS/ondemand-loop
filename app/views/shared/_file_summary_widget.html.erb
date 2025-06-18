@@ -17,7 +17,7 @@
 
 <div class="d-inline-flex align-items-center gap-2 file-summary-inline">
   <!-- Progress Circle -->
-  <div class="d-inline-block" style="width: 44px;" title="Completed <%= percent.to_i %>%">
+  <div class="d-inline-block" style="width: 44px;" title="Completed <%= percent.to_i %>%" aria-label="Progress: <%= percent.to_i %>% complete">
     <svg viewBox="0 0 44 44" width="100%" height="100%" class="progress-circle">
       <circle cx="22" cy="22" r="18"
               stroke="<%= background_color %>"
@@ -54,11 +54,12 @@
     <% end %>
 
     <div class="d-flex flex-wrap align-items-center gap-2 file-summary">
-      <span class="badge badge-project-pending">Pending: <%= pending %></span>
-      <span class="badge badge-project-completed">Completed: <%= completed %></span>
-      <span class="badge badge-project-cancel">Cancelled: <%= cancelled %></span>
-      <span class="badge badge-project-error">Error: <%= error %></span>
-      <span class="badge badge-project-total">Total: <%= total %></span>
+      <span class="badge badge-project-pending"><%= t('.badge_pending_text') %>: <%= pending %></span>
+      <span class="badge badge-project-completed"><%= t('.badge_completed_text') %>: <%= completed %></span>
+      <span class="badge badge-project-cancel"><%= t('.badge_cancelled_text') %>: <%= cancelled %></span>
+      <span class="badge badge-project-error"><%= t('.badge_error_text') %>: <%= error %></span>
+      <span class="badge badge-project-total"><%= t('.badge_total_text') %>: <%= total %></span>
     </div>
+
   </div>
 </div>

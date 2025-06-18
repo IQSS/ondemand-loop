@@ -37,6 +37,7 @@ export default class extends Controller {
         const uiDelay = window.loop_app_config.ui_feedback_delay
 
         this.buttonTarget.disabled = true
+        this.buttonTarget.setAttribute('aria-busy', 'true')
         const width = this.buttonTarget.offsetWidth
         const height = this.buttonTarget.offsetHeight
         this.buttonTarget.style.width = `${width}px`

@@ -1,12 +1,13 @@
 <div class="text-end">
-  <%= link_to(files_app_url(Configuration.download_root), class: 'btn btn-outline-dark btn-sm', target: '_blank') do %>
-    <i class="bi bi-folder-fill"></i>
-    <span class="ps-1"><%= t(".downloads_root_directory") %></span>
+  <%= link_to(files_app_url(Configuration.download_root), class: 'btn btn-outline-dark btn-sm', target: '_blank',
+              title: t(".button_downloads_root_directory_text")) do %>
+    <i class="bi bi-folder-fill" aria-hidden="true"></i>
+    <span class="ps-1"><%= t(".button_downloads_root_directory_text") %></span>
   <% end %>
 
   <%= render partial: "shared/button_to", locals: {
     url: projects_path,
-    label: t(".create_project"),
+    label: t(".button_create_project_text"),
     icon: "bi bi-plus-square-fill"
   } %>
 

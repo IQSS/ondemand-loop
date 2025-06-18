@@ -123,7 +123,7 @@ checked program was:
 have_func: checking for _lzcnt_u32() in x86intrin.h... -------------------- no
 
 LD_LIBRARY_PATH=.:/usr/lib64 "gcc -o conftest -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.    -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC conftest.c  -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed  -m64   -lruby  -lm  -lc"
-/tmp/cc4kDrwH.o: In function `t':
+/tmp/ccVQvQum.o: In function `t':
 /usr/local/app/vendor/bundle/ruby/3.1.0/gems/bigdecimal-3.1.9/ext/bigdecimal/conftest.c:16: undefined reference to `_lzcnt_u32'
 collect2: error: ld returned 1 exit status
 checked program was:
@@ -182,7 +182,7 @@ checked program was:
 have_func: checking for _lzcnt_u64() in x86intrin.h... -------------------- no
 
 LD_LIBRARY_PATH=.:/usr/lib64 "gcc -o conftest -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.    -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC conftest.c  -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed  -m64   -lruby  -lm  -lc"
-/tmp/cc4ZOVa9.o: In function `t':
+/tmp/ccs8oGMA.o: In function `t':
 /usr/local/app/vendor/bundle/ruby/3.1.0/gems/bigdecimal-3.1.9/ext/bigdecimal/conftest.c:16: undefined reference to `_lzcnt_u64'
 collect2: error: ld returned 1 exit status
 checked program was:
@@ -367,7 +367,7 @@ In file included from /usr/include/ruby/missing.h:21,
 conftest.c:16:13: warning: conflicting types for built-in function '__builtin_isfinite' [-Wbuiltin-declaration-mismatch]
  extern void isfinite();
              ^~~~~~~~
-/tmp/ccbfgVob.o: In function `t':
+/tmp/ccomGph1.o: In function `t':
 /usr/local/app/vendor/bundle/ruby/3.1.0/gems/bigdecimal-3.1.9/ext/bigdecimal/conftest.c:17: undefined reference to `__builtin_isfinite'
 collect2: error: ld returned 1 exit status
 checked program was:

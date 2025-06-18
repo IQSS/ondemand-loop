@@ -9,7 +9,7 @@
      role="button"
      aria-expanded="false"
      aria-controls="project-files-<%= project.id %>">
-    <i data-utils--icon-toggle-target="icon" class="bi bi-plus-square me-2 transition" id="toggle-icon-<%= project.id %>"></i>
+    <i data-utils--icon-toggle-target="icon" class="bi bi-plus-square me-2 transition" id="toggle-icon-<%= project.id %>" aria-hidden="true"></i>
     <strong><%= t('.button_toggle_label') %></strong>
   </a>
   <div>
@@ -17,7 +17,8 @@
        target="_blank"
        class="btn btn-sm btn-outline-secondary"
        title="<%= t('.button_metadata_folder_title') %>">
-      <i class="bi bi-card-list"></i>
+      <i class="bi bi-card-list" aria-hidden="true"></i>
+      <span class="visually-hidden"><%= t('.button_metadata_folder_title') %></span>
     </a>
   </div>
 </div>
@@ -31,7 +32,7 @@
         <a class="nav-link text-secondary active" id="<%= tab_label_for(project) %>" data-bs-toggle="tab"
            href="<%= tab_href_for(project) %>" role="tab"
            aria-controls="<%= tab_anchor_for(project) %>" aria-selected="true">
-          <i class="bi bi-download me-1"></i><%= t('.tab_download_label') %>
+          <i class="bi bi-download me-1" aria-hidden="true"></i><%= t('.tab_download_label') %>
         </a>
       </li>
       <% project.upload_bundles.each do |bundle| %>
@@ -39,7 +40,7 @@
           <a class="nav-link text-secondary" id="<%= tab_label_for(bundle) %>" data-bs-toggle="tab"
              href="<%= tab_href_for(bundle) %>" role="tab"
              aria-controls="<%= tab_anchor_for(bundle) %>" aria-selected="false">
-            <i class="bi bi-upload me-1"></i><%= bundle.name %>
+            <i class="bi bi-upload me-1" aria-hidden="true"></i><%= bundle.name %>
           </a>
         </li>
       <% end %>

@@ -5,10 +5,11 @@
          target="_blank"
          class="btn btn-sm btn-outline-secondary"
          title="<%= t('.button_download_folder_title') %>">
-        <i class="bi bi-folder-fill"></i>
+        <i class="bi bi-folder-fill" aria-hidden="true"></i>
+        <span class="visually-hidden"><%= t('.button_download_folder_title') %></span>
       </a>
       <div class="d-flex flex-column">
-        <h5 class="mb-0"><%= t('.title') %></h5>
+        <h5 class="mb-0"><%= t('.tab_title') %></h5>
         <small class="text-muted"><%= project.download_dir %></small>
       </div>
     </div>
