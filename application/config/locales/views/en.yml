@@ -227,9 +227,8 @@ en:
   projects:
     show:
       download_actions:
-        open_downloads_folder: "Open Downloads folder"
-        download_files: "Download Files"
-        edit_download_settings: "Edit Download settings"
+        button_open_downloads_folder_title: "Open Downloads folder"
+        header_download_files_text: "Download Files"
       download_files:
         badge_repository_files_tooltip: "Repository Files"
         button_delete_file_title: "Delete File"
