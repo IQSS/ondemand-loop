@@ -1,10 +1,24 @@
 # frozen_string_literal: true
 
 class ScriptLauncher
+  include LoggingCommon
   LAUNCH_SCRIPT = 'scripts/launch_detached_process.rb'
 
+  def initialize(download_files_provider, upload_files_provider)
+    @download_files_provider = download_files_provider
+    @upload_files_provider = upload_files_provider
+  end
+
   def launch_script
-    start_process_from_script(LAUNCH_SCRIPT, 'launch_detached_process.log')
+    if pending_files?
+      start_process_from_script(LAUNCH_SCRIPT, 'launch_detached_process.log')
+    else
+      log_info("No pending files - skipping")
+    end
+  end
+
+  def pending_files?
+    @download_files_provider.pending_files.any? || @upload_files_provider.pending_files.any?
   end
 
   # TODO: We need a status page to show the detached service execution logs and possibly other things

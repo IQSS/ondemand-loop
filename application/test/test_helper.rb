@@ -15,11 +15,14 @@ module ActiveSupport
     # Run tests in parallel with specified workers
     parallelize(workers: :number_of_processors)
 
-    # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-    #fixtures :all
-
     # Add more helper methods to be used by all tests here...
     include FileFixtureHelper
     include ModelHelper
+
+    setup do
+      # TODO: Review. This is a fix for the random errors in CI:
+      # ArgumentError: `secret_key_base` for test environment must be a type of String`
+      Rails.application.secret_key_base ||= "a_secure_dummy_key_for_tests"
+    end
   end
 end

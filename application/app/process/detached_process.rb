@@ -14,11 +14,12 @@ class DetachedProcess
   end
 
   def launch
-    log_info('Process launched', {pid: process_id, elapsed_time: elapsed_time})
+    log_info('Process launched', {pid: process_id})
 
+    lock_file = ::Configuration.detached_process_lock_file
     File.open(lock_file, 'w') do |service_lock|
       unless service_lock.flock(File::LOCK_EX | File::LOCK_NB) # Exclusive, non-blocking lock
-        log_info('Exit. Other DetachedProcess already running', {pid: process_id, elapsed_time: elapsed_time})
+        log_info('Exit. Other DetachedProcess already running', {pid: process_id})
         return
       end
 
@@ -30,11 +31,6 @@ class DetachedProcess
     ensure
       shutdown
     end
-  end
-
-
-  def lock_file
-    File.join(Configuration.metadata_root, 'detached.process.lock')
   end
 
   private
