@@ -266,6 +266,7 @@ en:
         delete_file: "Delete File"
         modal_delete_confirmation_title: "Delete File from Bundle"
         modal_delete_confirmation_content: "This will remove the file from the upload bundle. The file will remain on disk and in the remote repository if already uploaded."
+      page_title: "OnDemand Loop - Project detail"
       projects: "Projects"
     actions:
       button_create_project_text: "Create Project"
