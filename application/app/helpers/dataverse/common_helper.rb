@@ -8,7 +8,7 @@ module Dataverse::CommonHelper
       port = params[:dv_port] || 443
       return URI.parse(scheme + "://" + hostname + ":" + port.to_s).to_s
     else
-      flash[:alert] = I18n.t("helpers.invalid_dataverse_hostname")
+      flash[:alert] = I18n.t("helpers.dataverse.invalid_hostname")
       redirect_to root_path
       return nil
     end

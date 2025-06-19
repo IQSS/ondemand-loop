@@ -44,6 +44,18 @@ en:
     resolve:
       blank_url_error: "Please provide repo URL"
       url_not_supported: "URL not supported: %{url}"
+  zenodo:
+    records:
+      download:
+        error_generating_project: "Error generating project: %{errors}"
+        invalid_file_in_selection: "Invalid file in selection: %{filename} errors: %{errors}"
+        error_generating_the_download_file: "Error generating the download file"
+        files_added_to_project: "Files added to project: %{project_name}"
+      record_not_found: "Record not found. Record id: %{record_id}"
+      record_service_error: "Zenodo service error. Record id: %{record_id}"
+    landing_page:
+      index:
+        search_error: "Zenodo search service error"
   upload_bundles:
     create:
       invalid_project: "Invalid project id: %{id}"

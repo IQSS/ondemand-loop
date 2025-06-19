@@ -16,3 +16,11 @@ en:
         created: "Upload bundle created: %{name}"
       upload_connector_processor:
         description: "File uploaded from OnDemand Loop application"
+    zenodo:
+      actions:
+        connector_edit:
+          success: "Access token updated: %{name}"
+        upload_bundles:
+          record_not_found: "Zenodo record not found: %{url}. Only published records are supported"
+          url_not_supported: "Zenodo URL not supported: %{url}. Only deposition URLs are currently supported"
+          created: "Upload bundle created: %{name}"

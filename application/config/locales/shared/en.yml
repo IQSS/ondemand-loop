@@ -20,9 +20,14 @@ en:
     error: "error"
     cancelled: "cancelled"
   helpers:
-    invalid_dataverse_hostname: "Invalid Dataverse hostname"
-    key_missing: "API Token missing"
-    key_present: "API Token present"
+    dataverse:
+      invalid_hostname: "Invalid Dataverse hostname"
+      key_missing: "API Token missing"
+      key_present: "API Token present"
+    zenodo:
+      invalid_hostname: "Invalid Zenodo hostname"
+      key_missing: "Access Token missing"
+      key_present: "Access Token present"
   js:
     download:
       cancel:

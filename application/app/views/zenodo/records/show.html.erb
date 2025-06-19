@@ -1,0 +1,26 @@
+<% content_for :title, t('.page_title') %>
+<div class="zenodo container-md content" role="main">
+  <%= render partial: 'breadcrumbs', locals: { record_id: @record_id } %>
+  <div class="card">
+    <div class="card-header"><%= @record.title %></div>
+    <div class="card-body">
+      <%= form_with url: download_zenodo_record_files_path, local: true do |f| %>
+        <%= hidden_field_tag 'project_id', Current.settings.user_settings.active_project %>
+        <%= hidden_field_tag :record_id, @record_id %>
+        <table class="table">
+          <thead><tr><th></th><th><%= t('.filename') %></th><th><%= t('.size') %></th></tr></thead>
+          <tbody>
+          <% @record.files.each do |file| %>
+            <tr>
+              <td><input type="checkbox" name="file_ids[]" value="<%= file.id %>"></td>
+              <td><%= file.filename %></td>
+              <td><%= number_to_human_size(file.filesize) %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+        <%= submit_tag t('.add_files'), class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>

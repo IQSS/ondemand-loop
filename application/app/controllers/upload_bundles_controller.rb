@@ -13,6 +13,7 @@ class UploadBundlesController < ApplicationController
     repo_url = params[:remote_repo_url]
     repo_resolver = Repo::RepoResolverService.new(RepoRegistry.resolvers)
     url_resolution = repo_resolver.resolve(repo_url)
+    log_info('Remote Repo resolution', { repo_url: repo_url, type: url_resolution.type })
 
     if url_resolution.unknown?
       redirect_back fallback_location: root_path,  alert: t(".invalid_repo", url: repo_url)

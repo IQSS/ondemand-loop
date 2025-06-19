@@ -22,6 +22,7 @@ class ConfigurationSingleton
       ::ConfigurationProperty.integer(:detached_process_status_interval, default: 10 * 1000), # 10s in MILLISECONDS
       ::ConfigurationProperty.integer(:max_download_file_size, default: 10 * 1024 * 1024 * 1024), # 10 GIGABYTE
       ::ConfigurationProperty.integer(:max_upload_file_size, default: 1024 * 1024 * 1024), # 1 GIGABYTE
+      ::ConfigurationProperty.boolean(:zenodo_enabled, default: false),
     ].freeze
   end
 

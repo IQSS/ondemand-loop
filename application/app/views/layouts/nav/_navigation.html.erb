@@ -21,6 +21,9 @@
           </a>
           <ul class="dropdown-menu">
             <li role="menuitem"><a class="dropdown-item" href="<%= view_dataverse_landing_path %>">Dataverse</a></li>
+            <% if ::Configuration.zenodo_enabled %>
+              <li role="menuitem"><a class="dropdown-item" href="<%= view_zenodo_landing_path %>"><%= t('views.layouts.nav.navigation.zenodo') %></a></li>
+            <% end %>
           </ul>
         </li>
       </ul>

@@ -1,0 +1,26 @@
+<% content_for :title, t('.page_title') %>
+<div class="zenodo container-md content" role="main">
+  <nav aria-label="Breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="<%= root_path %>"><%= t('.breadcrumb_home_text') %></a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">Zenodo</li>
+    </ol>
+  </nav>
+  <%= form_with url: view_zenodo_landing_path, method: :get, local: true do |f| %>
+    <div class="input-group mb-3">
+      <%= f.text_field :query, class: 'form-control', value: @query, placeholder: t('.search_placeholder') %>
+      <%= f.submit t('.search'), class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+  <% if @results %>
+    <ul class="list-group">
+      <% @results.items.each do |item| %>
+        <li class="list-group-item">
+          <%= link_to item.title, view_zenodo_dataset_path(item.id) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

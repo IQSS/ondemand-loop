@@ -14,15 +14,15 @@ module ConnectorHelper
     image_tag("#{type.to_s.downcase}.svg", class: 'icon-class', title: type.to_s, alt: type.to_s, "aria-label": t("connector.icon.a11y.label", type: type.to_s))
   end
 
-  def api_key_status_badge(provided)
-    if provided
+  def api_key_status_badge(type, key_present)
+    if key_present
       content_tag(:span, class: 'badge badge-soft-success') do
-        raw('<i class="bi bi-check-circle-fill me-1"></i><span class="ms-1">' + I18n.t('helpers.key_present') + '</span>')
+        raw('<i class="bi bi-check-circle-fill me-1"></i><span class="ms-1">' + I18n.t("helpers.#{type.to_s}.key_present") + '</span>')
       end
     else
       # Missing API key – use a softer alert red
       content_tag(:span, class: 'badge badge-soft-danger') do
-        raw('<i class="bi bi-exclamation-circle me-1"></i><span class="ms-1">' + I18n.t('helpers.key_missing') + '</span>')
+        raw('<i class="bi bi-exclamation-circle me-1"></i><span class="ms-1">' + I18n.t("helpers.#{type.to_s}.key_missing") + '</span>')
       end
     end
   end
