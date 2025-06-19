@@ -19,8 +19,24 @@
       <div>
         <%= render partial: '/shared/file_summary_widget', locals: project_progress_data(project.status_summary) %>
       </div>
-
     </div>
+
+  </div>
+
+  <div class="card-header d-flex justify-content-between align-items-center bg-light">
+    <%= render layout: 'shared/button_to', locals: {
+      url: project_path(id: project.id),
+      method: 'DELETE',
+      title: t('.delete_file'),
+      class: "btn-sm btn-outline-secondary icon-hover-danger",
+      icon: 'bi bi-trash',
+      modal_id: 'modal-delete-confirmation',
+      modal_title: t('.modal_delete_confirmation_title'),
+      modal_subtitle: 'Delete all files',
+      modal_content: t('.modal_delete_confirmation_content'),
+    } do %>
+      <%= hidden_field_tag :anchor, 'tab-download-files' %>
+    <% end %>
   </div>
 
 </div>

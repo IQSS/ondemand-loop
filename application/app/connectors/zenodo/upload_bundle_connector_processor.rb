@@ -5,7 +5,7 @@ module Zenodo
     def initialize(object = nil); end
 
     def params_schema
-      %i[remote_repo_url api_key key_scope dataset_id]
+      %i[remote_repo_url form api_key key_scope]
     end
 
     def create(project, request_params)
@@ -17,7 +17,13 @@ module Zenodo
     end
 
     def update(upload_bundle, request_params)
-      Zenodo::Actions::ConnectorEdit.new.update(upload_bundle, request_params)
+      case request_params[:form].to_s
+      when 'deposition_fetch'
+        Zenodo::Actions::DepositionFetch.new.update(upload_bundle, request_params)
+      else
+        Zenodo::Actions::ConnectorEdit.new.update(upload_bundle, request_params)
+      end
     end
+
   end
 end

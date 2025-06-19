@@ -15,7 +15,7 @@ module Dataverse
     end
 
     def create(project, request_params)
-      Dataverse::Actions::UploadBatchCreate.new.create(project, request_params)
+      Dataverse::Actions::UploadBundleCreate.new.create(project, request_params)
     end
 
     def edit(upload_bundle, request_params)

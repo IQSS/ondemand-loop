@@ -17,12 +17,12 @@ module ConnectorHelper
   def api_key_status_badge(type, key_present)
     if key_present
       content_tag(:span, class: 'badge badge-soft-success') do
-        raw('<i class="bi bi-check-circle-fill me-1"></i><span class="ms-1">' + I18n.t("helpers.#{type.to_s}.key_present") + '</span>')
+        raw('<i class="bi bi-check-circle-fill me-1"></i><span class="ms-1">' + I18n.t("helpers.#{type.to_s}.badge_key_present_text") + '</span>')
       end
     else
       # Missing API key – use a softer alert red
       content_tag(:span, class: 'badge badge-soft-danger') do
-        raw('<i class="bi bi-exclamation-circle me-1"></i><span class="ms-1">' + I18n.t("helpers.#{type.to_s}.key_missing") + '</span>')
+        raw('<i class="bi bi-exclamation-circle me-1"></i><span class="ms-1">' + I18n.t("helpers.#{type.to_s}.badge_key_missing_text") + '</span>')
       end
     end
   end

@@ -1,5 +1,5 @@
 module Dataverse::Actions
-  class UploadBatchCreate
+  class UploadBundleCreate
     include LoggingCommon
     include DateTimeCommon
 
@@ -10,7 +10,7 @@ module Dataverse::Actions
       if url_data.collection?
         collection_service = Dataverse::CollectionService.new(url_data.dataverse_url)
         collection = collection_service.find_collection_by_id(url_data.collection_id)
-        return error(I18n.t('connectors.dataverse.upload_bundles.collection_not_found', url: remote_repo_url)) unless collection
+        return error(I18n.t('connectors.dataverse.actions.upload_bundle_create.message_collection_not_found', url: remote_repo_url)) unless collection
 
         root_dv = collection.data.parents.first
         root_title = root_dv[:name]
@@ -19,7 +19,7 @@ module Dataverse::Actions
       elsif url_data.dataset?
         dataset_service = Dataverse::DatasetService.new(url_data.dataverse_url)
         dataset = dataset_service.find_dataset_version_by_persistent_id(url_data.dataset_id)
-        return error(I18n.t('connectors.dataverse.upload_bundles.dataset_not_found', url: remote_repo_url)) unless dataset
+        return error(I18n.t('connectors.dataverse.actions.upload_bundle_create.message_dataset_not_found', url: remote_repo_url)) unless dataset
 
         parent_dv = dataset.data.parents.last
         root_dv = dataset.data.parents.first
@@ -54,7 +54,7 @@ module Dataverse::Actions
 
       ConnectorResult.new(
         resource: upload_bundle,
-        message: { notice: I18n.t('connectors.dataverse.upload_bundles.created', name: upload_bundle.name) },
+        message: { notice: I18n.t('connectors.dataverse.actions.upload_bundle_create.message_created', name: upload_bundle.name) },
         success: true
       )
     end

@@ -8,13 +8,13 @@ module Zenodo::Actions
       url_data = Zenodo::ZenodoUrl.parse(remote_repo_url)
 
       if !url_data.deposition?
-        return error(I18n.t('connectors.zenodo.actions.upload_bundles.url_not_supported', url: remote_repo_url))
+        return error(I18n.t('connectors.zenodo.actions.upload_bundle_create.message_url_not_supported', url: remote_repo_url))
       end
 
       if url_data.record?
         records_service = Zenodo::RecordService.new(url_data.zenodo_url)
         record = records_service.find_record(url_data.record_id)
-        return error(I18n.t('connectors.zenodo.actions.upload_bundles.record_not_found', url: remote_repo_url)) unless record
+        return error(I18n.t('connectors.zenodo.actions.upload_bundle_create.message_record_not_found', url: remote_repo_url)) unless record
 
         title = record.title
         concept_id = record.concept_id
@@ -23,7 +23,7 @@ module Zenodo::Actions
         if repo_info.metadata.auth_key.present?
           deposition_service = Zenodo::DepositionService.new(url_data.zenodo_url, api_key: repo_info.metadata.auth_key)
           deposition = deposition_service.find_deposition(url_data.deposition_id)
-          return error(I18n.t('connectors.zenodo.actions.upload_bundles.deposition_not_found', url: remote_repo_url)) unless deposition
+          return error(I18n.t('connectors.zenodo.actions.upload_bundle_create.message_deposition_not_found', url: remote_repo_url)) unless deposition
 
           title = deposition.title
           bucket_url = deposition.bucket_url
@@ -55,7 +55,7 @@ module Zenodo::Actions
 
       ConnectorResult.new(
         resource: upload_bundle,
-        message: { notice: I18n.t('connectors.zenodo.actions.upload_bundles.created', name: upload_bundle.name) },
+        message: { notice: I18n.t('connectors.zenodo.actions.upload_bundle_create.message_success', name: upload_bundle.name) },
         success: true
       )
     end

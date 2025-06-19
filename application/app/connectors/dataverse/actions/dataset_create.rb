@@ -44,7 +44,7 @@ module Dataverse::Actions
       upload_bundle.update({ metadata: metadata })
 
       ConnectorResult.new(
-        message: { notice: I18n.t('connectors.dataverse.actions.dataset_create.success', id: response.persistent_id, title: request.title) },
+        message: { notice: I18n.t('connectors.dataverse.actions.dataset_create.message_success', id: response.persistent_id, title: request.title) },
         success: true
       )
     end

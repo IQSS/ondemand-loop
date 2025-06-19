@@ -87,12 +87,15 @@ en:
         button_select_deposition_title: "Select Deposition"
         modal_select_deposition_title: "Select Zenodo deposition"
 
+        button_deposition_fetch_label: "Fetch Deposition"
+        button_deposition_fetch_title: "Fetch Zenodo deposition metadata"
+
         button_create_draft_title: "Create Draft"
         modal_create_draft_title: "Create Draft"
 
         button_edit_key_title: "Add/Edit Access Token"
         modal_edit_key_title: "Add/Edit Zenodo Personal Access Token"
-        missing_key_disabled_features_text: "Add access token to enable record features"
+        missing_key_disabled_features_text: "Add access token to enable deposition features"
 
 
   dataverse:
@@ -161,21 +164,7 @@ en:
         breadcrumb_home_title: "Home"
         image_dataverse_icon_alt: "Dataverse icon"
         page_title: "OnDemand Loop - Dataverse Landing page"
-  zenodo:
-    landing_page:
-      index:
-        page_title: "OnDemand Loop - Zenodo"
-        breadcrumb_home_text: "Home"
-        search: "Search"
-        search_placeholder: "Search Zenodo records"
-        search_error: "Search error"
-    records:
-      show:
-        page_title: "Zenodo Records"
-        filename: "File"
-        size: "Size"
-        add_files: "Add Files to Active Project"
-        home: "Home"
+
   detached_process:
     file_activity_status:
       icon_downloads_title: "Download process status"
@@ -213,7 +202,8 @@ en:
         explore: "Explore"
         icon_alt_text: "Loop Application Icon"
         ood_icon_alt_text: "Open OnDemand Icon"
-        zenodo: "Zenodo"
+        link_dataverse_text: "Dataverse"
+        link_zenodo_text: "Zenodo"
       restart: "Restart"
     footer:
       version_text: "OnDemand Loop"
@@ -322,6 +312,7 @@ en:
   shared:
     breadcrumbs:
       home: "Home"
+      zenodo: "Zenodo"
     button_to:
       button_accessibility_default_label: "Action"
     file_stats_inline:
@@ -376,3 +367,16 @@ en:
     index:
       breadcrumbs_text: "Uploads"
       page_title: "OnDemand Loop - Uploads Management"
+
+  zenodo:
+    landing_page:
+      index:
+        page_title: "OnDemand Loop - Zenodo"
+        button_submit_text: "Search"
+        field_search_placeholder: "Query to search in Zenodo records"
+    records:
+      show:
+        page_title: "OnDemand Loop - Zenodo Records"
+        column_record_filename_text: "File"
+        column_record_size_text: "Size"
+        button_submit_text: "Add Files to Active Project"

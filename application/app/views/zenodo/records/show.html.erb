@@ -1,14 +1,21 @@
 <% content_for :title, t('.page_title') %>
 <div class="zenodo container-md content" role="main">
-  <%= render partial: 'breadcrumbs', locals: { record_id: @record_id } %>
+  <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: t('shared.breadcrumbs.zenodo'), url: view_zenodo_landing_path}, {text: @record.title}]} %>
+
   <div class="card">
     <div class="card-header"><%= @record.title %></div>
     <div class="card-body">
       <%= form_with url: download_zenodo_record_files_path, local: true do |f| %>
         <%= hidden_field_tag 'project_id', Current.settings.user_settings.active_project %>
-        <%= hidden_field_tag :record_id, @record_id %>
+        <%= hidden_field_tag :id, @record_id %>
         <table class="table">
-          <thead><tr><th></th><th><%= t('.filename') %></th><th><%= t('.size') %></th></tr></thead>
+          <thead>
+            <tr>
+              <th></th>
+              <th><%= t('.column_record_filename_text') %></th>
+              <th><%= t('.column_record_size_text') %></th>
+            </tr>
+          </thead>
           <tbody>
           <% @record.files.each do |file| %>
             <tr>
@@ -19,7 +26,7 @@
           <% end %>
           </tbody>
         </table>
-        <%= submit_tag t('.add_files'), class: 'btn btn-primary' %>
+        <%= submit_tag t('.button_submit_text'), class: 'btn btn-primary' %>
       <% end %>
     </div>
   </div>

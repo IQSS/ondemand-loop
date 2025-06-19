@@ -9,8 +9,7 @@ class Zenodo::LandingPageController < ApplicationController
       @results = service.search(@query, page: @page)
     end
   rescue => e
-    log_error('Zenodo search error', {}, e)
-    flash[:alert] = t('.search_error')
-    redirect_to root_path
+    log_error('Search Zenodo error', { query: @query, page: @page }, e)
+    redirect_to root_path, alert: t('.message_search_error', query: @query)
   end
 end

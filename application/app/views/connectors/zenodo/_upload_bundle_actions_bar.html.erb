@@ -18,18 +18,18 @@
               <%= upload_bundle.connector_metadata.title %>
             </a>
           <% end %>
-          <% if upload_bundle.connector_metadata.select_deposition? %>
-            <button type="button"
-                    class="btn btn-outline-primary btn-badge position-relative me-1"
-                    style="top: -1px;"
-                    title="<%= t('.button_select_deposition_title') %>"
-                    data-controller="modal"
-                    data-action="click->modal#load"
-                    data-modal-url-value="<%= edit_project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id, form: 'deposition_select') %>"
-                    data-modal-title-value="<%= t('.modal_select_deposition_title') %>"
-                    data-modal-id-value="global-modal">
-            <i class="bi bi-database-add me-1"></i><%= t('.button_select_deposition_title') %>
-          </button>
+          <% if upload_bundle.connector_metadata.fetch_deposition? %>
+            <%= render layout: "shared/button_to", locals: {
+              url:  project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id),
+              method: 'PUT',
+              label: t('.button_deposition_fetch_label'),
+              title: t('.button_deposition_fetch_title'),
+              class: 'btn btn-outline-primary btn-badge position-relative me-1',
+              icon: "bi bi-database-add",
+            } do %>
+              <%= hidden_field_tag :anchor, tab_anchor_for(upload_bundle) %>
+              <%= hidden_field_tag :form, 'deposition_fetch' %>
+            <% end %>
           <% end %>
 
           <% if upload_bundle.connector_metadata.draft? %>

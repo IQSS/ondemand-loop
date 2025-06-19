@@ -9,7 +9,7 @@ module Zenodo
     def get_controller_url(object_url)
       zurl = Zenodo::ZenodoUrl.parse(object_url)
       redirect_url = if zurl.record?
-                        @url_helper.view_zenodo_record_path(record_id: zurl.record_id)
+                        @url_helper.view_zenodo_record_path(zurl.record_id)
                       else
                         view_zenodo_landing_path
                       end

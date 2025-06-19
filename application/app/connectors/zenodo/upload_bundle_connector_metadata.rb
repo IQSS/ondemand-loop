@@ -30,7 +30,7 @@ module Zenodo
       title.present?
     end
 
-    def select_deposition?
+    def fetch_deposition?
       api_key? && draft.nil?
     end
 

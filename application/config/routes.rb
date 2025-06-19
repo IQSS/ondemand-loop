@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   # ZENODO ROUTES
   post "/view/zenodo/download/record" => "zenodo/records#download", as: :download_zenodo_record_files
   get "/view/zenodo" => "zenodo/landing_page#index", as: :view_zenodo_landing
-  get "/view/zenodo/records/:record_id" => "zenodo/records#show", as: :view_zenodo_record, format: false
+  get "/view/zenodo/records/:id" => "zenodo/records#show", as: :view_zenodo_record, format: false
 
   # REPO RESOLVER ROUTES
   post '/view/repo/resolve' => 'repo_resolver#resolve', as: :repo_resolver

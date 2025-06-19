@@ -19,7 +19,7 @@ module Zenodo
     end
 
     def files_url
-      Rails.application.routes.url_helpers.view_zenodo_record_path(record_id: record_id)
+      Rails.application.routes.url_helpers.view_zenodo_record_path(record_id)
     end
 
     def to_h

@@ -2,7 +2,7 @@ class Zenodo::RecordsController < ApplicationController
   include LoggingCommon
 
   before_action :init_service
-  before_action :find_dataset
+  before_action :find_record
   before_action :init_project_service, only: [:download]
 
   def show; end
@@ -14,7 +14,7 @@ class Zenodo::RecordsController < ApplicationController
       project = @project_service.initialize_project
       unless project.save
         errors = project.errors.full_messages.join(", ")
-        redirect_back fallback_location: root_path, alert: t(".error_generating_project", errors: errors)
+        redirect_back fallback_location: root_path, alert: t(".message_project_error", errors: errors)
         return
       end
     end
@@ -23,16 +23,16 @@ class Zenodo::RecordsController < ApplicationController
     download_files.each do |file|
       unless file.valid?
         errors = file.errors.full_messages.join(', ')
-        redirect_back fallback_location: root_path, alert: t('.invalid_file_in_selection', filename: file.filename, errors: errors)
+        redirect_back fallback_location: root_path, alert: t('.message_validation_file_error', filename: file.filename, errors: errors)
         return
       end
     end
     save_results = download_files.map(&:save)
     if save_results.include?(false)
-      redirect_back fallback_location: root_path, alert: t('.error_generating_the_download_file')
+      redirect_back fallback_location: root_path, alert: t('.message_save_file_error')
       return
     end
-    redirect_back fallback_location: root_path, notice: t('.files_added_to_project', project_name: project.name)
+    redirect_back fallback_location: root_path, notice: t('.message_success', project_name: project.name)
   end
 
   private
@@ -45,16 +45,14 @@ class Zenodo::RecordsController < ApplicationController
     @project_service = Zenodo::ProjectService.new
   end
 
-  def find_dataset
-    @record_id = params[:record_id]
+  def find_record
+    @record_id = params[:id]
     @record = @service.find_record(@record_id)
     unless @record
-      flash[:alert] = t('.record_not_found', record_id: @record_id)
-      redirect_to root_path
+      redirect_to root_path, alert: t('.message_record_not_found', record_id: @record_id)
     end
   rescue => e
-    log_error('Zenodo record error', { record_id: @record_id }, e)
-    flash[:alert] = t('.record_service_error', record_id: @record_id)
-    redirect_to root_path
+    log_error('Find record error', { record_id: @record_id }, e)
+    redirect_to root_path, alert: t('.message_record_service_error', record_id: @record_id)
   end
 end
