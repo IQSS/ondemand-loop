@@ -252,10 +252,10 @@ en:
       project_tabs:
         tab_download_files_text: "Download Files"
       upload_actions:
-        creation_date: "Creation date"
-        add_files: "Add Files"
-        edit_upload_bundle_settings: "Edit upload bundle settings"
+        button_add_files_text: "Add Files"
+        button_add_files_title: "Add Files"
         button_delete_title: "Delete Bundle"
+        field_creation_date_title: "Creation date"
         modal_delete_confirmation_title: "Delete Upload Bundle"
         modal_delete_confirmation_content: "This will remove the upload bundle from the app. Files on disk and any already uploaded files will remain unchanged. To upload again, you’ll need to create a new bundle."
       upload_files:
