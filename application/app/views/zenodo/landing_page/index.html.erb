@@ -18,7 +18,7 @@
     <ul class="list-group">
       <% @results.items.each do |item| %>
         <li class="list-group-item">
-          <%= link_to item.title, view_zenodo_dataset_path(item.id) %>
+          <%= link_to item.title, view_zenodo_record_path(item.id) %>
         </li>
       <% end %>
     </ul>

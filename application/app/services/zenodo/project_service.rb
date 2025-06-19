@@ -12,22 +12,22 @@ module Zenodo
       Project.new(id: name, name: name)
     end
 
-    def initialize_download_files(project, dataset, file_ids)
-      dataset_files = dataset.files.select { |f| file_ids.include?(f.id) }
-      dataset_files.map do |dataset_file|
+    def initialize_download_files(project, record, file_ids)
+      record_files = record.files.select { |f| file_ids.include?(f.id) }
+      record_files.map do |file|
         DownloadFile.new.tap do |f|
           f.id = DownloadFile.generate_id
           f.project_id = project.id
           f.creation_date = now
           f.type = ConnectorType::ZENODO
-          f.filename = dataset_file.filename
+          f.filename = file.filename
           f.status = FileStatus::PENDING
-          f.size = dataset_file.filesize
+          f.size = file.filesize
           f.metadata = {
             zenodo_url: @zenodo_url,
-            record_id: dataset.id,
-            id: dataset_file.id,
-            download_url: dataset_file.download_url,
+            record_id: record.id,
+            id: file.id,
+            download_url: file.download_url,
             download_location: nil,
             temp_location: nil
           }
