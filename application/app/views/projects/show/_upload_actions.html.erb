@@ -1,4 +1,4 @@
-<div class="card mb-3 shadow-sm rounded overflow-hidden">
+<section class="card mb-3 shadow-sm rounded overflow-hidden">
   <div class="card-header d-flex justify-content-between align-items-center bg-light-darker">
     <div class="d-flex align-items-center gap-3">
       <%= render partial: '/shared/file_row_date', locals: { date: bundle.creation_date, title: t('.field_creation_date_title') } if bundle.creation_date %>
@@ -47,4 +47,4 @@
 
   <%= render partial: upload_bundle_connector_actions_bar(bundle), locals: { upload_bundle: bundle } %>
 
-</div>
+</section>
