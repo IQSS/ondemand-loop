@@ -3,8 +3,8 @@ module Zenodo::Actions
     include LoggingCommon
     include DateTimeCommon
 
-    def edit(upload_batch, request_params)
-      raise NotImplementedError, 'Only update is supported for FetchDeposition'
+    def edit(upload_bundle, request_params)
+      raise NotImplementedError, 'Only update is supported for DepositionFetch'
     end
 
     def update(upload_bundle, request_params)
