@@ -53,6 +53,13 @@ export default class extends Controller {
         }
     }
 
+    handleKeydown(event) {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            this.handleDoubleClick(event); // Reuse the existing logic
+        }
+    }
+
     handleDragStart(event) {
         const path = event.currentTarget.dataset.entryPath
         event.dataTransfer.setData("text/plain", path)

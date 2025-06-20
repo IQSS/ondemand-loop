@@ -186,7 +186,9 @@ en:
       page_title: "OnDemand Loop - Downloads Management"
   file_browser:
     browser:
-      edit_path: "Edit path"
+      button_edit_path_title: "Edit path"
+      header_file_browser_text: "File Browser"
+      nav_file_browser_label: "File browser path"
       parent_folder: "Parent folder"
     file_drop:
       file_drop_text: "Drop Files Here"
