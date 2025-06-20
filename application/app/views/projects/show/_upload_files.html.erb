@@ -1,15 +1,15 @@
 <% files = bundle.files %>
-<div id="<%= bundle.id %>-upload-files" class="container files">
+<ul id="<%= bundle.id %>-upload-files" class="container files">
   <% if files.empty? %>
-    <div class="row py-2 justify-content-center custom-stripe">
-      <%= t('.no_upload_files') %>
+    <div class="row py-2 justify-content-center custom-stripe" role="alert">
+      <%= t('.message_no_upload_files_text') %>
     </div>
   <% end %>
   <% files.each_with_index do |file, index| %>
-    <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
+    <li class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
       <div class="col-md-10">
         <div class="d-flex align-items-center">
-          <%= render partial: '/shared/file_row_date', locals: { date: file.creation_date, title: t('.schedule_date'), classes: 'mx-2'} %>
+          <%= render partial: '/shared/file_row_date', locals: { date: file.creation_date, title: t('.field_schedule_date_title'), classes: 'mx-2'} %>
 
           <span class="me-2"><%= file.filename %></span>
           <small class="text-muted me-2"><%= number_to_human_size(file.size) %></small>
@@ -25,13 +25,13 @@
           <% end %>
         </div>
 
-        <%= render partial: '/shared/file_row_date', locals: { date: file.end_date, title: t('.completion_date'), classes: 'mx-2'} if file.end_date %>
-        <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: t('.download_start_date'), classes: 'mx-2'} if file.status.downloading? %>
+        <%= render partial: '/shared/file_row_date', locals: { date: file.end_date, title: t('.field_completion_date_title'), classes: 'mx-2'} if file.end_date %>
+        <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: t('.field_download_start_date_title'), classes: 'mx-2'} if file.status.downloading? %>
 
         <%= render layout: "shared/button_to", locals: {
           url: project_upload_bundle_upload_file_path(project_id: bundle.project_id, upload_bundle_id: bundle.id, id: file.id),
           method: 'DELETE',
-          title: t(".delete_file"),
+          title: t(".button_delete_file_title"),
           class: 'btn-sm btn-outline-secondary icon-hover-danger',
           icon: "bi bi-trash",
           modal_id: 'modal-delete-confirmation',
@@ -43,6 +43,6 @@
         <% end %>
 
       </div>
-    </div>
+    </li>
   <% end %>
-</div>
+</ul>
