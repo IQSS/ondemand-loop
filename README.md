@@ -1,5 +1,8 @@
 ![Loop Logo](application/app/assets/images/loop_logo.png)
 
+![Line coverage](docs/badges/coverage-line.svg)
+![Branch coverage](docs/badges/coverage-branch.svg)
+
 # OnDemand Loop
 
 Application to transfer data from heterogeneous research data repositories into Open OnDemand. With the possibility of syncing the data back.

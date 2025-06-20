@@ -1,0 +1,35 @@
+name: Update Coverage Badges
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # Manual trigger
+
+jobs:
+  update-badges:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Git setup
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@users.noreply.github.com"
+
+      - name: Run coverage badge generator via Make
+        run: make coverage_badges
+
+      - name: Copy badges to docs/coverage/
+        run: |
+          mkdir -p docs/coverage
+          cp badges/*.svg docs/coverage/
+
+      - name: Commit and push coverage badges
+        run: |
+          git add docs/coverage
+          git commit -m "Update coverage badges [skip ci]" || echo "No changes to commit"
+          git push origin main

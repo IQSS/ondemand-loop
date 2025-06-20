@@ -12,7 +12,25 @@ jobs:
     steps:
       - name: Checkout ${{ github.sha }}
         uses: actions/checkout@v4
-      - name: test loop app
-        working-directory: .
+
+      - name: Run tests and generate coverage
         run: make test
 
+      - name: Generate coverage badges (only on main push)
+        run: make coverage
+
+      - name: Print coverage summary to GitHub Actions UI
+        run: cat docs/badges/coverage-summary.txt
+
+      - name: Git setup (only on main push)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@users.noreply.github.com"
+
+      - name: Commit and push badges (only on main push)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git add docs/coverage
+          git commit -m "Update coverage badges [skip ci]" || echo "No changes"
+          git push origin main

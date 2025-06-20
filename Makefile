@@ -54,3 +54,6 @@ version:
 
 release_notes:
 	./scripts/loop_release_notes.sh
+
+coverage:
+	./scripts/loop_coverage_badge.sh
