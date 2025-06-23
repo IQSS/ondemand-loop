@@ -81,9 +81,10 @@
         <li class="list-group-item d-flex align-items-center gap-3 file-row text-muted"
             data-entry-path="<%= File.expand_path('..', current_path) %>"
             data-entry-type="folder"
-            data-action="dblclick->file-browser#handleDoubleClick">
+            tabindex="0"
+            data-action="dblclick->file-browser#handleDoubleClick keydown->file-browser#handleKeydown">
           <i class="bi bi-arrow-up fs-6"></i>
-          <span>.. (<%= t('.parent_folder') %>)</span>
+          <span>.. (<%= t('.browser_parent_folder_text') %>)</span>
         </li>
       <% end %>
 
@@ -92,10 +93,11 @@
             data-entry-path="<%= entry.path %>"
             data-entry-type="<%= entry.type %>"
             draggable="true"
-            data-action="dragstart->file-browser#handleDragStart dragend->file-browser#handleDragEnd dblclick->file-browser#handleDoubleClick">
+            tabindex="0"
+            data-action="dragstart->file-browser#handleDragStart dragend->file-browser#handleDragEnd dblclick->file-browser#handleDoubleClick keydown->file-browser#handleKeydown">
 
           <!-- Icon -->
-          <i class="bi <%= entry[:type] == 'folder' ? 'bi-folder-fill' : 'bi-file-earmark' %> fs-5 text-secondary"></i>
+          <i class="bi <%= entry[:type] == 'folder' ? 'bi-folder-fill' : 'bi-file-earmark' %> fs-5 text-secondary" aria-hidden="true"></i>
 
           <!-- Name -->
           <span class="flex-grow-1"><%= entry.name %></span>

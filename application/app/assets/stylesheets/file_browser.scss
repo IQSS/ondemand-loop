@@ -6,6 +6,11 @@
   background-color: #f8f9fa;
 }
 
+.file-row:focus {
+  outline: none;
+  background-color: #e9ecef; /* Bootstrap light gray */
+}
+
 .drop-overlay {
   background-color: rgba(13, 110, 253, 0.08);
   backdrop-filter: blur(3px);

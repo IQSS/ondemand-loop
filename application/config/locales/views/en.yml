@@ -186,6 +186,7 @@ en:
       page_title: "OnDemand Loop - Downloads Management"
   file_browser:
     browser:
+      browser_parent_folder_text: "Parent folder"
       button_cancel_edit_path_label: "Cancel edit path"
       button_cancel_edit_path_text: "Cancel edit path"
       button_cancel_edit_path_title: "Cancel edit path"
@@ -204,7 +205,6 @@ en:
       header_file_browser_text: "File Browser"
       input_path_editor_label: "Current Path"
       nav_file_browser_label: "File browser path"
-      parent_folder: "Parent folder"
     file_drop:
       file_drop_text: "Drop Files Here"
   layouts:
