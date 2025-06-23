@@ -226,6 +226,7 @@ en:
     flash_messages:
       button_close_label: "Close"
     footer:
+      link_sitemap_text: "Sitemap"
       version_text: "OnDemand Loop"
     modal:
       button_close_label: "Close"
@@ -377,6 +378,10 @@ en:
     ood_folder_button:
       button_open_in_ondemand_title: "Open in OnDemand"
       image_ood_icon_alt: "Open OnDemand Icon"
+  sitemap:
+    index:
+      breadcrumbs_text: "Sitemap"
+      page_title: "OnDemand Loop - Sitemap"
   upload_status:
     actions:
       actions_bar_title_a11y_label: "Uploads actions bar"

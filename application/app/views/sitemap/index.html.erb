@@ -1,0 +1,18 @@
+<% content_for :title, t('.page_title') %>
+<div class="container-md content" role="main">
+  <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: t('.breadcrumbs_text')}]} %>
+  <ul>
+    <li><%= link_to t('layouts.nav.navigation.projects'), projects_path %></li>
+    <li><%= link_to t('layouts.nav.navigation.downloads'), download_status_path %></li>
+    <li><%= link_to t('layouts.nav.navigation.uploads'), upload_status_path %></li>
+    <li>Repositories:</li>
+    <ul>
+      <li><%= link_to 'Dataverse', view_dataverse_landing_path %></li>
+      <li><%= link_to 'Zenodo', view_zenodo_landing_path %></li>
+    </ul>
+
+    <li><%= link_to t('layouts.nav.navigation.explore'), '#repo-resolver-bar' %></li>
+    <li><%= link_to 'Open OnDemand', ood_dashboard_url %></li>
+    <li><%= link_to t('layouts.nav.navigation.restart'), restart_url %></li>
+  </ul>
+</div>

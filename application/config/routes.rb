@@ -36,8 +36,8 @@ Rails.application.routes.draw do
   get '/file_browser', to: 'file_browser#index'
   #WIDGETS
   get '/widgets/*widget_path', to: 'widgets#show', via: [:get], as: 'widgets'
-
-
+  # SITEMAP
+  get '/sitemap' => 'sitemap#index', as: :sitemap
 
   # DATAVERSE ROUTES
   get "integrations/dataverse/external_tool/dataset" => "dataverse/external_tool#dataset"
