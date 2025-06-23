@@ -1,17 +1,17 @@
 <%
   modal_classes = local_assigns.fetch(:class, 'modal-xl')
 %>
-<div id="global-modal" class="modal fade" tabindex="-1" aria-hidden="true" data-controller="modal">
+<div id="global-modal" class="modal fade" tabindex="-1" aria-hidden="true" data-controller="modal" aria-modal="true" role="dialog">
   <div class="modal-dialog <%= modal_classes %>">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title mb-0" data-modal-target="title">Loading...</h5>
+        <h5 class="modal-title mb-0" data-modal-target="title"><%= t('.header_loading_text') %></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t('.button_close_label') %>"></button>
       </div>
 
       <div class="modal-body p-4 position-relative">
         <div class="modal-overlay d-none" data-modal-target="spinner">
-          <div class="spinner-border text-primary" role="status"></div>
+          <div class="spinner-border text-primary" role="status" aria-live="polite"></div>
         </div>
 
         <div data-modal-target="content"></div>

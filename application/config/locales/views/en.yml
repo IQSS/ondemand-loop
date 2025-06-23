@@ -223,16 +223,20 @@ en:
         link_restart_text: "Restart"
         link_uploads_text: "Uploads"
         link_zenodo_text: "Zenodo"
+    flash_messages:
+      button_close_label: "Close"
     footer:
       version_text: "OnDemand Loop"
     modal:
       button_close_label: "Close"
+      header_loading_text: "Loading..."
     modal_delete_confirmation:
       header_title: "Delete"
       content_text: "Are you sure you want to delete this element? This action cannot be undone."
       button_close_label: "Close"
       button_confirm_text: "Delete"
       button_cancel_text: "Cancel"
+      subtitle_disclaimer_text: "This action cannot be undone."
     project_bar:
       button_active_project_title: "Active Project"
       field_creation_date_title: "Creation date"
