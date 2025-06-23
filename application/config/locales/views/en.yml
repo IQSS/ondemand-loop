@@ -186,8 +186,23 @@ en:
       page_title: "OnDemand Loop - Downloads Management"
   file_browser:
     browser:
+      button_cancel_edit_path_label: "Cancel edit path"
+      button_cancel_edit_path_text: "Cancel edit path"
+      button_cancel_edit_path_title: "Cancel edit path"
+      button_close_browser_label: "Close browser"
+      button_close_browser_text: "Close browser"
+      button_close_browser_title: "Close browser"
+      button_confirm_path_label: "Confirm new path"
+      button_confirm_path_text: "Confirm path"
+      button_confirm_path_title: "Update path"
+      button_edit_path_label: "Edit path"
+      button_edit_path_text: "Edit path"
       button_edit_path_title: "Edit path"
+      button_home_label: "Navigate to home directory"
+      button_home_text: "Navigate to home directory"
+      button_home_title: "Home directory"
       header_file_browser_text: "File Browser"
+      input_path_editor_label: "Current Path"
       nav_file_browser_label: "File browser path"
       parent_folder: "Parent folder"
     file_drop:
@@ -355,7 +370,8 @@ en:
       input_default_placeholder: "Enter value"
       spinner_loading_label: "Loading..."
     ood_folder_button:
-      ood_icon_alt: "Open OnDemand Icon"
+      button_open_in_ondemand_title: "Open in OnDemand"
+      image_ood_icon_alt: "Open OnDemand Icon"
   upload_status:
     actions:
       actions_bar_title_a11y_label: "Uploads actions bar"
