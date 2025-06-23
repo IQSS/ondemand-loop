@@ -49,23 +49,26 @@
              href="#repo-resolver-bar"
              role="button"
              aria-expanded="false"
+             data-controller="focus-toggle"
+             data-action="keydown.enter->focus-toggle#focusInput click->focus-toggle#focusInput"
              aria-controls="repo-resolver-bar">
-            <%= image_tag('icon.png', alt: t('.icon_alt_text'), class: 'icon-class me-1') %> <%= t(".explore") %>
+            <%= image_tag('icon.png', alt: t('.icon_explore_alt'), class: 'icon-class me-1') %> <%= t(".link_explore_text") %>
           </a>
         </li>
         <li class="nav-item" role="menuitem">
           <%= nav_link_to ood_dashboard_url, class: 'nav-link d-flex align-items-center' do %>
-            <%= image_tag('ood_icon.svg', alt: t('.ood_icon_alt_text'), class: 'icon-class me-1') %> Open OnDemand
+            <%= image_tag('ood_icon.svg', alt: t('.icon_ood_alt'), class: 'icon-class me-1') %> Open OnDemand
           <% end %>
         </li>
         <li class="nav-item" role="menuitem">
-          <%= nav_link_to t(".restart"), restart_url, class: 'nav-link d-flex align-items-center' %>
+          <%= nav_link_to t(".link_restart_text"), restart_url, class: 'nav-link d-flex align-items-center' %>
         </li>
       </ul>
     </div>
 
     <div id="process-status"
          data-controller="lazy-loader"
+         aria-live="polite"
          data-lazy-loader-url-value="<%= detached_process_status_path %>"
          data-lazy-loader-stop-on-inactive-value="true"
          data-lazy-loader-interval-value="<%= ::Configuration.detached_process_status_interval %>">
