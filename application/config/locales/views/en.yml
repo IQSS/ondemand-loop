@@ -234,10 +234,10 @@ en:
       button_confirm_text: "Delete"
       button_cancel_text: "Cancel"
     project_bar:
-      link_open_downloads_title: "Open Project folder"
-      creation_date_title: "Creation date"
-      link_open_metadata_title: "Open Project metadata"
       button_active_project_title: "Active Project"
+      field_creation_date_title: "Creation date"
+      link_open_downloads_title: "Open Project folder"
+      link_open_metadata_title: "Open Project metadata"
     repo_resolver_bar:
       input_repo_url_placeholder: "Paste Repository URL"
       input_repo_url_label: "Repository URL"
