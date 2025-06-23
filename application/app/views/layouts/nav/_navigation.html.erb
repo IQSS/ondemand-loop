@@ -7,17 +7,17 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0" role="menubar">
         <li class="nav-item" role="menuitem">
-          <%= nav_link_to t(".projects"), projects_path, class: 'nav-link' %>
+          <%= nav_link_to t(".link_projects_text"), projects_path, class: 'nav-link' %>
         </li>
         <li class="nav-item" role="menuitem">
-          <%= nav_link_to t(".downloads"), download_status_path, class: 'nav-link' %>
+          <%= nav_link_to t(".link_downloads_text"), download_status_path, class: 'nav-link' %>
         </li>
         <li class="nav-item" role="menuitem">
-          <%= nav_link_to t(".uploads"), upload_status_path, class: 'nav-link' %>
+          <%= nav_link_to t(".link_uploads_text"), upload_status_path, class: 'nav-link' %>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= t(".repositories") %>
+            <%= t(".link_repositories_text") %>
           </a>
           <ul class="dropdown-menu">
             <li role="menuitem">
@@ -25,7 +25,7 @@
                 <span class="icon-wrapper bg-white rounded d-inline-flex align-items-center justify-content-center p-1">
                   <%= connector_icon(ConnectorType::DATAVERSE) %>
                 </span>
-                <%= t('layouts.nav.navigation.link_dataverse_text') %>
+                <%= t('.link_dataverse_text') %>
               </a>
             </li>
 
@@ -35,7 +35,7 @@
                   <span class="icon-wrapper bg-white rounded d-inline-flex align-items-center justify-content-center p-1">
                     <%= connector_icon(ConnectorType::ZENODO) %>
                   </span>
-                  <%= t('layouts.nav.navigation.link_zenodo_text') %>
+                  <%= t('.link_zenodo_text') %>
                 </a>
               </li>
             <% end %>

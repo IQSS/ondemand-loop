@@ -213,15 +213,15 @@ en:
       logo:
         logo_alt_text: "OnDemand Loop Logo"
       navigation:
-        projects: "Projects"
-        downloads: "Downloads"
-        uploads: "Uploads"
-        repositories: "Repositories"
-        explore: "Explore"
         icon_alt_text: "Loop Application Icon"
-        ood_icon_alt_text: "Open OnDemand Icon"
         link_dataverse_text: "Dataverse"
+        link_downloads_text: "Downloads"
+        link_explore_text: "Explore"
+        link_projects_text: "Projects"
+        link_repositories_text: "Repositories"
+        link_uploads_text: "Uploads"
         link_zenodo_text: "Zenodo"
+        ood_icon_alt_text: "Open OnDemand Icon"
       restart: "Restart"
     footer:
       version_text: "OnDemand Loop"
