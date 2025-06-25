@@ -12,7 +12,7 @@
     <% end %>
   </div>
   <div class="me-2 d-flex flex-column">
-    <%= link_to(sitemap_path, class: 'btn btn-outline-dark btn-sm') do %>
+    <%= link_to(sitemap_path, class: 'btn btn-outline-dark btn-sm', aria: { label: t('.link_sitemap_text') }) do %>
       <i class="bi bi-diagram-3" aria-hidden="true"></i>
       <span class="ps-1"><%= t(".link_sitemap_text") %></span>
     <% end %>
