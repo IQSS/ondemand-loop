@@ -49,10 +49,10 @@
              href="#repo-resolver-bar"
              role="button"
              aria-expanded="false"
-             data-controller="focus-toggle"
-             data-action="keydown.enter->focus-toggle#focusInput click->focus-toggle#focusInput"
-             data-focus-toggle-event-value="shown.bs.collapse"
-             data-focus-toggle-element-id-value="input_repo_url"
+             data-controller="focus-on-event"
+             data-action="keydown.enter->focus-on-event#focusInput click->focus-on-event#focusInput"
+             data-focus-on-event-event-value="shown.bs.collapse"
+             data-focus-on-event-element-id-value="input_repo_url"
              aria-controls="repo-resolver-bar">
             <%= image_tag('icon.png', alt: t('.icon_explore_alt'), class: 'icon-class me-1') %> <%= t(".link_explore_text") %>
           </a>
