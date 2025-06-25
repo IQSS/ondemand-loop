@@ -11,7 +11,7 @@ module Dataverse::Actions
       )
     end
 
-    def update(upload_batch, request_params)
+    def update(upload_bundle, request_params)
       raise NotImplementedError, 'Only edit is supported for DatasetFormTabs'
     end
 

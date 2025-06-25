@@ -1,5 +1,5 @@
 <% small ||= false %>
-<%= link_to repo_url, class: "me-2 d-flex align-items-center px-2 py-1 btn btn-outline-secondary fw-semibold", target: local_assigns[:target], title: tooltip, data: { bs_toggle: "tooltip" } do %>
-  <span class="me-1"><%= icon_html %></span>
-  <span class="small text-truncate d-inline-block" style="max-width: <%= small ? "20px;" : "160px;" %>"><%= name %></span>
+<%= link_to repo_url, class: "me-2 d-flex align-items-center px-2 py-1 btn btn-outline-secondary fw-semibold", target: local_assigns[:target], title: tooltip do %>
+  <span class="d-flex align-items-center me-1"><%= icon_html %></span>
+  <span class="small text-truncate d-inline-block" style="max-width: <%= small ? '20px;' : '160px;' %>"><%= name %></span>
 <% end %>

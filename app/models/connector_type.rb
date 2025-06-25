@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ConnectorType
-  TYPES = %w[dataverse].freeze
+  TYPES = %w[dataverse zenodo].freeze
 
   # Private constructor to prevent direct instantiation
   private_class_method :new

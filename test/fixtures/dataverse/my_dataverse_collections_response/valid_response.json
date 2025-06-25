@@ -1,0 +1,10 @@
+{
+  "success": true,
+  "data": {
+    "total_count": 2,
+    "items": [
+      {"name": "DV1", "type": "dataverse", "url": "https://example.com/dv1", "identifier": "dv1"},
+      {"name": "DV2", "type": "dataverse", "url": "https://example.com/dv2", "identifier": "dv2"}
+    ]
+  }
+}

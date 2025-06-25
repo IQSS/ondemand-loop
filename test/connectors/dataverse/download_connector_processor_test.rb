@@ -76,8 +76,7 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
   end
 
   test 'should set cancelled true when process receives matching request' do
-    request = OpenStruct.new(body: OpenStruct.new(file_id: 'file-123'))
-
+    request = Command::Request.new(command: 'download.cancel', body: {file_id: 'file-123'})
     result = @processor.process(request)
 
     assert_equal true, @processor.cancelled
@@ -85,7 +84,7 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
   end
 
   test 'should ignore request if file id does not match' do
-    request = OpenStruct.new(body: OpenStruct.new(file_id: 'other-id'))
+    request = Command::Request.new(command: 'download.cancel', body: {file_id: 'other-id'})
 
     result = @processor.process(request)
 

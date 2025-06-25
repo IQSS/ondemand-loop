@@ -53,6 +53,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "mocha"
+  gem 'simplecov', require: false
 end
 
 gem "cssbundling-rails", "~> 1.4"

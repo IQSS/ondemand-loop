@@ -1,0 +1,25 @@
+<% content_for :title, t('.page_title') %>
+<div class="container-md content" role="main">
+  <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: t('.breadcrumbs_text')}]} %>
+  <ul>
+    <li><%= link_to t('layouts.nav.navigation.link_projects_text'), projects_path %></li>
+    <li><%= link_to t('layouts.nav.navigation.link_downloads_text'), download_status_path %></li>
+    <li><%= link_to t('layouts.nav.navigation.link_uploads_text'), upload_status_path %></li>
+    <li><%= t('layouts.nav.navigation.link_repositories_text') %></li>
+    <ul>
+      <li><%= link_to t('layouts.nav.navigation.link_dataverse_text'), view_dataverse_landing_path %></li>
+      <% if ::Configuration.zenodo_enabled %>
+        <li><%= link_to t('layouts.nav.navigation.link_zenodo_text'), view_zenodo_landing_path %></li>
+      <% end %>
+    </ul>
+    <li>
+      <a data-bs-toggle="collapse"
+         href="#repo-resolver-bar"
+         role="button"
+         aria-expanded="false"
+         aria-controls="repo-resolver-bar"><%= t('layouts.nav.navigation.link_explore_text') %></a>
+    </li>
+    <li><%= link_to 'Open OnDemand', ood_dashboard_url %></li>
+    <li><%= link_to t('layouts.nav.navigation.link_restart_text'), restart_url %></li>
+  </ul>
+</div>

@@ -17,6 +17,8 @@ module Command
     end
 
     def dispatch(request)
+      log_info('Dispatching command',{command: request.command, body: request.body})
+
       handlers = @registry[request.command]
       handlers.each do |handler|
         begin

@@ -7,20 +7,38 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0" role="menubar">
         <li class="nav-item" role="menuitem">
-          <%= nav_link_to t(".projects"), projects_path, class: 'nav-link' %>
+          <%= nav_link_to t(".link_projects_text"), projects_path, class: 'nav-link' %>
         </li>
         <li class="nav-item" role="menuitem">
-          <%= nav_link_to t(".downloads"), download_status_path, class: 'nav-link' %>
+          <%= nav_link_to t(".link_downloads_text"), download_status_path, class: 'nav-link' %>
         </li>
         <li class="nav-item" role="menuitem">
-          <%= nav_link_to t(".uploads"), upload_status_path, class: 'nav-link' %>
+          <%= nav_link_to t(".link_uploads_text"), upload_status_path, class: 'nav-link' %>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <%= t(".repositories") %>
+            <%= t(".link_repositories_text") %>
           </a>
           <ul class="dropdown-menu">
-            <li role="menuitem"><a class="dropdown-item" href="<%= view_dataverse_landing_path %>">Dataverse</a></li>
+            <li role="menuitem">
+              <a class="dropdown-item d-flex align-items-center gap-2" href="<%= view_dataverse_landing_path %>">
+                <span class="icon-wrapper bg-white rounded d-inline-flex align-items-center justify-content-center p-1">
+                  <%= connector_icon(ConnectorType::DATAVERSE) %>
+                </span>
+                <%= t('.link_dataverse_text') %>
+              </a>
+            </li>
+
+            <% if ::Configuration.zenodo_enabled %>
+              <li role="menuitem">
+                <a class="dropdown-item d-flex align-items-center gap-2" href="<%= view_zenodo_landing_path %>">
+                  <span class="icon-wrapper bg-white rounded d-inline-flex align-items-center justify-content-center p-1">
+                    <%= connector_icon(ConnectorType::ZENODO) %>
+                  </span>
+                  <%= t('.link_zenodo_text') %>
+                </a>
+              </li>
+            <% end %>
           </ul>
         </li>
       </ul>
@@ -32,22 +50,23 @@
              role="button"
              aria-expanded="false"
              aria-controls="repo-resolver-bar">
-            <%= image_tag('icon.png', alt: t('.icon_alt_text'), class: 'icon-class me-1') %> <%= t(".explore") %>
+            <%= image_tag('icon.png', alt: t('.icon_explore_alt'), class: 'icon-class me-1') %> <%= t(".link_explore_text") %>
           </a>
         </li>
         <li class="nav-item" role="menuitem">
           <%= nav_link_to ood_dashboard_url, class: 'nav-link d-flex align-items-center' do %>
-            <%= image_tag('ood_icon.svg', alt: t('.ood_icon_alt_text'), class: 'icon-class me-1') %> Open OnDemand
+            <%= image_tag('ood_icon.svg', alt: t('.icon_ood_alt'), class: 'icon-class me-1') %> Open OnDemand
           <% end %>
         </li>
         <li class="nav-item" role="menuitem">
-          <%= nav_link_to t(".restart"), restart_url, class: 'nav-link d-flex align-items-center' %>
+          <%= nav_link_to t(".link_restart_text"), restart_url, class: 'nav-link d-flex align-items-center' %>
         </li>
       </ul>
     </div>
 
     <div id="process-status"
          data-controller="lazy-loader"
+         aria-live="polite"
          data-lazy-loader-url-value="<%= detached_process_status_path %>"
          data-lazy-loader-stop-on-inactive-value="true"
          data-lazy-loader-interval-value="<%= ::Configuration.detached_process_status_interval %>">

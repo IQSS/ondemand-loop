@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "submitted": false,
+  "links": {"bucket": "https://zenodo.org/api/files/123"},
+  "metadata": {"title": "My Deposition"},
+  "files": [
+    {"id": "10", "key": "file.txt", "size": 1234, "links": {"self": "https://zenodo.org/api/files/123/file.txt"}}
+  ]
+}

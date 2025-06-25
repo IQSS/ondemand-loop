@@ -1,53 +1,74 @@
 <div class="card mb-3 overflow-hidden shadow-sm">
+  <h3 class="visually-hidden"><%= t('.header_file_browser_text') %></h3>
   <div class="card-header d-flex justify-content-between align-items-center">
     <!-- Path display (left) -->
-    <div data-file-browser-target="pathDisplay" class="d-flex align-items-center flex-wrap gap-2">
-      <% path_parts = current_path.split('/').reject(&:blank?) %>
-      <% accumulated_path = '/' %>
-      <% path_parts.each do |part| %>
-        <% accumulated_path = File.join(accumulated_path, part) %>
-        <span class="text-muted">/</span>
-        <span class="breadcrumb-folder"
-              data-entry-path="<%= accumulated_path %>"
-              data-entry-type="folder"
-              data-action="dblclick->file-browser#handleDoubleClick">
-          <i class="bi bi-folder-fill"></i> <%= part %>
-        </span>
-      <% end %>
-    </div>
+    <nav aria-label="<%= t('.nav_file_browser_label') %>">
+      <ol data-file-browser-target="pathDisplay" class="breadcrumb d-flex align-items-center flex-wrap gap-2">
+        <% path_parts = current_path.split('/').reject(&:blank?) %>
+        <% accumulated_path = '/' %>
+        <% path_parts.each do |part| %>
+          <li>
+            <% accumulated_path = File.join(accumulated_path, part) %>
+            <span class="text-muted">/</span>
+            <a class="breadcrumb-folder text-body text-decoration-none"
+               tabindex="0"
+               data-entry-path="<%= accumulated_path %>"
+               data-entry-type="folder"
+               data-action="dblclick->file-browser#handleDoubleClick keydown->file-browser#handleKeydown">
+              <i class="bi bi-folder-fill" aria-hidden="true"></i> <%= part %>
+            </a>
+          </li>
+        <% end %>
+      </ol>
+    </nav>
 
     <!-- Path editor (hidden initially) -->
     <div data-file-browser-target="pathEditor" class="flex-grow-1 d-flex align-items-center gap-2 d-none" style="max-width: 75%;">
       <input type="text"
              class="form-control form-control-sm flex-grow-1"
              value="<%= current_path %>"
+             aria-label="<%= t('.input_path_editor_label') %>"
              data-file-browser-target="pathInput">
       <button class="btn btn-sm btn-outline-primary" type="button"
+              title="<%= t('.button_confirm_path_title') %>"
+              aria-label="<%= t('.button_confirm_path_label') %>"
               data-action="click->file-browser#navigate">
-        <i class="bi bi-check-lg"></i>
+        <i class="bi bi-check-lg" aria-hidden="true"></i>
+        <span class="visually-hidden"><%= t('.button_confirm_path_text') %></span>
       </button>
       <button class="btn btn-sm btn-outline-danger" type="button"
+              title="<%= t('.button_cancel_edit_path_title') %>"
+              aria-label="<%= t('.button_cancel_edit_path_label') %>"
               data-action="click->file-browser#cancelEditPath">
-        <i class="bi bi-x-lg"></i>
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
+        <span class="visually-hidden"><%= t('.button_cancel_edit_path_text') %></span>
       </button>
     </div>
 
     <!-- Actions (right) -->
     <div>
       <button class="btn btn-sm btn-outline-dark"
-              title="<%= t('.edit_path') %>"
+              title="<%= t('.button_edit_path_title') %>"
+              aria-label="<%= t('.button_edit_path_label') %>"
               data-action="click->file-browser#editPath">
-        <i class="bi bi-pencil"></i>
+        <i class="bi bi-pencil" aria-hidden="true"></i>
+        <span class="visually-hidden"><%= t('.button_edit_path_text') %></span>
       </button>
       <button class="btn btn-sm btn-outline-dark"
-            data-entry-path="<%= Dir.home %>"
-            data-entry-type="folder"
-            data-action="click->file-browser#handleDoubleClick">
-        <i class="bi bi-house-door-fill"></i>
+              data-entry-path="<%= Dir.home %>"
+              data-entry-type="folder"
+              title="<%= t('.button_home_title') %>"
+              aria-label="<%= t('.button_home_label') %>"
+              data-action="click->file-browser#handleDoubleClick">
+        <i class="bi bi-house-door-fill" aria-hidden="true"></i>
+        <span class="visually-hidden"><%= t('.button_home_text') %></span>
       </button>
       <button class="btn btn-sm btn-outline-dark"
+              title="<%= t('.button_close_browser_title') %>"
+              aria-label="<%= t('.button_close_browser_label') %>"
               data-action="click->file-browser#hideContainer">
-        <i class="bi bi-x-lg"></i>
+        <i class="bi bi-x-lg" aria-hidden="true"></i>
+        <span class="visually-hidden"><%= t('.button_close_browser_text') %></span>
       </button>
 
       <%= render partial: '/shared/ood_folder_button', locals: { path: current_path }%>
@@ -60,9 +81,10 @@
         <li class="list-group-item d-flex align-items-center gap-3 file-row text-muted"
             data-entry-path="<%= File.expand_path('..', current_path) %>"
             data-entry-type="folder"
-            data-action="dblclick->file-browser#handleDoubleClick">
+            tabindex="0"
+            data-action="dblclick->file-browser#handleDoubleClick keydown->file-browser#handleKeydown">
           <i class="bi bi-arrow-up fs-6"></i>
-          <span>.. (<%= t('.parent_folder') %>)</span>
+          <span>.. (<%= t('.browser_parent_folder_text') %>)</span>
         </li>
       <% end %>
 
@@ -71,10 +93,11 @@
             data-entry-path="<%= entry.path %>"
             data-entry-type="<%= entry.type %>"
             draggable="true"
-            data-action="dragstart->file-browser#handleDragStart dragend->file-browser#handleDragEnd dblclick->file-browser#handleDoubleClick">
+            tabindex="0"
+            data-action="dragstart->file-browser#handleDragStart dragend->file-browser#handleDragEnd dblclick->file-browser#handleDoubleClick keydown->file-browser#handleKeydown">
 
           <!-- Icon -->
-          <i class="bi <%= entry[:type] == 'folder' ? 'bi-folder-fill' : 'bi-file-earmark' %> fs-5 text-secondary"></i>
+          <i class="bi <%= entry[:type] == 'folder' ? 'bi-folder-fill' : 'bi-file-earmark' %> fs-5 text-secondary" aria-hidden="true"></i>
 
           <!-- Name -->
           <span class="flex-grow-1"><%= entry.name %></span>

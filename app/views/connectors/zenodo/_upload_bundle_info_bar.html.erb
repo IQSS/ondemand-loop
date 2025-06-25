@@ -1,0 +1,32 @@
+<div class="card-header d-flex justify-content-between align-items-center bg-light">
+  <div class="d-flex align-items-center flex-wrap gap-3">
+    <div class="fs-5 text-primary">
+      <i class="bi bi-plug-fill"></i>
+    </div>
+
+    <div class="mb-1"><%= connector_icon(upload_bundle.type) %></div>
+    <!-- UPLOAD DATASET INFO -->
+    <div class="d-flex flex-column">
+        <span class="text-truncate d-inline-block" style="max-width: 800px;">
+          <a href="<%= upload_bundle.connector_metadata.zenodo_url %>" target="_blank" class="text-reset text-decoration-none" title="Zenodo">
+            Zenodo
+          </a>
+          <span class="text-muted mx-1 position-relative" style="font-size: 1.2rem;">&raquo;</span>
+
+          <% if upload_bundle.connector_metadata.display_title? %>
+            <a href="<%= upload_bundle.connector_metadata.zenodo_url %>" target="_blank" class="text-reset text-decoration-none me-1" title="<%= upload_bundle.connector_metadata.title %>">
+              <%= upload_bundle.connector_metadata.title %>
+            </a>
+          <% end %>
+        </span>
+
+      <small class="text-muted"><%= upload_bundle.remote_repo_url %></small>
+    </div>
+
+  </div>
+
+  <div class="d-flex align-items-center gap-2 flex-wrap">
+    <!-- API Key Status: compact with icon -->
+    <%= api_key_status_badge(upload_bundle.type, upload_bundle.connector_metadata.api_key.present?) %>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+{
+  "hits": {
+    "hits": [
+      {"id": "1", "metadata": {"title": "Record One"}},
+      {"id": "2", "metadata": {"title": "Record Two"}}
+    ]
+  }
+}

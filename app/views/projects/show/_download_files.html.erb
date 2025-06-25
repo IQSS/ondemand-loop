@@ -2,23 +2,23 @@
 <div id="<%= tab_anchor_for(project) %>" class="tab-pane fade show active" role="tabpanel" aria-labelledby="<%= tab_label_for(project) %>">
   <%= render partial: '/projects/show/download_actions', locals: { project: project } %>
 
-  <div class="container files rounded border">
+  <ul class="container files rounded border">
     <% if files.empty? %>
       <div class="row py-2 justify-content-center custom-stripe">
-        <%= t('.download_files_empty') %>
+        <%= t('.message_download_files_empty_text') %>
       </div>
     <% end %>
     <% files.each_with_index do |file, index| %>
-      <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
+      <li class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
         <div class="col-md-10">
           <div class="d-flex align-items-center">
-            <%= render partial: '/shared/file_row_date', locals: { date: file.creation_date, title: t('.schedule_date'), classes: 'mx-2'} %>
+            <%= render partial: '/shared/file_row_date', locals: { date: file.creation_date, title: t('.field_schedule_date_title'), classes: 'mx-2'} %>
 
             <%= render partial: 'shared/repo_badge', locals: {
               repo_url: file.connector_metadata.files_url,
               icon_html: connector_icon(file.type),
               name: file.connector_metadata.repo_name,
-              tooltip: t('.repository_files')
+              tooltip: t('.badge_repository_files_tooltip')
             } %>
 
             <span class="me-2"><%= file.filename %></span>
@@ -35,13 +35,13 @@
             <% end %>
           </div>
 
-          <%= render partial: '/shared/file_row_date', locals: { date: file.end_date, title: t('.completion_date'), classes: 'mx-2'} if file.end_date %>
-          <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: t('.download_start_date'), classes: 'mx-2'} if file.status.downloading? %>
+          <%= render partial: '/shared/file_row_date', locals: { date: file.end_date, title: t('.field_completion_date_title'), classes: 'mx-2'} if file.end_date %>
+          <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: t('.field_download_start_date_title'), classes: 'mx-2'} if file.status.downloading? %>
 
           <%= render layout: 'shared/button_to', locals: {
             url: project_download_file_path(project_id: project.id, id: file.id),
             method: 'DELETE',
-            title: t('.delete_file'),
+            title: t('.button_delete_file_title'),
             class: 'btn-sm btn-outline-secondary',
             icon: 'bi bi-trash',
             modal_id: 'modal-delete-confirmation',
@@ -53,7 +53,7 @@
           <% end %>
 
         </div>
-      </div>
+      </li>
     <% end %>
-  </div>
+  </ul>
 </div>

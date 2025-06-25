@@ -1,0 +1,20 @@
+<% content_for :title, t('.page_title') %>
+<div class="zenodo container-md content" role="main">
+  <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: t('shared.breadcrumbs.zenodo')}]} %>
+
+  <%= form_with url: view_zenodo_landing_path, method: :get, local: true do |f| %>
+    <div class="input-group mb-3">
+      <%= f.text_field :query, class: 'form-control', value: @query, placeholder: t('.field_search_placeholder') %>
+      <%= f.submit t('.button_submit_text'), class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+  <% if @results %>
+    <ul class="list-group">
+      <% @results.items.each do |item| %>
+        <li class="list-group-item">
+          <%= link_to item.title, view_zenodo_record_path(item.id) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

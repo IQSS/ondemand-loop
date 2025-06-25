@@ -3,11 +3,13 @@
     <a href="<%= files_app_url(project.download_dir) %>"
        target="_blank"
        class="btn btn-sm btn-outline-secondary"
-       title="<%= t('.open_project_folder') %>">
-      <i class="bi bi-folder-fill"></i>
+       aria-label="<%= t('.button_open_project_folder_label') %>"
+       title="<%= t('.button_open_project_folder_title') %>">
+      <i class="bi bi-folder-fill" aria-hidden="true"></i>
+      <span class="visually-hidden"><%= t('.button_open_project_folder_label') %></span>
     </a>
-    <%= render partial: '/shared/file_row_date', locals: { date: project.creation_date, title: t('.creation_date'), classes: ''} %>
-    <h5 class="mb-0 me-2 fs-4"><%= project.name %></h5>
+    <%= render partial: '/shared/file_row_date', locals: { date: project.creation_date, title: t('.field_creation_date_title'), classes: ''} %>
+    <h2 class="mb-0 me-2 fs-4 h5"><%= project.name %></h2>
   </div>
 
   <div class="d-flex align-items-center gap-2 flex-grow-1">
@@ -15,16 +17,17 @@
       url: project_upload_bundles_path(project_id: project.id),
       type: 'form',
       field_name: 'remote_repo_url',
-      label: t('.create_upload_bundle'),
+      label: t('.button_create_upload_bundle_label'),
+      title: t('.button_create_upload_bundle_title'),
       class: 'btn-sm btn-outline-secondary',
       icon: 'bi bi-folder-plus',
-      placeholder: t('.create_upload_bundle_placeholder'),
+      placeholder: t('.button_create_upload_bundle_placeholder'),
     } %>
 
     <%= render partial: "shared/button_to", locals: {
       url: project_path(id: project.id),
       method: 'DELETE',
-      title: t('.delete_project'),
+      title: t('.button_delete_project_title'),
       class: "btn-sm btn-outline-secondary icon-hover-danger",
       icon: "bi bi-trash",
       modal_id: 'modal-delete-confirmation',
@@ -36,8 +39,9 @@
     <a href="<%= files_app_url(Project.project_metadata_dir(project.id)) %>"
        target="_blank"
        class="btn btn-sm btn-outline-secondary"
-       title="<%= t('.open_project_metadata') %>">
-      <i class="bi bi-card-list"></i>
+       title="<%= t('.button_open_project_metadata_title') %>">
+      <i class="bi bi-card-list" aria-hidden="true"></i>
+      <span class="visually-hidden"><%= t('.button_open_project_metadata_title') %></span>
     </a>
   </div>
 </div>

@@ -1,10 +1,16 @@
 
-<div id="repo-resolver-bar" class="collapse bg-light" style="transition: none;">
+<div id="repo-resolver-bar" class="collapse bg-light" style="transition: none;"
+     data-controller="focus-on-event"
+     data-focus-on-event-event-value="shown.bs.collapse"
+     data-focus-on-event-element-id-value="input_repo_url">
   <div class="d-flex align-items-center justify-content-between py-3 px-5 border-bottom">
 
     <!-- Repo Logos (left aligned) -->
     <div class="d-flex align-items-center gap-3">
-      <%= image_tag "dataverse_project.svg", alt: "Dataverse", height: 32 %>
+      <%= image_tag "dataverse_project.svg", alt: "Dataverse", height: 35 %>
+      <% if ::Configuration.zenodo_enabled %>
+        <%= image_tag "zenodo_project.svg", alt: "Zenodo", height: 30, style: 'margin-top: -5px;' %>
+    <% end %>
       <%= image_tag "doi_logo.svg", alt: "DOI Fundation", height: 32 %>
     </div>
 
@@ -14,6 +20,7 @@
 
       <input type="text"
              name="repo_url"
+             id="input_repo_url"
              placeholder="<%= t('.input_repo_url_placeholder') %>"
              aria-label="<%= t('.input_repo_url_label') %>"
              class="form-control"
@@ -22,7 +29,7 @@
       <button class="btn btn-sm btn-primary px-3" type="submit"
               data-submit-button-target="button"
               data-action="click->submit-button#click">
-        <span data-submit-button-target="spinner"
+        <span data-submit-button-target="spinner" aria-live="polite"
               class="spinner-border spinner-border-sm me-1 d-none"
               role="status" aria-hidden="true"></span>
         <span data-submit-button-target="label"><%= t('.button_submit_text') %></span>

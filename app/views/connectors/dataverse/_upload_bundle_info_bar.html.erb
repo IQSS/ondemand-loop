@@ -33,6 +33,6 @@
 
   <div class="d-flex align-items-center gap-2 flex-wrap">
     <!-- API Key Status: compact with icon -->
-    <%= api_key_status_badge(upload_bundle.connector_metadata.api_key.present?) %>
+    <%= api_key_status_badge(upload_bundle.type, upload_bundle.connector_metadata.api_key.present?) %>
   </div>
 </div>

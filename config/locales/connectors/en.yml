@@ -3,16 +3,28 @@ en:
     dataverse:
       actions:
         connector_edit:
-          success: "API Key updated: %{name}"
+          message_success: "API Key updated: %{name}"
         dataset_create:
-          success: "Dataset created: %{id} > %{title}"
+          message_success: "Dataset created: %{id} > %{title}"
         collection_select:
-          success: "Collection selected: %{title}"
+          message_success: "Collection selected: %{title}"
         dataset_select:
-          success: "Dataset selected: %{title}"
-      upload_bundles:
-        collection_not_found: "Dataverse collection not found: %{url}. Only public and published collections are supported"
-        dataset_not_found: "Dataverse dataset not found: %{url}.<br />Only public and published datasets are supported"
-        created: "Upload bundle created: %{name}"
+          message_success: "Dataset selected: %{title}"
+        upload_bundle_create:
+          message_collection_not_found: "Dataverse collection not found: %{url}. Only public and published collections are supported"
+          message_dataset_not_found: "Dataverse dataset not found: %{url}.<br />Only public and published datasets are supported"
+          message_created: "Upload bundle created: %{name}"
       upload_connector_processor:
-        description: "File uploaded from OnDemand Loop application"
+        upload_payload_description: "File uploaded from OnDemand Loop application"
+    zenodo:
+      actions:
+        connector_edit:
+          message_success: "Access token updated: %{name}"
+        upload_bundle_create:
+          message_record_not_found: "Zenodo record not found: %{url}. Only published records are supported"
+          message_deposition_not_found: "Zenodo deposition not found: %{url}"
+          message_url_not_supported: "Zenodo URL not supported: %{url}. Only deposition URLs are currently supported"
+          message_success: "Upload bundle created: %{name}"
+        deposition_fetch:
+          message_success: "Successfully fetched deposition: %{name}"
+          message_deposition_not_found: "Zenodo deposition not found: %{repo_url}"

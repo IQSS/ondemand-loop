@@ -55,4 +55,18 @@ class Dataverse::ConnectorMetadataTest < ActiveSupport::TestCase
     result = Dataverse::DownloadConnectorMetadata.new(file).to_h
     assert_equal({'id' => '12345', 'status' => 'RUNNING'}, result)
   end
+
+  test 'repo_name from parents and files_url ports' do
+    metadata = {
+      dataverse_url: 'http://demo.dv:80',
+      persistent_id: 'doi:1',
+      parents: [{name: 'Root'}]
+    }
+    file = DownloadFile.new
+    file.metadata = metadata
+
+    target = Dataverse::DownloadConnectorMetadata.new(file)
+    assert_equal 'Root', target.repo_name
+    assert_includes target.files_url, 'dv_port=80'
+  end
 end

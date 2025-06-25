@@ -21,7 +21,7 @@ module Dataverse
       temp_location ="#{source_location}.part"
       headers = { "X-Dataverse-key" => connector_metadata.api_key&.value }
       payload = {
-        "description" => I18n.t('connectors.dataverse.upload_connector_processor.description'),
+        "description" => I18n.t('connectors.dataverse.upload_connector_processor.upload_payload_description'),
         "directoryLabel" => File.dirname(file.filename)
       }
 

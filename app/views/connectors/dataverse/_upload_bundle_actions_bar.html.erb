@@ -52,7 +52,7 @@
             </button>
           <% end %>
 
-          <% unless upload_bundle.connector_metadata.api_key? %>
+          <% if upload_bundle.connector_metadata.api_key_required? %>
             <small class="text-muted mx-1 position-relative" style="top: -0.8px;">&gt;</small>
             <span class="badge badge-soft-danger position-relative" style="top: -1px;">
               <i class="bi bi-exclamation-circle me-1" aria-hidden="true"></i><span class="ms-1"><%= t('.missing_key_disabled_features_text') %></span>
@@ -67,7 +67,7 @@
 
   <div class="d-flex align-items-center gap-2 flex-wrap">
     <!-- API Key Status: compact with icon -->
-    <%= api_key_status_badge(upload_bundle.connector_metadata.api_key.present?) %>
+    <%= api_key_status_badge(upload_bundle.type, upload_bundle.connector_metadata.api_key.present?) %>
 
     <button type="button"
             class="btn btn-sm btn-outline-primary"

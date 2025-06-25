@@ -7,6 +7,8 @@ module TabsHelper
 
   # Returns just the anchor ID, e.g. "tab-123"
   def tab_anchor_for(object_with_id)
+    return '' if object_with_id.nil?
+
     "tab-#{object_with_id.id}"
   end
 

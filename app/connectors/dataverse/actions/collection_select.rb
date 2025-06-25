@@ -18,7 +18,7 @@ module Dataverse::Actions
       upload_bundle.update({ metadata: metadata })
 
       ConnectorResult.new(
-        message: { notice: I18n.t('connectors.dataverse.actions.collection_select.success', title: collection_title) },
+        message: { notice: I18n.t('connectors.dataverse.actions.collection_select.message_success', title: collection_title) },
         success: true
       )
     end

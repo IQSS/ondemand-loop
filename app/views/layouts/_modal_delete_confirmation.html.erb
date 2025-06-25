@@ -3,6 +3,7 @@
      tabindex="-1"
      role="dialog"
      aria-modal="true"
+     aria-live="assertive"
      aria-labelledby="modal-confirm-title"
      aria-describedby="modal-confirm-description"
      data-controller="modal">
@@ -16,7 +17,7 @@
             <i class="bi bi-question-circle-fill text-primary me-1" aria-hidden="true"></i>
             <span data-modal-target="title"><%= t('.header_title') %></span>
           </h5>
-          <small class="text-muted" data-modal-target="subtitle" style="margin-top: -3px;">This action cannot be undone.</small>
+          <small class="text-muted" data-modal-target="subtitle" style="margin-top: -3px;"><%= t('.subtitle_default_text') %></small>
         </div>
         <button type="button"
                 class="btn-close"

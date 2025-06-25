@@ -1,12 +1,12 @@
-<div class="card mb-3 shadow-sm rounded overflow-hidden">
+<section class="card mb-3 shadow-sm rounded overflow-hidden">
   <div class="card-header d-flex justify-content-between align-items-center bg-light-darker">
     <div class="d-flex align-items-center gap-3">
-      <%= render partial: '/shared/file_row_date', locals: { date: bundle.creation_date, title: t('.creation_date') } if bundle.creation_date %>
+      <%= render partial: '/shared/file_row_date', locals: { date: bundle.creation_date, title: t('.field_creation_date_title') } if bundle.creation_date %>
 
       <div>
         <!-- PROJECT METADATA -->
         <div class="d-flex flex-column">
-          <h5 class="mb-0"><%= bundle.name %></h5>
+          <h3 class="mb-0 h5"><%= bundle.name %></h3>
         </div>
       </div>
 
@@ -24,9 +24,11 @@
               data-lazy-loader-url-value="<%= file_browser_path %>"
               data-file-drop-activation-file-drop-id-value="<%= file_target_id %>"
               data-action="click->lazy-loader#toggle click->file-drop-activation#toggleFileDrop"
+              title="<%= t('.button_add_files_title') %>"
+              aria-label="<%= t('.button_add_files_title') %>"
               class="btn btn-outline-secondary btn-sm">
-        <i class="bi bi-plus-square-fill"></i>
-        <span class="ps-1"><%= t('.add_files') %></span>
+        <i class="bi bi-plus-square-fill" aria-hidden="true"></i>
+        <span class="ps-1"><%= t('.button_add_files_text') %></span>
       </button>
 
       <%= render partial: "shared/button_to", locals: {
@@ -45,4 +47,4 @@
 
   <%= render partial: upload_bundle_connector_actions_bar(bundle), locals: { upload_bundle: bundle } %>
 
-</div>
+</section>

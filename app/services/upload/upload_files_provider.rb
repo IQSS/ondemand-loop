@@ -18,10 +18,8 @@ module Upload
 
         start_time = to_time(data.file.start_date)
         created_time = to_time(data.file.creation_date)
-        [
-          group,
-          group == 0 ? start_time : (group == 1 ? created_time : start_time)
-        ]
+        time_value = group == 0 ? start_time : (group == 1 ? created_time : start_time)
+        [group, -time_value.to_i]
       end
 
     end
