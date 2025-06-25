@@ -2,14 +2,14 @@
 <div class="container-md content" role="main">
   <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: t('.breadcrumbs_text')}]} %>
   <ul>
-    <li><%= link_to t('.link_projects_text'), projects_path %></li>
-    <li><%= link_to t('.link_downloads_text'), download_status_path %></li>
-    <li><%= link_to t('.link_uploads_text'), upload_status_path %></li>
-    <li><%= t('.link_repositories_text') %></li>
+    <li><%= link_to t('layouts.nav.navigation.link_projects_text'), projects_path %></li>
+    <li><%= link_to t('layouts.nav.navigation.link_downloads_text'), download_status_path %></li>
+    <li><%= link_to t('layouts.nav.navigation.link_uploads_text'), upload_status_path %></li>
+    <li><%= t('layouts.nav.navigation.link_repositories_text') %></li>
     <ul>
-      <li><%= link_to 'Dataverse', view_dataverse_landing_path %></li>
+      <li><%= link_to t('layouts.nav.navigation.link_dataverse_text'), view_dataverse_landing_path %></li>
       <% if ::Configuration.zenodo_enabled %>
-        <li><%= link_to 'Zenodo', view_zenodo_landing_path %></li>
+        <li><%= link_to t('layouts.nav.navigation.link_zenodo_text'), view_zenodo_landing_path %></li>
       <% end %>
     </ul>
     <li>
@@ -19,9 +19,9 @@
          aria-expanded="false"
          data-controller="focus-toggle"
          data-action="keydown.enter->focus-toggle#focusInput click->focus-toggle#focusInput"
-         aria-controls="repo-resolver-bar"><%= t('.link_explore_text') %></a>
+         aria-controls="repo-resolver-bar"><%= t('layouts.nav.navigation.link_explore_text') %></a>
     </li>
     <li><%= link_to 'Open OnDemand', ood_dashboard_url %></li>
-    <li><%= link_to t('.link_restart_text'), restart_url %></li>
+    <li><%= link_to t('layouts.nav.navigation.link_restart_text'), restart_url %></li>
   </ul>
 </div>

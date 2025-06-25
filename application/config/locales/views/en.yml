@@ -381,12 +381,6 @@ en:
   sitemap:
     index:
       breadcrumbs_text: "Sitemap"
-      link_downloads_text: "Downloads"
-      link_explore_text: "Explore"
-      link_projects_text: "Projects"
-      link_repositories_text: "Repositories:"
-      link_restart_text: "Restart"
-      link_uploads_text: "Uploads"
       page_title: "OnDemand Loop - Sitemap"
   upload_status:
     actions:
