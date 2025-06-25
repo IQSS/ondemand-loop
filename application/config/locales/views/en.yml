@@ -207,6 +207,7 @@ en:
       nav_file_browser_label: "File browser path"
     file_drop:
       file_drop_text: "Drop Files Here"
+      icon_drop_label: "Drop file here"
   layouts:
     nav:
       logo:
