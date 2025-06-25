@@ -236,7 +236,7 @@ en:
       button_close_label: "Close"
       button_confirm_text: "Delete"
       button_cancel_text: "Cancel"
-      subtitle_disclaimer_text: "This action cannot be undone."
+      subtitle_default_text: "This action cannot be undone."
     project_bar:
       button_active_project_title: "Active Project"
       field_creation_date_title: "Creation date"
