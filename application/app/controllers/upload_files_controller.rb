@@ -59,8 +59,14 @@ class UploadFilesController < ApplicationController
     upload_bundle_id = params[:upload_bundle_id]
     file_id = params[:id]
     upload_file = UploadFile.find(project_id, upload_bundle_id, file_id)
+
     if upload_file.nil?
       redirect_back fallback_location: root_path, alert: t(".file_not_found", file_id: file_id, project_id: project_id)
+      return
+    end
+
+    if upload_file.status.uploading?
+      redirect_back fallback_location: root_path, alert: t(".file_in_progress", filename: upload_file.filename)
       return
     end
 
@@ -72,12 +78,6 @@ class UploadFilesController < ApplicationController
     project_id = params[:project_id]
     upload_bundle_id = params[:upload_bundle_id]
     file_id = params[:id]
-
-    if project_id.blank? || upload_bundle_id.blank? || file_id.blank?
-      render json: t(".compulsory_fields_error"), status: :bad_request
-      return
-    end
-
     file = UploadFile.find(project_id, upload_bundle_id, file_id)
 
     if file.nil?

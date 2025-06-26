@@ -20,7 +20,7 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "cancel should return 404 if file is downloading and command fails" do
-    @file.stubs(:status).returns(FileStatus.get("downloading"))
+    @file.stubs(:status).returns(FileStatus::DOWNLOADING)
     DownloadFile.stubs(:find).returns(@file)
 
     mock_client = mock("DownloadCommandClient")
@@ -33,7 +33,7 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "cancel should return 200 and update file if downloading and command succeeds" do
-    @file.stubs(:status).returns(FileStatus.get("downloading"))
+    @file.stubs(:status).returns(FileStatus::DOWNLOADING)
     @file.expects(:update).with(start_date: @now, end_date: @now, status: FileStatus::CANCELLED)
 
     DownloadFile.stubs(:find).returns(@file)
@@ -48,7 +48,7 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "cancel should return 200 and save file if not downloading" do
-    @file.stubs(:status).returns(FileStatus.get("success"))
+    @file.stubs(:status).returns(FileStatus::SUCCESS)
     @file.expects(:update).with(start_date: @now, end_date: @now, status: FileStatus::CANCELLED)
 
     DownloadFile.stubs(:find).returns(@file)
@@ -56,5 +56,39 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
     post cancel_project_download_file_url(project_id: @project_id, id: @file_id)
 
     assert_response :no_content
+  end
+
+  test 'destroy should redirect with alert if file is nil' do
+    DownloadFile.stubs(:find).with(@project_id, @file_id).returns(nil)
+
+    delete project_download_file_url(project_id: @project_id, id: @file_id)
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match 'not found for project', flash[:alert]
+  end
+
+  test 'destroy should redirect with alert if file is downloading' do
+    @file.stubs(:status).returns(FileStatus::DOWNLOADING)
+    @file.stubs(:filename).returns('file.zip')
+    DownloadFile.stubs(:find).with(@project_id, @file_id).returns(@file)
+
+    delete project_download_file_url(project_id: @project_id, id: @file_id)
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match 'file.zip', flash[:alert]
+    assert_match 'cannot be deleted', flash[:alert]
+  end
+
+  test 'destroy should delete file and redirect with notice if not downloading' do
+    @file.stubs(:status).returns(FileStatus::SUCCESS)
+    @file.stubs(:filename).returns('file.zip')
+    @file.expects(:destroy)
+    DownloadFile.stubs(:find).with(@project_id, @file_id).returns(@file)
+
+    delete project_download_file_url(project_id: @project_id, id: @file_id)
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match 'deleted', flash[:notice]
+    assert_match 'file.zip', flash[:notice]
   end
 end

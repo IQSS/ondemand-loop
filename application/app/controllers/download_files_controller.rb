@@ -5,12 +5,6 @@ class DownloadFilesController < ApplicationController
   def cancel
     project_id = params[:project_id]
     file_id = params[:id]
-
-    if project_id.blank? || file_id.blank?
-      render json: t('.compulsory_fields_error'), status: :bad_request
-      return
-    end
-
     file = DownloadFile.find(project_id, file_id)
 
     if file.nil?
@@ -36,6 +30,11 @@ class DownloadFilesController < ApplicationController
     file = DownloadFile.find(project_id, file_id)
     if file.nil?
       redirect_back fallback_location: root_path, alert: t('.file_not_found_for_project', file_id: file_id, project_id: project_id)
+      return
+    end
+
+    if file.status.downloading?
+      redirect_back fallback_location: root_path, alert: t(".file_in_progress", filename: file.filename)
       return
     end
 

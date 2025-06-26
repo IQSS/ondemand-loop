@@ -61,9 +61,19 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     assert_match /File added: valid.txt/, @response.body
   end
 
-  test 'delete should destroy upload file and redirect' do
+  test 'delete should redirect with alert if file is nil' do
+    UploadFile.stubs(:find).with(@project_id, @upload_bundle_id, @file_id).returns(nil)
+
+    delete project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match 'not found for project', flash[:alert]
+  end
+
+  test 'delete should destroy upload file and redirect when not uploading' do
     file = mock
     file.stubs(:nil?).returns(false)
+    file.stubs(:status).returns(FileStatus::PENDING)
     file.stubs(:filename).returns('delete.txt')
     file.expects(:destroy)
 
@@ -74,6 +84,22 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     assert_includes flash[:notice], 'Upload file removed from bundle'
     assert_includes flash[:notice], 'delete.txt'
+  end
+
+  test 'delete should return error when file is uploading' do
+    file = mock
+    file.stubs(:nil?).returns(false)
+    file.stubs(:status).returns(FileStatus::UPLOADING)
+    file.stubs(:filename).returns('delete.txt')
+    file.expects(:destroy).never
+
+    UploadFile.stubs(:find).with(@project_id, @upload_bundle_id, @file_id).returns(file)
+
+    delete project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
+
+    assert_redirected_to root_path
+    assert_includes flash[:alert], 'cannot be deleted'
+    assert_includes flash[:alert], 'delete.txt'
   end
 
   test 'cancel should return not found if file is missing on cancel' do
