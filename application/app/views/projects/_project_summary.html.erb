@@ -24,10 +24,10 @@
 </div>
 
 <!-- Collapsible Tabs -->
-<div class="collapse" id="project-files-<%= project.id %>" data-controller="utils--tab-links">
+<div class="collapse" id="project-files-<%= project.id %>">
   <div class="bg-light pt-2">
-    <!-- Tabs -->
-    <ul class="nav nav-tabs" id="tabs-<%= project.id %>" role="tablist">
+
+    <%= render 'shared/tabs_scrollable', id: "tabs-#{project.id}", container_classes: 'me-2' do %>
       <li class="nav-item" role="presentation">
         <a class="nav-link text-secondary active" id="<%= tab_label_for(project) %>" data-bs-toggle="tab"
            href="<%= tab_href_for(project) %>" role="tab"
@@ -44,7 +44,8 @@
           </a>
         </li>
       <% end %>
-    </ul>
+    <% end %>
+
 
     <!-- Tab Content -->
     <div class="tab-content">

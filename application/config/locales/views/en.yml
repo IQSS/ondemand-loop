@@ -378,6 +378,9 @@ en:
     ood_folder_button:
       button_open_in_ondemand_title: "Open in OnDemand"
       image_ood_icon_alt: "Open OnDemand Icon"
+    tabs_scrollable:
+      button_tabs_scroll_left_label: "Scroll tabs left"
+      button_tabs_scroll_right_label: "Scroll tabs right"
   sitemap:
     index:
       breadcrumbs_text: "Sitemap"

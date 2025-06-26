@@ -1,0 +1,35 @@
+.tabs-scrollable {
+  .tab-scroll-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .nav-tabs-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    flex: 1 1 auto;
+
+    /* Hide scrollbar cross-browser */
+    -ms-overflow-style: none;     /* IE 10+ */
+    scrollbar-width: none;        /* Firefox */
+  }
+
+  .nav-tabs-wrapper::-webkit-scrollbar {
+    display: none; /* Safari/Chrome */
+  }
+
+  .nav-tabs {
+    flex-wrap: nowrap;
+  }
+
+  .nav-item {
+    flex-shrink: 0;
+  }
+}
