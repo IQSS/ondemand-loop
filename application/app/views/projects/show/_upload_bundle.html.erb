@@ -1,7 +1,7 @@
 <%
   upload_files_id = "upload-files-#{bundle.id}"
 %>
-<div id="<%= tab_anchor_for(bundle) %>" class="tab-pane fade" role="tabpanel" aria-labelledby="<%= tab_label_for(bundle) %>">
+<div id="<%= tab_id_for(bundle) %>" class="tab-pane fade" role="tabpanel" aria-labelledby="<%= tab_label_for(bundle) %>">
   <%= render partial: '/projects/show/upload_actions', locals: { project: project, bundle: bundle, file_browser_id: file_drop_browser_id(bundle), file_target_id: file_drop_target_id(bundle) } %>
 
   <%= render layout: '/file_browser/file_drop', locals: { id: file_drop_target_id(bundle), file_browser_id: file_drop_browser_id(bundle), url: project_upload_bundle_upload_files_path(project_id: project.id, upload_bundle_id: bundle.id) } do %>

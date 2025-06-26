@@ -1,10 +1,10 @@
 <%
   container_classes ||= ''
 %>
-<div id="<%= id %>" class="tabs-scrollable <%= container_classes %>" data-controller="utils--tab-scroll utils--tab-links">
+<div id="<%= id %>" class="tabs-scrollable <%= container_classes %>" data-controller="utils--tabs">
   <div class="tab-scroll-container">
     <!-- Scrollable Tabs -->
-    <div class="nav-tabs-wrapper <%= id %>" data-utils--tab-scroll-target="wrapper">
+    <div class="nav-tabs-wrapper <%= id %>" data-utils--tabs-target="wrapper">
       <ul class="nav nav-tabs" role="tablist">
         <%= yield %>
       </ul>
@@ -12,13 +12,13 @@
 
     <!-- Right-side Scroll Buttons -->
     <div class="d-flex gap-1 ms-3">
-      <button type="button" class="btn btn-sm btn-outline-dark" data-action="utils--tab-scroll#scrollLeft"
-              data-utils--tab-scroll-target="leftBtn">
+      <button type="button" class="btn btn-sm btn-outline-dark" data-action="utils--tabs#scrollLeft"
+              data-utils--tabs-target="leftBtn">
         <i class="bi bi-chevron-left"></i>
         <span class="visually-hidden"><%= t('.button_tabs_scroll_left_label') %></span>
       </button>
-      <button type="button" class="btn btn-sm btn-outline-dark" data-action="utils--tab-scroll#scrollRight"
-              data-utils--tab-scroll-target="rightBtn">
+      <button type="button" class="btn btn-sm btn-outline-dark" data-action="utils--tabs#scrollRight"
+              data-utils--tabs-target="rightBtn">
         <i class="bi bi-chevron-right"></i>
         <span class="visually-hidden"><%= t('.button_tabs_scroll_right_label') %></span>
       </button>
