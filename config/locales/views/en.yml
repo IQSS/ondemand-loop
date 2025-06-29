@@ -1,0 +1,411 @@
+en:
+  connectors:
+    dataverse:
+      upload_bundle_info_bar:
+
+      upload_bundle_actions_bar:
+        button_edit_dataset_title: "Edit Dataset"
+        modal_edit_dataset_title: "Edit Dataset"
+
+        button_select_collection_title: "Select Collection"
+        modal_select_collection_title: "Select Dataverse Collection"
+
+        button_dataset_form_tabs_title: "Select/Create Dataset"
+        modal_dataset_form_tabs_title: "Select/Create %{collection} Dataset"
+
+        button_create_dataset_title: "Create Dataset"
+        modal_create_dataset_title: "Create Dataset"
+
+        button_select_dataset_title: "Select Dataset"
+        modal_select_dataset_title: "Select Dataset"
+
+        button_edit_key_title: "Add/Edit API Token"
+        modal_edit_key_title: "Add/Edit Dataverse API Token"
+
+        missing_key_disabled_features_text: "Add key to enable Collection/Dataset features"
+      dataset_create_form:
+        field_title_label: "Dataset Title"
+        field_title_placeholder: "Enter a descriptive title for the dataset"
+        field_title_help: "Provide a clear and descriptive title to help identify the dataset."
+
+        field_description_label: "Dataset Description"
+        field_description_placeholder: "Describe the contents and purpose of the dataset"
+        field_description_help: "Include key details about what the dataset contains, how it was collected, and its purpose."
+
+        fields_optional_title: "Dataset Author and Contact Information"
+
+        field_author_label: 'Author Name'
+        field_author_placeholder: 'e.g., Smith, John or Organization Name'
+        field_author_help: 'Use "Surname, First name" format for individuals or full name for organizations.'
+
+        field_contact_email_label: 'Contact Email'
+        field_contact_email_placeholder: 'e.g., john.smith@example.com'
+        field_contact_email_help: 'Email address for the point of contact for this dataset.'
+
+        field_subject_label: "Dataset Subject Area"
+        field_subject_prompt: "Select a subject area"
+        field_subject_help: "Choose the subject area that best categorizes this dataset."
+
+        submit: "Create Dataset"
+        cancel: "Cancel"
+      connector_edit_form:
+        field_api_key_label: "API Token"
+        field_api_key_placeholder: "Enter your API Token"
+        field_api_key_help: "Provide the API token required to authenticate with the Dataverse server."
+
+        field_key_scope_label: "Store API token for this collection only"
+        field_key_scope_help: "Leave unchecked to store this API token for all collections using the same Dataverse server."
+
+        submit: "Save Changes"
+        cancel: "Cancel"
+      collection_select_form:
+        search_label: "Filter collections"
+        search_placeholder: "Type at least 3 characters to filter"
+        total_collections: "%{total} collections found"
+
+        submit: "Select Collection"
+        cancel: "Cancel"
+      dataset_form_tabs:
+        select_dataset: "Select Dataset"
+        create_dataset: "Create Dataset"
+      dataset_select_form:
+        search_label: "Filter datasets"
+        search_placeholder: "Type at least 3 characters to filter"
+        total_datasets: "%{total} datasets found"
+
+        submit: "Select Dataset"
+        cancel: "Cancel"
+    zenodo:
+      connector_edit_form:
+        field_api_key_label: "Personal Access Token"
+        field_api_key_placeholder: "Enter your personal access token"
+        field_api_key_help: "Provide the access token required to authenticate with the Zenodo server."
+
+        field_key_scope_label: "Store access token for this upload bundle only"
+        field_key_scope_help: "Leave unchecked to store this access token for all bundles using Zenodo."
+      upload_bundle_actions_bar:
+        button_select_deposition_title: "Select Deposition"
+        modal_select_deposition_title: "Select Zenodo deposition"
+
+        button_deposition_fetch_label: "Fetch Deposition"
+        button_deposition_fetch_title: "Fetch Zenodo deposition metadata"
+
+        button_create_draft_title: "Create Draft"
+        modal_create_draft_title: "Create Draft"
+
+        button_edit_key_title: "Add/Edit Access Token"
+        modal_edit_key_title: "Add/Edit Zenodo Personal Access Token"
+        missing_key_disabled_features_text: "Add access token to enable deposition features"
+
+
+  dataverse:
+    collections:
+      breadcrumbs:
+        breadcrumb_dataverse_title: "Dataverse landing page"
+        breadcrumb_home_text: "Home"
+        breadcrumb_home_title: "Home"
+      collection_info:
+        header_dataverse_text: "Dataverse"
+      dataset_item:
+        field_files_label: "Files"
+        field_published_label: "Published"
+        field_publisher_label: "Publisher"
+        field_type_label: "Type"
+        unnamed_dataset_text: "Untitled Dataset"
+      dataverse_item:
+        field_affiliation_label: "Affiliation"
+        field_parent_label: "Parent"
+        field_published_label: "Published"
+        field_type_label: "Type"
+        unnamed_dataverse_text: "Unnamed Dataverse"
+      search_items:
+        content_no_items_found_text: "No items found."
+        header_search_results_a11y_text: "Search results"
+        paginator_bar_a11y_label: "Search result pagination"
+        paginator_page_text: "page %{page}"
+      show:
+        page_title: "OnDemand Loop - Dataverse Collection"
+    datasets:
+      breadcrumbs:
+        breadcrumb_dataverse_title: "Dataverse landing page"
+        breadcrumb_home_text: "Home"
+        breadcrumb_home_title: "Home"
+      dataset_files:
+        button_add_files_text: "Add Files to Active Project"
+        col_file_name_text: "File name"
+        col_published_text: "Published"
+        col_size_text: "Size"
+        col_storage_text: "Storage"
+        checkbox_select_all_label: "Select all files"
+        header_dataset_files_a11y_text: "Dataset files"
+        msg_empty_dataset_text: "The dataset does not contain files to download"
+        paginator_bar_a11y_label: "Search result pagination"
+        paginator_page_text: "page %{page}"
+        table_dataset_files_caption: "Dataset files"
+      dataset_info:
+        header_dataset_text: "Dataset"
+        header_description_text: "Description"
+      dataset_metadata:
+        field_authors_text: "Authors:"
+        field_license_text: "License:"
+        field_publication_date_text: "Publication date:"
+        field_subjects_text: "Subjects:"
+        header_dataset_metadata_text: "Dataset Metadata"
+      show:
+        page_title: "OnDemand Loop - Dataverse Dataset"
+    landing_page:
+      installation_items:
+        paginator_bar_a11y_label: "Landing page pagination"
+        paginator_page_text: "page %{page}"
+        msg_no_items_text: "No items found."
+      index:
+        breadcrumb_dataverse_title: "Dataverse landing page"
+        breadcrumb_home_text: "Home"
+        breadcrumb_home_title: "Home"
+        image_dataverse_icon_alt: "Dataverse icon"
+        page_title: "OnDemand Loop - Dataverse Landing page"
+
+  detached_process:
+    file_activity_status:
+      icon_downloads_title: "Download process status"
+      icon_uploads_title: "Upload process status"
+  download_status:
+    actions:
+      actions_bar_title_a11y_label: "Downloads actions bar"
+      button_downloads_directory_title: "Downloads Directory"
+      button_reload_title: "Reload"
+    files:
+      button_browse_file_a11y_text: "Browse file %{filename}"
+      button_browse_file_title: "Browse file"
+      button_cancel_download_a11y_text: "Cancel download of %{filename}"
+      button_cancel_download_title: "Cancel download"
+      field_creation_date_title: "Creation date"
+      header_scheduled_downloads_text: "Scheduled Downloads"
+    index:
+      breadcrumbs_text: "Downloads"
+      page_title: "OnDemand Loop - Downloads Management"
+  file_browser:
+    browser:
+      browser_parent_folder_text: "Parent folder"
+      button_cancel_edit_path_label: "Cancel edit path"
+      button_cancel_edit_path_text: "Cancel edit path"
+      button_cancel_edit_path_title: "Cancel edit path"
+      button_close_browser_label: "Close browser"
+      button_close_browser_text: "Close browser"
+      button_close_browser_title: "Close browser"
+      button_confirm_path_label: "Confirm new path"
+      button_confirm_path_text: "Confirm path"
+      button_confirm_path_title: "Update path"
+      button_edit_path_label: "Edit path"
+      button_edit_path_text: "Edit path"
+      button_edit_path_title: "Edit path"
+      button_home_label: "Navigate to home directory"
+      button_home_text: "Navigate to home directory"
+      button_home_title: "Home directory"
+      header_file_browser_text: "File Browser"
+      input_path_editor_label: "Current Path"
+      nav_file_browser_label: "File browser path"
+    file_drop:
+      file_drop_text: "Drop Files Here"
+      icon_drop_label: "Drop file here"
+  layouts:
+    nav:
+      logo:
+        logo_alt_text: "OnDemand Loop Logo"
+      navigation:
+        icon_explore_alt: "Loop Application Icon"
+        icon_ood_alt: "Open OnDemand Icon"
+        link_dataverse_text: "Dataverse"
+        link_downloads_text: "Downloads"
+        link_explore_text: "Explore"
+        link_projects_text: "Projects"
+        link_repositories_text: "Repositories"
+        link_restart_text: "Restart"
+        link_uploads_text: "Uploads"
+        link_zenodo_text: "Zenodo"
+    flash_messages:
+      button_close_label: "Close"
+    footer:
+      link_sitemap_text: "Sitemap"
+      version_text: "OnDemand Loop"
+    modal:
+      button_close_label: "Close"
+      header_loading_text: "Loading..."
+    modal_delete_confirmation:
+      header_title: "Delete"
+      content_text: "Are you sure you want to delete this element? This action cannot be undone."
+      button_close_label: "Close"
+      button_confirm_text: "Delete"
+      button_cancel_text: "Cancel"
+      subtitle_default_text: "This action cannot be undone."
+    project_bar:
+      button_active_project_title: "Active Project"
+      field_creation_date_title: "Creation date"
+      link_open_downloads_title: "Open Project folder"
+      link_open_metadata_title: "Open Project metadata"
+    repo_resolver_bar:
+      input_repo_url_placeholder: "Paste Repository URL"
+      input_repo_url_label: "Repository URL"
+      button_submit_text: "Connect"
+  projects:
+    show:
+      download_actions:
+        button_open_downloads_folder_title: "Open Downloads folder"
+        header_download_files_text: "Download Files"
+      download_files:
+        badge_repository_files_tooltip: "Repository Files"
+        button_delete_file_title: "Delete File"
+        field_completion_date_title: "Completion date"
+        field_download_start_date_title: "Download start date"
+        field_schedule_date_title: "Schedule date"
+        message_download_files_empty_text: "No Download Files"
+        modal_delete_confirmation_title: "Delete File"
+        modal_delete_confirmation_content: "The file will no longer appear in the application, but it won’t be deleted from the server."
+      project_actions:
+        button_create_upload_bundle_label: "Create Upload Bundle"
+        button_create_upload_bundle_placeholder: "Dataset URL"
+        button_create_upload_bundle_title: "Create Upload Bundle"
+        button_delete_project_title: "Delete Project"
+        button_open_project_folder_label: "Open project folder"
+        button_open_project_folder_title: "Open project folder"
+        button_open_project_metadata_title: "Open Project Metadata"
+        field_creation_date_title: "Creation date"
+        modal_delete_confirmation_title: "Delete Project"
+        modal_delete_confirmation_content: "This will remove the project from the app. Files on disk and in remote repositories will remain untouched."
+      project_tabs:
+        tab_download_files_text: "Download Files"
+      upload_actions:
+        button_add_files_text: "Add Files"
+        button_add_files_title: "Add Files"
+        button_delete_title: "Delete Bundle"
+        field_creation_date_title: "Creation date"
+        modal_delete_confirmation_title: "Delete Upload Bundle"
+        modal_delete_confirmation_content: "This will remove the upload bundle from the app. Files on disk and any already uploaded files will remain unchanged. To upload again, you’ll need to create a new bundle."
+      upload_files:
+        button_delete_file_title: "Delete File"
+        field_completion_date_title: "Completion date"
+        field_download_start_date_title: "Download start date"
+        field_schedule_date_title: "Schedule date"
+        message_no_upload_files_text: "No Upload Files"
+        modal_delete_confirmation_title: "Delete File from Bundle"
+        modal_delete_confirmation_content: "This will remove the file from the upload bundle. The file will remain on disk and in the remote repository if already uploaded."
+      breadcrumbs_text: "Projects"
+      page_title: "OnDemand Loop - Project detail"
+    actions:
+      button_create_project_text: "Create Project"
+      button_downloads_root_directory_text: "Downloads Root Directory"
+    download_files:
+      schedule_date: "Schedule date"
+      repository_files: "Repository Files"
+      completion_date: "Completion date"
+      download_start_date: "Download start date"
+      delete_file: "Delete file"
+    project:
+      download_files: "Download Files"
+    project_header:
+      button_active_project_title: "Active project"
+      button_cancel_title: "Cancel"
+      button_delete_project_title: "Delete project"
+      button_edit_project_name_title: "Edit Project name"
+      button_open_project_folder_title: "Open project folder"
+      button_save_project_name_title: "Save project name"
+      button_set_as_active_project_title: "Set as Active Project"
+      field_creation_date_title: "Creation Date"
+      modal_delete_confirmation_title: "Delete Project"
+      modal_delete_confirmation_content: "This will remove the project from the app. Files on disk and in remote repositories will remain untouched."
+      section_project_actions_label: "Project actions section"
+      section_rename_project_label: "Rename project section"
+    project_summary:
+      button_metadata_folder_title: "Open project metadata folder"
+      button_toggle_label: "Project Summary"
+      tab_download_label: "Download Files"
+    project_summary_downloads:
+      tab_title: "Download Files"
+      button_download_folder_title: "Open downloads folder"
+    project_summary_bundle:
+      creation_date_title: "Creation date"
+    upload_bundle:
+      schedule_date: "Schedule date"
+      repository_files: "Repository Files"
+      completion_date: "Completion date"
+      upload_start_date: "Upload start date"
+      delete_file: "Delete file"
+    index:
+      breadcrumbs_text: "Projects"
+      page_title: "OnDemand Loop - Projects"
+  shared:
+    breadcrumbs:
+      home: "Home"
+      zenodo: "Zenodo"
+    button_to:
+      button_accessibility_default_label: "Action"
+    file_stats_inline:
+      pending_files: "Pending files"
+      completed_files: "Completed files"
+      cancelled_files: "Cancelled files"
+      error_files: "Error files"
+      total_files: "Total files"
+    file_stats_widget:
+      pending_files: "Pending files"
+      completed_files: "Completed files"
+      cancelled_files: "Cancelled files"
+      error_files: "Error files"
+      total_files: "Total files"
+    file_summary_widget:
+      badge_cancelled_text: "Cancelled"
+      badge_completed_text: "Completed"
+      badge_error_text: "Error"
+      badge_pending_text: "Pending"
+      badge_total_text: "Total"
+    files_process_header:
+      download:
+        icon_idle_title: "Download process is idle"
+        icon_running_title: "Download process is running"
+        date_title: "Last batch process start date"
+        title: "Scheduled Downloads"
+        elapsed_title: "Elapsed"
+      upload:
+        icon_idle_title: "Upload process is idle"
+        icon_running_title: "Upload process is running"
+        date_title: "Last batch process start date"
+        title: "Scheduled Uploads"
+        elapsed_title: "Elapsed"
+    inline_field_submit:
+      button_submit_title: "Submit"
+      button_cancel_title: "Cancel"
+      input_default_placeholder: "Enter value"
+      spinner_loading_label: "Loading..."
+    ood_folder_button:
+      button_open_in_ondemand_title: "Open in OnDemand"
+      image_ood_icon_alt: "Open OnDemand Icon"
+  sitemap:
+    index:
+      breadcrumbs_text: "Sitemap"
+      page_title: "OnDemand Loop - Sitemap"
+  upload_status:
+    actions:
+      actions_bar_title_a11y_label: "Uploads actions bar"
+      button_reload_title: "Reload"
+    files:
+      badge_repo_tooltip: "External dataset"
+      button_browse_file_a11y_text: "Browse file %{filename}"
+      button_browse_file_title: "Browse file"
+      button_cancel_upload_a11y_text: "Cancel upload of %{filename}"
+      button_cancel_upload_title: "Cancel upload"
+      field_creation_date_title: "Creation date"
+    index:
+      breadcrumbs_text: "Uploads"
+      page_title: "OnDemand Loop - Uploads Management"
+
+  zenodo:
+    landing_page:
+      index:
+        page_title: "OnDemand Loop - Zenodo"
+        button_submit_text: "Search"
+        field_search_placeholder: "Query to search in Zenodo records"
+    records:
+      show:
+        page_title: "OnDemand Loop - Zenodo Records"
+        column_record_filename_text: "File"
+        column_record_size_text: "Size"
+        button_submit_text: "Add Files to Active Project"

@@ -1,0 +1,47 @@
+en:
+  acts_as_page:
+    link_next_page_a11y_label: "Go to next page"
+    link_next_page_title: "Next page"
+    link_prev_page_a11y_label: "Go to previous page"
+    link_prev_page_title: "Previous page"
+    out_of_range: "Out of range"
+    results_summary: "%{start_index} to %{end_index} of %{total_count} results"
+  badge:
+    status:
+      a11y: { text: "File status for %{filename}" }
+  connector:
+    icon:
+      a11y: { label: "Connector type %{type}" }
+  status:
+    pending: "pending"
+    downloading: "downloading"
+    uploading: "uploading"
+    success: "success"
+    error: "error"
+    cancelled: "cancelled"
+  helpers:
+    dataverse:
+      invalid_hostname: "Invalid Dataverse hostname"
+      badge_key_missing_text: "API Token missing"
+      badge_key_present_text: "API Token present"
+    zenodo:
+      badge_key_missing_text: "Access Token missing"
+      badge_key_present_text: "Access Token present"
+  js:
+    download:
+      cancel:
+        error: "Could not cancel download."
+    drop:
+      path:
+        save_error: "Error saving path: "
+        network_error: "Network error while saving path:"
+    inline_field:
+      submit:
+        success: "Saved successfully"
+        error: "There was an error saving your data."
+    project_name:
+      save:
+        error: "Could not update project name."
+    upload:
+      cancel:
+        error: "Could not cancel upload."

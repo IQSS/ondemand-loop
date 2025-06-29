@@ -1,0 +1,24 @@
+<div class="card dataset-header">
+  <div class="card-header d-flex align-items-center">
+    <%= installations_page.to_s %>
+    <nav aria-label="<%= t('.paginator_bar_a11y_label') %>" class="ms-auto">
+      <%= link_to_landing_prev_page(installations_page, {class: "text-decoration-none"}) %>
+      <%= t(".paginator_page_text", page: installations_page.page) %>
+      <%= link_to_landing_next_page(installations_page, {class: "text-decoration-none"}) %>
+    </nav>
+  </div>
+  <% if installations_page.page_items.any? %>
+    <ul class="list-group">
+      <%= render partial: 'installation', collection: installations_page.page_items, as: :installation %>
+      <nav aria-label="<%= t('.paginator_bar_a11y_label') %>" class="list-group-item d-flex justify-content-center">
+        <%= link_to_landing_prev_page(installations_page, {class: "text-decoration-none bottom-page-link"}) %>
+        <%= t(".paginator_page_text", page: installations_page.page) %>
+        <%= link_to_landing_next_page(installations_page, {class: "text-decoration-none bottom-page-link"}) %>
+      </nav>
+    </ul>
+  <% else %>
+    <div class="alert alert-warning mt-3" role="status">
+      <%= t('.msg_no_items_text') %>
+    </div>
+  <% end %>
+</div>

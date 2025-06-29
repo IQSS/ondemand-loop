@@ -1,0 +1,32 @@
+$btn-disabled-opacity: 0.4;
+
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons';
+@import "fontawesome/fontawesome";
+
+@import 'custom_styles';
+@import 'navigation';
+@import 'connector';
+@import 'forms';
+@import 'modal';
+@import 'file_browser';
+@import 'progress_bar';
+@import 'projects';
+@import 'project_details';
+@import 'file_stats_widget';
+@import 'downloads';
+@import 'dataverse';
+@import 'footer';
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+html, body {
+  height: 100%;
+}
+
+body div.content {
+  flex: 1 0 auto;
+}

@@ -1,0 +1,13 @@
+<% content_for :title, t('.page_title') %>
+<div class="dataverse container-md content" role="main">
+  <%= render partial: 'dataverse/collections/breadcrumbs', locals: { dataverse_url: @dataverse_url, collection: @collection } %>
+  <div class="row">
+    <div class="col-md-3">
+      <%= render partial: 'dataverse/collections/collection_info', locals: { collection: @collection } %>
+    </div>
+    <div class="col-md-9">
+      <%= render partial: 'dataverse/collections/search_items', locals: { search_result: @search_result, dataverse_url: @dataverse_url, dataverse: @collection} %>
+    </div>
+  </div>
+</div>
+

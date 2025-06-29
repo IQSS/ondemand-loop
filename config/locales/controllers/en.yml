@@ -1,0 +1,82 @@
+en:
+  dataverse:
+    collections:
+      show:
+        dataverse_not_found: "Dataverse not found. Dataverse: %{dataverse_url} Id: %{id}"
+        dataverse_requires_authorization: "Dataverse requires authorization. Dataverse: %{dataverse_url} Id: %{id}"
+        dataverse_service_error: "Dataverse service error. Dataverse: %{dataverse_url} Id: %{id}"
+    datasets:
+      download:
+        error_generating_project: "Error generating project: %{errors}"
+        invalid_file_in_selection: "Invalid file in selection: %{filename} errors: %{errors}"
+        error_generating_the_download_file: "Error generating the download file"
+        files_added_to_project: "Files added to project: %{project_name}"
+      dataset_not_found: "Dataset not found. Dataverse: %{dataverse_url} persistentId: %{persistent_id}"
+      dataset_requires_authorization: "Dataset requires authorization. Dataverse: %{dataverse_url} persistentId: %{persistent_id}"
+      dataverse_service_error: "Dataverse service error. Dataverse: %{dataverse_url} persistentId: %{persistent_id}"
+      dataset_files_not_found: "Dataset files not found. Dataverse: %{dataverse_url} persistentId: %{persistent_id} page: %{page}"
+      dataset_files_endpoint_requires_authorization: "Dataset files endpoint requires authorization. Dataverse: %{dataverse_url} persistentId: %{persistent_id} page: %{page}"
+      dataverse_service_error_searching_files: "Dataverse service error while searching files. Dataverse: %{dataverse_url} persistentId: %{persistent_id} page: %{page}"
+    landing_page:
+      index:
+        dataverse_installations_service_error: "Dataverse Installations service error."
+  download_files:
+    compulsory_fields_error: "project_id and id are compulsory"
+    file_not_found_for_project: "File: %{file_id} not found for project: %{project_id}"
+    file_in_progress: "File: %{filename} cannot be deleted while is being downloaded"
+    download_file_deleted_successfully: 'Download file deleted: %{filename}'
+  file_browser:
+    directory_forbidden: "You do not have permission to access this directory."
+  projects:
+    create:
+      project_created: "Project %{project_name} created"
+      project_create_error: "Error generating the project: %{errors}"
+    update:
+      project_not_found: "Project %{id} not found"
+      project_updated_successfully: "Project updated: %{project_name}"
+      project_update_error: "Failed to update project: %{errors}"
+    set_active:
+      project_not_found: "Project %{id} not found"
+      project_is_now_the_active_project: "%{project_name} is now the active project."
+    destroy:
+      project_not_found: "Project %{id} not found"
+      project_deleted_successfully: "Project %{project_name} deleted successfully"
+  repo_resolver:
+    resolve:
+      blank_url_error: "Please provide repo URL"
+      url_not_supported: "URL not supported: %{url}"
+  upload_bundles:
+    create:
+      invalid_project: "Invalid project id: %{id}"
+      invalid_repo: "URL not supported: %{url}"
+    edit:
+      invalid_parameters: "Invalid parameters project_id: %{project_id} upload_bundle_id: %{upload_bundle_id}"
+    update:
+      not_found: "Upload Bundle not found: %{upload_bundle_id}"
+    destroy:
+      not_found: "Upload Bundle not found: %{upload_bundle_id}"
+      success: "Upload bundle deleted: %{bundle_name}"
+  upload_files:
+    create:
+      invalid_file: "Invalid file in selection: %{filename} errors: %{errors}"
+      files_added: "%{count} files added from: %{path_folder}"
+      file_added: "File added: %{filename}"
+    destroy:
+      file_not_found: "File: %{file_id} not found for project: %{project_id}"
+      file_in_progress: "File: %{filename} cannot be deleted while is being uploaded"
+      upload_file_removed: "Upload file removed from bundle: %{filename}"
+    cancel:
+      compulsory_fields_error: 'project_id and file_id are compulsory'
+      file_not_found: "file not found project_id=%{project_id} upload_bundle_id=%{upload_bundle_id} id=%{file_id}"
+  zenodo:
+    records:
+      download:
+        message_project_error: "Error generating project: %{errors}"
+        message_validation_file_error: "Invalid file in selection: %{filename} errors: %{errors}"
+        message_save_file_error: "Error generating the download file"
+        message_success: "Files added to project: %{project_name}"
+      message_record_not_found: "Record not found. Record id: %{record_id}"
+      message_record_service_error: "Zenodo service error. Record id: %{record_id}"
+    landing_page:
+      index:
+        message_search_error: "Zenodo search error while searching: %{query}"

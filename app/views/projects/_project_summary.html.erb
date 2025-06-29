@@ -1,0 +1,64 @@
+<div class="card-header border-top d-flex justify-content-between align-items-center bg-light">
+  <a class="d-flex align-items-center text-decoration-none text-secondary"
+     data-bs-toggle="collapse"
+     data-controller="utils--icon-toggle"
+     data-utils--icon-toggle-icon-on-value="bi-plus-square"
+     data-utils--icon-toggle-icon-off-value="bi-dash-square"
+     data-action="click->utils--icon-toggle#toggle"
+     href="#project-files-<%= project.id %>"
+     role="button"
+     aria-expanded="false"
+     aria-controls="project-files-<%= project.id %>">
+    <i data-utils--icon-toggle-target="icon" class="bi bi-plus-square me-2 transition" id="toggle-icon-<%= project.id %>" aria-hidden="true"></i>
+    <strong><%= t('.button_toggle_label') %></strong>
+  </a>
+  <div>
+    <a href="<%= files_app_url(Project.project_metadata_dir(project.id)) %>"
+       target="_blank"
+       class="btn btn-sm btn-outline-secondary"
+       title="<%= t('.button_metadata_folder_title') %>">
+      <i class="bi bi-card-list" aria-hidden="true"></i>
+      <span class="visually-hidden"><%= t('.button_metadata_folder_title') %></span>
+    </a>
+  </div>
+</div>
+
+<!-- Collapsible Tabs -->
+<div class="collapse" id="project-files-<%= project.id %>" data-controller="utils--tab-links">
+  <div class="bg-light pt-2">
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" id="tabs-<%= project.id %>" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link text-secondary active" id="<%= tab_label_for(project) %>" data-bs-toggle="tab"
+           href="<%= tab_href_for(project) %>" role="tab"
+           aria-controls="<%= tab_anchor_for(project) %>" aria-selected="true">
+          <i class="bi bi-download me-1" aria-hidden="true"></i><%= t('.tab_download_label') %>
+        </a>
+      </li>
+      <% project.upload_bundles.each do |bundle| %>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link text-secondary" id="<%= tab_label_for(bundle) %>" data-bs-toggle="tab"
+             href="<%= tab_href_for(bundle) %>" role="tab"
+             aria-controls="<%= tab_anchor_for(bundle) %>" aria-selected="false">
+            <i class="bi bi-upload me-1" aria-hidden="true"></i><%= bundle.name %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+      <div class="tab-pane fade show active" id="<%= tab_anchor_for(project) %>" role="tabpanel"
+           aria-labelledby="<%= tab_label_for(project) %>">
+        <%= render partial: '/projects/project_summary_downloads', locals: { project: project } %>
+      </div>
+      <% project.upload_bundles.each do |bundle| %>
+        <div class="tab-pane fade" id="<%= tab_anchor_for(bundle) %>" role="tabpanel"
+             aria-labelledby="<%= tab_label_for(bundle) %>">
+          <%= render partial: '/projects/project_summary_bundle', locals: { project: project, bundle: bundle } %>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>

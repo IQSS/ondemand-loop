@@ -1,0 +1,9 @@
+{
+  "id": 11,
+  "conceptrecid": "10",
+  "metadata": {"title": "Record Title"},
+  "files": [
+    {"id": "1", "key": "data/file1.txt", "size": 100, "links": {"self": "https://zenodo.org/record/11/files/data%2Ffile1.txt"}},
+    {"id": "2", "key": "image.png", "size": 200, "links": {"self": "https://zenodo.org/record/11/files/image.png"}}
+  ]
+}

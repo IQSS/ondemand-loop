@@ -1,0 +1,26 @@
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/json-2.10.2/ext/json/ext/parser
+/usr/bin/ruby -I /usr/share/rubygems extconf.rb
+checking for rb_enc_interned_str() in ruby.h... yes
+checking for rb_hash_new_capa() in ruby.h... no
+checking for rb_hash_bulk_insert() in ruby.h... yes
+checking for rb_category_warn() in ruby.h... yes
+checking for strnlen() in string.h... yes
+checking for whether -std=c99 is accepted as CFLAGS... yes
+creating Makefile
+
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/json-2.10.2/ext/json/ext/parser
+make DESTDIR\= sitearchdir\=./.gem.20250629-37-oyte8e sitelibdir\=./.gem.20250629-37-oyte8e clean
+rm -f 
+rm -fr parser.so false *.o  *.bak mkmf.log .*.time
+
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/json-2.10.2/ext/json/ext/parser
+make DESTDIR\= sitearchdir\=./.gem.20250629-37-oyte8e sitelibdir\=./.gem.20250629-37-oyte8e
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_RB_ENC_INTERNED_STR -DHAVE_RB_HASH_BULK_INSERT -DHAVE_RB_CATEGORY_WARN -DHAVE_STRNLEN    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -std=c99 -m64 -o parser.o -c parser.c
+rm -f parser.so
+gcc -shared -o parser.so parser.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld  -m64  -lruby  -lm  -lc
+
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/json-2.10.2/ext/json/ext/parser
+make DESTDIR\= sitearchdir\=./.gem.20250629-37-oyte8e sitelibdir\=./.gem.20250629-37-oyte8e install
+/usr/bin/mkdir -p . ./.gem.20250629-37-oyte8e/json/ext
+exit > .sitearchdir.-.json.-.ext.time
+/usr/bin/install -c -m 0755 parser.so ./.gem.20250629-37-oyte8e/json/ext
