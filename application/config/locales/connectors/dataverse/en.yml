@@ -119,6 +119,8 @@ en:
         page_title: "OnDemand Loop - Dataverse Dataset"
     landing_page:
       installation_items:
+        button_submit_text: "Search"
+        field_search_placeholder: "Search installations"
         paginator_bar_a11y_label: "Landing page pagination"
         paginator_page_text: "page %{page}"
         msg_no_items_text: "No items found."
