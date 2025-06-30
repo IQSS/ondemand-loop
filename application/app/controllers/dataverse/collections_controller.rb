@@ -7,8 +7,9 @@ class Dataverse::CollectionsController < ApplicationController
     @service = Dataverse::CollectionService.new(@dataverse_url)
     begin
       @page = params[:page] ? params[:page].to_i : 1
+      search_query = params[:q].present? ? ActionView::Base.full_sanitizer.sanitize(params[:q]) : nil
       @collection = @service.find_collection_by_id(params[:id])
-      @search_result = @service.search_collection_items(params[:id], page: @page)
+      @search_result = @service.search_collection_items(params[:id], page: @page, query: search_query)
       if @collection.nil? || @search_result.nil?
         log_error('Dataverse collection not found.', {dataverse: @dataverse_url, id: params[:id]})
         flash[:alert] = t("dataverse.collections.show.dataverse_not_found", dataverse_url: @dataverse_url, id: params[:id])
