@@ -83,7 +83,7 @@ en:
         button_submit_text: "Search"
         content_no_items_found_text: "No items found."
         field_search_label: "Search items"
-        field_search_placeholder: "Filter items"
+        field_search_placeholder: "Search items"
         header_search_results_a11y_text: "Search results"
         paginator_bar_a11y_label: "Search result pagination"
         paginator_page_text: "page %{page}"
