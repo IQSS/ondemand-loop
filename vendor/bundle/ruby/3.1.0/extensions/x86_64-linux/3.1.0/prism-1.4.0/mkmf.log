@@ -1,0 +1,74 @@
+find_header: checking for prism.h in /usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/include... -------------------- yes
+
+LD_LIBRARY_PATH=.:/usr/lib64 "gcc -o conftest -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.    -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC conftest.c  -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed  -m64   -lruby  -lm  -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+LD_LIBRARY_PATH=.:/usr/lib64 "gcc -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.    -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64  -c conftest.c"
+conftest.c:3:10: fatal error: prism.h: No such file or directory
+ #include <prism.h>
+          ^~~~~~~~~
+compilation terminated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <prism.h>
+/* end */
+
+LD_LIBRARY_PATH=.:/usr/lib64 "gcc -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.    -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/include -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <prism.h>
+/* end */
+
+--------------------
+
+find_header: checking for prism/extension.h in /usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/ext... -------------------- yes
+
+LD_LIBRARY_PATH=.:/usr/lib64 "gcc -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/include    -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64  -c conftest.c"
+conftest.c:3:10: fatal error: prism/extension.h: No such file or directory
+ #include <prism/extension.h>
+          ^~~~~~~~~~~~~~~~~~~
+compilation terminated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <prism/extension.h>
+/* end */
+
+LD_LIBRARY_PATH=.:/usr/lib64 "gcc -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/include    -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/ext -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <prism/extension.h>
+/* end */
+
+--------------------
+
+block in append_cflags: checking for whether -fvisibility=hidden is accepted as CFLAGS... -------------------- yes
+
+LD_LIBRARY_PATH=.:/usr/lib64 "gcc -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/include -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/ext    -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -fvisibility=hidden -Werror -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+--------------------
+

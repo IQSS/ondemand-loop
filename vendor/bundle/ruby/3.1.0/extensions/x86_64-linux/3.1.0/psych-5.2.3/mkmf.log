@@ -1,0 +1,98 @@
+LD_LIBRARY_PATH=.:/usr/lib64 pkg-config --exists yaml-0.1
+LD_LIBRARY_PATH=.:/usr/lib64 pkg-config --libs yaml-0.1 |
+=> "-lyaml \n"
+LD_LIBRARY_PATH=.:/usr/lib64 "gcc -o conftest -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.    -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC conftest.c  -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed  -m64   -lruby  -lm  -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+LD_LIBRARY_PATH=.:/usr/lib64 "gcc -o conftest -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.    -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC conftest.c  -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed  -m64   -lruby -lyaml -lm  -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+LD_LIBRARY_PATH=.:/usr/lib64 pkg-config --cflags-only-I yaml-0.1 |
+=> "\n"
+LD_LIBRARY_PATH=.:/usr/lib64 pkg-config --cflags-only-other yaml-0.1 |
+=> "\n"
+LD_LIBRARY_PATH=.:/usr/lib64 pkg-config --libs-only-l yaml-0.1 |
+=> "-lyaml \n"
+package configuration for yaml-0.1
+incflags: 
+cflags: 
+ldflags: 
+libs: -lyaml
+
+find_header: checking for yaml.h... -------------------- yes
+
+LD_LIBRARY_PATH=.:/usr/lib64 "gcc -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.     -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC  -m64  -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <yaml.h>
+/* end */
+
+--------------------
+
+find_library: checking for yaml_get_version() in -lyaml... -------------------- yes
+
+LD_LIBRARY_PATH=.:/usr/lib64 "gcc -o conftest -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.     -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC  conftest.c  -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed   -m64   -lyaml -lruby -lyaml  -lyaml -lm  -lc"
+conftest.c: In function 't':
+conftest.c:14:57: error: 'yaml_get_version' undeclared (first use in this function); did you mean 'ruby_show_version'?
+ int t(void) { void ((*volatile p)()); p = (void ((*)()))yaml_get_version; return !p; }
+                                                         ^~~~~~~~~~~~~~~~
+                                                         ruby_show_version
+conftest.c:14:57: note: each undeclared identifier is reported only once for each function it appears in
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))yaml_get_version; return !p; }
+/* end */
+
+LD_LIBRARY_PATH=.:/usr/lib64 "gcc -o conftest -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.     -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC  conftest.c  -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed   -m64   -lyaml -lruby -lyaml  -lyaml -lm  -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: extern void yaml_get_version();
+15: int t(void) { yaml_get_version(); return 0; }
+/* end */
+
+--------------------
+
