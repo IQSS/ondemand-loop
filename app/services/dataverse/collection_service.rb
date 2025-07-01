@@ -29,12 +29,15 @@ module Dataverse
       CollectionResponse.new(response.body)
     end
 
-    def search_collection_items(collection_id, page: 1, per_page: 10, include_collections: true, include_datasets: true)
-      start = (page-1) * per_page
-      type_collection = include_collections ? "&type=dataverse" : ""
-      type_dataset = include_datasets ? "&type=dataset" : ""
-      query_string = "q=*&show_facets=true&sort=date&order=desc&show_type_counts=true&per_page=#{per_page}&start=#{start}#{type_collection}#{type_dataset}&subtree=#{collection_id}"
-      url = "/api/search?#{query_string}"
+    def search_collection_items(collection_id, page: 1, per_page: 10, include_collections: true, include_datasets: true, query: nil)
+      url = SearchCollectionItemsUrlBuilder.new(
+        collection_id: collection_id,
+        page: page,
+        per_page: per_page,
+        include_collections: include_collections,
+        include_datasets: include_datasets,
+        query: query
+      ).build
       response = @http_client.get(url)
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?

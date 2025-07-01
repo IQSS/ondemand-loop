@@ -56,4 +56,12 @@ class Dataverse::CollectionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should pass sanitized query to service" do
+    service = mock('service')
+    Dataverse::CollectionService.stubs(:new).returns(service)
+    service.stubs(:find_collection_by_id).returns(@dataverse)
+    service.expects(:search_collection_items).with(':root', has_entries(page: 1, query: 'term')).returns(@search_response)
+    get view_dataverse_url("example.com", ":root", query: "term")
+    assert_response :success
+  end
 end

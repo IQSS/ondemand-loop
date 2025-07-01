@@ -12,6 +12,10 @@ module ActsAsPage
     @total_count
   end
 
+  def query
+    @query
+  end
+
   def to_s
     start_index = (@page - 1) * @per_page
     end_index = [start_index + @per_page, total_count].min

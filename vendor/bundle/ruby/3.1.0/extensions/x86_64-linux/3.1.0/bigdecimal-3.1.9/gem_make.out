@@ -28,19 +28,19 @@ checking for RB_WARN_CATEGORY_DEPRECATED in ruby.h... yes
 creating Makefile
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/bigdecimal-3.1.9/ext/bigdecimal
-make DESTDIR\= sitearchdir\=./.gem.20250701-37-pyf0dc sitelibdir\=./.gem.20250701-37-pyf0dc clean
+make DESTDIR\= sitearchdir\=./.gem.20250701-37-zueifj sitelibdir\=./.gem.20250701-37-zueifj clean
 rm -f 
 rm -fr bigdecimal.so false *.o  *.bak mkmf.log .*.time
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/bigdecimal-3.1.9/ext/bigdecimal
-make DESTDIR\= sitearchdir\=./.gem.20250701-37-pyf0dc sitelibdir\=./.gem.20250701-37-pyf0dc
+make DESTDIR\= sitearchdir\=./.gem.20250701-37-zueifj sitelibdir\=./.gem.20250701-37-zueifj
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_BUILTIN___BUILTIN_CLZ -DHAVE_BUILTIN___BUILTIN_CLZL -DHAVE_BUILTIN___BUILTIN_CLZLL -DHAVE_FLOAT_H -DHAVE_MATH_H -DHAVE_STDBOOL_H -DHAVE_STDLIB_H -DHAVE_X86INTRIN_H -DHAVE_LABS -DHAVE_LLABS -DHAVE_FINITE -DHAVE_RUBY_ATOMIC_H -DHAVE_RUBY_INTERNAL_HAS_BUILTIN_H -DHAVE_RUBY_INTERNAL_STATIC_ASSERT_H -DHAVE_RB_RATIONAL_NUM -DHAVE_RB_RATIONAL_DEN -DHAVE_RB_COMPLEX_REAL -DHAVE_RB_COMPLEX_IMAG -DHAVE_RB_OPTS_EXCEPTION_P -DHAVE_RB_CATEGORY_WARN -DHAVE_CONST_RB_WARN_CATEGORY_DEPRECATED    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o bigdecimal.o -c bigdecimal.c
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_BUILTIN___BUILTIN_CLZ -DHAVE_BUILTIN___BUILTIN_CLZL -DHAVE_BUILTIN___BUILTIN_CLZLL -DHAVE_FLOAT_H -DHAVE_MATH_H -DHAVE_STDBOOL_H -DHAVE_STDLIB_H -DHAVE_X86INTRIN_H -DHAVE_LABS -DHAVE_LLABS -DHAVE_FINITE -DHAVE_RUBY_ATOMIC_H -DHAVE_RUBY_INTERNAL_HAS_BUILTIN_H -DHAVE_RUBY_INTERNAL_STATIC_ASSERT_H -DHAVE_RB_RATIONAL_NUM -DHAVE_RB_RATIONAL_DEN -DHAVE_RB_COMPLEX_REAL -DHAVE_RB_COMPLEX_IMAG -DHAVE_RB_OPTS_EXCEPTION_P -DHAVE_RB_CATEGORY_WARN -DHAVE_CONST_RB_WARN_CATEGORY_DEPRECATED    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o missing.o -c missing.c
 rm -f bigdecimal.so
 gcc -shared -o bigdecimal.so bigdecimal.o missing.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld  -m64  -lruby  -lm  -lc
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/bigdecimal-3.1.9/ext/bigdecimal
-make DESTDIR\= sitearchdir\=./.gem.20250701-37-pyf0dc sitelibdir\=./.gem.20250701-37-pyf0dc install
-/usr/bin/mkdir -p . ./.gem.20250701-37-pyf0dc
+make DESTDIR\= sitearchdir\=./.gem.20250701-37-zueifj sitelibdir\=./.gem.20250701-37-zueifj install
+/usr/bin/mkdir -p . ./.gem.20250701-37-zueifj
 exit > .sitearchdir.time
-/usr/bin/install -c -m 0755 bigdecimal.so ./.gem.20250701-37-pyf0dc
+/usr/bin/install -c -m 0755 bigdecimal.so ./.gem.20250701-37-zueifj

@@ -1,3 +1,11 @@
+<div class="mb-3">
+  <%= form_with url: view_dataverse_landing_path, method: :get, local: true do |f| %>
+    <div class="input-group">
+      <%= f.text_field :query, value: params[:query], class: 'form-control', placeholder: t('.field_search_placeholder') %>
+      <%= f.submit t('.button_submit_text'), class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
 <div class="card dataset-header">
   <div class="card-header d-flex align-items-center">
     <%= installations_page.to_s %>

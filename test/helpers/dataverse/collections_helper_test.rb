@@ -39,14 +39,14 @@ class DataverseCollectionsHelperTest < ActionView::TestCase
   end
 
   test 'prev and next page links only when applicable' do
-    data = Dataverse::SearchResponse::Data.new({ start: 10, total_count: 30, items: [] }, 2, 10)
+    data = Dataverse::SearchResponse::Data.new({ start: 10, total_count: 30, items: [], q: "term" }, 2, 10)
     result = OpenStruct.new(data: data)
     dataverse = OpenStruct.new(data: OpenStruct.new(alias: 'alias'))
-    stubs(:view_dataverse_url).returns('/prev')
+    expects(:view_dataverse_url).with('example.com', 'alias', { page: 1, query: 'term' }).returns('/prev')
     html = link_to_search_results_prev_page('https://example.com', dataverse, result, {})
     assert_includes html, 'href="/prev"'
 
-    stubs(:view_dataverse_url).returns('/next')
+    expects(:view_dataverse_url).with('example.com', 'alias', { page: 3, query: 'term' }).returns('/next')
     html = link_to_search_results_next_page('https://example.com', dataverse, result, {})
     assert_includes html, 'href="/next"'
   end

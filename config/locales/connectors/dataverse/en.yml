@@ -80,7 +80,10 @@ en:
         field_type_label: "Type"
         unnamed_dataverse_text: "Unnamed Dataverse"
       search_items:
+        button_submit_text: "Search"
         content_no_items_found_text: "No items found."
+        field_search_label: "Search items"
+        field_search_placeholder: "Search items"
         header_search_results_a11y_text: "Search results"
         paginator_bar_a11y_label: "Search result pagination"
         paginator_page_text: "page %{page}"
@@ -116,6 +119,8 @@ en:
         page_title: "OnDemand Loop - Dataverse Dataset"
     landing_page:
       installation_items:
+        button_submit_text: "Search"
+        field_search_placeholder: "Search installations"
         paginator_bar_a11y_label: "Landing page pagination"
         paginator_page_text: "page %{page}"
         msg_no_items_text: "No items found."

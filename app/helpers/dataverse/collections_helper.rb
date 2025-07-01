@@ -32,6 +32,7 @@ module Dataverse::CollectionsHelper
       url_options[:dv_port] = uri.port if uri.port != 443
       url_options[:dv_scheme] = uri.scheme if uri.scheme != 'https'
       url_options[:page] = search_result.data.prev_page
+      url_options[:query] = search_result.data.q if search_result.data.q.present? && search_result.data.q != '*'
       html_options['aria-label'] = I18n.t("acts_as_page.link_prev_page_a11y_label")
       html_options[:title] = I18n.t("acts_as_page.link_prev_page_title")
       link_to("<", view_dataverse_url(uri.hostname, dataverse.data.alias, url_options), html_options)
@@ -45,6 +46,7 @@ module Dataverse::CollectionsHelper
       url_options[:dv_port] = uri.port if uri.port != 443
       url_options[:dv_scheme] = uri.scheme if uri.scheme != 'https'
       url_options[:page] = search_result.data.next_page
+      url_options[:query] = search_result.data.q if search_result.data.q.present? && search_result.data.q != '*'
       html_options['aria-label'] = I18n.t("acts_as_page.link_next_page_a11y_label")
       html_options[:title] = I18n.t("acts_as_page.link_next_page_title")
       link_to(">", view_dataverse_url(uri.hostname, dataverse.data.alias, url_options), html_options)

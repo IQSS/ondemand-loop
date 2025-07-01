@@ -5,23 +5,25 @@ class Dataverse::CollectionsController < ApplicationController
   def show
     @dataverse_url = current_dataverse_url
     @service = Dataverse::CollectionService.new(@dataverse_url)
+    collection_id = params[:id]
     begin
       @page = params[:page] ? params[:page].to_i : 1
-      @collection = @service.find_collection_by_id(params[:id])
-      @search_result = @service.search_collection_items(params[:id], page: @page)
+      search_query = params[:query].present? ? ActionView::Base.full_sanitizer.sanitize(params[:query]) : nil
+      @collection = @service.find_collection_by_id(collection_id)
+      @search_result = @service.search_collection_items(collection_id, page: @page, query: search_query)
       if @collection.nil? || @search_result.nil?
-        log_error('Dataverse collection not found.', {dataverse: @dataverse_url, id: params[:id]})
-        flash[:alert] = t("dataverse.collections.show.dataverse_not_found", dataverse_url: @dataverse_url, id: params[:id])
+        log_error('Dataverse collection not found.', {dataverse: @dataverse_url, id: collection_id})
+        flash[:alert] = t("dataverse.collections.show.dataverse_not_found", dataverse_url: @dataverse_url, id: collection_id)
         redirect_to root_path
         return
       end
     rescue Dataverse::CollectionService::UnauthorizedException => e
-      log_error('Dataverse requires authorization', {dataverse: @dataverse_url, id: params[:id]}, e)
-      flash[:alert] = t("dataverse.collections.show.dataverse_requires_authorization", dataverse_url: @dataverse_url, id: params[:id])
+      log_error('Dataverse requires authorization', {dataverse: @dataverse_url, id: collection_id}, e)
+      flash[:alert] = t("dataverse.collections.show.dataverse_requires_authorization", dataverse_url: @dataverse_url, id: collection_id)
       redirect_to root_path
     rescue Exception => e
-      log_error('Dataverse service error', {dataverse: @dataverse_url, id: params[:id]}, e)
-      flash[:alert] = t("dataverse.collections.show.dataverse_service_error", dataverse_url: @dataverse_url, id: params[:id])
+      log_error('Dataverse service error', {dataverse: @dataverse_url, id: collection_id}, e)
+      flash[:alert] = t("dataverse.collections.show.dataverse_service_error", dataverse_url: @dataverse_url, id: collection_id)
       redirect_to root_path
     end
   end
