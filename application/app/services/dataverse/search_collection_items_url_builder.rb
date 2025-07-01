@@ -18,13 +18,25 @@ module Dataverse
       raise 'collection_id is missing' unless collection_id
 
       start = (page - 1) * per_page
-      search_query = query.present? ? CGI.escape(query.to_s) : '*'
-      url = "/api/search?q=#{search_query}&show_facets=true&sort=date&order=desc"
-      url += "&per_page=#{per_page}&start=#{start}"
-      url += "&type=dataverse" if include_collections
-      url += "&type=dataset" if include_datasets
-      url += "&subtree=#{collection_id}"
-      url
+      query_params = {
+        q: query.present? ? query.to_s : '*',
+        show_facets: true,
+        sort: 'date',
+        order: 'desc',
+        per_page: per_page,
+        start: start,
+        subtree: collection_id
+      }
+
+      types = []
+      types << 'dataverse' if include_collections
+      types << 'dataset' if include_datasets
+      query_params[:type] = types unless types.empty?
+
+      path = '/api/search'
+      query_string = Rack::Utils.build_query(query_params)
+
+      URI::Generic.build(path: path, query: query_string).to_s
     end
   end
 end
