@@ -25,7 +25,7 @@ class Dataverse::LandingPageControllerTest < ActionDispatch::IntegrationTest
     ]
     registry = mock('reg'); registry.stubs(:installations).returns(dvs)
     DataverseHubRegistry.stubs(:registry).returns(registry)
-    get view_dataverse_landing_url, params: { q: 'Test 01' }
+    get view_dataverse_landing_url, params: { query: 'Test 01' }
     assert_response :success
     assert_includes @response.body, 'DV Test 01'
     assert_not_includes @response.body, 'Another DV'
