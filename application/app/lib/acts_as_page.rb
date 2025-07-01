@@ -12,8 +12,8 @@ module ActsAsPage
     @total_count
   end
 
-  def q
-    @q
+  def query
+    @query
   end
 
   def to_s

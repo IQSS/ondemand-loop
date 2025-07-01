@@ -4,7 +4,7 @@ module Dataverse::LandingPageHelper
       html_options['aria-label'] = I18n.t("acts_as_page.link_prev_page_a11y_label")
       html_options[:title] = I18n.t("acts_as_page.link_prev_page_title")
       url_opts = { page: installations_page.prev_page }
-      url_opts[:q] = installations_page.q if installations_page.q.present?
+      url_opts[:query] = installations_page.query if installations_page.query.present?
       link_to("<", view_dataverse_landing_path(url_opts), html_options)
     end
   end
@@ -14,7 +14,7 @@ module Dataverse::LandingPageHelper
       html_options['aria-label'] = I18n.t("acts_as_page.link_next_page_a11y_label")
       html_options[:title] = I18n.t("acts_as_page.link_next_page_title")
       url_opts = { page: installations_page.next_page }
-      url_opts[:q] = installations_page.q if installations_page.q.present?
+      url_opts[:query] = installations_page.query if installations_page.query.present?
       link_to(">", view_dataverse_landing_path(url_opts), html_options)
     end
   end
