@@ -6,12 +6,12 @@ checking for altzone in time.h with  -Werror... no
 creating Makefile
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/date-3.4.1/ext/date
-make DESTDIR\= sitearchdir\=./.gem.20250702-37-w6my3c sitelibdir\=./.gem.20250702-37-w6my3c clean
+make DESTDIR\= sitearchdir\=./.gem.20250702-37-xljhg8 sitelibdir\=./.gem.20250702-37-xljhg8 clean
 rm -f 
 rm -fr date_core.so false *.o  *.bak mkmf.log .*.time
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/date-3.4.1/ext/date
-make DESTDIR\= sitearchdir\=./.gem.20250702-37-w6my3c sitelibdir\=./.gem.20250702-37-w6my3c
+make DESTDIR\= sitearchdir\=./.gem.20250702-37-xljhg8 sitelibdir\=./.gem.20250702-37-xljhg8
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_RB_CATEGORY_WARN -DHAVE_TIMEZONE    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o date_core.o -c date_core.c
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_RB_CATEGORY_WARN -DHAVE_TIMEZONE    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o date_parse.o -c date_parse.c
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_RB_CATEGORY_WARN -DHAVE_TIMEZONE    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o date_strftime.o -c date_strftime.c
@@ -20,7 +20,7 @@ rm -f date_core.so
 gcc -shared -o date_core.so date_core.o date_parse.o date_strftime.o date_strptime.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld  -m64  -lruby  -lm  -lc
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/date-3.4.1/ext/date
-make DESTDIR\= sitearchdir\=./.gem.20250702-37-w6my3c sitelibdir\=./.gem.20250702-37-w6my3c install
-/usr/bin/mkdir -p . ./.gem.20250702-37-w6my3c
+make DESTDIR\= sitearchdir\=./.gem.20250702-37-xljhg8 sitelibdir\=./.gem.20250702-37-xljhg8 install
+/usr/bin/mkdir -p . ./.gem.20250702-37-xljhg8
 exit > .sitearchdir.time
-/usr/bin/install -c -m 0755 date_core.so ./.gem.20250702-37-w6my3c
+/usr/bin/install -c -m 0755 date_core.so ./.gem.20250702-37-xljhg8
