@@ -39,7 +39,11 @@ module Dataverse::CollectionsHelper
       url_options[:query] = search_result.data.q if search_result.data.q.present? && search_result.data.q != '*'
       html_options['aria-label'] = I18n.t("acts_as_page.link_prev_page_a11y_label")
       html_options[:title] = I18n.t("acts_as_page.link_prev_page_title")
-      link_to("<", view_dataverse_url(uri.hostname, dataverse.data.alias, url_options), html_options)
+      html_options[:class] = [html_options[:class], 'btn btn-sm btn-outline-dark'].compact.join(' ')
+      link_to(view_dataverse_url(uri.hostname, dataverse.data.alias, url_options), html_options) do
+        raw('<i class="bi bi-chevron-left" aria-hidden="true"></i><span class="visually-hidden">' +
+              I18n.t("acts_as_page.link_prev_page_a11y_label") + '</span>')
+      end
     end
   end
 
@@ -53,7 +57,11 @@ module Dataverse::CollectionsHelper
       url_options[:query] = search_result.data.q if search_result.data.q.present? && search_result.data.q != '*'
       html_options['aria-label'] = I18n.t("acts_as_page.link_next_page_a11y_label")
       html_options[:title] = I18n.t("acts_as_page.link_next_page_title")
-      link_to(">", view_dataverse_url(uri.hostname, dataverse.data.alias, url_options), html_options)
+      html_options[:class] = [html_options[:class], 'btn btn-sm btn-outline-dark'].compact.join(' ')
+      link_to(view_dataverse_url(uri.hostname, dataverse.data.alias, url_options), html_options) do
+        raw('<i class="bi bi-chevron-right" aria-hidden="true"></i><span class="visually-hidden">' +
+          I18n.t("acts_as_page.link_next_page_a11y_label") + '</span>')
+      end
     end
   end
 end

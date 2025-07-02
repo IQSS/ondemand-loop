@@ -9,7 +9,7 @@
   </div>
   <% if search_result.data.items.any? %>
     <h2 id="search-results-heading" class="visually-hidden"><%= t('dataverse.collections.search_items.header_search_results_a11y_text') %></h2>
-    <ul class="list-group">
+    <ul class="list-group dataverse">
       <%= render partial: 'item', collection: search_result.data.items, as: :item, locals: {dataverse_url: dataverse_url} %>
       <nav aria-label="<%= t('dataverse.collections.search_items.paginator_bar_a11y_label') %>" class="list-group-item d-flex justify-content-center pagination">
         <%= link_to_search_results_prev_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none bottom-page-link"}) %>
