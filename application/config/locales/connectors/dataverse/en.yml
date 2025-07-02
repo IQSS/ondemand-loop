@@ -66,7 +66,7 @@ en:
         breadcrumb_home_text: "Home"
         breadcrumb_home_title: "Home"
       collection_info:
-        header_dataverse_text: "Dataverse"
+        header_dataverse_text: "Dataverse collection"
       dataset_item:
         field_files_label: "Files"
         field_published_label: "Published"
@@ -79,11 +79,12 @@ en:
         field_published_label: "Published"
         field_type_label: "Type"
         unnamed_dataverse_text: "Unnamed Dataverse"
-      search_items:
+      search_bar:
         button_submit_text: "Search"
-        content_no_items_found_text: "No items found."
         field_search_label: "Search items"
         field_search_placeholder: "Search items"
+      search_items:
+        content_no_items_found_text: "No items found."
         header_search_results_a11y_text: "Search results"
         paginator_bar_a11y_label: "Search result pagination"
         paginator_page_text: "page %{page}"

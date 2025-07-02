@@ -1,0 +1,8 @@
+<div class="mb-3">
+  <%= form_with url: view_dataverse_path(URI.parse(dataverse_url).hostname, collection.data.alias, dv_scheme: params[:dv_scheme], dv_port: params[:dv_port]), method: :get, local: true do |f| %>
+    <div class="input-group">
+      <%= f.text_field :query, value: params[:query], class: 'form-control', placeholder: t('.field_search_placeholder') %>
+      <%= f.submit t('.button_submit_text'), class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

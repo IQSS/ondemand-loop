@@ -19,7 +19,11 @@ module ActsAsPage
   def to_s
     start_index = (@page - 1) * @per_page
     end_index = [start_index + @per_page, total_count].min
-    I18n.t("acts_as_page.results_summary", start_index: start_index + 1, end_index: end_index, total_count: total_count)
+    if @query && @query != '*'
+      I18n.t("acts_as_page.results_summary_query", start_index: start_index + 1, end_index: end_index, total_count: total_count, query: @query)
+    else
+      I18n.t("acts_as_page.results_summary", start_index: start_index + 1, end_index: end_index, total_count: total_count)
+    end
   end
 
   def total_pages
