@@ -66,6 +66,7 @@ en:
         breadcrumb_home_text: "Home"
         breadcrumb_home_title: "Home"
       collection_info:
+        button_toggle_label: "Collection details"
         header_dataverse_text: "Dataverse collection"
       dataset_item:
         field_files_label: "Files"
