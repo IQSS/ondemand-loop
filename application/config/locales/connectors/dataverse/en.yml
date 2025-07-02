@@ -80,9 +80,9 @@ en:
         field_type_label: "Type"
         unnamed_dataverse_text: "Unnamed Dataverse"
       search_bar:
-        button_submit_text: "Search"
-        field_search_label: "Search items"
-        field_search_placeholder: "Search items"
+        button_submit_text: "Search Inside"
+        field_search_label: "Search items within the collection"
+        field_search_placeholder: "Search items within the collection"
       search_items:
         content_no_items_found_text: "No items found."
         header_search_results_a11y_text: "Search results"
