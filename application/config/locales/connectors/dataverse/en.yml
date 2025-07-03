@@ -109,13 +109,13 @@ en:
         paginator_page_text: "page %{page}"
         table_dataset_files_caption: "Dataset files"
       dataset_info:
-        header_dataset_text: "Dataset"
-        header_description_text: "Description"
-      dataset_metadata:
+        button_toggle_label: "Dataset details"
         field_authors_text: "Authors:"
         field_license_text: "License:"
         field_publication_date_text: "Publication date:"
         field_subjects_text: "Subjects:"
+        header_dataset_text: "Dataset"
+        header_description_text: "Description"
         header_dataset_metadata_text: "Dataset Metadata"
       search_bar:
         button_submit_text: "Search Files"
