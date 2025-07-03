@@ -28,9 +28,14 @@ module Dataverse
       DatasetVersionResponse.new(response.body)
     end
 
-    def search_dataset_files_by_persistent_id(persistent_id, version: ':latest-published', page: 1, per_page: 10)
-      start = (page-1) * per_page
-      url = "/api/datasets/:persistentId/versions/#{version}/files?persistentId=#{persistent_id}&offset=#{start}&limit=#{per_page}"
+    def search_dataset_files_by_persistent_id(persistent_id, version: ':latest-published', page: 1, per_page: 10, query: nil)
+      url = SearchDatasetFilesUrlBuilder.new(
+        persistent_id: persistent_id,
+        version: version,
+        page: page,
+        per_page: per_page,
+        query: query,
+      ).build
       response = @http_client.get(url)
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?
