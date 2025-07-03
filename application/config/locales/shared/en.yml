@@ -7,7 +7,6 @@ en:
     link_prev_page_title: "Previous page"
     out_of_range: "Out of range"
     results_summary: "%{start_index} to %{end_index} of %{total_count} results"
-    results_summary_query: "%{start_index} to %{end_index} of %{total_count} results with '%{query}'"
   badge:
     status:
       a11y:
