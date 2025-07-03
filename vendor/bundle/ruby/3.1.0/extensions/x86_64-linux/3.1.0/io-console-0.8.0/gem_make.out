@@ -1,0 +1,33 @@
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/io-console-0.8.0/ext/io/console
+/usr/bin/ruby -I /usr/share/rubygems extconf.rb
+checking for rb_syserr_fail_str(0, Qnil)... yes
+checking for rb_interned_str_cstr()... yes
+checking for rb_io_path()... no
+checking for rb_io_descriptor()... yes
+checking for rb_io_get_write_io()... yes
+checking for rb_io_closed_p()... no
+checking for rb_io_open_descriptor()... no
+checking for rb_ractor_local_storage_value_newkey()... yes
+checking for termios.h... yes
+checking for cfmakeraw() in termios.h... yes
+checking for sys/ioctl.h... yes
+checking for HAVE_RUBY_FIBER_SCHEDULER_H... yes
+checking for ttyname_r()... yes
+creating Makefile
+
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/io-console-0.8.0/ext/io/console
+make DESTDIR\= sitearchdir\=./.gem.20250703-37-gw8pcw sitelibdir\=./.gem.20250703-37-gw8pcw clean
+rm -f 
+rm -fr console.so false *.o  *.bak mkmf.log .*.time
+
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/io-console-0.8.0/ext/io/console
+make DESTDIR\= sitearchdir\=./.gem.20250703-37-gw8pcw sitelibdir\=./.gem.20250703-37-gw8pcw
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_RB_SYSERR_FAIL_STR -DHAVE_RB_INTERNED_STR_CSTR -DHAVE_RB_IO_DESCRIPTOR -DHAVE_RB_IO_GET_WRITE_IO -DHAVE_RB_RACTOR_LOCAL_STORAGE_VALUE_NEWKEY -DHAVE_TERMIOS_H -DHAVE_CFMAKERAW -DHAVE_SYS_IOCTL_H -DHAVE_RB_IO_WAIT=1 -DHAVE_TTYNAME_R    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o console.o -c console.c
+rm -f console.so
+gcc -shared -o console.so console.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld  -m64  -lruby  -lm  -lc
+
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/io-console-0.8.0/ext/io/console
+make DESTDIR\= sitearchdir\=./.gem.20250703-37-gw8pcw sitelibdir\=./.gem.20250703-37-gw8pcw install
+/usr/bin/mkdir -p . ./.gem.20250703-37-gw8pcw/io
+exit > .sitearchdir.-.io.time
+/usr/bin/install -c -m 0755 console.so ./.gem.20250703-37-gw8pcw/io

@@ -1,0 +1,21 @@
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/debug-1.10.0/ext/debug
+/usr/bin/ruby -I /usr/share/rubygems extconf.rb
+creating Makefile
+
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250703-37-qs4vyy sitelibdir\=./.gem.20250703-37-qs4vyy clean
+rm -f 
+rm -fr debug.so false *.o  *.bak mkmf.log .*.time
+
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250703-37-qs4vyy sitelibdir\=./.gem.20250703-37-qs4vyy
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_RB_ISEQ -DHAVE_RB_ISEQ_PARAMETERS -DHAVE_RB_ISEQ_CODE_LOCATION -DHAVE_RB_ISEQ_TYPE    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o debug.o -c debug.c
+gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_RB_ISEQ -DHAVE_RB_ISEQ_PARAMETERS -DHAVE_RB_ISEQ_CODE_LOCATION -DHAVE_RB_ISEQ_TYPE    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o iseq_collector.o -c iseq_collector.c
+rm -f debug.so
+gcc -shared -o debug.so debug.o iseq_collector.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld  -m64  -lruby  -lm  -lc
+
+current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/debug-1.10.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20250703-37-qs4vyy sitelibdir\=./.gem.20250703-37-qs4vyy install
+/usr/bin/mkdir -p . ./.gem.20250703-37-qs4vyy/debug
+exit > .sitearchdir.-.debug.time
+/usr/bin/install -c -m 0755 debug.so ./.gem.20250703-37-qs4vyy/debug
