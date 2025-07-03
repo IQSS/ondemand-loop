@@ -84,6 +84,10 @@ class UrlParserTest < ActiveSupport::TestCase
     assert_equal ['test', 'value', 'other'], parser.path_segments
   end
 
+  test 'should return nil for nil URL' do
+    assert_nil UrlParser.parse(nil)
+  end
+
   test 'should return nil for invalid URL' do
     assert_nil UrlParser.parse('not a url')
     assert_nil UrlParser.parse('123://bad')

@@ -119,6 +119,9 @@ en:
         header_dataset_metadata_text: "Dataset Metadata"
       show:
         page_title: "OnDemand Loop - Dataverse Dataset"
+    external_tool:
+      dataset:
+        invalid_request_error: "Invalid Dataverse request. Dataverse URL and Dataset id are required"
     landing_page:
       installation_items:
         button_submit_text: "Search"
