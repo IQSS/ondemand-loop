@@ -40,7 +40,7 @@ module Dataverse
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?
       raise "Error getting dataset files: #{response.status} - #{response.body}" unless response.success?
-      DatasetFilesResponse.new(response.body, page: page, per_page: per_page)
+      DatasetFilesResponse.new(response.body, page: page, per_page: per_page, query: query)
     end
   end
 end

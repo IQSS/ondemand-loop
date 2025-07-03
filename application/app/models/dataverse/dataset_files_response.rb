@@ -7,11 +7,12 @@ module Dataverse
     include ActsAsPage
     attr_reader :status, :data
 
-    def initialize(json, page: 1, per_page: 10)
+    def initialize(json, page: 1, per_page: 10, query: nil)
       parsed = JSON.parse(json, symbolize_names: true)
       @status = parsed[:status]
       @page = page
       @per_page = per_page
+      @query = query
       all_data = (parsed[:data] || []).map { |file| DatasetFile.new(file) }
 
       if parsed[:totalCount]

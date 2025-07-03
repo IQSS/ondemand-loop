@@ -117,6 +117,10 @@ en:
         field_publication_date_text: "Publication date:"
         field_subjects_text: "Subjects:"
         header_dataset_metadata_text: "Dataset Metadata"
+      search_bar:
+        button_submit_text: "Search Files"
+        field_search_label: "Search files within the dataset"
+        field_search_placeholder: "Search files within the dataset"
       show:
         page_title: "OnDemand Loop - Dataverse Dataset"
     external_tool:
