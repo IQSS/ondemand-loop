@@ -18,12 +18,16 @@
   <% if installations_page.page_items.any? %>
     <ul class="list-group">
       <%= render partial: 'installation', collection: installations_page.page_items, as: :installation %>
-      <nav aria-label="<%= t('dataverse.landing_page.installation_items.paginator_bar_a11y_label') %>" class="list-group-item d-flex justify-content-center">
-        <%= link_to_landing_prev_page(installations_page, {class: "text-decoration-none bottom-page-link"}) %>
-        <%= t(".paginator_page_text", page: installations_page.page) %>
-        <%= link_to_landing_next_page(installations_page, {class: "text-decoration-none bottom-page-link"}) %>
-      </nav>
     </ul>
+    <div class="card-header d-flex justify-content-end">
+      <nav aria-label="<%= t('.paginator_bar_a11y_label') %>" class="ms-auto">
+        <div class="d-flex align-items-center gap-2">
+          <%= link_to_landing_prev_page(installations_page, {class: "text-decoration-none"}) %>
+          <%= t(".paginator_page_text", page: installations_page.page) %>
+          <%= link_to_landing_next_page(installations_page, {class: "text-decoration-none"}) %>
+        </div>
+      </nav>
+    </div>
   <% else %>
     <div class="alert alert-warning mt-3" role="status">
       <%= t('dataverse.landing_page.installation_items.msg_no_items_text') %>
