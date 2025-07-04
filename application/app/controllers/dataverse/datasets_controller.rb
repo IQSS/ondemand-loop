@@ -87,9 +87,9 @@ class Dataverse::DatasetsController < ApplicationController
 
   def search_files_page
     @page = params[:page] ? params[:page].to_i : 1
-    search_query = params[:query].present? ? ActionView::Base.full_sanitizer.sanitize(params[:query]) : nil
+    @search_query = params[:query].present? ? ActionView::Base.full_sanitizer.sanitize(params[:query]) : nil
     begin
-      @files_page = @service.search_dataset_files_by_persistent_id(@persistent_id, page: @page, per_page: 10, query: search_query)
+      @files_page = @service.search_dataset_files_by_persistent_id(@persistent_id, page: @page, per_page: 10, query: @search_query)
       unless @files_page
         log_error('Dataset files not found.', {dataverse: @dataverse_url, persistent_id: @persistent_id, page: @page})
         flash[:alert] = t("dataverse.datasets.dataset_files_not_found", dataverse_url: @dataverse_url, persistent_id: @persistent_id, page: @page)

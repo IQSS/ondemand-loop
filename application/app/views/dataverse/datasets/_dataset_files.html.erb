@@ -2,9 +2,11 @@
   <div class="card-header d-flex align-items-center">
     <%= files_page.to_s %>
     <nav aria-label="<%= t('dataverse.datasets.dataset_files.paginator_bar_a11y_label') %>" class="ms-auto">
-      <%= link_to_dataset_prev_page(dataverse_url, @persistent_id, files_page, {class: "text-decoration-none"}) %>
-      <%= t('dataverse.datasets.dataset_files.paginator_page_text', page: files_page.page) %>
-      <%= link_to_dataset_next_page(dataverse_url, @persistent_id, files_page, {class: "text-decoration-none"}) %>
+      <div class="d-flex align-items-center gap-2">
+        <%= link_to_dataset_prev_page(dataverse_url, @persistent_id, files_page, {class: "text-decoration-none"}) %>
+        <%= t('dataverse.datasets.dataset_files.paginator_page_text', page: files_page.page) %>
+        <%= link_to_dataset_next_page(dataverse_url, @persistent_id, files_page, {class: "text-decoration-none"}) %>
+      </div>
     </nav>
   </div>
   <% if files_page.total_count > 0 %>
@@ -13,6 +15,7 @@
       <%= hidden_field_tag 'dataverse_url', dataverse_url %>
       <%= hidden_field_tag 'persistent_id', @persistent_id %>
       <%= hidden_field_tag 'page', @page %>
+      <%= hidden_field_tag 'query', @search_query %>
       <div class="row">
         <h2 id="search-results-heading" class="visually-hidden"><%= t('dataverse.datasets.dataset_files.header_dataset_files_a11y_text') %></h2>
         <table class="table table-bordered table-hover align-middle">
