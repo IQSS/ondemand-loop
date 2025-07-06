@@ -86,7 +86,7 @@ en:
     show:
       download_actions:
         button_open_downloads_folder_title: "Open Downloads folder"
-        header_download_files_text: "Download Files"
+        header_download_files_text: "Downloads"
       download_files:
         badge_repository_files_tooltip: "Repository Files"
         button_delete_file_title: "Delete File"
@@ -155,7 +155,7 @@ en:
       button_toggle_label: "Project Summary"
       tab_download_label: "Download Files"
     project_summary_downloads:
-      tab_title: "Download Files"
+      tab_title: "Downloads"
       button_download_folder_title: "Open downloads folder"
     project_summary_bundle:
       creation_date_title: "Creation date"
