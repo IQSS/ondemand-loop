@@ -22,6 +22,8 @@ en:
     records:
       show:
         page_title: "OnDemand Loop - Zenodo Records"
+        caption_files_text: "Zenodo record files"
+        checkbox_select_all_label: "Select all files"
         column_record_filename_text: "File"
         column_record_size_text: "Size"
         button_submit_text: "Add Files to Active Project"
