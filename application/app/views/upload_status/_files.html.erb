@@ -17,10 +17,10 @@
               <% end %>
 
               <%= render partial: 'shared/repo_badge', locals: {
-                repo_url: data.upload_bundle.connector_metadata.dataverse_url,
+                badge_url: data.upload_bundle.connector_metadata.dataverse_url,
                 target: '_blank',
-                icon_html: connector_icon(data.upload_bundle.type),
-                name: data.upload_bundle.connector_metadata.dataverse_title,
+                type: data.upload_bundle.type,
+                text: data.upload_bundle.connector_metadata.dataverse_title,
                 tooltip: t(".badge_repo_tooltip"),
                 small: true
               } %>
@@ -43,12 +43,12 @@
               <%= render partial: '/shared/file_row_date', locals: { date: data.file.creation_date, title: t('.field_creation_date_title'), classes: "mx-2" } %>
 
               <%= render partial: 'shared/repo_badge', locals: {
-                repo_url: data.upload_bundle.connector_metadata.dataverse_url,
+                badge_url: data.upload_bundle.connector_metadata.dataverse_url,
                 target: '_blank',
-                icon_html: connector_icon(data.upload_bundle.type),
-                name: data.upload_bundle.connector_metadata.dataverse_title,
+                type: data.upload_bundle.type,
+                text: data.upload_bundle.connector_metadata.dataverse_title,
                 tooltip: t(".badge_repo_tooltip"),
-                small: false
+                small: true
               } %>
 
               <span class="me-2"><%= data.project.name %> ></span>
