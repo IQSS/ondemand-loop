@@ -1,0 +1,34 @@
+{# overrides/partials/footer.html #}
+
+<!-- ── Separator line between page content and footer ── -->
+<hr class="m-0" style="border: none; border-top: 1px solid var(--md-default-fg-color--lightest);">
+
+<footer class="md-footer">
+    <nav class="d-flex flex-wrap justify-content-between align-items-center w-100 gap-3 p-3">
+
+        <!-- IQSS Logo -->
+        <div class="d-flex align-items-center">
+            <a href="https://www.iq.harvard.edu/research-computing" target="_blank" rel="noopener">
+                <img alt="IQSS Research Computing" height="40" src="{{ base_url }}/assets/iqss_logo.png">
+            </a>
+        </div>
+
+        <!-- GitHub Repo Link -->
+        <div class="d-flex flex-column align-items-center text-center gap-1">
+            <a href="https://github.com/IQSS/ondemand-loop" target="_blank" rel="noopener" class="d-flex flex-column align-items-center text-decoration-none gap-1" aria-label="GitHub repository link">
+        <span class="md-icon">
+          {% include ".icons/fontawesome/brands/github.svg" %}
+        </span>
+                <span>GitHub Repo</span>
+            </a>
+        </div>
+
+        <!-- Dataverse Logo -->
+        <div class="d-flex align-items-center">
+            <a href="https://dataverse.org/" target="_blank" rel="noopener">
+                <img alt="Harvard Dataverse Project" height="40" src="{{ base_url }}/assets/dataverse_project.svg">
+            </a>
+        </div>
+
+    </nav>
+</footer>

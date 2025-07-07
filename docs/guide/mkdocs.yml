@@ -8,6 +8,7 @@ theme:
   logo: assets/logo.png
   features:
     - toc.integrate
+  custom_dir: overrides
   palette:
     - scheme: default
       primary: '#212529'
@@ -17,6 +18,7 @@ theme:
       accent: '#a4c6fb'
 
 extra_css:
+  - assets/bootstrap.css
   - assets/guide.css
 
 nav:

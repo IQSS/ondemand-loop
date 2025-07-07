@@ -13,7 +13,7 @@ MKDOCS_CONFIG="docs/guide/mkdocs.yml"
 
 if [[ "$DEV" == "true" ]]; then
   echo "Running mkdocs in development mode..."
-  mkdocs serve -f "$MKDOCS_CONFIG" -a 0.0.0.0:8000
+  mkdocs serve --watch docs/guide/overrides -f "$MKDOCS_CONFIG" -a 0.0.0.0:8000
 else
   echo "Building mkdocs site..."
   mkdocs build -f "$MKDOCS_CONFIG" --site-dir "$SITE_DIR"

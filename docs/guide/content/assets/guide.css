@@ -1,6 +1,8 @@
 :root > * {
     --md-primary-fg-color: #212529;
     --md-primary-bg-color: #212529;
+    --md-footer-fg-color: #000;
+    --md-footer-bg-color: #f1f3f5;
     --md-accent-fg-color: #5863d2;
     /* Soften the white background to reduce eye strain */
     --md-default-bg-color: #f1f3f5 !important;
