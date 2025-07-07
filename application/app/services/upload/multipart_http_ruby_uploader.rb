@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'net/http/post/multipart'
+require 'multipart/post'
 
 module Upload
   # Utility class to upload a file via multipart/form-data using Net::HTTP.
@@ -41,7 +42,7 @@ module Upload
         end
       end
 
-      upload_io = UploadIO.new(file_io, 'application/octet-stream', File.basename(file_path))
+      upload_io = Multipart::Post::UploadIO.new(file_io, 'application/octet-stream', File.basename(file_path))
 
       multipart = {
         'file' => upload_io,
