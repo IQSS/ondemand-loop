@@ -94,6 +94,21 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Dataset files endpoint requires authorization. Dataverse: https://#{@new_id} persistentId: random_id page: 1", flash[:alert]
   end
 
+  test "should redirect back to internal referer when dataset is not found" do
+    Dataverse::DatasetService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(nil)
+    internal_referer = view_dataverse_landing_url.to_s
+    get view_dataverse_dataset_url(@new_id, "random_id"), headers: { "HTTP_REFERER" => internal_referer }
+    assert_redirected_to internal_referer
+    assert_equal "Dataset not found. Dataverse: https://#{@new_id} persistentId: random_id", flash[:alert]
+  end
+
+  test "should redirect to root path when referer is external and dataset is not found" do
+    Dataverse::DatasetService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(nil)
+    get view_dataverse_dataset_url(@new_id, "random_id"), headers: {HTTP_REFERER: "http://external.com/another/page"}
+    assert_redirected_to root_path
+    assert_equal "Dataset not found. Dataverse: https://#{@new_id} persistentId: random_id", flash[:alert]
+  end
+
   test "should display the dataset view with the file" do
     dataset = Dataverse::DatasetVersionResponse.new(dataset_valid_json)
     Dataverse::DatasetService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
