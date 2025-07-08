@@ -24,14 +24,14 @@ extra_css:
 nav:
   - Home: index.md
   - User Guide:
-      - Introduction: introduction.md
-      - Getting Started: getting_started.md
-      - Creating Projects: creating_projects.md
-      - Exploring Remote Repositories: exploring_remote_repositories.md
-      - Downloading Files: downloading_files.md
-      - Uploading Files: uploading_files.md
-      - Using the File Browser: using_the_file_browser.md
-      - Viewing Download and Upload Status: viewing_download_and_upload_status.md
+      - Introduction: user_guide/introduction.md
+      - Getting Started: user_guide/getting_started.md
+      - Creating Projects: user_guide/creating_projects.md
+      - Exploring Remote Repositories: user_guide/exploring_remote_repositories.md
+      - Downloading Files: user_guide/downloading_files.md
+      - Uploading Files: user_guide/uploading_files.md
+      - Using the File Browser: user_guide/using_the_file_browser.md
+      - Viewing Download and Upload Status: user_guide/viewing_download_and_upload_status.md
   - Admin Guide: admin.md
   - Installation Guide: installation.md
   - Development Guide: development.md
