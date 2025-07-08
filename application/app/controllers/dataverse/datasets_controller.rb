@@ -72,15 +72,15 @@ class Dataverse::DatasetsController < ApplicationController
       @dataset = @service.find_dataset_version_by_persistent_id(@persistent_id)
       unless @dataset
         log_error('Dataset not found.', { dataverse: @dataverse_url, persistent_id: @persistent_id })
-        redirect_to_safe_referer(alert: t("dataverse.datasets.dataset_not_found", dataverse_url: @dataverse_url, persistent_id: @persistent_id))
+        redirect_back_to_app(alert: t("dataverse.datasets.dataset_not_found", dataverse_url: @dataverse_url, persistent_id: @persistent_id))
         return
       end
     rescue Dataverse::DatasetService::UnauthorizedException => e
       log_error('Dataset requires authorization', { dataverse: @dataverse_url, persistent_id: @persistent_id }, e)
-      redirect_to_safe_referer(alert: t("dataverse.datasets.dataset_requires_authorization", dataverse_url: @dataverse_url, persistent_id: @persistent_id))
+      redirect_back_to_app(alert: t("dataverse.datasets.dataset_requires_authorization", dataverse_url: @dataverse_url, persistent_id: @persistent_id))
     rescue => e
       log_error('Dataverse service error', { dataverse: @dataverse_url, persistent_id: @persistent_id }, e)
-      redirect_to_safe_referer(alert: t("dataverse.datasets.dataverse_service_error", dataverse_url: @dataverse_url, persistent_id: @persistent_id))
+      redirect_back_to_app(alert: t("dataverse.datasets.dataverse_service_error", dataverse_url: @dataverse_url, persistent_id: @persistent_id))
       return
     end
   end
@@ -108,7 +108,7 @@ class Dataverse::DatasetsController < ApplicationController
     end
   end
 
-  def redirect_to_safe_referer(fallback: root_path, **options)
+  def redirect_back_to_app(fallback: root_path, **options)
     referer = request.referer
     if referer.present? && URI.parse(referer).host == request.host
       redirect_back(fallback_location: fallback, **options)
