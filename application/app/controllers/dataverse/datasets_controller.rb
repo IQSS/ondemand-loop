@@ -109,11 +109,25 @@ class Dataverse::DatasetsController < ApplicationController
   end
 
   def redirect_back_to_app(fallback: root_path, **options)
-    referer = request.referer
-    if referer.present? && URI.parse(referer).host == request.host
+    if internal_referer?
       redirect_back(fallback_location: fallback, **options)
     else
       redirect_to(fallback, **options)
     end
   end
+
+  def internal_referer?
+    return false unless request.referer
+
+    begin
+      referer_uri = URI.parse(request.referer)
+    rescue URI::InvalidURIError
+      return false
+    end
+
+    return true if referer_uri.host == request.host
+    script_name = ::Configuration.loop_path
+    return referer_uri.path.start_with?(script_name)
+  end
+
 end
