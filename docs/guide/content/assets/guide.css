@@ -16,6 +16,10 @@ body, .md-content, .md-main {
     background-color: var(--md-default-bg-color);
 }
 
+.md-header__button.md-icon {
+    color: var(--custom-primary-color);
+}
+
 /* Remove active sidebar scrollspy */
 .md-nav__link--passed {
     color: inherit !important;
