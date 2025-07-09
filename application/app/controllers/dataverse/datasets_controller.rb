@@ -126,6 +126,7 @@ class Dataverse::DatasetsController < ApplicationController
     end
 
     return true if referer_uri.host == request.host
+    return false unless request.script_name
     return referer_uri.path.start_with?(request.script_name)
   end
 
