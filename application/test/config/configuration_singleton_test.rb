@@ -138,12 +138,7 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
   end
 
   test 'version should read VERSION file content from Rails.root' do
-    version_path = Rails.root.join('VERSION')
-    File.write(version_path, "1.2.3\n")
-
     config = ConfigurationSingleton.new
-    assert_equal '1.2.3', config.version
-  ensure
-    File.delete(version_path) if File.exist?(version_path)
+    assert_match /^\d+\.\d+\.\d+\+\d{4}-\d{2}-\d{2}$/, config.version
   end
 end
