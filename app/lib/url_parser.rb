@@ -4,6 +4,8 @@ class UrlParser
   attr_reader :scheme, :domain, :port, :path, :params
 
   def self.parse(url)
+    return nil if url.blank?
+
     uri = URI.parse(url)
     return nil unless uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
 

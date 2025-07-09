@@ -8,6 +8,11 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal '/nginx/stop?redir=/', restart_url
   end
 
+  test 'guide_url returns Configuration.guide_url' do
+    Configuration.stubs(:guide_url).returns('https://myguide.com/test')
+    assert_equal 'https://myguide.com/test', guide_url
+  end
+
   test 'files_app_url joins configuration path' do
     Configuration.stubs(:files_app_path).returns('/data')
     assert_equal '/data/sub', files_app_url('sub')

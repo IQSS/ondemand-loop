@@ -10,14 +10,15 @@ class RepoResolverControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should redirect back with error if URL is unknown' do
+    repo_url = 'https://unknown.repo.org'
     mock_service = mock
-    mock_service.stubs(:resolve).returns(OpenStruct.new(unknown?: true, object_url: nil, type: nil))
+    mock_service.stubs(:resolve).returns(OpenStruct.new(unknown?: true, object_url: repo_url, type: nil))
     Repo::RepoResolverService.stubs(:new).returns(mock_service)
 
-    post repo_resolver_url, params: { repo_url: 'https://unknown.repo.org' }
+    post repo_resolver_url, params: { repo_url: repo_url }
 
     assert_redirected_to root_path
-    assert_equal I18n.t('repo_resolver.resolve.url_not_supported', url: 'https://unknown.repo.org'), flash[:alert]
+    assert_equal I18n.t('repo_resolver.resolve.url_not_supported', input: repo_url, url: repo_url), flash[:alert]
   end
 
   test 'should redirect to resolved controller URL with optional message' do

@@ -22,4 +22,38 @@ class UploadBundlesControllerTest < ActionDispatch::IntegrationTest
     post project_upload_bundles_url(project.id), params: { remote_repo_url: 'u' }
     assert_response :redirect
   end
+
+
+  test 'create redirects on invalid project' do
+    Project.stubs(:find).returns(nil)
+    post project_upload_bundles_url('1'), params: { remote_repo_url: 'u' }
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match 'Invalid project id', flash[:alert]
+  end
+
+  test 'create handles unknown repo url' do
+    project = create_project
+    Project.stubs(:find).returns(project)
+    resolver = mock('resolver')
+    resolver.stubs(:resolve).with('u').returns(OpenStruct.new(unknown?: true))
+    Repo::RepoResolverService.stubs(:new).returns(resolver)
+
+    post project_upload_bundles_url(project.id), params: { remote_repo_url: 'u' }
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match 'URL not supported', flash[:alert]
+  end
+
+  test 'destroy removes upload bundle' do
+    project = create_project
+    bundle = create_upload_bundle(project)
+    UploadBundle.stubs(:find).with(project.id, bundle.id).returns(bundle)
+    bundle.expects(:destroy)
+
+    delete project_upload_bundle_url(project.id, bundle.id)
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match 'Upload bundle deleted', flash[:notice]
+  end
 end

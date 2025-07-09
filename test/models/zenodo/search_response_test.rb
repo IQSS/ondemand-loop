@@ -1,5 +1,5 @@
 require 'test_helper'
-require_relative '../../helpers/zenodo_helper'
+require_relative '../../utils/zenodo_helper'
 
 class Zenodo::SearchResponseTest < ActiveSupport::TestCase
   include ZenodoHelper

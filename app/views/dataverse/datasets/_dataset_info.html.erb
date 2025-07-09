@@ -1,19 +1,50 @@
-<div class="card dataset-header">
-  <div class="card-header"><%= t('dataverse.datasets.dataset_info.header_dataset_text') %></div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-       <strong><%= dataset.metadata_field('title').to_s %></strong>
-    </li>
-    <li class="list-group-item">
-       <%= dataset.data.dataset_persistent_id %>
-    </li>
-  </ul>
+<div class="card mb-3">
+  <div class="card-header">
+    <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
+      <div class="flex-grow-1 d-flex flex-column">
+        <h2 class="mb-0 text-nowrap h5"><%= t('.header_dataset_text') %> <%= dataset.data.dataset_persistent_id %></h2>
+        <span class="text-muted" style="font-size: 0.8rem;">
+          <strong><%= dataset.metadata_field('title').to_s %></strong>
+        </span>
+      </div>
+    </div>
+    <div class="mt-2">
+      <a class="d-flex align-items-center text-decoration-none text-secondary"
+         data-bs-toggle="collapse"
+         data-controller="utils--icon-toggle"
+         data-utils--icon-toggle-icon-on-value="bi-plus-square"
+         data-utils--icon-toggle-icon-off-value="bi-dash-square"
+         data-action="click->utils--icon-toggle#toggle"
+         href="#dataset-details"
+         role="button"
+         aria-expanded="false"
+         aria-controls="dataset-details">
+        <i data-utils--icon-toggle-target="icon" class="bi bi-plus-square me-2 transition" id="toggle-icon" aria-hidden="true"></i>
+        <span><%= t('.button_toggle_label') %></span>
+      </a>
+      <div class="collapse" id="dataset-details">
+        <div class="pt-2">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <%= strip_tags(dataset.description) %>
+            </li>
+            <li class="list-group-item">
+              <strong><%= t('.field_publication_date_text') %></strong> <%= dataset.data.publication_date %>
+            </li>
+            <li class="list-group-item">
+              <strong><%= t('.field_authors_text') %></strong> <%= dataset.authors %>
+            </li>
+            <li class="list-group-item">
+              <strong><%= t('.field_subjects_text') %></strong> <%= dataset.subjects %>
+            </li>
+            <li class="list-group-item">
+              <strong><%= t('.field_license_text') %></strong> <%= image_tag dataset.data.license&.icon_uri, alt: dataset.data.license&.name if dataset.data.license&.icon_uri %>
+              <%= dataset.data.license.name %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="card dataset-header">
-  <div class="card-header"><%= t(".header_description_text") %></div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">
-      <%= truncate(strip_tags(dataset.description), length: 300) %>
-    </li>
-  </ul>
-</div>
+

@@ -20,6 +20,8 @@ module Repo
         if context.parsed_input.nil?
           doi_url = URI.parse(File.join(@api_url, context.input)).to_s
           object_url = check_url(context, doi_url)
+        elsif context.parsed_input.server_url.include?(@api_url)
+          object_url = check_url(context, context.input)
         else
           object_url = context.input
         end

@@ -1,0 +1,31 @@
+{
+  "status": "OK",
+  "data": {
+    "files": [
+      {
+        "description": "File upload from OnDemand Loop",
+        "label": "bolide-01_02-Nov-1960_1.tar",
+        "restricted": false,
+        "version": 1,
+        "datasetVersionId": 339645,
+        "dataFile": {
+          "id": 2657799,
+          "persistentId": "doi:10.70122/FK2/O9JYAO/CFYSSN",
+          "pidURL": "https://doi.org/10.70122/FK2/O9JYAO/CFYSSN",
+          "filename": "bolide-01_02-Nov-1960_1.tar",
+          "contentType": "application/x-tar",
+          "friendlyType": "TAR Archive",
+          "filesize": 265678336,
+          "description": "File upload from OnDemand Loop",
+          "storageIdentifier": "s3://demo-dataverse-org:197e71ded51-40e972ee4158",
+          "rootDataFileId": -1,
+          "md5": "5f02321dba2a37355a9f1f810565c1c8",
+          "checksum": { "type": "MD5", "value": "5f02321dba2a37355a9f1f810565c1c8" },
+          "tabularData": false,
+          "creationDate": "2025-07-07",
+          "fileAccessRequest": true
+        }
+      }
+    ]
+  }
+}

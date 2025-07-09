@@ -54,7 +54,7 @@ module Dataverse::Actions
 
       ConnectorResult.new(
         resource: upload_bundle,
-        message: { notice: I18n.t('connectors.dataverse.actions.upload_bundle_create.message_created', name: upload_bundle.name) },
+        message: { notice: I18n.t('connectors.dataverse.actions.upload_bundle_create.message_success', name: upload_bundle.name) },
         success: true
       )
     end

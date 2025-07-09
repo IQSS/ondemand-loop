@@ -27,10 +27,10 @@ SimpleCov.start 'rails' do
 end
 
 require_relative '../config/environment'
-require_relative 'helpers/file_fixture_helper'
-require_relative 'helpers/model_helper'
-require_relative 'helpers/zenodo_helper'
-require_relative 'helpers/dataverse_helper'
+require_relative 'utils/file_fixture_helper'
+require_relative 'utils/model_helper'
+require_relative 'utils/zenodo_helper'
+require_relative 'utils/dataverse_helper'
 
 require_relative 'utils/download_files_provider_mock'
 require_relative 'utils/http_mock'

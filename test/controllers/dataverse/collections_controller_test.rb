@@ -7,6 +7,20 @@ class Dataverse::CollectionsControllerTest < ActionDispatch::IntegrationTest
     @dataverse = Dataverse::CollectionResponse.new(dataverse_json)
     search_json = load_file_fixture(File.join('dataverse', 'search_response', 'valid_response.json'))
     @search_response = Dataverse::SearchResponse.new(search_json, 1, 20)
+    resolver = mock('resolver')
+    resolver.stubs(:resolve).returns(OpenStruct.new(type: ConnectorType::DATAVERSE))
+    Repo::RepoResolverService.stubs(:new).returns(resolver)
+  end
+
+  test "should redirect if dataverse url is not supported" do
+    resolver = mock('resolver')
+    resolver.stubs(:resolve).returns(OpenStruct.new(type: nil))
+    Repo::RepoResolverService.stubs(:new).returns(resolver)
+
+    get view_dataverse_url('invalid.host', ':root')
+
+    assert_redirected_to root_path
+    assert_equal I18n.t('dataverse.collections.url_not_supported', dataverse_url: 'https://invalid.host'), flash[:alert]
   end
 
   test "should redirect to root path after not finding a dataverse" do

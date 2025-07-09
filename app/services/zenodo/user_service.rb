@@ -16,7 +16,13 @@ module Zenodo
         AUTH_HEADER => "Bearer #{@api_key}"
       }
 
-      url = "/api/deposit/depositions?page=#{page}&size=#{per_page}"
+      url = FluentUrl.new('')
+              .add_path('api')
+              .add_path('deposit')
+              .add_path('depositions')
+              .add_param('page', page)
+              .add_param('size', per_page)
+              .to_s
       response = @http_client.get(url, headers: headers)
 
       return [] if response.not_found?
@@ -34,8 +40,13 @@ module Zenodo
         AUTH_HEADER => "Bearer #{@api_key}"
       }
 
-      query = q ? "q=#{CGI.escape(q)}&" : ''
-      url = "/api/records?#{query}all_versions=#{all_versions}&page=#{page}&size=#{per_page}"
+      url = FluentUrl.new('')
+              .add_path('api')
+              .add_path('records')
+              .add_param('all_versions', all_versions)
+              .add_param('page', page)
+      url.add_param('q', q) if q
+      url = url.add_param('size', per_page).to_s
       response = @http_client.get(url, headers: headers)
 
       return [] if response.not_found?
@@ -53,7 +64,10 @@ module Zenodo
         AUTH_HEADER => "Bearer #{@api_key}"
       }
 
-      url = '/api/me'
+      url = FluentUrl.new('')
+              .add_path('api')
+              .add_path('me')
+              .to_s
       response = @http_client.get(url, headers: headers)
 
       return nil if response.not_found?

@@ -89,3 +89,8 @@ div.creation-date span, span.creation-date {
 .cursor-default {
   cursor: default !important;
 }
+
+.table-narrow-col {
+  width: 1%;
+  white-space: nowrap;
+}

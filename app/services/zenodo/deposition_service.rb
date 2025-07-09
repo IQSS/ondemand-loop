@@ -14,7 +14,13 @@ module Zenodo
       headers = { 'Content-Type' => 'application/json', AUTH_HEADER => "Bearer #{@api_key}" }
       body = { metadata: request.to_h }
 
-      response = @http_client.post('/api/deposit/depositions', body: body.to_json, headers: headers)
+      url = FluentUrl.new('')
+              .add_path('api')
+              .add_path('deposit')
+              .add_path('depositions')
+              .to_s
+
+      response = @http_client.post(url, body: body.to_json, headers: headers)
 
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?
@@ -27,7 +33,12 @@ module Zenodo
       raise ApiKeyRequiredException unless @api_key
 
       headers = { 'Content-Type' => 'application/json', AUTH_HEADER => "Bearer #{@api_key}" }
-      url = "/api/deposit/depositions/#{deposition_id}"
+      url = FluentUrl.new('')
+              .add_path('api')
+              .add_path('deposit')
+              .add_path('depositions')
+              .add_path(deposition_id)
+              .to_s
 
       response = @http_client.get(url, headers: headers)
 

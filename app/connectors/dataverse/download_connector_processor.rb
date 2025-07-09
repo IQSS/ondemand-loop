@@ -14,7 +14,13 @@ module Dataverse
 
     def download
       project = Project.find(file.project_id)
-      download_url = "#{connector_metadata.dataverse_url}/api/access/datafile/#{connector_metadata.id}?format=original"
+      download_url = FluentUrl.new(connector_metadata.dataverse_url)
+                             .add_path('api')
+                             .add_path('access')
+                             .add_path('datafile')
+                             .add_path(connector_metadata.id.to_s)
+                             .add_param(:format, 'original')
+                             .to_s
       download_location = File.join(project.download_dir, file.filename)
       temp_location ="#{download_location}.part"
       FileUtils.mkdir_p(File.dirname(download_location))

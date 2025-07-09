@@ -2,21 +2,27 @@
   <div class="card-header d-flex align-items-center">
     <%= search_results_count(search_result) %>
     <nav aria-label="<%= t('dataverse.collections.search_items.paginator_bar_a11y_label') %>" class="ms-auto">
-      <%= link_to_search_results_prev_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none"}) %>
-      <%= t(".paginator_page_text", page: search_result.data.page) %>
-      <%= link_to_search_results_next_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none"}) %>
+      <div class="d-flex align-items-center gap-2">
+        <%= link_to_search_results_prev_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none"}) %>
+        <%= t(".paginator_page_text", page: search_result.data.page) %>
+        <%= link_to_search_results_next_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none"}) %>
+      </div>
     </nav>
   </div>
   <% if search_result.data.items.any? %>
     <h2 id="search-results-heading" class="visually-hidden"><%= t('dataverse.collections.search_items.header_search_results_a11y_text') %></h2>
-    <ul class="list-group dataverse">
+    <ul class="list-group">
       <%= render partial: 'item', collection: search_result.data.items, as: :item, locals: {dataverse_url: dataverse_url} %>
-      <nav aria-label="<%= t('dataverse.collections.search_items.paginator_bar_a11y_label') %>" class="list-group-item d-flex justify-content-center pagination">
-        <%= link_to_search_results_prev_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none bottom-page-link"}) %>
-        <%= t(".paginator_page_text", page: search_result.data.page) %>
-        <%= link_to_search_results_next_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none bottom-page-link"}) %>
-      </nav>
     </ul>
+    <div class="card-header d-flex justify-content-end">
+      <nav aria-label="<%= t('.paginator_bar_a11y_label') %>" class="ms-auto">
+        <div class="d-flex align-items-center gap-2">
+          <%= link_to_search_results_prev_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none"}) %>
+          <%= t(".paginator_page_text", page: search_result.data.page) %>
+          <%= link_to_search_results_next_page(dataverse_url, dataverse, search_result, {class: "text-decoration-none"}) %>
+        </div>
+      </nav>
+    </div>
   <% else %>
     <div class="alert alert-warning mt-3" role="status">
       <%= t('dataverse.collections.search_items.content_no_items_found_text') %>

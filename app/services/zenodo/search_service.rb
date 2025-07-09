@@ -6,8 +6,14 @@ module Zenodo
     end
 
     def search(query, page: 1, per_page: 10)
-      params = { q: query, page: page, size: per_page }
-      response = @http_client.get('/api/records', params: params)
+      url = FluentUrl.new('')
+              .add_path('api')
+              .add_path('records')
+              .add_param('page', page)
+              .add_param('q', query)
+              .add_param('size', per_page)
+              .to_s
+      response = @http_client.get(url)
       return nil unless response.success?
       SearchResponse.new(response.body, page, per_page)
     end

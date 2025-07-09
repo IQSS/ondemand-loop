@@ -8,7 +8,11 @@ module Dataverse
     end
 
     def get_citation_metadata
-      url = "/api/metadatablocks/citation"
+      url = FluentUrl.new('')
+              .add_path('api')
+              .add_path('metadatablocks')
+              .add_path('citation')
+              .to_s
       response = @http_client.get(url)
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?

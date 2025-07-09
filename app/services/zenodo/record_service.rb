@@ -8,7 +8,11 @@ module Zenodo
     end
 
     def find_record(record_id)
-      url = "/api/records/#{record_id}"
+      url = FluentUrl.new('')
+              .add_path('api')
+              .add_path('records')
+              .add_path(record_id)
+              .to_s
       response = @http_client.get(url)
       return nil unless response.success?
       RecordResponse.new(response.body)

@@ -53,8 +53,28 @@ class Dataverse::DataverseUrlTest < ActiveSupport::TestCase
     assert_equal 'doi:10.1234/XYZ', dataverse_url.dataset_id
     assert_equal '1.0', dataverse_url.version
 
-    assert_equal 'https://demo.dataverse.org/dataset.xhtml?persistentId=doi:10.1234/XYZ', dataverse_url.dataset_url
-    assert_equal 'https://demo.dataverse.org/dataset.xhtml?persistentId=doi:10.1234/XYZ&version=1.0', dataverse_url.dataset_url(version: '1.0')
+    assert_equal 'https://demo.dataverse.org/dataset.xhtml?persistentId=doi%3A10.1234%2FXYZ', dataverse_url.dataset_url
+    assert_equal 'https://demo.dataverse.org/dataset.xhtml?persistentId=doi%3A10.1234%2FXYZ&version=1.0', dataverse_url.dataset_url(version: '1.0')
+  end
+
+  test 'should parse dataset citation URL' do
+    url = 'https://demo.dataverse.org/citation?persistentId=doi:10.7939/DVN/10979'
+    dataverse_url = Dataverse::DataverseUrl.parse(url)
+
+    assert dataverse_url
+    assert dataverse_url.dataset?
+    assert_equal 'doi:10.7939/DVN/10979', dataverse_url.dataset_id
+    assert_nil dataverse_url.version
+  end
+
+  test 'should parse dataset citation.xhtml URL' do
+    url = 'https://demo.dataverse.org/citation.xhtml?persistentId=doi:10.7939/DVN/10979'
+    dataverse_url = Dataverse::DataverseUrl.parse(url)
+
+    assert dataverse_url
+    assert dataverse_url.dataset?
+    assert_equal 'doi:10.7939/DVN/10979', dataverse_url.dataset_id
+    assert_nil dataverse_url.version
   end
 
   test 'should parse file URL with persistentId and fileId' do

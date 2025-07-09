@@ -32,8 +32,9 @@ module Zenodo
     end
 
     def zenodo_url
-      uri_class = @base.https? ? URI::HTTPS : URI::HTTP
-      uri_class.build(host: @base.domain, port: @base.port).to_s
+      base = "#{@base.scheme}://#{@base.domain}"
+      base += ":#{@base.port}" if @base.port
+      FluentUrl.new(base).to_s
     end
 
     def initialize(base_parser)

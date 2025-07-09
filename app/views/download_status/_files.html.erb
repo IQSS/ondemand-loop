@@ -48,10 +48,10 @@
           <div class="download-actions col-sm-6 col-md-2 text-end" role="cell">
             <%= status_badge(data.file.status, filename: data.file.filename) %>
 
-            <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger <%= cancel_button_class(data.file.status) %>" title="<%= t('.button_cancel_download_title') %>"
+            <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger" title="<%= t('.button_cancel_download_title') %>"
                     data-controller="download-file-cancellation"
                     data-action="click->download-file-cancellation#cancel"
-                    <%= 'disabled' unless data.file.status.downloading? %>
+                    <%= 'disabled' if cancel_button_disabled?(data.file.status) %>
                     data-download-file-cancellation-url-value="<%= cancel_project_download_file_path(project_id: data.file.project_id, id: data.file.id) %>">
               <span data-download-file-cancellation-target="spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
               <span data-download-file-cancellation-target="label"><i class="bi bi-sign-stop" aria-hidden="true"></i></span>

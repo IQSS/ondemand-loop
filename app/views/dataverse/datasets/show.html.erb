@@ -4,14 +4,20 @@
 %>
 
 <% content_for :title, t('dataverse.datasets.show.page_title') %>
-<div class="dataverse container-md content" role="main">
+<div class="container-md content" role="main">
   <%= render partial: 'dataverse/datasets/breadcrumbs', locals: { dataverse_url: @dataverse_url, dataset: @dataset} %>
-  <div class="row">
-    <div class="col-md-3">
+    <div class="row">
+    <div class="col-md-12">
       <%= render partial: 'dataverse/datasets/dataset_info', locals: { dataset: @dataset } %>
-      <%= render partial: 'dataverse/datasets/dataset_metadata', locals: { dataset: @dataset } %>
     </div>
-    <div class="col-md-9">
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <%= render partial: 'dataverse/datasets/search_bar', locals: { dataverse_url: @dataverse_url, persistent_id: @persistent_id} %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
       <%= render partial: 'dataverse/datasets/dataset_files', locals: { error_message: error_message, files_page: @files_page, dataverse_url: @dataverse_url, dataset: @dataset} %>
     </div>
   </div>

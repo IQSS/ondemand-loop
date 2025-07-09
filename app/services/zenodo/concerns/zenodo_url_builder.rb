@@ -6,35 +6,54 @@ module Zenodo::Concerns::ZenodoUrlBuilder
   def record_url
     raise 'record_id is missing' unless record_id
 
-    "#{zenodo_url}/record/#{record_id}"
+    FluentUrl.new(zenodo_url)
+      .add_path('record')
+      .add_path(record_id)
+      .to_s
   end
 
   def file_url
     raise 'record_id is missing' unless record_id
     raise 'file_name is missing' unless file_name
 
-    "#{zenodo_url}/record/#{record_id}/files/#{file_name}"
+    FluentUrl.new(zenodo_url)
+      .add_path('record')
+      .add_path(record_id)
+      .add_path('files')
+      .add_path(file_name)
+      .to_s
   end
 
   def concept_url
     raise 'concept_id is missing' unless concept_id
 
-    "#{zenodo_url}/record/#{concept_id}"
+    FluentUrl.new(zenodo_url)
+      .add_path('record')
+      .add_path(concept_id)
+      .to_s
   end
 
   def deposition_url
-    raise 'record_id is missing' unless deposition_id
+    raise 'deposition_id is missing' unless deposition_id
 
-    "#{zenodo_url}/deposit/#{deposition_id}"
+    FluentUrl.new(zenodo_url)
+      .add_path('deposit')
+      .add_path(deposition_id)
+      .to_s
   end
 
   def deposition_edit_url
-    raise 'record_id is missing' unless deposition_id
+    raise 'deposition_id is missing' unless deposition_id
 
-    "#{zenodo_url}/deposit/#{deposition_id}#/files"
+    FluentUrl.new(zenodo_url)
+      .add_path('deposit')
+      .add_path(deposition_id)
+      .to_s + '#/files'
   end
 
   def user_depositions_url
-    "#{zenodo_url}/deposit"
+    FluentUrl.new(zenodo_url)
+      .add_path('deposit')
+      .to_s
   end
 end

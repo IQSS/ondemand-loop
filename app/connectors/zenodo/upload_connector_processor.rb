@@ -20,7 +20,9 @@ module Zenodo
       # Step 2: Prepare file upload
       source_location = file.file_location
       file_name = File.basename(file.filename)
-      upload_url = "#{bucket_url}/#{file_name}"
+      upload_url = FluentUrl.new(bucket_url)
+                       .add_path(file_name)
+                       .to_s
 
       connector_metadata.upload_url = upload_url
       file.upload_bundle.update({ metadata: connector_metadata.to_h })
@@ -35,8 +37,6 @@ module Zenodo
 
       return response(FileStatus::CANCELLED, 'file upload cancelled') if cancelled
 
-      # TODO: Zenodo does not verify MD5 on upload — this must be done client-side or skipped.
-      connector_metadata.key_verified!
       response(FileStatus::SUCCESS, 'file upload completed')
     end
 

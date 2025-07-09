@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { showFlash } from 'utils/flash_message'
 
 export default class extends Controller {
-    static targets = ["display", "form", "input"]
+    static targets = ["display", "name", "form", "input"]
     static values = {
         initialName: String,
         projectId: String,
@@ -42,7 +42,7 @@ export default class extends Controller {
                 return response.json()
             })
             .then(data => {
-                this.displayTarget.querySelector("h5").textContent = newName
+                this.nameTarget.textContent = newName
                 this.initialNameValue = newName
                 this.cancel()
             })

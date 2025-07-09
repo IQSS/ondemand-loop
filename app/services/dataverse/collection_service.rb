@@ -11,8 +11,17 @@ module Dataverse
       raise ApiKeyRequiredException unless @api_key
 
       headers = { 'Content-Type' => 'application/json', AUTH_HEADER => @api_key }
-      start = (page-1) * per_page
-      url = "/api/mydata/retrieve?role_ids=1&role_ids=3&role_ids=5&role_ids=7&dvobject_types=Dataverse&start=#{start}&per_page=#{per_page}&published_states=Published&published_states=Unpublished"
+      start = (page - 1) * per_page
+      url = FluentUrl.new('')
+              .add_path('api')
+              .add_path('mydata')
+              .add_path('retrieve')
+              .add_param('role_ids', [1, 3, 5, 7])
+              .add_param('dvobject_types', 'Dataverse')
+              .add_param('start', start)
+              .add_param('per_page', per_page)
+              .add_param('published_states', ['Published', 'Unpublished'])
+              .to_s
       response = @http_client.get(url, headers: headers)
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?
@@ -21,7 +30,12 @@ module Dataverse
     end
 
     def find_collection_by_id(id)
-      url = "/api/dataverses/#{id}?returnOwners=true"
+      url = FluentUrl.new('')
+              .add_path('api')
+              .add_path('dataverses')
+              .add_path(id)
+              .add_param('returnOwners', true)
+              .to_s
       response = @http_client.get(url)
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?

@@ -38,8 +38,8 @@ module Repo
           return
         end
 
-        log_info('Checking Dataverse API', {domain: domain})
-        if responds_to_api?(context.http_client, domain)
+        log_info('Checking Dataverse API', {dataverse_url: repo_url.dataverse_url})
+        if responds_to_api?(context.http_client, repo_url)
           success(context, domain)
           return
         end
@@ -53,8 +53,13 @@ module Repo
         end
       end
 
-      def responds_to_api?(http_client, domain)
-        api_url = URI::HTTPS.build(host: domain, path: DATAVERSE_INFO_ENDPOINT)
+      def responds_to_api?(http_client, repo_url)
+        api_url = URI::Generic.build(
+          scheme: repo_url.scheme,
+          host: repo_url.domain,
+          port: repo_url.port,
+          path: DATAVERSE_INFO_ENDPOINT
+        )
         response =  http_client.get(api_url.to_s)
         return false unless response.success?
 

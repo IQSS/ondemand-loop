@@ -6,6 +6,7 @@ en:
         dataverse_not_found: "Dataverse not found. Dataverse: %{dataverse_url} Id: %{id}"
         dataverse_requires_authorization: "Dataverse requires authorization. Dataverse: %{dataverse_url} Id: %{id}"
         dataverse_service_error: "Dataverse service error. Dataverse: %{dataverse_url} Id: %{id}"
+      url_not_supported: "Dataverse URL not supported: %{dataverse_url}"
     datasets:
       download:
         error_generating_project: "Error generating project: %{errors}"
@@ -17,6 +18,7 @@ en:
       dataverse_service_error: "Dataverse service error. Dataverse: %{dataverse_url} persistentId: %{persistent_id}"
       dataset_files_not_found: "Dataset files not found. Dataverse: %{dataverse_url} persistentId: %{persistent_id} page: %{page}"
       dataset_files_endpoint_requires_authorization: "Dataset files endpoint requires authorization. Dataverse: %{dataverse_url} persistentId: %{persistent_id} page: %{page}"
+      url_not_supported: "Dataverse URL not supported: %{dataverse_url}"
       dataverse_service_error_searching_files: "Dataverse service error while searching files. Dataverse: %{dataverse_url} persistentId: %{persistent_id} page: %{page}"
     landing_page:
       index:

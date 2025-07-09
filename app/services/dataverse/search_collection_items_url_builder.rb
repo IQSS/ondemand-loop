@@ -33,10 +33,11 @@ module Dataverse
       types << 'dataset' if include_datasets
       query_params[:type] = types unless types.empty?
 
-      path = '/api/search'
-      query_string = Rack::Utils.build_query(query_params)
-
-      URI::Generic.build(path: path, query: query_string).to_s
+      url = FluentUrl.new('')
+              .add_path('api')
+              .add_path('search')
+      query_params.each { |k, v| url.add_param(k, v) }
+      url.to_s
     end
   end
 end
