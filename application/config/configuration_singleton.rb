@@ -23,6 +23,7 @@ class ConfigurationSingleton
       ::ConfigurationProperty.integer(:max_download_file_size, default: 10 * 1024 * 1024 * 1024), # 10 GIGABYTE
       ::ConfigurationProperty.integer(:max_upload_file_size, default: 1024 * 1024 * 1024), # 1 GIGABYTE
       ::ConfigurationProperty.boolean(:zenodo_enabled, default: false),
+      ::ConfigurationProperty.property(:guide_url, default: 'https://iqss.github.io/ondemand-loop/'),
     ].freeze
   end
 

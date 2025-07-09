@@ -5,6 +5,10 @@ module ApplicationHelper
     "/nginx/stop?redir=#{root_path}"
   end
 
+  def guide_url
+    Configuration.guide_url
+  end
+
   def files_app_url(dir)
     File.join(Configuration.files_app_path, dir)
   end
