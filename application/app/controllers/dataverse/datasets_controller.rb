@@ -109,14 +109,14 @@ class Dataverse::DatasetsController < ApplicationController
   end
 
   def redirect_back_to_app(fallback: root_path, **options)
-    if internal_referer?
+    if redirect_back?
       redirect_back(fallback_location: fallback, **options)
     else
       redirect_to(fallback, **options)
     end
   end
 
-  def internal_referer?
+  def redirect_back?
     return false unless request.referer
 
     begin
