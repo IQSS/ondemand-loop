@@ -9,7 +9,14 @@ explore the `ConfigurationSingleton` class in the source code.
 
 There are two ways to override the defaults shown below:
 
-- Create a YAML file in the directory pointed to by `LOOP_CONFIG_DIRECTORY` and set the property names as keys. 
+- Create a YAML file in the directory pointed to by `LOOP_CONFIG_DIRECTORY` and set the property names as keys.
+  
+```yaml
+    download_root: "~/data/ondemand_loop"
+    max_download_file_size: "1073741824"
+    ood_dashboard_path: "/pun/sys/ood"
+```
+
 - Create a `.env`, `.env.local`, or `.env.development` file in the application root and set the appropriate environment variables.
 
 

@@ -5,7 +5,8 @@
     --md-footer-bg-color: #f1f3f5;
     --md-accent-fg-color: #5863d2;
     /* Soften the white background to reduce eye strain */
-    --md-default-bg-color: #f1f3f5 !important;
+    --md-default-bg-color: #e9ecef;
+    --md-code-bg-color: #d1dce5;
 
     --custom-primary-color: #a4c6fb;
 }
