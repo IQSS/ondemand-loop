@@ -5,14 +5,15 @@
 }
 </style>
 
-<div class="d-flex align-items-end w-100 text-start">
+<div class="d-flex flex-wrap align-items-end w-100 text-start">
   <img
     src="assets/banner_black.png"
     alt="OnDemand Loop Banner"
+    class="me-2"
     style="max-width: 100%;
            height: 150px;"
   >
-  <h2 class="m-0 ms-3" style="font-size: 3rem; line-height: 1;">
+  <h2 class="m-0" style="font-size: 3rem; line-height: 1;">
     Guide
   </h2>
 </div>
