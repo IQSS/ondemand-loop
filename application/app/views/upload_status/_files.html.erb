@@ -16,14 +16,7 @@
                 <span class="visually-hidden"><%= t('.button_browse_file_a11y_text', filename: data.file.filename) %></span>
               <% end %>
 
-              <%= render partial: 'shared/repo_badge', locals: {
-                badge_url: data.upload_bundle.connector_metadata.dataverse_url,
-                target: '_blank',
-                type: data.upload_bundle.type,
-                text: data.upload_bundle.connector_metadata.dataverse_title,
-                tooltip: t(".badge_repo_tooltip"),
-                small: true
-              } %>
+              <span class="me-2"><%= connector_icon(data.upload_bundle.type) %></span>
 
               <span class="me-2"><%= data.project.name %> ></span>
               <span class="me-2" title="<%= data.file.file_location %>"><%= data.file.filename %></span>
@@ -42,14 +35,7 @@
 
               <%= render partial: '/shared/file_row_date', locals: { date: data.file.creation_date, title: t('.field_creation_date_title'), classes: "mx-2" } %>
 
-              <%= render partial: 'shared/repo_badge', locals: {
-                badge_url: data.upload_bundle.connector_metadata.dataverse_url,
-                target: '_blank',
-                type: data.upload_bundle.type,
-                text: data.upload_bundle.connector_metadata.dataverse_title,
-                tooltip: t(".badge_repo_tooltip"),
-                small: false
-              } %>
+              <span class="me-2"><%= connector_icon(data.upload_bundle.type) %></span>
 
               <span class="me-2"><%= data.project.name %> ></span>
               <span class="me-2" title="<%= data.file.file_location %>"><%= data.file.filename %></span>
