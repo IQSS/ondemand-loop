@@ -18,8 +18,9 @@ module Repo
         break
       end
 
-      log_info('Resolution completed', { object_url: object_url, type: context.result.type })
-      context.result
+      result = context.result
+      log_info('Resolution completed', { object_url: result.object_url, type: result.type })
+      result
     end
   end
 
