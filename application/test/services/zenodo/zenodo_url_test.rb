@@ -9,7 +9,7 @@ class Zenodo::ZenodoUrlTest < ActiveSupport::TestCase
     assert_equal 'http', zurl.scheme
     assert_equal 'localhost', zurl.domain
     assert_equal 3000, zurl.port
-    assert_equal 'http://localhost:3000/', zurl.zenodo_url
+    assert_equal 'http://localhost:3000', zurl.zenodo_url
   end
 
   test 'parses zenodo root url' do
@@ -17,7 +17,7 @@ class Zenodo::ZenodoUrlTest < ActiveSupport::TestCase
     zurl = Zenodo::ZenodoUrl.parse(url)
 
     assert zurl.zenodo?
-    assert_equal 'https://zenodo.org/', zurl.zenodo_url
+    assert_equal 'https://zenodo.org', zurl.zenodo_url
   end
 
   test 'parses record url' do

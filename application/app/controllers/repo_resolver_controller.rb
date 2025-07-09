@@ -2,7 +2,7 @@ class RepoResolverController < ApplicationController
   include LoggingCommon
 
   def resolve
-    repo_url = params[:repo_url]
+    repo_url = params[:repo_url].to_s.strip
     if repo_url.blank?
       redirect_back fallback_location: root_path, alert: t('.blank_url_error')
       return
@@ -11,7 +11,7 @@ class RepoResolverController < ApplicationController
     repo_resolver = Repo::RepoResolverService.new(RepoRegistry.resolvers)
     url_resolution = repo_resolver.resolve(repo_url)
     if url_resolution.unknown?
-      redirect_back fallback_location: root_path, alert: t('.url_not_supported', url: repo_url)
+      redirect_back fallback_location: root_path, alert: t('.url_not_supported', input: repo_url, url: url_resolution.object_url)
       return
     end
 

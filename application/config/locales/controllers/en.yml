@@ -24,7 +24,7 @@ en:
   repo_resolver:
     resolve:
       blank_url_error: "Please provide repo URL"
-      url_not_supported: "URL not supported: %{url}"
+      url_not_supported: "URL not supported: %{input} points to %{url}"
   upload_bundles:
     create:
       invalid_project: "Invalid project id: %{id}"

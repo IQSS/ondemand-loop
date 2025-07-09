@@ -10,7 +10,7 @@ class Dataverse::DataverseUrlTest < ActiveSupport::TestCase
     assert_equal 'http', dataverse_url.scheme
     assert_equal 'localhost', dataverse_url.domain
     assert_equal 3001, dataverse_url.port
-    assert_equal 'http://localhost:3001/', dataverse_url.dataverse_url
+    assert_equal 'http://localhost:3001', dataverse_url.dataverse_url
   end
 
   test 'should omit port if using default for https' do
@@ -21,7 +21,7 @@ class Dataverse::DataverseUrlTest < ActiveSupport::TestCase
     assert_equal 'https', dataverse_url.scheme
     assert_equal 'demo.dataverse.org', dataverse_url.domain
     assert_nil dataverse_url.port
-    assert_equal 'https://demo.dataverse.org/', dataverse_url.dataverse_url
+    assert_equal 'https://demo.dataverse.org', dataverse_url.dataverse_url
   end
 
   test 'should parse dataverse root URL' do
@@ -30,7 +30,7 @@ class Dataverse::DataverseUrlTest < ActiveSupport::TestCase
 
     assert dataverse_url
     assert dataverse_url.dataverse?
-    assert_equal 'https://demo.dataverse.org/', dataverse_url.dataverse_url
+    assert_equal 'https://demo.dataverse.org', dataverse_url.dataverse_url
   end
 
   test 'should parse collection URL' do
@@ -40,7 +40,7 @@ class Dataverse::DataverseUrlTest < ActiveSupport::TestCase
     assert dataverse_url
     assert dataverse_url.collection?
     assert_equal 'mycollection', dataverse_url.collection_id
-    assert_equal 'https://demo.dataverse.org/', dataverse_url.dataverse_url
+    assert_equal 'https://demo.dataverse.org', dataverse_url.dataverse_url
     assert_equal 'https://demo.dataverse.org/dataverse/mycollection', dataverse_url.collection_url
   end
 

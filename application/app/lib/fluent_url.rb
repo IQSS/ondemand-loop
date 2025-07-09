@@ -4,7 +4,7 @@ require 'addressable/uri'
 class FluentUrl
   def initialize(base)
     @uri = Addressable::URI.parse(base)
-    @segments = []
+    @segments = [@uri.path || '/']
     @params = {}
   end
 
@@ -21,7 +21,7 @@ class FluentUrl
   end
 
   def to_s
-    @uri.path = File.join('/', *@segments)
+    @uri.path = File.join('/', *@segments).chomp('/')
     @uri.query_values = @params unless @params.empty?
     @uri.to_s
   end

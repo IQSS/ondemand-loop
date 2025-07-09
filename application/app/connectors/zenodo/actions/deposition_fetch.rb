@@ -12,7 +12,7 @@ module Zenodo::Actions
       connector_metadata.api_key
       deposition_service = Zenodo::DepositionService.new(connector_metadata.zenodo_url, api_key: connector_metadata.api_key.value)
       deposition = deposition_service.find_deposition(connector_metadata.deposition_id)
-      return error(I18n.t('connectors.zenodo.actions.fetch_deposition.message_deposition_not_found', repo_url: upload_bundle.repo_url)) unless deposition
+      return error(I18n.t('connectors.zenodo.actions.fetch_deposition.message_deposition_not_found', url: upload_bundle.repo_url)) unless deposition
 
       connector_metadata.title = deposition.title
       connector_metadata.bucket_url = deposition.bucket_url
@@ -21,7 +21,7 @@ module Zenodo::Actions
 
       ConnectorResult.new(
         resource: upload_bundle,
-        message: { notice: I18n.t('connectors.zenodo.actions.fetch_deposition.message_success', title: deposition.title) },
+        message: { notice: I18n.t('connectors.zenodo.actions.fetch_deposition.message_success', name: deposition.title) },
         success: true
       )
     end

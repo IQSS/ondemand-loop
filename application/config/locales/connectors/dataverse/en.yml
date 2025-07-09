@@ -2,6 +2,20 @@
 en:
   connectors:
     dataverse:
+      actions:
+        collection_select:
+          message_success: "Collection selected: %{title}"
+        connector_edit:
+          message_success: "API Token updated: %{name}"
+        dataset_create:
+          message_success: "Dataset created: %{id} > %{title}"
+        dataset_select:
+          message_success: "Dataset selected: %{title}"
+        upload_bundle_create:
+          message_collection_not_found: "Dataverse collection not found: %{url}. Only public and published collections are supported"
+          message_dataset_not_found: "Dataverse dataset not found: %{url}.<br />Only public and published datasets are supported"
+          message_success: "Dataverse upload bundle created: %{name}"
+
       upload_bundle_info_bar:
       upload_bundle_actions_bar:
         button_edit_dataset_title: "Edit Dataset"
