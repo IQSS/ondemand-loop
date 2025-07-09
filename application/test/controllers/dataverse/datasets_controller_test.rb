@@ -8,7 +8,6 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     resolver = mock('resolver')
     resolver.stubs(:resolve).returns(OpenStruct.new(type: ConnectorType::DATAVERSE))
     Repo::RepoResolverService.stubs(:new).returns(resolver)
-    Configuration.stubs(:loop_path).returns('/pun/sys/loop')
   end
 
   def teardown
