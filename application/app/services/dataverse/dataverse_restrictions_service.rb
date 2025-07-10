@@ -27,16 +27,12 @@ module Dataverse
           valid?: false,
           message: I18n.t('dataverse.restrictions.dataset_file.restricted_message')
         }
-      end
-
-      if file.data_file.nil?
+      elsif file.data_file.nil?
         response = {
           valid?: false,
           message: I18n.t('dataverse.restrictions.dataset_file.missing_file_message')
         }
-      end
-
-      if file&.data_file&.filesize and file.data_file.filesize > dataverse_restrictions.max_file_size
+      elsif file&.data_file&.filesize and file.data_file.filesize > dataverse_restrictions.max_file_size
         helpers = ActionController::Base.helpers
         response = {
           valid?: false,
