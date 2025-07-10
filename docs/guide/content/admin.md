@@ -1,15 +1,21 @@
 # Admin Guide
 
-This section describes how the deployed application can be configured by
-setting a custom value to the config and env variables to override the
-default values. To dive into the implementation details, you can 
-explore the `ConfigurationSingleton` class in the source code.
+This guide describes how to configure the OnDemand Loop application using environment variables and YAML configuration files. The application's configuration is managed through the `ConfigurationSingleton` class, which provides a centralized interface for accessing all configurable properties.
+
+Each property is defined with sensible defaults and can be overridden in one of two ways:
+
+1. **Environment Variables** — Loaded from `.env` files or system-level environment variables.
+2. **YAML Files** — Located in `/etc/loop/config/loop.d` by default.
+
+The configuration system uses the `ConfigurationProperty` abstraction to define properties with specific types (e.g., `path`, `integer`, `boolean`). These properties are then exposed as methods on the global `Configuration` object, allowing the rest of the application to access them consistently.
+
+This guide documents each configuration property, including its purpose, default value, and expected type. It is intended for system administrators deploying or managing OnDemand Loop.
 
 ## Setting Configuration Values
 
 There are two ways to override the defaults shown below:
 
-- Create a YAML file in the directory pointed to by `LOOP_CONFIG_DIRECTORY` and set the property names as keys.
+- Create a YAML file in the directory pointed to by `LOOP_CONFIG_DIRECTORY` config parameter (by default `/etc/loop/config/loop.d`) and set the property names as keys.
   
 ```yaml
     download_root: "~/data/ondemand_loop"
@@ -17,8 +23,9 @@ There are two ways to override the defaults shown below:
     ood_dashboard_path: "/pun/sys/ood"
 ```
 
-- Create a `.env`, `.env.local`, or `.env.development` file in the application root and set the appropriate environment variables.
+- Define an enviroment variable in the system or create a `.env` or `.env.<RAILS_ENV>` (for example `.env.development`) file in the application root directory and set the appropriate environment variables. Environment-specific files takes precedence over `.env` in case of collision.
 
+Sample configuration files can be found in the final section of this guide [Sample Configuration Files](#sample-configuration-files)
 
 ## List of config properties
 - [connector_status_poll_interval](#connector_status_poll_interval)
@@ -121,7 +128,7 @@ There are two ways to override the defaults shown below:
 
 ### LOOP_CONFIG_DIRECTORY
 - **Purpose:** Directory that stores YAML configuration files read at startup.
-- **Default:** `/etc/loop/config`
+- **Default:** `/etc/loop/config/loop.d`
 
 ### OOD_LOOP_COMMAND_SERVER_FILE
 - **Purpose:** Location of the UNIX socket used by the command server.
@@ -143,10 +150,10 @@ There are two ways to override the defaults shown below:
 
 The examples below demonstrate how administrators can override defaults using either a YAML file or environment variables.
 
-### Example YAML File
+### YAML File example
 
 ```yaml
-# /etc/loop/config/config.yml
+# /etc/loop/config/loop.d/config.yml
 connector_status_poll_interval: 6000
 detached_controller_interval: 5
 detached_process_status_interval: 2000
@@ -164,7 +171,7 @@ upload_files_retention_period: 172800
 zenodo_enabled: true
 ```
 
-### Example `.env` File
+### `.env` File example
 
 ```bash
 OOD_LOOP_CONNECTOR_STATUS_POLL_INTERVAL=6000
