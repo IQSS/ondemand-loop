@@ -138,3 +138,52 @@ There are two ways to override the defaults shown below:
 ### RAILS_ENV
 - **Purpose:** Indicates the Rails environment.
 - **Default:** `development`
+
+## Sample Configuration Files
+
+The examples below demonstrate how administrators can override defaults using either a YAML file or environment variables.
+
+### Example YAML File
+
+```yaml
+# /etc/loop/config/config.yml
+connector_status_poll_interval: 6000
+detached_controller_interval: 5
+detached_process_status_interval: 2000
+download_files_retention_period: 172800
+download_root: /var/loop/downloads
+files_app_path: /pun/sys/dashboard/files/custom
+locale: es
+max_download_file_size: 15000000000
+max_upload_file_size: 2000000000
+metadata_root: /var/loop/metadata
+ood_dashboard_path: /pun/sys/dashboard
+ruby_binary: /usr/local/bin/ruby
+ui_feedback_delay: 2000
+upload_files_retention_period: 172800
+zenodo_enabled: true
+```
+
+### Example `.env` File
+
+```bash
+OOD_LOOP_CONNECTOR_STATUS_POLL_INTERVAL=6000
+OOD_LOOP_DETACHED_CONTROLLER_INTERVAL=5
+OOD_LOOP_DETACHED_PROCESS_STATUS_INTERVAL=2000
+OOD_LOOP_DOWNLOAD_FILES_RETENTION_PERIOD=172800
+OOD_LOOP_DOWNLOAD_ROOT=/var/loop/downloads
+OOD_LOOP_FILES_APP_PATH=/pun/sys/dashboard/files/custom
+OOD_LOOP_LOCALE=es
+OOD_LOOP_MAX_DOWNLOAD_FILE_SIZE=15000000000
+OOD_LOOP_MAX_UPLOAD_FILE_SIZE=2000000000
+OOD_LOOP_METADATA_ROOT=/var/loop/metadata
+OOD_LOOP_OOD_DASHBOARD_PATH=/pun/sys/dashboard
+OOD_LOOP_RUBY_BINARY=/usr/local/bin/ruby
+OOD_LOOP_UI_FEEDBACK_DELAY=2000
+OOD_LOOP_UPLOAD_FILES_RETENTION_PERIOD=172800
+OOD_LOOP_ZENODO_ENABLED=true
+LOOP_CONFIG_DIRECTORY=/etc/loop/config
+OOD_LOOP_COMMAND_SERVER_FILE=/var/loop/metadata/command.server.sock
+OOD_LOOP_DETACHED_PROCESS_FILE=/var/loop/metadata/detached.process.lock
+RAILS_ENV=production
+```
