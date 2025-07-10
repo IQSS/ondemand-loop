@@ -21,10 +21,18 @@ module Dataverse
 
     def validate_dataset_file(file)
       response = { valid?: true, message: nil }
+
+      if file.restricted
+        response = {
+          valid?: false,
+          message: I18n.t('dataverse.restrictions.dataset_file.restricted_message')
+        }
+      end
+
       if file.data_file.nil?
         response = {
           valid?: false,
-          message: "File data is not present"
+          message: I18n.t('dataverse.restrictions.dataset_file.missing_file_message')
         }
       end
 
@@ -32,7 +40,7 @@ module Dataverse
         helpers = ActionController::Base.helpers
         response = {
           valid?: false,
-          message: "Files bigger than #{helpers.number_to_human_size(dataverse_restrictions.max_file_size)} are not supported"
+          message: I18n.t('dataverse.restrictions.dataset_file.file_size_message', max_size: helpers.number_to_human_size(dataverse_restrictions.max_file_size))
         }
       end
 

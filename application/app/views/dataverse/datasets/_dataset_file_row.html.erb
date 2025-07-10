@@ -3,12 +3,12 @@
   row_classes = restrictions_response.valid? ? '' : 'table-row-disabled'
 %>
 <tr class="<%= row_classes %>" title="<%= restrictions_response.message %>">
-  <td>
-    <div class="form-check">
-      <% if restrictions_response.valid? %>
+  <td class="text-nowrap p-0 align-middle" style="width: 1%;">
+    <div class="d-flex justify-content-center align-items-center" style="min-width: 3rem;">
+    <% if restrictions_response.valid? %>
         <%= check_box_tag("file_ids[]", file&.data_file&.id, false, class: "form-check-input", id: "file_checkbox_#{file&.data_file&.id}", data: {"utils--checkbox-target" => "item", action: "utils--checkbox#updateState"}) %>
     <% else %>
-        <i class="fas fa-circle-info" aria-hidden="true"></i>
+        <i class="bi bi-info-circle-fill" aria-hidden="true"></i>
         <span class="visually-hidden"><%= restrictions_response.message %></span>
       <% end %>
     </div>

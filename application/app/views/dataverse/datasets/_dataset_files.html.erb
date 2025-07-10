@@ -22,12 +22,12 @@
           <caption class="visually-hidden"><%= t('dataverse.datasets.dataset_files.table_dataset_files_caption') %></caption>
           <thead class="table-light">
           <tr>
-            <th scope="col">
-              <div class="form-check">
-                <label class="form-check-label visually-hidden" for="select_all_files">
+            <th scope="col" class="text-nowrap p-0 align-middle" style="width: 1%;">
+              <div class="d-flex justify-content-center align-items-center" style="min-width: 3rem;">
+                <label class="visually-hidden" for="select_all_files">
                   <%= t('dataverse.datasets.dataset_files.checkbox_select_all_label') %>
                 </label>
-                <input class="form-check-input" type="checkbox" id="select_all_files" data-utils--checkbox-target="selectAll" data-action="utils--checkbox#toggleSelectAll">
+                <input type="checkbox" id="select_all_files" class="form-check-input m-0" data-utils--checkbox-target="selectAll" data-action="utils--checkbox#toggleSelectAll">
               </div>
             </th>
             <th scope="col"><%= t('dataverse.datasets.dataset_files.col_file_name_text') %></th>

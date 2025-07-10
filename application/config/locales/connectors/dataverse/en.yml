@@ -155,6 +155,12 @@ en:
         breadcrumb_home_title: "Home"
         image_dataverse_icon_alt: "Dataverse icon"
         page_title: "OnDemand Loop - Dataverse Landing page"
+
+    restrictions:
+      dataset_file:
+        restricted_message: "File is restricted. Restricted files not supported"
+        missing_file_message: "File data is not present"
+        file_size_message: "Files bigger than %{max_size} are not supported"
   helpers:
     dataverse:
       invalid_hostname: "Invalid Dataverse hostname"
