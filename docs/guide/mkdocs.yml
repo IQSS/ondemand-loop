@@ -34,7 +34,16 @@ nav:
       - Viewing Download and Upload Status: user_guide/viewing_download_and_upload_status.md
   - Admin Guide: admin.md
   - Installation Guide: installation.md
-  - Development Guide: development.md
+  - Development Guide:
+      - Overview: development_guide/index.md
+      - Architecture and Code: development_guide/architecture.md
+      - Connectors: development_guide/connectors.md
+      - Local Environment: development_guide/local_environment.md
+      - Docker Images: development_guide/docker_images.md
+      - Upgrading Open OnDemand: development_guide/upgrade_ood.md
+      - Dataverse Integration: development_guide/dataverse_integration.md
+      - Contributing a Change: development_guide/contributing.md
+      - GitHub Actions: development_guide/github_actions.md
 
 markdown_extensions:
   - toc:
