@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {{ super() }}
+
+    {# Add your custom next/previous links below the main content #}
+    {% include "partials/next_prev_links.html" %}
+{% endblock %}
