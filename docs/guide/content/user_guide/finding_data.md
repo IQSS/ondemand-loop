@@ -65,3 +65,18 @@ If you prefer an integrated experience or are still exploring:
 Once a dataset is selected, OnDemand Loop presents its metadata and file listing so you can choose what to download into your project.
 
 > ℹ️ **Note:** Each connector uses the repository’s public API. Features such as search, filters, and metadata previews may vary slightly.
+
+### Launching from Dataverse
+
+If the administrator of your Dataverse installation has configured OnDemand Loop as an **External Tool**, you can launch the application directly from the dataset page.
+
+- Open a dataset in a Dataverse repository.
+- Click the **Access Dataset** dropdown.
+- Select **Explore in OnDemand Loop**.
+
+This will open the OnDemand Loop interface with the dataset preloaded and ready for browsing or download.
+
+> ℹ️ **Note:** This feature is only available for **Dataverse** and depends on the repository admin having enabled it. If you don't see the option, contact your Dataverse administrator.
+> For Dataverse administrators: follow the instructions on how to configure [Dataverse external tools](../development_guide/dataverse_integration.md)
+
+---
