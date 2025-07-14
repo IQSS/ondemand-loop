@@ -12,13 +12,13 @@ The application is built around a **extensible connector framework**, with Datav
 At the center of Loop are **Projects**. A project groups all of your download requests and upload bundles so you can monitor progress in one place. Every transfer runs as a background job through the HPC scheduler, allowing work to continue even if you close your browser session. Built‑in connectors handle the details of each repository’s API, letting you browse datasets, pick local files, and watch the job status from the web interface.
 
 
-Within a **Project** you can:
+Within a [**Project**](creating_projects.md) you can:
 
-- **Explore remote repositories** by pasting a [DOI](https://www.doi.org) or a dataset URL into the **Explore** search bar, or by browsing the **Repositories** menu. Loop resolves the address and loads the appropriate **connector**. [**Dataverse**](https://dataverse.org) is supported by default and [**Zenodo**](https://zenodo.org) can be enabled optionally.
-- **Download files** from datasets. Selected files are added to the **Active Project** and transferred to your cluster workspace. Transfer progress is shown under the Project or on the global **Downloads page**.
-- **Create Upload Bundles** to send data back to a repository. Simply provide the target dataset URL, include an API key if required, and select local files for uploading.
-- **Use the built-in file browser** to select files from your HPC environment. You can navigate directories, drag and drop entries, or open the standard **OnDemand file app** for a folder.
-- **Monitor transfer status** via each Project’s Downloads and Uploads tabs, or on the aggregate pages that list tasks across all Projects, with automatic refresh and the option to cancel jobs.
+- [**Explore remote repositories**](finding_data.md) by pasting a [DOI](https://www.doi.org) or a dataset URL into the **Explore** search bar, or by browsing the **Repositories** menu. Loop resolves the address and loads the appropriate **connector**. [**Dataverse**](https://dataverse.org) is supported by default and [**Zenodo**](https://zenodo.org) can be enabled optionally.
+- [**Download files**](downloading_files.md) from datasets. Selected files are added to the **Active Project** and transferred to your cluster workspace. Transfer progress is shown under the Project or on the global **Downloads page**.
+- [**Create Upload Bundles**](uploading_files.md) to send data back to a repository. Simply provide the target dataset URL, include an API key if required, and select local files for uploading.
+- [**Use the built-in file browser**](using_the_file_browser.md) to select files from your HPC environment. You can navigate directories, drag and drop entries, or open the standard **OnDemand file app** for a folder.
+- [**Monitor transfer status**](viewing_download_and_upload_status.md) via each Project’s Downloads and Uploads tabs, or on the aggregate pages that list tasks across all Projects, with automatic refresh and the option to cancel jobs.
 
 The following pages in this guide provide detailed explanations of each task, enabling you to confidently manage data transfers between your HPC cluster and supported repositories.
 

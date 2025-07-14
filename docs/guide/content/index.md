@@ -28,7 +28,7 @@ The core goal of OnDemand Loop is to **lower the barrier for non-technical users
 
 This documentation introduces the entire application. It is divided into the following guides:
 
-- [**User Guide**](user_guide/introduction.md) – how to use the application to transfer files.
+- [**User Guide**](user_guide/index.md) – how to use the application to transfer files.
 - [**Admin Guide**](admin.md) – details on configuring and managing OnDemand Loop.
 - [**Installation Guide**](installation.md) – instructions to build and install the application as a Passenger app on a server running Open OnDemand.
 - [**Development Guide**](development_guide/index.md) – how to run the application locally, make changes, understand the connector architecture, and create new connectors.
