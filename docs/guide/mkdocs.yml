@@ -25,7 +25,6 @@ nav:
   - Home: index.md
   - User Guide:
       - Introduction: user_guide/introduction.md
-      - Getting Started: user_guide/getting_started.md
       - Creating Projects: user_guide/creating_projects.md
       - Finding Data: user_guide/finding_data.md
       - Downloading Files: user_guide/downloading_files.md
