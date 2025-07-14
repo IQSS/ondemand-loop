@@ -20,7 +20,7 @@
 
 Welcome to the OnDemand Loop documentation.
 
-**OnDemand Loop** is a companion application to **Open OnDemand**, designed to simplify the movement of research data between high-performance computing (HPC) clusters and remote repositories such as Dataverse, Figshare, or Zenodo.
+[**OnDemand Loop**](https://github.com/IQSS/ondemand-loop) is a companion application to **Open OnDemand**, designed to simplify the movement of research data between high-performance computing (HPC) clusters and remote repositories such as Dataverse, Figshare, or Zenodo.
 
 The core goal of OnDemand Loop is to **lower the barrier for non-technical users** to interact with research data repositories. Following the Open OnDemand philosophy, it aims to provide a user-friendly interface for tasks that typically require complex command-line operations or custom scripts. Researchers can upload and download datasets to and from remote repositories directly from their HPC environment with minimal friction.
 
@@ -30,7 +30,7 @@ The application is built around a **extensible connector framework**, with Datav
 
 At the center of Loop are **Projects**. A project groups all of your download requests and upload bundles so you can monitor progress in one place. Every transfer runs as a background job through the HPC scheduler, allowing work to continue even if you close your browser session. Built‑in connectors handle the details of each repository’s API, letting you browse datasets, pick local files, and watch the job status from the web interface.
 
-This guide introduces the entire application. It is divided into the following guides:
+This documentation introduces the entire application. It is divided into the following guides:
 
 - [**User Guide**](user_guide/introduction.md) – how to use the application to transfer files.
 - [**Admin Guide**](admin.md) – details on configuring and managing OnDemand Loop.
