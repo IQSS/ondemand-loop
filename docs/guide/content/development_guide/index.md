@@ -45,5 +45,5 @@ The documentation is organized by topic to help you find what you need quickly:
 Each page is self-contained but builds on shared understanding of the architecture and workflows.  
 If you're new to the project, we recommend starting with:
 
-- [Architecture and Code Structure](architecture.md)
+- [Architecture and Code](architecture.md)
 - [Local Environment](local_environment.md)
