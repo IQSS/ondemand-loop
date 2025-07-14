@@ -28,10 +28,13 @@ OnDemand Loop is **not a synchronization tool**. Instead, each **upload and down
 
 The application is built around a **extensible connector framework**, with Dataverse as the reference implementation. Support for additional repositories can be added over time using the same connector architecture.
 
-This guide introduces the entire application. Alongside the User Guide sections, it includes:
+At the center of Loop are **Projects**. A project groups all of your download requests and upload bundles so you can monitor progress in one place. Every transfer runs as a background job through the HPC scheduler, allowing work to continue even if you close your browser session. Built‑in connectors handle the details of each repository’s API, letting you browse datasets, pick local files, and watch the job status from the web interface.
 
-- **Admin Guide** – details on configuring and managing OnDemand Loop.
-- **Installation Guide** – instructions to build and install the application as a passenger app on a server running Open OnDemand.
-- **Development Guide** – how to run the application locally, make changes, understand the connector architecture, and create new connectors.
+This guide introduces the entire application. It is divided into the following guides:
+
+- [**User Guide**](user_guide/introduction.md) – how to use the application to transfer files.
+- [**Admin Guide**](admin.md) – details on configuring and managing OnDemand Loop.
+- [**Installation Guide**](installation.md) – instructions to build and install the application as a Passenger app on a server running Open OnDemand.
+- [**Development Guide**](development_guide/index.md) – how to run the application locally, make changes, understand the connector architecture, and create new connectors.
 
 Together, these sections take you from basic usage through administration and development.
