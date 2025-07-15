@@ -1,5 +1,5 @@
 <div style="width: 100%; background-color: black; padding: 20px 0; text-align: center;">
-  <img src="application/app/assets/images/logo.png" alt="Loop Logo" style="max-width: 300px;">
+  <img src="docs/guide/content/assets/banner.png" alt="OnDemand Loop Logo" style="max-width: 300px;">
 </div>
 
 ![Line coverage](docs/badges/coverage-line.svg)

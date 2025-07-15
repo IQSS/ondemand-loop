@@ -1,4 +1,4 @@
-# Using the File Browser
+# Upload File Selector
 
 The file browser appears when you click **Add Files** on an upload bundle.
 

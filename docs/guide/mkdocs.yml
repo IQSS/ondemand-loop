@@ -29,7 +29,7 @@ nav:
       - Finding Data: user_guide/finding_data.md
       - Downloading Files: user_guide/downloading_files.md
       - Uploading Files: user_guide/uploading_files.md
-      - Using the File Browser: user_guide/using_the_file_browser.md
+      - Upload File Selector: user_guide/upload_file_selector.md
   - Admin Guide: admin.md
   - Installation Guide: installation.md
   - Development Guide:
