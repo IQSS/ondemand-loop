@@ -78,7 +78,7 @@ en:
     project_bar:
       button_active_project_title: "Active Project"
       field_creation_date_title: "Creation date"
-      link_open_downloads_title: "Open Project working directory folder"
+      link_open_downloads_title: "Open Project workspace folder"
       link_open_metadata_title: "Open Project metadata folder"
     repo_resolver_bar:
       input_repo_url_placeholder: "Paste Repository URL"
@@ -87,7 +87,7 @@ en:
   projects:
     show:
       download_actions:
-        button_open_downloads_folder_title: "Open Project working directory folder"
+        button_open_downloads_folder_title: "Open Project workspace folder"
         header_download_files_text: "Downloads"
       download_files:
         badge_repository_files_tooltip: "Repository Files"
@@ -103,9 +103,9 @@ en:
         button_create_upload_bundle_placeholder: "Dataset URL"
         button_create_upload_bundle_title: "Create Upload Bundle"
         button_delete_project_title: "Delete Project"
-        button_open_project_folder_label: "Open Project working directory folder"
-        button_open_project_folder_title: "Open Project working directory folder"
-        button_open_project_metadata_title: "Open Project Metadata folder"
+        button_open_project_folder_label: "Open Project workspace folder"
+        button_open_project_folder_title: "Open Project workspace folder"
+        button_open_project_metadata_title: "Open Project metadata folder"
         field_creation_date_title: "Creation date"
         modal_delete_confirmation_title: "Delete Project"
         modal_delete_confirmation_content: "This will remove the project from the app. Files on disk and in remote repositories will remain untouched."
@@ -146,7 +146,7 @@ en:
       button_cancel_title: "Cancel"
       button_delete_project_title: "Delete project"
       button_edit_project_name_title: "Edit Project name"
-      button_open_project_folder_title: "Open Project working directory folder"
+      button_open_project_folder_title: "Open Project workspace folder"
       button_save_project_name_title: "Save project name"
       button_set_as_active_project_title: "Set as Active Project"
       field_creation_date_title: "Creation Date"
@@ -160,7 +160,7 @@ en:
       tab_download_label: "Download Files"
     project_summary_downloads:
       tab_title: "Downloads"
-      button_download_folder_title: "Open Project working directory folder"
+      button_download_folder_title: "Open Project workspace folder"
     project_summary_bundle:
       creation_date_title: "Creation date"
     upload_bundle:

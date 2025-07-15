@@ -18,7 +18,12 @@ Having an active Project enables you to:
 
 The interface is designed to guide you through these workflows with minimal setup, making it easy to track progress, review status, and repeat actions when needed.
 
-OnDemand Loop is **not a synchronization tool**. Instead, each **upload and download action is a discrete, immutable operation**. This means that if files are changed in either the repository or the local HPC system, users must **manually re-download or re-upload** to ensure that the latest versions are captured. This design prioritizes simplicity, reproducibility, and clear audit trails over automated syncing.
+!!! note
+
+    OnDemand Loop is **not a synchronization tool**. Instead, each **upload and download action is a discrete, immutable operation**.
+    This means that if files are changed in either the repository or the local HPC system, users must **manually re-download or re-upload** to ensure that the latest versions are captured.
+    This design prioritizes simplicity, reproducibility, and clear audit trails over automated syncing.
+
 
 Every transfer runs as a background job, allowing work to continue even if you close your browser session.
 Built‑in repository connectors handle the details of each repository’s API, letting you browse datasets, pick local files, and watch the job status from the web interface.
