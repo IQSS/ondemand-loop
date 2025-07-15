@@ -1,6 +1,120 @@
 # Downloading Files
 
-1. After locating a dataset, select the checkboxes next to the files you want.
-2. The **Add Files to Active Project** button becomes enabled when at least one file is chosen. Clicking it schedules those files for download to your current project. If no project is active, Loop creates one automatically.
-3. Watch progress on the project’s **Downloads** tab or on the global **Downloads** page which aggregates tasks from all projects. Active transfers show a progress bar and can be cancelled.
-4. Completed downloads remain visible on the Downloads page for twenty‑four hours and are permanently listed under each project with links to the saved location on the cluster.
+After locating a dataset (via DOI, URL, or browsing), you can download specific files into your active project.
+
+### How to Download Files
+
+1. **Select files**  
+   On the dataset page, use the checkboxes to select the files you want to download.
+2. **Add to project**  
+   When at least one file is selected, the **Add Files to Active Project** button becomes enabled. Clicking it schedules the selected files for download to the active project.
+    - If no project is active, OnDemand Loop automatically creates a new one.
+3. **Track progress**  
+   Monitor download activity in two places:
+    - The **Downloads** tab of the selected project (shows only that project's files)
+    - The **Downloads** page (global view across all projects)
+
+!!! warning
+
+    File selections are **page-based** and do not persist across pagination or page reloads.
+    If you navigate away or move to another page of results, your current selections will be lost.
+    To download files from multiple pages, select and add files **one page at a time** to your project.
+
+---
+
+### Project Detail Page – Downloads Tab
+
+Each project includes a **Downloads** tab showing its associated download requests.
+The data is displayed in a table format, where each row represents a file and shows key metadata.
+
+#### Metadata Fields
+
+**Scheduled Date:** The date the file was selected for download.
+
+**Repository Badge:** Identifies the source repository. Links to the dataset view in OnDemand Loop.
+
+**Filename:** The filename and relative path created by OnDemand Loop in the project workspace.
+
+**Size:** The file size reported by the remote repository.
+
+**Status:** The current download state. One of: `pending`, `downloading`, `success`, `error`, `cancelled`.
+
+**Completed Date:** The date the system finished processing the file (successfully or not).
+
+**Delete Action:** Removes the file from the project’s list in the UI.
+
+!!! note
+    
+    This view does **not auto-refresh**. Reload manually to see updates.
+
+---
+
+### Global Downloads Page
+
+The **Downloads** page provides a real-time view of all download tasks across all projects.
+It is updated automatically every **5 seconds** and reflects the most recent activity at the top.
+
+#### Metadata Fields
+
+**Link to File Location:** A direct link to the downloaded file on the HPC filesystem (within the project workspace).
+
+**Scheduled Date:** The date and time the file was added to the download queue.
+
+**Repository Badge:** Shows the source repository. Helps identify origin at a glance.
+
+**Project Name:** The project the file belongs to. Click to open the project detail page.
+
+**Filename:** The name and relative path assigned to the file by OnDemand Loop.
+
+**Size:** The file size as reported by the remote repository.
+
+**Progress Bar:** A visual indicator shown when status is `downloading`. Updates every 5 seconds.
+
+**Status:** The current download state. One of: `pending`, `downloading`, `success`, `error`, `cancelled`.
+
+**Cancel Action:** Lets you cancel files in `pending` or `downloading` state. Not available once completed.
+
+
+#### Behavior
+
+- Files are **queued** when system resources are busy (`pending` state).
+- Downloads in progress show a **progress bar**, updated every 5 seconds.
+- Completed downloads remain visible for **24 hours** in the global view.
+- After that, they are only listed in the project's Downloads tab.
+- The list is sorted in this order:
+    1. Active downloads (`downloading`)
+    2. Pending downloads
+    3. Completed downloads (most recent first)
+
+!!! warning
+
+    Files cannot be deleted directly from the global **Downloads** page.
+    To remove a file from the UI, navigate to its project and use the **Delete** action in the **Downloads** tab.
+    You can quickly access the project detail page by clicking on the project name in the table.
+
+---
+
+### Duplicate Downloads
+
+If the same file is added to a project more than once, OnDemand Loop will download it again using a modified filename:
+<pre><code>original_file.csv
+original_file_01.csv
+original_file_02.csv
+</code></pre>
+
+
+Each version is treated as a separate task and stored independently.
+
+---
+
+### Best Practices
+
+- Always check the **active project** before selecting files — downloads are assigned automatically.
+- Use the **global Downloads page** to monitor multiple datasets or repositories.
+- If a file is no longer needed, cancel it before it starts downloading to free system resources.
+- Use the **project detail page** for cleaning up or reviewing file history.
+
+!!! note "No automatic retries"
+
+    No automatic retries are performed for failed downloads. You can reselect and add the file again manually if needed.
+    You can quickly access the file dataset page by clicking on the file reposiory badge in the **Downloads** tab

@@ -30,7 +30,6 @@ nav:
       - Downloading Files: user_guide/downloading_files.md
       - Uploading Files: user_guide/uploading_files.md
       - Using the File Browser: user_guide/using_the_file_browser.md
-      - Viewing Download and Upload Status: user_guide/viewing_download_and_upload_status.md
   - Admin Guide: admin.md
   - Installation Guide: installation.md
   - Development Guide:
