@@ -56,17 +56,40 @@ class Dataverse::ConnectorMetadataTest < ActiveSupport::TestCase
     assert_equal({'id' => '12345', 'status' => 'RUNNING'}, result)
   end
 
-  test 'repo_name from parents and files_url ports' do
+  test 'repo_name from parents' do
+    file = DownloadFile.new
+    file.metadata = { parents: [{name: 'Root'}] }
+    target = Dataverse::DownloadConnectorMetadata.new(file)
+    assert_equal 'Root', target.repo_name
+
+    file = DownloadFile.new
+    file.metadata = { }
+    target = Dataverse::DownloadConnectorMetadata.new(file)
+    assert_equal 'N/A', target.repo_name
+  end
+
+  test 'files_url return nil when no dataset_id' do
     metadata = {
-      dataverse_url: 'http://demo.dv:80',
-      persistent_id: 'doi:1',
-      parents: [{name: 'Root'}]
+      dataverse_url: 'http://demo.dv:8080',
+      dataset_id: nil,
     }
     file = DownloadFile.new
     file.metadata = metadata
 
     target = Dataverse::DownloadConnectorMetadata.new(file)
-    assert_equal 'Root', target.repo_name
-    assert_includes target.files_url, 'dv_port=80'
+    assert_nil target.files_url
+  end
+
+  test 'files_url overrides' do
+    metadata = {
+      dataverse_url: 'http://demo.dv:8080',
+      dataset_id: 'doi:1',
+    }
+    file = DownloadFile.new
+    file.metadata = metadata
+
+    target = Dataverse::DownloadConnectorMetadata.new(file)
+    assert_includes target.files_url, 'dv_scheme=http'
+    assert_includes target.files_url, 'dv_port=8080'
   end
 end

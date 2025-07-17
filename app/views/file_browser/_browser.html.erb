@@ -54,6 +54,7 @@
         <i class="bi bi-pencil" aria-hidden="true"></i>
         <span class="visually-hidden"><%= t('.button_edit_path_text') %></span>
       </button>
+
       <button class="btn btn-sm btn-outline-dark"
               data-entry-path="<%= Dir.home %>"
               data-entry-type="folder"
@@ -63,6 +64,9 @@
         <i class="bi bi-house-door-fill" aria-hidden="true"></i>
         <span class="visually-hidden"><%= t('.button_home_text') %></span>
       </button>
+
+      <%= render partial: '/shared/ood_folder_button', locals: { path: current_path }%>
+
       <button class="btn btn-sm btn-outline-dark"
               title="<%= t('.button_close_browser_title') %>"
               aria-label="<%= t('.button_close_browser_label') %>"
@@ -70,8 +74,6 @@
         <i class="bi bi-x-lg" aria-hidden="true"></i>
         <span class="visually-hidden"><%= t('.button_close_browser_text') %></span>
       </button>
-
-      <%= render partial: '/shared/ood_folder_button', locals: { path: current_path }%>
     </div>
   </div>
 

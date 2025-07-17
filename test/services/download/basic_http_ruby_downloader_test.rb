@@ -25,4 +25,33 @@ class Download::BasicHttpRubyDownloadTest < ActiveSupport::TestCase
     
   end
 
+  test 'follows redirects' do
+    file = fixture_path('/downloads/basic_http/sample_utf8.txt')
+    first = HttpMock.new(file_path: file, status_code:302, headers:{'location'=>'/next'})
+    second = HttpMock.new(file_path: file)
+    Net::HTTP.stubs(:start).yields(first).then.yields(second)
+    Dir.mktmpdir do |dir|
+      dl = File.join(dir, 'o.txt')
+      tmp = File.join(dir, 'o.txt.part')
+      target = Download::BasicHttpRubyDownloader.new('http://example', dl, tmp)
+      target.download
+      assert File.exist?(dl)
+    end
+  end
+
+  test 'download can be cancelled' do
+    file = fixture_path('/downloads/basic_http/sample_utf8.txt')
+    mock_http = HttpMock.new(file_path: file)
+    Net::HTTP.expects(:start).yields(mock_http)
+    Dir.mktmpdir do |dir|
+      dl = File.join(dir, 'o.txt')
+      tmp = File.join(dir, 'o.part')
+      target = Download::BasicHttpRubyDownloader.new('http://e', dl, tmp)
+      target.download do |_|
+        true
+      end
+      assert File.exist?(dl)
+    end
+  end
+
 end

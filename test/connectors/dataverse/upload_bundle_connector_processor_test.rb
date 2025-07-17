@@ -27,10 +27,38 @@ class Dataverse::UploadBundleConnectorProcessorTest < ActiveSupport::TestCase
     assert_equal :res, @processor.edit(@bundle, {form: 'dataset_select'})
   end
 
+  test 'edit routes dataset_form_tabs' do
+    action = mock('action')
+    Dataverse::Actions::DatasetFormTabs.expects(:new).returns(action)
+    action.expects(:edit).with(@bundle, {form: 'dataset_form_tabs'}).returns(:ok)
+    assert_equal :ok, @processor.edit(@bundle, {form: 'dataset_form_tabs'})
+  end
+
+  test 'edit defaults to connector_edit' do
+    action = mock('action')
+    Dataverse::Actions::ConnectorEdit.expects(:new).returns(action)
+    action.expects(:edit).with(@bundle, {form: 'other'}).returns(:ok)
+    assert_equal :ok, @processor.edit(@bundle, {form: 'other'})
+  end
+
   test 'update routes dataset_create form' do
     action = mock('action')
     Dataverse::Actions::DatasetCreate.expects(:new).returns(action)
     action.expects(:update).with(@bundle, {form: 'dataset_create'}).returns(:ok)
     assert_equal :ok, @processor.update(@bundle, {form: 'dataset_create'})
+  end
+
+  test 'update routes dataset_form_tabs form' do
+    action = mock('action')
+    Dataverse::Actions::DatasetFormTabs.expects(:new).returns(action)
+    action.expects(:update).with(@bundle, {form: 'dataset_form_tabs'}).returns(:ok)
+    assert_equal :ok, @processor.update(@bundle, {form: 'dataset_form_tabs'})
+  end
+
+  test 'update defaults to connector_edit' do
+    action = mock('action')
+    Dataverse::Actions::ConnectorEdit.expects(:new).returns(action)
+    action.expects(:update).with(@bundle, {form: 'unknown'}).returns(:ok)
+    assert_equal :ok, @processor.update(@bundle, {form: 'unknown'})
   end
 end

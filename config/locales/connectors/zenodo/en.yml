@@ -8,6 +8,8 @@ en:
         fetch_deposition:
           message_deposition_not_found: "Zenodo deposition not found for record: %{url}"
           message_success: "Successfully fetched deposition: %{name}"
+        repository_settings_update:
+          message_success: "Repository updated: %{url} type: %{type}"
         upload_bundle_create:
           message_url_not_supported: "Zenodo URL not supported: %{url}. Only deposition URLs are currently supported"
           message_record_not_found: "Zenodo record not found: %{url}. Only published records are supported"

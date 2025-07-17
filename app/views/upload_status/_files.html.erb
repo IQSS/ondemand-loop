@@ -7,25 +7,8 @@
     <div class="container files" role="table">
       <% files.each_with_index do |data, index| %>
         <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>" role="row">
-          <!-- info for small screens -->
-          <div class="col-sm-12 d-md-none" role="cell">
-            <div class="d-flex align-items-center">
-              <%= link_to(files_app_url(File.dirname(data.file.file_location)), class: 'btn btn-sm btn-outline-secondary me-2',
-                          title: t('.button_browse_file_title'), target: '_blank') do %>
-                <i class="bi bi-folder" aria-hidden="true"></i>
-                <span class="visually-hidden"><%= t('.button_browse_file_a11y_text', filename: data.file.filename) %></span>
-              <% end %>
-
-              <span class="me-2"><%= connector_icon(data.upload_bundle.type) %></span>
-
-              <span class="me-2"><%= data.project.name %> ></span>
-              <span class="me-2" title="<%= data.file.file_location %>"><%= data.file.filename %></span>
-            </div>
-          </div>
-          <!-- end info for small screens -->
-
           <!-- info for medium and large screens -->
-          <div class="col-md-8 d-none d-sm-none d-md-block" role="cell">
+          <div class="col-md-8" role="cell">
             <div class="d-flex align-items-center">
               <%= link_to(files_app_url(File.dirname(data.file.file_location)), class: 'btn btn-sm btn-outline-secondary me-2',
                           title: t('.button_browse_file_title'), target: '_blank') do %>
@@ -37,7 +20,11 @@
 
               <span class="me-2"><%= connector_icon(data.upload_bundle.type) %></span>
 
-              <span class="me-2"><%= data.project.name %> ></span>
+              <span class="me-2">
+                <%= link_to project_path(id: data.project.id, anchor: tab_anchor_for(data.upload_bundle)), class: "position-relative project-name-link text-reset text-decoration-none rounded-end" do %>
+                  <%= data.project.name %> >
+                <% end %>
+              </span>
               <span class="me-2" title="<%= data.file.file_location %>"><%= data.file.filename %></span>
               <small class="text-muted me-2"><%= number_to_human_size(data.file.size) %></small>
             </div>

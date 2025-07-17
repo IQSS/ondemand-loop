@@ -8,6 +8,8 @@ en:
   file_browser:
     directory_forbidden: "You do not have permission to access this directory."
   projects:
+    show:
+      project_not_found: "Project %{id} not found"
     create:
       project_created: "Project %{project_name} created"
       project_create_error: "Error generating the project: %{errors}"
@@ -25,6 +27,17 @@ en:
     resolve:
       blank_url_error: "Please provide repo URL"
       url_not_supported: "URL not supported: %{input} points to %{url}"
+  repository_settings:
+    create:
+      message_invalid_request: "Please provide a repository URL"
+      message_invalid_url: "URL not supported: %{url}"
+      message_success: "Repository added: %{url} type: %{type}"
+    update:
+      message_not_found: "Repository %{domain} not found"
+      message_success: "Repository %{domain} updated"
+    destroy:
+      message_not_found: "Repository %{domain} not found"
+      message_deleted: "Repository %{domain} (%{type}) deleted"
   upload_bundles:
     create:
       invalid_project: "Invalid project id: %{id}"

@@ -11,6 +11,8 @@ en:
           message_success: "Dataset created: %{id} > %{title}"
         dataset_select:
           message_success: "Dataset selected: %{title}"
+        repository_settings_update:
+          message_success: "Repository updated: %{url} type: %{type}"
         upload_bundle_create:
           message_collection_not_found: "Dataverse collection not found: %{url}. Only public and published collections are supported"
           message_dataset_not_found: "Dataverse dataset not found: %{url}.<br />Only public and published datasets are supported"
@@ -155,6 +157,12 @@ en:
         breadcrumb_home_title: "Home"
         image_dataverse_icon_alt: "Dataverse icon"
         page_title: "OnDemand Loop - Dataverse Landing page"
+
+    restrictions:
+      dataset_file:
+        unavailable_message: "Restricted or embargoed files cannot be downloaded"
+        missing_file_message: "File data is not present"
+        file_size_message: "Files bigger than %{max_size} are not supported"
   helpers:
     dataverse:
       invalid_hostname: "Invalid Dataverse hostname"

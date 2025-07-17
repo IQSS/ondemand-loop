@@ -9,7 +9,7 @@ module LoggingCommon
 
     if exception
       # First 5 lines as a stack trace
-      log_message += "\n[STACK] " + exception.message
+      log_message += "\n[STACK] #{exception.class}: #{exception.message}"
       log_message += "\n[STACK] " + exception.backtrace&.first(5)&.join("\n[STACK] ")
     end
 

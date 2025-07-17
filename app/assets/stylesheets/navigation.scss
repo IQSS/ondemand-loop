@@ -1,4 +1,8 @@
 nav {
+  li.nav-item a.active {
+    background-color: #495057;
+  }
+
   .icon-wrapper {
     width: 25px;
     height: 25px;

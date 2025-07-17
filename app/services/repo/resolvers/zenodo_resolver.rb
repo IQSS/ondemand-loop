@@ -23,7 +23,7 @@ module Repo
         return unless ZENODO_DOMAINS.include?(repo_url.domain)
 
         context.type = ConnectorType::ZENODO
-        context.repo_db.set(repo_url.domain, type: ConnectorType::ZENODO)
+        context.repo_db.set(repo_url.zenodo_url, type: ConnectorType::ZENODO)
 
         log_info("ZenodoResolver matched URL: #{context.object_url}")
       end

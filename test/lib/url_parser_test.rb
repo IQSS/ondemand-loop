@@ -53,13 +53,26 @@ class UrlParserTest < ActiveSupport::TestCase
     assert_equal({}, parser.params)
   end
 
-  test 'should handle URL with only domain' do
+  test 'should handle URL with no path' do
     url = 'https://example.com'
     parser = UrlParser.parse(url)
 
     assert parser
     assert_equal 'https', parser.scheme
     assert_equal 'example.com', parser.domain
+    assert_nil parser.port
+    assert_equal '/', parser.path
+    assert_equal({}, parser.params)
+    assert_equal [], parser.path_segments
+  end
+
+  test 'should handle URL with domain and no protocol' do
+    url = 'www.example.com'
+    parser = UrlParser.parse(url)
+
+    assert parser
+    assert_equal 'https', parser.scheme
+    assert_equal 'www.example.com', parser.domain
     assert_nil parser.port
     assert_equal '/', parser.path
     assert_equal({}, parser.params)

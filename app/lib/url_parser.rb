@@ -1,16 +1,22 @@
 # frozen_string_literal: true
 
+require 'addressable/uri'
+
 class UrlParser
   attr_reader :scheme, :domain, :port, :path, :params
 
   def self.parse(url)
     return nil if url.blank?
 
-    uri = URI.parse(url)
-    return nil unless uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
+    uri = Addressable::URI.parse(url)
+    unless uri.scheme
+      uri = Addressable::URI.parse("https://#{url}")
+    end
 
-    new(url)
-  rescue URI::InvalidURIError
+    return nil unless uri.host
+
+    new(uri)
+  rescue Addressable::URI::InvalidURIError
     nil
   end
 
@@ -21,11 +27,11 @@ class UrlParser
   end
 
   def path_segments
-    @path_segments ||= @path.split('/').reject(&:empty?)
+    @path_segments ||= path.split('/').reject(&:empty?)
   end
 
   def server_url
-    URI::Generic.build(
+    Addressable::URI.new(
       scheme: scheme,
       host: domain,
       port: port
@@ -34,24 +40,18 @@ class UrlParser
 
   private
 
-  def initialize(url)
-    @url = url
-    parse_url
-  end
-
-  def parse_url
-    uri = URI.parse(@url)
+  def initialize(uri)
     @scheme = uri.scheme
     @domain = uri.host
     @port = uri.port if uri.port && uri.port != default_port(uri.scheme)
     @path = normalize_path(uri.path)
-    @params = parse_query(uri.query)
+    @params = parse_query(uri.query_values)
   end
 
-  def normalize_path(path)
-    segments = path.split('/').reject(&:empty?)
-    return '/' if segments.empty?
+  def normalize_path(raw_path)
+    return '/' if raw_path.blank?
 
+    segments = raw_path.split('/').reject(&:empty?)
     '/' + segments.join('/')
   end
 
@@ -59,9 +59,9 @@ class UrlParser
     scheme == 'https' ? 443 : 80
   end
 
-  def parse_query(query)
-    return {} unless query
+  def parse_query(query_values)
+    return {} unless query_values
 
-    URI.decode_www_form(query).to_h.symbolize_keys
+    query_values.transform_keys(&:to_sym)
   end
 end

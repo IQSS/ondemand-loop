@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Repo
   class RepoResolverContext
     attr_reader :input, :parsed_input, :http_client, :repo_db
@@ -23,7 +25,7 @@ module Repo
     end
 
     def resolved?
-      type.present?
+      object_url.present? && type.present?
     end
 
     def unknown?

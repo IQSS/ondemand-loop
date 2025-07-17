@@ -15,8 +15,8 @@ module Dataverse::Actions
         metadata[:auth_key] = repo_key
         upload_bundle.update({ metadata: metadata })
       else
-        server_domain = upload_bundle.connector_metadata.server_domain
-        RepoRegistry.repo_db.update(server_domain, metadata: {auth_key: repo_key})
+        dataverse_url = upload_bundle.connector_metadata.dataverse_url
+        RepoRegistry.repo_db.update(dataverse_url, metadata: {auth_key: repo_key})
       end
 
       ConnectorResult.new(

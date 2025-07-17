@@ -19,7 +19,7 @@ class Zenodo::Actions::UploadBundleCreateTest < ActiveSupport::TestCase
     Zenodo::ZenodoUrl.stubs(:parse).returns(url_data)
 
     repo_info = OpenStruct.new(metadata: OpenStruct.new(auth_key: 'KEY'))
-    RepoRegistry.repo_db.stubs(:get).with('zenodo.org').returns(repo_info)
+    RepoRegistry.repo_db.stubs(:get).with('https://zenodo.org').returns(repo_info)
 
     dep = OpenStruct.new(title: 'title', bucket_url: 'b', draft?: false)
     service = mock('service')

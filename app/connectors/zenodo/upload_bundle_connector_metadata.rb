@@ -18,7 +18,7 @@ module Zenodo
     def api_key
       return OpenStruct.new({ bundle?: true, server?: false, value: @metadata[:auth_key] }) if @metadata[:auth_key]
 
-      repo_info = RepoRegistry.repo_db.get(server_domain)
+      repo_info = RepoRegistry.repo_db.get(zenodo_url)
       OpenStruct.new({ bundle?: false, server?: true, value: repo_info.metadata.auth_key }) if repo_info && repo_info.metadata.auth_key
     end
 

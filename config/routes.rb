@@ -30,6 +30,17 @@ Rails.application.routes.draw do
     end
   end
 
+  # REPO RESOLVER ROUTES
+  post '/view/repo/resolve' => 'repo_resolver#resolve', as: :repo_resolver
+
+  # REPOSITORY SETTINGS ROUTES
+  resources :repository_settings, path: 'repositories/settings', only: [:index, :create] do
+    collection do
+      put :update
+      delete :destroy
+    end
+  end
+
   #FILE ACTIVITY
   get '/detached_process/status', to: 'detached_process#status'
   # FILE BROWSER
@@ -51,9 +62,6 @@ Rails.application.routes.draw do
   post "/view/zenodo/download/record" => "zenodo/records#download", as: :download_zenodo_record_files
   get "/view/zenodo" => "zenodo/landing_page#index", as: :view_zenodo_landing
   get "/view/zenodo/records/:id" => "zenodo/records#show", as: :view_zenodo_record, format: false
-
-  # REPO RESOLVER ROUTES
-  post '/view/repo/resolve' => 'repo_resolver#resolve', as: :repo_resolver
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

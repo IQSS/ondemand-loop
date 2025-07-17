@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-between align-items-center mt-3" aria-label="<%= t('.actions_bar_title_a11y_label') %>">
+  <div class="d-flex align-items-center gap-2">
+    <h2 class="mb-0 me-2 fs-4 h5">Repositories</h2>
+  </div>
+<%= render partial: 'shared/inline_field_submit', locals: {
+  url: repository_settings_path,
+  type: 'form',
+  field_name: 'repo_url',
+  label: t('.button_add_repository_label'),
+  placeholder: t('.button_add_repository_placeholder'),
+  title: t('.button_add_repository_title'),
+  icon: 'bi bi-file-earmark-plus-fill',
+} %>
+</div>
+<hr class="mt-2">

@@ -21,7 +21,7 @@ class Repo::Resolvers::DataverseResolverTest < ActiveSupport::TestCase
     resolver.resolve(context)
 
     assert_equal ConnectorType::DATAVERSE, context.type
-    assert @repo_db.get('dv.org')
+    assert @repo_db.get('https://dv.org')
   end
 
   test 'resolve falls back to API when domain unknown' do
@@ -38,7 +38,7 @@ class Repo::Resolvers::DataverseResolverTest < ActiveSupport::TestCase
     resolver.resolve(context)
 
     assert_equal ConnectorType::DATAVERSE, context.type
-    assert @repo_db.get('unknown.org')
+    assert @repo_db.get('https://unknown.org')
   end
 
   test 'resolve handles api failures gracefully' do

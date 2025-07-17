@@ -30,4 +30,24 @@ class Zenodo::RecordsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     assert_match 'Files added to project', flash[:notice]
   end
+
+  test 'download reports project save error' do
+    Project.stubs(:find).returns(nil)
+    project = Project.new(name: 'P')
+    project.stubs(:save).returns(false)
+    project.errors.add(:base, 'fail')
+    Zenodo::ProjectService.any_instance.stubs(:initialize_project).returns(project)
+    post download_zenodo_record_files_path, params: {id: '1', file_ids: []}
+    assert_redirected_to root_path
+    assert_match 'fail', flash[:alert]
+  end
+
+  test 'download aborts on file validation error' do
+    Project.stubs(:find).returns(Project.new(name: 'P'))
+    invalid_file = OpenStruct.new(valid?: false, filename: 'f.txt', errors: OpenStruct.new(full_messages: ['bad']))
+    Zenodo::ProjectService.any_instance.stubs(:initialize_download_files).returns([invalid_file])
+    post download_zenodo_record_files_path, params: {id: '1', file_ids: []}
+    assert_redirected_to root_path
+    assert_match 'bad', flash[:alert]
+  end
 end

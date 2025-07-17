@@ -24,9 +24,10 @@ module Repo
 
         domain = repo_url.domain
         return unless domain
+        repo_base_url = repo_url.dataverse_url
 
-        log_info('Checking RepoCache', {domain: domain})
-        repo_info = context.repo_db.get(domain)
+        log_info('Checking RepoCache', {repo_url: repo_base_url})
+        repo_info = context.repo_db.get(repo_base_url)
         if repo_info
           context.type = repo_info.type
           return
@@ -34,13 +35,13 @@ module Repo
 
         log_info('Checking DataverseHub', {domain: domain})
         if known_dataverse_installation?(domain)
-          success(context, domain)
+          success(context, repo_base_url)
           return
         end
 
         log_info('Checking Dataverse API', {dataverse_url: repo_url.dataverse_url})
         if responds_to_api?(context.http_client, repo_url)
-          success(context, domain)
+          success(context, repo_base_url)
           return
         end
       end
@@ -70,9 +71,9 @@ module Repo
         false
       end
 
-      def success(context, domain)
+      def success(context, repo_base_url)
         context.type = ConnectorType::DATAVERSE
-        context.repo_db.set(domain, type: ConnectorType::DATAVERSE)
+        context.repo_db.set(repo_base_url, type: ConnectorType::DATAVERSE)
       end
 
     end

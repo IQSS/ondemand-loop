@@ -28,11 +28,11 @@ module Dataverse::Actions
     def subjects(upload_bundle)
       connector_metadata = upload_bundle.connector_metadata
       repo_db = RepoRegistry.repo_db
-      dataverse_data = repo_db.get(connector_metadata.server_domain)
+      dataverse_data = repo_db.get(connector_metadata.dataverse_url)
       if dataverse_data.metadata.subjects.nil?
         dv_metadata_service = Dataverse::MetadataService.new(connector_metadata.dataverse_url)
         subjects = dv_metadata_service.get_citation_metadata.subjects
-        repo_db.update(connector_metadata.server_domain, metadata: { subjects: subjects })
+        repo_db.update(connector_metadata.dataverse_url, metadata: { subjects: subjects })
       else
         subjects = dataverse_data.metadata.subjects
       end

@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { showFlash } from 'utils/flash_message'
 
 export default class extends Controller {
     static targets = ["title", "subtitle", "content", "spinner", "confirmButton", "confirmText"]
@@ -56,9 +57,18 @@ export default class extends Controller {
 
         if (this.hasContentTarget) {
             fetch(url)
-                .then(response => response.text())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
                 .then(html => {
                     this.contentTarget.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error("Modal load error", error)
+                    showFlash("error", window.loop_app_config.i18n.modal.load.error, this.contentTarget)
                 })
                 .finally( () => this.hideSpinner())
         }

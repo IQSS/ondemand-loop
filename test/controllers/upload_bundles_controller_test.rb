@@ -45,6 +45,29 @@ class UploadBundlesControllerTest < ActionDispatch::IntegrationTest
     assert_match 'URL not supported', flash[:alert]
   end
 
+  test 'edit renders partial' do
+    bundle = create_upload_bundle(create_project)
+    UploadBundle.stubs(:find).returns(bundle)
+    processor = mock('proc')
+    processor.stubs(:params_schema).returns([])
+    processor.stubs(:edit).returns(ConnectorResult.new(partial: '/p', locals: {}))
+    ConnectorClassDispatcher.stubs(:upload_bundle_connector_processor).returns(processor)
+    UploadBundlesController.any_instance.stubs(:render).returns(true)
+    get edit_project_upload_bundle_url('p', bundle.id, format: :html)
+    assert_response :not_acceptable
+  end
+
+  test 'update redirects with processor result' do
+    bundle = create_upload_bundle(create_project)
+    UploadBundle.stubs(:find).returns(bundle)
+    processor = mock('proc')
+    processor.stubs(:params_schema).returns([])
+    processor.stubs(:update).returns(ConnectorResult.new(message: {notice: 'ok'}))
+    ConnectorClassDispatcher.stubs(:upload_bundle_connector_processor).returns(processor)
+    patch project_upload_bundle_url('p', bundle.id)
+    assert_redirected_to root_path
+  end
+
   test 'destroy removes upload bundle' do
     project = create_project
     bundle = create_upload_bundle(project)

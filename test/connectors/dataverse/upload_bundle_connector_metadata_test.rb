@@ -17,10 +17,6 @@ class Dataverse::UploadBundleConnectorMetadataTest < ActiveSupport::TestCase
     @meta = Dataverse::UploadBundleConnectorMetadata.new(@bundle)
   end
 
-  test 'server_domain parsed from url' do
-    assert_equal 'demo.dataverse.org', @meta.server_domain
-  end
-
   test 'api_key detected' do
     assert @meta.api_key?
   end

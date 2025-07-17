@@ -65,6 +65,9 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
 
+  # Raise errors for missing properties
+  config.i18n.raise_on_missing_translations = true
+
   # Support test templates
   config.paths['app/views'].unshift('test/fixtures/views')
 end

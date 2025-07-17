@@ -33,7 +33,7 @@ class Dataverse::ProjectServiceTest < ActiveSupport::TestCase
     files_page = Dataverse::DatasetFilesResponse.new(valid_json)
     project = @service.initialize_project
     assert project.save
-    download_files = @service.initialize_download_files(project, dataset, files_page, [4])
+    download_files = @service.initialize_download_files(project, dataset.data.dataset_persistent_id, dataset, files_page, [4])
     assert download_files.kind_of?(Array)
     assert_equal 1, download_files.count
     assert download_files[0].kind_of?(DownloadFile)

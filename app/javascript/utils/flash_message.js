@@ -1,7 +1,29 @@
-// app/javascript/utils/flash.js
-export function showFlash(type, message, containerId) {
-    containerId = containerId || "flash-container"
-    const container = document.getElementById(containerId) || document.body
+/**
+ * Displays a flash message inside a specified container.
+ *
+ * @param {string} type - The type of flash (e.g., 'success', 'error', 'info').
+ * @param {string} message - The message text to display.
+ * @param {string|Element} [container] - Optional. Can be:
+ *   - a string (DOM element ID),
+ *   - a DOM element (e.g., Stimulus target),
+ *   - or undefined (defaults to '#flash-container' or <body>).
+ *
+ * If the container is not found or not provided, the message will be prepended
+ * to an element with ID 'flash-container', or to document.body as a last resort.
+ */
+export function showFlash(type, message, container) {
+    // Determine container element
+    let containerElement
+    if (typeof container === 'string') {
+        containerElement = document.getElementById(container)
+    } else if (container instanceof Element) {
+        containerElement = container
+    }
+
+    // Fallback to default if nothing valid was passed
+    if (!containerElement) {
+        containerElement = document.getElementById('flash-container') || document.body
+    }
 
     const wrapper = document.createElement("div")
     wrapper.innerHTML = `
@@ -11,7 +33,7 @@ export function showFlash(type, message, containerId) {
     </div>
   `.trim()
 
-    container.prepend(wrapper.firstElementChild)
+    containerElement.prepend(wrapper.firstElementChild)
 }
 
 function bootstrapAlertClass(type) {

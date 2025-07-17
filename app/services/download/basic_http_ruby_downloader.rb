@@ -38,7 +38,7 @@ module Download
             return download_follow_redirects(new_url, file_path, headers, limit - 1, &)
           end
 
-          raise "Failed to download: #{response.code}" unless response.is_a?(Net::HTTPSuccess)
+          raise "Failed to download: (HTTP: #{response.code}) #{response.body}" unless response.is_a?(Net::HTTPSuccess)
 
           total_downloaded = 0  # Initialize the total downloaded size
           File.open(file_path, "wb") do |file|

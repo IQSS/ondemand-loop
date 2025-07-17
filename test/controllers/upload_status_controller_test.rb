@@ -26,6 +26,13 @@ class UploadStatusControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "files renders partial" do
+    UploadStatusController.any_instance.stubs(:upload_status).returns(OpenStruct.new(idle?: true))
+    ScriptLauncher.any_instance.stubs(:launch_script).returns(true)
+    get upload_status_files_url
+    assert_response :success
+  end
+
   private
 
   def populate

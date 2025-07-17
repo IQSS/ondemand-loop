@@ -40,4 +40,17 @@ class Dataverse::CollectionServiceTest < ActiveSupport::TestCase
       service.find_collection_by_id('123')
     end
   end
+
+  test 'get_my_collections parses response' do
+    client = HttpClientMock.new(file_path: fixture_path('dataverse/my_dataverse_collections_response/valid_response.json'))
+    service = Dataverse::CollectionService.new('https://example.com', http_client: client, api_key: 'KEY')
+    res = service.get_my_collections
+    assert_kind_of Dataverse::MyDataverseCollectionsResponse, res
+  end
+
+  test 'get_my_collections returns nil on 404' do
+    client = HttpClientMock.new(file_path: fixture_path('dataverse/collection_response/valid_response.json'), status_code:404)
+    service = Dataverse::CollectionService.new('https://example.com', http_client: client, api_key: 'KEY')
+    assert_nil service.get_my_collections
+  end
 end

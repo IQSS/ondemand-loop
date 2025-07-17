@@ -58,33 +58,21 @@ class ConfigurationSingleton
   private
 
   def load_dotenv_files
-    # .env.local first, so it can override OOD_APP_CONFIG_ROOT
-    Dotenv.load(*dotenv_local_files)
+    env_files = [
+      app_root.join(".env.#{rails_env}"),
+      app_root.join('.env')
+    ].compact
 
-    # load the rest of the dotenv files
-    Dotenv.load(*dotenv_files)
+    # overwrite = false => environment specific properties take precedence
+    Dotenv.load(*env_files, overwrite: false)
   end
 
   def app_root
     Pathname.new(File.expand_path('../../',  __FILE__))
   end
 
-  def dotenv_local_files
-    [
-      app_root.join(".env.#{rails_env}.local"),
-      (app_root.join('.env.local') unless rails_env == 'test')
-    ].compact
-  end
-
-  def dotenv_files
-    [
-      app_root.join(".env.#{rails_env}"),
-      app_root.join('.env')
-    ].compact
-  end
-
   def config_directory
-    Pathname.new(ENV['LOOP_CONFIG_DIRECTORY'] || '/etc/loop/config')
+    Pathname.new(ENV['LOOP_CONFIG_DIRECTORY'] || '/etc/loop/config/loop.d')
   end
 
   def read_config

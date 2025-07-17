@@ -39,6 +39,15 @@
                 </a>
               </li>
             <% end %>
+            <li><hr class="dropdown-divider"></li>
+            <li role="menuitem">
+              <%= nav_link_to repository_settings_path, class: 'dropdown-item d-flex align-items-center gap-2' do %>
+                <span class="icon-wrapper bg-white text-dark rounded d-inline-flex align-items-center justify-content-center p-1">
+                  <i class="bi bi-gear-fill" aria-hidden="true"></i>
+                </span>
+                <%= t('repository_settings.index.breadcrumbs_text') %>
+              <% end %>
+            </li>
           </ul>
         </li>
       </ul>
@@ -74,7 +83,7 @@
             <li role="menuitem">
               <a class="dropdown-item d-flex align-items-center gap-2" href="<%= restart_url %>">
                 <span class="icon-wrapper icon-wrapper bg-white text-dark rounded d-inline-flex align-items-center justify-content-center p-1">
-                  <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+                  <i class="bi bi-bootstrap-reboot" aria-hidden="true"></i>
                 </span>
                 <%= t(".link_restart_text") %>
               </a>

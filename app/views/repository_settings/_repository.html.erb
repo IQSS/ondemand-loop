@@ -1,0 +1,57 @@
+<li class="card mb-3 shadow-sm rounded">
+  <div class="card-header bg-light d-flex justify-content-between align-items-center">
+
+    <a class="d-flex align-items-center text-decoration-none text-secondary"
+       data-bs-toggle="collapse"
+       data-controller="utils--icon-toggle"
+       data-utils--icon-toggle-icon-on-value="bi-plus-square"
+       data-utils--icon-toggle-icon-off-value="bi-dash-square"
+       data-action="click->utils--icon-toggle#toggle"
+       href="#repo-<%= repo_url.parameterize %>"
+       role="button"
+       aria-expanded="false"
+       aria-controls="repo-<%= repo_url.parameterize %>">
+      <i data-utils--icon-toggle-target="icon" class="bi bi-plus-square me-2 transition" style="line-height: 1;" aria-hidden="true"></i>
+      <span class="me-2 d-inline-flex align-items-center" style="line-height: 1;">
+        <%= connector_icon(entry.type) %>
+      </span>
+      <strong class="d-inline-block"><%= repo_url %></strong>
+    </a>
+
+    <div class="d-flex align-items-center gap-2">
+      <%= link_to repo_url, target: '_blank',
+                  class: 'btn btn-sm btn-outline-dark',
+                  title: t('.link_open_repository_title') do %>
+        <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+        <span class="visually-hidden"><%= t('.link_open_repository_title') %></span>
+      <% end %>
+
+      <%= link_to browse_repository_path(repo_url, entry),
+                  class: 'btn btn-sm btn-outline-dark',
+                  title: t('.button_browse_repository_title') do %>
+        <i class="bi bi-display" aria-hidden="true"></i>
+        <span class="visually-hidden"><%= t('.button_browse_repository_label') %></span>
+      <% end %>
+
+      <%= render layout: "shared/button_to", locals: {
+        url: repository_settings_path,
+        method: 'DELETE',
+        title: t('.button_delete_repository_title'),
+        class: 'btn-sm btn-outline-dark icon-hover-danger',
+        icon: 'bi bi-trash-fill',
+        modal_id: 'modal-delete-confirmation',
+        modal_title: t('.modal_delete_confirmation_title'),
+        modal_subtitle: repo_url,
+        modal_content: t('.modal_delete_confirmation_content')
+      } do %>
+        <%= hidden_field_tag :repo_url, repo_url %>
+      <% end %>
+    </div>
+
+  </div>
+  <div class="collapse" id="repo-<%= repo_url.parameterize %>">
+    <div class="card-body">
+      <%= render partial: "/connectors/#{entry.type.to_s.downcase}/repo_settings", locals: { repo_url: repo_url, metadata: entry.metadata } %>
+    </div>
+  </div>
+</li>

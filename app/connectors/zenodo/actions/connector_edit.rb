@@ -17,8 +17,8 @@ module Zenodo::Actions
         metadata[:auth_key] = repo_key
         upload_bundle.update({ metadata: metadata })
       else
-        server_domain = upload_bundle.connector_metadata.server_domain
-        RepoRegistry.repo_db.update(server_domain, metadata: {auth_key: repo_key})
+        zenodo_url = upload_bundle.connector_metadata.zenodo_url
+        RepoRegistry.repo_db.update(zenodo_url, metadata: {auth_key: repo_key})
       end
 
       ConnectorResult.new(

@@ -21,7 +21,7 @@
 
       <button data-controller="lazy-loader file-drop-activation"
               data-lazy-loader-container-id-value="<%= file_browser_id %>"
-              data-lazy-loader-url-value="<%= file_browser_path %>"
+              data-lazy-loader-url-value="<%= file_browser_path(path: project.download_dir) %>"
               data-file-drop-activation-file-drop-id-value="<%= file_target_id %>"
               data-action="click->lazy-loader#toggle click->file-drop-activation#toggleFileDrop"
               title="<%= t('.button_add_files_title') %>"

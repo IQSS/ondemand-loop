@@ -25,6 +25,13 @@ class DownloadStatusControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "files renders partial" do
+    DownloadStatusController.any_instance.stubs(:download_status).returns(OpenStruct.new(idle?: true))
+    ScriptLauncher.any_instance.stubs(:launch_script).returns(true)
+    get download_status_files_url
+    assert_response :success
+  end
+
   private
 
   def populate
@@ -39,7 +46,7 @@ class DownloadStatusControllerTest < ActionDispatch::IntegrationTest
     project = service.initialize_project
     project.save
 
-    files = service.initialize_download_files(project, dataset, files_page, file_ids)
+    files = service.initialize_download_files(project, dataset.data.dataset_persistent_id, dataset, files_page, file_ids)
     files.each do |download_file|
       download_file.save
     end

@@ -24,6 +24,10 @@ class ConnectorClassDispatcher
     self.load(upload_bundle.type, 'UploadBundleConnectorMetadata', upload_bundle)
   end
 
+  def self.repository_settings_processor(type)
+    self.load(type, 'RepositorySettingsProcessor', nil)
+  end
+
   def self.download_processor(download_file)
     self.load(download_file.type, 'DownloadConnectorProcessor', download_file)
   end

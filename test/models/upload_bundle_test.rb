@@ -132,6 +132,26 @@ class UploadBundleTest < ActiveSupport::TestCase
     assert_equal @upload_bundle.project_id, upload_bundle.project_id
   end
 
+  test 'type= raises for invalid type' do
+    assert_raises(ArgumentError) { @upload_bundle.type = 'bad' }
+  end
+
+  test 'files returns upload files sorted' do
+    f1 = create_upload_file(@project, @upload_bundle)
+    f2 = create_upload_file(@project, @upload_bundle)
+    UploadFile.stubs(:find).with(@project.id, @upload_bundle.id, f1.id).returns(f1)
+    UploadFile.stubs(:find).with(@project.id, @upload_bundle.id, f2.id).returns(f2)
+    dir = File.join(Project.upload_bundles_directory(@project.id), @upload_bundle.id, 'files')
+    FileUtils.mkdir_p(dir)
+    file1 = File.join(dir, "#{f1.id}.yml")
+    file2 = File.join(dir, "#{f2.id}.yml")
+    FileUtils.touch(file1)
+    sleep 0.1
+    FileUtils.touch(file2)
+    files = @upload_bundle.files
+    assert_equal [f1, f2], files
+  end
+
   def map_objects(hash)
     hash['type'] = hash['type'].to_s
     hash

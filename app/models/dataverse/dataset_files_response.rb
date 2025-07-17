@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "json"
+require "date"
 
 module Dataverse
   class DatasetFilesResponse
@@ -59,9 +60,13 @@ module Dataverse
         data_file.original_content_type || data_file.content_type
       end
 
+      def public?
+        !restricted && !data_file.embargoed?
+      end
+
       class DataFile
         attr_reader :id, :filename, :content_type, :friendly_type, :storage_identifier, :filesize, :md5, :publication_date
-        attr_reader :original_filename, :original_content_type, :original_filesize
+        attr_reader :original_filename, :original_content_type, :original_filesize, :embargo
 
         def initialize(data_file)
           data_file = data_file || {}
@@ -74,9 +79,32 @@ module Dataverse
           @md5 = data_file[:md5]
           @publication_date = data_file[:publicationDate]
 
+          @embargo = data_file[:embargo] ? Embargo.new(data_file[:embargo]) : nil
+
           @original_filename = data_file[:originalFileName]
           @original_content_type = data_file[:originalFileFormat]
           @original_filesize = data_file[:originalFileSize]
+        end
+
+        def embargoed?
+          embargo&.active?
+        end
+
+        class Embargo
+          attr_reader :date_available, :reason
+
+          def initialize(embargo)
+            embargo ||= {}
+            @date_available = embargo[:dateAvailable]
+            @reason = embargo[:reason]
+          end
+
+          def active?
+            return false if date_available.nil?
+            Date.parse(date_available) > Date.current
+          rescue ArgumentError
+            false
+          end
         end
       end
     end

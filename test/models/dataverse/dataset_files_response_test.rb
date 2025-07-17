@@ -38,6 +38,7 @@ class Dataverse::DatasetFilesResponseTest < ActiveSupport::TestCase
     assert_equal 272314, data_file.filesize
     assert_equal "13035cba04a51f54dd8101fe726cda5c", data_file.md5
     assert_equal "PNG Image", data_file.friendly_type
+    assert_nil data_file.embargo
   end
 
   test "empty json for dataset files does not throw exception" do
@@ -132,6 +133,28 @@ class Dataverse::DatasetFilesResponseTest < ActiveSupport::TestCase
     assert_nil data_file.filesize
     assert_nil data_file.md5
     assert_nil data_file.friendly_type
+  end
+
+  test "embargo metadata is parsed" do
+    json = load_file_fixture(File.join('dataverse', 'dataset_files_response', 'valid_response_embargo.json'))
+    dataset_files = Dataverse::DatasetFilesResponse.new(json)
+    file = dataset_files.files.first
+    assert file.data_file.embargo
+    assert_equal "2099-09-05", file.data_file.embargo.date_available
+    assert_equal "Testing Loop", file.data_file.embargo.reason
+  end
+
+  test "public? respects restricted flag" do
+    file_hash = { label: 'a', restricted: true, dataFile: { id: 1 } }
+    file = Dataverse::DatasetFilesResponse::DatasetFile.new(file_hash)
+    refute file.public?
+  end
+
+  test "public? returns false when embargo active" do
+    json = load_file_fixture(File.join('dataverse', 'dataset_files_response', 'valid_response_embargo.json'))
+    dataset_files = Dataverse::DatasetFilesResponse.new(json)
+    file = dataset_files.files.first
+    refute file.public?
   end
 
 end

@@ -34,6 +34,9 @@ en:
       submit:
         success: "Saved successfully"
         error: "There was an error saving your data."
+    modal:
+      load:
+        error: "There was an error loading the content."
     project_name:
       save:
         error: "Could not update project name."

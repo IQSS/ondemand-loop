@@ -29,4 +29,10 @@ class Dataverse::Actions::DatasetSelectTest < ActiveSupport::TestCase
     @action.stubs(:datasets).returns(datasets)
     assert_equal 'Title', @action.send(:dataset_title, @bundle, 'g')
   end
+
+  test 'dataset_title returns nil when not found' do
+    datasets = OpenStruct.new(items: [OpenStruct.new(global_id: 'g', name: 'Title')])
+    @action.stubs(:datasets).returns(datasets)
+    assert_nil @action.send(:dataset_title, @bundle, 'missing')
+  end
 end

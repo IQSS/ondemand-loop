@@ -38,7 +38,7 @@ class Dataverse::Actions::DatasetFormTabsTest < ActiveSupport::TestCase
     @bundle.stubs(:connector_metadata).returns(meta)
     repo = mock('repo')
     repo.stubs(:metadata).returns(OpenStruct.new(subjects: nil))
-    RepoRegistry.repo_db.stubs(:get).with('demo.dv').returns(repo)
+    RepoRegistry.repo_db.stubs(:get).with('https://demo.dv').returns(repo)
     RepoRegistry.repo_db.stubs(:update)
 
     md_service = mock('md')
