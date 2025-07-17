@@ -8,6 +8,11 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal '/nginx/stop?redir=/', restart_url
   end
 
+  test 'server_hostname returns hostname based on Socket classes' do
+    Socket.stubs(:gethostname).returns('test_hostname')
+    assert_equal 'test_hostname', server_hostname
+  end
+
   test 'guide_url returns Configuration.guide_url' do
     Configuration.stubs(:guide_url).returns('https://myguide.com/test')
     assert_equal 'https://myguide.com/test', guide_url

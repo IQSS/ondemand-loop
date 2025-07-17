@@ -1,5 +1,5 @@
 <footer class="d-flex m-0 mt-4 justify-content-between align-items-center p-4">
-  <div class="me-2">
+  <div id="footer-iqss" class="me-2">
     <%= link_to "https://www.iq.harvard.edu/research-computing" do %>
       <%=
         image_tag(
@@ -11,13 +11,16 @@
       %>
     <% end %>
   </div>
-  <div class="me-2 d-flex flex-column">
+  <div id="footer-sitemap" class="me-2 d-flex flex-column align-items-center ">
     <%= link_to(sitemap_path, class: 'btn btn-outline-dark btn-sm', aria: { label: t('.link_sitemap_text') }) do %>
       <i class="bi bi-diagram-3" aria-hidden="true"></i>
       <span class="ps-1"><%= t(".link_sitemap_text") %></span>
     <% end %>
   </div>
-  <div class="d-flex flex-column align-items-center text-muted">
+  <div id="footer-hostname" class="me-2">
+    <span><%= server_hostname %></span>
+  </div>
+  <div id="footer-version" class="d-flex flex-column align-items-center text-muted">
     <span><%= t('.version_text') %></span>
     <span><%= ::Configuration.version %></span>
   </div>

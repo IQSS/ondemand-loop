@@ -5,6 +5,10 @@ module ApplicationHelper
     "/nginx/stop?redir=#{root_path}"
   end
 
+  def server_hostname
+    Socket.gethostname
+  end
+
   def guide_url
     Configuration.guide_url
   end
