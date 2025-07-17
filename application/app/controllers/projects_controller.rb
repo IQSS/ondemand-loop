@@ -7,6 +7,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    redirect_to projects_path, alert: t(".project_not_found", id: params[:id]) unless @project
   end
 
   def create

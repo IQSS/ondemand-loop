@@ -30,6 +30,14 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "project detail page should redirect to projects page when project not found" do
+    get project_url(id: 'missing_project_id')
+
+    assert_redirected_to projects_url
+    follow_redirect!
+    assert_match "Project missing_project_id not found", flash[:alert]
+  end
+
   test "should create project with generated name" do
     ProjectNameGenerator.stubs(:generate).returns("generated_project")
     post projects_url

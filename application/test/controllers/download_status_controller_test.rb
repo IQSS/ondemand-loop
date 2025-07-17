@@ -46,7 +46,7 @@ class DownloadStatusControllerTest < ActionDispatch::IntegrationTest
     project = service.initialize_project
     project.save
 
-    files = service.initialize_download_files(project, dataset, files_page, file_ids)
+    files = service.initialize_download_files(project, dataset.data.dataset_persistent_id, dataset, files_page, file_ids)
     files.each do |download_file|
       download_file.save
     end

@@ -8,6 +8,8 @@ en:
   file_browser:
     directory_forbidden: "You do not have permission to access this directory."
   projects:
+    show:
+      project_not_found: "Project %{id} not found"
     create:
       project_created: "Project %{project_name} created"
       project_create_error: "Error generating the project: %{errors}"
