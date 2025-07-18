@@ -1,6 +1,8 @@
 require 'dotenv'
 require_relative 'configuration_property'
 class ConfigurationSingleton
+  APP_ROOT = File.expand_path('..', __dir__)
+
   def initialize
     load_dotenv_files
     add_property_configs
@@ -8,6 +10,8 @@ class ConfigurationSingleton
 
   def property_configs
     [
+      ::ConfigurationProperty.file_content(:version, default: File.join(APP_ROOT, 'VERSION').to_s),
+      ::ConfigurationProperty.file_content(:ood_version, default: '/opt/ood/VERSION', read_from_env: true, env_names: ['OOD_VERSION', 'ONDEMAND_VERSION']),
       ::ConfigurationProperty.path(:metadata_root, default: File.join(Dir.home, '.downloads-for-ondemand')),
       ::ConfigurationProperty.path(:download_root, default: File.join(Dir.home, 'downloads-ondemand')),
       ::ConfigurationProperty.property(:ruby_binary, default: File.join(RbConfig::CONFIG['bindir'], 'ruby')),
@@ -25,10 +29,6 @@ class ConfigurationSingleton
       ::ConfigurationProperty.boolean(:zenodo_enabled, default: false),
       ::ConfigurationProperty.property(:guide_url, default: 'https://iqss.github.io/ondemand-loop/'),
     ].freeze
-  end
-
-  def version
-    @version ||= File.read(Rails.root.join('VERSION')).strip.freeze
   end
 
   def detached_process_lock_file

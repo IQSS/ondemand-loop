@@ -11,15 +11,20 @@
       %>
     <% end %>
   </div>
-  <div id="footer-sitemap" class="me-2 d-flex flex-column align-items-center ">
-    <%= link_to(sitemap_path, class: 'btn btn-outline-dark btn-sm', aria: { label: t('.link_sitemap_text') }) do %>
-      <i class="bi bi-diagram-3" aria-hidden="true"></i>
-      <span class="ps-1"><%= t(".link_sitemap_text") %></span>
-    <% end %>
+
+  <div id="footer-ood" class="d-flex flex-column align-items-center text-muted">
+
+    <%=
+      image_tag(
+        "ood_logo.svg",
+        class: "footer-logo",
+        alt: "Open OnDemand Logo",
+        height: "40",
+        )
+    %>
+    <span><%= server_hostname %>: <%= ::Configuration.ood_version %></span>
   </div>
-  <div id="footer-hostname" class="me-2">
-    <span><%= server_hostname %></span>
-  </div>
+
   <div id="footer-version" class="d-flex flex-column align-items-center text-muted">
     <span><%= t('.version_text') %></span>
     <span><%= ::Configuration.version %></span>
