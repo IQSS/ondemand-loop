@@ -16,6 +16,8 @@ en:
       button_cancel_download_title: "Cancel download"
       field_creation_date_title: "Creation date"
       header_scheduled_downloads_text: "Scheduled Downloads"
+      field_project_title: "Project: %{name}"
+      field_file_title: "Download file: %{filename}"
     index:
       breadcrumbs_text: "Downloads"
       page_title: "OnDemand Loop - Downloads Management"
@@ -242,6 +244,9 @@ en:
       button_cancel_upload_a11y_text: "Cancel upload of %{filename}"
       button_cancel_upload_title: "Cancel upload"
       field_creation_date_title: "Creation date"
+      field_project_title: "Project: %{name}"
+      field_bundle_title: "Upload Bundle: %{name}"
+      field_file_title: "Upload file: %{filename}"
     index:
       breadcrumbs_text: "Uploads"
       page_title: "OnDemand Loop - Uploads Management"

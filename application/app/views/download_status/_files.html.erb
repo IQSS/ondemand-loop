@@ -11,20 +11,21 @@
           <!-- info for medium and large screens -->
           <div class="col-md-8" role="cell">
             <div class="d-flex align-items-center">
-            <%= link_to(files_app_url(data.project.download_dir), class: 'btn btn-sm btn-outline-secondary me-2',
-                        title: t('.button_browse_file_title'), target: '_blank') do %>
-              <i class="bi bi-folder" aria-hidden="true"></i>
-              <span class="visually-hidden"><%= t('.button_browse_file_a11y_text', filename: data.file.filename) %></span>
-            <% end %>
+              <%= link_to(files_app_url(data.project.download_dir), class: 'btn btn-sm btn-outline-secondary me-2',
+                          title: t('.button_browse_file_title'), target: '_blank') do %>
+                <i class="bi bi-folder" aria-hidden="true"></i>
+                <span class="visually-hidden"><%= t('.button_browse_file_a11y_text', filename: data.file.filename) %></span>
+              <% end %>
               <%= render partial: '/shared/file_row_date', locals: { date: data.file.creation_date, title: t('.field_creation_date_title'), classes: "mx-2" } %>
               <span class="me-2"><%= connector_icon(data.file.type) %></span>
-              <span class="me-2">
-                <%= link_to project_path(id: data.project.id), class: "position-relative project-name-link text-reset text-decoration-none rounded-end" do %>
-                  <%= data.project.name %> >
-                <% end %>
+              <span class="text-truncate cursor-default" style="max-width: 600px;" >
+                <%= link_to project_path(id: data.project.id), class: "position-relative project-name-link text-reset text-decoration-none rounded-end", title: t('.field_project_title', name: data.project.name) do %>
+                  <%= data.project.name %>
+                  <span class="text-muted">&raquo;</span>
+                  <span class="me-2" title="<%= t('.field_file_title', filename: data.file.filename) %>"><%= data.file.filename %></span>
+              <% end %>
               </span>
-              <span class="me-2 text-truncate cursor-default" style="max-width: 400px;" title="<%= data.file.filename %>"><%= data.file.filename %></span>
-              <small class="text-muted me-2"><%= number_to_human_size(data.file.size) %></small>
+              <small class="text-muted"><%= number_to_human_size(data.file.size) %></small>
             </div>
           </div>
           <!-- end info for medium and large screens -->
