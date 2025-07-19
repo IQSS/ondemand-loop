@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-between align-items-center mt-3" aria-label="<%= t('.actions_bar_title_a11y_label') %>">
+  <div class="d-flex align-items-center gap-2">
+    <h2 class="mb-0 me-2 fs-4 h5 text-truncate cursor-default" style="max-width: 800px;" title="<%= dataset.metadata_field('title').to_s %>"><%= dataset.metadata_field('title').to_s %></h2>
+  </div>
+  <div class="d-flex align-items-center gap-2">
+    <% if Current.settings.user_settings.active_project.present? %>
+      <%= button_to project_upload_bundles_path(Current.settings.user_settings.active_project),
+                    method: :post,
+                    params: { remote_repo_url: external_dataset_url(current_dataverse_url, dataset.data.dataset_persistent_id) },
+                    class: 'btn btn-sm btn-outline-secondary',
+                    title: t('.button_create_bundle_title') do %>
+        <i class="bi bi-folder-plus" aria-hidden="true"></i>
+        <span class="ps-1"><%= t('.button_create_bundle_label') %></span>
+      <% end %>
+    <% end %>
+    <%= link_to external_dataset_url(current_dataverse_url, dataset.data.dataset_persistent_id),
+                target: '_blank',
+                class: 'btn btn-sm btn-outline-secondary',
+                title: t('.link_open_dataset_title') do %>
+      <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+      <span class="visually-hidden"><%= t('.link_open_dataset_title') %></span>
+    <% end %>
+  </div>
+</div>
+<hr class="mt-2">

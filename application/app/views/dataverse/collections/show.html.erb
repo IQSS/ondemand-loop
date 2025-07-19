@@ -3,6 +3,12 @@
   <%= render partial: 'dataverse/collections/breadcrumbs', locals: { dataverse_url: @dataverse_url, collection: @collection } %>
   <div class="row">
     <div class="col-md-12">
+      <%= render partial: 'dataverse/collections/collection_actions', locals: { collection: @collection } %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
       <%= render partial: 'dataverse/collections/collection_info', locals: { collection: @collection } %>
     </div>
   </div>

@@ -18,6 +18,10 @@ module Dataverse::CollectionsHelper
     link_to(body, view_dataverse_dataset_url(URI.parse(dataverse_url).hostname, persistent_id, url_options), html_options)
   end
 
+  def external_collection_url(dataverse_url, identifier)
+    FluentUrl.new(dataverse_url).add_path('dataverse').add_path(identifier).to_s
+  end
+
   def search_results_count(search_result)
     return I18n.t("acts_as_page.out_of_range") if search_result.data.out_of_range?
     first = search_result.data.start + 1

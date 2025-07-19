@@ -86,6 +86,14 @@ en:
       collection_info:
         button_toggle_label: "Collection details"
         header_dataverse_text: "Dataverse collection"
+        link_open_collection_title: "Open collection on Dataverse"
+        button_create_bundle_label: "Create Collection Bundle"
+        button_create_bundle_title: "Create Collection Bundle"
+      collection_actions:
+        actions_bar_title_a11y_label: "Collection actions bar"
+        button_create_bundle_label: "Create Collection Bundle"
+        button_create_bundle_title: "Create Collection Bundle from this collection"
+        link_open_collection_title: "Open collection on Dataverse"
       dataset_item:
         field_files_label: "Files"
         field_published_label: "Published"
@@ -135,6 +143,14 @@ en:
         header_dataset_text: "Dataset"
         header_description_text: "Description"
         header_dataset_metadata_text: "Dataset Metadata"
+        link_open_dataset_title: "Open dataset on Dataverse"
+        button_create_bundle_label: "Create Collection Bundle"
+        button_create_bundle_title: "Create Collection Bundle"
+      dataset_actions:
+        actions_bar_title_a11y_label: "Dataset actions bar"
+        button_create_bundle_label: "Create Collection Bundle"
+        button_create_bundle_title: "Create Collection Bundle from this dataset"
+        link_open_dataset_title: "Open dataset on Dataverse"
       search_bar:
         button_submit_text: "Search Files"
         field_search_label: "Search files within the dataset"

@@ -56,6 +56,14 @@ module Dataverse::DatasetsHelper
     identifier.to_s.split(":", 3)[0..1].join(":") if identifier
   end
 
+  def external_dataset_url(dataverse_url, persistent_id, version = nil)
+    url = FluentUrl.new(dataverse_url)
+            .add_path('dataset.xhtml')
+            .add_param('persistentId', persistent_id)
+    url.add_param('version', version) if version
+    url.to_s
+  end
+
   private
 
   def retrictions_service

@@ -6,7 +6,13 @@
 <% content_for :title, t('dataverse.datasets.show.page_title') %>
 <div class="dataverse container-md content" role="main">
   <%= render partial: 'dataverse/datasets/breadcrumbs', locals: { dataverse_url: @dataverse_url, dataset: @dataset} %>
-    <div class="row">
+  <div class="row">
+    <div class="col-md-12">
+      <%= render partial: 'dataverse/datasets/dataset_actions', locals: { dataset: @dataset } %>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-12">
       <%= render partial: 'dataverse/datasets/dataset_info', locals: { dataset: @dataset } %>
     </div>
