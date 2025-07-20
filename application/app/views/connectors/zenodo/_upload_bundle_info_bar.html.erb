@@ -14,7 +14,7 @@
           <span class="text-muted mx-1 position-relative" style="font-size: 1.2rem;">&raquo;</span>
 
           <% if upload_bundle.connector_metadata.display_title? %>
-            <a href="<%= upload_bundle.connector_metadata.zenodo_url %>" target="_blank" class="text-reset text-decoration-none me-1" title="<%= upload_bundle.connector_metadata.title %>">
+            <a href="<%= upload_bundle.connector_metadata.title_url %>" target="_blank" class="text-reset text-decoration-none me-1" title="<%= upload_bundle.connector_metadata.title %>">
               <%= upload_bundle.connector_metadata.title %>
             </a>
           <% end %>

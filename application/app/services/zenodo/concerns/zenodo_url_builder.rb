@@ -24,36 +24,19 @@ module Zenodo::Concerns::ZenodoUrlBuilder
       .to_s
   end
 
-  def concept_url
-    raise 'concept_id is missing' unless concept_id
-
-    FluentUrl.new(zenodo_url)
-      .add_path('record')
-      .add_path(concept_id)
-      .to_s
-  end
-
   def deposition_url
     raise 'deposition_id is missing' unless deposition_id
 
     FluentUrl.new(zenodo_url)
-      .add_path('deposit')
+      .add_path('uploads')
       .add_path(deposition_id)
       .to_s
   end
 
-  def deposition_edit_url
-    raise 'deposition_id is missing' unless deposition_id
-
-    FluentUrl.new(zenodo_url)
-      .add_path('deposit')
-      .add_path(deposition_id)
-      .to_s + '#/files'
-  end
-
   def user_depositions_url
     FluentUrl.new(zenodo_url)
-      .add_path('deposit')
+      .add_path('me')
+      .add_path('uploads')
       .to_s
   end
 end

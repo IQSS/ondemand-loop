@@ -30,6 +30,12 @@ module Zenodo
       title.present?
     end
 
+    def title_url
+      return deposition_url if deposition_id.present?
+      return record_url if record_id.present?
+      zenodo_url
+    end
+
     def fetch_deposition?
       api_key? && draft.nil? && deposition_id.present?
     end

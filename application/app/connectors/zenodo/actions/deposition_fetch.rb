@@ -28,7 +28,7 @@ module Zenodo::Actions
 
       connector_metadata.title = deposition.title
       connector_metadata.bucket_url = deposition.bucket_url
-      connector_metadata.deposition_id ||= deposition.id
+      connector_metadata.deposition_id ||= deposition.id.to_s
       connector_metadata.draft = deposition.draft?
       upload_bundle.update({ metadata: connector_metadata.to_h })
 
