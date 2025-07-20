@@ -8,7 +8,7 @@ module Zenodo::Concerns::ZenodoUrlBuilder
 
     FluentUrl.new(zenodo_url)
       .add_path('record')
-      .add_path(record_id)
+      .add_path(record_id.to_s)
       .to_s
   end
 
@@ -18,7 +18,7 @@ module Zenodo::Concerns::ZenodoUrlBuilder
 
     FluentUrl.new(zenodo_url)
       .add_path('record')
-      .add_path(record_id)
+      .add_path(record_id.to_s)
       .add_path('files')
       .add_path(file_name)
       .to_s
@@ -29,7 +29,7 @@ module Zenodo::Concerns::ZenodoUrlBuilder
 
     FluentUrl.new(zenodo_url)
       .add_path('uploads')
-      .add_path(deposition_id)
+      .add_path(deposition_id.to_s)
       .to_s
   end
 
