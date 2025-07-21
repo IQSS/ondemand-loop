@@ -65,6 +65,17 @@ The version is selected using the `OOD_VERSION` variable, which can be set expli
 
 ```sh
 make clean
-make loop_build OOD_VERSION=3.1.14
+make release_build OOD_VERSION=3.1.14
 make loop_up OOD_VERSION=3.1.14
+```
+
+### Development Application Deployment
+
+For development purposes, you can build and deploy OnDemand Loop as a development application within your Open OnDemand environment.
+This approach is useful for testing, customization, or contributing to the project.
+
+```sh
+make clean
+make remote_dev_build
+# Copy the ./application folder with the built artifacts into your OnDemand development directory
 ```

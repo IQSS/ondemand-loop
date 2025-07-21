@@ -1,64 +1,95 @@
 # Installation Guide
 
-This guide explains how to build and deploy OnDemand Loop alongside an existing
-Open OnDemand installation. The application is designed to run as a Passenger
-app so that it lives under `/var/www/ood/apps/sys/loop` in the same manner as
-the standard Dashboard app.
+This guide explains how to build and deploy **OnDemand Loop** for **production use** alongside an existing [Open OnDemand](https://openondemand.org) installation.
+OnDemand Loop is developed and tested as an integrated **Passenger application** within [OnDemand's application framework](https://osc.github.io/ood-documentation/latest/tutorials/tutorials-passenger-apps.html). For production deployment, it should be installed under the system application directory, typically: `/var/www/ood/apps/sys/loop`
 
-## System Requirements
+!!! note "Development Notes"
 
-OnDemand Loop targets the same software versions used by Open OnDemand itself.
-Use the versions below (or the versions bundled with your OOD release):
+    This guide covers production installation only. If you're setting up OnDemand Loop for development purposes or as an Open OnDemand development application, please refer to the [Development Guide](development_guide/index.md) instead.
 
-- **Ruby** 3.1
-- **Node.js** 18
+
+### System Requirements
+
+The software versions you need depend on which version of Open OnDemand you're running.
+OnDemand Loop is designed and tested to work with the Ruby and Node.js versions bundled with your Open OnDemand installation.  
+Here's what you need based on your OOD version:
+
+**For Open OnDemand 3.x:**
+
+- Ruby 3.1
+- Node.js 18
+
+**For Open OnDemand 4.x:**
+
+- Ruby 3.3  
+- Node.js 20
+
+#### Required Software
+
 - **Open OnDemand** 3.1 or newer
+- **Ruby** 3.1 or 3.3 (matching your OOD version)
+- **Bundler** (usually comes pre-installed with Ruby)
+- **Node.js** 18 or 20 (matching your OOD version)
 
-## Building the Application
+#### Finding the Right Versions
 
-The repository includes a Makefile with helper targets. The preferred way to
-compile Loop is to install all Ruby gems and Node packages into local folders,
-avoiding conflicts with system-wide installs. This is exactly how the
-`scripts/loop_build.sh` script operates and how the application has been tested.
+If you're unsure which versions to use, check the bundled software that came with your Open OnDemand installation.
+OnDemand Loop includes a version mapping matrix used for the local environment [ood_versions.mk](https://github.com/IQSS/ondemand-loop/tools/make/ood_versions.mk)
+that shows exactly which Ruby and Node.js versions correspond to each OOD release.
+
+### Building the Application
+
+<a id="ondemand-loop-repo-info"></a>
+!!! info ":fontawesome-brands-github: OnDemand Loop Repo"
+
+     - [https://github.com/IQSS/ondemand-loop](https://github.com/IQSS/ondemand-loop)
+     - [https://github.com/IQSS/ondemand-loop/releases](https://github.com/IQSS/ondemand-loop/releases)
+
+The repository includes a Makefile with helper targets and utility scripts to facilitate the building process.
+The preferred way to build OnDemand Loop is to install all Ruby gems and Node packages into local folders, avoiding conflicts with system-wide installs. 
+This is exactly how the [scripts/loop_build.sh](https://github.com/IQSS/ondemand-loop/scripts/loop_build.sh) script operates and how the application has been tested.
 See that script for the exact commands executed during the build.
-To run the build inside the Docker based builder image, execute:
+
+To run the build inside the default Docker builder image targeting an OnDemand v3.1.7 installation, execute:
 
 ```bash
 make release_build
 ```
 
 The script stores Ruby gems under `vendor/bundle` and Node packages in
-`node_modules` within the `application` directory so that the build is isolated
-from system packages.
+`node_modules` within the `application` directory with the rest of the OnDemand Loop code
+so that the build is isolated from system packages.
 
 This command installs all Ruby and Node dependencies and precompiles the CSS and
-JavaScript assets. The same steps can be performed manually by executing the
-`scripts/loop_build.sh` script on a machine that has Ruby and Node available.
+JavaScript assets. If you run the build manually make sure to execute the
+`scripts/loop_build.sh` script **from inside the `application` directory** so
+that `bundle` and `npm` find the `Gemfile` and `package.json` files.
 
-## Deployment Options
+### Deployment Options
 
-### 1. Build on the Server
+#### 1. Build on the Server
 
 Clone the repository (or a release tag) directly into the OOD server, run the build script,
-and copy the built application into the OOD `sys` folder:
+and copy the built application into the OnDemand application `sys` folder.
+For links to the repository and releases, [jump to repo info](#ondemand-loop-repo-info).
 
 ```bash
 cd /tmp
-git clone <repo-or-release> loop
-cd loop
-./scripts/loop_build.sh
+git clone --branch <tag-or-branch> https://github.com/IQSS/ondemand-loop.git loop
+cd loop/application
+../scripts/loop_build.sh
 mkdir /var/www/ood/apps/sys/loop
-cp -R ./application/* /var/www/ood/apps/sys/loop/
+cp -R ./* /var/www/ood/apps/sys/loop/
 ```
 
-### 2. Build Elsewhere and Copy
+#### 2. Build Elsewhere and Copy
 
 If you prefer to compile the application in a controlled environment, run the
 build steps on another machine and then copy `ondemand-loop/application` directory to
 `/var/www/ood/apps/sys` on your production server. Then rename it to `loop`, ie: `/var/www/ood/apps/sys/loop`.
 Ensure file permissions are preserved during the transfer.
 
-### 3. Deploy with Puppet
+#### 3. Deploy with Puppet
 
 Sites already managing Open OnDemand with the official Puppet module can deploy
 Loop in a similar fashion to the Dashboard app. Build the application using the
@@ -77,7 +108,7 @@ openondemand::install_apps:
 This approach keeps the build artifacts under version control while allowing the
 Puppet module to deploy the precompiled application.
 
-## Dataverse Integration
+### Dataverse Integration
 
 Dataverse supports **External Tools**, which enable integrations with external
 web applications. By registering OnDemand Loop as an External Tool with
@@ -111,3 +142,13 @@ curl --location 'http://localhost:8080/api/admin/externalTools' \
 
 For production deployments, adjust the Dataverse URL and the `toolUrl` to match
 your server names.
+
+### Verify the Installation
+
+1. Visit the OOD files application and browse the application files:  
+    `https://<your-server>/pun/sys/dashboard/files/fs/var/www/ood/apps/sys/loop`
+1. Verify the deployed version if the expected `VERSION`
+1. Verify the Ruby gems are deployed under `vendor/bundle`
+1. Check the NodeJS modules are deployed `node_modules`
+1. Launch the OnDemand Loop application by visiting the URL: `https://<your-server>/pun/sys/loop` in a browser. The application should load after clicking **Initialize** once.
+1. The OnDemand Loop homepage should display with a welcome message.
