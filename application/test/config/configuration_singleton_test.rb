@@ -14,8 +14,8 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     ENV.delete('OOD_LOOP_FILES_APP_PATH')
     ENV.delete('OOD_LOOP_CONNECTOR_STATUS_POLL_INTERVAL')
 
-    assert_equal Pathname.new(File.join(Dir.home, '.downloads-for-ondemand')), @config_instance.metadata_root
-    assert_equal Pathname.new(File.join(Dir.home, 'downloads-ondemand')), @config_instance.download_root
+    assert_equal Pathname.new(File.join(Dir.home, '.loop_metadata')), @config_instance.metadata_root
+    assert_equal Pathname.new(File.join(Dir.home, 'loop_downloads')), @config_instance.download_root
     assert_equal File.join(RbConfig::CONFIG['bindir'], 'ruby'), @config_instance.ruby_binary
     assert_equal '/pun/sys/dashboard/files/fs', @config_instance.files_app_path
     assert_equal '5000', @config_instance.connector_status_poll_interval
@@ -186,14 +186,14 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     end
   end
 
-  test 'loads configuration from LOOP_CONFIG_DIRECTORY' do
+  test 'loads configuration from OOD_LOOP_CONFIG_DIRECTORY' do
     Dir.mktmpdir do |dir|
       File.write(File.join(dir, 'foo.yml'), { dataverse: { restrictions: 'some_value' } }.deep_stringify_keys.to_yaml)
-      ENV['LOOP_CONFIG_DIRECTORY'] = dir
+      ENV['OOD_LOOP_CONFIG_DIRECTORY'] = dir
       config = ConfigurationSingleton.new
       assert_equal 'some_value', config.connector_config(:dataverse)[:restrictions]
     ensure
-      ENV.delete('LOOP_CONFIG_DIRECTORY')
+      ENV.delete('OOD_LOOP_CONFIG_DIRECTORY')
     end
   end
 end

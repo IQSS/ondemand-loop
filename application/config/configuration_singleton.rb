@@ -1,7 +1,6 @@
 require 'dotenv'
 require_relative 'configuration_property'
 class ConfigurationSingleton
-  APP_ROOT = File.expand_path('..', __dir__)
 
   def initialize
     load_dotenv_files
@@ -10,10 +9,10 @@ class ConfigurationSingleton
 
   def property_configs
     [
-      ::ConfigurationProperty.file_content(:version, default: File.join(APP_ROOT, 'VERSION').to_s),
+      ::ConfigurationProperty.file_content(:version, default: File.join(app_root, 'VERSION').to_s),
       ::ConfigurationProperty.file_content(:ood_version, default: '/opt/ood/VERSION', read_from_env: true, env_names: ['OOD_VERSION', 'ONDEMAND_VERSION']),
-      ::ConfigurationProperty.path(:metadata_root, default: File.join(Dir.home, '.downloads-for-ondemand')),
-      ::ConfigurationProperty.path(:download_root, default: File.join(Dir.home, 'downloads-ondemand')),
+      ::ConfigurationProperty.path(:metadata_root, default: File.join(Dir.home, '.loop_metadata')),
+      ::ConfigurationProperty.path(:download_root, default: File.join(Dir.home, 'loop_downloads')),
       ::ConfigurationProperty.property(:ruby_binary, default: File.join(RbConfig::CONFIG['bindir'], 'ruby')),
       ::ConfigurationProperty.property(:files_app_path, default: '/pun/sys/dashboard/files/fs'),
       ::ConfigurationProperty.property(:ood_dashboard_path, default: '/pun/sys/dashboard'),
@@ -59,12 +58,12 @@ class ConfigurationSingleton
 
   def load_dotenv_files
     env_files = [
-      app_root.join(".env.#{rails_env}"),
-      app_root.join('.env')
+      app_root.join('.env'),
+      app_root.join(".env.#{rails_env}")
     ].compact
 
-    # overwrite = false => environment specific properties take precedence
-    Dotenv.load(*env_files, overwrite: false)
+    # overwrite = true => environment specific properties take precedence
+    Dotenv.load(*env_files, overwrite: true)
   end
 
   def app_root
@@ -72,7 +71,7 @@ class ConfigurationSingleton
   end
 
   def config_directory
-    Pathname.new(ENV['LOOP_CONFIG_DIRECTORY'] || '/etc/loop/config/loop.d')
+    Pathname.new(ENV['OOD_LOOP_CONFIG_DIRECTORY'] || '/etc/loop/config/loop.d')
   end
 
   def read_config

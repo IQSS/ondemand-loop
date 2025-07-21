@@ -63,10 +63,11 @@ class ConfigurationProperty
     def self.map_string(string_value)
       return nil if string_value.nil?
 
-      dir = File.dirname(string_value.to_s)
+      full_path = File.expand_path(string_value.to_s)
+      dir = File.dirname(full_path)
       # Ensure the directory exists
       FileUtils.mkdir_p(dir)
-      Pathname(string_value.to_s)
+      Pathname(full_path)
     end
   end
 
