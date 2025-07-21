@@ -7,9 +7,9 @@
 
     <!-- Repo Logos (left aligned) -->
     <div class="d-flex align-items-center gap-3">
-      <%= image_tag "dataverse_project.svg", alt: "Dataverse", height: 35 %>
+      <%= image_tag "dataverse_project.svg", alt: t('connectors.dataverse.title'), height: 35 %>
       <% if ::Configuration.zenodo_enabled %>
-        <%= image_tag "zenodo_project.svg", alt: "Zenodo", height: 30, style: 'margin-top: -5px;' %>
+        <%= image_tag "zenodo_project.svg", alt: t('connectors.zenodo.title'), height: 30, style: 'margin-top: -5px;' %>
     <% end %>
       <%= image_tag "doi_logo.svg", alt: "DOI Fundation", height: 32 %>
     </div>

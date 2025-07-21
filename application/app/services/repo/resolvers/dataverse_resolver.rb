@@ -48,6 +48,10 @@ module Repo
           path: DATAVERSE_INFO_ENDPOINT
         )
         response = http_client.get(api_url.to_s)
+        unless response.success?
+          log_info('Not responding to Dataverse API', {api_url: api_url.to_s, response: response.status})
+          return nil
+        end
         return nil unless response.success?
 
         json = response.json

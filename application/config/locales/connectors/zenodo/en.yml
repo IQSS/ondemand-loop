@@ -2,6 +2,8 @@
 en:
   connectors:
     zenodo:
+      title: "Zenodo"
+
       actions:
         connector_edit:
           message_success: "Access token updated: %{name}"
@@ -36,6 +38,11 @@ en:
         button_edit_key_title: "Add/Edit Access Token"
         modal_edit_key_title: "Add/Edit Zenodo Personal Access Token"
         missing_key_disabled_features_text: "Add access token to enable deposition features"
+        link_zenodo_title: "Open Zenodo"
+        link_dataset_title: "Open Zenodo dataset: %{name}"
+      upload_bundle_info_bar:
+        link_zenodo_title: "Open Zenodo"
+        link_dataset_title: "Open Zenodo dataset: %{name}"
 
   zenodo:
     records:

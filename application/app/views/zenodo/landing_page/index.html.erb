@@ -2,7 +2,9 @@
 <div class="zenodo container-md content" role="main">
   <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: t('shared.breadcrumbs.zenodo')}]} %>
 
-  <%= form_with url: view_zenodo_landing_path, method: :get, local: true do |f| %>
+  <div class="my-4 pb-1"><%= image_tag "zenodo_project.svg", alt: t('connectors.zenodo.title'), width: 280 %></div>
+
+  <%= form_with url: view_zenodo_landing_path, method: :get,local: true do |f| %>
     <div class="input-group mb-3">
       <%= f.text_field :query, class: 'form-control', value: @query, placeholder: t('zenodo.landing_page.index.field_search_placeholder') %>
       <%= f.submit t('zenodo.landing_page.index.button_submit_text'), class: 'btn btn-primary' %>

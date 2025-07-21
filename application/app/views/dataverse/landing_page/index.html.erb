@@ -1,5 +1,4 @@
 <% content_for :title, t('dataverse.landing_page.index.page_title') %>
-<div class="my-4"><%= image_tag('dataverse_project.svg', alt: t('dataverse.landing_page.index.image_dataverse_icon_alt'), style: 'width: 300px;') %></div>
 <div class="dataverse container-md content" role="main">
   <nav aria-label="Breadcrumb">
     <ol class="breadcrumb">
@@ -7,10 +6,11 @@
         <a href="<%= root_path %>" title="<%= t(".breadcrumb_home_title") %>"><%= t(".breadcrumb_home_text") %></a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
-        <%= link_to "Dataverse", view_dataverse_landing_path, { 'title' => t(".breadcrumb_dataverse_title"), 'aria-label' => t(".breadcrumb_dataverse_title")} %>
+        <%= t('connectors.dataverse.title') %>
       </li>
     </ol>
   </nav>
+  <div class="my-4"><%= image_tag('dataverse_project.svg', alt: t('dataverse.landing_page.index.image_dataverse_icon_alt'), width: 300) %></div>
   <div class="row">
     <div class="col-md-12">
       <%= render partial: 'dataverse/landing_page/installation_items', locals: { installations_page: @installations_page} %>

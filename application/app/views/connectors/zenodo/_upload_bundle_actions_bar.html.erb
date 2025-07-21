@@ -8,13 +8,13 @@
     <!-- UPLOAD DATASET INFO -->
     <div class="d-flex flex-column">
         <span class="text-truncate d-inline-block" style="max-width: 800px;">
-          <a href="<%= upload_bundle.connector_metadata.zenodo_url %>" target="_blank" class="text-reset text-decoration-none" title="Zenodo">
-            Zenodo
+          <a href="<%= upload_bundle.connector_metadata.zenodo_url %>" target="_blank" class="text-reset text-decoration-none" title="<%= t('connectors.zenodo.upload_bundle_actions_bar.link_zenodo_title') %>">
+            <%= t('connectors.zenodo.title') %>
           </a>
           <span class="text-muted mx-1 position-relative" style="font-size: 1.2rem;">&raquo;</span>
 
           <% if upload_bundle.connector_metadata.display_title? %>
-            <a href="<%= upload_bundle.connector_metadata.title_url %>" target="_blank" class="text-reset text-decoration-none me-1" title="<%= upload_bundle.connector_metadata.title %>">
+            <a href="<%= upload_bundle.connector_metadata.title_url %>" target="_blank" class="text-reset text-decoration-none me-1" title="<%= t('connectors.zenodo.upload_bundle_actions_bar.link_dataset_title', name: upload_bundle.connector_metadata.title) %>">
               <%= upload_bundle.connector_metadata.title %>
             </a>
           <% end %>
