@@ -110,17 +110,24 @@ Supported Open OnDemand versions:
 
 The following `make` commands are available to manage the application locally:
 
-| Command                  | Description                                                       |
-|--------------------------|-------------------------------------------------------------------|
-| `make clean`             | 🧹 Removes temporary build artifacts, logs, and compiled files.   |
-| `make loop_docker_builder` | 🐳 Builds the Docker image used for compiling/building the app.   |
-| `make loop_build`        | 🏗️ Builds the app inside the Docker builder container.           |
-| `make loop_up`           | 🚀 Starts the app and its dependencies in Docker containers.      |
-| `make loop_down`         | ⛔ Stops and removes the Docker containers and associated networks. |
-| `make bash`              | 🐚 Opens an interactive shell in the app's running Docker container. |
-| `make logs`              | 📜 Tails application logs from the running app container. |
-| `make test`              | 🧪 Runs the full test suite (e.g., Minitest).                     |
-| `make test_bash`         | 🔬 Opens a shell in the test container for manual testing/debugging. |
+| Command                  | Description                                                    |
+|--------------------------|----------------------------------------------------------------|
+| `make loop_docker_builder` | 🐳 Build the Docker image used for compiling the app.          |
+| `make loop_build`          | 🏗️ Install dependencies and build the application.            |
+| `make loop_up`             | 🚀 Start the app and its dependencies in Docker containers.    |
+| `make loop_down`           | ⛔ Stop and remove the Docker containers and networks.          |
+| `make clean`               | 🧹 Remove build artifacts and logs.                            |
+| `make logs`                | 📜 Tail the application logs.                                  |
+| `make bash`                | 🐚 Open a shell inside the running container.                  |
+| `make test`                | 🧪 Run the full test suite.                                    |
+| `make test_bash`           | 🔬 Open a shell in the test container.                         |
+| `make remote_dev_build`    | 🛠️ Build the app for a remote development environment.        |
+| `make release_build`       | 📦 Build the app for production release.                       |
+| `make version`             | 🔖 Bump the version file for releases.                         |
+| `make release_notes`       | 📝 Generate release notes from Git history.                    |
+| `make coverage`            | 📊 Update the coverage badges.                                 |
+| `make guide`               | 📚 Build this documentation with MkDocs.                       |
+| `make guide_dev`           | 📚 Serve the documentation locally at `http://localhost:8000`. |
 
 
 

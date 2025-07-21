@@ -38,12 +38,21 @@ Refer to [Upgrading Open OnDemand (Development)](ood.md#upgrading-open-ondemand-
 
 ### Make Commands:
 
-| Command           | Purpose                                                                              |
-|-------------------|--------------------------------------------------------------------------------------|
-| `make loop_build` | Install the dependencies into `application/vendor/bundle` and builds the application |
-| `make loop_up`    | Starts the local environment                                                         |
-| `make loop_down`  | Shuts down the local environment                                                     |
-| `make logs`       | Tail the application logs                                                            |
-| `make bash`       | Open a shell inside the running container                                            |
-| `make test`       | Run the test suite                                                                   |
-| `make guide_dev`  | Serve this documentation at `http://localhost:8000`                                  |
+| Command                   | Purpose                                                              |
+|---------------------------|----------------------------------------------------------------------|
+| `make loop_docker_builder`| Build the Docker image used for compiling the app                    |
+| `make loop_build`         | Install dependencies and build the application under `application/`  |
+| `make loop_up`            | Start the local environment                                          |
+| `make loop_down`          | Stop and remove the containers                                       |
+| `make clean`              | Remove build artifacts and log files                                 |
+| `make logs`               | Tail the application logs                                            |
+| `make bash`               | Open a shell inside the running container                            |
+| `make test`               | Run the test suite                                                   |
+| `make test_bash`          | Open a shell in the test container                                   |
+| `make remote_dev_build`   | Build the app for a remote development environment                   |
+| `make release_build`      | Build the app for production release                                 |
+| `make version`            | Bump the version file using `scripts/loop_version.sh`                |
+| `make release_notes`      | Generate release notes from Git history                              |
+| `make coverage`           | Update the coverage badges in `docs/badges`                          |
+| `make guide`              | Build the user guide with MkDocs                                     |
+| `make guide_dev`          | Serve this documentation at `http://localhost:8000`                  |

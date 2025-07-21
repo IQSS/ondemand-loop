@@ -1,5 +1,5 @@
 all:: loop_up
-.PHONY: loop_up loop_down loop_build remote_dev_build release_build loop_docker_builder clean logs bash test test_bash version release_notes guide guide_dev
+.PHONY: loop_up loop_down loop_build remote_dev_build release_build loop_docker_builder clean logs bash test test_bash version release_notes coverage guide guide_dev
 
 # OOD Configuration
 include tools/make/ood_versions.mk
