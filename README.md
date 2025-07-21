@@ -57,7 +57,7 @@ The required Docker images to build and run has been created and uploaded into t
  - [App Builder Images](https://hub.docker.com/r/hmdc/ondemand-loop/tags)
  - [OnDemand Environment Images](https://hub.docker.com/r/hmdc/sid-ood/tags)
 
-The versions used are referenced in the [Makefile file](./Makefile)
+The versions used are referenced in the [Makefile file](./tools/make/ood_versions.mk)
 
 ### Prerequisites
 Ensure you have the following installed:
@@ -85,6 +85,19 @@ The local environment has configured a test user with the following credentials:
 
 Launch the application: [https://localhost:33000/pun/sys/loop](https://localhost:33000/pun/sys/loop)  
 Launch OOD: [https://localhost:33000/pun/sys/dashboard](https://localhost:33000/pun/sys/dashboard)
+
+Supported Open OnDemand versions:
+ - v3.1.7
+ - v3.1.14
+ - v4.0.0
+ - v4.0.6
+
+  ```sh
+  # How to build and run for OODv3.1.14
+  make clean
+  make loop_build OOD_VERSION=3.1.14
+  make loop_up OOD_VERSION=3.1.14
+  ```
 
 > **⚠️ Self-Signed Certificate Warning**
 >

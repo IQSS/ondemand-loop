@@ -1,5 +1,5 @@
 # Default OOD version if not specified externally
-OOD_VERSION ?= 4.0.6
+OOD_VERSION ?= 3.1.7
 
 OOD_UID := $(shell id -u)
 OOD_GID := $(shell id -g)

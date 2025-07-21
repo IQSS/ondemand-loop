@@ -3,12 +3,12 @@
 The repository contains a Docker based setup that mirrors an Open OnDemand installation.
 A `Makefile` exposes handy commands so you don't need to install Ruby, Node or any other dependencies on your workstation.
 
-## Prerequisites
+### Prerequisites
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
 - `make`
 
-## Running the App
+### Running the App
 
 Build the application and start the containers:
 
@@ -21,13 +21,22 @@ Open the app at [https://localhost:33000/pun/sys/loop](https://localhost:33000/p
 
 A test user `ood/ood` is configured. The environment uses a self‑signed certificate so your browser will warn about the connection.
 
+!!! warning "Self-Signed Certificate Warning"
+ 
+    When running the app locally, you will encounter a browser warning about the connection not being secure.  
+    This is because the development environment uses a self-signed SSL certificate.  
+    You can proceed safely by accepting the exception in your browser.
+    
+
 Stop the containers with:
 
 ```bash
 make loop_down
 ```
 
-Make development commands:
+Refer to [Upgrading Open OnDemand (Development)](ood.md#upgrading-open-ondemand-development) to configure and run the app with a specific Open OnDemand version.
+
+### Make Commands:
 
 | Command           | Purpose                                                                              |
 |-------------------|--------------------------------------------------------------------------------------|
