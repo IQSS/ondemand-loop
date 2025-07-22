@@ -11,6 +11,7 @@
       <% if ::Configuration.zenodo_enabled %>
         <li><%= link_to t('layouts.nav.navigation.link_zenodo_text'), view_zenodo_landing_path %></li>
       <% end %>
+      <li><%= link_to t('layouts.nav.navigation.link_repo_settings_text'), repository_settings_path %></li>
     </ul>
     <li>
       <a data-bs-toggle="collapse"
