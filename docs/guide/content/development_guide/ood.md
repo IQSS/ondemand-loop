@@ -1,16 +1,12 @@
 # Open OnDemand
 
 ### Overview
-
 OnDemand Loop is deployed as a [Phusion Passenger](https://www.phusionpassenger.com/) application within the Open OnDemand (OOD) environment, in the same manner as the core OOD dashboard app. This tight integration allows OnDemand Loop to run directly as the current user, giving seamless access to the user's environment on the HPC cluster.
 
 We rely on Open OnDemand to handle all cluster interaction, including authentication, job submission, and terminal access. Additionally, we leverage the OOD **Files** app to navigate and manage the local HPC filesystem, which is central to how OnDemand Loop reads and writes project data.
 
 ### Compatibility
-
-We have tested OnDemand Loop with **Open OnDemand version 3.1.7**, and we aim to maintain compatibility from this version forward.
-
-Compatibility testing with the **4.x** series is planned soon.
+We have develop the OnDemand Loop Beta version with **Open OnDemand version 3.1.7**, and we aim to maintain compatibility from this version forward.
 
 #### Known OOD Releases
 
@@ -35,7 +31,6 @@ Compatibility testing with the **4.x** series is planned soon.
     🔜 Planned testing = High-priority target for validation
 
 ### Upgrading Open OnDemand (Development)
-
 The Open OnDemand container used in development comes from the [ondemand_development](https://github.com/hmdc/ondemand_development) project.  
 Docker images are published under [hmdc/sid-ood on Docker Hub](https://hub.docker.com/r/hmdc/sid-ood/tags) and follow the naming convention:  
 `ood-<version>.el8` (e.g., `ood-3.1.7.el8`)

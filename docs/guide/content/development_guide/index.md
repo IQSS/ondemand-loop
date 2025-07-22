@@ -5,16 +5,20 @@ Whether you're fixing a bug, extending functionality, or integrating with a new 
 
 ### Quick Start
 
-Clone the [repository](https://github.com/IQSS/ondemand-loop) and start the local environment using the built in `Makefile` targets:
+Clone the [repository](https://github.com/IQSS/ondemand-loop) and start the local environment using the built-in `Makefile` targets:
 
 ```bash
 make loop_build
 make loop_up
 ```
+The make loop_up command starts the development environment using Docker Compose.
+It runs in the foreground, streaming logs from all containers to your terminal.
+The shell prompt will not return until you stop the environment manually.
+
+To stop the environment, press <kbd>Ctrl</kbd>+<kbd>C</kbd> (or <kbd>⌘</kbd>+<kbd>C</kbd> on macOS). This will gracefully shut down all containers.
+Alternatively, in another terminal you can run: `make loop_down`
 
 Once the containers are running visit [https://localhost:33000/pun/sys/loop](https://localhost:33000/pun/sys/loop) and log in with the test user `ood/ood`.
-
-Run `make loop_down` to stop the containers when you are finished.
 
 The documentation is organized by topic to help you find what you need quickly:
 

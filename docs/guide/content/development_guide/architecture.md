@@ -25,27 +25,46 @@ implementation is the [Dataverse](https://dataverse.org) connector, with [Zenodo
 implementation. See the [Connectors](connectors.md) section for the exact features a
 connector must implement.
 
-### Requirements
-OnDemand Loop aligns with Open OnDemand to ensure compatibility with the same Ruby and Node.js versions.
-This version of the application was developed using the following runtime environments:
- - OnDemand v3.1.7
- - Ruby v3.1
- - NodeJS v18
- - Ruby on Rails v7.2.2.1
+### Development Environment
+OnDemand Loop is designed to run entirely within Docker containers.  
+The included `Makefile` handles image builds, container orchestration, and test execution.
+This means there is no need to install Ruby, Node.js, or any dependencies locally—just:
 
-Testing with Open OnDemand 4.x will begin after the first production release.
+- **Docker**
+- **Docker Compose**
+- **GNU Make**
+
+With these installed, you can build, run, and test the application using a single set of commands.
+
+#### Requirements
+OnDemand Loop is built to align with Open OnDemand's environment, ensuring compatibility with its supported Ruby and Node.js versions.  
+The application has been developed and tested against the following stack:
+
+- **Rocky Linux** 8
+- **Open OnDemand** v3.1.7
+- **Ruby** 3.1
+- **Node.js** 18
+
+For a full compatibility matrix and upgrade notes, see the [Open OnDemand](../ood) section.
+
 
 ### Project Layout
+The repository root contains the following directories:
 
-The root of the repository contains several top‑level folders:
+| Folder         | Purpose                                                                                      |
+|----------------|----------------------------------------------------------------------------------------------|
+| `application/` | Complete Rails app with `app/`, `config/`, `lib/`, tests, and Gem/Node dependencies.         |
+| `docker/`      | Docker build assets including `Dockerfile.builder` and the OOD NGINX `loop.conf`.            |
+| `docs/`        | Project documentation including this guide.                                                  |
+| `scripts/`     | Shell scripts used by the `Makefile` for building, testing, versioning, and generating docs. |
+| `config/`      | Environment files for Docker Compose. Currently contains `.env`.                             |
+| `tools/`       | Helper files for project tooling.                                                            |
 
-| Folder | Purpose |
-|--------|---------|
-| `application/` | The Rails application with standard `app/`, `config/`, `lib/` etc. |
-| `docker/` | Dockerfiles used to build the development images. |
-| `docs/` | MkDocs documentation including this guide. |
-| `scripts/` | Helper scripts invoked by the `Makefile`. |
-| `config/` | Additional configuration shared across the repo. |
+Other important files live at the root:
+
+- `Makefile` – orchestrates Docker builds and helper commands.
+- `docker-compose.yml` – defines the local environment container stack.
+- `.github/` – GitHub Actions workflows for CI, guide and releases.
 
 Inside `application/app` important subfolders include:
 
@@ -61,15 +80,9 @@ Inside `application/app` important subfolders include:
 
 The main configuration class for the application is lives under `config/configuration_singleton.rb`.
 This globally accessible object defines all adjustable settings which can be
-overridden via YAML or environment variables (see the Admin Guide for details).
+overridden via YAML or environment variables (see the [Admin Guide](../../admin) for details).
 
 `application/test` include all the unit tests and integration tests for the application.
 The application uses standard [Rails testing](https://guides.rubyonrails.org/testing.html) with Minitest with Mocha.
 
 The static fixtures for the tests are stored under `application/test/fixtures`
-
-### Development Environment
-
-Loop is designed to run entirely in Docker containers.  The provided `Makefile`
-builds the images, starts the containers and executes tests.  No additional
-tools need to be installed locally other than Docker, Docker Compose and `make`.

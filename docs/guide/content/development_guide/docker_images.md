@@ -1,21 +1,70 @@
 # Docker Images
 
-Two main images are used during development:
+OnDemand Loop uses two specialized Docker images to streamline development and ensure consistent environments across different setups.
 
-- **Builder Image** – `hmdc/ondemand-loop:builder-R3.1`. This image contains Ruby, Node and build tools. It runs the unit tests and other commands invoked by the `make` targets. The Dockerfile lives at `docker/Dockerfile.builder` and you can rebuild it with `make loop_docker_builder`. This project maintains the builder image and updates it whenever the Open OnDemand stack requires newer Ruby or Node versions.
-- **Open OnDemand Image** – `hmdc/sid-ood:ood-3.1.7.el8` by default. Docker compose launches this image and mounts the application under `/var/www/ood/apps/sys/loop`. The image itself is managed in the [ondemand_development](https://github.com/hmdc/ondemand_development) project which provides a minimal Rocky8 environment with Puppet to install Open OnDemand. Requests to upgrade OOD should be made in that project. You may also override `OOD_IMAGE` to use another container that already has Open OnDemand installed as long as the Loop application is mounted to `/var/www/ood/apps/sys/loop`.
+---
 
-Versions for these images are defined in the `Makefile`. If you need to rebuild the builder image locally run `make loop_docker_builder`.
+### 🐳 Open OnDemand Image
+
+This image provides a complete Open OnDemand installation for testing your application in a realistic environment.
+
+#### Components
+- Minimal Rocky Linux 8 base system
+- Full Open OnDemand installation and configuration
+- Apache/NGINX/Passenger web server setup
+
+!!! info "For supported Open OnDemand versions, see the [Open OnDemand compatibility section](./ood.md)."
+
+---
+
+### ⚙️ Builder Image
+
+This image handles all build operations, testing, and development tasks without requiring you to install Ruby, Node.js, or other dependencies locally.
+
+#### Components
+- Minimal Rocky Linux 8 base system
+- Ruby and Node.js (versions matching Open OnDemand requirements)
+- Build tools, Rake, and development dependencies
+
+#### Available Versions
+
+| Image Tag | Target | Ruby | Node.js |
+|-----------|--------|------|---------|
+| `hmdc/ondemand-loop:builder-R3.1` | OOD v3.x | 3.1 | 18 |
+| `hmdc/ondemand-loop:builder-R3.3` | OOD v4.x | 3.3 | 20 |
+
+#### Image Organization
+All OnDemand Loop Docker images are hosted under the [hmdc/ondemand-loop](https://hub.docker.com/r/hmdc/ondemand-loop/tags) repository on DockerHub.
+
+**Tag Naming Convention:**
+
+- **Builder images:** `builder-Rx.x` (where `x.x` = Ruby version)
+    - Example: `hmdc/ondemand-loop:builder-R3.3`
+- **Other images:** Specific naming based on purpose (development environments, testing images, etc.)
+
+!!! info "🔧 The builder image definition is maintained in [`docker/Dockerfile.builder`](https://github.com/IQSS/ondemand-loop/blob/main/docker/Dockerfile.builder)."
+
+!!! note "Creating New Builder Images"
+
+    When Open OnDemand updates require newer Ruby or Node.js versions:
+    
+    1. Update the Makefile target [`loop_docker_builder`](https://github.com/IQSS/ondemand-loop/blob/main/Makefile#L28) with new version numbers
+    2. Run `make loop_docker_builder` to build and tag the new image
+    3. Push the image to DockerHub for team use
+
+---
 
 ### Helper Scripts
 
-The `scripts/` folder contains small helper scripts used by the Makefile and Docker images:
+The `scripts/` directory contains automation scripts used by the Makefile and Docker containers:
 
-| Script | Purpose |
-|--------|---------|
-| `loop_build.sh` | Precompiles Rails assets inside the builder image. |
-| `loop_test.sh` | Runs the full test suite and generates coverage data. |
-| `loop_release_notes.sh` | Creates release notes from Git history. |
-| `loop_version.sh` | Bumps the version file for releases. |
-| `loop_coverage_badge.sh` | Updates the coverage badges in `docs/badges`. |
-| `guide.sh` | Builds or serves this documentation via MkDocs. |
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `guide.sh` | Documentation management | Builds or serves this documentation using MkDocs |
+| `loop_build.sh` | Asset compilation | Compiles Rails assets and prepares the application for deployment |
+| `loop_coverage_badge.sh` | Coverage reporting | Generates and updates test coverage badges in `docs/badges` |
+| `loop_release_notes.sh` | Release automation | Creates release notes from Git commit history |
+| `loop_test.sh` | Test execution | Runs the complete test suite and generates coverage reports |
+| `loop_version.sh` | Version management | Updates version numbers in preparation for new releases |
+
+!!! info "These scripts are called automatically by Makefile targets, so you typically won't need to run them directly."

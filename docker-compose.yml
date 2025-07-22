@@ -16,6 +16,7 @@ services:
   
   ood:
     image: ${OOD_IMAGE}
+    platform: linux/amd64
     hostname: localhost
     container_name: passenger_loop_ood
     privileged: true
