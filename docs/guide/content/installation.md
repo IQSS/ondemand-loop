@@ -34,7 +34,7 @@ Here's what you need based on your OOD version:
 #### Finding the Right Versions
 
 If you're unsure which versions to use, check the bundled software that came with your Open OnDemand installation.
-OnDemand Loop includes a version mapping matrix used for the local environment [ood_versions.mk](https://github.com/IQSS/ondemand-loop/tools/make/ood_versions.mk)
+OnDemand Loop includes a version mapping matrix used for the local environment [ood_versions.mk](https://github.com/IQSS/ondemand-loop/blob/main/tools/make/ood_versions.mk)
 that shows exactly which Ruby and Node.js versions correspond to each OOD release.
 
 ### Building the Application
@@ -47,7 +47,7 @@ that shows exactly which Ruby and Node.js versions correspond to each OOD releas
 
 The repository includes a Makefile with helper targets and utility scripts to facilitate the building process.
 The preferred way to build OnDemand Loop is to install all Ruby gems and Node packages into local folders, avoiding conflicts with system-wide installs. 
-This is exactly how the [scripts/loop_build.sh](https://github.com/IQSS/ondemand-loop/scripts/loop_build.sh) script operates and how the application has been tested.
+This is exactly how the [scripts/loop_build.sh](https://github.com/IQSS/ondemand-loop/blob/main/scripts/loop_build.sh) script operates and how the application has been tested.
 See that script for the exact commands executed during the build.
 
 To run the build inside the default Docker builder image targeting an OnDemand v3.1.7 installation, execute:
@@ -64,6 +64,31 @@ This command installs all Ruby and Node dependencies and precompiles the CSS and
 JavaScript assets. If you run the build manually make sure to execute the
 `scripts/loop_build.sh` script **from inside the `application` directory** so
 that `bundle` and `npm` find the `Gemfile` and `package.json` files.
+
+#### Building for Other Open OnDemand Versions
+To support compatibility and testing across multiple Open OnDemand releases, OnDemand Loop provides Docker images tailored to a predefined set of OOD versions.
+You can easily build the project against a specific version using the `OOD_VERSION` variable.
+
+The list of supported OOD versions is documented in the [Open OnDemand](../development_guide/ood) section of the [Development Guide](../development_guide).
+
+To build the project for a specific version, run:
+
+```bash
+make clean
+make release_build OOD_VERSION=3.1.14
+```
+
+This will generate a release-compatible build of the application using the environment that matches the specified OOD version.
+
+!!! warning "Alternative Build Options"
+
+    If you're targeting an OOD version not explicitly supported by the build system, there are two options:
+
+    **Use our build scripts,** but ensure that the Ruby and Node.js versions match the ones used by your target Open OnDemand version.
+    This is required to maintain compatibility with system-installed gems and compiled assets.
+
+    **Recommended:** Build the application directly on your OOD server using the Ruby and Node.js environments already provided by Open OnDemand.
+    This ensures the resulting assets and dependencies are aligned with your server environment.
 
 ### Deployment Options
 
