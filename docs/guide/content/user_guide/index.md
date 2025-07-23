@@ -8,7 +8,7 @@ The project becomes the context for all actions performed through the user inter
 
 Each project has its own:
 
-- **Working directory** – where downloaded files are saved. This keeps files organized and isolated by project, making them easy to find and manage.
+- **Working directory** – where downloaded files are saved. This keeps files organized and separated by project, making them easy to find and manage.
 - **Metadata directory** – where the application stores internal data such as download history, upload collection definitions, and the Project’s current state. This allows OnDemand Loop to track progress, resume operations, and display status accurately.
 
 Having an active Project enables you to:
@@ -20,7 +20,7 @@ The interface is designed to guide you through these workflows with minimal setu
 
 !!! note
 
-    OnDemand Loop is **not a synchronization tool**. Instead, each **upload and download action is a discrete, immutable operation**.
+    OnDemand Loop is **not a synchronization tool**. Instead, each **upload and download action is a discrete operation**.
     This means that if files are changed in either the repository or the local HPC system, users must **manually re-download or re-upload** to ensure that the latest versions are captured.
     This design prioritizes simplicity, reproducibility, and clear audit trails over automated syncing.
 
@@ -35,6 +35,7 @@ Built‑in repository connectors handle the details of each repository’s API, 
 3. Familiarize yourself with the navigation bar:
     - **Projects**, **Downloads**, **Uploads**, and a **Repositories** drop-down appear from left to right.
     - The **Explore** link toggles a bar where you can paste a DOI or repository URL.
-    - On the far right you’ll see links to **Open OnDemand** (which returns you to the main dashboard) and **Restart**.
-4. The first time you visit, create project so that you can immediately begin adding downloads.
+    - On the far right you’ll see links to **Open OnDemand** (which returns you to the main dashboard) 
+    - There is also a **Help** dropdown where you can find a link to this **Guide**, the **Sitemap** and **Restart**.
+4. The first time you visit, create a project so that you can immediately begin adding downloads.
 5. From the Open OnDemand dashboard, use the **Files > OnDemand Loop** menu item (or its configured location) to launch this app. When you’re done in Loop, click the **Open OnDemand** link in the navigation bar to go back to the dashboard.
