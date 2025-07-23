@@ -60,9 +60,10 @@ OnDemand Loop will:
 If you prefer an integrated experience or are still exploring:
 
 1. Click on the **Repositories** menu in the app.
-2. Choose a supported remote repository.
-3. Use the built-in search to look for datasets.
-4. Navigate the results and select a dataset to preview or download.
+2. Choose a supported remote repository, like **Dataverse** or **Zenodo**.
+3. In case of the existence of multiple repository installations, select the desired one.
+4. Use the built-in search to look for datasets.
+5. Navigate the results and select a dataset to explore.
 
 Once a dataset is selected, OnDemand Loop presents its metadata and file listing so you can choose what to download into your project.
 
