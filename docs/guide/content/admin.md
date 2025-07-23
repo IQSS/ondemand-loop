@@ -107,7 +107,7 @@ Specifies the directory where OnDemand Loop stores internal metadata, such as pr
 
 <a id="download_root"></a>
 **`download_root`**  
-Defines the destination directory where project-organized files from remote repositories (e.g., Zenodo, Figshare) are downloaded.  
+Defines the destination directory where project-organized files from [remote repositories](../user_guide/supported_repositories) (e.g., Dataverse, Zenodo) are downloaded.  
 These files are accessible through the Files app integration.
 
 - **Default**: `~/loop_downloads`

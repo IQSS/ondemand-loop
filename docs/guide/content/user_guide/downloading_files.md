@@ -132,7 +132,7 @@ At the top of the global **Downloads** page, a summary panel displays the curren
 
 ### Duplicate Downloads
 
-If the same file is added to a project more than once, OnDemand Loop will download it again using a modified filename:
+Files can have the same filename as long as they are in different directories, but if you add a file to a directory that already has the same filename, OnDemand Loop will download it again using a modified filename:
 <pre><code>original_file.csv
 original_file_01.csv
 original_file_02.csv

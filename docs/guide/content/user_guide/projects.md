@@ -49,6 +49,10 @@ Selecting a project opens its **detail page**, where you can:
 
     Deleting a project removes it from the application UI — but all downloaded or uploaded files remain safely stored on disk or in the remote repository.
 
+!!! Note
+
+    The project id that's part of the URL of your project cannot be changed. It's automatically generated using common HPC words.
+
 ### Project Folder Structure
 
 Each project has a dedicated location on the user's space on the HPC filesystem with two main folders:

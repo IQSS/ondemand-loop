@@ -17,7 +17,10 @@ Uploads are organized into **Upload Bundles**, which group a set of files and li
     - Click the **pencil icon** to enter your key and choose whether to save it globally or only for this bundle.
 
 3. **Select or Create a Dataset**  
-   Depending on the type of URL provided and the rules of the remote repository, additional steps may be required before files can be uploaded. The interface will guide you through any necessary actions to fully configure the dataset destination.
+   Depending on the type of URL provided and the rules of the remote repository,  
+   additional steps may be required before files can be uploaded.  
+   ⠀  
+   The interface will guide you through any necessary actions to fully configure the dataset destination.  
    These actions may include:
     - Selecting a dataset from within a collection
     - Creating a new dataset if required or desired
@@ -25,12 +28,12 @@ Uploads are organized into **Upload Bundles**, which group a set of files and li
 
    Once these steps are complete, the upload bundle is linked to the appropriate dataset and ready for file staging.
 
-4. **Add Files**  
+4\. **Add Files**  
    Once the bundle is configured, click **Add Files** to open the **Upload File Selector**.
    Use this interface to navigate your HPC project directory and select the files to be uploaded.
    For help using the Upload File Selector, see [Upload File Selector](./upload_file_selector.md).
 
-   Once selected, files are automatically staged and uploaded. You can monitor progress in the bundle view or the global **Uploads** page.
+   Once selected, files are automatically staged and uploaded. You can monitor progress in the bundle view or the global **Uploads** page.  
    Upload tasks can be cancelled before or during transfers.
 
 !!! note
@@ -134,7 +137,7 @@ At the top of the global Uploads page, a summary panel displays the current syst
 
 **Link to File Location:** Direct path to the file on the HPC filesystem.  
 **Scheduled Date:** When the file was added to the upload queue.  
-**Repository Badge:** Shows the target repository (e.g., Zenodo, Dataverse).  
+**Repository Badge:** Shows the target repository (e.g., Dataverse, Zenodo).  
 **Project Name:** The project the upload belongs to. Click to open the Upload Bundles tab.  
 **Filename:** The name (and relative path) assigned to the file and used for upload.  
 **Size:** File size as reported by the filesystem.  

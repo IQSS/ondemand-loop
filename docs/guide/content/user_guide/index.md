@@ -9,9 +9,9 @@ The project becomes the context for all actions performed through the user inter
 Each project has its own:
 
 - **Working directory** – where downloaded files are saved. This keeps files organized and separated by project, making them easy to find and manage.
-- **Metadata directory** – where the application stores internal data such as download history, upload collection definitions, and the Project’s current state. This allows OnDemand Loop to track progress, resume operations, and display status accurately.
+- **Metadata directory** – where the application stores internal data such as download history, upload collection definitions, and the project’s current state. This allows OnDemand Loop to track progress, resume operations, and display status accurately.
 
-Having an active Project enables you to:
+Having an active project enables you to:
 
 - **Download files** from supported repositories. These downloads are saved into the project working directory and automatically tracked by the application.
 - **Create upload collections**, which group references to local files to be uploaded to a single remote repository. Uploads are queued, monitored, and managed directly from the interface.
@@ -38,4 +38,4 @@ Built‑in repository connectors handle the details of each repository’s API, 
     - On the far right you’ll see links to **Open OnDemand** (which returns you to the main dashboard) 
     - There is also a **Help** dropdown where you can find a link to this **Guide**, the **Sitemap** and **Restart**.
 4. The first time you visit, create a project and make it active, so that you can immediately begin adding downloads.
-5. From the Open OnDemand dashboard, use the **Files > OnDemand Loop** menu item (or its configured location) to launch this app. When you’re done in Loop, click the **Open OnDemand** link in the navigation bar to go back to the dashboard.
+5. From the Open OnDemand dashboard, use the **Files > OnDemand Loop** menu item (or its configured location) to launch this app. When you’re done in OnDemand Loop, click the **Open OnDemand** link in the navigation bar to go back to the dashboard.

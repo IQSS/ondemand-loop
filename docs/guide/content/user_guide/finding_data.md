@@ -10,9 +10,9 @@ The application supports two ways of finding datasets from remote repositories:
 
 !!! note "Supported Repositories"
 
-    OnDemand Loop currently supports two repository connectors: **Dataverse** and **Zenodo**.  
+    OnDemand Loop currently supports two repository connectors: **Dataverse** and **Zenodo** (contributions are welcome to add more).  
     Only **public datasets** are supported for download at this time.  
-    Support for **draft datasets**, **private access**, and **additional repositories** is planned for future releases.
+    Support for **[draft datasets](https://github.com/IQSS/ondemand-loop/issues/310)**, and **private access** is planned for future releases.
 
 ---
 
@@ -40,7 +40,7 @@ If you already know the dataset you need, this is the fastest option:
     - A full URL from a repository:  
       `https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/MYSRMN`  
       `https://zenodo.org/record/1234567`
-3. In The application, click **Explore** in the top navigation bar.
+3. In the application, click **Explore** in the top navigation bar.
 4. Paste the URL or DOI and click **Connect**.
 
 OnDemand Loop will:

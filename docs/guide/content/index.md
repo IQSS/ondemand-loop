@@ -20,7 +20,7 @@
 
 Welcome to the OnDemand Loop documentation.
 
-[**OnDemand Loop**](https://github.com/IQSS/ondemand-loop) is a companion application to [**Open OnDemand**](https://openondemand.org), designed to streamline the movement of research data between high-performance computing (HPC) clusters and remote repositories such as [**Dataverse**](https://dataverse.org), or [**Zenodo**](https://zenodo.org).
+[**OnDemand Loop**](https://github.com/IQSS/ondemand-loop) is a companion application to [**Open OnDemand**](https://openondemand.org), designed to streamline the movement of research data between high-performance computing (HPC) clusters and remote repositories such as [**Dataverse**](https://dataverse.org) or [**Zenodo**](https://zenodo.org).
 
 The core goal of OnDemand Loop is to **lower the barrier for non-technical users** to interact with research data repositories. Following the Open OnDemand philosophy, it aims to provide a user-friendly interface for tasks that typically require complex command-line operations or custom scripts. Researchers can upload and download datasets to and from remote repositories directly from their HPC environment with minimal friction.
 
@@ -31,7 +31,7 @@ The core goal of OnDemand Loop is to **lower the barrier for non-technical users
     - You may encounter occasional bugs or incomplete features.
     - User interface and workflow changes may occur without backward compatibility guarantees.
     - Minor UI/UX inconsistencies are expected as the product evolves.
-    - We welcome feedback and bug reports to help us improve!
+    - We welcome [feedback and bug reports](https://github.com/IQSS/ondemand-loop/issues) to help us improve!
 
 ### Sections
 

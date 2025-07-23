@@ -61,6 +61,7 @@ dataverse_versions:
   - version: 6.4     - ✅ Supported
   - version: 6.5     - ✅ Supported
   - version: 6.6     - ✅ Supported - Reference Implementation
+  - version: 6.7     - ⏳ Testing pending
 
 ```
 
@@ -83,6 +84,9 @@ dataverse_versions:
     **❌ Not Supported**  
     Known to be incompatible or out of scope for testing.
 
+!!! note "Support for future versions of Dataverse"
+
+    Future versions of Dataverse should suppport Open OnDemand Loop as well.
 
 ### Zenodo
 Zenodo stores research outputs such as datasets, papers, and software.  
