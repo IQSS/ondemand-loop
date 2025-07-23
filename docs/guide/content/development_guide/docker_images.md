@@ -58,13 +58,13 @@ All OnDemand Loop Docker images are hosted under the [hmdc/ondemand-loop](https:
 
 The `scripts/` directory contains automation scripts used by the Makefile and Docker containers:
 
-| Script | Purpose | Usage |
-|--------|---------|-------|
-| `guide.sh` | Documentation management | Builds or serves this documentation using MkDocs |
-| `loop_build.sh` | Asset compilation | Compiles Rails assets and prepares the application for deployment |
-| `loop_coverage_badge.sh` | Coverage reporting | Generates and updates test coverage badges in `docs/badges` |
-| `loop_release_notes.sh` | Release automation | Creates release notes from Git commit history |
-| `loop_test.sh` | Test execution | Runs the complete test suite and generates coverage reports |
-| `loop_version.sh` | Version management | Updates version numbers in preparation for new releases |
+| Script                   | Purpose                  | Usage                                                                                    |
+|--------------------------|--------------------------|------------------------------------------------------------------------------------------|
+| `guide.sh`               | Documentation management | Builds or serves this documentation using MkDocs                                         |
+| `loop_build.sh`          | Application build        | Installs dependencies, compiles Rails assets and prepares the application for deployment |
+| `loop_coverage_badge.sh` | Coverage reporting       | Generates and updates test coverage badges in `docs/badges`                              |
+| `loop_release_notes.sh`  | Release automation       | Creates release notes from Git commit history                                            |
+| `loop_test.sh`           | Test execution           | Runs the complete test suite and generates coverage reports                              |
+| `loop_version.sh`        | Version management       | Updates version numbers in preparation for new releases                                  |
 
 !!! info "These scripts are called automatically by Makefile targets, so you typically won't need to run them directly."

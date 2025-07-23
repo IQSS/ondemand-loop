@@ -50,7 +50,7 @@ The `make loop_up` command starts the development environment using Docker Compo
 It runs in the foreground, streaming logs from all containers to your terminal.
 The shell prompt will not return until you stop the environment manually.
 
-To stop the environment, press <kbd>Ctrl</kbd>+<kbd>C</kbd> (or <kbd>⌘</kbd>+<kbd>C</kbd> on macOS). This will gracefully shut down all containers.
+To stop the environment, press <kbd>Ctrl</kbd>+<kbd>C</kbd>. This will gracefully shut down all containers.
 Alternatively, in another terminal you can run: `make loop_down`
 
 Once the containers are running visit [https://localhost:33000/pun/sys/loop](https://localhost:33000/pun/sys/loop) and log in with the test user `ood/ood`.
