@@ -162,3 +162,11 @@ At the top of the global Uploads page, a summary panel displays the current syst
     Files cannot be deleted directly from the global **Uploads** page. 
     To remove a file, go to the corresponding project and use the **Delete** action inside the appropriate upload bundle.
     Click the project name to jump directly to its Upload Bundles tab.
+
+### Checksum verification
+
+A checksum verification is done after each file is uploaded to **Dataverse**. In case of invalid verification, `error` state
+will be displayed for that file despite being transferred entirely. Uploads checksum verification will be implemented for
+other connectors like **Zenodo** in the future.
+
+---
