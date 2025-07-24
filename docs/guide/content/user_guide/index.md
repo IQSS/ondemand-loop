@@ -37,5 +37,5 @@ Built‑in repository connectors handle the details of each repository’s API, 
     - The **Explore** link toggles a bar where you can paste a DOI or repository URL.
     - On the far right you’ll see links to **Open OnDemand** (which returns you to the main dashboard) 
     - There is also a **Help** dropdown where you can find a link to this **Guide**, the **Sitemap** and **Restart**.
-4. The first time you visit, create a project so that you can immediately begin adding downloads.
+4. The first time you visit, create a project and make it active, so that you can immediately begin adding downloads.
 5. From the Open OnDemand dashboard, use the **Files > OnDemand Loop** menu item (or its configured location) to launch this app. When you’re done in Loop, click the **Open OnDemand** link in the navigation bar to go back to the dashboard.

@@ -10,10 +10,10 @@ After locating a dataset (via DOI, URL, or browsing), you can download specific 
 1. **Select files**  
    On the dataset page, use the checkboxes to select the files you want to download.
 2. **Add to project**  
-   When at least one file is selected, the **Add Files to New Project** or **Add Files to Active Project** button becomes enabled. Clicking it schedules the selected files for download to a Project.
-    - The text of the button depends on the presence of an Active Project in the application.
-    - If no Project is active, OnDemand Loop automatically creates a new one.
-    - To make all downloads go to the same specific Project, set that Project as Active.
+   When at least one file is selected, the **Add Files to New Project** or **Add Files to Active Project** button becomes enabled. Clicking it schedules the selected files for download to a project.
+    - The text of the button depends on the presence of an active project in the application.
+    - If no Project is active, OnDemand Loop automatically creates a new one everytime files are added.
+    - To make all downloads go to the same specific project, set that Project as Active.
 3. **Track progress**  
    Monitor download activity in two places:
     - The **Downloads** tab of the selected project (shows only that project's files)
@@ -113,7 +113,7 @@ At the top of the global **Downloads** page, a summary panel displays the curren
 
 #### Behavior
 
-- Files are **queued** when another download is already in progress (`pending` state).
+- Files are automatically **queued** when system limits for concurrent downloads are reached (`pending` state).
 - Downloads in progress show a **progress bar**, updated every 5 seconds.
 - Completed downloads remain visible for **24 hours** in the global view.
 - After that, they are only listed in the project's Downloads tab.
@@ -143,10 +143,12 @@ Each version is treated as a separate task and stored independently.
 
 ---
 
-### Checksum verification
+### Checksum Verification
 
-A checksum verification is done after each file is downloaded. In case of invalid verification, `error` state
-will be displayed for that file despite being transferred entirely.
+After each file is downloaded, OnDemand Loop automatically verifies its integrity using a checksum provided by the remote repository.  
+If the verification fails, the file is marked with an **`error`** status, even if the download appears to have completed successfully.
+
+This ensures that only fully intact and verified files are considered valid and usable.
 
 ---
 

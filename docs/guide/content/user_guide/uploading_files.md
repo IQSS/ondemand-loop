@@ -17,14 +17,11 @@ Uploads are organized into **Upload Bundles**, which group a set of files and li
     - Click the **pencil icon** to enter your key and choose whether to save it globally or only for this bundle.
 
 3. **Select or Create a Dataset**  
-   Depending on the type of URL provided and the rules of the remote repository, additional steps may be required before files can be uploaded.
-
-   The interface will guide you through any necessary actions to fully configure the dataset destination.  
+   Depending on the type of URL provided and the rules of the remote repository, additional steps may be required before files can be uploaded. The interface will guide you through any necessary actions to fully configure the dataset destination.
    These actions may include:
-
-   - Selecting a dataset from within a collection
-   - Creating a new dataset if required or desired
-   - Fetching additional metadata from the repository
+    - Selecting a dataset from within a collection
+    - Creating a new dataset if required or desired
+    - Fetching additional metadata from the repository
 
    Once these steps are complete, the upload bundle is linked to the appropriate dataset and ready for file staging.
 
@@ -33,13 +30,12 @@ Uploads are organized into **Upload Bundles**, which group a set of files and li
    Use this interface to navigate your HPC project directory and select the files to be uploaded.
    For help using the Upload File Selector, see [Upload File Selector](./upload_file_selector.md).
 
-   Once selected, files are automatically staged and uploaded. You can monitor progress in the bundle view or the global **Uploads** page.  
-   Upload tasks can be cancelled before or during transfer.s
+   Once selected, files are automatically staged and uploaded. You can monitor progress in the bundle view or the global **Uploads** page.
+   Upload tasks can be cancelled before or during transfers.
 
 !!! note
 
-    This view does **not auto-refresh**. Reload the page manually to see updated statuses.
-
+    The file list in the **Upload Bundle** view does **not auto-refresh**. Reload the page manually to see updated statuses.
 ---
 
 ### Creating an Upload Bundle
