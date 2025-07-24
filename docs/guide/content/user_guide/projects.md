@@ -45,13 +45,18 @@ Selecting a project opens its **detail page**, where you can:
     To download data from a remote repository, use the **Explore** or **Repositories** features.  
     See the [Downloading Files](downloading_files.md) section for full instructions.
 
-!!! Note
+!!! note "Project ID and Deletion Behaviour"
 
-    Deleting a project removes it from the application UI — but all downloaded or uploaded files remain safely stored on disk or in the remote repository.
+    Each project is assigned a unique, randomly generated ID based on HPC-themed name.
+    This ID appears in the URL and is used internally to reference the project.  
+    **It cannot be changed** after creation.
 
-!!! Note
+    Deleting a project will remove it from the OnDemand Loop interface, but **does not delete** any associated files:
+    
+    - Downloaded files remain on disk.
+    - Uploaded files remain in the remote repository.
 
-    The project id that's part of the URL of your project cannot be changed. It's automatically generated using common HPC words.
+    You can manually clean up downloaded data from disk if needed.
 
 ### Project Folder Structure
 

@@ -10,7 +10,7 @@ The application supports two ways of finding datasets from remote repositories:
 
 !!! note "Supported Repositories"
 
-    OnDemand Loop currently supports two repository connectors: **Dataverse** and **Zenodo** (contributions are welcome to add more).  
+    OnDemand Loop currently supports two repository connectors: **Dataverse** and **Zenodo** ([contributions are welcome to add more](../development_guide/contributing.md)).
     Only **public datasets** are supported for download at this time.  
     Support for **[draft datasets](https://github.com/IQSS/ondemand-loop/issues/310)**, and **private access** is planned for future releases.
 

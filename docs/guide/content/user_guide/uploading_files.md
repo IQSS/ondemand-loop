@@ -25,10 +25,10 @@ Uploads are organized into **Upload Bundles**, which group a set of files and li
     - Selecting a dataset from within a collection
     - Creating a new dataset if required or desired
     - Fetching additional metadata from the repository
+   
+    Once these steps are complete, the upload bundle is linked to the appropriate dataset and ready for file staging.
 
-   Once these steps are complete, the upload bundle is linked to the appropriate dataset and ready for file staging.
-
-4\. **Add Files**  
+4. **Add Files**  
    Once the bundle is configured, click **Add Files** to open the **Upload File Selector**.
    Use this interface to navigate your HPC project directory and select the files to be uploaded.
    For help using the Upload File Selector, see [Upload File Selector](./upload_file_selector.md).
