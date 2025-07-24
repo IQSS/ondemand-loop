@@ -17,15 +17,14 @@ Uploads are organized into **Upload Bundles**, which group a set of files and li
     - Click the **pencil icon** to enter your key and choose whether to save it globally or only for this bundle.
 
 3. **Select or Create a Dataset**  
-   Depending on the type of URL provided and the rules of the remote repository,  
-   additional steps may be required before files can be uploaded.
+   Depending on the type of URL provided and the rules of the remote repository, additional steps may be required before files can be uploaded.
 
    The interface will guide you through any necessary actions to fully configure the dataset destination.  
    These actions may include:
 
-    - Selecting a dataset from within a collection
-    - Creating a new dataset if required or desired
-    - Fetching additional metadata from the repository
+   - Selecting a dataset from within a collection
+   - Creating a new dataset if required or desired
+   - Fetching additional metadata from the repository
 
    Once these steps are complete, the upload bundle is linked to the appropriate dataset and ready for file staging.
 

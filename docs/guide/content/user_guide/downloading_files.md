@@ -10,8 +10,10 @@ After locating a dataset (via DOI, URL, or browsing), you can download specific 
 1. **Select files**  
    On the dataset page, use the checkboxes to select the files you want to download.
 2. **Add to project**  
-   When at least one file is selected, the **Add Files to Active Project** button becomes enabled. Clicking it schedules the selected files for download to the active project.
-    - If no project is active, OnDemand Loop automatically creates a new one.
+   When at least one file is selected, the **Add Files to New Project** or **Add Files to Active Project** button becomes enabled. Clicking it schedules the selected files for download to a Project.
+    - The text of the button depends on the presence of an Active Project in the application.
+    - If no Project is active, OnDemand Loop automatically creates a new one.
+    - To make all downloads go to the same specific Project, set that Project as Active.
 3. **Track progress**  
    Monitor download activity in two places:
     - The **Downloads** tab of the selected project (shows only that project's files)
@@ -27,8 +29,13 @@ After locating a dataset (via DOI, URL, or browsing), you can download specific 
 
 ### Project Detail Page – Downloads Tab
 
-Each project includes a **Downloads** tab showing its associated download requests.
+Each project detail page includes a **Downloads** tab showing its associated download requests.
 The data is displayed in a table format, where each row represents a file and shows key metadata.
+
+!!! warning
+
+    Project list view displays a summary of the downloads. The full information of the dowloaded files is displayed
+    on the Project detail page.
 
 #### Downloads Tab Header
 
@@ -43,7 +50,7 @@ At the top of the Downloads tab, a summary panel displays key information about 
     - **Pending** – Files waiting to be processed.
     - **Completed** – Successfully downloaded files.
     - **Cancelled** – Downloads that were manually cancelled before completion.
-    - **Error** – Downloads that failed due to network or repository issues.
+    - **Error** – Downloads that failed due to networkm, a repository issue or a failed checksum verification.
     - **Total** – The total number of download requests.
 
 The large circular indicator highlights the **percentage of completed downloads**, helping you quickly assess progress at a glance.
@@ -106,7 +113,7 @@ At the top of the global **Downloads** page, a summary panel displays the curren
 
 #### Behavior
 
-- Files are **queued** when system resources are busy (`pending` state).
+- Files are **queued** when another download is already in progress (`pending` state).
 - Downloads in progress show a **progress bar**, updated every 5 seconds.
 - Completed downloads remain visible for **24 hours** in the global view.
 - After that, they are only listed in the project's Downloads tab.
@@ -133,6 +140,13 @@ original_file_02.csv
 
 
 Each version is treated as a separate task and stored independently.
+
+---
+
+### Checksum verification
+
+A checksum verification is done after each file is downloaded. In case of invalid verification, `error` state
+will be displayed for that file despite being transferred entirely.
 
 ---
 
