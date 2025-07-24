@@ -50,7 +50,7 @@ At the top of the Downloads tab, a summary panel displays key information about 
     - **Pending** – Files waiting to be processed.
     - **Completed** – Successfully downloaded files.
     - **Cancelled** – Downloads that were manually cancelled before completion.
-    - **Error** – Downloads that failed due to networkm, a repository issue or a failed checksum verification.
+    - **Error** – Downloads that failed due to network, a repository issue or a failed checksum verification.
     - **Total** – The total number of download requests.
 
 The large circular indicator highlights the **percentage of completed downloads**, helping you quickly assess progress at a glance.
