@@ -1,11 +1,11 @@
 # Projects
 
-In OnDemand Loop, a **Project** is your workspace — a container that groups related downloads, uploads, and data organization tasks into a single context.
+In OnDemand Loop, a **project** is your workspace — a container that groups related downloads, uploads, and data organization tasks into a single context.
 Projects help you manage your research data workflow in a structured way, whether you're retrieving datasets for analysis or preparing files for publication.
 
-You can view and manage your projects by clicking **Projects** in the navigation bar.
+You can view and manage your projects by clicking on **Projects** in the navigation bar.
 
-### Why Use Projects?
+### Why use Projects?
 
 Projects are designed to:
 
@@ -18,10 +18,10 @@ You can also use projects for short-lived or ad-hoc tasks — such as quickly do
 
 ### Creating and Managing Projects
 
-- Click **Create Project** on the home page to start a new project.  
-  OnDemand Loop assigns a randomly generated HPC-themed name, which you can rename by clicking the pencil icon next to the title.
+- Click on **Create Project** on the home page to start a new project.  
+  OnDemand Loop assigns a randomly generated HPC-themed name, which you can rename by clicking on the pencil icon next to the title.
 - Only **one project can be active at a time**.  
-  Click the **pin** icon to set the active project. All new downloads will be assigned to it automatically.
+  Click the **pin** icon to set the project active. All new downloads will be assigned to it automatically.
 
 !!! tip
 

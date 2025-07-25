@@ -13,7 +13,7 @@ The selector temporarily splits the upload bundle tab into two areas:
 ### Selecting Files and Folders
 
 - You can **select both files and folders**.
-- **Double-click** a file to stage it for upload, or **drag and drop** it into the **Drop Files Here** area.
+- **Double-click** a file to stage it for upload, or **drag and drop** it into the **Drop Files Here** area (keyboard is also supported).
 - To select a **folder**, use drag and drop only. All files inside the folder (including subfolders) will be recursively added.
 - When uploading a folder, the upload metadata is automatically configured to preserve the relative path structure in the remote repository.
 
@@ -26,6 +26,7 @@ The selector temporarily splits the upload bundle tab into two areas:
 - Use the **breadcrumb path** displayed in the action bar to jump to any parent directory by double clicking on its name.
 - Click the **pencil icon** to manually edit the path.
 - Click **Home** to return to your home directory.
+- Alternatively the user can rely on the keyboard.
 
 ---
 

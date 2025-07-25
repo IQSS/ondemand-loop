@@ -11,8 +11,8 @@ The application supports two ways of finding datasets from remote repositories:
 !!! note "Supported Repositories"
 
     OnDemand Loop currently supports two repository connectors: **Dataverse** and **Zenodo** ([contributions are welcome to add more](../development_guide/contributing.md)).
-    Only **public datasets** are supported for download at this time.  
-    Support for **[draft datasets](https://github.com/IQSS/ondemand-loop/issues/310)**, and **private access** is planned for future releases.
+    **Public datasets** with published versions are supported for downloading by default. Support for **Dataverse draft datasets** is 
+    supported after an API key is provided.
 
 ---
 
@@ -66,6 +66,11 @@ If you prefer an integrated experience or are still exploring:
 5. Navigate the results and select a dataset to explore.
 
 Once a dataset is selected, OnDemand Loop presents its metadata and file listing so you can choose what to download into your project.
+
+!!! note
+
+    For **Dataverse** datasets, OnDemand Loop allows the user to select the desired dataset version, including the current `draft` if an
+    API key has been previously configured for that **Dataverse** installation.
 
 !!! note
     

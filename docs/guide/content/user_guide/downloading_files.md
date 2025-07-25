@@ -12,8 +12,8 @@ After locating a dataset (via DOI, URL, or browsing), you can download specific 
 2. **Add to project**  
    When at least one file is selected, the **Add Files to New Project** or **Add Files to Active Project** button becomes enabled. Clicking it schedules the selected files for download to a project.
     - The text of the button depends on the presence of an active project in the application.
-    - If no Project is active, OnDemand Loop automatically creates a new one everytime files are added.
-    - To make all downloads go to the same specific project, set that Project as Active.
+    - If no project is active, OnDemand Loop automatically creates a new one everytime files are added.
+    - To make all downloads go to the same specific project, set that project as **active**.
 3. **Track progress**  
    Monitor download activity in two places:
     - The **Downloads** tab of the selected project (shows only that project's files)
@@ -35,7 +35,7 @@ The data is displayed in a table format, where each row represents a file and sh
 !!! warning
 
     Project list view displays a summary of the downloads. The full information of the dowloaded files is displayed
-    on the Project detail page.
+    on the project detail page.
 
 #### Downloads Tab Header
 
@@ -43,7 +43,7 @@ At the top of the Downloads tab, a summary panel displays key information about 
 
 - **Download Folder Path**  
   Shows the workspace folder in the local filesystem, where downloaded files for this project are stored.
-  You can click the folder icon to open it using the Open OnDemand Files app.
+  You can click the folder icon to open it using the **Open OnDemand Files app**.
 
 - **Status Summary Counters**  
   A visual breakdown of all download requests associated with this project:
@@ -56,7 +56,7 @@ At the top of the Downloads tab, a summary panel displays key information about 
 The large circular indicator highlights the **percentage of completed downloads**, helping you quickly assess progress at a glance.
 
 
-#### Metadata Fields
+#### Displayed File Fields
 
 **Scheduled Date:** The date the file was selected for download.  
 **Repository Badge:** Identifies the source repository. Links to the dataset view in OnDemand Loop.  
@@ -99,7 +99,7 @@ At the top of the global **Downloads** page, a summary panel displays the curren
     - **Completed** – Successfully downloaded files.
     - **Total** – The total number of files in the current job.
 
-#### Metadata Fields
+#### Displayed File Fields
 
 **Link to File Location:** A direct link to the downloaded file on the HPC filesystem (within the project workspace).  
 **Scheduled Date:** The date and time the file was added to the download queue.  
@@ -139,7 +139,7 @@ original_file_02.csv
 </code></pre>
 
 
-Each version is treated as a separate task and stored independently.
+Each file version is treated as a separate task and stored independently.
 
 ---
 
@@ -154,7 +154,7 @@ This ensures that only fully intact and verified files are considered valid and 
 
 ### Best Practices
 
-- Always check the **active project** before selecting files — downloads are assigned automatically.
+- Always check the **active project** before selecting files — downloads are assigned to it automatically.
 - Use the **global Downloads page** to monitor multiple datasets or repositories.
 - If a file is no longer needed, cancel it before it starts downloading to free system resources.
 - Use the **project detail page** for cleaning up or reviewing file history.

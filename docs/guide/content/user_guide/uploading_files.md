@@ -1,7 +1,7 @@
 # Uploading Files
 
 OnDemand Loop allows you to upload files from your HPC environment to supported remote repositories.  
-Uploads are organized into **Upload Bundles**, which group a set of files and link them to a specific dataset in a remote repository.
+Uploads are organized into **upload bundles**, which group a set of files and link them to a specific target dataset in a remote repository.
 
 ---
 
@@ -26,11 +26,11 @@ Uploads are organized into **Upload Bundles**, which group a set of files and li
     - Creating a new dataset if required or desired
     - Fetching additional metadata from the repository
    
-    Once these steps are complete, the upload bundle is linked to the appropriate dataset and ready for file staging.
+    Once these steps are complete, the upload bundle is linked to the appropriate target dataset and ready for file staging.
 
 4. **Add Files**  
    Once the bundle is configured, click **Add Files** to open the **Upload File Selector**.
-   Use this interface to navigate your HPC project directory and select the files to be uploaded.
+   Use this interface to navigate your HPC user directory and select the files to be uploaded.
    For help using the Upload File Selector, see [Upload File Selector](./upload_file_selector.md).
 
    Once selected, files are automatically staged and uploaded. You can monitor progress in the bundle view or the global **Uploads** page.  
@@ -77,7 +77,7 @@ Each bundle targets **one dataset** and requires:
 
 ### Project Detail Page – Upload Bundles Tab
 Each project shows a dedicated tab for every upload bundle. A new tab is created automatically when a bundle is added.
-Each **Upload Bundle** tab provides controls for managing uploads, reviewing repository settings, and tracking the status of staged files.
+Each **upload bundle** tab provides controls for managing uploads, reviewing repository settings, and tracking the status of staged files.
 
 #### Upload Bundle Tab Header
 - **Creation Date** – The data when the bundle was created.
@@ -94,7 +94,7 @@ This section appears below the header and includes:
 - **API Key Status** – Shows whether a valid API key is configured.
 - **Edit Button** – Lets you manage connector specific settings like the API key.
 
-#### Metadata Fields
+#### Displayed File Fields
 **Scheduled Date:** When the file was queued for upload.  
 **Filename:** Name of the file as it will appear in the remote repository.  
 **Size:** File size reported by the local filesystem.  
@@ -133,7 +133,7 @@ At the top of the global Uploads page, a summary panel displays the current syst
     - **Completed** – Files uploaded successfully.
     - **Total** – Total number of files in the current batch.
 
-#### Metadata Fields
+#### Displayed File Fields
 
 **Link to File Location:** Direct path to the file on the HPC filesystem.  
 **Scheduled Date:** When the file was added to the upload queue.  
