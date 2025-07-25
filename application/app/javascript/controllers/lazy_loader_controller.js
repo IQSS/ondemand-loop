@@ -6,7 +6,8 @@ export default class extends Controller {
         interval: Number,
         stopOnInactive: Boolean,
         containerId: String,
-        eventName: String
+        eventName: String,
+        reloadOnToggle: { type: Boolean, default: true }
     }
 
     connect() {
@@ -22,6 +23,8 @@ export default class extends Controller {
             this.load()
             this.startAutoRefresh()
         }
+
+        this.hasLoadedOnToggle = false
     }
 
     disconnect() {
@@ -77,7 +80,11 @@ export default class extends Controller {
         const isHidden = this.container.classList.contains('d-none')
 
         if (isHidden) {
-            this.load()
+            if (!this.hasLoadedOnToggle || this.reloadOnToggleValue) {
+                this.load()
+                this.hasLoadedOnToggle = true
+            }
+
             this.container.classList.remove('d-none')
         } else {
             this.container.classList.add('d-none')

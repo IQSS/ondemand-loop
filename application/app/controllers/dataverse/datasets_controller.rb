@@ -59,7 +59,9 @@ class Dataverse::DatasetsController < ApplicationController
   end
 
   def init_service
-    @service = Dataverse::DatasetService.new(@dataverse_url)
+    repo_info = RepoRegistry.repo_db.get(@dataverse_url)
+    api_key = repo_info&.metadata&.auth_key
+    @service = Dataverse::DatasetService.new(@dataverse_url, api_key: api_key)
   end
 
   def init_project_service
@@ -68,19 +70,22 @@ class Dataverse::DatasetsController < ApplicationController
 
   def find_dataset_by_persistent_id
     @persistent_id = params[:persistent_id]
+    @version = params[:version]
     begin
-      @dataset = @service.find_dataset_version_by_persistent_id(@persistent_id)
+      @dataset = @service.find_dataset_version_by_persistent_id(@persistent_id, version: @version)
       unless @dataset
-        log_error('Dataset not found.', { dataverse: @dataverse_url, persistent_id: @persistent_id })
-        redirect_back_to_app(alert: t("dataverse.datasets.dataset_not_found", dataverse_url: @dataverse_url, persistent_id: @persistent_id))
+        log_error('Dataset not found.', { dataverse: @dataverse_url, persistent_id: @persistent_id, version: @version })
+        redirect_back_to_app(alert: t("dataverse.datasets.dataset_not_found", dataverse_url: @dataverse_url, persistent_id: @persistent_id, version: @version))
         return
       end
+      # SET VERSION IN CASE NOT SET IN REQUEST
+      @version = @dataset.version
     rescue Dataverse::DatasetService::UnauthorizedException => e
-      log_error('Dataset requires authorization', { dataverse: @dataverse_url, persistent_id: @persistent_id }, e)
-      redirect_back_to_app(alert: t("dataverse.datasets.dataset_requires_authorization", dataverse_url: @dataverse_url, persistent_id: @persistent_id))
+      log_error('Dataset requires authorization', { dataverse: @dataverse_url, persistent_id: @persistent_id, version: @version }, e)
+      redirect_back_to_app(alert: t("dataverse.datasets.dataset_requires_authorization", dataverse_url: @dataverse_url, persistent_id: @persistent_id, version: @version))
     rescue => e
-      log_error('Dataverse service error', { dataverse: @dataverse_url, persistent_id: @persistent_id }, e)
-      redirect_back_to_app(alert: t("dataverse.datasets.dataverse_service_error", dataverse_url: @dataverse_url, persistent_id: @persistent_id))
+      log_error('Dataverse service error', { dataverse: @dataverse_url, persistent_id: @persistent_id, version: @version }, e)
+      redirect_back_to_app(alert: t("dataverse.datasets.dataverse_service_error", dataverse_url: @dataverse_url, persistent_id: @persistent_id, version: @version))
       return
     end
   end
@@ -89,20 +94,26 @@ class Dataverse::DatasetsController < ApplicationController
     @page = params[:page] ? params[:page].to_i : 1
     @search_query = params[:query].present? ? ActionView::Base.full_sanitizer.sanitize(params[:query]) : nil
     begin
-      @files_page = @service.search_dataset_files_by_persistent_id(@persistent_id, page: @page, per_page: 10, query: @search_query)
+      @files_page = @service.search_dataset_files_by_persistent_id(
+        @persistent_id,
+        version: @version,
+        page: @page,
+        per_page: 10,
+        query: @search_query
+      )
       unless @files_page
-        log_error('Dataset files not found.', {dataverse: @dataverse_url, persistent_id: @persistent_id, page: @page})
-        flash[:alert] = t("dataverse.datasets.dataset_files_not_found", dataverse_url: @dataverse_url, persistent_id: @persistent_id, page: @page)
+        log_error('Dataset files not found.', {dataverse: @dataverse_url, persistent_id: @persistent_id, version: @version, page: @page})
+        flash[:alert] = t("dataverse.datasets.dataset_files_not_found", dataverse_url: @dataverse_url, persistent_id: @persistent_id, version: @version, page: @page)
         redirect_to root_path
         return
       end
     rescue Dataverse::DatasetService::UnauthorizedException => e
-      log_error('Dataset files endpoint requires authorization', {dataverse: @dataverse_url, persistent_id: @persistent_id, page: @page}, e)
-      flash[:alert] = t("dataverse.datasets.dataset_files_endpoint_requires_authorization", dataverse_url: @dataverse_url, persistent_id: @persistent_id, page: @page)
+      log_error('Dataset files endpoint requires authorization', {dataverse: @dataverse_url, persistent_id: @persistent_id, version: @version, page: @page}, e)
+      flash[:alert] = t("dataverse.datasets.dataset_files_endpoint_requires_authorization", dataverse_url: @dataverse_url, persistent_id: @persistent_id, version: @version, page: @page)
       redirect_to root_path
     rescue Exception => e
-      log_error('Dataverse service error while searching files', {dataverse: @dataverse_url, persistent_id: @persistent_id, page: @page}, e)
-      flash[:alert] = t("dataverse.datasets.dataverse_service_error_searching_files", dataverse_url: @dataverse_url, persistent_id: @persistent_id, page: @page)
+      log_error('Dataverse service error while searching files', {dataverse: @dataverse_url, persistent_id: @persistent_id, version: @version, page: @page}, e)
+      flash[:alert] = t("dataverse.datasets.dataverse_service_error_searching_files", dataverse_url: @dataverse_url, persistent_id: @persistent_id, version: @version, page: @page)
       redirect_to root_path
       return
     end

@@ -36,18 +36,21 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
   end
 
   test 'should return success response when download and md5 match' do
+    RepoRegistry.repo_db = Repo::RepoDb.new(db_path: Tempfile.new('repo').path)
     mock_downloader = mock('downloader')
     Download::BasicHttpRubyDownloader
       .expects(:new).with('http://example.com/api/access/datafile/456?format=original',
                           @download_path,
-                          @temp_path
-                          ).returns(mock_downloader)
+                          @temp_path,
+                          headers: {})
+      .returns(mock_downloader)
 
     mock_downloader.expects(:download).yields(nil)
 
     response = @processor.download
     assert_equal FileStatus::SUCCESS, response.status
     assert_match 'download completed', response.message
+    assert true
   end
 
   test 'should return cancelled response if download is cancelled' do
@@ -107,6 +110,22 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
         metadata['download_location'] == expected_location &&
         metadata['temp_location'] == expected_temp
     end
+
+    @processor.download
+  end
+
+  test 'includes api key header when available' do
+    RepoRegistry.repo_db = Repo::RepoDb.new(db_path: Tempfile.new('repo').path)
+    RepoRegistry.repo_db.set('http://example.com', type: ConnectorType::DATAVERSE, metadata: {auth_key: 'KEY'})
+
+    mock_downloader = mock('downloader')
+    Download::BasicHttpRubyDownloader
+      .expects(:new).with('http://example.com/api/access/datafile/456?format=original',
+                          @download_path,
+                          @temp_path,
+                          headers: { Dataverse::ApiService::AUTH_HEADER => 'KEY' })
+      .returns(mock_downloader)
+    mock_downloader.stubs(:download).yields(nil)
 
     @processor.download
   end

@@ -26,7 +26,13 @@ module Dataverse
       scheme = dataverse_uri.scheme_override
       hostname = dataverse_uri.domain
       port = dataverse_uri.port
-      Rails.application.routes.url_helpers.view_dataverse_dataset_path(dv_scheme: scheme, dv_hostname: hostname, dv_port: port, persistent_id: dataset_id)
+      Rails.application.routes.url_helpers.view_dataverse_dataset_path(
+        dv_scheme: scheme,
+        dv_hostname: hostname,
+        dv_port: port,
+        persistent_id: dataset_id,
+        version: version
+      )
     end
 
     def to_h

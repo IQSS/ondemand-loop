@@ -41,8 +41,15 @@ module Dataverse
       subjects.join(", ")
     end
 
+    def version
+      return ':draft' if data.version_state.to_s.casecmp('DRAFT').zero?
+
+      [data.version_number, data.version_minor_number].compact.join('.')
+    end
+
     class Data
-      attr_reader :id, :publication_date, :dataset_id, :dataset_persistent_id, :version_number, :version_state,
+      attr_reader :id, :publication_date, :dataset_id, :dataset_persistent_id,
+                  :version_number, :version_minor_number, :version_state,
                   :license, :metadata_blocks, :parents
 
       def initialize(data)
@@ -52,6 +59,7 @@ module Dataverse
         @dataset_id = data[:datasetId]
         @dataset_persistent_id = data[:datasetPersistentId]
         @version_number = data[:versionNumber]
+        @version_minor_number = data[:versionMinorNumber]
         @version_state = data[:versionState]
         @license = License.new(data[:license])
         @metadata_blocks = MetadataBlocks.new(data[:metadataBlocks])

@@ -14,6 +14,7 @@
       <%= hidden_field_tag 'project_id', Current.settings.user_settings.active_project %>
       <%= hidden_field_tag 'dataverse_url', dataverse_url %>
       <%= hidden_field_tag 'persistent_id', @persistent_id %>
+      <%= hidden_field_tag 'version', dataset.version %>
       <%= hidden_field_tag 'page', @page %>
       <%= hidden_field_tag 'query', @search_query %>
       <div class="row">

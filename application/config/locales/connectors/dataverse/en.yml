@@ -147,6 +147,7 @@ en:
         table_dataset_files_caption: "Dataset files"
       dataset_info:
         button_toggle_label: "Dataset details"
+        button_versions_toggle_label: "Dataset versions"
         field_authors_text: "Authors:"
         field_license_text: "License:"
         field_publication_date_text: "Publication date:"
@@ -157,6 +158,11 @@ en:
         link_open_dataset_title: "Open dataset on Dataverse"
         button_create_bundle_label: "Create Collection Bundle"
         button_create_bundle_title: "Create Collection Bundle"
+
+      dataset_versions_widget:
+        button_browse_version_label: "Browse"
+        button_browse_version_title: "Browse dataset version"
+        field_creation_date_title: "Creation date"
       dataset_actions:
         actions_bar_title_a11y_label: "Dataset actions bar"
         button_create_bundle_label: "Create Collection Bundle"

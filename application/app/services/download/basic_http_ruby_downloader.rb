@@ -6,17 +6,18 @@ module Download
   class BasicHttpRubyDownloader
     include LoggingCommon
 
-    attr_reader :download_url, :download_file, :temp_file
+    attr_reader :download_url, :download_file, :temp_file, :headers
 
-    def initialize(download_url, download_file, temp_file)
+    def initialize(download_url, download_file, temp_file, headers: {})
       @download_url = download_url
       @download_file = download_file
       @temp_file = temp_file
+      @headers = headers
     end
 
     def download(&)
       log_info('Downloading...', {url: download_url, file: download_file, temp: temp_file})
-      download_follow_redirects(download_url, temp_file, &)
+      download_follow_redirects(download_url, temp_file, headers, &)
       FileUtils.mv(temp_file, download_file)
     ensure
       File.delete(temp_file) if File.exist?(temp_file)

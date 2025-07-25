@@ -6,6 +6,12 @@ module Dataverse
 
     TYPES = %w[dataverse collection dataset file unknown].freeze
 
+    VERSION_MAP = {
+      'draft' => ':draft',
+      'latest' => ':latest',
+      'latest-published' => ':latest-published'
+    }.freeze
+
     attr_reader :type, :collection_id, :dataset_id, :file_id, :version
 
     def self.parse(url)
@@ -60,20 +66,27 @@ module Dataverse
       if segments.length == 2 && segments[0] == 'dataverse'
         @type = 'collection'
         @collection_id = segments[1]
-      elsif segments.length == 1 && %w[dataset.xhtml citation citation.xhtml].include?(segments[0])
+      elsif segments.length == 1 && %w[dataset.xhtml citation citation.xhtml].include?(segments[0]) && @base.params[:persistentId]
         @type = 'dataset'
         @dataset_id = @base.params[:persistentId]
-        @version = @base.params[:version]
+        @version = map_version(@base.params[:version])
       elsif segments == ['file.xhtml']
         @type = 'file'
         @dataset_id = @base.params[:persistentId]
         @file_id = @base.params[:fileId] || extract_file_id(@dataset_id)
-        @version = @base.params[:version]
+        @version = map_version(@base.params[:version])
       elsif segments.empty?
         @type = 'dataverse'
       else
         @type = 'unknown'
       end
+    end
+
+    def map_version(version_str)
+      return nil unless version_str
+      return version_str if version_str.start_with?(':')
+
+      VERSION_MAP.fetch(version_str.downcase, version_str)
     end
 
     def extract_file_id(persistent_id)

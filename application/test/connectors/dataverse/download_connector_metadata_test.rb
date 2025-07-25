@@ -84,6 +84,7 @@ class Dataverse::ConnectorMetadataTest < ActiveSupport::TestCase
     metadata = {
       dataverse_url: 'http://demo.dv:8080',
       dataset_id: 'doi:1',
+      version: '2.0'
     }
     file = DownloadFile.new
     file.metadata = metadata
@@ -91,5 +92,6 @@ class Dataverse::ConnectorMetadataTest < ActiveSupport::TestCase
     target = Dataverse::DownloadConnectorMetadata.new(file)
     assert_includes target.files_url, 'dv_scheme=http'
     assert_includes target.files_url, 'dv_port=8080'
+    assert_includes target.files_url, 'version=2.0'
   end
 end
