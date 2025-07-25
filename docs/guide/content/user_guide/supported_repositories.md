@@ -26,8 +26,10 @@ You can find a list of known public Dataverse instances on the <a href="https://
 
 **Download**
 
-- Download individual files from public datasets.
-- Files must be available without authentication and under 10&nbsp;GB in size.
+- Download individual files from public or draft datasets.
+- Public dataset versions are available by default. 
+- Draft dataset versions require the presence of an API token.
+- Files must be under 10&nbsp;GB in size.
 - Checksums are verified after download.
 
 **Upload**
@@ -113,3 +115,9 @@ We began testing and supporting Zenodo in OnDemand Loop as of **June 2025** and 
 - Uploads target a *draft deposition* (existing or newly created in Zenodo).
 - Files are streamed directly to the deposition's bucket via HTTP PUT.
 
+## Repository Settings Page
+
+The **Repositories** dropdown on the top bar contains a link to **Settings**. In that page, the user can explore the
+already consumed repositories with the linked API key when it was previously set in the application. Users can edit
+these API keys and configure new repositories accordingly to make the Loop experience easier on uploads or downloads
+from draft datasets in Dataverse.

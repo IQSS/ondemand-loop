@@ -78,6 +78,8 @@ You can define environment variables in one of the following ways:
 - [zenodo_enabled](#zenodo_enabled)
 - [guide_url](#guide_url)
 
+---
+
 <a id="version"></a>
 **`version`**  
 Specifies the path to a file containing the OnDemand Loop version string. This string is displayed in the UI, typically in the footer, to help identify the deployed version.
@@ -242,11 +244,15 @@ URL to the external documentation site. This is used for help links in the inter
 - **Default**: `https://iqss.github.io/ondemand-loop/`
 - **Environment Variable**: `OOD_LOOP_GUIDE_URL`
 
+---
+
 ### Other Environment Variables
 - [OOD_LOOP_CONFIG_DIRECTORY](#ood_loop_config_directory)
 - [OOD_LOOP_COMMAND_SERVER_FILE](#ood_loop_command_server_file)
 - [OOD_LOOP_DETACHED_PROCESS_FILE](#ood_loop_detached_process_file)
 - [RAILS_ENV](#rails_env)
+
+---
 
 <a id="ood_loop_config_directory"></a>
 **`OOD_LOOP_CONFIG_DIRECTORY`**

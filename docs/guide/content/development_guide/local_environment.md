@@ -38,6 +38,15 @@ For a list of supported configuration properties, refer to the [Admin Guide](../
 
     You can safely delete this folder to reset the application state, but be aware that all metadata and downloaded files will be lost.
 
+!!! note "Development logs"
+
+    OnDemand Loop logs can be checked on the **`application/log/development.log`** file inside the project folder. 
+    Other interesting logs inside the `passenger_loop_ood` Docker container are:
+
+    - /var/log/ondemand-nginx/ood/error.log
+    - /var/log/httpd/error_log
+
+
 ### Running the App
 Build the application in development mode and start the containers:
 
