@@ -11,7 +11,7 @@ The application supports two ways of finding datasets from remote repositories:
 !!! note "Supported Repositories"
 
     OnDemand Loop currently supports two repository connectors: **Dataverse** and **Zenodo** ([contributions are welcome to add more](../development_guide/contributing.md)).
-    **Public datasets** with published versions are supported for downloading by default. Support for **Dataverse draft datasets** is 
+    **Public datasets** with published versions are supported for downloading by default. **Dataverse draft datasets** are 
     supported after an API key is provided.
 
 ---
