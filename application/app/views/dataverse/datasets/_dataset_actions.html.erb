@@ -4,13 +4,16 @@
   </div>
   <div class="d-flex align-items-center gap-2">
     <% if Current.settings.user_settings.active_project.present? %>
-      <%= button_to project_upload_bundles_path(Current.settings.user_settings.active_project),
-                    method: :post,
-                    params: { remote_repo_url: external_dataset_url(current_dataverse_url, dataset.data.dataset_persistent_id) },
-                    class: 'btn btn-sm btn-outline-secondary',
-                    title: t('.button_create_bundle_title') do %>
-        <i class="bi bi-folder-plus" aria-hidden="true"></i>
-        <span class="ps-1"><%= t('.button_create_bundle_label') %></span>
+      <!-- Delete project button -->
+      <%= render layout: "shared/button_to", locals: {
+        url: project_upload_bundles_path(Current.settings.user_settings.active_project),
+        method: 'POST',
+        title: t('.button_create_bundle_title'),
+        class: 'btn btn-sm btn-outline-secondary',
+        icon: 'bi bi-folder-plus',
+        label: t('.button_create_bundle_label')
+      } do %>
+        <%= hidden_field_tag :remote_repo_url, external_dataset_url(current_dataverse_url, dataset.data.dataset_persistent_id) %>
       <% end %>
     <% end %>
     <%= link_to external_dataset_url(current_dataverse_url, dataset.data.dataset_persistent_id),

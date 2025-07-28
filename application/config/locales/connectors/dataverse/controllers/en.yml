@@ -13,6 +13,10 @@ en:
         invalid_file_in_selection: "Invalid file in selection: %{filename} errors: %{errors}"
         error_generating_the_download_file: "Error generating the download file"
         files_added_to_project: "Files added to project: %{project_name}"
+      versions:
+        url_not_supported: "Dataverse URL not supported: %{dataverse_url}"
+        invalid_request: "The request is invalid. Talk to the administrator"
+        dataverse_service_error: "Dataverse service error. Dataverse: %{dataverse_url} persistentId: %{persistent_id} version: %{version}"
       dataset_not_found: "Dataset not found. Dataverse: %{dataverse_url} persistentId: %{persistent_id} version: %{version}"
       dataset_requires_authorization: "Dataset requires authorization. Dataverse: %{dataverse_url} persistentId: %{persistent_id} version: %{version}"
       dataverse_service_error: "Dataverse service error. Dataverse: %{dataverse_url} persistentId: %{persistent_id} version: %{version}"
@@ -20,6 +24,7 @@ en:
       dataset_files_endpoint_requires_authorization: "Dataset files endpoint requires authorization. Dataverse: %{dataverse_url} persistentId: %{persistent_id} version: %{version} page: %{page}"
       url_not_supported: "Dataverse URL not supported: %{dataverse_url}"
       dataverse_service_error_searching_files: "Dataverse service error while searching files. Dataverse: %{dataverse_url} persistentId: %{persistent_id} version: %{version} page: %{page}"
+
     landing_page:
       index:
         dataverse_installations_service_error: "Dataverse Installations service error."

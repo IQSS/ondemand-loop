@@ -102,6 +102,11 @@ en:
         modal_delete_confirmation_title: "Delete File"
         modal_delete_confirmation_content: "The file will no longer appear in the application, but it won’t be deleted from the server."
       project_actions:
+        button_cancel_title: "Cancel"
+        button_edit_project_name_title: "Edit Project name"
+        button_save_project_name_title: "Save project name"
+        section_rename_project_label: "Rename project section"
+
         button_create_upload_bundle_label: "Create Upload Bundle"
         button_create_upload_bundle_placeholder: "Dataset URL"
         button_create_upload_bundle_title: "Create Upload Bundle"

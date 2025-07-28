@@ -4,7 +4,14 @@ class Dataverse::DatasetVersionsController < ApplicationController
   before_action :build_dataset_url
 
   def versions
-    validate_dataset_url(@dataset_url.dataverse_url)
+    @dataset_url = build_dataset_url
+    if @dataset_url.nil?
+      render json: { error: t('dataverse.datasets.versions.invalid_request') }, status: :bad_request
+      return
+    end
+
+    return unless validate_dataset_url(@dataset_url.dataverse_url)
+
     repo_info = RepoRegistry.repo_db.get(@dataset_url.dataverse_url)
     api_key = repo_info&.metadata&.auth_key
     service = Dataverse::DatasetService.new(@dataset_url.dataverse_url, api_key: api_key)
@@ -13,6 +20,9 @@ class Dataverse::DatasetVersionsController < ApplicationController
     @versions = versions_response&.versions || []
 
     render partial: '/dataverse/datasets/versions', layout: false
+  rescue => e
+    log_error('Unexpected error', { dataset_url: @dataset_url.dataset_url }, e)
+    render json: { error: t('dataverse.datasets.versions.dataverse_service_error', dataverse_url: @dataset_url.dataverse_url, persistent_id: @dataset_url.dataset_id, version: @dataset_url.version) }, status: :internal_server_error
   end
 
   private
@@ -22,16 +32,17 @@ class Dataverse::DatasetVersionsController < ApplicationController
     scheme = params[:dv_scheme] || "https"
     port = params[:dv_port] || 443
     persistent_id = params[:persistent_id]
-    @dataset_url = Dataverse::DataverseUrl.dataset_from_parts(domain, persistent_id, scheme: scheme, port: port)
+    Dataverse::DataverseUrl.dataset_from_parts(domain, persistent_id, scheme: scheme, port: port)
   end
 
   def validate_dataset_url(dataset_url)
     resolver = Repo::RepoResolverService.new(RepoRegistry.resolvers)
     result = resolver.resolve(dataset_url)
-    unless result.type == ConnectorType::DATAVERSE
-      redirect_to root_path, alert: t('dataverse.datasets.url_not_supported', dataverse_url: @dataverse_url)
-      return
+    if result.type != ConnectorType::DATAVERSE
+      render json: { error: t('dataverse.datasets.versions.url_not_supported', dataverse_url: dataset_url) }, status: :bad_request
+      return false
     end
-  end
 
+    true
+  end
 end

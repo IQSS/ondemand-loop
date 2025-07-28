@@ -3,7 +3,7 @@
      data-project-name-initial-name-value="<%= project.name %>"
      data-project-name-url-value="<%= project_path(id: project.id) %>"
      data-project-name-project-id-value="<%= project.id %>">
-  <div class="d-flex align-items-center gap-3">
+  <div class="d-flex align-items-center gap-3 flex-grow-1">
     <a href="<%= files_app_url(project.download_dir) %>"
        target="_blank"
        class="btn btn-sm btn-outline-dark"
@@ -13,14 +13,16 @@
     </a>
 
     <%= render partial: '/shared/file_row_date', locals: { date: project.creation_date, title: t('.field_creation_date_title') } if project.creation_date %>
-    <div>
-      <!-- PROJECT METADATA -->
-      <div data-project-name-target="display" class="d-flex flex-column">
-        <%= link_to project_path(id: project.id), class: "position-relative project-name-link text-reset text-decoration-none rounded-end  ps-1 pe-3" do %>
-          <h2 class="mb-0 h5" data-project-name-target="name"><%= project.name %></h2>
-          <small class="text-muted"><%= project.download_dir %></small>
-        <% end %>
-      </div>
+
+    <!-- PROJECT METADATA -->
+    <div data-project-name-target="display" class="d-flex flex-column">
+      <%= link_to project_path(id: project.id), class: "position-relative project-name-link text-reset text-decoration-none rounded-end  ps-1 pe-3" do %>
+        <h2 class="mb-0 h5" data-project-name-target="name"><%= project.name %></h2>
+        <small class="text-muted"><%= project.download_dir %></small>
+      <% end %>
+    </div>
+
+    <div class="flex-grow-1 me-2">
       <!-- PROJECT ACTIONS -->
       <div data-project-name-target="form" class="d-flex align-items-center gap-2 d-none" role="group" aria-label="<%= t('.section_rename_project_label') %>">
         <input type="text"

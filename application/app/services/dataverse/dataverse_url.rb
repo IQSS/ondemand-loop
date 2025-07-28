@@ -32,7 +32,6 @@ module Dataverse
 
     def self.dataset_from_parts(domain, dataset_id, version: nil, scheme: 'https', port: nil)
       raise 'domain is missing' unless domain
-      raise 'dataset_id is missing' unless dataset_id
 
       dataverse_url = Dataverse::Concerns::DataverseUrlBuilder.build_dataverse_url(scheme, domain, port)
       dataset_url = Dataverse::Concerns::DataverseUrlBuilder.build_dataset_url(dataverse_url, dataset_id, version: version)

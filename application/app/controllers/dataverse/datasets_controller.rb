@@ -136,9 +136,12 @@ class Dataverse::DatasetsController < ApplicationController
       return false
     end
 
+    # Prevent redirecting to itself (i.e., current request)
+    return false if referer_uri.path == request.path
+    # Allow if it's the same host
     return true if referer_uri.host == request.host
-    return false unless request.script_name
-    return referer_uri.path.start_with?(request.script_name)
+    # Allow if it's a sub-path of script_name (e.g., behind a reverse proxy)
+    referer_uri.path.start_with?(request.script_name.to_s)
   end
 
 end

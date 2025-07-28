@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
+import { showFlash } from 'utils/flash_message'
 
 export default class extends Controller {
     static values = {
@@ -41,21 +42,29 @@ export default class extends Controller {
             return
         }
 
+        this.container.classList.remove("d-none")
+
         fetch(this.urlValue, {
             headers: { "Accept": "text/html" }
         })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    const contentType = response.headers.get('content-type');
+                    if (contentType && contentType.includes('application/json')) {
+                        return response.json().then(data => { throw data; });
+                    } else {
+                        throw { error: window.loop_app_config.i18n.generic_server_error };
+                    }
                 }
                 return response.text();
             })
             .then(html => {
-                this.container.classList.remove("d-none")
                 this.container.innerHTML = html
             })
             .catch(error => {
-                console.error("LazyLoaderController: Error loading content:", error)
+                // CLEAR CONTENT
+                this.container.innerHTML = ''
+                showFlash('error', error.error, this.container)
             })
     }
 
