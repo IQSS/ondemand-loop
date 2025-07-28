@@ -11,7 +11,7 @@ class Dataverse::DatasetVersionsController < ApplicationController
 
     versions_response = service.dataset_versions_by_persistent_id(@dataset_url.dataset_id)
     @versions = versions_response&.versions || []
-    log_info('Dataset versions', { dataset: @dataset_url.dataset_url, versions: @versions.map(&:version) })
+    log_info('Dataset versions', { dataverse_url: @dataset_url.dataverse_url, dataset_id: @dataset_url.dataset_id, versions: @versions.map(&:version) })
 
     render partial: '/dataverse/datasets/versions', layout: false
   rescue => e
