@@ -56,7 +56,7 @@ At the top of the Downloads tab, a summary panel displays key information about 
 The large circular indicator highlights the **percentage of completed downloads**, helping you quickly assess progress at a glance.
 
 
-#### Displayed File Fields
+#### Files Metadata
 
 **Scheduled Date:** The date the file was selected for download.  
 **Repository Badge:** Identifies the source repository. Links to the dataset view in OnDemand Loop.  
@@ -99,7 +99,7 @@ At the top of the global **Downloads** page, a summary panel displays the curren
     - **Completed** – Successfully downloaded files.
     - **Total** – The total number of files in the current job.
 
-#### Displayed File Fields
+#### Files Metadata
 
 **Link to File Location:** A direct link to the downloaded file on the HPC filesystem (within the project workspace).  
 **Scheduled Date:** The date and time the file was added to the download queue.  

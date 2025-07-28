@@ -5,7 +5,7 @@ Projects help you manage your research data workflow in a structured way, whethe
 
 You can view and manage your projects by clicking on **Projects** in the navigation bar.
 
-### Why use Projects?
+### Why Use Projects?
 
 Projects are designed to:
 

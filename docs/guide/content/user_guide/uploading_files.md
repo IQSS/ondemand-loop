@@ -94,7 +94,7 @@ This section appears below the header and includes:
 - **API Key Status** – Shows whether a valid API key is configured.
 - **Edit Button** – Lets you manage connector specific settings like the API key.
 
-#### Displayed File Fields
+#### Files Metadata
 **Scheduled Date:** When the file was queued for upload.  
 **Filename:** Name of the file as it will appear in the remote repository.  
 **Size:** File size reported by the local filesystem.  
@@ -133,7 +133,7 @@ At the top of the global Uploads page, a summary panel displays the current syst
     - **Completed** – Files uploaded successfully.
     - **Total** – Total number of files in the current batch.
 
-#### Displayed File Fields
+#### Files Metadata
 
 **Link to File Location:** Direct path to the file on the HPC filesystem.  
 **Scheduled Date:** When the file was added to the upload queue.  
