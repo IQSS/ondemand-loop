@@ -69,7 +69,7 @@ that `bundle` and `npm` find the `Gemfile` and `package.json` files.
 To support compatibility and testing across multiple Open OnDemand releases, OnDemand Loop provides Docker images tailored to a predefined set of OOD versions.
 You can easily build the project against a specific version using the `OOD_VERSION` variable.
 
-The list of supported OOD versions is documented in the [Open OnDemand](../development_guide/ood) section of the [Development Guide](../development_guide).
+The list of supported OOD versions is documented in the [Open OnDemand](development_guide/ood.md) section of the [Development Guide](development_guide/index.md).
 
 To build the project for a specific version, run:
 

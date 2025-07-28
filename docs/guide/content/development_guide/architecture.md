@@ -45,7 +45,7 @@ The application has been developed and tested against the following stack:
 - **Ruby** 3.1
 - **Node.js** 18
 
-For a full compatibility matrix and upgrade notes, see the [Open OnDemand](../ood) section.
+For a full compatibility matrix and upgrade notes, see the [Open OnDemand](ood.md) section.
 
 
 ### Project Layout
@@ -80,7 +80,7 @@ Inside `application/app` important subfolders include:
 
 The main configuration class for the application is lives under `config/configuration_singleton.rb`.
 This globally accessible object defines all adjustable settings which can be
-overridden via YAML or environment variables (see the [Admin Guide](../../admin) for details).
+overridden via YAML or environment variables (see the [Admin Guide](../admin.md) for details).
 
 `application/test` include all the unit tests and integration tests for the application.
 The application uses standard [Rails testing](https://guides.rubyonrails.org/testing.html) with Minitest with Mocha.
