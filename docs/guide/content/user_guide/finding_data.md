@@ -69,8 +69,8 @@ Once a dataset is selected, OnDemand Loop presents its metadata and file listing
 
 !!! note
 
-    For **Dataverse** datasets, OnDemand Loop allows the user to select the desired dataset version, including the current `draft` if an
-    API key has been previously configured for that **Dataverse** installation.
+    For **Dataverse** datasets, OnDemand Loop allows the user to select the desired dataset version, including the current `draft`. 
+    A repository API token is required to access and display draft versions.
 
 !!! note
     

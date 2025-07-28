@@ -115,13 +115,13 @@ We began testing and supporting Zenodo in OnDemand Loop as of **June 2025** and 
 - Uploads target a *draft deposition* (existing or newly created in Zenodo).
 - Files are streamed directly to the deposition's bucket via HTTP PUT.
 
-## Repository Settings
+### Repository Settings
 
 The **Repository Settings** section allows you to configure connector-specific settings for repositories you've previously used in the application.
 
 Whenever a new repository is accessed, its metadata is saved automatically. This metadata includes the repository's domain and allows the application to store and manage settings such as API keys, which are specific to each connector. These keys enable secure access and streamline future interactions with that repository.
 
-### Repository Settings Page
+#### Repository Settings Page
 
 You can access the **Settings** page from the **Repositories** dropdown in the top navigation bar. This page displays a list of repositories you've previously interacted with. If an API key was added for a repository, it will be shown here.
 
