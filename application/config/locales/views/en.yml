@@ -92,6 +92,8 @@ en:
       download_actions:
         button_open_downloads_folder_title: "Open Project workspace folder"
         header_download_files_text: "Downloads"
+        button_add_files_text: "Add Files"
+        button_add_files_title: "Add dataset to browse and select files"
       download_files:
         badge_repository_files_tooltip: "Repository Files"
         button_delete_file_title: "Delete File"
