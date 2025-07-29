@@ -31,7 +31,7 @@
         <span class="ps-1"><%= t('.button_add_files_text') %></span>
       </button>
 
-      <%= render partial: "shared/button_to", locals: {
+      <%= render layout: "shared/button_to", locals: {
         url: project_upload_bundle_path(project_id: bundle.project_id, id: bundle.id),
         method: 'DELETE',
         title: t('.button_delete_title'),
@@ -41,7 +41,9 @@
         modal_title: t('.modal_delete_confirmation_title'),
         modal_subtitle: bundle.name,
         modal_content: t('.modal_delete_confirmation_content'),
-      } %>
+      } do %>
+        <%= hidden_field_tag :anchor, '' %>
+      <% end %>
     </div>
   </div>
 

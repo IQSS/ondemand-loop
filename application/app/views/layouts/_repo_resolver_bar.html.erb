@@ -1,21 +1,26 @@
-
-<div id="repo-resolver-bar" class="collapse bg-light" style="transition: none;"
+<%
+  id = local_assigns.fetch(:id, 'repo-resolver-bar')
+  show_images = local_assigns.fetch(:show_images, true)
+%>
+<div id="<%= id %>" class="collapse bg-light" style="transition: none;"
      data-controller="focus-on-event"
      data-focus-on-event-event-value="shown.bs.collapse"
      data-focus-on-event-element-id-value="input_repo_url">
   <div class="d-flex align-items-center justify-content-between py-3 px-5 border-bottom">
 
-    <!-- Repo Logos (left aligned) -->
-    <div class="d-flex align-items-center gap-3">
-      <%= image_tag "dataverse_project.svg", alt: t('connectors.dataverse.title'), height: 35 %>
-      <% if ::Configuration.zenodo_enabled %>
-        <%= image_tag "zenodo_project.svg", alt: t('connectors.zenodo.title'), height: 30, style: 'margin-top: -5px;' %>
+    <% if show_images %>
+      <!-- Repo Logos (left aligned) -->
+      <div class="d-flex align-items-center gap-3 me-5">
+        <%= image_tag "dataverse_project.svg", alt: t('connectors.dataverse.title'), height: 35 %>
+        <% if ::Configuration.zenodo_enabled %>
+          <%= image_tag "zenodo_project.svg", alt: t('connectors.zenodo.title'), height: 30, style: 'margin-top: -5px;' %>
+      <% end %>
+        <%= image_tag "doi_logo.svg", alt: "DOI Fundation", height: 32 %>
+      </div>
     <% end %>
-      <%= image_tag "doi_logo.svg", alt: "DOI Fundation", height: 32 %>
-    </div>
 
     <!-- Resolver Form (right aligned) -->
-    <form data-controller="submit-button" action="<%= repo_resolver_path %>" method="post" class="d-flex align-items-center gap-3" style="flex: 1 1 auto; max-width: 60%;">
+    <form data-controller="submit-button" action="<%= repo_resolver_path %>" method="post" class="d-flex align-items-center gap-3" style="flex: 1 1 auto;">
       <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
       <input type="text"

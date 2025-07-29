@@ -46,6 +46,20 @@ export default class extends Controller {
         this.spinnerTarget.classList.remove("d-none")
         this.labelTarget.classList.add("d-none")
 
+        // ADD ANCHOR IF SET IN URL
+        const hash = window.location.hash
+        if (hash && hash.length > 1) {
+            const anchorValue = hash.substring(1) // Remove '#'
+            let anchorInput = this.element.querySelector('input[name="anchor"]')
+            if (!anchorInput) {
+                anchorInput = document.createElement('input')
+                anchorInput.type = 'hidden'
+                anchorInput.name = 'anchor'
+                anchorInput.value = anchorValue
+                this.element.appendChild(anchorInput)
+            }
+        }
+
         setTimeout(() => {
             this.element.requestSubmit()
         }, uiDelay)

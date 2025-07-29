@@ -2,6 +2,8 @@
 <div id="<%= tab_id_for(project) %>" class="tab-pane fade show active" role="tabpanel" aria-labelledby="<%= tab_label_for(project) %>">
   <%= render partial: '/projects/show/download_actions', locals: { project: project } %>
 
+  <%= render partial: '/layouts/repo_resolver_bar', locals: { id: 'download-repo-resolver', show_images: false } %>
+
   <ul class="container files rounded border">
     <% if files.empty? %>
       <div class="row py-2 justify-content-center custom-stripe">
@@ -42,7 +44,7 @@
             url: project_download_file_path(project_id: project.id, id: file.id),
             method: 'DELETE',
             title: t('.button_delete_file_title'),
-            class: 'btn-sm btn-outline-secondary',
+            class: 'btn-sm btn-outline-secondary icon-hover-danger',
             icon: 'bi bi-trash',
             modal_id: 'modal-delete-confirmation',
             modal_title: t('.modal_delete_confirmation_title'),

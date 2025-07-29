@@ -53,12 +53,12 @@ class ProjectsController < ApplicationController
     project_id = params[:id]
     project = Project.find(project_id)
     if project.nil?
-      redirect_to projects_path, alert: t(".project_not_found", id: project_id)
+      redirect_back fallback_location: projects_path, alert: t(".project_not_found", id: project_id)
       return
     end
 
     Current.settings.update_user_settings({active_project: project_id})
-    redirect_to projects_path, notice: t(".project_is_now_the_active_project", project_name: project.name)
+    redirect_back fallback_location: projects_path, notice: t(".project_is_now_the_active_project", project_name: project.name)
   end
 
   def destroy

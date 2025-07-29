@@ -107,6 +107,9 @@ en:
         button_cancel_project_name_title: "Cancel"
         section_rename_project_label: "Rename project section"
 
+        button_active_project_title: "Active project"
+        button_set_as_active_project_title: "Set as Active Project"
+
         button_create_upload_bundle_label: "Create Upload Bundle"
         button_create_upload_bundle_placeholder: "Dataset URL"
         button_create_upload_bundle_title: "Create Upload Bundle"
