@@ -33,6 +33,7 @@ You can also use projects for short-lived or ad-hoc tasks — such as quickly do
 
 Selecting a project opens its **detail page**, where you can:
 
+- **Edit project name**.
 - **Review the status of downloads and uploads**, including progress and completion history.
 - **Create upload bundles** linked to a specific remote dataset.
 - **Stage files for upload** by selecting local files from the HPC filesystem to include in a bundle.
