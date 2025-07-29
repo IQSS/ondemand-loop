@@ -2,7 +2,7 @@ module Dataverse
   class DataverseHub
     include LoggingCommon
     DEFAULT_CACHE_EXPIRY = 24.hours.freeze
-    HUB_API_URL = 'https://hub.dataverse.org/api/installation'
+    HUB_API_URL = 'https://hub.dataverse.org/api/installations'
 
     def initialize(
       url: HUB_API_URL,
@@ -46,11 +46,14 @@ module Dataverse
             id: entry['dvHubId'],
             name: entry['name'],
             hostname: entry['hostname'],
+            active: entry.fetch('isActive', true),
           }
         end.compact
 
-        log_info('Completed loading Dataverse installations', {servers: installations.size})
-        installations
+        active, inactive = installations.partition { |item| item[:active] }
+
+        log_info('Completed loading Dataverse installations', {active: active.size, inactive: inactive.size})
+        active
       else
         log_error('Failed to fetch Dataverse Hub data', {url: @url, response: response.status}, nil)
         []

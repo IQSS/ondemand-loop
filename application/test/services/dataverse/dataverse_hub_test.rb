@@ -5,7 +5,7 @@ require 'test_helper'
 class Dataverse::DataverseHubTest < ActiveSupport::TestCase
   include ActiveSupport::Testing::TimeHelpers
 
-  TEST_URL = 'https://my.hub.com/api/installation'
+  TEST_URL = 'https://my.hub.com/api/installations'
 
   setup do
     @mock_client = mock('HttpClient')
@@ -21,10 +21,11 @@ class Dataverse::DataverseHubTest < ActiveSupport::TestCase
     travel_back
   end
 
-  test 'installations fetches and stores non-empty results' do
+  test 'installations fetches and stores non-empty results filtering inactive' do
     response_data = [
-      { 'dvHubId' => 'dv1', 'name' => 'DV One', 'hostname' => 'dv1.org' },
-      { 'dvHubId' => 'dv2', 'name' => 'DV Two', 'hostname' => 'dv2.org' }
+      { 'dvHubId' => 'dv1', 'name' => 'DV One', 'hostname' => 'dv1.org', 'isActive' => true },
+      { 'dvHubId' => 'dv2', 'name' => 'DV Two', 'hostname' => 'dv2.org', 'isActive' => true  },
+      { 'dvHubId' => 'dv3', 'name' => 'DV Two', 'hostname' => 'dv2.org', 'isActive' => false  }
     ]
     response = stub(success?: true, body: response_data.to_json)
 
@@ -37,7 +38,7 @@ class Dataverse::DataverseHubTest < ActiveSupport::TestCase
     assert_equal 'dv2', result.last[:id]
   end
 
-  test 'installations returns stored data without refetching if not expired' do
+  test 'installations returns stored data without re-fetching if not expired' do
     response_data = [
       { 'dvHubId' => 'dv-stored', 'name' => 'Stored DV', 'hostname' => 'stored.org' }
     ]
