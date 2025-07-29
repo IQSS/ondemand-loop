@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+  # frozen_string_literal: true
 
 require 'test_helper'
 
@@ -14,8 +14,8 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     ENV.delete('OOD_LOOP_FILES_APP_PATH')
     ENV.delete('OOD_LOOP_CONNECTOR_STATUS_POLL_INTERVAL')
 
-    assert_equal Pathname.new(File.join(Dir.home, '.downloads-for-ondemand')), @config_instance.metadata_root
-    assert_equal Pathname.new(File.join(Dir.home, 'downloads-ondemand')), @config_instance.download_root
+    assert_equal Pathname.new(File.join(Dir.home, '.loop_metadata')), @config_instance.metadata_root
+    assert_equal Pathname.new(File.join(Dir.home, 'loop_downloads')), @config_instance.download_root
     assert_equal File.join(RbConfig::CONFIG['bindir'], 'ruby'), @config_instance.ruby_binary
     assert_equal '/pun/sys/dashboard/files/fs', @config_instance.files_app_path
     assert_equal '5000', @config_instance.connector_status_poll_interval
@@ -140,5 +140,60 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
   test 'version should read VERSION file content from Rails.root' do
     config = ConfigurationSingleton.new
     assert_match /^\d+\.\d+\.\d+\+\d{4}-\d{2}-\d{2}$/, config.version
+  end
+
+  test 'ood_version defaults to nil when no env variables and file missing' do
+    ENV.delete('OOD_VERSION')
+    ENV.delete('ONDEMAND_VERSION')
+    assert_nil ConfigurationSingleton.new.ood_version
+  end
+
+  test 'ood_version reads path from OOD_VERSION env variable' do
+    Dir.mktmpdir do |dir|
+      f = File.join(dir, 'ver')
+      File.write(f, '2.0.0')
+      ENV['OOD_VERSION'] = f
+      assert_equal '2.0.0', ConfigurationSingleton.new.ood_version
+    ensure
+      ENV.delete('OOD_VERSION')
+    end
+  end
+
+  test 'ood_version falls back to ONDEMAND_VERSION if OOD_VERSION not set' do
+    Dir.mktmpdir do |dir|
+      f = File.join(dir, 'ver')
+      File.write(f, '3.0.0')
+      ENV.delete('OOD_VERSION')
+      ENV['ONDEMAND_VERSION'] = f
+      assert_equal '3.0.0', ConfigurationSingleton.new.ood_version
+    ensure
+      ENV.delete('ONDEMAND_VERSION')
+    end
+  end
+
+  test 'OOD_VERSION env takes precedence over ONDEMAND_VERSION' do
+    Dir.mktmpdir do |dir|
+      f1 = File.join(dir, 'ver1')
+      f2 = File.join(dir, 'ver2')
+      File.write(f1, 'a')
+      File.write(f2, 'b')
+      ENV['OOD_VERSION'] = f1
+      ENV['ONDEMAND_VERSION'] = f2
+      assert_equal 'a', ConfigurationSingleton.new.ood_version
+    ensure
+      ENV.delete('OOD_VERSION')
+      ENV.delete('ONDEMAND_VERSION')
+    end
+  end
+
+  test 'loads configuration from OOD_LOOP_CONFIG_DIRECTORY' do
+    Dir.mktmpdir do |dir|
+      File.write(File.join(dir, 'foo.yml'), { dataverse: { restrictions: 'some_value' } }.deep_stringify_keys.to_yaml)
+      ENV['OOD_LOOP_CONFIG_DIRECTORY'] = dir
+      config = ConfigurationSingleton.new
+      assert_equal 'some_value', config.connector_config(:dataverse)[:restrictions]
+    ensure
+      ENV.delete('OOD_LOOP_CONFIG_DIRECTORY')
+    end
   end
 end

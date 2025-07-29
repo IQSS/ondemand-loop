@@ -79,4 +79,84 @@ class UploadBundlesControllerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_match 'Upload bundle deleted', flash[:notice]
   end
+
+  test 'edit renders dataverse dataset create form partial' do
+    project = create_project
+    bundle = create_upload_bundle(project, type: ConnectorType::DATAVERSE)
+    UploadBundle.stubs(:find).returns(bundle)
+    processor = stub('proc', params_schema: [])
+    result = ConnectorResult.new(
+      partial: '/connectors/dataverse/dataset_create_form',
+      locals: {
+        upload_bundle: bundle,
+        profile: OpenStruct.new(full_name: 'User', email: 'user@example.com'),
+        subjects: []
+      }
+    )
+    processor.stubs(:edit).returns(result)
+    ConnectorClassDispatcher.stubs(:upload_bundle_connector_processor).with(ConnectorType::DATAVERSE).returns(processor)
+
+    get edit_project_upload_bundle_url(project.id, bundle.id, form: 'dataset_create')
+
+    assert_response :success
+    assert_select 'form'
+  end
+
+  test 'edit renders dataverse dataset select form partial' do
+    project = create_project
+    bundle = create_upload_bundle(project, type: ConnectorType::DATAVERSE)
+    UploadBundle.stubs(:find).returns(bundle)
+    processor = stub('proc', params_schema: [])
+    data = OpenStruct.new(total_count: 1, items: [OpenStruct.new(global_id: 'ds1', name: 'Dataset 1')])
+    result = ConnectorResult.new(
+      partial: '/connectors/dataverse/dataset_select_form',
+      locals: { upload_bundle: bundle, data: data }
+    )
+    processor.stubs(:edit).returns(result)
+    ConnectorClassDispatcher.stubs(:upload_bundle_connector_processor).with(ConnectorType::DATAVERSE).returns(processor)
+
+    get edit_project_upload_bundle_url(project.id, bundle.id, form: 'dataset_select')
+
+    assert_response :success
+    assert_select 'input[type=radio][name=dataset_id]'
+  end
+
+  test 'edit renders dataverse collection select form partial' do
+    project = create_project
+    bundle = create_upload_bundle(project, type: ConnectorType::DATAVERSE)
+    UploadBundle.stubs(:find).returns(bundle)
+    processor = stub('proc', params_schema: [])
+    data = OpenStruct.new(total_count: 1,
+                          items: [OpenStruct.new(identifier: 'c1', name: 'Col1', parent_dataverse_name: 'Root')])
+    result = ConnectorResult.new(
+      partial: '/connectors/dataverse/collection_select_form',
+      locals: { upload_bundle: bundle, data: data }
+    )
+    processor.stubs(:edit).returns(result)
+    ConnectorClassDispatcher.stubs(:upload_bundle_connector_processor).with(ConnectorType::DATAVERSE).returns(processor)
+
+    get edit_project_upload_bundle_url(project.id, bundle.id, form: 'collection_select')
+
+    assert_response :success
+    assert_select 'input[type=radio][name=collection_id]'
+  end
+
+  test 'edit renders zenodo connector edit form partial' do
+    project = create_project
+    bundle = create_upload_bundle(project, type: ConnectorType::ZENODO)
+    bundle.metadata = { auth_key: 'abc' }
+    UploadBundle.stubs(:find).returns(bundle)
+    processor = stub('proc', params_schema: [])
+    result = ConnectorResult.new(
+      partial: '/connectors/zenodo/connector_edit_form',
+      locals: { upload_bundle: bundle }
+    )
+    processor.stubs(:edit).returns(result)
+    ConnectorClassDispatcher.stubs(:upload_bundle_connector_processor).with(ConnectorType::ZENODO).returns(processor)
+
+    get edit_project_upload_bundle_url(project.id, bundle.id)
+
+    assert_response :success
+    assert_select 'input[name="api_key"]'
+  end
 end

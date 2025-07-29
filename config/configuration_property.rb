@@ -16,6 +16,10 @@ class ConfigurationProperty
     ConfigurationProperty.new(name, default, read_from_env, env_names, PathMapper)
   end
 
+  def self.file_content(name, default: nil, read_from_env: false, env_names: nil)
+    ConfigurationProperty.new(name, default, read_from_env, env_names, FileContentMapper)
+  end
+
   def self.property(name, default: nil, read_from_env: true, env_names: nil)
     ConfigurationProperty.new(name, default, read_from_env, env_names, PassThroughMapper)
   end
@@ -59,10 +63,20 @@ class ConfigurationProperty
     def self.map_string(string_value)
       return nil if string_value.nil?
 
-      dir = File.dirname(string_value.to_s)
+      full_path = File.expand_path(string_value.to_s)
+      dir = File.dirname(full_path)
       # Ensure the directory exists
       FileUtils.mkdir_p(dir)
-      Pathname(string_value.to_s)
+      Pathname(full_path)
+    end
+  end
+
+  class FileContentMapper
+    def self.map_string(string_value)
+      return nil if string_value.nil?
+
+      version_path = Pathname.new(string_value)
+      version_path.read if version_path.file?
     end
   end
 

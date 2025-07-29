@@ -2,6 +2,8 @@
 en:
   connectors:
     dataverse:
+      title: "Dataverse"
+
       actions:
         collection_select:
           message_success: "Collection selected: %{title}"
@@ -19,6 +21,9 @@ en:
           message_success: "Dataverse upload bundle created: %{name}"
 
       upload_bundle_info_bar:
+        link_dataverse_title: "Open Dataverse: %{name}"
+        link_collection_title: "Open Dataverse collection: %{name}"
+        link_dataset_title: "Open Dataverse dataset: %{name}"
       upload_bundle_actions_bar:
         button_edit_dataset_title: "Edit Dataset"
         modal_edit_dataset_title: "Edit Dataset"
@@ -33,6 +38,9 @@ en:
         button_edit_key_title: "Add/Edit API Token"
         modal_edit_key_title: "Add/Edit Dataverse API Token"
         missing_key_disabled_features_text: "Add key to enable Collection/Dataset features"
+        link_dataverse_title: "Open Dataverse: %{name}"
+        link_collection_title: "Open Dataverse collection: %{name}"
+        link_dataset_title: "Open Dataverse dataset: %{name}"
       dataset_create_form:
         field_title_label: "Dataset Title"
         field_title_placeholder: "Enter a descriptive title for the dataset"
@@ -86,6 +94,14 @@ en:
       collection_info:
         button_toggle_label: "Collection details"
         header_dataverse_text: "Dataverse collection"
+        link_open_collection_title: "Open collection on Dataverse"
+        button_create_bundle_label: "Create Collection Bundle"
+        button_create_bundle_title: "Create Collection Bundle"
+      collection_actions:
+        actions_bar_title_a11y_label: "Collection actions bar"
+        button_create_bundle_label: "Create Collection Bundle"
+        button_create_bundle_title: "Create Collection Bundle from this collection"
+        link_open_collection_title: "Open collection on Dataverse"
       dataset_item:
         field_files_label: "Files"
         field_published_label: "Published"
@@ -115,7 +131,10 @@ en:
         breadcrumb_home_text: "Home"
         breadcrumb_home_title: "Home"
       dataset_files:
-        button_add_files_text: "Add Files to Active Project"
+        button_add_files_active_project_text: "Add Files to Active Project"
+        button_add_files_active_project_title: "This action will add the selected files into the Active Project"
+        button_add_files_new_project_text: "Add Files to New Project"
+        button_add_files_new_project_title: "No active project. This action will create a new project and add the selected files into the newly created project"
         col_file_name_text: "File name"
         col_published_text: "Published"
         col_size_text: "Size"
@@ -128,6 +147,7 @@ en:
         table_dataset_files_caption: "Dataset files"
       dataset_info:
         button_toggle_label: "Dataset details"
+        button_versions_toggle_label: "Dataset versions"
         field_authors_text: "Authors:"
         field_license_text: "License:"
         field_publication_date_text: "Publication date:"
@@ -135,6 +155,21 @@ en:
         header_dataset_text: "Dataset"
         header_description_text: "Description"
         header_dataset_metadata_text: "Dataset Metadata"
+        link_open_dataset_title: "Open dataset on Dataverse"
+        button_create_bundle_label: "Create Collection Bundle"
+        button_create_bundle_title: "Create Collection Bundle"
+      versions:
+        message_missing_api_key_text: "<strong>Draft versions are restricted.</strong> Add an API token in repository settings to access draft content when available."
+        field_version_label: "Dataset version: %{version}"
+        button_repository_settings_label: "Open repository settings"
+        button_browse_version_label: "Open dataset version %{version}"
+        field_creation_date_title: "Creation date"
+
+      dataset_actions:
+        actions_bar_title_a11y_label: "Dataset actions bar"
+        button_create_bundle_label: "Create Collection Bundle"
+        button_create_bundle_title: "Create Collection Bundle from this dataset"
+        link_open_dataset_title: "Open dataset on Dataverse"
       search_bar:
         button_submit_text: "Search Files"
         field_search_label: "Search files within the dataset"
@@ -156,6 +191,7 @@ en:
         breadcrumb_home_text: "Home"
         breadcrumb_home_title: "Home"
         image_dataverse_icon_alt: "Dataverse icon"
+        image_dataverse_icon_aria_label: "Visit the Dataverse project homepage"
         page_title: "OnDemand Loop - Dataverse Landing page"
 
     restrictions:

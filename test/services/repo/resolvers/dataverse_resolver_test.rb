@@ -12,16 +12,18 @@ class Repo::Resolvers::DataverseResolverTest < ActiveSupport::TestCase
     @repo_db_temp.unlink
   end
 
-  test 'resolve uses hub registry when domain is known' do
-    registry = OpenStruct.new(installations: [{ hostname: 'dv.org' }])
-    resolver = Repo::Resolvers::DataverseResolver.new(dataverse_hub_registry: registry)
+  test 'resolve returns cached entry without api call' do
+    @repo_db.set('https://dv.org', type: ConnectorType::DATAVERSE, metadata: { api_version: '5.0' })
+    http_client = mock('client')
+    http_client.expects(:get).never
 
-    context = Repo::RepoResolverContext.new('https://dv.org/dataverse', repo_db: @repo_db)
+    resolver = Repo::Resolvers::DataverseResolver.new
+
+    context = Repo::RepoResolverContext.new('https://dv.org/dataverse', http_client: http_client, repo_db: @repo_db)
     context.object_url = 'https://dv.org/dataverse'
     resolver.resolve(context)
 
     assert_equal ConnectorType::DATAVERSE, context.type
-    assert @repo_db.get('https://dv.org')
   end
 
   test 'resolve falls back to API when domain unknown' do
@@ -30,22 +32,22 @@ class Repo::Resolvers::DataverseResolverTest < ActiveSupport::TestCase
     http_client = mock('client')
     http_client.expects(:get).returns(response)
 
-    registry = OpenStruct.new(installations: [])
-    resolver = Repo::Resolvers::DataverseResolver.new(dataverse_hub_registry: registry)
+    resolver = Repo::Resolvers::DataverseResolver.new
     context = Repo::RepoResolverContext.new('https://unknown.org/dataverse', http_client: http_client, repo_db: @repo_db)
     context.object_url = 'https://unknown.org/dataverse'
 
     resolver.resolve(context)
 
     assert_equal ConnectorType::DATAVERSE, context.type
-    assert @repo_db.get('https://unknown.org')
+    entry = @repo_db.get('https://unknown.org')
+    assert entry
+    assert_equal '1.0', entry.metadata.api_version
   end
 
   test 'resolve handles api failures gracefully' do
     http_client = mock('client')
     http_client.expects(:get).raises(StandardError.new('boom'))
-    registry = OpenStruct.new(installations: [])
-    resolver = Repo::Resolvers::DataverseResolver.new(dataverse_hub_registry: registry)
+    resolver = Repo::Resolvers::DataverseResolver.new
 
     context = Repo::RepoResolverContext.new('https://fail.org/dataverse', http_client: http_client, repo_db: @repo_db)
     context.object_url = 'https://fail.org/dataverse'

@@ -30,12 +30,12 @@ class DataverseDatasetsHelperTest < ActionView::TestCase
   test 'link_to_dataset_prev_page and next_page' do
     page = Page.new((1..30).to_a, 2, 10)
     stubs(:view_dataverse_dataset_path).returns('/prev')
-    html = link_to_dataset_prev_page('https://dv.example', 'id', page, {})
+    html = link_to_dataset_prev_page('https://dv.example', 'id', '1.0', page, {})
     assert_includes html, '/prev'
 
     page = Page.new((1..30).to_a, 2, 10)
     stubs(:view_dataverse_dataset_path).returns('/next')
-    html = link_to_dataset_next_page('https://dv.example', 'id', page, {})
+    html = link_to_dataset_next_page('https://dv.example', 'id', '1.0', page, {})
     assert_includes html, '/next'
   end
 

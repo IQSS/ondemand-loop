@@ -1,5 +1,8 @@
 module ProjectsHelper
 
+  def active_project?(project_id)
+    Current.settings.user_settings.active_project.to_s == project_id
+  end
   def project_header_class(active)
     active ? 'bg-primary-subtle' : 'bg-body-secondary'
   end

@@ -28,4 +28,19 @@ class Zenodo::Actions::DepositionFetchTest < ActiveSupport::TestCase
     result = @action.update(@bundle, {})
     refute result.success?
   end
+
+  test 'update creates deposition from record when needed' do
+    meta = OpenStruct.new(zenodo_url: 'http://zenodo.org', record_id: '11', concept_id: nil, deposition_id: nil, api_key: OpenStruct.new(value: 'KEY'))
+    @bundle.stubs(:connector_metadata).returns(meta)
+    @bundle.stubs(:repo_url).returns('http://zenodo.org/record/11')
+
+    dep = OpenStruct.new(id: '99', title: 't', bucket_url: 'b', draft?: true)
+    r_service = mock('record_service')
+    r_service.expects(:get_or_create_deposition).with('11', api_key: 'KEY', concept_id: nil).returns(dep)
+    Zenodo::RecordService.stubs(:new).returns(r_service)
+
+    result = @action.update(@bundle, {})
+    assert result.success?
+    assert_equal '99', @bundle.metadata[:deposition_id]
+  end
 end

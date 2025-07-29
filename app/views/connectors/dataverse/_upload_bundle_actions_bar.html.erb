@@ -8,13 +8,13 @@
     <!-- UPLOAD DATASET INFO -->
     <div class="d-flex flex-column">
         <span class="text-truncate d-inline-block" style="max-width: 800px;">
-          <a href="<%= upload_bundle.connector_metadata.dataverse_url %>" target="_blank" class="text-reset text-decoration-none" title="<%= upload_bundle.connector_metadata.dataverse_title %>">
+          <a href="<%= upload_bundle.connector_metadata.dataverse_url %>" target="_blank" class="text-reset text-decoration-none" title="<%= t('connectors.dataverse.upload_bundle_actions_bar.link_dataverse_title', name: upload_bundle.connector_metadata.dataverse_title) %>">
             <%= upload_bundle.connector_metadata.dataverse_title %>
           </a>
           <span class="text-muted mx-1 position-relative" style="font-size: 1.2rem;">&raquo;</span>
 
           <% if upload_bundle.connector_metadata.display_collection? %>
-            <a href="<%= upload_bundle.connector_metadata.collection_url %>" target="_blank" class="text-reset text-decoration-none" title="<%= upload_bundle.connector_metadata.collection_title %>">
+            <a href="<%= upload_bundle.connector_metadata.collection_url %>" target="_blank" class="text-reset text-decoration-none" title="<%= t('connectors.dataverse.upload_bundle_actions_bar.link_collection_title', name: upload_bundle.connector_metadata.collection_title) %>">
               <%= upload_bundle.connector_metadata.collection_title %>
             </a>
           <% end %>
@@ -33,7 +33,7 @@
           <% end %>
           <% if upload_bundle.connector_metadata.display_dataset? %>
             <small class="text-muted mx-1 position-relative" style="top: -0.8px;">&gt;</small>
-            <a href="<%= upload_bundle.connector_metadata.dataset_url(version: 'DRAFT') %>" target="_blank" class="text-reset text-decoration-none" title="<%= upload_bundle.connector_metadata.dataset_title %>">
+            <a href="<%= upload_bundle.connector_metadata.dataset_url(version: 'DRAFT') %>" target="_blank" class="text-reset text-decoration-none" title="<%= t('connectors.dataverse.upload_bundle_actions_bar.link_dataset_title', name: upload_bundle.connector_metadata.dataset_title) %>">
               <%= upload_bundle.connector_metadata.dataset_title %>
             </a>
           <% end %>

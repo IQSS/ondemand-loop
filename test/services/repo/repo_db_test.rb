@@ -82,4 +82,17 @@ class Repo::RepoDbTest < ActiveSupport::TestCase
       @db.set('https://demo.org', type: 'invalid')
     end
   end
+
+  test 'set merges metadata and removes empty values' do
+    @db.set('https://demo.org', type: @type, metadata: { token: 'abc123', api_version: '1.0' })
+    created = @db.get('https://demo.org').creation_date
+
+    @db.set('https://demo.org', type: @type, metadata: { api_version: '2.0', token: nil, extra: '' })
+
+    entry = @db.get('https://demo.org')
+    assert_equal '2.0', entry.metadata.api_version
+    assert_nil entry.metadata.token
+    assert_nil entry.metadata.extra
+    assert_equal created, entry.creation_date
+  end
 end

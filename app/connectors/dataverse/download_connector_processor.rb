@@ -30,7 +30,17 @@ module Dataverse
       connector_metadata.temp_location = temp_location
       file.update({metadata: connector_metadata.to_h})
 
-      download_processor = Download::BasicHttpRubyDownloader.new(download_url, download_location, temp_location)
+      repo_info = RepoRegistry.repo_db.get(connector_metadata.dataverse_url)
+      api_key = repo_info&.metadata&.auth_key
+      headers = {}
+      headers[Dataverse::ApiService::AUTH_HEADER] = api_key if api_key.present?
+
+      download_processor = Download::BasicHttpRubyDownloader.new(
+        download_url,
+        download_location,
+        temp_location,
+        headers: headers
+      )
       download_processor.download do |context|
         cancelled
       end

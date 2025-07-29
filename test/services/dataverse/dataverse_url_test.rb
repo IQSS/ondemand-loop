@@ -88,6 +88,27 @@ class Dataverse::DataverseUrlTest < ActiveSupport::TestCase
     assert_equal '1.0', dataverse_url.version
   end
 
+  test 'should map draft version values' do
+    url = 'https://demo.dataverse.org/dataset.xhtml?persistentId=doi:10.1234/XYZ&version=DRAFT'
+    dataverse_url = Dataverse::DataverseUrl.parse(url)
+
+    assert_equal ':draft', dataverse_url.version
+  end
+
+  test 'should map latest version values' do
+    url = 'https://demo.dataverse.org/dataset.xhtml?persistentId=doi:10.1234/XYZ&version=latest'
+    dataverse_url = Dataverse::DataverseUrl.parse(url)
+
+    assert_equal ':latest', dataverse_url.version
+  end
+
+  test 'should map latest-published version values' do
+    url = 'https://demo.dataverse.org/dataset.xhtml?persistentId=doi:10.1234/XYZ&version=LATEST-PUBLISHED'
+    dataverse_url = Dataverse::DataverseUrl.parse(url)
+
+    assert_equal ':latest-published', dataverse_url.version
+  end
+
   test 'should raise when constructing collection_url without collection_id' do
     url = 'https://demo.dataverse.org/'
     dataverse_url = Dataverse::DataverseUrl.parse(url)

@@ -36,4 +36,30 @@ class Dataverse::DatasetServiceTest < ActiveSupport::TestCase
     assert_kind_of Dataverse::DatasetFilesResponse, res
     assert_equal 2, res.files.size
   end
+
+  test 'search_dataset_files_by_persistent_id uses version in url' do
+    @client = HttpClientMock.new(file_path: fixture_path('dataverse/dataset_files_response/valid_response.json'))
+    @service = Dataverse::DatasetService.new('https://example.com', http_client: @client)
+    @service.search_dataset_files_by_persistent_id('doi:1', version: '2.0')
+    assert_includes @client.called_path, '/versions/2.0/files'
+  end
+
+  test 'find_dataset_version_by_persistent_id uses version in url' do
+    @client = HttpClientMock.new(file_path: fixture_path('dataverse/dataset_version_response/valid_response.json'))
+    @service = Dataverse::DatasetService.new('https://example.com', http_client: @client)
+    @service.find_dataset_version_by_persistent_id('doi:1', version: '2.0')
+    assert_includes @client.called_path, '/versions/2.0'
+  end
+
+  test 'dataset_versions_by_persistent_id parses response and requires key' do
+    @client = HttpClientMock.new(file_path: fixture_path('dataverse/dataset_versions_response/valid_response.json'))
+    service = Dataverse::DatasetService.new('https://example.com', http_client: @client, api_key: 'KEY')
+    res = service.dataset_versions_by_persistent_id('doi:1')
+    assert_instance_of Dataverse::DatasetVersionsResponse, res
+    assert_equal 2, res.versions.size
+    assert_equal 'doi:10.70122/FK2/O9JYAO', res.versions.first.persistent_id
+    assert_equal ':draft', res.versions.first.version
+    assert_includes @client.called_path, 'excludeMetadataBlocks=true'
+  end
+
 end

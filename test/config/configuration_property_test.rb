@@ -74,4 +74,30 @@ class ConfigurationPropertyTest < ActiveSupport::TestCase
     ConfigurationProperty::PassThroughMapper.expects(:map_string).with('default_value')
     property = ConfigurationProperty.new(:delegated, 'default_value', false, [], ConfigurationProperty::PassThroughMapper)
   end
+
+  test 'FileContentMapper should read content from existing file' do
+    Dir.mktmpdir do |dir|
+      path = File.join(dir, 'VERSION')
+      File.write(path, '1.2.3')
+      result = ConfigurationProperty::FileContentMapper.map_string(path)
+      assert_equal '1.2.3', result
+    end
+  end
+
+  test 'FileContentMapper should return nil for missing file or nil input' do
+    assert_nil ConfigurationProperty::FileContentMapper.map_string('/tmp/does_not_exist')
+    assert_nil ConfigurationProperty::FileContentMapper.map_string(nil)
+  end
+
+  test '.file_content should create property with file content default' do
+    Dir.mktmpdir do |dir|
+      version_file = File.join(dir, 'ver')
+      File.write(version_file, '9.9.9')
+      property = ConfigurationProperty.file_content(:foo, default: version_file)
+      assert_equal :foo, property.name
+      assert_equal '9.9.9', property.default
+      assert_equal false, property.read_from_environment
+      assert_equal [], property.environment_names
+    end
+  end
 end

@@ -35,6 +35,7 @@ class Dataverse::DatasetVersionResponseTest < ActiveSupport::TestCase
     assert_equal "grandparent", data.parents.first[:identifier]
     assert_equal "Grandparent Dataverse", data.parents.first[:name]
     assert_equal 2, data.version_number
+    assert_equal 0, data.version_minor_number
     assert_equal "RELEASED", data.version_state
     assert_equal 3, data.dataset_id
     assert_equal "doi:10.5072/FK2/4INDFN", data.dataset_persistent_id
@@ -54,6 +55,17 @@ class Dataverse::DatasetVersionResponseTest < ActiveSupport::TestCase
 
   test "valid json parses dataset version response files metadata fields subjects" do
     assert_equal "Astronomy and Astrophysics", @dataset.subjects
+  end
+
+  test "version returns number string when released" do
+    assert_equal "2.0", @dataset.version
+  end
+
+  test "version returns :draft when draft" do
+    draft_json = JSON.parse(load_file_fixture(File.join('dataverse', 'dataset_version_response', 'valid_response.json')))
+    draft_json['data']['versionState'] = 'DRAFT'
+    draft_dataset = Dataverse::DatasetVersionResponse.new(draft_json.to_json)
+    assert_equal ':draft', draft_dataset.version
   end
 
   test "valid json parses dataset response license" do

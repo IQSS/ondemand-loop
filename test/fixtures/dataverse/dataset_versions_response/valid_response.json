@@ -1,0 +1,23 @@
+{
+  "status": "OK",
+  "data": [
+    {
+      "datasetPersistentId": "doi:10.70122/FK2/O9JYAO",
+      "versionNumber": 1,
+      "versionMinorNumber": 0,
+      "versionState": "DRAFT",
+      "lastUpdateTime": "2025-07-23T17:08:57Z",
+      "createTime": "2025-07-23T17:08:57Z",
+      "publicationDate": "2025-06-27"
+    },
+    {
+      "datasetPersistentId": "doi:10.70122/FK2/O9JYAO",
+      "versionNumber": 2,
+      "versionMinorNumber": 0,
+      "versionState": "RELEASED",
+      "lastUpdateTime": "2025-07-23T17:04:03Z",
+      "createTime": "2025-07-07T22:59:49Z",
+      "publicationDate": "2025-06-27"
+    }
+  ]
+}

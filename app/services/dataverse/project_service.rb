@@ -27,6 +27,7 @@ module Dataverse
           f.metadata = {
             dataverse_url: @dataverse_url,
             dataset_id: dataset_id,
+            version: dataset.version,
             parents: dataset.data.parents,
             id: dataset_file.data_file.id.to_s,
             content_type: dataset_file.content_type,

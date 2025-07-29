@@ -18,9 +18,24 @@
     </div>
 
     <div class="d-flex align-items-center gap-2">
-      <div>
+      <div class="me-4">
         <%= render partial: '/shared/file_summary_widget', locals: project_progress_data(project.status_summary) %>
       </div>
+      <button data-controller="utils--icon-toggle"
+              data-utils--icon-toggle-icon-on-value="bi-plus-square-fill"
+              data-utils--icon-toggle-icon-off-value="bi-dash-square-fill"
+              data-action="click->utils--icon-toggle#toggle"
+              data-bs-toggle="collapse"
+              data-bs-target="#download-repo-resolver"
+              title="<%= t('.button_add_files_title') %>"
+              aria-label="<%= t('.button_add_files_text') %>"
+              role="button"
+              aria-expanded="false"
+              aria-controls="download-repo-resolver"
+              class="btn btn-outline-secondary btn-sm">
+        <i data-utils--icon-toggle-target="icon" class="bi bi-plus-square-fill" aria-hidden="true"></i>
+        <span class="ps-1"><%= t('.button_add_files_text') %></span>
+      </button>
     </div>
 
   </div>

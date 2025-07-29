@@ -4,7 +4,7 @@
       <a href="<%= root_path %>" title="<%= t(".breadcrumb_home_title") %>"><%= t(".breadcrumb_home_text") %></a>
     </li>
     <li class="breadcrumb-item">
-      <%= link_to "Dataverse", view_dataverse_landing_path, { 'title' => t(".breadcrumb_dataverse_title"), 'aria-label' => t(".breadcrumb_dataverse_title")} %>
+      <%= link_to t('connectors.dataverse.title'), view_dataverse_landing_path, { 'title' => t(".breadcrumb_dataverse_title"), 'aria-label' => t(".breadcrumb_dataverse_title")} %>
     </li>
     <li class="breadcrumb-item">
       <%= link_to_root_dataverse_collection(dataverse_url, {title: dataverse_url, 'aria-label' => dataverse_url }) %>

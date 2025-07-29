@@ -3,17 +3,18 @@
     <%= files_page.to_s %>
     <nav aria-label="<%= t('dataverse.datasets.dataset_files.paginator_bar_a11y_label') %>" class="ms-auto">
       <div class="d-flex align-items-center gap-2">
-        <%= link_to_dataset_prev_page(dataverse_url, @persistent_id, files_page, {class: "text-decoration-none"}) %>
+        <%= link_to_dataset_prev_page(dataverse_url, @persistent_id, dataset.version, files_page, {class: "text-decoration-none"}) %>
         <%= t('dataverse.datasets.dataset_files.paginator_page_text', page: files_page.page) %>
-        <%= link_to_dataset_next_page(dataverse_url, @persistent_id, files_page, {class: "text-decoration-none"}) %>
+        <%= link_to_dataset_next_page(dataverse_url, @persistent_id, dataset.version, files_page, {class: "text-decoration-none"}) %>
       </div>
     </nav>
   </div>
   <% if files_page.total_count > 0 %>
-    <%= form_with url: download_dataverse_dataset_files_path, method: :post, local: true, class: "p-3 rounded bg-light", data: {controller: "utils--checkbox"} do %>
+    <%= form_with url: download_dataverse_dataset_files_path, id: 'dataset-download-files-form', method: :post, local: true, class: "p-3 rounded bg-light", data: {controller: "utils--checkbox"} do %>
       <%= hidden_field_tag 'project_id', Current.settings.user_settings.active_project %>
       <%= hidden_field_tag 'dataverse_url', dataverse_url %>
       <%= hidden_field_tag 'persistent_id', @persistent_id %>
+      <%= hidden_field_tag 'version', dataset.version %>
       <%= hidden_field_tag 'page', @page %>
       <%= hidden_field_tag 'query', @search_query %>
       <div class="row">
@@ -42,7 +43,17 @@
         </table>
       </div>
       <div class="text-center">
-        <%= submit_tag t('dataverse.datasets.dataset_files.button_add_files_text'), class: "btn btn-primary", id: "submit_button", data: {"utils--checkbox-target" => "submitButton"} %>
+        <% if Current.settings.user_settings.active_project.present? %>
+          <%= submit_tag t('dataverse.datasets.dataset_files.button_add_files_active_project_text'),
+                         class: "btn btn-primary", id: "submit_button",
+                         data: {"utils--checkbox-target" => "submitButton"},
+                         title: t('dataverse.datasets.dataset_files.button_add_files_active_project_title') %>
+        <% else %>
+          <%= submit_tag t('dataverse.datasets.dataset_files.button_add_files_new_project_text'),
+                         class: "btn btn-primary", id: "submit_button",
+                         data: {"utils--checkbox-target" => "submitButton"},
+                         title: t('dataverse.datasets.dataset_files.button_add_files_new_project_title') %>
+        <% end %>
       </div>
     <% end %>
   <% else %>

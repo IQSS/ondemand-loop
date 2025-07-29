@@ -5,6 +5,10 @@ module ApplicationHelper
     "/nginx/stop?redir=#{root_path}"
   end
 
+  def server_hostname
+    Socket.gethostname
+  end
+
   def guide_url
     Configuration.guide_url
   end
@@ -57,4 +61,5 @@ module ApplicationHelper
     # Return a span with the appropriate class and status text
     content_tag(:span, t("status.#{status}"), class: "badge file-status #{color}", title: title, role: 'status', "aria-label" => aria_label)
   end
+
 end

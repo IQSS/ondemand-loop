@@ -2,6 +2,9 @@
 en:
   connectors:
     zenodo:
+      title: "Zenodo"
+      aria_label: "Visit the Zenodo project homepage"
+
       actions:
         connector_edit:
           message_success: "Access token updated: %{name}"
@@ -11,7 +14,7 @@ en:
         repository_settings_update:
           message_success: "Repository updated: %{url} type: %{type}"
         upload_bundle_create:
-          message_url_not_supported: "Zenodo URL not supported: %{url}. Only deposition URLs are currently supported"
+          message_url_not_supported: "Zenodo URL not supported: %{url}. Only record or deposition URLs are currently supported"
           message_record_not_found: "Zenodo record not found: %{url}. Only published records are supported"
           message_deposition_not_found: "Zenodo deposition not found for record: %{url}"
           message_success: "Zenodo upload bundle created: %{name}"
@@ -24,6 +27,8 @@ en:
         field_api_key_help: "Provide the access token required to authenticate with the Zenodo server."
         field_key_scope_label: "Store access token for this upload bundle only"
         field_key_scope_help: "Leave unchecked to store this access token for all bundles using Zenodo."
+        submit: "Save Changes"
+        cancel: "Cancel"
       upload_bundle_actions_bar:
         button_select_deposition_title: "Select Deposition"
         modal_select_deposition_title: "Select Zenodo deposition"
@@ -34,12 +39,36 @@ en:
         button_edit_key_title: "Add/Edit Access Token"
         modal_edit_key_title: "Add/Edit Zenodo Personal Access Token"
         missing_key_disabled_features_text: "Add access token to enable deposition features"
+        link_zenodo_title: "Open Zenodo"
+        link_dataset_title: "Open Zenodo dataset: %{name}"
+      upload_bundle_info_bar:
+        link_zenodo_title: "Open Zenodo"
+        link_dataset_title: "Open Zenodo dataset: %{name}"
 
   zenodo:
     records:
+      record_actions:
+        actions_bar_title_a11y_label: "Record actions bar"
+        link_open_record_title: "Open record on Zenodo"
+      record_info:
+        header_record_text: "Record"
+        button_toggle_label: "Record details"
+        field_publication_date_text: "Publication date:"
+        field_files_text: "Files:"
+      record_files:
+        button_add_files_active_project_text: "Add Files to Active Project"
+        button_add_files_active_project_title: "This action will add the selected files into the Active Project"
+        button_add_files_new_project_text: "Add Files to New Project"
+        button_add_files_new_project_title: "No active project. This action will create a new project and add the selected files into the newly created project"
+        col_file_name_text: "File name"
+        col_size_text: "Size"
+        checkbox_select_all_label: "Select all files"
+        header_record_files_a11y_text: "Record files"
+        msg_empty_record_text: "The record does not contain files to download"
+        table_record_files_caption: "Record files"
       show:
         page_title: "OnDemand Loop - Zenodo Records"
-        caption_files_text: "Zenodo record files"
+        caption_files_text: "Zenodo record files (%{count})"
         checkbox_select_all_label: "Select all files"
         column_record_filename_text: "File"
         column_record_size_text: "Size"

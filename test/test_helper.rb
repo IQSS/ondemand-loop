@@ -15,7 +15,7 @@ end
 # TEST COVERAGE SETUP
 require 'simplecov'
 
-SimpleCov.coverage_dir('tmp/coverage') # 👈 Set custom output path
+SimpleCov.coverage_dir('tmp/coverage')
 
 SimpleCov.start 'rails' do
   enable_coverage :branch
@@ -42,6 +42,7 @@ require 'mocha/minitest'
 module ActiveSupport
   class TestCase
     # Run tests sequentially to preserve accurate coverage metrics
+    #parallelize(workers: :number_of_processors)
 
     # Add more helper methods to be used by all tests here...
     include FileFixtureHelper

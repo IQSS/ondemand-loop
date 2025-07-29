@@ -16,6 +16,8 @@ en:
       button_cancel_download_title: "Cancel download"
       field_creation_date_title: "Creation date"
       header_scheduled_downloads_text: "Scheduled Downloads"
+      field_project_title: "Project: %{name}"
+      field_file_title: "Download file: %{filename}"
     index:
       breadcrumbs_text: "Downloads"
       page_title: "OnDemand Loop - Downloads Management"
@@ -50,20 +52,21 @@ en:
       navigation:
         icon_explore_alt: "Loop Application Icon"
         icon_ood_alt: "Open OnDemand Icon"
-        link_dataverse_text: "Dataverse"
-        link_downloads_text: "Downloads"
-        link_explore_text: "Explore"
-        link_guide_text: "Guide"
-        link_help_text: "Help"
         link_projects_text: "Projects"
-        link_repositories_text: "Repositories"
-        link_restart_text: "Restart"
+        link_downloads_text: "Downloads"
         link_uploads_text: "Uploads"
+        link_repositories_text: "Repositories"
+        link_dataverse_text: "Dataverse"
         link_zenodo_text: "Zenodo"
+        link_repo_settings_text: "Settings"
+        link_explore_text: "Explore"
+        link_help_text: "Help"
+        link_guide_text: "Guide"
+        link_sitemap_text: "Sitemap"
+        link_restart_text: "Restart"
     flash_messages:
       button_close_label: "Close"
     footer:
-      link_sitemap_text: "Sitemap"
       version_text: "OnDemand Loop"
     modal:
       button_close_label: "Close"
@@ -89,6 +92,8 @@ en:
       download_actions:
         button_open_downloads_folder_title: "Open Project workspace folder"
         header_download_files_text: "Downloads"
+        button_add_files_text: "Add Files"
+        button_add_files_title: "Add dataset to browse and select files"
       download_files:
         badge_repository_files_tooltip: "Repository Files"
         button_delete_file_title: "Delete File"
@@ -99,6 +104,14 @@ en:
         modal_delete_confirmation_title: "Delete File"
         modal_delete_confirmation_content: "The file will no longer appear in the application, but it won’t be deleted from the server."
       project_actions:
+        button_edit_project_name_title: "Edit Project name"
+        button_save_project_name_title: "Save project name"
+        button_cancel_project_name_title: "Cancel"
+        section_rename_project_label: "Rename project section"
+
+        button_active_project_title: "Active project"
+        button_set_as_active_project_title: "Set as Active Project"
+
         button_create_upload_bundle_label: "Create Upload Bundle"
         button_create_upload_bundle_placeholder: "Dataset URL"
         button_create_upload_bundle_title: "Create Upload Bundle"
@@ -128,11 +141,6 @@ en:
         modal_delete_confirmation_content: "This will remove the file from the upload bundle. The file will remain on disk and in the remote repository if already uploaded."
       breadcrumbs_text: "Projects"
       page_title: "OnDemand Loop - Project detail"
-    actions:
-      actions_bar_title: "Projects"
-      actions_bar_title_a11y_label: "Project List"
-      button_create_project_text: "Create Project"
-      button_downloads_root_directory_text: "Downloads Root Directory"
     download_files:
       schedule_date: "Schedule date"
       repository_files: "Repository Files"
@@ -141,28 +149,6 @@ en:
       delete_file: "Delete file"
     project:
       download_files: "Download Files"
-    project_header:
-      button_active_project_title: "Active project"
-      button_cancel_title: "Cancel"
-      button_delete_project_title: "Delete project"
-      button_edit_project_name_title: "Edit Project name"
-      button_open_project_folder_title: "Open Project workspace folder"
-      button_save_project_name_title: "Save project name"
-      button_set_as_active_project_title: "Set as Active Project"
-      field_creation_date_title: "Creation Date"
-      modal_delete_confirmation_title: "Delete Project"
-      modal_delete_confirmation_content: "This will remove the project from the app. Files on disk and in remote repositories will remain untouched."
-      section_project_actions_label: "Project actions section"
-      section_rename_project_label: "Rename project section"
-    project_summary:
-      button_metadata_folder_title: "Open project metadata folder"
-      button_toggle_label: "Project Summary"
-      tab_download_label: "Download Files"
-    project_summary_downloads:
-      tab_title: "Downloads"
-      button_download_folder_title: "Open Project workspace folder"
-    project_summary_bundle:
-      creation_date_title: "Creation date"
     upload_bundle:
       schedule_date: "Schedule date"
       repository_files: "Repository Files"
@@ -170,6 +156,33 @@ en:
       upload_start_date: "Upload start date"
       delete_file: "Delete file"
     index:
+      actions:
+        actions_bar_title: "Projects"
+        actions_bar_title_a11y_label: "Project List"
+        button_create_project_text: "Create Project"
+        button_downloads_root_directory_text: "Downloads Root Directory"
+      project_header:
+        button_active_project_title: "Active project"
+        button_cancel_title: "Cancel"
+        button_delete_project_title: "Delete project"
+        button_edit_project_name_title: "Edit Project name"
+        button_open_project_folder_title: "Open Project workspace folder"
+        button_save_project_name_title: "Save project name"
+        button_set_as_active_project_title: "Set as Active Project"
+        field_creation_date_title: "Creation Date"
+        modal_delete_confirmation_title: "Delete Project"
+        modal_delete_confirmation_content: "This will remove the project from the app. Files on disk and in remote repositories will remain untouched."
+        section_project_actions_label: "Project actions section"
+        section_rename_project_label: "Rename project section"
+      project_summary:
+        button_metadata_folder_title: "Open project metadata folder"
+        button_toggle_label: "Project Summary"
+        tab_download_label: "Download Files"
+      project_summary_downloads:
+        tab_title: "Downloads"
+        button_download_folder_title: "Open Project workspace folder"
+      project_summary_bundle:
+        creation_date_title: "Creation date"
       breadcrumbs_text: "Projects"
       page_title: "OnDemand Loop - Projects"
       welcome_title: "Welcome to OnDemand Loop!"
@@ -242,6 +255,9 @@ en:
       button_cancel_upload_a11y_text: "Cancel upload of %{filename}"
       button_cancel_upload_title: "Cancel upload"
       field_creation_date_title: "Creation date"
+      field_project_title: "Project: %{name}"
+      field_bundle_title: "Upload Bundle: %{name}"
+      field_file_title: "Upload file: %{filename}"
     index:
       breadcrumbs_text: "Uploads"
       page_title: "OnDemand Loop - Uploads Management"

@@ -25,6 +25,9 @@ module Dataverse
     end
 
     def find_dataset_version_by_persistent_id(persistent_id, version: ':latest-published')
+      version ||= ':latest-published'
+      headers = {}
+      headers[AUTH_HEADER] = @api_key if @api_key && version != ':latest-published'
       url = FluentUrl.new('')
               .add_path('api')
               .add_path('datasets')
@@ -35,7 +38,7 @@ module Dataverse
               .add_param('returnOwners', true)
               .add_param('excludeFiles', true)
               .to_s
-      response = @http_client.get(url)
+      response = @http_client.get(url, headers: headers)
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?
       raise "Error getting dataset: #{response.status} - #{response.body}" unless response.success?
@@ -43,6 +46,9 @@ module Dataverse
     end
 
     def search_dataset_files_by_persistent_id(persistent_id, version: ':latest-published', page: 1, per_page: 10, query: nil)
+      version ||= ':latest-published'
+      headers = {}
+      headers[AUTH_HEADER] = @api_key if @api_key
       url = SearchDatasetFilesUrlBuilder.new(
         persistent_id: persistent_id,
         version: version,
@@ -50,11 +56,30 @@ module Dataverse
         per_page: per_page,
         query: query,
       ).build
-      response = @http_client.get(url)
+      response = @http_client.get(url, headers: headers)
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?
       raise "Error getting dataset files: #{response.status} - #{response.body}" unless response.success?
       DatasetFilesResponse.new(response.body, page: page, per_page: per_page, query: query)
+    end
+
+    def dataset_versions_by_persistent_id(persistent_id)
+      headers = {}
+      headers[AUTH_HEADER] = @api_key if @api_key
+      url = FluentUrl.new('')
+              .add_path('api')
+              .add_path('datasets')
+              .add_path(':persistentId')
+              .add_path('versions')
+              .add_param('persistentId', persistent_id)
+              .add_param('excludeFiles', true)
+              .add_param('excludeMetadataBlocks', true)
+              .to_s
+      response = @http_client.get(url, headers: headers)
+      return nil if response.not_found?
+      raise UnauthorizedException if response.unauthorized?
+      raise "Error getting dataset versions: #{response.status} - #{response.body}" unless response.success?
+      DatasetVersionsResponse.new(response.body)
     end
   end
 end

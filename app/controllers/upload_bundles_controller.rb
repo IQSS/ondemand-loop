@@ -24,9 +24,10 @@ class UploadBundlesController < ApplicationController
     processor_params = params.permit(*processor.params_schema).to_h
     processor_params[:object_url] = url_resolution.object_url
     result = processor.create(project, processor_params)
-    params[:anchor] ||= tab_anchor_for(result.resource) if result.resource
+    anchor = params[:anchor]
+    anchor ||= tab_anchor_for(result.resource) if result.resource
 
-    redirect_back fallback_location: root_path, **result.message
+    redirect_to project_path(id: project_id, anchor: anchor), **result.message
   end
 
   def edit

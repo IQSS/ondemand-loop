@@ -10,34 +10,34 @@
           <!-- info for medium and large screens -->
           <div class="col-md-8" role="cell">
             <div class="d-flex align-items-center">
-              <%= link_to(files_app_url(File.dirname(data.file.file_location)), class: 'btn btn-sm btn-outline-secondary me-2',
+              <%= link_to(files_app_url(data.project.download_dir), class: 'btn btn-sm btn-outline-secondary me-2',
                           title: t('.button_browse_file_title'), target: '_blank') do %>
                 <i class="bi bi-folder" aria-hidden="true"></i>
                 <span class="visually-hidden"><%= t('.button_browse_file_a11y_text', filename: data.file.filename) %></span>
               <% end %>
-
               <%= render partial: '/shared/file_row_date', locals: { date: data.file.creation_date, title: t('.field_creation_date_title'), classes: "mx-2" } %>
-
               <span class="me-2"><%= connector_icon(data.upload_bundle.type) %></span>
-
-              <span class="me-2">
+              <span class="text-truncate cursor-default" style="max-width: 600px;">
                 <%= link_to project_path(id: data.project.id, anchor: tab_anchor_for(data.upload_bundle)), class: "position-relative project-name-link text-reset text-decoration-none rounded-end" do %>
-                  <%= data.project.name %> >
+                  <span class="" title="<%= t('.field_project_title', name: data.project.name) %>"><%= data.project.name %></span>
+                  <span class="text-muted">&raquo;</span>
+                  <span class="" title="<%= t('.field_bundle_title', name: data.upload_bundle.name) %>"><%= data.upload_bundle.name %></span>
+                  <span class="text-muted position-relative">&gt;</span>
+                  <span class="me-2" title="<%=  t('.field_file_title', filename: data.file.filename) %>"><%= data.file.filename %></span>
                 <% end %>
               </span>
-              <span class="me-2" title="<%= data.file.file_location %>"><%= data.file.filename %></span>
-              <small class="text-muted me-2"><%= number_to_human_size(data.file.size) %></small>
+              <small class="text-muted"><%= number_to_human_size(data.file.size) %></small>
             </div>
           </div>
           <!-- end info for medium and large screens -->
 
-          <div class="col-sm-6 col-md-2" role="cell">
+          <div class="col-md-2" role="cell">
             <% if data.file.status.uploading? %>
               <%= render partial: '/shared/progress_bar', locals: { progress: data.file.connector_status.upload_progress, file: data.file } %>
             <% end %>
           </div>
 
-          <div class="download-actions col-sm-6 col-md-2 text-end" role="cell">
+          <div class="download-actions col-md-2 text-end" role="cell">
             <%= status_badge(data.file.status, filename: data.file.filename) %>
 
             <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger" title="<%= t('.button_cancel_upload_title') %>"

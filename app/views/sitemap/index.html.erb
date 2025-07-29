@@ -11,6 +11,7 @@
       <% if ::Configuration.zenodo_enabled %>
         <li><%= link_to t('layouts.nav.navigation.link_zenodo_text'), view_zenodo_landing_path %></li>
       <% end %>
+      <li><%= link_to t('layouts.nav.navigation.link_repo_settings_text'), repository_settings_path %></li>
     </ul>
     <li>
       <a data-bs-toggle="collapse"
@@ -19,6 +20,7 @@
          aria-expanded="false"
          aria-controls="repo-resolver-bar"><%= t('layouts.nav.navigation.link_explore_text') %></a>
     </li>
+    <li><%= link_to t('layouts.nav.navigation.link_guide_text'), guide_url %></li>
     <li><%= link_to 'Open OnDemand', ood_dashboard_url %></li>
     <li><%= link_to t('layouts.nav.navigation.link_restart_text'), restart_url %></li>
   </ul>

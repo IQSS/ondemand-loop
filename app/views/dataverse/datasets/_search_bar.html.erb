@@ -1,5 +1,11 @@
 <div class="mb-3">
-  <%= form_with url: view_dataverse_dataset_path(URI.parse(dataverse_url).hostname, persistent_id, dv_scheme: params[:dv_scheme], dv_port: params[:dv_port]), method: :get, local: true do |f| %>
+  <%= form_with url: dataverse_dataset_view_url(dataverse_url, persistent_id), id: 'dataset-search-form', method: :get, local: true do |f| %>
+    <%
+        dataverse_uri = URI.parse(dataverse_url)
+    %>
+    <%= hidden_field_tag :dv_scheme, dataverse_uri.scheme if dataverse_uri.scheme != 'https' %>
+    <%= hidden_field_tag :dv_port, dataverse_uri.port if dataverse_uri.port != 443 %>
+    <%= hidden_field_tag :version, version %>
     <div class="input-group">
       <%= f.text_field :query, value: params[:query], class: 'form-control', placeholder: t('.field_search_placeholder') %>
       <%= f.submit t('.button_submit_text'), class: 'btn btn-primary' %>

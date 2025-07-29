@@ -23,6 +23,7 @@ en:
     error: "error"
     cancelled: "cancelled"
   js:
+    generic_server_error: "There was an error processing your request."
     download:
       cancel:
         error: "Could not cancel download."

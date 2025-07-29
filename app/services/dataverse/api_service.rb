@@ -4,7 +4,7 @@ module Dataverse
     include DateTimeCommon
 
     AUTH_HEADER = 'X-Dataverse-key'
-    class UnauthorizedException < Exception; end
-    class ApiKeyRequiredException < Exception; end
+    class UnauthorizedException < StandardError; end
+    class ApiKeyRequiredException < StandardError; end
   end
 end

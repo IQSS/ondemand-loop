@@ -36,7 +36,7 @@ class Zenodo::Actions::UploadBundleCreateTest < ActiveSupport::TestCase
   end
 
   test 'record not found returns error' do
-    url_data = OpenStruct.new(deposition?: true, record?: true, domain: 'zenodo.org',
+    url_data = OpenStruct.new(deposition?: false, record?: true, domain: 'zenodo.org',
                               zenodo_url: 'https://zenodo.org', record_id: '99')
     Zenodo::ZenodoUrl.stubs(:parse).returns(url_data)
 
@@ -50,4 +50,25 @@ class Zenodo::Actions::UploadBundleCreateTest < ActiveSupport::TestCase
     result = @action.create(@project, object_url: 'https://zenodo.org/record/99')
     refute result.success?
   end
+
+  test 'create handles record url' do
+    url_data = OpenStruct.new(deposition?: false, record?: true, domain: 'zenodo.org',
+                              zenodo_url: 'https://zenodo.org', record_id: '11')
+    Zenodo::ZenodoUrl.stubs(:parse).returns(url_data)
+
+    RepoRegistry.repo_db.stubs(:get).returns(OpenStruct.new(metadata: OpenStruct.new(auth_key: nil)))
+
+    record = OpenStruct.new(title: 'rec', concept_id: 'cid')
+    records_service = mock('records')
+    records_service.expects(:find_record).with('11').returns(record)
+    Zenodo::RecordService.stubs(:new).returns(records_service)
+
+    Common::FileUtils.any_instance.stubs(:normalize_name).returns('bundle')
+    UploadBundle.any_instance.stubs(:save)
+
+    result = @action.create(@project, object_url: 'https://zenodo.org/record/11')
+    assert result.success?
+    assert_equal 'cid', result.resource.metadata[:concept_id]
+  end
+
 end

@@ -7,7 +7,7 @@ module Zenodo::Actions
       remote_repo_url = request_params[:object_url]
       url_data = Zenodo::ZenodoUrl.parse(remote_repo_url)
 
-      if !url_data.deposition?
+      unless url_data.deposition? || url_data.record?
         return error(I18n.t('connectors.zenodo.actions.upload_bundle_create.message_url_not_supported', url: remote_repo_url))
       end
 

@@ -15,7 +15,7 @@ class Download::BasicHttpRubyDownloadTest < ActiveSupport::TestCase
       download_location = File.join(dir, 'output.txt')
       temp_location = File.join(dir, 'output.txt.part')
       Net::HTTP.expects(:start).yields(http_mock)
-      target = Download::BasicHttpRubyDownloader.new("https://doi.org/10.xxxx", download_location, temp_location)
+      target = Download::BasicHttpRubyDownloader.new("https://doi.org/10.xxxx", download_location, temp_location, headers: {})
       target.download
 
       assert File.exist?(download_location)
@@ -33,7 +33,7 @@ class Download::BasicHttpRubyDownloadTest < ActiveSupport::TestCase
     Dir.mktmpdir do |dir|
       dl = File.join(dir, 'o.txt')
       tmp = File.join(dir, 'o.txt.part')
-      target = Download::BasicHttpRubyDownloader.new('http://example', dl, tmp)
+      target = Download::BasicHttpRubyDownloader.new('http://example', dl, tmp, headers: {})
       target.download
       assert File.exist?(dl)
     end
@@ -46,7 +46,7 @@ class Download::BasicHttpRubyDownloadTest < ActiveSupport::TestCase
     Dir.mktmpdir do |dir|
       dl = File.join(dir, 'o.txt')
       tmp = File.join(dir, 'o.part')
-      target = Download::BasicHttpRubyDownloader.new('http://e', dl, tmp)
+      target = Download::BasicHttpRubyDownloader.new('http://e', dl, tmp, headers: {})
       target.download do |_|
         true
       end

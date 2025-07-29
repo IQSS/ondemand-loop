@@ -1,0 +1,41 @@
+<ul class="list-group">
+  <% unless repo_api_key?(@dataset_url.dataverse_url) %>
+    <li class="list-group-item list-group-item-action p-0">
+      <%= link_to repository_settings_path, class: 'd-flex justify-content-between align-items-center gap-3 p-2 text-decoration-none' do %>
+        <div class="d-flex align-items-center gap-2 text-body-secondary">
+          <i class="bi bi-info-circle" aria-hidden="true"></i>
+          <span><%= t('.message_missing_api_key_text').html_safe %></span>
+        </div>
+        <span class="btn btn-sm btn-outline-secondary" title="<%= t('.button_repository_settings_label') %>">
+          <i class="bi bi-gear" aria-hidden="true"></i>
+          <span class="visually-hidden"><%= t('.button_repository_settings_label') %></span>
+        </span>
+      <% end %>
+    </li>
+  <% end %>
+  <% @versions.each do |v| %>
+    <% version_path = view_dataverse_dataset_path(
+        dv_hostname: @dataset_url.domain,
+        persistent_id: @dataset_url.dataset_id,
+        dv_scheme: @dataset_url.scheme_override,
+        dv_port: @dataset_url.port,
+        version: v.version
+      ) %>
+    <li class="list-group-item list-group-item-action p-0">
+      <%= link_to version_path, class: 'd-flex justify-content-between align-items-center gap-3 p-2 text-decoration-none' do %>
+        <div class="flex-grow-1 d-flex align-items-center gap-3">
+          <%= render partial: '/shared/file_row_date',
+                     locals: { date: v.create_time, title: t('.field_creation_date_title') } %>
+          <span class="badge text-bg-info" title="<%= t('.field_version_label', version: v.version) %>">
+            <%= v.version %>
+            <span class="visually-hidden"><%= t('.field_version_label', version: v.version) %></span>
+          </span>
+        </div>
+        <span class="btn btn-sm btn-outline-secondary" title="<%= t('.button_browse_version_label', version: v.version) %>">
+          <i class="bi bi-display" aria-hidden="true"></i>
+          <span class="visually-hidden"><%= t('.button_browse_version_label', version: v.version) %></span>
+        </span>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

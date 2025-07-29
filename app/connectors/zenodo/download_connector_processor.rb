@@ -24,7 +24,12 @@ module Zenodo
       connector_metadata.temp_location = temp_location
       file.update({metadata: connector_metadata.to_h})
 
-      download_processor = Download::BasicHttpRubyDownloader.new(download_url, download_location, temp_location)
+      download_processor = Download::BasicHttpRubyDownloader.new(
+        download_url,
+        download_location,
+        temp_location,
+        headers: {}
+      )
       download_processor.download do |_context|
         cancelled
       end

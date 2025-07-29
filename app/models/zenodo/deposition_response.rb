@@ -17,5 +17,9 @@ module Zenodo
     def draft?
       submitted == false
     end
+
+    def to_s
+      "deposition{id=#{id} files=#{file_count} draft=#{draft?}}"
+    end
   end
 end

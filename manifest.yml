@@ -2,6 +2,6 @@
 name: OnDemand Loop
 category: Files
 description: |-
-  Transfer files from remote repositories like Dataverse.
+  Transfer files from and to remote repositories like Dataverse.
 icon: fa://copy
 new_window: false

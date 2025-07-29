@@ -2,10 +2,39 @@
   <div class="card-header">
     <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
       <div class="flex-grow-1 d-flex flex-column">
-        <h2 class="mb-0 text-nowrap h5"><%= t('.header_dataset_text') %> <%= dataset.data.dataset_persistent_id %></h2>
+        <div class="d-flex justify-content-between align-items-center gap-2">
+          <h2 class="mb-0 text-nowrap h5">
+            <%= t('.header_dataset_text') %> <%= dataset.data.dataset_persistent_id %>
+          </h2>
+          <% if dataset.version.present? %>
+            <a class="d-flex align-items-center text-decoration-none text-secondary"
+               data-controller="utils--icon-toggle lazy-loader"
+               data-utils--icon-toggle-icon-on-value="bi-plus-square"
+               data-utils--icon-toggle-icon-off-value="bi-dash-square"
+               data-action="click->utils--icon-toggle#toggle click->lazy-loader#toggle"
+               data-lazy-loader-container-id-value="dataset-versions-content"
+               data-lazy-loader-url-value="<%= dataset_versions_url(dataverse_url, dataset.data.dataset_persistent_id) %>"
+               data-lazy-loader-reload-on-toggle-value="false"
+               data-lazy-loader-display-errors-value="true"
+               href="#"
+               role="button"
+               aria-expanded="false"
+               aria-controls="dataset-versions">
+              <i data-utils--icon-toggle-target="icon" class="bi bi-plus-square me-2 transition" aria-hidden="true"></i>
+              <span class="badge text-bg-info"><%= dataset.version %></span>
+            </a>
+          <% end %>
+        </div>
         <span class="text-muted" style="font-size: 0.8rem;">
           <strong><%= dataset.metadata_field('title').to_s %></strong>
         </span>
+        <% if dataset.version.present? %>
+          <div class="py-2 d-none position-relative" id="dataset-versions-content">
+            <div class="d-flex justify-content-center align-items-center" style="min-height: 3rem;">
+              <div class="spinner-border text-secondary" role="status" aria-hidden="true"></div>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
     <div class="mt-2">

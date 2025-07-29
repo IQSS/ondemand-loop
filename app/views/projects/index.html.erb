@@ -3,11 +3,11 @@
   <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: t('.breadcrumbs_text')}]} %>
   <div class="row">
       <div class="col-md-12">
-        <%= render partial: 'actions' %>
+        <%= render partial: '/projects/index/actions' %>
         <ul class="list-group">
-          <%= render partial: 'project', locals: { project: @active_project, active: true } if @active_project %>
+          <%= render partial: '/projects/index/project', locals: { project: @active_project, active: true } if @active_project %>
           <% @projects.each do |project| %>
-            <%= render partial: 'project', locals: { project: project } unless project.id == @active_project&.id %>
+            <%= render partial: '/projects/index/project', locals: { project: project } unless project.id == @active_project&.id %>
           <% end %>
         </ul>
       </div>
