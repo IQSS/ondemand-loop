@@ -21,11 +21,20 @@ module Dataverse::Actions
         dataset = dataset_service.find_dataset_version_by_persistent_id(url_data.dataset_id)
         return error(I18n.t('connectors.dataverse.actions.upload_bundle_create.message_dataset_not_found', url: remote_repo_url)) unless dataset
 
-        parent_dv = dataset.data.parents.last
-        root_dv = dataset.data.parents.first
-        root_title = root_dv[:name]
-        collection_title = parent_dv[:name]
-        collection_id = parent_dv[:identifier]
+        if dataset.data.parents.empty?
+          collection_service = Dataverse::CollectionService.new(url_data.dataverse_url)
+          collection = collection_service.find_collection_by_id(':root')
+          root_title = collection.data.name
+          collection_title = collection.data.alias
+          collection_id = collection.data.alias
+        else
+          parent_dv = dataset.data.parents.last
+          root_dv = dataset.data.parents.first
+          root_title = root_dv[:name]
+          collection_title = parent_dv[:name]
+          collection_id = parent_dv[:identifier]
+        end
+
         dataset_title = dataset.metadata_field('title').to_s
       else
         collection_service = Dataverse::CollectionService.new(url_data.dataverse_url)

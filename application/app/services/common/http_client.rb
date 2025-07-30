@@ -87,7 +87,7 @@ module Common
       end
     end
 
-    def initialize(base_url: nil, open_timeout: 5, read_timeout: 10, proxy: nil)
+    def initialize(base_url: nil, open_timeout: ::Configuration.default_connect_timeout, read_timeout: ::Configuration.default_read_timeout, proxy: Configuration.http_proxy)
       @base_uri = base_url
       @open_timeout = open_timeout
       @read_timeout = read_timeout

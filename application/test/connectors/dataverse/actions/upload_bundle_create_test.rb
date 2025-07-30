@@ -42,4 +42,27 @@ class Dataverse::Actions::UploadBundleCreateTest < ActiveSupport::TestCase
     assert result.success?
     assert_equal 'Dataset Title', result.resource.metadata[:dataset_title]
   end
+
+  test 'create handles dataset url with no parents' do
+    dataset_service = mock('dataset_service')
+    dataset = mock('dataset')
+    dataset.stubs(:data).returns(OpenStruct.new(parents: []))
+    dataset.stubs(:metadata_field).with('title').returns('Lonely Dataset')
+    dataset_service.expects(:find_dataset_version_by_persistent_id).with('DS_NO_PARENTS').returns(dataset)
+    Dataverse::DatasetService.stubs(:new).returns(dataset_service)
+
+    root_collection = mock('collection')
+    root_collection.stubs(:data).returns(OpenStruct.new(name: 'Root Dataverse', alias: 'root'))
+    Dataverse::CollectionService.stubs(:new).returns(stub(find_collection_by_id: root_collection))
+
+    Common::FileUtils.any_instance.stubs(:normalize_name).returns('bundle_no_parents')
+    UploadBundle.any_instance.stubs(:save)
+
+    result = @action.create(@project, object_url: 'http://dv.org/dataset.xhtml?persistentId=DS_NO_PARENTS')
+
+    assert result.success?
+    assert_equal 'Lonely Dataset', result.resource.metadata[:dataset_title]
+    assert_equal 'Root Dataverse', result.resource.metadata[:dataverse_title]
+    assert_equal 'root', result.resource.metadata[:collection_id]
+  end
 end
