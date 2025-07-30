@@ -24,6 +24,10 @@ Welcome to the OnDemand Loop documentation.
 
 The core goal of OnDemand Loop is to **lower the barrier for non-technical users** to interact with research data repositories. Following the Open OnDemand philosophy, it aims to provide a user-friendly interface for tasks that typically require complex command-line operations or custom scripts. Researchers can upload and download datasets to and from remote repositories directly from their HPC environment with minimal friction.
 
+!!! note
+
+    This project has been funded by [FAS-HUIT Project Review Board (PRB) initiative](https://adminops.fas.harvard.edu/FAS-HUIT-PRB) Fall 2024.
+
 !!! warning "Beta Notice:"
 
     *OnDemand Loop* is currently in **Beta** status. While we strive to provide a stable experience, please be aware of the following:
