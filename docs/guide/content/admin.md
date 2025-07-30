@@ -250,7 +250,7 @@ URL to the external documentation site. This is used for help links in the inter
 ---
 
 <a id="http_proxy"></a>
-### `http_proxy`
+**`http_proxy`**  
 Proxy server settings for outbound HTTP requests made by internal clients (such as the `Common::HttpClient` class). This is used to route API requests through a proxy, which may be required in secure or enterprise network environments.
 
 The value should be a hash with the following optional keys:
@@ -265,7 +265,7 @@ The value should be a hash with the following optional keys:
 ---
 
 <a id="default_connect_timeout"></a>
-### `default_connect_timeout`
+**`default_connect_timeout`**  
 Global default timeout (in seconds) for opening an HTTP connection. This setting applies to all HTTP requests made by internal clients like `Common::HttpClient`.
 
 - **Default**: `5` seconds
@@ -274,7 +274,7 @@ Global default timeout (in seconds) for opening an HTTP connection. This setting
 ---
 
 <a id="default_read_timeout"></a>
-### `default_read_timeout`
+**`default_read_timeout`**  
 Global default timeout (in seconds) for waiting for data to be read from an open HTTP connection. Used by the internal HTTP client to ensure long-running requests do not block the app indefinitely.
 
 - **Default**: `15` seconds
