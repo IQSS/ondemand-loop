@@ -167,8 +167,8 @@ en:
 
       dataset_actions:
         actions_bar_title_a11y_label: "Dataset actions bar"
-        button_create_bundle_label: "Create Collection Bundle"
-        button_create_bundle_title: "Create Collection Bundle from this dataset"
+        button_create_bundle_label: "Create Upload Bundle"
+        button_create_bundle_title: "Create Upload Bundle from this dataset"
         link_open_dataset_title: "Open dataset on Dataverse"
       search_bar:
         button_submit_text: "Search Files"

@@ -3,6 +3,20 @@
     <h2 class="mb-0 me-2 fs-4 h5 text-truncate cursor-default" style="max-width: 800px;" title="<%= record.title %>"><%= record.title %></h2>
   </div>
   <div class="d-flex align-items-center gap-2">
+    <% if Current.settings.user_settings.active_project.present? %>
+      <!-- create bundle button -->
+      <%= render layout: "shared/button_to", locals: {
+        url: project_upload_bundles_path(Current.settings.user_settings.active_project),
+        method: 'POST',
+        title: t('.button_create_bundle_title'),
+        class: 'btn btn-sm btn-outline-secondary',
+        icon: 'bi bi-folder-plus',
+        label: t('.button_create_bundle_label')
+      } do %>
+        <%= hidden_field_tag :remote_repo_url, external_record_url(record.id) %>
+      <% end %>
+    <% end %>
+
     <%= link_to external_record_url(record.id),
                 target: '_blank',
                 class: 'btn btn-sm btn-outline-secondary',

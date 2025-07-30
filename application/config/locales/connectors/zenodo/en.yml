@@ -50,6 +50,8 @@ en:
       record_actions:
         actions_bar_title_a11y_label: "Record actions bar"
         link_open_record_title: "Open record on Zenodo"
+        button_create_bundle_label: "Create Upload Bundle"
+        button_create_bundle_title: "Create Upload Bundle from this record"
       record_info:
         header_record_text: "Record"
         button_toggle_label: "Record details"

@@ -16,11 +16,11 @@ class Zenodo::Concerns::ZenodoUrlBuilderTest < ActiveSupport::TestCase
   end
 
   test 'record_url builds correct URL' do
-    assert_equal 'https://zenodo.org/record/1', @builder.record_url
+    assert_equal 'https://zenodo.org/records/1', @builder.record_url
   end
 
   test 'file_url builds correct URL' do
-    assert_equal 'https://zenodo.org/record/1/files/file.txt', @builder.file_url
+    assert_equal 'https://zenodo.org/records/1/files/file.txt', @builder.file_url
   end
 
   test 'deposition_url builds correct URL' do

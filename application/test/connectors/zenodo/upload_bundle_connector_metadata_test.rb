@@ -72,7 +72,7 @@ class Zenodo::UploadBundleConnectorMetadataTest < ActiveSupport::TestCase
     assert_equal 'https://zenodo.org/uploads/123', meta.title_url
 
     meta = build_meta({ zenodo_url: 'https://zenodo.org', record_id: 456 })
-    assert_equal 'https://zenodo.org/record/456', meta.title_url
+    assert_equal 'https://zenodo.org/records/456', meta.title_url
 
     meta = build_meta({ zenodo_url: 'https://zenodo.org' })
     assert_equal 'https://zenodo.org', meta.title_url
