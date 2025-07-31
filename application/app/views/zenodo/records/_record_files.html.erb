@@ -3,8 +3,7 @@
     <%= t('zenodo.records.show.caption_files_text', count: record.files.size) %>
   </div>
   <% if record.files.any? %>
-    <%= form_with url: download_zenodo_record_files_path, class: 'p-3 rounded bg-light', local: true, data: {controller: 'utils--checkbox'} do |f| %>
-      <%= hidden_field_tag 'project_id', Current.settings.user_settings.active_project %>
+    <%= form_with url: download_zenodo_record_files_path, class: 'p-3 rounded bg-light', local: true, data: {controller: 'select-files-project', "select-files-project-external-targets-value": '["record_create_bundle"]'} do |f| %>
       <%= hidden_field_tag :id, record_id %>
       <div class="row">
         <h2 id="record-files-heading" class="visually-hidden"><%= t('.header_record_files_a11y_text') %></h2>
@@ -17,7 +16,7 @@
                 <label class="visually-hidden" for="select_all_files">
                   <%= t('.checkbox_select_all_label') %>
                 </label>
-                <input type="checkbox" id="select_all_files" class="form-check-input m-0" data-utils--checkbox-target="selectAll" data-action="utils--checkbox#toggleSelectAll">
+                <input type="checkbox" id="select_all_files" class="form-check-input m-0" data-select-files-project-target="selectAll" data-action="select-files-project#toggleSelectAll">
               </div>
             </th>
             <th scope="col"><%= t('.col_file_name_text') %></th>
@@ -28,7 +27,7 @@
             <% record.files.each do |file| %>
               <tr>
                 <td class="text-center">
-                  <input type="checkbox" id="file_checkbox_<%= file.id %>" name="file_ids[]" class="form-check-input" value="<%= file.id %>" data-utils--checkbox-target="item" data-action="utils--checkbox#updateState">
+                  <input type="checkbox" id="file_checkbox_<%= file.id %>" name="file_ids[]" class="form-check-input" value="<%= file.id %>" data-select-files-project-target="item" data-action="select-files-project#updateState">
                 </td>
                 <td>
                   <label for="file_checkbox_<%= file.id %>">
@@ -42,17 +41,7 @@
         </table>
       </div>
       <div class="text-center">
-        <% if Current.settings.user_settings.active_project.present? %>
-          <%= submit_tag t('zenodo.records.record_files.button_add_files_active_project_text'),
-                         class: 'btn btn-primary',
-                         data: {'utils--checkbox-target' => 'submitButton'},
-                         title: t('zenodo.records.record_files.button_add_files_active_project_title') %>
-        <% else %>
-          <%= submit_tag t('zenodo.records.record_files.button_add_files_new_project_text'),
-                         class: 'btn btn-primary',
-                         data: {'utils--checkbox-target' => 'submitButton'},
-                         title: t('zenodo.records.record_files.button_add_files_new_project_title') %>
-        <% end %>
+        <%= render partial: '/shared/project_selection' %>
       </div>
     <% end %>
   <% else %>

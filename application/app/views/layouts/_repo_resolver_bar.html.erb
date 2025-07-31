@@ -1,11 +1,14 @@
 <%
   id = local_assigns.fetch(:id, 'repo-resolver-bar')
+  input_id = "#{id}_input"
+  color = local_assigns.fetch(:color, 'bg-primary-subtle')
+  collapse = local_assigns.fetch(:collapse, false)
   show_images = local_assigns.fetch(:show_images, true)
 %>
-<div id="<%= id %>" class="collapse bg-light" style="transition: none;"
+<div id="<%= id %>" class="shadow-sm <%= color %> <%= 'collapse' if collapse %>" style="transition: none;"
      data-controller="focus-on-event"
      data-focus-on-event-event-value="shown.bs.collapse"
-     data-focus-on-event-element-id-value="input_repo_url">
+     data-focus-on-event-element-id-value="<%= input_id %>">
   <div class="d-flex align-items-center justify-content-between py-3 px-5 border-bottom">
 
     <% if show_images %>
@@ -25,7 +28,7 @@
 
       <input type="text"
              name="repo_url"
-             id="input_repo_url"
+             id="<%= input_id %>"
              placeholder="<%= t('.input_repo_url_placeholder') %>"
              aria-label="<%= t('.input_repo_url_label') %>"
              class="form-control"

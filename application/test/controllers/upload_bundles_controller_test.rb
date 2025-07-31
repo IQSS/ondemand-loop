@@ -45,6 +45,26 @@ class UploadBundlesControllerTest < ActionDispatch::IntegrationTest
     assert_match 'URL not supported', flash[:alert]
   end
 
+  test 'create uses project_id from request body if route param is placeholder' do
+    project = create_project
+    Project.stubs(:find).with('').returns(nil)
+    Project.stubs(:find).with(project.id.to_s).returns(project)
+    resolver = mock('resolver')
+    url_res = OpenStruct.new(type: ConnectorType::ZENODO, object_url: 'u', unknown?: false)
+    resolver.stubs(:resolve).with('u').returns(url_res)
+    Repo::RepoResolverService.stubs(:new).returns(resolver)
+
+    processor = mock('proc')
+    processor.stubs(:params_schema).returns([:remote_repo_url])
+    processor.stubs(:create).returns(ConnectorResult.new(resource: UploadBundle.new({id: 'bundle_id'}), message: {notice: 'expected message'}, success: true))
+    ConnectorClassDispatcher.stubs(:upload_bundle_connector_processor).with(ConnectorType::ZENODO).returns(processor)
+    post project_upload_bundles_url(':project_id'), params: { project_id: project.id.to_s, remote_repo_url: 'u' }
+
+    assert_redirected_to project_path(id: project.id.to_s, anchor: 'tab-link-bundle_id')
+    follow_redirect!
+    assert_match 'expected message', flash[:notice]
+  end
+
   test 'edit renders partial' do
     bundle = create_upload_bundle(create_project)
     UploadBundle.stubs(:find).returns(bundle)

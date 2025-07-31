@@ -7,6 +7,7 @@ module Dataverse
     attr_reader :status, :data
 
     def initialize(json)
+      Rails.logger.info("HERE: #{json}")
       parsed = JSON.parse(json, symbolize_names: true)
       @status = parsed[:status]
       @data = Data.new(parsed[:data])

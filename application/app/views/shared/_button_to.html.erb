@@ -14,6 +14,7 @@
 
   <% accessible_label = local_assigns[:label] || local_assigns[:title] || t('.button_accessibility_default_label') %>
   <%= button_tag type: 'submit',
+                 id: local_assigns[:button_id],
                  class: "btn #{local_assigns[:class] || 'btn-outline-dark btn-sm'}",
                  title: local_assigns[:title] || accessible_label,
                  "aria-label" => accessible_label,

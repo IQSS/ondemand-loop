@@ -4,11 +4,11 @@ module Dataverse
     attr_accessor :collection_id, :page, :per_page,
                   :include_collections, :include_datasets, :query
 
-    def initialize(collection_id:, page: 1, per_page: 10,
+    def initialize(collection_id:, page: 1, per_page: nil,
                    include_collections: true, include_datasets: true, query: nil)
       @collection_id = collection_id
       @page = page
-      @per_page = per_page
+      @per_page = per_page || Configuration.default_pagination_items
       @include_collections = include_collections
       @include_datasets = include_datasets
       @query = query

@@ -5,7 +5,8 @@ module Zenodo
       @http_client = http_client
     end
 
-    def search(query, page: 1, per_page: 10)
+    def search(query, page: 1, per_page: nil)
+      per_page ||= Configuration.default_pagination_items
       url = FluentUrl.new('')
               .add_path('api')
               .add_path('records')

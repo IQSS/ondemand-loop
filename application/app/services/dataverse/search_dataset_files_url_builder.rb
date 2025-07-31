@@ -2,11 +2,11 @@ module Dataverse
   class SearchDatasetFilesUrlBuilder
     attr_accessor :persistent_id, :version, :page, :per_page
 
-    def initialize(persistent_id:, version: ':latest-published', page: 1, per_page: 10, query: nil)
+    def initialize(persistent_id:, version: ':latest-published', page: 1, per_page: nil, query: nil)
       @persistent_id = persistent_id
       @version = version
       @page = page
-      @per_page = per_page
+      @per_page = per_page || Configuration.default_pagination_items
       @query = query
     end
 

@@ -9,7 +9,7 @@ module Dataverse
       url = builder.build
 
       expected = "/api/datasets/:persistentId/versions/:latest-published/files?" \
-        "limit=10&offset=0&persistentId=doi%3A10.5072%2FFK2%2FABC123"
+        "limit=20&offset=0&persistentId=doi%3A10.5072%2FFK2%2FABC123"
       assert_equal expected, url
     end
 
@@ -34,7 +34,7 @@ module Dataverse
       url = builder.build
 
       expected = "/api/datasets/:persistentId/versions/2.1/files?" \
-        "limit=10&offset=0&persistentId=doi%3A10.5072%2FFK2%2FXYZ456"
+        "limit=20&offset=0&persistentId=doi%3A10.5072%2FFK2%2FXYZ456"
       assert_equal expected, url
     end
 
@@ -46,7 +46,7 @@ module Dataverse
       url = builder.build
 
       expected = "/api/datasets/:persistentId/versions/:latest-published/files?" \
-        "limit=10&offset=0&persistentId=doi%3A10.5072%2FFK2%2FQUERY123&searchText=climate%20change"
+        "limit=20&offset=0&persistentId=doi%3A10.5072%2FFK2%2FQUERY123&searchText=climate%20change"
       assert_equal expected, url
     end
 

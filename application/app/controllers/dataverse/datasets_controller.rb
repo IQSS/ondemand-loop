@@ -98,7 +98,6 @@ class Dataverse::DatasetsController < ApplicationController
         @persistent_id,
         version: @version,
         page: @page,
-        per_page: 10,
         query: @search_query
       )
       unless @files_page

@@ -43,7 +43,8 @@ module Dataverse
       CollectionResponse.new(response.body)
     end
 
-    def search_collection_items(collection_id, page: 1, per_page: 10, include_collections: true, include_datasets: true, query: nil)
+    def search_collection_items(collection_id, page: 1, per_page: nil, include_collections: true, include_datasets: true, query: nil)
+      per_page ||= Configuration.default_pagination_items
       url = SearchCollectionItemsUrlBuilder.new(
         collection_id: collection_id,
         page: page,

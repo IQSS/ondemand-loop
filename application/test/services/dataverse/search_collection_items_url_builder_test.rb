@@ -3,7 +3,7 @@ require 'test_helper'
 class Dataverse::SearchCollectionItemsUrlBuilderTest < ActiveSupport::TestCase
   test 'builds default url' do
     builder = Dataverse::SearchCollectionItemsUrlBuilder.new(collection_id: ':root')
-    expected = '/api/search?order=desc&per_page=10&q=%2A&show_facets=true&sort=date&start=0&subtree=%3Aroot&type=dataverse&type=dataset'
+    expected = '/api/search?order=desc&per_page=20&q=%2A&show_facets=true&sort=date&start=0&subtree=%3Aroot&type=dataverse&type=dataset'
     assert_equal expected, builder.build
   end
 

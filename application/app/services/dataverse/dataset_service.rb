@@ -45,8 +45,9 @@ module Dataverse
       DatasetVersionResponse.new(response.body)
     end
 
-    def search_dataset_files_by_persistent_id(persistent_id, version: ':latest-published', page: 1, per_page: 10, query: nil)
+    def search_dataset_files_by_persistent_id(persistent_id, version: ':latest-published', page: 1, per_page: nil, query: nil)
       version ||= ':latest-published'
+      per_page ||= Configuration.default_pagination_items
       headers = {}
       headers[AUTH_HEADER] = @api_key if @api_key
       url = SearchDatasetFilesUrlBuilder.new(

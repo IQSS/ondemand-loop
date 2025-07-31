@@ -15,32 +15,14 @@ class Zenodo::RecordsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'record view shows active project button text when project active' do
+  test 'record view shows project selection dropdown and disabled submit button' do
     @record = OpenStruct.new(title: 'rec', files: [OpenStruct.new(id: 1, filename: 'f.txt', filesize: 10)])
     Zenodo::RecordService.any_instance.stubs(:find_record).returns(@record)
-    user_settings_mock = mock('UserSettings')
-    user_settings_mock.stubs(:user_settings).returns(OpenStruct.new(active_project: 'proj'))
-    Current.stubs(:settings).returns(user_settings_mock)
 
     get view_zenodo_record_path('1')
     assert_response :success
-    label = I18n.t('zenodo.records.record_files.button_add_files_active_project_text')
-    title = I18n.t('zenodo.records.record_files.button_add_files_active_project_title')
-    assert_select "input[type=submit][value='#{label}'][title='#{title}']", 1
-  end
-
-  test 'record view shows new project button text when no active project' do
-    @record = OpenStruct.new(title: 'rec', files: [OpenStruct.new(id: 1, filename: 'f.txt', filesize: 10)])
-    Zenodo::RecordService.any_instance.stubs(:find_record).returns(@record)
-    user_settings_mock = mock('UserSettings')
-    user_settings_mock.stubs(:user_settings).returns(OpenStruct.new(active_project: nil))
-    Current.stubs(:settings).returns(user_settings_mock)
-
-    get view_zenodo_record_path('1')
-    assert_response :success
-    label = I18n.t('zenodo.records.record_files.button_add_files_new_project_text')
-    title = I18n.t('zenodo.records.record_files.button_add_files_new_project_title')
-    assert_select "input[type=submit][value='#{label}'][title='#{title}']", 1
+    assert_select "select#project_select", 1
+    assert_select "button#files_submit[disabled]", 1
   end
 
   test 'show redirects when not found' do

@@ -10,8 +10,7 @@
     </nav>
   </div>
   <% if files_page.total_count > 0 %>
-    <%= form_with url: download_dataverse_dataset_files_path, id: 'dataset-download-files-form', method: :post, local: true, class: "p-3 rounded bg-light", data: {controller: "utils--checkbox"} do %>
-      <%= hidden_field_tag 'project_id', Current.settings.user_settings.active_project %>
+    <%= form_with url: download_dataverse_dataset_files_path, id: 'dataset-download-files-form', method: :post, local: true, class: "p-3 rounded bg-light", data: {controller: "select-files-project", "select-files-project-external-targets-value": '["dataset_create_bundle"]'} do %>
       <%= hidden_field_tag 'dataverse_url', dataverse_url %>
       <%= hidden_field_tag 'persistent_id', @persistent_id %>
       <%= hidden_field_tag 'version', dataset.version %>
@@ -43,17 +42,7 @@
         </table>
       </div>
       <div class="text-center">
-        <% if Current.settings.user_settings.active_project.present? %>
-          <%= submit_tag t('dataverse.datasets.dataset_files.button_add_files_active_project_text'),
-                         class: "btn btn-primary", id: "submit_button",
-                         data: {"utils--checkbox-target" => "submitButton"},
-                         title: t('dataverse.datasets.dataset_files.button_add_files_active_project_title') %>
-        <% else %>
-          <%= submit_tag t('dataverse.datasets.dataset_files.button_add_files_new_project_text'),
-                         class: "btn btn-primary", id: "submit_button",
-                         data: {"utils--checkbox-target" => "submitButton"},
-                         title: t('dataverse.datasets.dataset_files.button_add_files_new_project_title') %>
-        <% end %>
+        <%= render partial: '/shared/project_selection' %>
       </div>
     <% end %>
   <% else %>

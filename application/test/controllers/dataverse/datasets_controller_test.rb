@@ -279,23 +279,7 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
     assert_select "form#dataset-search-form input[type=hidden][name=version][value='']", 1
   end
 
-  test "dataset view shows active project button text when project active" do
-    dataset = Dataverse::DatasetVersionResponse.new(dataset_valid_json)
-    Dataverse::DatasetService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
-    files_page = Dataverse::DatasetFilesResponse.new(files_valid_json)
-    Dataverse::DatasetService.any_instance.stubs(:search_dataset_files_by_persistent_id).returns(files_page)
-    user_settings_mock = mock("UserSettings")
-    user_settings_mock.stubs(:user_settings).returns(OpenStruct.new(active_project: "proj"))
-    Current.stubs(:settings).returns(user_settings_mock)
-
-    get view_dataverse_dataset_url(@new_id, "doi:10.5072/FK2/GCN7US")
-    assert_response :success
-    label = I18n.t('dataverse.datasets.dataset_files.button_add_files_active_project_text')
-    title = I18n.t('dataverse.datasets.dataset_files.button_add_files_active_project_title')
-    assert_select "input[type=submit][value='#{label}'][title='#{title}']", 1
-  end
-
-  test "dataset view shows new project button text when no active project" do
+  test "dataset view shows select project dropdown and submit button disabled" do
     dataset = Dataverse::DatasetVersionResponse.new(dataset_valid_json)
     Dataverse::DatasetService.any_instance.stubs(:find_dataset_version_by_persistent_id).returns(dataset)
     files_page = Dataverse::DatasetFilesResponse.new(files_valid_json)
@@ -306,9 +290,9 @@ class Dataverse::DatasetsControllerTest < ActionDispatch::IntegrationTest
 
     get view_dataverse_dataset_url(@new_id, "doi:10.5072/FK2/GCN7US")
     assert_response :success
-    label = I18n.t('dataverse.datasets.dataset_files.button_add_files_new_project_text')
-    title = I18n.t('dataverse.datasets.dataset_files.button_add_files_new_project_title')
-    assert_select "input[type=submit][value='#{label}'][title='#{title}']", 1
+    assert_response :success
+    assert_select "select#project_select", 1
+    assert_select "button#files_submit[disabled]", 1
   end
 
   test 'should handle search query parameter with sanitization' do
