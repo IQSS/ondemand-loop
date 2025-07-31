@@ -60,10 +60,6 @@ en:
         field_publication_date_text: "Publication date:"
         field_files_text: "Files:"
       record_files:
-        button_add_files_active_project_text: "Add Files to Active Project"
-        button_add_files_active_project_title: "This action will add the selected files into the Active Project"
-        button_add_files_new_project_text: "Add Files to New Project"
-        button_add_files_new_project_title: "No active project. This action will create a new project and add the selected files into the newly created project"
         col_file_name_text: "File name"
         col_size_text: "Size"
         checkbox_select_all_label: "Select all files"

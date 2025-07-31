@@ -1,9 +1,6 @@
 class ProjectsController < ApplicationController
 
   def index
-    project_id = params[:project_id]
-    return redirect_to project_path(id: project_id) if project_id
-
     @projects = Project.all
     @active_project = Project.find(Current.settings.user_settings.active_project.to_s)
   end

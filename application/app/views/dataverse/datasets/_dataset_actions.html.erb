@@ -37,6 +37,7 @@
       <% end %>
     <% end %>
 
+    <!-- link to project details page -->
     <%= link_to projects_path,
                 class: 'btn btn-sm btn-outline-secondary disabled',
                 title: t('.button_open_project_title'),
@@ -46,6 +47,7 @@
       <span class="visually-hidden"><%= t('.button_open_project_label') %></span>
     <% end %>
 
+    <!-- link to external repository dataset -->
     <%= link_to external_dataset_url(current_dataverse_url, dataset.data.dataset_persistent_id),
                 target: '_blank',
                 class: 'btn btn-sm btn-outline-secondary',

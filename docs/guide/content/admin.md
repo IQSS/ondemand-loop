@@ -80,6 +80,7 @@ You can define environment variables in one of the following ways:
 - [http_proxy](#http_proxy)
 - [default_connect_timeout](#default_connect_timeout)
 - [default_read_timeout](#default_read_timeout)
+- [default_pagination_items](#default_pagination_items)
 
 ---
 
@@ -279,6 +280,16 @@ Global default timeout (in seconds) for waiting for data to be read from an open
 
 - **Default**: `15` seconds
 - **Environment Variable**: `OOD_LOOP_DEFAULT_READ_TIMEOUT`
+
+---
+
+<a id="default_pagination_items"></a>
+**`default_pagination_items`**  
+Specifies the default number of items to display per page in paginated responses.
+This setting affects UI components and API calls that support pagination, ensuring consistent page sizes across the application when no explicit value is provided.
+- 
+- **Default**: `20` items
+- **Environment Variable**: `OOD_LOOP_DEFAULT_PAGINATION_ITEMS`
 
 ---
 
