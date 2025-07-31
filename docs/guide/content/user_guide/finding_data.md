@@ -3,7 +3,7 @@
 One of the first steps when working on a project in OnDemand Loop is locating the right dataset — typically for downloading data into your project.
 The application supports two ways of finding datasets from remote repositories:
 
-1. **Using the repository website and pasting a URL or DOI in Loop**  
+1. **Using the repository website to browse and search, then pasting a URL or DOI in OnDemand Loop**  
    Best for advanced users who know where the dataset is located.
 2. **Browsing and searching directly inside the OnDemand Loop interface**  
    Ideal for new users or those still exploring available datasets.
@@ -34,14 +34,15 @@ There are two ways to explore datasets from a remote repository when downloading
 If you already know the dataset you need, this is the fastest option:
 
 1. Visit the repository’s website.
-2. Find the dataset and copy its URL or DOI, such as:
+2. Find the dataset and copy its DOI or full URL. For example:
     - A DOI:  
       `https://doi.org/10.7910/DVN/MYSRMN`
     - A full URL from a repository:  
       `https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/MYSRMN`  
       `https://zenodo.org/record/1234567`
-3. In the application, click **Explore** in the top navigation bar.
-4. Paste the URL or DOI and click **Connect**.
+3. In the **Explore** bar at the top of the app, paste the DOI or URL.
+4. Click **Explore** to connect and browse the dataset locally.
+5. From there, you can select and download individual files into a project.
 
 OnDemand Loop will:
 
