@@ -8,16 +8,24 @@ After locating a dataset (via DOI, URL, or browsing), you can download specific 
 ### How to Download Files
 
 1. **Select files**  
-   On the dataset page, use the checkboxes to select the files you want to download.
-2. **Add to project**  
-   When at least one file is selected, the **Add Files to New Project** or **Add Files to Active Project** button becomes enabled. Clicking it schedules the selected files for download to a project.
-    - The text of the button depends on the presence of an active project in the application.
-    - If no project is active, OnDemand Loop automatically creates a new one everytime files are added.
-    - To make all downloads go to the same specific project, set that project as **active**.
-3. **Track progress**  
-   Monitor download activity in two places:
-    - The **Downloads** tab of the selected project (shows only that project's files)
-    - The **Downloads** page (global view across all projects)
+   On the dataset page, use the checkboxes to select one or more files you want to download. The **Add Files to Project** button will remain disabled until at least one file is selected.
+
+2. **Choose project and add files**  
+   To the left of the **Add Files to Project** button, you'll see a **project dropdown**:
+    - It is pre-selected to your **active project**.
+    - You can choose **any existing project** or select **"Create New Project"** directly from the dropdown.
+
+   Once files are selected, the **Add Files to Project** button becomes enabled. Clicking it schedules the selected files for download into the selected project.
+
+3. **Manage your downloads**  
+   You can monitor download progress in two places:
+    - The **Downloads** tab of the selected project — shows only that project's files.
+    - The **Downloads** page — shows all downloads across all your projects.
+
+!!! tip
+Want all files to go to the same project?  
+Use the project dropdown to pick or create a specific project before adding files.  
+Setting a project as **active** is still useful for convenience, but no longer required for downloading.
 
 !!! warning
 
