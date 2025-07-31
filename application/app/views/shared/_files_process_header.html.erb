@@ -18,6 +18,6 @@
   </div>
 
   <!-- Status Summary Widget -->
-  <%= render partial: '/shared/process_summary_widget', locals: { summary: @summary } %>
+  <%= render partial: '/shared/file_summary_widget', locals: project_progress_data(@summary) %>
 
 </div>

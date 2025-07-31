@@ -198,18 +198,6 @@ en:
       zenodo: "Zenodo"
     button_to:
       button_accessibility_default_label: "Action"
-    file_stats_inline:
-      pending_files: "Pending files"
-      completed_files: "Completed files"
-      cancelled_files: "Cancelled files"
-      error_files: "Error files"
-      total_files: "Total files"
-    file_stats_widget:
-      pending_files: "Pending files"
-      completed_files: "Completed files"
-      cancelled_files: "Cancelled files"
-      error_files: "Error files"
-      total_files: "Total files"
     file_summary_widget:
       badge_cancelled_text: "Cancelled"
       badge_completed_text: "Completed"
