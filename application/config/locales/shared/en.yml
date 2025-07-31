@@ -15,6 +15,9 @@ en:
     icon:
       a11y:
         label: "Connector type %{type}"
+  helpers:
+    projects:
+      active_project_text: "Active project"
   status:
     pending: "pending"
     downloading: "downloading"

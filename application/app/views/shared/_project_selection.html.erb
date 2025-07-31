@@ -8,7 +8,7 @@
               autocomplete="off"
               data-select-files-project-target="project"
               data-action="change->select-files-project#updateState">
-        <% Project.all.each do |project| %>
+        <% select_project_list.each do |project| %>
           <option value="<%= project.id %>" data-project-path="<%= project_path(project.id) %>">
             <%= project.name %>
           </option>

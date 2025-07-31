@@ -3,6 +3,20 @@ module ProjectsHelper
   def active_project?(project_id)
     Current.settings.user_settings.active_project.to_s == project_id
   end
+
+  def select_project_list
+    [].tap do |list|
+      Project.all.each do |project|
+        if active_project?(project.id.to_s)
+          project.name = "#{project.name} (#{t('helpers.projects.active_project_text')})"
+          list.unshift(project)
+        else
+          list << project
+        end
+      end
+    end
+  end
+
   def project_header_class(active)
     active ? 'bg-primary-subtle' : 'bg-body-secondary'
   end

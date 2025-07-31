@@ -4,6 +4,14 @@ require 'test_helper'
 class ProjectsHelperTest < ActionView::TestCase
   include ProjectsHelper
 
+  setup do
+    @original_settings = Current.settings
+  end
+
+  teardown do
+    Current.settings = @original_settings
+  end
+
   test 'header and border classes respond to active' do
     assert_equal 'bg-primary-subtle', project_header_class(true)
     assert_equal 'bg-body-secondary', project_header_class(false)
@@ -21,5 +29,39 @@ class ProjectsHelperTest < ActionView::TestCase
     assert_equal 0, data[:error]
     assert_equal 7, data[:total]
     assert_not_nil data[:id]
+  end
+
+  test 'active_project? returns true if ids match' do
+    Current.settings = OpenStruct.new(user_settings: OpenStruct.new(active_project: '123'))
+    assert active_project?('123')
+  end
+
+  test 'active_project? returns false if ids do not match' do
+    Current.settings = OpenStruct.new(user_settings: OpenStruct.new(active_project: '123'))
+    refute active_project?('456')
+  end
+
+  test 'select_project_list moves active project to top and labels it' do
+    project1 = OpenStruct.new(id: 1, name: 'Project A')
+    project2 = OpenStruct.new(id: 2, name: 'Project B')
+    Project.stubs(:all).returns([project1, project2])
+    Current.settings = OpenStruct.new(user_settings: OpenStruct.new(active_project: '2'))
+    self.stubs(:t).with('helpers.projects.active_project_text').returns('Active')
+
+    result = select_project_list
+
+    assert_equal [project2, project1], result
+    assert_equal 'Project B (Active)', result.first.name
+  end
+
+  test 'select_project_list returns original order if no active match' do
+    project1 = OpenStruct.new(id: 1, name: 'Project A')
+    project2 = OpenStruct.new(id: 2, name: 'Project B')
+    Project.stubs(:all).returns([project1, project2])
+    Current.settings = OpenStruct.new(user_settings: OpenStruct.new(active_project: '999'))
+
+    result = select_project_list
+
+    assert_equal [project1, project2], result
   end
 end
