@@ -1,31 +1,30 @@
 # Downloading Files
 
 OnDemand Loop allows you to download files from different repositories into the HPC environment.  
-After locating a dataset (via DOI, URL, or browsing), you can download specific files into your active project.
+After locating a dataset (via DOI, URL, or browsing), you can download specific files into your selected project.
 
 ---
 
 ### How to Download Files
 
 1. **Select files**  
-   On the dataset page, use the checkboxes to select one or more files you want to download. The **Add Files to Project** button will remain disabled until at least one file is selected.
-
+     On the dataset page, use the checkboxes to select one or more files you want to download. The **Add Files to Project** button will remain disabled until at least one file is selected.
 2. **Choose project and add files**  
-   To the left of the **Add Files to Project** button, you'll see a **project dropdown**:
-    - It is pre-selected to your **active project**.
-    - You can choose **any existing project** or select **"Create New Project"** directly from the dropdown.
+     To the left of the **Add Files to Project** button, you'll see a **project dropdown**:
+      - It is pre-selected to your **active project**.
+      - You can choose **any existing project** or select **"Create New Project"** directly from the dropdown.
 
-   Once files are selected, the **Add Files to Project** button becomes enabled. Clicking it schedules the selected files for download into the selected project.
+     Once files are selected, the **Add Files to Project** button becomes enabled. Clicking it schedules the selected files for download into the selected project.
 
 3. **Manage your downloads**  
-   You can monitor download progress in two places:
-    - The **Downloads** tab of the selected project — shows only that project's files.
-    - The **Downloads** page — shows all downloads across all your projects.
+     You can monitor download progress in two places:
+      - The **Downloads** tab of the selected project — shows only that project's files.
+      - The **Downloads** page — shows all downloads across all your projects.
 
-!!! tip
-Want all files to go to the same project?  
-Use the project dropdown to pick or create a specific project before adding files.  
-Setting a project as **active** is still useful for convenience, but no longer required for downloading.
+!!! tip "Want all files to go to the same project?"
+
+    Use the project dropdown to pick or create a specific project before adding files.
+    Setting a project as **active** is still useful for convenience, but no longer required for downloading.
 
 !!! warning
 
