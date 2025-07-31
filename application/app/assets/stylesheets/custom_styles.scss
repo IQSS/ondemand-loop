@@ -70,6 +70,17 @@ div.creation-date span, span.creation-date {
   background-color: #bfc6cd;
 }
 
+.btn-primary-dark {
+  background-color: #9ec5fe;
+  border: 1px solid #343a40;
+  color: #212529;
+}
+.btn-primary-dark:hover {
+  background-color: #7aa6ef;
+  border-color: #212529;
+  color: #16191b;
+}
+
 .btn-badge {
   padding: 0.4rem 0.4rem;
   font-size: 0.75rem;

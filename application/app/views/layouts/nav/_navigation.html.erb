@@ -53,16 +53,6 @@
       </ul>
       <ul class="navbar-nav ms-auto" role="menubar"> <!-- ms-auto pushes this section to the right -->
         <li class="nav-item" role="menuitem">
-          <a class="nav-link d-flex align-items-center"
-             data-bs-toggle="collapse"
-             href="#repo-resolver-bar"
-             role="button"
-             aria-expanded="false"
-             aria-controls="repo-resolver-bar">
-            <%= image_tag('icon.png', alt: t('.icon_explore_alt'), class: 'icon-class me-1') %> <%= t(".link_explore_text") %>
-          </a>
-        </li>
-        <li class="nav-item" role="menuitem">
           <%= nav_link_to ood_dashboard_url, class: 'nav-link d-flex align-items-center' do %>
             <%= image_tag('ood_icon.svg', alt: t('.icon_ood_alt'), class: 'icon-class me-1') %> Open OnDemand
           <% end %>
