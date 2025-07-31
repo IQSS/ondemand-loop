@@ -31,6 +31,11 @@ class ConfigurationPropertyTest < ActiveSupport::TestCase
     assert_equal 42, result
   end
 
+  test 'IntegerMapper should return nil for nil input' do
+    result = ConfigurationProperty::IntegerMapper.map_string(nil)
+    assert_nil result
+  end
+
   test 'IntegerMapper should throw exception for invalid integer string' do
     assert_raises(ArgumentError) do
       ConfigurationProperty::IntegerMapper.map_string('invalid')
@@ -38,31 +43,43 @@ class ConfigurationPropertyTest < ActiveSupport::TestCase
   end
 
   test 'PathMapper should create directory and return Pathname' do
-    path = '/tmp/test_directory/test_file.txt'
+    path = '/tmp/test_path_mapper_dir/test_file'
     result = ConfigurationProperty::PathMapper.map_string(path)
+    assert_instance_of Pathname, result
+    assert_equal Pathname(path), result
+    assert File.directory?(path)
+  ensure
+    FileUtils.rm_rf('/tmp/test_path_mapper_dir')
+  end
+
+  test 'PathMapper should return nil for nil input' do
+    assert_nil ConfigurationProperty::PathMapper.map_string(nil)
+  end
+
+  test 'FilePathMapper should create parent directory and return Pathname' do
+    path = '/tmp/test_file_mapper_dir/nested/file.txt'
+    result = ConfigurationProperty::FilePathMapper.map_string(path)
     assert_instance_of Pathname, result
     assert_equal Pathname(path), result
     assert File.directory?(File.dirname(path))
   ensure
-    FileUtils.rm_rf('/tmp/test_directory')
+    FileUtils.rm_rf('/tmp/test_file_mapper_dir')
   end
 
-  test 'PathMapper should return nil for nil input' do
-    result = ConfigurationProperty::PathMapper.map_string(nil)
-    assert_nil result
+  test 'FilePathMapper should return nil for nil input' do
+    assert_nil ConfigurationProperty::FilePathMapper.map_string(nil)
   end
 
   test 'BooleanMapper should map true-like strings' do
-    assert_equal true, ConfigurationProperty::BooleanMapper.map_string('true')
-    assert_equal true, ConfigurationProperty::BooleanMapper.map_string('1')
-    assert_equal true, ConfigurationProperty::BooleanMapper.map_string('yes')
-    assert_equal true, ConfigurationProperty::BooleanMapper.map_string('on')
+    %w[true 1 yes on y t].each do |val|
+      assert_equal true, ConfigurationProperty::BooleanMapper.map_string(val)
+    end
   end
 
   test 'BooleanMapper should map false-like strings' do
-    assert_equal false, ConfigurationProperty::BooleanMapper.map_string('false')
-    assert_equal false, ConfigurationProperty::BooleanMapper.map_string('0')
-    assert_equal false, ConfigurationProperty::BooleanMapper.map_string('no')
+    %w[false 0 no off f n].each do |val|
+      assert_equal false, ConfigurationProperty::BooleanMapper.map_string(val)
+    end
     assert_equal false, ConfigurationProperty::BooleanMapper.map_string('')
   end
 
@@ -72,7 +89,7 @@ class ConfigurationPropertyTest < ActiveSupport::TestCase
 
   test 'map_string delegates to mapper' do
     ConfigurationProperty::PassThroughMapper.expects(:map_string).with('default_value')
-    property = ConfigurationProperty.new(:delegated, 'default_value', false, [], ConfigurationProperty::PassThroughMapper)
+    ConfigurationProperty.new(:delegated, 'default_value', false, [], ConfigurationProperty::PassThroughMapper)
   end
 
   test 'FileContentMapper should read content from existing file' do
@@ -99,5 +116,41 @@ class ConfigurationPropertyTest < ActiveSupport::TestCase
       assert_equal false, property.read_from_environment
       assert_equal [], property.environment_names
     end
+  end
+
+  test '.boolean creates a property with BooleanMapper' do
+    prop = ConfigurationProperty.boolean(:feature_enabled, default: 'true')
+    assert_equal true, prop.default
+    assert_equal ConfigurationProperty::BooleanMapper, prop.instance_variable_get(:@mapper)
+  end
+
+  test '.integer creates a property with IntegerMapper' do
+    prop = ConfigurationProperty.integer(:retries, default: '5')
+    assert_equal 5, prop.default
+    assert_equal ConfigurationProperty::IntegerMapper, prop.instance_variable_get(:@mapper)
+  end
+
+  test '.path creates a property with PathMapper' do
+    dir = '/tmp/test_path_property'
+    prop = ConfigurationProperty.path(:tmpdir, default: dir)
+    assert_instance_of Pathname, prop.default
+    assert File.directory?(dir)
+  ensure
+    FileUtils.rm_rf(dir)
+  end
+
+  test '.file_path creates a property with FilePathMapper' do
+    file_path = '/tmp/test_file_path_property/file.txt'
+    prop = ConfigurationProperty.file_path(:out, default: file_path)
+    assert_instance_of Pathname, prop.default
+    assert File.directory?(File.dirname(file_path))
+  ensure
+    FileUtils.rm_rf('/tmp/test_file_path_property')
+  end
+
+  test '.property creates a property with PassThroughMapper' do
+    prop = ConfigurationProperty.property(:plain, default: 'abc')
+    assert_equal 'abc', prop.default
+    assert_equal ConfigurationProperty::PassThroughMapper, prop.instance_variable_get(:@mapper)
   end
 end

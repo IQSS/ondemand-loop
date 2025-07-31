@@ -16,6 +16,10 @@ class ConfigurationProperty
     ConfigurationProperty.new(name, default, read_from_env, env_names, PathMapper)
   end
 
+  def self.file_path(name, default: nil, read_from_env: true, env_names: nil)
+    ConfigurationProperty.new(name, default, read_from_env, env_names, FilePathMapper)
+  end
+
   def self.file_content(name, default: nil, read_from_env: false, env_names: nil)
     ConfigurationProperty.new(name, default, read_from_env, env_names, FileContentMapper)
   end
@@ -61,13 +65,21 @@ class ConfigurationProperty
 
   class PathMapper
     def self.map_string(string_value)
-      return nil if string_value.nil?
+      return nil if string_value.to_s.empty?
 
-      full_path = File.expand_path(string_value.to_s)
-      dir = File.dirname(full_path)
-      # Ensure the directory exists
-      FileUtils.mkdir_p(dir)
-      Pathname(full_path)
+      path = Pathname.new(File.expand_path(string_value.to_s))
+      FileUtils.mkdir_p(path)
+      path
+    end
+  end
+
+  class FilePathMapper
+    def self.map_string(string_value)
+      return nil if string_value.to_s.empty?
+
+      path = Pathname.new(File.expand_path(string_value.to_s))
+      FileUtils.mkdir_p(path.dirname)
+      path
     end
   end
 
@@ -92,7 +104,7 @@ class ConfigurationProperty
     end
 
     private
-    FALSE_VALUES = ['', '0', 'F', 'FALSE', 'OFF', 'NO'].freeze
+    FALSE_VALUES = ['', '0', 'F', 'N', 'FALSE', 'OFF', 'NO'].freeze
     
     def self.to_bool(value)
       !FALSE_VALUES.include?(value)
