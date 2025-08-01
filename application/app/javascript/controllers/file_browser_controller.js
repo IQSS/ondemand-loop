@@ -16,8 +16,23 @@ export default class extends Controller {
             close: `file-browser:close:${this.element.id}`,
             dragStart: `file-browser:dragstart:${this.element.id}`,
             dragEnd: `file-browser:dragend:${this.element.id}`,
-            fileSelected: `file-browser:file-selected:${this.element.id}`
+            fileSelected: `file-browser:file-selected:${this.element.id}`,
+            pathChange: `file-browser:path-change:${this.element.id}`
         }
+
+        // Notify listeners of the initial path
+        if (this.hasPathInputTarget) {
+            this.dispatchPathChange(this.pathInputTarget.value)
+        }
+    }
+
+    dispatchPathChange(path) {
+        const pathChangeEvent = new CustomEvent(this.eventNames.pathChange, {
+            detail: { path: path },
+            bubbles: true
+        })
+
+        document.dispatchEvent(pathChangeEvent)
     }
 
     navigate() {
@@ -33,6 +48,7 @@ export default class extends Controller {
             })
             .then(html => {
                 this.element.innerHTML = html
+                this.dispatchPathChange(newPath)
             })
             .catch(error => {
                 showFlash('error', error.error, this.element.id)

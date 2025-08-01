@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-between align-items-center mt-3 flex-wrap"
+<div class="d-flex justify-content-between align-items-center flex-wrap"
      data-controller="project-name"
      data-project-name-initial-name-value="<%= project.name %>"
      data-project-name-url-value="<%= project_path(id: project.id) %>"
@@ -14,6 +14,7 @@
       <i class="bi bi-folder-fill" aria-hidden="true"></i>
       <span class="visually-hidden"><%= t('.button_open_project_folder_label') %></span>
     </a>
+
 
     <%= render partial: '/shared/file_row_date', locals: { date: project.creation_date, title: t('.field_creation_date_title'), classes: 'me-1' } %>
 

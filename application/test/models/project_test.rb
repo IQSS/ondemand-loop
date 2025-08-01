@@ -218,6 +218,50 @@ class ProjectTest < ActiveSupport::TestCase
     end
   end
 
+  test "update download_dir fails when files pending or downloading" do
+    in_temp_directory do |dir|
+      project = create_valid_project
+      project.save
+      file = create_download_file(project)
+      file.save
+
+      saved_project = Project.find(project.id)
+      new_dir = File.join(dir, 'new_download')
+      FileUtils.mkdir_p(new_dir)
+      refute saved_project.update(download_dir: new_dir)
+      assert_equal project.download_dir, saved_project.download_dir
+      assert_match /cannot be updated/, saved_project.errors[:download_dir].first
+    end
+  end
+
+  test "update download_dir fails when new directory invalid" do
+    in_temp_directory do
+      project = create_valid_project
+      project.save
+
+      saved_project = Project.find(project.id)
+      refute saved_project.update(download_dir: '/does/not/exist')
+      assert_match /writable directory/, saved_project.errors[:download_dir].first
+      assert_equal project.download_dir, saved_project.download_dir
+    end
+  end
+
+  test "update download_dir succeeds when no active downloads" do
+    in_temp_directory do |dir|
+      project = create_valid_project
+      project.save
+      file = create_download_file(project)
+      file.status = FileStatus::SUCCESS
+      file.save
+
+      saved_project = Project.find(project.id)
+      new_dir = File.join(dir, 'new_download')
+      FileUtils.mkdir_p(new_dir)
+      assert saved_project.update(download_dir: new_dir)
+      assert_equal new_dir, saved_project.download_dir
+    end
+  end
+
   private
 
   def create_valid_project(id: 'ab12345', name: 'test_project', download_dir: '/tmp/test_project')

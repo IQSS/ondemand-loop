@@ -43,4 +43,8 @@ module ProjectsHelper
     }
   end
 
+  def project_download_dir_browser_id(project)
+    "download-dir-browser-#{project.id}"
+  end
+
 end

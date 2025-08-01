@@ -23,27 +23,22 @@
     <% end %>
 
     <!-- Resolver Form (right aligned) -->
-    <form data-controller="submit-button" action="<%= repo_resolver_path %>" method="post" class="d-flex align-items-center gap-3" style="flex: 1 1 auto;">
-      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <%= render layout: "shared/button_to", locals: {
+      url: repo_resolver_path,
+      form_class: 'flex-grow-1 d-flex align-items-center gap-2',
+      class: 'btn-primary-dark',
+      icon_html: image_tag('icon.png', alt: t('.button_submit_icon_alt'), class: 'icon-class d-block', style: 'height: 1rem; width: auto; object-fit: contain;' ),
+      label: t('.button_submit_text')
+    } do %>
 
       <input type="text"
              name="repo_url"
              id="<%= input_id %>"
-             placeholder="<%= t('.input_repo_url_placeholder') %>"
-             aria-label="<%= t('.input_repo_url_label') %>"
-             class="form-control"
-             style="flex: 1 1 auto;">
+             placeholder="<%= t('layouts.repo_resolver_bar.input_repo_url_placeholder') %>"
+             aria-label="<%= t('layouts.repo_resolver_bar.input_repo_url_label') %>"
+             class="d-inline form-control me-3">
 
-      <button class="btn btn-primary-dark ps-2 pe-3 d-inline-flex align-items-center" type="submit"
-              data-submit-button-target="button"
-              data-action="click->submit-button#click">
-        <span data-submit-button-target="spinner" aria-live="polite"
-              class="spinner-border spinner-border-sm me-1 d-none"
-              role="status" aria-hidden="true"></span>
-        <%= image_tag('icon.png', alt: t('.button_submit_icon_alt'), class: 'icon-class me-2') %>
-        <span data-submit-button-target="label"><%= t('.button_submit_text') %></span>
-      </button>
-    </form>
+    <% end %>
 
   </div>
 </div>

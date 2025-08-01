@@ -65,4 +65,9 @@ class ProjectsHelperTest < ActionView::TestCase
 
     assert_equal [project1, project2], result
   end
+
+  test 'project_download_dir_browser_id returns id string' do
+    project = OpenStruct.new(id: 42)
+    assert_equal 'download-dir-browser-42', project_download_dir_browser_id(project)
+  end
 end

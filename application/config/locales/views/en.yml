@@ -93,6 +93,8 @@ en:
         header_download_files_text: "Downloads"
         button_add_files_text: "Add Files"
         button_add_files_title: "Add dataset to browse and select files"
+        button_edit_download_dir_title: "Update project workspace folder"
+        button_edit_download_dir_label: "Update workspace folder"
       download_files:
         badge_repository_files_tooltip: "Repository Files"
         button_delete_file_title: "Delete File"
@@ -118,11 +120,18 @@ en:
         button_open_project_folder_label: "Open Project workspace folder"
         button_open_project_folder_title: "Open Project workspace folder"
         button_open_project_metadata_title: "Open Project metadata folder"
+        button_edit_download_dir_title: "Change Project folder"
+        button_edit_download_dir_label: "Change folder"
         field_creation_date_title: "Creation date"
         modal_delete_confirmation_title: "Delete Project"
         modal_delete_confirmation_content: "This will remove the project from the app. Files on disk and in remote repositories will remain untouched."
       project_tabs:
         tab_download_files_text: "Download Files"
+      edit_download_dir_modal:
+        header_title: "Select Workspace Folder for Project: %{project_name}"
+        field_path_label: "Selected path"
+        button_select_text: "Select"
+        button_cancel_text: "Cancel"
       upload_actions:
         button_add_files_text: "Add Files"
         button_add_files_title: "Add Files"

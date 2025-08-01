@@ -27,12 +27,15 @@
           class="spinner-border spinner-border-sm me-1 d-none"
           role="status" aria-hidden="true"></span>
 
-    <span data-submit-button-target="label">
-      <% if local_assigns[:icon] %>
+    <span data-submit-button-target="label" class="d-inline-flex align-items-center gap-2">
+    <% if local_assigns[:icon] %>
         <i class="<%= icon %>" aria-hidden="true"></i>
       <% end %>
+      <% if local_assigns[:icon_html] %>
+        <%= icon_html %>
+      <% end %>
       <% if local_assigns[:label] %>
-        <span class="ps-1"><%= label %></span>
+        <span><%= label %></span>
       <% end %>
     </span>
 
