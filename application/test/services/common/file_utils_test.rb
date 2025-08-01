@@ -101,4 +101,30 @@ class Common::FileUtilsTest < ActiveSupport::TestCase
     assert_equal 'my_report_1.txt', result.filename
     assert_equal 'my_report_1_txt', result.id
   end
+
+  test 'move_all moves contents and removes empty source' do
+    src = Dir.mktmpdir
+    dest = Dir.mktmpdir
+
+    File.write(File.join(src, 'file1'), 'a')
+    FileUtils.mkdir_p(File.join(src, 'sub'))
+    File.write(File.join(src, 'sub', 'file2'), 'b')
+
+    @utils.move_all(src, dest)
+
+    assert File.exist?(File.join(dest, 'file1'))
+    assert File.exist?(File.join(dest, 'sub', 'file2'))
+    refute Dir.exist?(src)
+
+    FileUtils.rm_rf(dest)
+  end
+
+  test 'move_all does nothing when source equals destination' do
+    dir = Dir.mktmpdir
+    File.write(File.join(dir, 'file'), 'a')
+    @utils.move_all(dir, dir)
+    assert File.exist?(File.join(dir, 'file'))
+    FileUtils.rm_rf(dir)
+  end
 end
+

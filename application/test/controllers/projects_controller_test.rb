@@ -83,9 +83,12 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update project via HTML with name and download_dir" do
+    new_dir = File.join(@tmp_dir, 'new_html_dir')
+    FileUtils.mkdir_p(new_dir)
+
     put project_url(id: @project.id), params: {
       name: "Updated Name",
-      download_dir: "/some/new/path"
+      download_dir: new_dir
     }
 
     assert_redirected_to projects_url
@@ -94,10 +97,13 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update project via JSON with name and download_dir" do
+    new_dir = File.join(@tmp_dir, 'new_json_dir')
+    FileUtils.mkdir_p(new_dir)
+
     put project_url(id: @project.id),
           params: {
             name: "Updated JSON Name",
-            download_dir: "/some/json/path"
+            download_dir: new_dir
           }.to_json,
           headers: {
             "Content-Type" => "application/json",
@@ -107,7 +113,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     json = JSON.parse(@response.body)
     assert_equal "Updated JSON Name", json["name"]
-    assert_equal "/some/json/path", json["download_dir"]
+    assert_equal new_dir, json["download_dir"]
   end
 
   test "should not update missing project via HTML" do

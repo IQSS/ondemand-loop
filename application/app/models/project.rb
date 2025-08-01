@@ -59,6 +59,27 @@ class Project < ApplicationDiskRecord
       end
   end
 
+  def update(attributes = {})
+    old_dir = download_dir
+    new_dir = attributes[:download_dir] || attributes['download_dir']
+
+    if new_dir && new_dir != old_dir
+      if download_files.any? { |f| f.status.pending? || f.status.downloading? }
+        errors.add(:download_dir, 'cannot be updated while files are pending or downloading')
+        return false
+      end
+
+      unless File.directory?(new_dir) && File.writable?(new_dir)
+        errors.add(:download_dir, 'must exist and be a writable directory')
+        return false
+      end
+    end
+
+    result = super
+    Common::FileUtils.new.move_all(old_dir, download_dir) if result
+    result
+  end
+
   def save
     return false unless valid?
 
@@ -107,4 +128,5 @@ class Project < ApplicationDiskRecord
   rescue StandardError
     nil
   end
+
 end

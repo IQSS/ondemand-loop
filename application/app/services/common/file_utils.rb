@@ -2,6 +2,7 @@
 
 module Common
   class FileUtils
+    include LoggingCommon
 
     def normalize_name(name)
       name.to_s.parameterize(separator: '_')
@@ -34,6 +35,23 @@ module Common
       download_file.filename = unique_filename(root_dir, download_file.filename)
       download_file.id = normalize_name(download_file.filename)
       download_file
+    end
+
+    def move_all(source_dir, destination_dir)
+      return if source_dir.to_s == destination_dir.to_s
+
+      return unless Dir.exist?(source_dir)
+
+      log_info('Move directory contents', { source: source_dir, destination: destination_dir })
+
+      begin
+        ::FileUtils.mkdir_p(destination_dir)
+        ::FileUtils.mv(Dir["#{source_dir}/*"], destination_dir)
+        ::FileUtils.rmdir(source_dir) if Dir.exist?(source_dir) && Dir.empty?(source_dir)
+      rescue => e
+        log_error('Move directory contents error', { source: source_dir, destination: destination_dir }, e)
+        raise
+      end
     end
 
     private
