@@ -13,7 +13,7 @@ module Zenodo
       return 0 if FileStatus.new_statuses.include?(file.status)
       return 100 if FileStatus.completed_statuses.include?(file.status)
 
-      return 100 if File.exist?(connector_metadata.download_location)
+      return 100 if File.exist?(file.download_location)
 
       temp_location = connector_metadata.temp_location
       file_size = file.size

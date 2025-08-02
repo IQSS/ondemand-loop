@@ -34,7 +34,6 @@ module Dataverse
             storage: dataset_file.data_file.storage_identifier,
             md5: dataset_file.data_file.md5,
             download_url: nil,
-            download_location: nil,
             temp_location: nil,
           }
 

@@ -34,6 +34,13 @@ class DownloadFile < ApplicationDiskRecord
     @status = value
   end
 
+  def download_location
+    @project ||= Project.find(project_id)
+    return nil unless @project
+
+    File.join(@project.download_dir, filename)
+  end
+
   def save
     return false unless valid?
 

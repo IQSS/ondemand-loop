@@ -28,7 +28,6 @@ module Zenodo
             record_id: record.id,
             id: file.id,
             download_url: file.download_url,
-            download_location: nil,
             temp_location: nil
           }
           @file_utils.make_download_file_unique(f)
