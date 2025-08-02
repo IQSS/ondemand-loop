@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Only use FileStatus.get(value). All instances are singletons.
 class FileStatus
   # Define the valid statuses as an array
   STATUS = %w[pending downloading uploading success error cancelled].freeze
@@ -24,6 +25,10 @@ class FileStatus
   # Provide the string representation
   def to_s
     @value
+  end
+
+  def completed?
+    self.class.completed_statuses.include?(self)
   end
 
   # Dynamically define constants for each status

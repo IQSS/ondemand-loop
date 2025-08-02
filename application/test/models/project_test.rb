@@ -241,7 +241,7 @@ class ProjectTest < ActiveSupport::TestCase
 
       saved_project = Project.find(project.id)
       refute saved_project.update(download_dir: '/does/not/exist')
-      assert_match /writable directory/, saved_project.errors[:download_dir].first
+      assert_match /parent directory must exist and be writable/, saved_project.errors[:download_dir].first
       assert_equal project.download_dir, saved_project.download_dir
     end
   end

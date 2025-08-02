@@ -20,7 +20,6 @@ module Zenodo
       temp_location = "#{download_location}.part"
       FileUtils.mkdir_p(File.dirname(download_location))
 
-      connector_metadata.download_location = download_location
       connector_metadata.temp_location = temp_location
       file.update({metadata: connector_metadata.to_h})
 
