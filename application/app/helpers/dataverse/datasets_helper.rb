@@ -74,6 +74,11 @@ module Dataverse::DatasetsHelper
     url.to_s
   end
 
+  def sort_by_draft(datasets)
+    # DRAFT DATASETS FIRST
+    datasets.sort_by { |item| item.version == ':draft' ? 0 : 1 }
+  end
+
   private
 
   def retrictions_service

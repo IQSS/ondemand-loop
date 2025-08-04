@@ -12,15 +12,19 @@
     <small class="text-muted"><%= t('connectors.dataverse.dataset_select_form.total_datasets', total: data.total_count) %></small>
   </div>
   <div class="list-group mb-3" data-list-filter-target="list" style="max-height: 50vh; overflow-y: auto;">
-    <% data.items.each do |item| %>
+    <% sort_by_draft(data.items).each do |item| %>
       <label class="list-group-item list-group-item-action d-flex align-items-center gap-2"
              data-filter-item>
         <%= radio_button_tag :dataset_id, item.global_id, false, class: 'form-check-input mt-0' %>
+
         <span class="text-truncate" style="max-width: 800px;" title="<%= item.name %>">
           <%= item.name %>
         </span>
+
+        <span class="badge border border-primary text-muted ms-auto"><%= item.version %></span>
       </label>
-    <% end %>
+
+  <% end %>
   </div>
 
 
