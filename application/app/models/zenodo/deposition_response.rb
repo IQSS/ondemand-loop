@@ -15,17 +15,17 @@ module Zenodo
       @id = @raw['id'].to_s
       @submitted = @raw['submitted']
       @bucket_url = @raw.dig('links', 'bucket')
-      @title = @raw.dig('metadata', 'title') || 'Untitled'
-      @description = @raw.dig('metadata', 'description')
-      @publication_date = @raw.dig('metadata', 'publication_date')
+      @title = @raw.dig('metadata', 'title') || @raw['title'] || 'Untitled'
+      @description = @raw.dig('metadata', 'description') || @raw['description']
+      @publication_date = @raw.dig('metadata', 'publication_date') || @raw['created']
       @files = Array(@raw['files']).map do |f|
-        raw_url = f.dig('links', 'self')
-        encoded_url = encode_url_path(raw_url)
+        raw_url = f.dig('links', 'download') || f.dig('links', 'self')
+        encoded_url = raw_url && encode_url_path(raw_url)
 
         FileItem.new(
           id: f['id'].to_s,
-          filename: f['key'],
-          filesize: f['size'],
+          filename: f['filename'] || f['key'],
+          filesize: f['filesize'] || f['size'],
           checksum: f['checksum'],
           download_link: raw_url,
           download_url: encoded_url

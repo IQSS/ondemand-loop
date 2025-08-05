@@ -10,7 +10,7 @@ class Zenodo::DepositionServiceTest < ActiveSupport::TestCase
   test 'create_deposition returns response object' do
     http = HttpClientMock.new(file_path: fixture_path('zenodo/create_deposition_response.json'))
     service = Zenodo::DepositionService.new(@base, http_client: http, api_key: 'KEY')
-    req = Zenodo::CreateDepositionRequest.new(title: 't', upload_type: 'software', description: 'd', creators: [{name: 'me'}])
+    req = Zenodo::CreateDepositionRequest.new(title: 't', upload_type: 'software', description: 'd', creators: [ { name: 'me' } ])
     resp = service.create_deposition(req)
     assert_instance_of Zenodo::CreateDepositionResponse, resp
     assert_equal 1, resp.id
@@ -29,7 +29,7 @@ class Zenodo::DepositionServiceTest < ActiveSupport::TestCase
     service = Zenodo::DepositionService.new(@base, http_client: http, api_key: 'KEY')
     resp = service.find_deposition('1')
     assert_instance_of Zenodo::DepositionResponse, resp
-    assert_equal 1, resp.id
+    assert_equal '1', resp.id
     assert_equal '/api/deposit/depositions/1', http.called_path
   end
 
