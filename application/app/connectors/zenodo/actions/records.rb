@@ -47,7 +47,7 @@ module Zenodo::Actions
         project = project_service.initialize_project
         unless project.save
           errors = project.errors.full_messages.join(', ')
-          return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.download.message_project_error', errors: errors) }, success: false)
+          return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.message_project_error', errors: errors) }, success: false)
         end
       end
 
@@ -55,15 +55,15 @@ module Zenodo::Actions
       download_files.each do |file|
         unless file.valid?
           errors = file.errors.full_messages.join(', ')
-          return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.download.message_validation_file_error', filename: file.filename, errors: errors) }, success: false)
+          return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.message_validation_file_error', filename: file.filename, errors: errors) }, success: false)
         end
       end
       save_results = download_files.map(&:save)
       if save_results.include?(false)
-        return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.download.message_save_file_error') }, success: false)
+        return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.message_save_file_error', project_name: project.name) }, success: false)
       end
       log_info('Download files created', { project_id: project.id, files: download_files.size })
-      ConnectorResult.new(message: { notice: I18n.t('zenodo.records.download.message_success', project_name: project.name) }, success: true)
+      ConnectorResult.new(message: { notice: I18n.t('zenodo.records.message_success', files: save_results.size, project_name: project.name) }, success: true)
     end
   end
 end

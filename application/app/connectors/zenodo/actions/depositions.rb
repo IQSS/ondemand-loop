@@ -53,7 +53,7 @@ module Zenodo::Actions
 
       service = Zenodo::DepositionService.new(repo_url.server_url, api_key: api_key)
       deposition = service.find_deposition(@deposition_id)
-      return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.message_record_not_found', record_id: @deposition_id) }, success: false) unless deposition
+      return ConnectorResult.new(message: { alert: I18n.t('zenodo.depositions.message_deposition_not_found', record_id: @deposition_id) }, success: false) unless deposition
 
       project = Project.find(project_id)
       project_service = Zenodo::ProjectService.new(repo_url.server_url)
@@ -61,7 +61,7 @@ module Zenodo::Actions
         project = project_service.initialize_project
         unless project.save
           errors = project.errors.full_messages.join(', ')
-          return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.download.message_project_error', errors: errors) }, success: false)
+          return ConnectorResult.new(message: { alert: I18n.t('zenodo.depositions.message_project_error', errors: errors) }, success: false)
         end
       end
 
@@ -69,14 +69,14 @@ module Zenodo::Actions
       download_files.each do |file|
         unless file.valid?
           errors = file.errors.full_messages.join(', ')
-          return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.download.message_validation_file_error', filename: file.filename, errors: errors) }, success: false)
+          return ConnectorResult.new(message: { alert: I18n.t('zenodo.depositions.message_validation_file_error', filename: file.filename, errors: errors) }, success: false)
         end
       end
       save_results = download_files.map(&:save)
       if save_results.include?(false)
-        return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.download.message_save_file_error') }, success: false)
+        return ConnectorResult.new(message: { alert: I18n.t('zenodo.depositions.message_save_file_error', project_name: project.name) }, success: false)
       end
-      ConnectorResult.new(message: { notice: I18n.t('zenodo.records.download.message_success', project_name: project.name) }, success: true)
+      ConnectorResult.new(message: { notice: I18n.t('zenodo.depositions.message_success', files: save_results.size, project_name: project.name) }, success: true)
     end
   end
 end

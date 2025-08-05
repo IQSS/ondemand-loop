@@ -2,19 +2,27 @@
 en:
   zenodo:
     records:
+      message_record_not_found: "Record not found. Record id: %{record_id}"
+      message_record_service_error: "Zenodo service error. Record id: %{record_id}"
+      message_project_error: "Error generating project: %{errors}"
+      message_validation_file_error: "Invalid file in selection: %{filename} errors: %{errors}"
+      message_save_file_error: "Error generating the download files for project: %{project_name}"
+      message_success: "(%{files}) Files added to project: %{project_name}"
       download:
         message_project_error: "Error generating project: %{errors}"
         message_validation_file_error: "Invalid file in selection: %{filename} errors: %{errors}"
         message_save_file_error: "Error generating the download file"
         message_success: "Files added to project: %{project_name}"
-      message_record_not_found: "Record not found. Record id: %{record_id}"
-      message_record_service_error: "Zenodo service error. Record id: %{record_id}"
     landing_page:
       index:
         message_search_error: "Zenodo search error while searching: %{query}"
     depositions:
       message_deposition_not_found: "Deposition not found. Deposition id: %{deposition_id}"
       message_api_key_required: "API key is required to access this deposition"
+      message_project_error: "Error generating project: %{errors}"
+      message_validation_file_error: "Invalid file in selection: %{filename} errors: %{errors}"
+      message_save_file_error: "Error generating the download files for project: %{project_name}"
+      message_success: "(%{files}) Files added to project: %{project_name}"
   connectors:
     zenodo:
       display_repo_controller:

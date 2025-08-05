@@ -75,6 +75,6 @@ class ExploreControllerTest < ActionDispatch::IntegrationTest
     )
 
     assert_redirected_to root_path
-    assert_equal I18n.t('zenodo.records.download.message_success', project_name: 'P'), flash[:notice]
+    assert_equal I18n.t('zenodo.records.message_success', files: 0, project_name: 'P'), flash[:notice]
   end
 end
