@@ -28,7 +28,7 @@ module Zenodo
       file.upload_bundle.update({ metadata: connector_metadata.to_h })
 
       # Step 3: Upload the file using raw S3-compatible POST
-      headers = { 'Authorization' => "Bearer #{connector_metadata.api_key.value}" }
+      headers = { Zenodo::ApiService::AUTH_HEADER => "Bearer #{connector_metadata.api_key.value}" }
       upload_processor = Zenodo::ZenodoBucketHttpUploader.new(upload_url, source_location, headers)
       upload_processor.upload do |context|
         @status_context = context
@@ -45,17 +45,17 @@ module Zenodo
         if file.id == request.body.file_id
           # CANCELLATION IS FOR THIS FILE
           @cancelled = true
-          return {message: 'cancellation requested'}
+          return { message: 'cancellation requested' }
         end
       end
 
       if request.command == 'upload.status'
         if file.id == request.body.file_id
-          return {message: 'upload in progress', status: @status_context}
+          return { message: 'upload in progress', status: @status_context }
         end
       end
 
-      return nil
+      return nil # rubocop:disable Style/RedundantReturn
     end
 
     private

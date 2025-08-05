@@ -14,6 +14,10 @@ module Zenodo
         server_domain = zenodo_url.domain
         object_type = 'records'
         object_id = zenodo_url.record_id
+      elsif zenodo_url&.deposition?
+        server_domain = zenodo_url.domain
+        object_type = 'depositions'
+        object_id = zenodo_url.deposition_id
       else
         server_domain =  Zenodo::ZenodoUrl::DEFAULT_SERVER
         object_type = 'actions'

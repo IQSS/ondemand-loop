@@ -20,13 +20,18 @@ module Zenodo
       FileUtils.mkdir_p(File.dirname(download_location))
 
       connector_metadata.temp_location = temp_location
-      file.update({metadata: connector_metadata.to_h})
+      file.update({ metadata: connector_metadata.to_h })
+
+      repo_info = RepoRegistry.repo_db.get(connector_metadata.zenodo_url)
+      api_key = repo_info&.metadata&.auth_key
+      headers = {}
+      headers[Zenodo::ApiService::AUTH_HEADER] = "Bearer #{api_key}" if api_key.present?
 
       download_processor = Download::BasicHttpRubyDownloader.new(
         download_url,
         download_location,
         temp_location,
-        headers: {}
+        headers: headers,
       )
       download_processor.download do |_context|
         cancelled

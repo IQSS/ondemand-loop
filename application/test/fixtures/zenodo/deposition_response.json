@@ -2,8 +2,18 @@
   "id": 1,
   "submitted": false,
   "links": {"bucket": "https://zenodo.org/api/files/123"},
-  "metadata": {"title": "My Deposition"},
+  "metadata": {
+    "title": "My Deposition",
+    "description": "Deposition description",
+    "publication_date": "2024-01-01"
+  },
   "files": [
-    {"id": "10", "key": "file.txt", "size": 1234, "links": {"self": "https://zenodo.org/api/files/123/file.txt"}}
+    {
+      "id": "10",
+      "key": "file.txt",
+      "size": 1234,
+      "checksum": "md5:abc",
+      "links": {"self": "https://zenodo.org/api/files/123/file.txt"}
+    }
   ]
 }

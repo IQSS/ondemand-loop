@@ -12,6 +12,13 @@ class Zenodo::DisplayRepoControllerResolverTest < ActionDispatch::IntegrationTes
     assert result.success?
   end
 
+  test 'deposition url returns deposition path' do
+    url = 'https://zenodo.org/deposit/34'
+    result = @resolver.get_controller_url(url)
+    assert_equal '/explore/zenodo/zenodo.org/depositions/34', result.redirect_url
+    assert result.success?
+  end
+
   test 'zenodo root url returns landing path' do
     url = 'https://zenodo.org'
     result = @resolver.get_controller_url(url)

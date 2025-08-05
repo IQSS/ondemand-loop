@@ -12,7 +12,10 @@ en:
     landing_page:
       index:
         message_search_error: "Zenodo search error while searching: %{query}"
+    depositions:
+      message_deposition_not_found: "Deposition not found. Deposition id: %{deposition_id}"
+      message_api_key_required: "API key is required to access this deposition"
   connectors:
     zenodo:
       display_repo_controller:
-        message_url_not_supported: "Zenodo URL not supported: %{url}. Only record URLs are currently supported for exploring"
+        message_url_not_supported: "Zenodo URL not supported: %{url}. Only record and deposition URLs are currently supported for exploring"
