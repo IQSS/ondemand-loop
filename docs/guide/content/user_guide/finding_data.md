@@ -10,8 +10,11 @@ The application supports two ways of finding datasets from remote repositories:
 
 !!! note "Supported Repositories"
 
-    OnDemand Loop currently supports two repository connectors: **Dataverse** and **Zenodo** ([contributions are welcome to add more](../development_guide/contributing.md)).
-    **Public datasets** with published versions are supported for downloading by default. **Dataverse draft datasets** and **Zenodo depositions** are supported after an API key is provided.
+    OnDemand Loop supports downloading datasets from a growing number of repository connectors.  
+    See the [Supported Repositories](supported_repositories.md) section for the current list. [Contributions to support additional repositories are welcome!](../development_guide/contributing.md)
+
+    **Public datasets** with published versions are supported by default.  
+    Access to **unpublished or draft content** may require an API key, depending on the repository's access policies.
 
 ---
 
@@ -35,10 +38,13 @@ If you already know the dataset you need, this is the fastest option:
 1. Visit the repository’s website.
 2. Find the dataset and copy its DOI or full URL. For example:
     - A DOI:  
-      `https://doi.org/10.7910/DVN/MYSRMN`
+      `doi:10.7910/DVN/MYSRMN`  
+      `https://doi.org/10.7910/DVN/MYSRMN`  
+      
     - A full URL from a repository:  
-      `https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/MYSRMN`
-      `https://zenodo.org/record/1234567`
+      `https://dataverse.harvard.edu/collection`  
+      `https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/MYSRMN`  
+      `https://zenodo.org/record/1234567`  
       `https://zenodo.org/deposit/1234567`
 3. In the **Explore** bar at the top of the app, paste the DOI or URL.
 4. Click **Explore** to connect and browse the dataset locally.
@@ -66,17 +72,20 @@ If you prefer an integrated experience or are still exploring:
 4. Use the built-in search to look for datasets.
 5. Navigate the results and select a dataset to explore.
 
-Once a dataset is selected, OnDemand Loop presents its metadata and file listing so you can choose what to download into your project.
+Once a dataset is selected, **OnDemand Loop displays its metadata and file listing**, allowing you to choose which files to download into your project.
 
-!!! note
+!!! tip "Tips for Working with Drafts"
 
-    For **Dataverse** datasets, OnDemand Loop allows the user to select the desired dataset version, including the current `draft`. A repository API token is required to access and display draft versions.
+    - For **Dataverse** datasets, you can choose the dataset version — including the current `draft` — if available.  
+      A repository API token is required to access and view draft versions.
 
-    For **Zenodo** depositions, an API key must be registered with the repository to load draft content.
+    - For **Zenodo** depositions, a registered API key is needed to load any unpublished or draft content.
 
-!!! note
+!!! note "Repository Capabilities May Vary"
 
-    Each connector uses the repository’s public API. Features such as search, filters, and metadata previews may vary slightly.
+    OnDemand Loop uses each repository's **public API** to retrieve metadata, file listings, and search results.  
+    As a result, features such as search, filtering, and metadata previews may differ slightly between connectors.
+
 
 ### Launching from Dataverse
 
