@@ -5,7 +5,7 @@
         <div class="d-flex align-items-center justify-content-between">
           <h2 class="mb-0 text-nowrap h5"><%= t('.header_record_text') %> <%= record.id %></h2>
           <span class="badge text-bg-info">
-            <%= record.respond_to?(:draft?) && record.draft? ? t('.badge_draft_text') : t('.badge_published_text') %>
+            <%= record.draft? ? t('.badge_draft_text') : t('.badge_published_text') %>
           </span>
         </div>
         <span class="text-muted" style="font-size: 0.8rem;">

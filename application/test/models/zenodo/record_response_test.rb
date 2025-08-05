@@ -20,5 +20,6 @@ class Zenodo::RecordResponseTest < ActiveSupport::TestCase
     assert_equal '1', first.id
     assert_equal 'data/file1.txt', first.filename
     assert_equal 'md5:abc', first.checksum
+    assert_not @resp.draft?
   end
 end

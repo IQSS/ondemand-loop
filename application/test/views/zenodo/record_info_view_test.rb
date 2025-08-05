@@ -17,7 +17,11 @@ class ZenodoRecordInfoViewTest < ActionView::TestCase
   end
 
   test 'renders published badge when not draft' do
-    published_record = Struct.new(:id, :title, :description, :publication_date, :files).new('10', 'Title', '', '', [])
+    published_record = Struct.new(:id, :title, :description, :publication_date, :files) do
+      def draft?
+        false
+      end
+    end.new('10', 'Title', '', '', [])
 
     html = render partial: 'zenodo/records/record_info', locals: { record: published_record }
 

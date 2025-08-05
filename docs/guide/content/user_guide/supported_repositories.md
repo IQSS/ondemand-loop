@@ -103,11 +103,11 @@ We began testing and supporting Zenodo in OnDemand Loop as of **June 2025** and 
 **Explore**
 
 - Search Zenodo records from the *Repositories* menu.
-- Paste a record URL in the *Explore* bar to view metadata and files.
+- Paste a record or deposition URL in the *Explore* bar to view metadata and files.
 
 **Download**
 
-- Download files attached to a public Zenodo record.
+- Download files attached to a public Zenodo record or authorized deposition.
 
 **Upload**
 

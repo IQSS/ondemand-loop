@@ -11,8 +11,7 @@ The application supports two ways of finding datasets from remote repositories:
 !!! note "Supported Repositories"
 
     OnDemand Loop currently supports two repository connectors: **Dataverse** and **Zenodo** ([contributions are welcome to add more](../development_guide/contributing.md)).
-    **Public datasets** with published versions are supported for downloading by default. **Dataverse draft datasets** are 
-    supported after an API key is provided.
+    **Public datasets** with published versions are supported for downloading by default. **Dataverse draft datasets** and **Zenodo depositions** are supported after an API key is provided.
 
 ---
 
@@ -38,8 +37,9 @@ If you already know the dataset you need, this is the fastest option:
     - A DOI:  
       `https://doi.org/10.7910/DVN/MYSRMN`
     - A full URL from a repository:  
-      `https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/MYSRMN`  
+      `https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/MYSRMN`
       `https://zenodo.org/record/1234567`
+      `https://zenodo.org/deposit/1234567`
 3. In the **Explore** bar at the top of the app, paste the DOI or URL.
 4. Click **Explore** to connect and browse the dataset locally.
 5. From there, you can select and download individual files into a project.
@@ -70,11 +70,15 @@ Once a dataset is selected, OnDemand Loop presents its metadata and file listing
 
 !!! note
 
-    For **Dataverse** datasets, OnDemand Loop allows the user to select the desired dataset version, including the current `draft`. 
+    For **Dataverse** datasets, OnDemand Loop allows the user to select the desired dataset version, including the current `draft`.
     A repository API token is required to access and display draft versions.
 
 !!! note
-    
+
+    For **Zenodo** depositions, an API key must be registered with the repository to load draft content.
+
+!!! note
+
     Each connector uses the repository’s public API. Features such as search, filters, and metadata previews may vary slightly.
 
 ### Launching from Dataverse
