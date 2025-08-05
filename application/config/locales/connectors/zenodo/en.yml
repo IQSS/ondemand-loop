@@ -54,6 +54,8 @@ en:
         button_open_project_label: "Open selected project"
       record_info:
         header_record_text: "Record"
+        badge_draft_text: "Draft"
+        badge_published_text: "Published"
         button_toggle_label: "Record details"
         field_publication_date_text: "Publication date:"
         field_files_text: "Files:"
