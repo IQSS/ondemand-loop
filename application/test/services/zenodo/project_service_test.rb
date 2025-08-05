@@ -20,18 +20,35 @@ class Zenodo::ProjectServiceTest < ActiveSupport::TestCase
     assert_not_nil p.name
   end
 
-  test 'initialize_download_files builds download records' do
+  test 'create_files_from_record builds download records' do
     record_json = load_zenodo_fixture('record_response.json')
     record = Zenodo::RecordResponse.new(record_json)
     project = @service.initialize_project
     assert project.save
-    files = @service.initialize_download_files(project, record, [record.files.first.id])
+    files = @service.create_files_from_record(project, record, [record.files.first.id])
     assert_equal 1, files.length
     file = files.first
     assert_equal project.id, file.project_id
     assert_equal 'data/file1.txt', file.filename
     assert_equal ConnectorType::ZENODO, file.type
-    assert_equal record.id, file.metadata[:record_id]
+    assert_equal record.id, file.metadata[:type_id]
+    assert_equal 'records', file.metadata[:type]
+    assert_equal 'https://zenodo.org', file.metadata[:zenodo_url]
+  end
+
+  test 'create_files_from_deposition builds download records' do
+    deposition_json = load_zenodo_fixture('deposition_response.json')
+    deposition = Zenodo::DepositionResponse.new(deposition_json)
+    project = @service.initialize_project
+    assert project.save
+    files = @service.create_files_from_deposition(project, deposition, [deposition.files.first.id])
+    assert_equal 1, files.length
+    file = files.first
+    assert_equal project.id, file.project_id
+    assert_equal 'file.txt', file.filename
+    assert_equal ConnectorType::ZENODO, file.type
+    assert_equal deposition.id, file.metadata[:type_id]
+    assert_equal 'depositions', file.metadata[:type]
     assert_equal 'https://zenodo.org', file.metadata[:zenodo_url]
   end
 end

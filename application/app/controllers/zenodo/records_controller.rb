@@ -19,7 +19,7 @@ class Zenodo::RecordsController < ApplicationController
       end
     end
 
-    download_files = @project_service.initialize_download_files(project, @record, file_ids)
+    download_files = @project_service.create_files_from_record(project, @record, file_ids)
     download_files.each do |file|
       unless file.valid?
         errors = file.errors.full_messages.join(', ')

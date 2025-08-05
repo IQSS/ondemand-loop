@@ -7,7 +7,7 @@ class Zenodo::RecordsControllerTest < ActionDispatch::IntegrationTest
     @record = OpenStruct.new(title: 'rec', files: [])
     Zenodo::RecordService.any_instance.stubs(:find_record).returns(@record)
     Zenodo::ProjectService.any_instance.stubs(:initialize_project).returns(Project.new(name: 'P'))
-    Zenodo::ProjectService.any_instance.stubs(:initialize_download_files).returns([])
+    Zenodo::ProjectService.any_instance.stubs(:create_files_from_record).returns([])
   end
 
   test 'show renders success' do
@@ -55,7 +55,7 @@ class Zenodo::RecordsControllerTest < ActionDispatch::IntegrationTest
   test 'download aborts on file validation error' do
     Project.stubs(:find).returns(Project.new(name: 'P'))
     invalid_file = OpenStruct.new(valid?: false, filename: 'f.txt', errors: OpenStruct.new(full_messages: ['bad']))
-    Zenodo::ProjectService.any_instance.stubs(:initialize_download_files).returns([invalid_file])
+    Zenodo::ProjectService.any_instance.stubs(:create_files_from_record).returns([invalid_file])
     post download_zenodo_record_files_path, params: {id: '1', file_ids: []}
     assert_redirected_to root_path
     assert_match 'bad', flash[:alert]

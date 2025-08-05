@@ -65,7 +65,7 @@ class ExploreControllerTest < ActionDispatch::IntegrationTest
     project = Project.new(name: 'P')
     project.stubs(:save).returns(true)
     Zenodo::ProjectService.any_instance.stubs(:initialize_project).returns(project)
-    Zenodo::ProjectService.any_instance.stubs(:initialize_download_files).returns([])
+    Zenodo::ProjectService.any_instance.stubs(:create_files_from_record).returns([])
 
     post explore_url(
       connector_type: 'zenodo',
