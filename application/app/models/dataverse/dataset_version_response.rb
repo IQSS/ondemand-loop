@@ -42,7 +42,7 @@ module Dataverse
     end
 
     def version
-      return ':draft' if data.version_state.to_s.casecmp('DRAFT').zero?
+      return ':draft' if data.version_state.to_s.downcase == 'draft'
 
       [data.version_number, data.version_minor_number].compact.join('.')
     end
