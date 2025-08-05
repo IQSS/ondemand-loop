@@ -1,4 +1,4 @@
-<% content_for :title, t('zenodo.records.show.page_title') %>
+<% content_for :title, t('zenodo.depositions.show.page_title') %>
 <div class="zenodo container-md content" role="main">
   <%= render partial: '/shared/breadcrumbs', locals: { links: [
     { text: t('shared.breadcrumbs.zenodo'), url: link_to_explore(repo_url, type: 'actions', id: 'landing') },
@@ -19,7 +19,7 @@
 
   <div class="row">
     <div class="col-md-12">
-      <%= render partial: 'zenodo/records/record_files', locals: { post_url: link_to_explore(repo_url, type: 'records', id: record_id), record: record, record_id: record_id, repo_url: repo_url } %>
+      <%= render partial: 'zenodo/records/record_files', locals: { post_url: link_to_explore(repo_url, type: 'depositions', id: record_id), record: record, record_id: record_id, repo_url: repo_url } %>
     </div>
   </div>
 </div>

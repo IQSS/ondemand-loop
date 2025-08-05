@@ -1,9 +1,12 @@
+<%
+  post_url = local_assigns.fetch(:post_url, download_zenodo_record_files_path)
+%>
 <div class="card">
   <div class="card-header d-flex align-items-center">
     <%= t('zenodo.records.show.caption_files_text', count: record.files.size) %>
   </div>
   <% if record.files.any? %>
-    <%= form_with url: download_zenodo_record_files_path, class: 'p-3 rounded bg-light', local: true, data: {controller: 'select-files-project', "select-files-project-external-targets-value": '["record_create_bundle"]'} do |f| %>
+    <%= form_with url: post_url, class: 'p-3 rounded bg-light', local: true, data: {controller: 'select-files-project', "select-files-project-external-targets-value": '["record_create_bundle"]'} do |f| %>
       <%= hidden_field_tag :id, record_id %>
       <div class="row">
         <h2 id="record-files-heading" class="visually-hidden"><%= t('.header_record_files_a11y_text') %></h2>

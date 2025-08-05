@@ -12,27 +12,53 @@ module Zenodo
       Project.new(id: name, name: name)
     end
 
-    def initialize_download_files(project, record, file_ids)
+    def create_files_from_record(project, record, file_ids)
       record_files = record.files.select { |f| file_ids.include?(f.id) }
-      record_files.map do |file|
+      record_files.map do |record_file|
         DownloadFile.new.tap do |f|
           f.id = DownloadFile.generate_id
           f.project_id = project.id
           f.creation_date = now
           f.type = ConnectorType::ZENODO
-          f.filename = file.filename
+          f.filename = record_file.filename
           f.status = FileStatus::PENDING
-          f.size = file.filesize
+          f.size = record_file.filesize
           f.metadata = {
             zenodo_url: @zenodo_url,
-            record_id: record.id,
-            id: file.id,
-            download_url: file.download_url,
+            type: 'records',
+            type_id: record.id,
+            id: record_file.id,
+            download_url: record_file.download_url,
             temp_location: nil
           }
           @file_utils.make_download_file_unique(f)
         end
       end
     end
+
+    def create_files_from_deposition(project, deposition, file_ids)
+      files = deposition.files.select { |f| file_ids.include?(f.id) }
+      files.map do |deposition_file|
+        DownloadFile.new.tap do |f|
+          f.id = DownloadFile.generate_id
+          f.project_id = project.id
+          f.creation_date = now
+          f.type = ConnectorType::ZENODO
+          f.filename = deposition_file.filename
+          f.status = FileStatus::PENDING
+          f.size = deposition_file.filesize
+          f.metadata = {
+            zenodo_url: @zenodo_url,
+            type: 'depositions',
+            type_id: deposition.id,
+            id: deposition_file.id,
+            download_url: deposition_file.download_url,
+            temp_location: nil
+          }
+          @file_utils.make_download_file_unique(f)
+        end
+      end
+    end
+
   end
 end

@@ -23,8 +23,8 @@ module Zenodo
       Rails.application.routes.url_helpers.explore_path(
         connector_type: ConnectorType::ZENODO.to_s,
         server_domain: repo_url.domain,
-        object_type: 'records',
-        object_id: record_id,
+        object_type: type,
+        object_id: type_id,
         server_scheme: repo_url.scheme_override,
         server_port: repo_url.port_override
       )

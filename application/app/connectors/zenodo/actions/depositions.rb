@@ -28,7 +28,7 @@ module Zenodo::Actions
       end
 
       ConnectorResult.new(
-        template: '/connectors/zenodo/records/show',
+        template: '/connectors/zenodo/depositions/show',
         locals: {
           record: deposition,
           record_id: @deposition_id,
@@ -48,9 +48,12 @@ module Zenodo::Actions
       file_ids = request_params[:file_ids] || []
       project_id = request_params[:project_id]
 
-      record_service = Zenodo::RecordService.new(repo_url.server_url)
-      record = record_service.find_record(@deposition_id)
-      return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.message_record_not_found', record_id: @deposition_id) }, success: false) unless record
+      repo_info = RepoRegistry.repo_db.get(repo_url.server_url)
+      api_key = repo_info&.metadata&.auth_key
+
+      service = Zenodo::DepositionService.new(repo_url.server_url, api_key: api_key)
+      deposition = service.find_deposition(@deposition_id)
+      return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.message_record_not_found', record_id: @deposition_id) }, success: false) unless deposition
 
       project = Project.find(project_id)
       project_service = Zenodo::ProjectService.new(repo_url.server_url)
@@ -62,7 +65,7 @@ module Zenodo::Actions
         end
       end
 
-      download_files = project_service.initialize_download_files(project, record, file_ids)
+      download_files = project_service.create_files_from_deposition(project, deposition, file_ids)
       download_files.each do |file|
         unless file.valid?
           errors = file.errors.full_messages.join(', ')
