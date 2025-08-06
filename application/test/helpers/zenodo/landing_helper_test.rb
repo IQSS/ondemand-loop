@@ -1,20 +1,10 @@
 require 'test_helper'
 
-class ZenodoExploreHelperTest < ActionView::TestCase
-  include Zenodo::ExploreHelper
+class LandingExploreHelperTest < ActionView::TestCase
+  include Zenodo::LandingHelper
 
   def setup
     @repo_url = OpenStruct.new(domain: 'zenodo.org', scheme_override: nil, port_override: nil)
-  end
-
-  test 'link_to_explore builds path' do
-    stubs(:explore_path).with(connector_type: ConnectorType::ZENODO.to_s,
-                               server_domain: 'zenodo.org',
-                               server_scheme: nil,
-                               server_port: nil,
-                               object_type: 'records',
-                               object_id: '1').returns('/explore')
-    assert_equal '/explore', link_to_explore(@repo_url, type: 'records', id: '1')
   end
 
   test 'prev and next links rendered when pages available' do

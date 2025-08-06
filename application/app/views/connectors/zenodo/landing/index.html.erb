@@ -8,7 +8,7 @@
     <% end %>
   </div>
 
-  <%= form_with url: link_to_explore(repo_url, type: 'explorers', id: 'landing'), method: :get, local: true do |f| %>
+  <%= form_with url: link_to_explore(ConnectorType::ZENODO, repo_url, type: 'explorers', id: 'landing'), method: :get, local: true do |f| %>
     <div class="input-group mb-3">
       <%= f.text_field :query, class: 'form-control', value: query, placeholder: t('zenodo.landing_page.index.field_search_placeholder') %>
       <%= f.submit t('zenodo.landing_page.index.button_submit_text'), class: 'btn btn-primary' %>
@@ -39,7 +39,7 @@
             <% results.items.each do |item| %>
               <tr>
                 <td>
-                  <%= link_to item.title,  link_to_explore(repo_url, type: 'records', id: item.id) %>
+                  <%= link_to item.title,  link_to_explore(ConnectorType::ZENODO, repo_url, type: 'records', id: item.id) %>
                   <div class="small text-muted">
                     <%= t('zenodo.landing_page.index.label_publication_date_text') %> <%= item.publication_date %> |
                     <%= t('zenodo.landing_page.index.label_files_text') %> <%= item.files.size %>
