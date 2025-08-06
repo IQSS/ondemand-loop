@@ -8,7 +8,7 @@
     <% end %>
   </div>
 
-  <%= form_with url: link_to_explore(repo_url, type: 'actions', id: 'landing'), method: :get, local: true do |f| %>
+  <%= form_with url: link_to_explore(repo_url, type: 'explorers', id: 'landing'), method: :get, local: true do |f| %>
     <div class="input-group mb-3">
       <%= f.text_field :query, class: 'form-control', value: query, placeholder: t('zenodo.landing_page.index.field_search_placeholder') %>
       <%= f.submit t('zenodo.landing_page.index.button_submit_text'), class: 'btn btn-primary' %>

@@ -79,7 +79,7 @@ module Common
       end
 
       def unauthorized?
-        raw.is_a?(Net::HTTPUnauthorized)
+        raw.is_a?(Net::HTTPUnauthorized) || raw.is_a?(Net::HTTPForbidden)
       end
 
       def not_found?

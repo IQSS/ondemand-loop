@@ -26,7 +26,7 @@ module Zenodo::Actions
         )
       end
 
-      return error(I18n.t('connectors.zenodo.actions.fetch_deposition.message_deposition_not_found', url: upload_bundle.repo_url)) unless deposition
+      return error(I18n.t('connectors.zenodo.actions.deposition_fetch.message_deposition_not_found', url: upload_bundle.repo_url)) unless deposition
 
       connector_metadata.title = deposition.title
       connector_metadata.bucket_url = deposition.bucket_url
@@ -37,9 +37,12 @@ module Zenodo::Actions
 
       ConnectorResult.new(
         resource: upload_bundle,
-        message: { notice: I18n.t('connectors.zenodo.actions.fetch_deposition.message_success', name: deposition.title) },
+        message: { notice: I18n.t('connectors.zenodo.actions.deposition_fetch.message_success', name: deposition.title) },
         success: true
       )
+    rescue Zenodo::ApiService::UnauthorizedException => e
+      log_error('Auth error fetching deposition', { upload_bundle: upload_bundle.id, deposition_id: connector_metadata.deposition_id, record_id: connector_metadata.record_id }, e)
+      return error(I18n.t('connectors.zenodo.actions.deposition_fetch.message_auth_error'))
     end
 
     private

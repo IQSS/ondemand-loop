@@ -5,14 +5,6 @@ class Zenodo::ExploreConnectorProcessorTest < ActiveSupport::TestCase
     @processor = Zenodo::ExploreConnectorProcessor.new
   end
 
-  test 'show delegates to explorer without object id' do
-    params = { connector_type: ConnectorType::ZENODO, object_type: :landing, query: 'q' }
-    explorer = mock('explorer')
-    ConnectorActionDispatcher.expects(:explorer).with(ConnectorType::ZENODO, :explorers, :landing).returns(explorer)
-    explorer.expects(:show).with(params).returns(:result)
-    assert_equal :result, @processor.show(params)
-  end
-
   test 'show delegates to explorer with object id' do
     params = { connector_type: ConnectorType::ZENODO, object_type: :records, object_id: '3', repo_url: :url }
     explorer = mock('explorer')

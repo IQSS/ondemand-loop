@@ -15,11 +15,13 @@ module Zenodo
     end
 
     def show(request_params)
-      load_explorer(request_params).show(request_params)
+      explorer = load_explorer(request_params)
+      explorer.show(request_params)
     end
 
     def create(request_params)
-      load_explorer(request_params).create(request_params)
+      explorer = load_explorer(request_params)
+      explorer.create(request_params)
     end
 
     def landing(_request_params)
@@ -32,13 +34,7 @@ module Zenodo
     private
 
     def load_explorer(request_params)
-      explorer_type = request_params[:object_type]
-      object_id = request_params[:object_id]
-      if object_id.present?
-        ConnectorActionDispatcher.explorer(request_params[:connector_type], explorer_type, object_id)
-      else
-        ConnectorActionDispatcher.explorer(request_params[:connector_type], :explorers, explorer_type)
-      end
+      ConnectorActionDispatcher.explorer(request_params[:connector_type], request_params[:object_type], request_params[:object_id])
     end
   end
 end

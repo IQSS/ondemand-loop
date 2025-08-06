@@ -1,7 +1,7 @@
 <% content_for :title, t('zenodo.records.show.page_title') %>
 <div class="zenodo container-md content" role="main">
   <%= render partial: '/shared/breadcrumbs', locals: { links: [
-    { text: t('shared.breadcrumbs.zenodo'), url: link_to_explore(repo_url, type: 'actions', id: 'landing') },
+    { text: t('shared.breadcrumbs.zenodo'), url: link_to_explore(repo_url, type: 'explorers', id: 'landing') },
     { text: record.title }
   ] } %>
 

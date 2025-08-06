@@ -31,7 +31,7 @@
 
             <% if ::Configuration.zenodo_enabled %>
               <li role="menuitem">
-                <a class="dropdown-item d-flex align-items-center gap-2" href="<%= explore_path(connector_type: ConnectorType::ZENODO.to_s, server_domain: 'zenodo.org', object_type: 'actions', object_id: 'landing') %>">
+                <a class="dropdown-item d-flex align-items-center gap-2" href="<%= explore_path(connector_type: ConnectorType::ZENODO.to_s, server_domain: 'zenodo.org', object_type: 'explorers', object_id: 'landing') %>">
                   <span class="icon-wrapper bg-white rounded d-inline-flex align-items-center justify-content-center p-1">
                     <%= connector_icon(ConnectorType::ZENODO) %>
                   </span>

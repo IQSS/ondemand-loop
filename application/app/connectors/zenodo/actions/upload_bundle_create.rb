@@ -60,6 +60,9 @@ module Zenodo::Actions
         message: { notice: I18n.t('connectors.zenodo.actions.upload_bundle_create.message_success', name: upload_bundle.name) },
         success: true
       )
+    rescue Zenodo::ApiService::UnauthorizedException => e
+      log_error('Auth error creating upload bundle', { project: project.id, remote_repo_url: remote_repo_url }, e)
+      return error(I18n.t('connectors.zenodo.actions.upload_bundle_create.message_auth_error'))
     end
 
     private
