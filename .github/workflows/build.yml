@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout Loop Tags
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: src
           fetch-depth: 0
@@ -36,7 +36,7 @@ jobs:
         run: make release_build
 
       - name: Checkout Loop Production branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: IQSS/ondemand-loop
           ref: iqss_production
