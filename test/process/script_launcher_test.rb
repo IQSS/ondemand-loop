@@ -48,4 +48,18 @@ class ScriptLauncherTest < ActiveSupport::TestCase
     @upload_files_provider.stubs(:pending_files).returns([])
     refute @launcher.pending_files?
   end
+
+  test 'start_process_from_script spawns process and detaches' do
+    Configuration.stubs(:ruby_binary).returns('ruby')
+    Configuration.stubs(:metadata_root).returns('/tmp')
+    Process.expects(:spawn).with('ruby', 'script.rb',
+      out: ['/tmp/log.log', 'a'],
+      err: ['/tmp/log.log', 'a'],
+      in: '/dev/null',
+      pgroup: true
+    ).returns(123)
+    Process.expects(:detach).with(123)
+
+    @launcher.start_process_from_script('script.rb', 'log.log')
+  end
 end

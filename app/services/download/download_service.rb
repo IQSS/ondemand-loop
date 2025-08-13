@@ -28,7 +28,7 @@ module Download
         download_threads = batch.map do |file|
           download_processor = ConnectorClassDispatcher.download_processor(file)
           Thread.new do
-            file.update(start_date: now, status: FileStatus::DOWNLOADING)
+            file.update(start_date: now, end_date: nil, status: FileStatus::DOWNLOADING)
             stats[:progress] += 1
             result = download_processor.download
             file.update(end_date: now, status: result.status)

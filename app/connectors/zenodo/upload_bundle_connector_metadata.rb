@@ -37,11 +37,15 @@ module Zenodo
     end
 
     def fetch_deposition?
-      api_key? && draft.nil? && deposition_id.present?
+      api_key? && !draft? && deposition_id.present?
     end
 
     def create_draft?
-      api_key? && draft.nil? && deposition_id.nil? && record_id.present?
+      api_key? && !draft? && deposition_id.nil? && record_id.present?
+    end
+
+    def create_deposition?
+      api_key? && !draft? && deposition_id.nil? && record_id.nil?
     end
 
     def draft?

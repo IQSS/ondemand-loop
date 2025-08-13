@@ -28,7 +28,7 @@ module Upload
         upload_threads = batch.map do |file_data|
           upload_processor = ConnectorClassDispatcher.upload_processor(file_data.upload_bundle, file_data.file)
           Thread.new do
-            file_data.file.update(start_date: now, status: FileStatus::UPLOADING)
+            file_data.file.update(start_date: now, end_date: nil, status: FileStatus::UPLOADING)
             stats[:progress] += 1
             result = upload_processor.upload
             file_data.file.update(end_date: now, status: result.status)

@@ -1,5 +1,4 @@
 module ModelHelper
-
   def create_project
     Project.new(id: random_id, name: 'test_project')
   end
@@ -18,16 +17,17 @@ module ModelHelper
       file.filename = "#{random_id}.txt"
       file.status = FileStatus::PENDING
       file.size = 200
-      file.metadata = {test: 'test'}
+      file.creation_date = file_now
+      file.metadata = { test: 'test' }
     end
   end
 
   def upload_project(type: ConnectorType::DATAVERSE, files:)
     create_project.tap do |project|
-      upload_bundle = create_upload_bundle(project, type: type)
-      upload_files = Array.new(files) { create_upload_file(project, upload_bundle) }
-      upload_bundle.stubs(:files).returns(upload_files)
-      project.stubs(:upload_bundles).returns([upload_bundle])
+        upload_bundle = create_upload_bundle(project, type: type)
+        upload_files = Array.new(files) { create_upload_file(project, upload_bundle) }
+        upload_bundle.stubs(:files).returns(upload_files)
+        project.stubs(:upload_bundles).returns([ upload_bundle ])
     end
   end
 
@@ -37,7 +37,7 @@ module ModelHelper
       upload_bundle.id = id
       upload_bundle.name = "sample name"
       upload_bundle.type = type
-      upload_bundle.metadata = {test: 'test'}
+        upload_bundle.metadata = { test: 'test' }
       upload_bundle.stubs(:files).returns(files)
     end
   end
@@ -50,6 +50,7 @@ module ModelHelper
       file.filename = "#{random_id}.txt"
       file.status = FileStatus::PENDING
       file.size = 200
+      file.creation_date = file_now
       file.stubs(:upload_bundle).returns(upload_bundle)
     end
   end

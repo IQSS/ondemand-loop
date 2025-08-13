@@ -11,7 +11,7 @@ class Zenodo::DownloadConnectorStatusTest < ActiveSupport::TestCase
     @file.status = FileStatus::PENDING
 
     project = Project.new
-    project.download_dir = fixture_path('/dataverse/download_connector_status')
+    project.download_dir = fixture_path('/zenodo/download_connector_status')
     Project.stubs(:find).with(@file.project_id).returns(project)
 
   end
@@ -22,19 +22,21 @@ class Zenodo::DownloadConnectorStatusTest < ActiveSupport::TestCase
     refute File.exist?(@file.download_location)
     refute File.exist?(@file.download_tmp_location)
 
-    target = Dataverse::DownloadConnectorStatus.new(@file)
+    target = Zenodo::DownloadConnectorStatus.new(@file)
     assert_equal 0, target.download_progress
+    assert_equal 0, target.download_size
   end
 
-  test "should calculated percentage for pending files when tmp file exists" do
+  test "should return 0 for pending files even when tmp file exists" do
     @file.status = FileStatus::PENDING
     @file.filename = '100bytes_partial_file.txt'
     @file.size = 200
     assert File.exist?(@file.download_tmp_location)
     refute File.exist?(@file.download_location)
 
-    target = Dataverse::DownloadConnectorStatus.new(@file)
-    assert_equal 50, target.download_progress
+    target = Zenodo::DownloadConnectorStatus.new(@file)
+    assert_equal 0, target.download_progress
+    assert_equal 100, target.download_size
   end
 
   test "should return 100 if the destination file already created" do
@@ -43,8 +45,9 @@ class Zenodo::DownloadConnectorStatusTest < ActiveSupport::TestCase
     @file.size = 200
     assert File.exist?(@file.download_location)
 
-    target = Dataverse::DownloadConnectorStatus.new(@file)
+    target = Zenodo::DownloadConnectorStatus.new(@file)
     assert_equal 100, target.download_progress
+    assert_equal 200, target.download_size
   end
 
   test "should return 100 for completed files" do
@@ -54,8 +57,9 @@ class Zenodo::DownloadConnectorStatusTest < ActiveSupport::TestCase
     assert File.exist?(@file.download_location)
     refute File.exist?(@file.download_tmp_location)
 
-    target = Dataverse::DownloadConnectorStatus.new(@file)
+    target = Zenodo::DownloadConnectorStatus.new(@file)
     assert_equal 100, target.download_progress
+    assert_equal 100, target.download_size
   end
 
   test "should calculated percentage for downloading files when tmp file exists" do
@@ -64,7 +68,8 @@ class Zenodo::DownloadConnectorStatusTest < ActiveSupport::TestCase
     @file.size = 200
     assert File.exist?(@file.download_tmp_location)
 
-    target = Dataverse::DownloadConnectorStatus.new(@file)
+    target = Zenodo::DownloadConnectorStatus.new(@file)
     assert_equal 50, target.download_progress
+    assert_equal 100, target.download_size
   end
 end

@@ -14,7 +14,7 @@ class UploadBundleTest < ActiveSupport::TestCase
       'metadata' => {
         'persistent_id' => '',
         'dataverse_url' => '',
-        'api_key' => '',
+        'api_key' => ''
       }
     }
     @project = Project.new id: '456-789', name: 'Test Project'
@@ -139,17 +139,16 @@ class UploadBundleTest < ActiveSupport::TestCase
   test 'files returns upload files sorted' do
     f1 = create_upload_file(@project, @upload_bundle)
     f2 = create_upload_file(@project, @upload_bundle)
+    f1.creation_date = (Time.now - 60).strftime('%Y-%m-%dT%H:%M:%S')
+    f2.creation_date = Time.now.strftime('%Y-%m-%dT%H:%M:%S')
     UploadFile.stubs(:find).with(@project.id, @upload_bundle.id, f1.id).returns(f1)
     UploadFile.stubs(:find).with(@project.id, @upload_bundle.id, f2.id).returns(f2)
     dir = File.join(Project.upload_bundles_directory(@project.id), @upload_bundle.id, 'files')
     FileUtils.mkdir_p(dir)
-    file1 = File.join(dir, "#{f1.id}.yml")
-    file2 = File.join(dir, "#{f2.id}.yml")
-    FileUtils.touch(file1)
-    sleep 0.1
-    FileUtils.touch(file2)
+    FileUtils.touch(File.join(dir, "#{f1.id}.yml"))
+    FileUtils.touch(File.join(dir, "#{f2.id}.yml"))
     files = @upload_bundle.files
-    assert_equal [f1, f2], files
+    assert_equal [ f2, f1 ], files
   end
 
   def map_objects(hash)

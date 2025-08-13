@@ -40,12 +40,14 @@ module Zenodo
         concept_id = record_body['conceptrecid'].to_s
       end
 
+      raise "Unable to retrieve deposition from record #{record_id}" unless concept_id
+
       # Step 2: look for existing draft depositions
       list_url = FluentUrl.new('')
                    .add_path('api')
                    .add_path('deposit')
                    .add_path('depositions')
-                   .add_param('conceptrecid', concept_id)
+                   .add_param('q', "conceptrecid:#{concept_id}")
                    .to_s
       list_resp = @http_client.get(list_url, headers: headers)
       raise ApiService::UnauthorizedException if list_resp.unauthorized?
@@ -55,6 +57,7 @@ module Zenodo
       draft = depositions.find { |d| d['submitted'] == false }
 
       if draft
+        log_info('Found Zenodo draft version', { record: record_id, concept: concept_id })
         deposition_id = draft['id'].to_s
       else
         # Step 3: create a new draft using newversion action
@@ -73,6 +76,7 @@ module Zenodo
         body = JSON.parse(new_resp.body)
         latest_draft = body.dig('links', 'latest_draft')
         deposition_id = latest_draft&.split('/')&.last&.to_s
+        log_info('Zenodo draft version created', { record: record_id, concept: concept_id, deposition_id: deposition_id })
       end
 
       return nil unless deposition_id

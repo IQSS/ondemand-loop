@@ -24,7 +24,6 @@ module Dataverse
                              .add_param(:persistentId, connector_metadata.dataset_id)
                              .to_s
       source_location = file.file_location
-      temp_location ="#{source_location}.part"
       headers = { "X-Dataverse-key" => connector_metadata.api_key&.value }
       payload = {
         "description" => I18n.t('connectors.dataverse.upload_connector_processor.upload_payload_description'),
@@ -32,7 +31,6 @@ module Dataverse
       }
 
       connector_metadata.upload_url = upload_url
-      connector_metadata.temp_location = temp_location
       file.upload_bundle.update({ metadata: connector_metadata.to_h})
 
       upload_processor = Upload::MultipartHttpRubyUploader.new(upload_url, source_location, payload, headers)

@@ -201,12 +201,13 @@ class ProjectTest < ActiveSupport::TestCase
       target = create_valid_project
       target.save
       file1 = create_download_file(target, id: 'saved_1')
+      file1.creation_date = (Time.now - 120).strftime('%Y-%m-%dT%H:%M:%S')
       assert file1.save
-      sleep(0.1)# SLEEP TO HAVE DIFFERENT CREATION DATE
       file2 = create_download_file(target, id: 'saved_2')
+      file2.creation_date = (Time.now - 60).strftime('%Y-%m-%dT%H:%M:%S')
       assert file2.save
-      sleep(0.1)# SLEEP TO HAVE DIFFERENT CREATION DATE
       file3 = create_download_file(target, id: 'saved_3')
+      file3.creation_date = Time.now.strftime('%Y-%m-%dT%H:%M:%S')
       assert file3.save
 
       saved_project = Project.find(target.id)

@@ -5,10 +5,6 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
     @project_id = "test_project"
     @file_id = "file_123"
     @file = mock("DownloadFile")
-    @now = Time.current
-
-    # Stub now from DateTimeCommon if needed
-    DownloadFilesController.any_instance.stubs(:now).returns(@now)
   end
 
   test "cancel should redirect with error message when file is nil" do
@@ -41,7 +37,7 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
   test "cancel should redirect with message and update file if downloading and command succeeds" do
     @file.stubs(:status).returns(FileStatus::DOWNLOADING)
     @file.stubs(:filename).returns('filename_test')
-    @file.expects(:update).with(start_date: @now, end_date: @now, status: FileStatus::CANCELLED).returns(true)
+    @file.expects(:update).with(status: FileStatus::CANCELLED).returns(true)
 
     DownloadFile.stubs(:find).returns(@file)
 
@@ -59,7 +55,7 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
   test "cancel should redirect with message and save file if not downloading" do
     @file.stubs(:status).returns(FileStatus::SUCCESS)
     @file.stubs(:filename).returns('filename_test')
-    @file.expects(:update).with(start_date: @now, end_date: @now, status: FileStatus::CANCELLED).returns(true)
+    @file.expects(:update).with(status: FileStatus::CANCELLED).returns(true)
 
     DownloadFile.stubs(:find).returns(@file)
 

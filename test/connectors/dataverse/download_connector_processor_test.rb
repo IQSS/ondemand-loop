@@ -97,19 +97,17 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
     assert_equal false, @processor.cancelled
   end
 
-  test 'should update file metadata with download url and temp location' do
+  test 'should update file metadata with download url' do
     mock_downloader = mock('downloader')
     Download::BasicHttpRubyDownloader.stubs(:new).returns(mock_downloader)
     mock_downloader.stubs(:partial_downloads).returns(false)
     mock_downloader.stubs(:download).yields(nil)
 
     expected_url = 'http://example.com/api/access/datafile/456?format=original'
-    expected_temp = @file.download_tmp_location
 
     @file.expects(:update).twice.with do |arg|
       metadata = arg[:metadata]
-      metadata['download_url'] == expected_url &&
-        metadata['temp_location'] == expected_temp
+      metadata['download_url'] == expected_url
     end
 
     @processor.download

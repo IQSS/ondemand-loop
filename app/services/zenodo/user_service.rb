@@ -26,11 +26,12 @@ module Zenodo
               .to_s
       response = @http_client.get(url, headers: headers)
 
-      return [] if response.not_found?
+      return Zenodo::DepositionsResponse.new('[]', page: page, per_page: per_page, total_count: 0) if response.not_found?
       raise UnauthorizedException if response.unauthorized?
       raise "Error retrieving depositions: #{response.status} - #{response.body}" unless response.success?
 
-      JSON.parse(response.body)
+      total = response.headers['X-Total-Count']&.to_i
+      Zenodo::DepositionsResponse.new(response.body, page: page, per_page: per_page, total_count: total)
     end
 
     def list_user_records(q: nil, page: 1, per_page: nil, all_versions: false)

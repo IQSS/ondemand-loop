@@ -20,14 +20,11 @@ module Zenodo
       # Step 2: Prepare file upload
       source_location = file.file_location
       file_name = File.basename(file.filename)
-      upload_url = FluentUrl.new(bucket_url)
-                       .add_path(file_name)
-                       .to_s
+      upload_url = FluentUrl.new(bucket_url).add_path(file_name).to_s
 
       connector_metadata.upload_url = upload_url
       file.upload_bundle.update({ metadata: connector_metadata.to_h })
 
-      # Step 3: Upload the file using raw S3-compatible POST
       headers = { Zenodo::ApiService::AUTH_HEADER => "Bearer #{connector_metadata.api_key.value}" }
       upload_processor = Zenodo::ZenodoBucketHttpUploader.new(upload_url, source_location, headers)
       upload_processor.upload do |context|

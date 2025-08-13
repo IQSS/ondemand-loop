@@ -115,7 +115,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     file = UploadFile.new
     file.stubs(:status).returns(FileStatus::UPLOADING)
     file.stubs(:filename).returns('cancel.txt')
-    file.expects(:update).with(start_date: anything, end_date: anything, status: FileStatus::CANCELLED).returns(true)
+    file.expects(:update).with(status: FileStatus::CANCELLED).returns(true)
 
     UploadFile.stubs(:find).returns(file)
 

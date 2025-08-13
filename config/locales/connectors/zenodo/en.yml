@@ -10,16 +10,20 @@ en:
           message_success: "Access token updated: %{name}"
         deposition_fetch:
           message_deposition_not_found: "Zenodo deposition not found for record: %{url}"
-          message_success: "Successfully fetched deposition: %{name}"
-          message_auth_error: "Authorization error. A valid Zenodo access token is required to fetch/create depositions"
+          message_success: "Successfully fetched/created deposition: %{name}"
+          message_auth_error: "Authorization error. A valid Zenodo access token is required to fetch/create deposition from this record"
+        deposition_create:
+          message_success: "Dataset created: %{id} > %{title}"
+          message_auth_error: "Authorization error. A valid Zenodo access token is required to create datasets"
+        dataset_select:
+          message_success: "Dataset selected: %{title}"
         repository_settings_update:
           message_success: "Repository updated: %{url} type: %{type}"
         upload_bundle_create:
-          message_url_not_supported: "Zenodo URL not supported: %{url}. Only record or deposition URLs are currently supported"
           message_record_not_found: "Zenodo record not found: %{url}. Only published records are supported"
           message_deposition_not_found: "Zenodo deposition not found for record: %{url}"
           message_success: "Zenodo upload bundle created: %{name}"
-          message_auth_error: "Authorization error. A valid Zenodo access token is required to fetch/create depositions"
+          message_auth_error: "Authorization error. A valid Zenodo access token is required to fetch/create deposition from this record"
 
       connector_edit_form:
         field_api_key_label: "Personal Access Token"
@@ -32,7 +36,9 @@ en:
       upload_bundle_actions_bar:
         button_deposition_fetch_label: "Fetch Deposition"
         button_deposition_fetch_title: "Fetch Zenodo deposition metadata"
-        button_create_draft_title: "Create Draft"
+        button_create_draft_title: "Create draft from Record"
+        button_select_create_deposition_title: "Select/Create Dataset"
+        modal_select_create_deposition_title: "Select/Create Zenodo Dataset"
         button_edit_key_title: "Add/Edit Access Token"
         modal_edit_key_title: "Add/Edit Zenodo Personal Access Token"
         missing_key_disabled_features_text: "Add access token to enable deposition features"
@@ -41,6 +47,30 @@ en:
       upload_bundle_info_bar:
         link_zenodo_title: "Open Zenodo"
         link_dataset_title: "Open Zenodo dataset: %{name}"
+
+      deposition_create_form:
+        field_title_label: "Dataset Title"
+        field_title_placeholder: "Enter a descriptive title for the dataset"
+        field_title_help: "Provide a clear and descriptive title to help identify the dataset."
+        field_description_label: "Dataset Description"
+        field_description_placeholder: "Describe the contents and purpose of the dataset"
+        field_description_help: "Include key details about what the dataset contains, how it was collected, and its purpose."
+        field_creators_label: "Creator Names"
+        field_creators_placeholder: "e.g., Smith, John; Doe, Jane"
+        field_creators_help: "Enter creator names separated by semicolons using \"Surname, First name\" format for individuals or full name for organizations."
+        submit: "Create Dataset"
+        cancel: "Cancel"
+
+      dataset_form_tabs:
+        select_dataset: "Select Dataset"
+        create_dataset: "Create Dataset"
+
+      dataset_select_form:
+        search_label: "Filter datasets"
+        search_placeholder: "Type at least 3 characters to filter"
+        total_depositions: "%{total} datasets found"
+        submit: "Select Dataset"
+        cancel: "Cancel"
 
       shared:
         zenodo_record_actions:

@@ -18,7 +18,7 @@ class DownloadFilesController < ApplicationController
       return redirect_back fallback_location: root_path, alert: t('download_files.file_cancellation_error', filename: file.filename) if response.status != 200
     end
 
-    if file.update(start_date: now, end_date: now, status: FileStatus::CANCELLED)
+    if file.update(status: FileStatus::CANCELLED)
       redirect_back fallback_location: root_path, notice: t('download_files.file_cancellation_success', filename: file.filename)
     else
       redirect_back fallback_location: root_path, alert: t('download_files.file_cancellation_update_error', filename: file.filename)

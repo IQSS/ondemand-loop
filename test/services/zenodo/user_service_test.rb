@@ -7,11 +7,12 @@ class Zenodo::UserServiceTest < ActiveSupport::TestCase
     @base = 'https://zenodo.org'
   end
 
-  test 'list_depositions returns array of depositions' do
+  test 'list_depositions returns response model' do
     http = HttpClientMock.new(file_path: fixture_path('zenodo/depositions_list_response.json'))
     service = Zenodo::UserService.new(@base, http_client: http, api_key: 'KEY')
     result = service.list_depositions
-    assert_equal 2, result.length
+    assert_instance_of Zenodo::DepositionsResponse, result
+    assert_equal 2, result.items.length
     assert_equal '/api/deposit/depositions?page=1&size=20', http.called_path
   end
 

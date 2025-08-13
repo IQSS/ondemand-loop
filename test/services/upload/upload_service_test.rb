@@ -38,7 +38,7 @@ class Upload::UploadServiceTest < ActiveSupport::TestCase
     ConnectorClassDispatcher.stubs(:upload_processor).returns(processor)
     now_time = file_now
 
-    file.expects(:update).with(start_date: now_time, status: FileStatus::UPLOADING).once
+    file.expects(:update).with(start_date: now_time, end_date: nil, status: FileStatus::UPLOADING).once
     file.expects(:update).with(end_date: now_time, status: FileStatus::SUCCESS).once
 
     service = Upload::UploadService.new(provider)
@@ -58,7 +58,7 @@ class Upload::UploadServiceTest < ActiveSupport::TestCase
     def processor.upload; raise 'boom'; end
 
     now_time = file_now
-    file.expects(:update).with(start_date: now_time, status: FileStatus::UPLOADING).once
+    file.expects(:update).with(start_date: now_time, end_date: nil, status: FileStatus::UPLOADING).once
     file.expects(:update).with(end_date: now_time, status: FileStatus::ERROR).once
 
     service = Upload::UploadService.new(provider)

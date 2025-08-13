@@ -39,11 +39,11 @@ class Project < ApplicationDiskRecord
     @files ||=
       begin
         directory = File.join(self.class.download_files_directory(id))
-        Dir.glob(File.join(directory, '*.yml'))
-           .select { |f| File.file?(f) }
-           .sort_by { |f| -File.ctime(f).to_f }
-           .map { |f| DownloadFile.find(id, File.basename(f, ".yml")) }
-           .compact
+        files = Dir.glob(File.join(directory, '*.yml'))
+                   .select { |f| File.file?(f) }
+                   .map { |f| DownloadFile.find(id, File.basename(f, '.yml')) }
+                   .compact
+        Common::FileSorter.new.most_relevant(files)
       end
   end
   alias_method :status_files, :download_files

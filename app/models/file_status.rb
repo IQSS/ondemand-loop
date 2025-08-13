@@ -48,6 +48,10 @@ class FileStatus
     [FileStatus::PENDING]
   end
 
+  def self.active_statuses
+    [FileStatus::PENDING, FileStatus::DOWNLOADING, FileStatus::UPLOADING]
+  end
+
   def self.completed_statuses
     [FileStatus::SUCCESS, FileStatus::ERROR, FileStatus::CANCELLED]
   end

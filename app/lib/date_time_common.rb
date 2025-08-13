@@ -17,6 +17,8 @@ module DateTimeCommon
   end
 
   def elapsed(from, to = nil)
+    return 0 if from.nil?
+
     to_time = to_time(to || Time.now)
     from_time = to_time(from)
     (to_time - from_time).to_i

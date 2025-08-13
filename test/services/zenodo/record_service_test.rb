@@ -31,7 +31,7 @@ class Zenodo::RecordServiceTest < ActiveSupport::TestCase
 
     http = mock('http')
     http.expects(:get).with('/api/records/11', headers: headers).returns(record_resp)
-    http.expects(:get).with('/api/deposit/depositions?conceptrecid=10', headers: headers).returns(list_resp)
+    http.expects(:get).with('/api/deposit/depositions?q=conceptrecid%3A10', headers: headers).returns(list_resp)
     http.expects(:get).with('/api/deposit/depositions/5', headers: headers).returns(dep_resp)
 
     service = Zenodo::RecordService.new(@base, http_client: http)
@@ -49,7 +49,7 @@ class Zenodo::RecordServiceTest < ActiveSupport::TestCase
 
     http = mock('http')
     http.expects(:get).with('/api/records/11', headers: headers).returns(record_resp)
-    http.expects(:get).with('/api/deposit/depositions?conceptrecid=10', headers: headers).returns(list_resp)
+    http.expects(:get).with('/api/deposit/depositions?q=conceptrecid%3A10', headers: headers).returns(list_resp)
     http.expects(:post).with('/api/deposit/depositions/11/actions/newversion', headers: headers).returns(new_resp)
     http.expects(:get).with('/api/deposit/depositions/9', headers: headers).returns(dep_resp)
 

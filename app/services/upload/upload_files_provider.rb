@@ -6,30 +6,17 @@ module Upload
 
     def recent_files
       retention_period = Configuration.upload_files_retention_period
-      all.select{|data| data.file.end_date.blank? || elapsed(data.file.end_date) < retention_period }
-         .sort_by do |data|
-        group = if data.file.start_date && data.file.end_date.nil?
-                  0 # In Progress
-                elsif data.file.start_date.nil?
-                  1 # Pending
-                else
-                  2 # Completed / Other
-                end
-
-        start_time = to_time(data.file.start_date)
-        created_time = to_time(data.file.creation_date)
-        time_value = group == 0 ? start_time : (group == 1 ? created_time : start_time)
-        [group, -time_value.to_i]
-      end
-
+      list = all.select { |data| FileStatus.active_statuses.include?(data.file.status) || elapsed(data.file.end_date) < retention_period }
+      file_map = list.to_h { |data| [ data.file, data ] }
+      Common::FileSorter.new.most_relevant(file_map.keys).map { |file| file_map[file] }
     end
 
     def pending_files
-      all.select{ |data| data.file.status.pending? }
+      all.select { |data| data.file.status.pending? }
     end
 
     def processing_files
-      all.select{ |data| data.file.status.uploading? }
+      all.select { |data| data.file.status.uploading? }
     end
 
     def all
@@ -41,6 +28,5 @@ module Upload
         end
       end
     end
-
   end
 end

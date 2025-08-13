@@ -1,0 +1,28 @@
+<!-- Dataset Form Tabs -->
+<div id="dataset-form-tabs" class="mb-3">
+  <ul class="nav nav-tabs" id="upload-dataset-tabs-<%= upload_bundle.id %>" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link text-secondary active" id="upload-select-dataset-tab" data-bs-toggle="tab"
+              data-bs-target="#tab-upload-select-dataset" type="button" role="tab"
+              aria-controls="project-metadata" aria-selected="true">
+        <i class="bi bi-folder2-open me-1"></i><%= t('connectors.zenodo.dataset_form_tabs.select_dataset') %>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link text-secondary" id="upload-create-dataset-tab" data-bs-toggle="tab"
+              data-bs-target="#tab-upload-create-dataset" type="button" role="tab"
+              aria-controls="download-files" aria-selected="false">
+        <i class="bi bi-file-earmark-plus me-1"></i><%= t('connectors.zenodo.dataset_form_tabs.create_dataset') %>
+      </button>
+    </li>
+  </ul>
+</div>
+
+<div class="tab-content">
+  <div id="tab-upload-select-dataset" class="tab-pane fade show active" role="tabpanel" aria-labelledby="upload-select-dataset-tab">
+    <%= render partial: '/connectors/zenodo/dataset_select_form', locals: local_assigns %>
+  </div>
+  <div id="tab-upload-create-dataset" class="tab-pane fade show" role="tabpanel" aria-labelledby="upload-create-dataset-tab">
+    <%= render partial: '/connectors/zenodo/deposition_create_form', locals: local_assigns %>
+  </div>
+</div>

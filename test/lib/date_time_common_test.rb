@@ -11,6 +11,10 @@ class DateTimeCommonTest < ActiveSupport::TestCase
     assert_in_delta now_time.to_i, parsed_time.to_i, 2
   end
 
+  test 'elapsed should return 0 if from is nil' do
+    assert_equal 0, elapsed(nil)
+  end
+
   test 'elapsed should calculate seconds between two times' do
     from = Time.now - 3600 # 1 hour ago
     to = Time.now

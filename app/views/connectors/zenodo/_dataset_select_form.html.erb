@@ -1,0 +1,35 @@
+<div data-controller="list-filter">
+<%= form_with url: project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id), method: :put, data: { action: "submit->modal#showSpinner" }, local: true do |f| %>
+  <%= hidden_field_tag :form, 'dataset_select' %>
+  <%= hidden_field_tag :anchor, tab_anchor_for(upload_bundle) %>
+
+  <div class="mb-3">
+    <%= label_tag :search, t('connectors.zenodo.dataset_select_form.search_label'), class: 'form-label fw-bold' %>
+    <%= text_field_tag :search, nil, class: 'form-control', placeholder: t('connectors.zenodo.dataset_select_form.search_placeholder'), data: { action: "input->list-filter#apply" } %>
+  </div>
+
+  <div class="d-flex justify-content-end mb-2 me-2">
+    <small class="text-muted"><%= t('connectors.zenodo.dataset_select_form.total_depositions', total: depositions.total_count) %></small>
+  </div>
+  <div class="list-group mb-3" data-list-filter-target="list" style="max-height: 50vh; overflow-y: auto;">
+    <% depositions.items.each do |item| %>
+      <% title = item.title %>
+      <% status_text = item.submitted ? t('connectors.zenodo.shared.zenodo_record_info.badge_published_text') : t('connectors.zenodo.shared.zenodo_record_info.badge_draft_text') %>
+      <label class="list-group-item list-group-item-action d-flex align-items-center gap-2" data-filter-item>
+        <%= radio_button_tag :deposition_id, item.id, false, class: 'form-check-input mt-0' %>
+        <span class="text-truncate" style="max-width: 800px;" title="<%= title %>"><%= title %></span>
+        <span class="badge border border-primary text-muted ms-auto"><%= status_text %></span>
+      </label>
+    <% end %>
+  </div>
+
+  <div class="d-flex justify-content-end gap-2">
+    <button type="submit" class="btn btn-sm btn-primary">
+      <i class="bi bi-save-fill me-1"></i> <%= t('connectors.zenodo.dataset_select_form.submit') %>
+    </button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-dismiss="modal">
+      <%= t('connectors.zenodo.dataset_select_form.cancel') %>
+    </button>
+  </div>
+<% end %>
+</div>

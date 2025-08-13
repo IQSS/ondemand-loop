@@ -88,6 +88,11 @@ class Zenodo::UploadBundleConnectorMetadataTest < ActiveSupport::TestCase
     assert meta.create_draft?
   end
 
+  test 'create_deposition? requires api_key and no draft, deposition_id, or record_id' do
+    meta = build_meta({ auth_key: 'abc' })
+    assert meta.create_deposition?
+  end
+
   test 'draft? returns true if draft present and truthy' do
     meta = build_meta({ draft: true })
     assert meta.draft?

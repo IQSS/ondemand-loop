@@ -19,9 +19,6 @@ module Zenodo
       temp_location = file.download_tmp_location
       FileUtils.mkdir_p(File.dirname(download_location))
 
-      connector_metadata.temp_location = temp_location
-      file.update({ metadata: connector_metadata.to_h })
-
       repo_info = RepoRegistry.repo_db.get(connector_metadata.zenodo_url)
       api_key = repo_info&.metadata&.auth_key
       headers = {}

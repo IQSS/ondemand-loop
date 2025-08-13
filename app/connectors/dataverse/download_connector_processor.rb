@@ -25,7 +25,6 @@ module Dataverse
       FileUtils.mkdir_p(File.dirname(download_location))
 
       connector_metadata.download_url = download_url
-      connector_metadata.temp_location = temp_location
       file.update({metadata: connector_metadata.to_h})
 
       repo_info = RepoRegistry.repo_db.get(connector_metadata.dataverse_url)
