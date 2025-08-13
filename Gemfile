@@ -42,8 +42,6 @@ group :development, :test do
 end
 
 group :development do
-  # Use the Puma web server [https://github.com/puma/puma]
-  gem "puma", ">= 5.0"
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
@@ -54,6 +52,7 @@ group :test do
   gem "selenium-webdriver"
   gem "mocha"
   gem 'simplecov', require: false
+  gem 'i18n-tasks', require: false
 end
 
 gem "cssbundling-rails", "~> 1.4"

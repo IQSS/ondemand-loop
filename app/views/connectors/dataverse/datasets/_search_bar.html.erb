@@ -1,0 +1,9 @@
+<div class="mb-3">
+  <%= form_with url: link_to_explore(ConnectorType::DATAVERSE, repo_url, type: 'datasets', id: persistent_id), id: 'dataset-search-form', method: :get, local: true do |f| %>
+    <%= hidden_field_tag :version, version %>
+    <div class="input-group">
+      <%= f.text_field :query, value: params[:query], class: 'form-control', placeholder: t('.field_search_placeholder') %>
+      <%= f.submit t('.button_submit_text'), class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

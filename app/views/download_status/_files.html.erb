@@ -18,14 +18,14 @@
               <% end %>
               <%= render partial: '/shared/file_row_date', locals: { date: data.file.creation_date, title: t('.field_creation_date_title'), classes: "mx-2" } %>
               <span class="me-2"><%= connector_icon(data.file.type) %></span>
-              <span class="text-truncate cursor-default" style="max-width: 600px;" >
+              <span class="text-truncate cursor-default" style="max-width: 560px;" >
                 <%= link_to project_path(id: data.project.id), class: "position-relative project-name-link text-reset text-decoration-none rounded-end", title: t('.field_project_title', name: data.project.name) do %>
                   <%= data.project.name %>
                   <span class="text-muted">&raquo;</span>
                   <span class="me-2" title="<%= t('.field_file_title', filename: data.file.filename) %>"><%= data.file.filename %></span>
               <% end %>
               </span>
-              <small class="text-muted"><%= number_to_human_size(data.file.size) %></small>
+              <small class="text-muted file-size"><%= download_file_size(data.file) %></small>
             </div>
           </div>
           <!-- end info for medium and large screens -->
@@ -39,15 +39,28 @@
           <div class="download-actions col-md-2 text-end" role="cell">
             <%= status_badge(data.file.status, filename: data.file.filename) %>
 
-            <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger" title="<%= t('.button_cancel_download_title') %>"
-                    data-controller="download-file-cancellation"
-                    data-action="click->download-file-cancellation#cancel"
-                    <%= 'disabled' if cancel_button_disabled?(data.file.status) %>
-                    data-download-file-cancellation-url-value="<%= cancel_project_download_file_path(project_id: data.file.project_id, id: data.file.id) %>">
-              <span data-download-file-cancellation-target="spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-              <span data-download-file-cancellation-target="label"><i class="bi bi-sign-stop" aria-hidden="true"></i></span>
-              <span class="visually-hidden"><%= t('.button_cancel_download_a11y_text', filename: data.file.filename) %></span>
-            </button>
+            <% if retry_button_visible?(data.file) %>
+              <%= render layout: '/shared/button_to',
+                         locals: {
+                           url: project_download_file_path(project_id: data.file.project_id, id: data.file.id),
+                           method: :patch,
+                           icon: 'bi bi-arrow-clockwise',
+                           class: 'btn-icon-sm btn-outline-dark icon-hover-success',
+                           title: t('.button_retry_download_title')
+                         } do %>
+                <%= hidden_field_tag :state, FileStatus::PENDING.to_s %>
+              <% end %>
+            <% else %>
+              <%= render partial: '/shared/button_to',
+                         locals: {
+                           url: cancel_project_download_file_path(project_id: data.file.project_id, id: data.file.id),
+                           method: :post,
+                           disabled: cancel_button_disabled?(data.file.status),
+                           icon: 'bi bi-sign-stop',
+                           class: 'btn btn-icon-sm btn-outline-dark icon-hover-danger',
+                           title: t('.button_cancel_download_title', filename: data.file.filename)
+                         } %>
+            <% end %>
           </div>
         </div>
       <% end %>

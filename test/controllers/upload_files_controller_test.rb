@@ -28,7 +28,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
   end
 
-  test 'should return bad request if file is invalid' do
+  test 'create should return bad request if file is invalid' do
     upload_bundle = create_upload_bundle(create_project)
     UploadBundle.stubs(:find).returns(upload_bundle)
 
@@ -102,19 +102,20 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     assert_includes flash[:alert], 'delete.txt'
   end
 
-  test 'cancel should return not found if file is missing on cancel' do
+  test 'cancel should redirect with error message when file is missing on cancel' do
     UploadFile.stubs(:find).returns(nil)
 
     post cancel_project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
-
-    assert_response :not_found
-    assert_match /file not found/, @response.body
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match 'file not found', flash[:alert]
   end
 
   test 'cancel should cancel uploading file and return no content' do
     file = UploadFile.new
     file.stubs(:status).returns(FileStatus::UPLOADING)
-    file.expects(:update).with(start_date: anything, end_date: anything, status: FileStatus::CANCELLED)
+    file.stubs(:filename).returns('cancel.txt')
+    file.expects(:update).with(start_date: anything, end_date: anything, status: FileStatus::CANCELLED).returns(true)
 
     UploadFile.stubs(:find).returns(file)
 
@@ -124,7 +125,9 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     Command::CommandClient.any_instance.stubs(:request).returns(mock_response)
 
     post cancel_project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
-
-    assert_response :no_content
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match 'Upload cancelled', flash[:notice]
+    assert_match 'cancel.txt', flash[:notice]
   end
 end

@@ -101,4 +101,106 @@ class Common::FileUtilsTest < ActiveSupport::TestCase
     assert_equal 'my_report_1.txt', result.filename
     assert_equal 'my_report_1_txt', result.id
   end
+
+  test 'move_project_downloads moves tracked files to new directory' do
+    project = create_project
+    file1 = create_download_file(project)
+    file2 = create_download_file(project)
+    file2.filename = "subdir/#{file2.filename}" # simulate nested path
+    project.stubs(:download_files).returns([file1, file2])
+
+    old_dir = Dir.mktmpdir
+    new_dir = Dir.mktmpdir
+
+    FileUtils.mkdir_p(File.join(old_dir, 'subdir'))
+    File.write(File.join(old_dir, file1.filename), 'file A')
+    File.write(File.join(old_dir, file2.filename), 'file B')
+
+    result = @utils.move_project_downloads(project, old_dir, new_dir)
+
+    assert_equal true, result
+    assert File.exist?(File.join(new_dir, file1.filename))
+    assert File.exist?(File.join(new_dir, file2.filename))
+    refute File.exist?(File.join(old_dir, file1.filename))
+    refute File.exist?(File.join(old_dir, file2.filename))
+  ensure
+    FileUtils.rm_rf(old_dir)
+    FileUtils.rm_rf(new_dir)
+  end
+
+  test 'move_project_downloads skips missing files and continues' do
+    project = create_project
+    missing_file = create_download_file(project)
+    existing_file = create_download_file(project)
+    project.stubs(:download_files).returns([missing_file, existing_file])
+
+    old_dir = Dir.mktmpdir
+    new_dir = Dir.mktmpdir
+
+    File.write(File.join(old_dir, existing_file.filename), 'present')
+
+    result = @utils.move_project_downloads(project, old_dir, new_dir)
+
+    assert_equal true, result
+    assert File.exist?(File.join(new_dir, existing_file.filename))
+    refute File.exist?(File.join(old_dir, existing_file.filename))
+  ensure
+    FileUtils.rm_rf(old_dir)
+    FileUtils.rm_rf(new_dir)
+  end
+
+  test 'move_project_downloads does nothing if old_dir equals new_dir' do
+    dir = Dir.mktmpdir
+    project = create_project
+    file = create_download_file(project)
+    project.stubs(:download_files).returns([file])
+
+    File.write(File.join(dir, file.filename), 'content')
+
+    result = @utils.move_project_downloads(project, dir, dir)
+
+    assert_nil result
+    assert File.exist?(File.join(dir, file.filename))
+  ensure
+    FileUtils.rm_rf(dir)
+  end
+
+  test 'move_project_downloads removes old_dir if empty after move' do
+    project = create_project
+    file = create_download_file(project)
+    project.stubs(:download_files).returns([file])
+
+    old_dir = Dir.mktmpdir
+    new_dir = Dir.mktmpdir
+
+    File.write(File.join(old_dir, file.filename), 'content')
+
+    @utils.move_project_downloads(project, old_dir, new_dir)
+
+    refute Dir.exist?(old_dir), 'old_dir should be deleted if empty'
+  ensure
+    FileUtils.rm_rf(old_dir)
+    FileUtils.rm_rf(new_dir)
+  end
+
+  test 'move_project_downloads does not remove old_dir if not empty' do
+    project = create_project
+    moved_file = create_download_file(project)
+    project.stubs(:download_files).returns([moved_file])
+
+    old_dir = Dir.mktmpdir
+    new_dir = Dir.mktmpdir
+
+    File.write(File.join(old_dir, moved_file.filename), 'content')
+    File.write(File.join(old_dir, 'untracked.txt'), 'stay here')
+
+    @utils.move_project_downloads(project, old_dir, new_dir)
+
+    assert Dir.exist?(old_dir), 'old_dir should not be removed if not empty'
+    assert File.exist?(File.join(old_dir, 'untracked.txt'))
+  ensure
+    FileUtils.rm_rf(old_dir)
+    FileUtils.rm_rf(new_dir)
+  end
 end
+

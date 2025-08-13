@@ -1,0 +1,23 @@
+<% content_for :title, t('dataverse.landing.index.page_title') %>
+<div class="dataverse container-md content" role="main">
+  <nav aria-label="Breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="<%= root_path %>" title="<%= t('dataverse.landing.index.breadcrumb_home_title') %>"><%= t('dataverse.landing.index.breadcrumb_home_text') %></a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        <%= t('connectors.dataverse.title') %>
+      </li>
+    </ol>
+  </nav>
+  <div class="my-4">
+    <%= link_to 'https://dataverse.org/', target: '_blank', rel: 'noopener', aria: { label: t('dataverse.landing.index.image_dataverse_icon_aria_label') } do %>
+      <%= image_tag('dataverse_project.svg', alt: t('dataverse.landing.index.image_dataverse_icon_alt'), width: 300) %>
+    <% end %>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <%= render partial: 'connectors/dataverse/landing/installation_items', locals: { installations_page: installations_page } %>
+    </div>
+  </div>
+</div>

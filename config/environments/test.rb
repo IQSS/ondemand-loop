@@ -68,6 +68,9 @@ Rails.application.configure do
   # Raise errors for missing properties
   config.i18n.raise_on_missing_translations = true
 
+  # Added to avoid errors when running tests in parallel
+  config.secret_key_base = ENV.fetch('SECRET_KEY_BASE', 'test_secret_key_base_12345')
+
   # Support test templates
   config.paths['app/views'].unshift('test/fixtures/views')
 end

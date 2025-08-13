@@ -7,7 +7,7 @@ module Zenodo::Concerns::ZenodoUrlBuilder
     raise 'record_id is missing' unless record_id
 
     FluentUrl.new(zenodo_url)
-      .add_path('record')
+      .add_path('records')
       .add_path(record_id.to_s)
       .to_s
   end
@@ -17,7 +17,7 @@ module Zenodo::Concerns::ZenodoUrlBuilder
     raise 'file_name is missing' unless file_name
 
     FluentUrl.new(zenodo_url)
-      .add_path('record')
+      .add_path('records')
       .add_path(record_id.to_s)
       .add_path('files')
       .add_path(file_name)

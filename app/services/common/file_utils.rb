@@ -2,6 +2,17 @@
 
 module Common
   class FileUtils
+    include LoggingCommon
+
+    def zip_file?(file_path)
+      return false unless File.file?(file_path)
+
+      File.open(file_path, 'rb') do |file|
+        # Read the first 4 bytes (magic number)
+        signature = file.read(4)
+        signature == "\x50\x4B\x03\x04"
+      end
+    end
 
     def normalize_name(name)
       name.to_s.parameterize(separator: '_')
@@ -35,6 +46,45 @@ module Common
       download_file.id = normalize_name(download_file.filename)
       download_file
     end
+
+    def move_project_downloads(project, old_dir, new_dir)
+      return if old_dir.to_s == new_dir.to_s
+      return unless Dir.exist?(old_dir)
+
+      log_info('Move download files', { project_id: project.id, files: project.download_files.size, old_dir: old_dir, new_dir: new_dir })
+
+      moved_any = false
+
+      project.download_files.each do |file|
+        relative_path = file.filename
+        source_path = File.join(old_dir, relative_path)
+        destination_path = File.join(new_dir, relative_path)
+
+        unless File.exist?(source_path)
+          log_info('File not found, skipping', { project_id: project.id, status: file.status, file: source_path })
+          next
+        end
+
+        begin
+          ::FileUtils.mkdir_p(File.dirname(destination_path))
+          ::FileUtils.mv(source_path, destination_path)
+          moved_any = true
+        rescue => e
+          log_error('Failed to move file', { project_id: project.id, status: file.status, from: source_path, to: destination_path }, e)
+          # continue with next file
+        end
+      end
+
+      # Try to clean up the old dir only if everything is gone
+      begin
+        ::FileUtils.rmdir(old_dir) if Dir.exist?(old_dir) && Dir.empty?(old_dir)
+      rescue => e
+        log_error('Could not remove old download_dir', { path: old_dir }, e)
+      end
+
+      moved_any
+    end
+
 
     private
     def parse_filename_parts(filename)

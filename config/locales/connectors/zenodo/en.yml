@@ -5,12 +5,13 @@ en:
       title: "Zenodo"
       aria_label: "Visit the Zenodo project homepage"
 
-      actions:
+      handlers:
         connector_edit:
           message_success: "Access token updated: %{name}"
-        fetch_deposition:
+        deposition_fetch:
           message_deposition_not_found: "Zenodo deposition not found for record: %{url}"
           message_success: "Successfully fetched deposition: %{name}"
+          message_auth_error: "Authorization error. A valid Zenodo access token is required to fetch/create depositions"
         repository_settings_update:
           message_success: "Repository updated: %{url} type: %{type}"
         upload_bundle_create:
@@ -18,9 +19,8 @@ en:
           message_record_not_found: "Zenodo record not found: %{url}. Only published records are supported"
           message_deposition_not_found: "Zenodo deposition not found for record: %{url}"
           message_success: "Zenodo upload bundle created: %{name}"
+          message_auth_error: "Authorization error. A valid Zenodo access token is required to fetch/create depositions"
 
-      display_repo_controller:
-        message_url_not_supported: "Zenodo URL not supported: %{url}. Only record URLs are currently supported for exploring"
       connector_edit_form:
         field_api_key_label: "Personal Access Token"
         field_api_key_placeholder: "Enter your personal access token"
@@ -30,12 +30,9 @@ en:
         submit: "Save Changes"
         cancel: "Cancel"
       upload_bundle_actions_bar:
-        button_select_deposition_title: "Select Deposition"
-        modal_select_deposition_title: "Select Zenodo deposition"
         button_deposition_fetch_label: "Fetch Deposition"
         button_deposition_fetch_title: "Fetch Zenodo deposition metadata"
         button_create_draft_title: "Create Draft"
-        modal_create_draft_title: "Create Draft"
         button_edit_key_title: "Add/Edit Access Token"
         modal_edit_key_title: "Add/Edit Zenodo Personal Access Token"
         missing_key_disabled_features_text: "Add access token to enable deposition features"
@@ -45,36 +42,37 @@ en:
         link_zenodo_title: "Open Zenodo"
         link_dataset_title: "Open Zenodo dataset: %{name}"
 
+      shared:
+        zenodo_record_actions:
+          actions_bar_title_a11y_label: "Record actions bar"
+          link_open_record_title: "Open record on Zenodo"
+          button_create_bundle_label: "Create Upload Bundle"
+          button_create_bundle_title: "Create Upload Bundle from this record on the selected project"
+          button_open_project_title: "Open selected project details page"
+          button_open_project_label: "Open selected project"
+        zenodo_record_info:
+          header_record_text: "Record"
+          badge_draft_text: "Draft"
+          badge_published_text: "Published"
+          button_toggle_label: "Record details"
+          field_publication_date_text: "Publication date:"
+          field_files_text: "Files:"
+        zenodo_record_files:
+          col_file_name_text: "File name"
+          col_size_text: "Size"
+          checkbox_select_all_label: "Select all files"
+          header_record_files_a11y_text: "Record files"
+          msg_empty_record_text: "The record does not contain files to download"
+          table_record_files_caption: "Record files"
+
   zenodo:
+    depositions:
+      show:
+        page_title: "OnDemand Loop - Zenodo Deposition"
     records:
-      record_actions:
-        actions_bar_title_a11y_label: "Record actions bar"
-        link_open_record_title: "Open record on Zenodo"
-      record_info:
-        header_record_text: "Record"
-        button_toggle_label: "Record details"
-        field_publication_date_text: "Publication date:"
-        field_files_text: "Files:"
-      record_files:
-        button_add_files_active_project_text: "Add Files to Active Project"
-        button_add_files_active_project_title: "This action will add the selected files into the Active Project"
-        button_add_files_new_project_text: "Add Files to New Project"
-        button_add_files_new_project_title: "No active project. This action will create a new project and add the selected files into the newly created project"
-        col_file_name_text: "File name"
-        col_size_text: "Size"
-        checkbox_select_all_label: "Select all files"
-        header_record_files_a11y_text: "Record files"
-        msg_empty_record_text: "The record does not contain files to download"
-        table_record_files_caption: "Record files"
       show:
         page_title: "OnDemand Loop - Zenodo Records"
         caption_files_text: "Zenodo record files (%{count})"
-        checkbox_select_all_label: "Select all files"
-        column_record_filename_text: "File"
-        column_record_size_text: "Size"
-        button_submit_text: "Add Files to Active Project"
-        label_publication_date_text: "Publication date:"
-        label_files_text: "Files:"
     landing_page:
       index:
         page_title: "OnDemand Loop - Zenodo"

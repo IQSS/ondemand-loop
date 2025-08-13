@@ -4,11 +4,12 @@ require 'stringio'
 class HttpResponseMock
   attr_reader :code, :body
 
-  def initialize(file_path, status_code = 200, headers = {})
+  def initialize(file_path, status_code = 200, headers = {}, start_offset = 0)
     @file_path = file_path
     @code = status_code.to_s
     @headers = headers
-    @body = File.read(file_path)
+    @start_offset = start_offset
+    @body = File.read(file_path)[start_offset..]
   end
 
   def [](key)
@@ -37,6 +38,7 @@ class HttpResponseMock
   def read_body
     if block_given?
       File.open(@file_path, "rb") do |file|
+        file.seek(@start_offset)
         while (chunk = file.read(1024))
           yield chunk
         end
@@ -48,14 +50,21 @@ class HttpResponseMock
 end
 
 class HttpMock
-  def initialize(file_path:, status_code: 200, headers: {})
+  def initialize(file_path:, status_code: 200, headers: {}, support_range: true)
     @file_path = file_path
     @status_code = status_code
     @headers = headers
+    @support_range = support_range
   end
 
   def request(req)
-    response = HttpResponseMock.new(@file_path, @status_code, @headers)
+    range_header = req['Range']
+    if @support_range && range_header && range_header =~ /bytes=(\d+)-/
+      start = Regexp.last_match(1).to_i
+      response = HttpResponseMock.new(@file_path, 206, @headers, start)
+    else
+      response = HttpResponseMock.new(@file_path, @status_code, @headers)
+    end
     if block_given?
       yield response
     else

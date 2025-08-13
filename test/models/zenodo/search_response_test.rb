@@ -22,4 +22,55 @@ class Zenodo::SearchResponseTest < ActiveSupport::TestCase
     assert resp.first_page?
     assert resp.last_page?
   end
+
+  test 'encodes file urls' do
+    data = {
+      hits: {
+        total: 1,
+        hits: [
+          {
+            id: 1,
+            metadata: { title: 'T' },
+            files: [
+              {
+                id: 1,
+                key: 'a b.txt',
+                size: 1,
+                checksum: 'md5:1',
+                links: { self: 'https://zenodo.org/api/files/abc/a b.txt' }
+              }
+            ]
+          }
+        ]
+      }
+    }.to_json
+    resp = Zenodo::SearchResponse.new(data, 1, 10)
+    file = resp.items.first.files.first
+    assert_equal 'https://zenodo.org/api/files/abc/a%20b.txt', file.download_url
+  end
+
+  test 'raises error on invalid file url' do
+    data = {
+      hits: {
+        hits: [
+          {
+            id: 1,
+            metadata: { title: 'T' },
+            files: [
+              {
+                id: 1,
+                key: 'a',
+                size: 1,
+                checksum: 'md5:1',
+                links: { self: 'http:// zenodo.org' }
+              }
+            ]
+          }
+        ]
+      }
+    }.to_json
+    assert_raises RuntimeError do
+      Zenodo::SearchResponse.new(data, 1, 10)
+    end
+  end
 end

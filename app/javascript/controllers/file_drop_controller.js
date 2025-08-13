@@ -65,7 +65,9 @@ export default class extends Controller {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRF-Token": csrfToken
+                "Accept": "application/json",
+                "X-CSRF-Token": csrfToken,
+                'X-Requested-With': 'XMLHttpRequest'
             },
             body: JSON.stringify({ path: filePath })
         }).then(response => {

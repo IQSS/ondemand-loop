@@ -81,20 +81,21 @@ class UploadFilesController < ApplicationController
     file = UploadFile.find(project_id, upload_bundle_id, file_id)
 
     if file.nil?
-      render json: t(".file_not_found", project_id: project_id, upload_bundle_id: upload_bundle_id, file_id: file_id), status: :not_found
-      return
+      return redirect_back fallback_location: root_path, alert: t(".file_not_found", project_id: project_id, upload_bundle_id: upload_bundle_id, file_id: file_id)
     end
 
     if file.status.uploading?
       command_client = Command::CommandClient.new(socket_path: ::Configuration.command_server_socket_file)
       request = Command::Request.new(command: 'upload.cancel', body: { project_id: project_id, upload_bundle_id: upload_bundle_id, file_id: file_id})
       response = command_client.request(request)
-      return  head :not_found if response.status != 200
+      return redirect_back fallback_location: root_path, alert: t('.file_cancellation_error', filename: file.filename) if response.status != 200
     end
 
-    file.update(start_date: now, end_date: now, status: FileStatus::CANCELLED)
-
-    head :no_content
+    if file.update(start_date: now, end_date: now, status: FileStatus::CANCELLED)
+      redirect_back fallback_location: root_path, notice: t('.file_cancellation_success', filename: file.filename)
+    else
+      redirect_back fallback_location: root_path, notice: t('.file_cancellation_update_error', filename: file.filename)
+    end
   end
 
   private

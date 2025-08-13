@@ -5,7 +5,7 @@ class FileBrowserController < ApplicationController
     path = safe_path(params[:path])
 
     if path.nil?
-      render json: { error: t(".directory_forbidden") }, status: :forbidden
+      render json: { error: t('file_browser.directory_forbidden') }, status: :forbidden
       return
     end
 

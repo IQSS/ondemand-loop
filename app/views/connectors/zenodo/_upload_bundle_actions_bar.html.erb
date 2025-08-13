@@ -7,7 +7,7 @@
     <div class="mb-1"><%= connector_icon(upload_bundle.type) %></div>
     <!-- UPLOAD DATASET INFO -->
     <div class="d-flex flex-column">
-        <span class="text-truncate d-inline-block" style="max-width: 800px;">
+        <span class="text-truncate d-inline-block" style="max-width: 850px;">
           <a href="<%= upload_bundle.connector_metadata.zenodo_url %>" target="_blank" class="text-reset text-decoration-none" title="<%= t('connectors.zenodo.upload_bundle_actions_bar.link_zenodo_title') %>">
             <%= t('connectors.zenodo.title') %>
           </a>
@@ -18,46 +18,48 @@
               <%= upload_bundle.connector_metadata.title %>
             </a>
           <% end %>
-          <% if upload_bundle.connector_metadata.create_draft? %>
-            <%= render layout: "shared/button_to", locals: {
-              url:  project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id),
-              method: 'PUT',
-              label: t('connectors.zenodo.upload_bundle_actions_bar.button_create_draft_title'),
-              title: t('connectors.zenodo.upload_bundle_actions_bar.button_create_draft_title'),
-              class: 'btn btn-outline-primary btn-badge position-relative me-1',
-              icon: "bi bi-database-add",
-            } do %>
-              <%= hidden_field_tag :anchor, tab_anchor_for(upload_bundle) %>
-              <%= hidden_field_tag :form, 'deposition_fetch' %>
-            <% end %>
-          <% elsif upload_bundle.connector_metadata.fetch_deposition? %>
-            <%= render layout: "shared/button_to", locals: {
-              url:  project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id),
-              method: 'PUT',
-              label: t('connectors.zenodo.upload_bundle_actions_bar.button_deposition_fetch_label'),
-              title: t('connectors.zenodo.upload_bundle_actions_bar.button_deposition_fetch_title'),
-              class: 'btn btn-outline-primary btn-badge position-relative me-1',
-              icon: "bi bi-database-add",
-            } do %>
-              <%= hidden_field_tag :anchor, tab_anchor_for(upload_bundle) %>
-              <%= hidden_field_tag :form, 'deposition_fetch' %>
-            <% end %>
-          <% end %>
+        </span>
 
-          <% if upload_bundle.connector_metadata.draft? %>
+      <span>
+        <small class="text-muted me-2"><%= upload_bundle.remote_repo_url %></small>
+        <% if upload_bundle.connector_metadata.create_draft? %>
+          <%= render layout: "shared/button_to", locals: {
+            url:  project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id),
+            method: 'PUT',
+            label: t('connectors.zenodo.upload_bundle_actions_bar.button_create_draft_title'),
+            title: t('connectors.zenodo.upload_bundle_actions_bar.button_create_draft_title'),
+            class: 'btn btn-outline-primary btn-badge position-relative me-1',
+            icon: "bi bi-database-add",
+          } do %>
+            <%= hidden_field_tag :anchor, tab_anchor_for(upload_bundle) %>
+            <%= hidden_field_tag :form, 'deposition_fetch' %>
+          <% end %>
+        <% elsif upload_bundle.connector_metadata.fetch_deposition? %>
+          <%= render layout: "shared/button_to", locals: {
+            url:  project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id),
+            method: 'PUT',
+            label: t('connectors.zenodo.upload_bundle_actions_bar.button_deposition_fetch_label'),
+            title: t('connectors.zenodo.upload_bundle_actions_bar.button_deposition_fetch_title'),
+            class: 'btn btn-outline-primary btn-badge position-relative me-1',
+            icon: "bi bi-database-add",
+          } do %>
+            <%= hidden_field_tag :anchor, tab_anchor_for(upload_bundle) %>
+            <%= hidden_field_tag :form, 'deposition_fetch' %>
+          <% end %>
+        <% end %>
+
+        <% if upload_bundle.connector_metadata.draft? %>
             <span class="badge badge-soft-success position-relative" style="top: -1px;">
               <i class="bi bi-check-circle-fill me-2"></i><span>Draft</span>
             </span>
-          <% end %>
+        <% end %>
 
-          <% if upload_bundle.connector_metadata.api_key_required? %>
+        <% if upload_bundle.connector_metadata.api_key_required? %>
             <span class="badge badge-soft-danger position-relative" style="top: -1px;">
               <i class="bi bi-exclamation-circle"></i><span class="ms-1"><%= t('connectors.zenodo.upload_bundle_actions_bar.missing_key_disabled_features_text') %></span>
             </span>
-          <% end %>
-        </span>
-
-      <small class="text-muted"><%= upload_bundle.remote_repo_url %></small>
+        <% end %>
+      </span>
     </div>
 
   </div>

@@ -28,6 +28,10 @@ module Zenodo
       end
     end
 
+    def draft?
+      false
+    end
+
     private
 
     def encode_url_path(url)

@@ -12,14 +12,13 @@ module Repo
 
       @resolvers.each do |resolver|
         resolver.resolve(context)
-        break if context.result.resolved?
       rescue => e
         log_error('Error while executing URL resolvers', {resolver: resolver.class.name}, e)
         break
       end
 
       result = context.result
-      log_info('Resolution completed', { object_url: result.object_url, type: result.type })
+      log_info('Resolution completed', { input: context.input, object_url: result.object_url, type: result.type })
       result
     end
   end

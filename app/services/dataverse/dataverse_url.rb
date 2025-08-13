@@ -13,9 +13,10 @@ module Dataverse
     }.freeze
 
     attr_reader :type, :collection_id, :dataset_id, :file_id, :version
+    delegate :domain, :scheme, :scheme_override, :port, :port_override, to: :base
 
     def self.parse(url)
-      base = UrlParser.parse(url)
+      base = Repo::RepoUrl.parse(url)
       return nil unless base
 
       new(base)
@@ -48,27 +49,15 @@ module Dataverse
       parse_type_and_ids
     end
 
-    def scheme_override
-      'http' unless @base.https?
-    end
-
-    def scheme
-      @base.scheme
-    end
-
-    def domain
-      @base.domain
-    end
-
-    def port
-      @base.port
-    end
-
     def dataverse_url
       build_dataverse_url(@base.scheme, @base.domain, @base.port)
     end
 
     private
+
+    def base
+      @base
+    end
 
     def parse_type_and_ids
       segments = @base.path_segments

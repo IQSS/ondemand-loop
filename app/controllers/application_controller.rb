@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
   before_action :load_user_settings
 
+  def ajax_request?
+    request.xhr? || request.headers['X-Requested-With'] == 'XMLHttpRequest'
+  end
+
   private
 
   def load_user_settings

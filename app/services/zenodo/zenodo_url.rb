@@ -2,33 +2,28 @@
 
 module Zenodo
   class ZenodoUrl
-    TYPES = %w[zenodo record deposition file unknown].freeze
+    DEFAULT_SERVER = 'zenodo.org'
+    DEFAULT_URL = 'https://zenodo.org'
+    TYPES = %w[zenodo doi record deposition file unknown].freeze
 
     attr_reader :type, :record_id, :deposition_id, :file_name
+    delegate :domain, :scheme, :scheme_override, :port, :port_override, to: :base
 
     def self.parse(url)
-      base = UrlParser.parse(url)
+      base = Repo::RepoUrl.parse(url)
       return nil unless base
 
       new(base)
     end
 
-    private_class_method :new
-
     TYPES.each do |t|
       define_method("#{t}?") { type == t }
     end
 
-    def scheme
-      @base.scheme
-    end
-
-    def domain
-      @base.domain
-    end
-
-    def port
-      @base.port
+    private_class_method :new
+    def initialize(base_parser)
+      @base = base_parser
+      parse_type_and_ids
     end
 
     def zenodo_url
@@ -37,20 +32,25 @@ module Zenodo
       FluentUrl.new(base).to_s
     end
 
-    def initialize(base_parser)
-      @base = base_parser
-      parse_type_and_ids
+    private
+
+    def base
+      @base
     end
 
-    private
+    def record_segment?(seg)
+      seg == 'record' || seg == 'records'
+    end
 
     def parse_type_and_ids
       segments = @base.path_segments
 
-      if segments.length == 2 && segments[0] == 'records'
+      if segments.length > 1 && segments[0] == 'doi'
+        @type = 'doi'
+      elsif segments.length == 2 && record_segment?(segments[0])
         @type = 'record'
         @record_id = segments[1]
-      elsif segments.length >= 4 && segments[0] == 'records' && segments[2] == 'files'
+      elsif segments.length >= 4 && record_segment?(segments[0]) && segments[2] == 'files'
         @type = 'file'
         @record_id = segments[1]
         @file_name = segments[3..].join('/')

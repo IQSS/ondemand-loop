@@ -21,6 +21,6 @@ class Zenodo::RepositorySettingsProcessorTest < ActiveSupport::TestCase
     repo = RepoRegistry.repo_db.get('https://zenodo.org')
     result = @processor.update(repo, { repo_url: 'https://zenodo.org', auth_key: 'k' })
     assert_equal 'k', RepoRegistry.repo_db.get('https://zenodo.org').metadata.auth_key
-    assert_equal({ notice: I18n.t('connectors.zenodo.actions.repository_settings_update.message_success', url: 'https://zenodo.org', type: repo.type) }, result.message)
+    assert_equal({ notice: I18n.t('connectors.zenodo.handlers.repository_settings_update.message_success', url: 'https://zenodo.org', type: repo.type) }, result.message)
   end
 end

@@ -1,0 +1,30 @@
+<%
+  restrictions_response = verify_file(file)
+  row_classes = restrictions_response.valid? ? '' : 'table-row-disabled'
+%>
+<tr class="<%= row_classes %>" title="<%= restrictions_response.message %>">
+  <td class="text-nowrap p-0 align-middle" style="width: 1%;">
+    <div class="d-flex justify-content-center align-items-center" style="min-width: 3rem;">
+    <% if restrictions_response.valid? %>
+        <%= check_box_tag("file_ids[]", file&.data_file&.id, false, class: "form-check-input", id: "file_checkbox_#{file&.data_file&.id}", data: {"select-files-project-target" => "item", action: "select-files-project#updateState"}) %>
+    <% else %>
+        <i class="bi bi-info-circle-fill" aria-hidden="true"></i>
+        <span class="visually-hidden"><%= restrictions_response.message %></span>
+      <% end %>
+    </div>
+  </td>
+  <td>
+    <label for="file_checkbox_<%= file&.data_file&.id %>" class="d-block mb-1">
+      <%= file.full_filename %>
+    </label>
+  </td>
+  <td class="text-nowrap">
+    <%= number_to_human_size(file&.filesize) %>
+  </td>
+  <td class="text-nowrap">
+    <%= storage_identifier(file&.data_file&.storage_identifier) %>
+  </td>
+  <td class="text-nowrap">
+    <%= file&.data_file&.publication_date %>
+  </td>
+</tr>

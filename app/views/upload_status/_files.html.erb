@@ -26,7 +26,7 @@
                   <span class="me-2" title="<%=  t('.field_file_title', filename: data.file.filename) %>"><%= data.file.filename %></span>
                 <% end %>
               </span>
-              <small class="text-muted"><%= number_to_human_size(data.file.size) %></small>
+              <small class="text-muted file-size"><%= number_to_human_size(data.file.size) %></small>
             </div>
           </div>
           <!-- end info for medium and large screens -->
@@ -37,18 +37,18 @@
             <% end %>
           </div>
 
-          <div class="download-actions col-md-2 text-end" role="cell">
+          <div class="upload-actions col-md-2 text-end" role="cell">
             <%= status_badge(data.file.status, filename: data.file.filename) %>
 
-            <button class="btn btn-icon-sm btn-outline-dark icon-hover-danger" title="<%= t('.button_cancel_upload_title') %>"
-                    data-controller="upload-file-cancellation"
-                    data-action="click->upload-file-cancellation#cancel"
-                    <%= 'disabled' if cancel_button_disabled?(data.file.status) %>
-                    data-upload-file-cancellation-url-value="<%= cancel_project_upload_bundle_upload_file_path(project_id: data.file.project_id, upload_bundle_id: data.file.upload_bundle_id, id: data.file.id) %>">
-              <span data-upload-file-cancellation-target="spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-              <span data-upload-file-cancellation-target="label"><i class="bi bi-sign-stop" aria-hidden="true"></i></span>
-              <span class="visually-hidden"><%= t('.button_cancel_upload_a11y_text', filename: data.file.filename) %></span>
-            </button>
+            <%= render partial: '/shared/button_to',
+                       locals: {
+                         url: cancel_project_upload_bundle_upload_file_path(project_id: data.file.project_id, upload_bundle_id: data.file.upload_bundle_id, id: data.file.id),
+                         method: :post,
+                         disabled: cancel_button_disabled?(data.file.status),
+                         icon: 'bi bi-sign-stop',
+                         class: 'btn btn-icon-sm btn-outline-dark icon-hover-danger',
+                         title: t('.button_cancel_upload_title', filename: data.file.filename)
+                       } %>
           </div>
         </div>
       <% end %>

@@ -13,7 +13,6 @@ module Dataverse
     end
 
     def download
-      project = Project.find(file.project_id)
       download_url = FluentUrl.new(connector_metadata.dataverse_url)
                              .add_path('api')
                              .add_path('access')
@@ -21,12 +20,11 @@ module Dataverse
                              .add_path(connector_metadata.id.to_s)
                              .add_param(:format, 'original')
                              .to_s
-      download_location = File.join(project.download_dir, file.filename)
-      temp_location ="#{download_location}.part"
+      download_location = file.download_location
+      temp_location = file.download_tmp_location
       FileUtils.mkdir_p(File.dirname(download_location))
 
       connector_metadata.download_url = download_url
-      connector_metadata.download_location = download_location
       connector_metadata.temp_location = temp_location
       file.update({metadata: connector_metadata.to_h})
 
@@ -41,15 +39,27 @@ module Dataverse
         temp_location,
         headers: headers
       )
-      download_processor.download do |context|
-        cancelled
+      begin
+        download_processor.download do |_context|
+          cancelled
+        end
+      rescue StandardError => e
+        connector_metadata.partial_downloads = download_processor.partial_downloads
+        file.update({ metadata: connector_metadata.to_h })
+        FileUtils.rm_f(temp_location) if download_processor.partial_downloads == false
+        log_error('Download failed', { id: file.id, url: download_url, partial_downloads: download_processor.partial_downloads }, e)
+        return response(FileStatus::ERROR, 'file download failed')
       end
 
+      connector_metadata.partial_downloads = download_processor.partial_downloads
+      file.update({ metadata: connector_metadata.to_h })
+
       if cancelled
+        FileUtils.rm_f(temp_location) if download_processor.partial_downloads == false
         return response(FileStatus::CANCELLED, 'file download cancelled')
       end
 
-      md5_result = verify(download_location,  connector_metadata.md5)
+      md5_result = verify(download_location, connector_metadata.md5)
       log_info('Download completed', {id: file.id, location: download_location, md5_valid: md5_result})
       if md5_result
         response(FileStatus::SUCCESS, 'file download completed')

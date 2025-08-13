@@ -1,0 +1,30 @@
+<%
+  restrictions_response = verify_dataset(dataset)
+  error_message = restrictions_response.valid? ? nil : restrictions_response.message
+%>
+
+<% content_for :title, t('connectors.dataverse.datasets.show.page_title') %>
+<div class="dataverse container-md content" role="main">
+  <%= render partial: 'connectors/dataverse/datasets/breadcrumbs', locals: { dataverse_url: dataverse_url, dataset: dataset } %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= render partial: 'connectors/dataverse/datasets/dataset_actions', locals: { dataset: dataset, dataverse_url: dataverse_url } %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <%= render partial: 'connectors/dataverse/datasets/dataset_info', locals: { dataset: dataset, dataverse_url: dataverse_url, repo_url: repo_url } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <%= render partial: 'connectors/dataverse/datasets/search_bar', locals: { repo_url: repo_url, persistent_id: persistent_id, version: dataset.version } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <%= render partial: 'connectors/dataverse/datasets/dataset_files', locals: { error_message: error_message, files_page: files_page, dataset: dataset, repo_url: repo_url, persistent_id: persistent_id } %>
+    </div>
+  </div>
+</div>

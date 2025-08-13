@@ -1,0 +1,25 @@
+<% content_for :title, t('connectors.dataverse.collections.show.page_title') %>
+<div class="container-md content" role="main">
+  <%= render partial: 'connectors/dataverse/collections/breadcrumbs', locals: { dataverse_url: dataverse_url, collection: collection, repo_url: repo_url } %>
+  <div class="row">
+    <div class="col-md-12">
+      <%= render partial: 'connectors/dataverse/collections/collection_actions', locals: { collection: collection, dataverse_url: dataverse_url } %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <%= render partial: 'connectors/dataverse/collections/collection_info', locals: { collection: collection } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <%= render partial: 'connectors/dataverse/collections/search_bar', locals: { repo_url: repo_url, dataverse_url: dataverse_url, collection: collection } %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <%= render partial: 'connectors/dataverse/collections/search_items', locals: { search_result: search_result, dataverse_url: dataverse_url, dataverse: collection, repo_url: repo_url } %>
+    </div>
+  </div>
+</div>

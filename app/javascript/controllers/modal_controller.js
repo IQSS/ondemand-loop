@@ -56,7 +56,9 @@ export default class extends Controller {
         }
 
         if (this.hasContentTarget) {
-            fetch(url)
+            fetch(url, {
+                headers: { "Accept": "text/html", 'X-Requested-With': 'XMLHttpRequest' }
+            })
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);

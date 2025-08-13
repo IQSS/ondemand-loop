@@ -1,7 +1,0 @@
-<% if item.type == 'dataset' %>
-  <%= render partial: 'dataset_item', locals: { item: item, dataverse_url: dataverse_url } %>
-<% end %>
-<% if item.type == 'dataverse' %>
-  <%= render partial: 'dataverse_item', locals: { item: item, dataverse_url: dataverse_url } %>
-<% end %>
-

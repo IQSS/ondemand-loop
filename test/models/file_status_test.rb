@@ -82,4 +82,11 @@ class FileStatusTest < ActiveSupport::TestCase
       FileStatus::INVALID_STATUS
     end
   end
+
+  test 'retryable_statuses returns cancellable and error statuses' do
+    assert_includes FileStatus.retryable_statuses, FileStatus::CANCELLED
+    assert_includes FileStatus.retryable_statuses, FileStatus::ERROR
+    refute_includes FileStatus.retryable_statuses, FileStatus::SUCCESS
+    refute_includes FileStatus.retryable_statuses, FileStatus::PENDING
+  end
 end

@@ -11,6 +11,7 @@ class ScriptLauncher
 
   def launch_script
     if pending_files?
+      log_info("Launching Detached Process Script...")
       start_process_from_script(LAUNCH_SCRIPT, 'launch_detached_process.log')
     else
       log_info("No pending files - skipping")

@@ -53,4 +53,25 @@ class Dataverse::CollectionServiceTest < ActiveSupport::TestCase
     service = Dataverse::CollectionService.new('https://example.com', http_client: client, api_key: 'KEY')
     assert_nil service.get_my_collections
   end
+
+  test 'get_my_collections requires api key' do
+    service = Dataverse::CollectionService.new('https://example.com', http_client: @client)
+    assert_raises(Dataverse::CollectionService::ApiKeyRequiredException) do
+      service.get_my_collections
+    end
+  end
+
+  test 'search_collection_items returns nil on 404' do
+    client = HttpClientMock.new(file_path: fixture_path('dataverse/search_response/valid_response.json'), status_code: 404)
+    service = Dataverse::CollectionService.new('https://example.com', http_client: client)
+    assert_nil service.search_collection_items('dv')
+  end
+
+  test 'search_collection_items raises on unauthorized' do
+    client = HttpClientMock.new(file_path: fixture_path('dataverse/search_response/valid_response.json'), status_code: 401)
+    service = Dataverse::CollectionService.new('https://example.com', http_client: client)
+    assert_raises(Dataverse::CollectionService::UnauthorizedException) do
+      service.search_collection_items('dv')
+    end
+  end
 end

@@ -53,7 +53,7 @@ module Dataverse
       class DatasetItem
         attr_reader :name, :type, :url, :global_id, :description, :published_at, :publisher
         attr_reader :identifier_of_dataverse, :name_of_dataverse, :citation, :storage_identifier
-        attr_reader :file_count, :version_id, :version_state, :created_at, :updated_at
+        attr_reader :file_count, :version_id, :version_state, :version_number, :version_minor_number, :created_at, :updated_at
 
         def initialize(item)
           item = item || {}
@@ -71,8 +71,16 @@ module Dataverse
           @file_count = item[:fileCount]
           @version_id = item[:versionId]
           @version_state = item[:versionState]
+          @version_number = item[:majorVersion]
+          @version_minor_number = item[:minorVersion]
           @created_at = item[:createdAt]
           @updated_at = item[:updatedAt]
+        end
+
+        def version
+          return ':draft' if version_state.to_s.downcase == 'draft'
+
+          [version_number, version_minor_number].compact.join('.')
         end
       end
 

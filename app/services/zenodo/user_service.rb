@@ -8,9 +8,10 @@ module Zenodo
       @api_key = api_key
     end
 
-    def list_depositions(page: 1, per_page: 20)
+    def list_depositions(page: 1, per_page: nil)
       raise ApiKeyRequiredException unless @api_key
 
+      per_page ||= Configuration.default_pagination_items
       headers = {
         'Content-Type' => 'application/json',
         AUTH_HEADER => "Bearer #{@api_key}"
@@ -32,9 +33,10 @@ module Zenodo
       JSON.parse(response.body)
     end
 
-    def list_user_records(q: nil, page: 1, per_page: 20, all_versions: false)
+    def list_user_records(q: nil, page: 1, per_page: nil, all_versions: false)
       raise ApiKeyRequiredException unless @api_key
 
+      per_page ||= Configuration.default_pagination_items
       headers = {
         'Content-Type' => 'application/json',
         AUTH_HEADER => "Bearer #{@api_key}"

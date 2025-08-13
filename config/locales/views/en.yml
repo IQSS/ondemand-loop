@@ -12,10 +12,9 @@ en:
     files:
       button_browse_file_a11y_text: "Browse file %{filename}"
       button_browse_file_title: "Browse file"
-      button_cancel_download_a11y_text: "Cancel download of %{filename}"
       button_cancel_download_title: "Cancel download"
+      button_retry_download_title: "Retry download"
       field_creation_date_title: "Creation date"
-      header_scheduled_downloads_text: "Scheduled Downloads"
       field_project_title: "Project: %{name}"
       field_file_title: "Download file: %{filename}"
     index:
@@ -50,7 +49,6 @@ en:
       logo:
         logo_alt_text: "OnDemand Loop Logo"
       navigation:
-        icon_explore_alt: "Loop Application Icon"
         icon_ood_alt: "Open OnDemand Icon"
         link_projects_text: "Projects"
         link_downloads_text: "Downloads"
@@ -59,7 +57,6 @@ en:
         link_dataverse_text: "Dataverse"
         link_zenodo_text: "Zenodo"
         link_repo_settings_text: "Settings"
-        link_explore_text: "Explore"
         link_help_text: "Help"
         link_guide_text: "Guide"
         link_sitemap_text: "Sitemap"
@@ -86,7 +83,8 @@ en:
     repo_resolver_bar:
       input_repo_url_placeholder: "Paste Repository URL"
       input_repo_url_label: "Repository URL"
-      button_submit_text: "Connect"
+      button_submit_text: "Explore"
+      button_submit_icon_alt: "OnDemand Loop Application Icon"
   projects:
     show:
       download_actions:
@@ -94,8 +92,11 @@ en:
         header_download_files_text: "Downloads"
         button_add_files_text: "Add Files"
         button_add_files_title: "Add dataset to browse and select files"
+        button_edit_download_dir_title: "Update project workspace folder"
+        button_edit_download_dir_label: "Update workspace folder"
       download_files:
         badge_repository_files_tooltip: "Repository Files"
+        button_retry_download_title: "Retry download"
         button_delete_file_title: "Delete File"
         field_completion_date_title: "Completion date"
         field_download_start_date_title: "Download start date"
@@ -124,6 +125,11 @@ en:
         modal_delete_confirmation_content: "This will remove the project from the app. Files on disk and in remote repositories will remain untouched."
       project_tabs:
         tab_download_files_text: "Download Files"
+      edit_download_dir_modal:
+        header_title: "Select Workspace Folder for Project: %{project_name}"
+        field_path_label: "Selected path"
+        button_select_text: "Select"
+        button_cancel_text: "Cancel"
       upload_actions:
         button_add_files_text: "Add Files"
         button_add_files_title: "Add Files"
@@ -141,20 +147,6 @@ en:
         modal_delete_confirmation_content: "This will remove the file from the upload bundle. The file will remain on disk and in the remote repository if already uploaded."
       breadcrumbs_text: "Projects"
       page_title: "OnDemand Loop - Project detail"
-    download_files:
-      schedule_date: "Schedule date"
-      repository_files: "Repository Files"
-      completion_date: "Completion date"
-      download_start_date: "Download start date"
-      delete_file: "Delete file"
-    project:
-      download_files: "Download Files"
-    upload_bundle:
-      schedule_date: "Schedule date"
-      repository_files: "Repository Files"
-      completion_date: "Completion date"
-      upload_start_date: "Upload start date"
-      delete_file: "Delete file"
     index:
       actions:
         actions_bar_title: "Projects"
@@ -190,6 +182,7 @@ en:
         <p><strong>OnDemand Loop</strong> is a companion application to <strong>Open OnDemand</strong>, designed to simplify the movement of research data between high-performance computing (HPC) clusters and remote repositories such as Dataverse, or Zenodo.</p>
         <p>The core goal of OnDemand Loop is to <strong>lower the barrier for non-technical users</strong> to interact with research data repositories. Following the Open OnDemand philosophy, it aims to provide a user-friendly interface for tasks that typically require complex command-line operations or custom scripts. Researchers can upload and download datasets to and from remote repositories directly from their HPC environment with minimal friction.</p>
         <p>In OnDemand Loop you organize transfers using <strong>projects</strong>. A project groups related download requests and upload bundles so you can keep track of all activity in one place. Projects are created from the home page and only one project is active at a time.</p>
+        <p>This project has been funded by <a href="https://adminops.fas.harvard.edu/FAS-HUIT-PRB" target="_blank">FAS-HUIT Project Review Board (PRB) initiative</a> Fall 2024.</p>
         <p>Start by creating a project with the <strong>Create Project</strong> button above.</p>
       button_welcome_text: "Read the Guide"
   shared:
@@ -198,23 +191,12 @@ en:
       zenodo: "Zenodo"
     button_to:
       button_accessibility_default_label: "Action"
-    file_stats_inline:
-      pending_files: "Pending files"
-      completed_files: "Completed files"
-      cancelled_files: "Cancelled files"
-      error_files: "Error files"
-      total_files: "Total files"
-    file_stats_widget:
-      pending_files: "Pending files"
-      completed_files: "Completed files"
-      cancelled_files: "Cancelled files"
-      error_files: "Error files"
-      total_files: "Total files"
     file_summary_widget:
       badge_cancelled_text: "Cancelled"
       badge_completed_text: "Completed"
       badge_error_text: "Error"
       badge_pending_text: "Pending"
+      badge_in_progress_text: "In Progress"
       badge_total_text: "Total"
     files_process_header:
       download:
@@ -237,6 +219,13 @@ en:
     ood_folder_button:
       button_open_in_ondemand_title: "Open in OnDemand"
       image_ood_icon_alt: "Open OnDemand Icon"
+    project_selection:
+      project_select_label: "Choose an existing project"
+      option_create_project_text: "➕ Create new project"
+      button_submit_aria_label: "Add selected files to project"
+      button_submit_text: "Add Files to Project"
+      button_open_project_title: "Open selected project details page"
+      button_open_project_label: "Open selected project"
     tabs_scrollable:
       button_tabs_scroll_left_label: "Scroll tabs left"
       button_tabs_scroll_right_label: "Scroll tabs right"
@@ -249,10 +238,8 @@ en:
       actions_bar_title_a11y_label: "Uploads actions bar"
       button_reload_title: "Reload"
     files:
-      badge_repo_tooltip: "External dataset"
       button_browse_file_a11y_text: "Browse file %{filename}"
       button_browse_file_title: "Browse file"
-      button_cancel_upload_a11y_text: "Cancel upload of %{filename}"
       button_cancel_upload_title: "Cancel upload"
       field_creation_date_title: "Creation date"
       field_project_title: "Project: %{name}"

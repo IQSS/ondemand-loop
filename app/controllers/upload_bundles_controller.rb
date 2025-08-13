@@ -3,7 +3,7 @@ class UploadBundlesController < ApplicationController
   include TabsHelper
 
   def create
-    project_id = params[:project_id]
+    project_id = project_id_param
     project = Project.find(project_id)
     if project.nil?
       redirect_back fallback_location: root_path, alert: t(".invalid_project", id: project_id)
@@ -31,7 +31,7 @@ class UploadBundlesController < ApplicationController
   end
 
   def edit
-    project_id = params[:project_id]
+    project_id = project_id_param
     upload_bundle_id = params[:id]
     upload_bundle = UploadBundle.find(project_id, upload_bundle_id)
     if upload_bundle.nil?
@@ -43,11 +43,11 @@ class UploadBundlesController < ApplicationController
     processor_params = params.permit(*processor.params_schema).to_h
     result = processor.edit(upload_bundle, processor_params)
 
-    render partial: result.partial, layout: false, locals: result.locals
+    render partial: result.template, layout: false, locals: result.locals
   end
 
   def update
-    project_id = params[:project_id]
+    project_id = project_id_param
     upload_bundle_id = params[:id]
     upload_bundle = UploadBundle.find(project_id, upload_bundle_id)
 
@@ -65,7 +65,7 @@ class UploadBundlesController < ApplicationController
   end
 
   def destroy
-    project_id = params[:project_id]
+    project_id = project_id_param
     upload_bundle_id = params[:id]
     upload_bundle = UploadBundle.find(project_id, upload_bundle_id)
 
@@ -76,6 +76,13 @@ class UploadBundlesController < ApplicationController
 
     upload_bundle.destroy
     redirect_back fallback_location: root_path, notice: t(".success", bundle_name: upload_bundle.name)
+  end
+
+  private
+
+  def project_id_param
+    param = params[:project_id]
+    param == ':project_id' ? request.request_parameters[:project_id] : param
   end
 
 end

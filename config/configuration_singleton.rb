@@ -27,6 +27,10 @@ class ConfigurationSingleton
       ::ConfigurationProperty.integer(:max_upload_file_size, default: 1024 * 1024 * 1024), # 1 GIGABYTE
       ::ConfigurationProperty.boolean(:zenodo_enabled, default: false),
       ::ConfigurationProperty.property(:guide_url, default: 'https://iqss.github.io/ondemand-loop/'),
+      ::ConfigurationProperty.property(:http_proxy, read_from_env: false),
+      ::ConfigurationProperty.integer(:default_connect_timeout, default: 5),
+      ::ConfigurationProperty.integer(:default_read_timeout, default: 15),
+      ::ConfigurationProperty.integer(:default_pagination_items, default: 20),
     ].freeze
   end
 

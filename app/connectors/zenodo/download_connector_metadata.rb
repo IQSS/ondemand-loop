@@ -2,16 +2,11 @@
 
 module Zenodo
   class DownloadConnectorMetadata
-    def initialize(download_file)
-      @metadata = download_file.metadata.to_h.deep_symbolize_keys
-      @metadata.each_key do |key|
-        define_singleton_method("#{key}=") { |value| @metadata[key] = value }
-        define_singleton_method(key) { @metadata[key] }
-      end
-    end
+    delegate_missing_to :metadata
 
-    def method_missing(method_name, *args, &block)
-      nil
+    def initialize(download_file)
+      @metadata = ActiveSupport::OrderedOptions.new
+      @metadata.merge!(download_file.metadata.to_h.deep_symbolize_keys)
     end
 
     def repo_name
@@ -19,11 +14,23 @@ module Zenodo
     end
 
     def files_url
-      Rails.application.routes.url_helpers.view_zenodo_record_path(record_id)
+      repo_url = Repo::RepoUrl.parse(zenodo_url)
+      Rails.application.routes.url_helpers.explore_path(
+        connector_type: ConnectorType::ZENODO.to_s,
+        server_domain: repo_url.domain,
+        object_type: type,
+        object_id: type_id,
+        server_scheme: repo_url.scheme_override,
+        server_port: repo_url.port_override
+      )
     end
 
     def to_h
-      @metadata.deep_stringify_keys
+      metadata.to_h.deep_stringify_keys
     end
+
+    private
+
+    attr_reader :metadata
   end
 end

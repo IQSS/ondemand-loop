@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Only use FileStatus.get(value). All instances are singletons.
 class FileStatus
   # Define the valid statuses as an array
   STATUS = %w[pending downloading uploading success error cancelled].freeze
@@ -26,6 +27,10 @@ class FileStatus
     @value
   end
 
+  def completed?
+    self.class.completed_statuses.include?(self)
+  end
+
   # Dynamically define constants for each status
   STATUS.each do |status|
     # Define a constant for each status (e.g., FileStatus::PENDING)
@@ -45,6 +50,10 @@ class FileStatus
 
   def self.completed_statuses
     [FileStatus::SUCCESS, FileStatus::ERROR, FileStatus::CANCELLED]
+  end
+
+  def self.retryable_statuses
+    [FileStatus::ERROR, FileStatus::CANCELLED]
   end
 
 end

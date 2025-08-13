@@ -4,7 +4,7 @@ en:
     dataverse:
       title: "Dataverse"
 
-      actions:
+      handlers:
         collection_select:
           message_success: "Collection selected: %{title}"
         connector_edit:
@@ -20,24 +20,22 @@ en:
           message_dataset_not_found: "Dataverse dataset not found: %{url}.<br />Only public and published datasets are supported"
           message_success: "Dataverse upload bundle created: %{name}"
 
+      external_tool_dataset:
+        show:
+          invalid_request_error: "Invalid Dataverse request. Dataverse URL and Dataset id are required"
+
       upload_bundle_info_bar:
         link_dataverse_title: "Open Dataverse: %{name}"
         link_collection_title: "Open Dataverse collection: %{name}"
         link_dataset_title: "Open Dataverse dataset: %{name}"
       upload_bundle_actions_bar:
-        button_edit_dataset_title: "Edit Dataset"
-        modal_edit_dataset_title: "Edit Dataset"
         button_select_collection_title: "Select Collection"
         modal_select_collection_title: "Select Dataverse Collection"
         button_dataset_form_tabs_title: "Select/Create Dataset"
         modal_dataset_form_tabs_title: "Select/Create %{collection} Dataset"
-        button_create_dataset_title: "Create Dataset"
-        modal_create_dataset_title: "Create Dataset"
-        button_select_dataset_title: "Select Dataset"
-        modal_select_dataset_title: "Select Dataset"
         button_edit_key_title: "Add/Edit API Token"
         modal_edit_key_title: "Add/Edit Dataverse API Token"
-        missing_key_disabled_features_text: "Add key to enable Collection/Dataset features"
+        missing_key_disabled_features_text: "Add token to enable Collection/Dataset features"
         link_dataverse_title: "Open Dataverse: %{name}"
         link_collection_title: "Open Dataverse collection: %{name}"
         link_dataset_title: "Open Dataverse dataset: %{name}"
@@ -64,8 +62,8 @@ en:
         field_api_key_label: "API Token"
         field_api_key_placeholder: "Enter your API Token"
         field_api_key_help: "Provide the API token required to authenticate with the Dataverse server."
-        field_key_scope_label: "Store API token for this collection only"
-        field_key_scope_help: "Leave unchecked to store this API token for all collections using the same Dataverse server."
+        field_key_scope_label: "Store API token for this bundle only"
+        field_key_scope_help: "Leave unchecked to store this API token for all upload bundles using the same Dataverse server."
         submit: "Save Changes"
         cancel: "Cancel"
       collection_select_form:
@@ -85,101 +83,100 @@ en:
         cancel: "Cancel"
       upload_connector_processor:
         upload_payload_description: "File uploaded from OnDemand Loop application"
-  dataverse:
-    collections:
-      breadcrumbs:
-        breadcrumb_dataverse_title: "Dataverse landing page"
-        breadcrumb_home_text: "Home"
-        breadcrumb_home_title: "Home"
-      collection_info:
-        button_toggle_label: "Collection details"
-        header_dataverse_text: "Dataverse collection"
-        link_open_collection_title: "Open collection on Dataverse"
-        button_create_bundle_label: "Create Collection Bundle"
-        button_create_bundle_title: "Create Collection Bundle"
-      collection_actions:
-        actions_bar_title_a11y_label: "Collection actions bar"
-        button_create_bundle_label: "Create Collection Bundle"
-        button_create_bundle_title: "Create Collection Bundle from this collection"
-        link_open_collection_title: "Open collection on Dataverse"
-      dataset_item:
-        field_files_label: "Files"
-        field_published_label: "Published"
-        field_publisher_label: "Publisher"
-        field_type_label: "Type"
-        unnamed_dataset_text: "Untitled Dataset"
-      dataverse_item:
-        field_affiliation_label: "Affiliation"
-        field_parent_label: "Parent"
-        field_published_label: "Published"
-        field_type_label: "Type"
-        unnamed_dataverse_text: "Unnamed Dataverse"
-      search_bar:
-        button_submit_text: "Search Inside"
-        field_search_label: "Search items within the collection"
-        field_search_placeholder: "Search items within the collection"
-      search_items:
-        content_no_items_found_text: "No items found."
-        header_search_results_a11y_text: "Search results"
-        paginator_bar_a11y_label: "Search result pagination"
-        paginator_page_text: "page %{page}"
-      show:
-        page_title: "OnDemand Loop - Dataverse Collection"
-    datasets:
-      breadcrumbs:
-        breadcrumb_dataverse_title: "Dataverse landing page"
-        breadcrumb_home_text: "Home"
-        breadcrumb_home_title: "Home"
-      dataset_files:
-        button_add_files_active_project_text: "Add Files to Active Project"
-        button_add_files_active_project_title: "This action will add the selected files into the Active Project"
-        button_add_files_new_project_text: "Add Files to New Project"
-        button_add_files_new_project_title: "No active project. This action will create a new project and add the selected files into the newly created project"
-        col_file_name_text: "File name"
-        col_published_text: "Published"
-        col_size_text: "Size"
-        col_storage_text: "Storage"
-        checkbox_select_all_label: "Select all files"
-        header_dataset_files_a11y_text: "Dataset files"
-        msg_empty_dataset_text: "The dataset does not contain files to download"
-        paginator_bar_a11y_label: "Search result pagination"
-        paginator_page_text: "page %{page}"
-        table_dataset_files_caption: "Dataset files"
-      dataset_info:
-        button_toggle_label: "Dataset details"
-        button_versions_toggle_label: "Dataset versions"
-        field_authors_text: "Authors:"
-        field_license_text: "License:"
-        field_publication_date_text: "Publication date:"
-        field_subjects_text: "Subjects:"
-        header_dataset_text: "Dataset"
-        header_description_text: "Description"
-        header_dataset_metadata_text: "Dataset Metadata"
-        link_open_dataset_title: "Open dataset on Dataverse"
-        button_create_bundle_label: "Create Collection Bundle"
-        button_create_bundle_title: "Create Collection Bundle"
-      versions:
-        message_missing_api_key_text: "<strong>Draft versions are restricted.</strong> Add an API token in repository settings to access draft content when available."
-        field_version_label: "Dataset version: %{version}"
-        button_repository_settings_label: "Open repository settings"
-        button_browse_version_label: "Open dataset version %{version}"
-        field_creation_date_title: "Creation date"
+      display_repo_controller:
+        message_url_not_supported: "Dataverse URL not supported: %{url}"
+      collections:
+        breadcrumbs:
+          breadcrumb_dataverse_title: "Dataverse landing page"
+          breadcrumb_home_text: "Home"
+          breadcrumb_home_title: "Home"
+        collection_info:
+          button_toggle_label: "Collection details"
+          header_dataverse_text: "Dataverse collection"
+        collection_actions:
+          actions_bar_title_a11y_label: "Collection actions bar"
+          button_create_bundle_label: "Create Collection Bundle"
+          button_create_bundle_title: "Create Collection Bundle from this collection"
+          link_open_collection_title: "Open collection on Dataverse"
+        dataset_item:
+          field_files_label: "Files"
+          field_published_label: "Published"
+          field_publisher_label: "Publisher"
+          field_type_label: "Type"
+          unnamed_dataset_text: "Untitled Dataset"
+        dataverse_item:
+          field_affiliation_label: "Affiliation"
+          field_parent_label: "Parent"
+          field_published_label: "Published"
+          field_type_label: "Type"
+          unnamed_dataverse_text: "Unnamed Dataverse"
+        search_bar:
+          button_submit_text: "Search Inside"
+          field_search_placeholder: "Search items within the collection"
+        search_items:
+          content_no_items_found_text: "No items found."
+          header_search_results_a11y_text: "Search results"
+          paginator_bar_a11y_label: "Search result pagination"
+          paginator_page_text: "page %{page}"
+        show:
+          page_title: "OnDemand Loop - Dataverse Collection"
+          dataverse_not_found: "Dataverse not found. Dataverse: %{dataverse_url} Id: %{id}"
+          dataverse_requires_authorization: "Dataverse requires authorization. Dataverse: %{dataverse_url} Id: %{id}"
+          dataverse_service_error: "Dataverse service error. Dataverse: %{dataverse_url} Id: %{id}"
+      datasets:
+        breadcrumbs:
+          breadcrumb_dataverse_title: "Dataverse landing page"
+          breadcrumb_home_text: "Home"
+          breadcrumb_home_title: "Home"
+        dataset_files:
+          col_file_name_text: "File name"
+          col_published_text: "Published"
+          col_size_text: "Size"
+          col_storage_text: "Storage"
+          checkbox_select_all_label: "Select all files"
+          header_dataset_files_a11y_text: "Dataset files"
+          msg_empty_dataset_text: "The dataset does not contain files to download"
+          paginator_bar_a11y_label: "Search result pagination"
+          paginator_page_text: "page %{page}"
+          table_dataset_files_caption: "Dataset files"
+        dataset_info:
+          button_toggle_label: "Dataset details"
+          field_authors_text: "Authors:"
+          field_license_text: "License:"
+          field_publication_date_text: "Publication date:"
+          field_subjects_text: "Subjects:"
+          header_dataset_text: "Dataset"
+        dataset_actions:
+          actions_bar_title_a11y_label: "Dataset actions bar"
+          button_create_bundle_label: "Create Upload Bundle"
+          button_create_bundle_title: "Create Upload Bundle from this dataset on the selected project"
+          link_open_dataset_title: "Open dataset on Dataverse"
+          button_open_project_title: "Open selected project details page"
+          button_open_project_label: "Open selected project"
+        search_bar:
+          button_submit_text: "Search Files"
+          field_search_placeholder: "Search files within the dataset"
+        show:
+          page_title: "OnDemand Loop - Dataverse Dataset"
+          dataset_not_found: "Dataset not found. Dataverse: %{dataverse_url} persistentId: %{persistent_id} version: %{version}"
+          dataset_requires_authorization: "Dataset requires authorization. Dataverse: %{dataverse_url} persistentId: %{persistent_id} version: %{version}"
+          dataverse_service_error: "Dataverse service error. Dataverse: %{dataverse_url} persistentId: %{persistent_id} version: %{version}"
+          dataset_files_not_found: "Dataset files not found. Dataverse: %{dataverse_url} persistentId: %{persistent_id} version: %{version} page: %{page}"
+        download:
+          error_generating_project: "Error generating project: %{errors}"
+          invalid_file_in_selection: "Invalid file in selection: %{filename} errors: %{errors}"
+          error_generating_the_download_file: "Error generating the download file"
+          files_added_to_project: "Files added to project: %{project_name}"
+      dataset_versions:
+        show:
+          message_missing_api_key_text: "<strong>Draft versions are restricted.</strong> Add an API token in repository settings to access draft content when available."
+          field_version_label: "Dataset version: %{version}"
+          button_repository_settings_label: "Open repository settings"
+          button_browse_version_label: "Open dataset version %{version}"
+          field_creation_date_title: "Creation date"
 
-      dataset_actions:
-        actions_bar_title_a11y_label: "Dataset actions bar"
-        button_create_bundle_label: "Create Collection Bundle"
-        button_create_bundle_title: "Create Collection Bundle from this dataset"
-        link_open_dataset_title: "Open dataset on Dataverse"
-      search_bar:
-        button_submit_text: "Search Files"
-        field_search_label: "Search files within the dataset"
-        field_search_placeholder: "Search files within the dataset"
-      show:
-        page_title: "OnDemand Loop - Dataverse Dataset"
-    external_tool:
-      dataset:
-        invalid_request_error: "Invalid Dataverse request. Dataverse URL and Dataset id are required"
-    landing_page:
+  dataverse:
+    landing:
       installation_items:
         button_submit_text: "Search"
         field_search_placeholder: "Search installations"
@@ -187,13 +184,12 @@ en:
         paginator_page_text: "page %{page}"
         msg_no_items_text: "No items found."
       index:
-        breadcrumb_dataverse_title: "Dataverse landing page"
         breadcrumb_home_text: "Home"
         breadcrumb_home_title: "Home"
         image_dataverse_icon_alt: "Dataverse icon"
         image_dataverse_icon_aria_label: "Visit the Dataverse project homepage"
         page_title: "OnDemand Loop - Dataverse Landing page"
-
+        dataverse_installations_service_error: "Dataverse Installations service error."
     restrictions:
       dataset_file:
         unavailable_message: "Restricted or embargoed files cannot be downloaded"

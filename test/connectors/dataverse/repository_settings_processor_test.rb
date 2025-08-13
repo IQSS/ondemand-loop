@@ -21,6 +21,6 @@ class Dataverse::RepositorySettingsProcessorTest < ActiveSupport::TestCase
     repo = RepoRegistry.repo_db.get('https://demo.org')
     result = @processor.update(repo, { repo_url: 'https://demo.org', auth_key: 'k' })
     assert_equal 'k', RepoRegistry.repo_db.get('https://demo.org').metadata.auth_key
-    assert_equal({ notice: I18n.t('connectors.dataverse.actions.repository_settings_update.message_success', url: 'https://demo.org', type: repo.type) }, result.message)
+    assert_equal({ notice: I18n.t('connectors.dataverse.handlers.repository_settings_update.message_success', url: 'https://demo.org', type: repo.type) }, result.message)
   end
 end

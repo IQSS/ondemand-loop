@@ -1,9 +1,22 @@
 {
   "id": 1,
   "submitted": false,
+  "created": "2025-06-18T22:25:16.278906+00:00",
   "links": {"bucket": "https://zenodo.org/api/files/123"},
-  "metadata": {"title": "My Deposition"},
+  "metadata": {
+    "title": "My Deposition",
+    "description": "Deposition description"
+  },
   "files": [
-    {"id": "10", "key": "file.txt", "size": 1234, "links": {"self": "https://zenodo.org/api/files/123/file.txt"}}
+    {
+      "id": "10",
+      "filename": "file.txt",
+      "filesize": 1234,
+      "checksum": "md5:abc",
+      "links": {
+        "self": "https://zenodo.org/api/deposit/depositions/1/files/10",
+        "download": "https://zenodo.org/api/files/123/file.txt"
+      }
+    }
   ]
 }

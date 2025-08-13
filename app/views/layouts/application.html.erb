@@ -20,7 +20,6 @@
 
   <body>
     <%= render partial: '/layouts/nav/navigation' %>
-    <%= render partial: '/layouts/project_bar', locals: { project: @active_project }  if @active_project %>
     <%= render partial: '/layouts/repo_resolver_bar' %>
     <h1 class="visually-hidden"><%= content_for(:title) || 'OnDemand Loop' %></h1>
     <div id="main_container" class="container-md content mt-4" role="main">

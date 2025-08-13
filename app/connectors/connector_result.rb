@@ -23,8 +23,16 @@ class ConnectorResult
     data[:redirect_url]
   end
 
-  def partial
-    data[:partial]
+  def redirect?
+    redirect_url.present?
+  end
+
+  def redirect_back?
+    data[:redirect_back] == true
+  end
+
+  def template
+    data[:template]
   end
 
   def locals

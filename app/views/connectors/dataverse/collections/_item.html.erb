@@ -1,0 +1,7 @@
+<% if item.type == 'dataset' %>
+  <%= render partial: 'connectors/dataverse/collections/dataset_item', locals: { item: item, dataverse_url: dataverse_url, repo_url: repo_url } %>
+<% end %>
+<% if item.type == 'dataverse' %>
+  <%= render partial: 'connectors/dataverse/collections/dataverse_item', locals: { item: item, dataverse_url: dataverse_url, repo_url: repo_url } %>
+<% end %>
+

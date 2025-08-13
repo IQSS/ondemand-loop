@@ -1,8 +1,12 @@
 
 <% file_status = OpenStruct.new(project_progress_data(project.status_summary)) %>
+<% file_browser_id = project_download_dir_browser_id(project) %>
 <div class="card mb-3 shadow-sm rounded overflow-hidden">
   <div class="card-header d-flex justify-content-between align-items-center bg-light-darker">
     <div class="d-flex align-items-center gap-3">
+
+      <div class="d-flex align-items-center gap-2">
+      <!-- open workspace folder -->
       <a href="<%= files_app_url(project.download_dir) %>"
          target="_blank"
          class="btn btn-sm btn-outline-secondary"
@@ -11,6 +15,23 @@
         <i class="bi bi-folder-fill" aria-hidden="true"></i>
         <span class="visually-hidden"><%= t('.button_open_downloads_folder_title') %></span>
       </a>
+      <!-- edit workspace folder -->
+      <div data-controller="project-download-dir"
+           data-project-download-dir-browser-id-value="<%= file_browser_id %>">
+        <button type="button" class="btn btn-sm btn-outline-secondary"
+                data-controller="lazy-loader"
+                data-lazy-loader-container-id-value="<%= file_browser_id %>"
+                data-lazy-loader-url-value="<%= file_browser_path(path: project.download_dir) %>"
+                data-action="click->lazy-loader#load click->project-download-dir#open"
+                title="<%= t('.button_edit_download_dir_title') %>"
+                aria-label="<%= t('.button_edit_download_dir_label') %>">
+          <i class="bi bi-pencil-square" aria-hidden="true"></i>
+          <span class="visually-hidden"><%= t('.button_edit_download_dir_label') %></span>
+        </button>
+        <%= render partial: '/projects/show/edit_download_dir_modal', locals: { project: project, file_browser_id: file_browser_id } %>
+      </div>
+      </div>
+      <!-- download metadata -->
       <div class="d-flex flex-column">
         <h3 class="mb-0 h5"><%= t('.header_download_files_text') %></h3>
         <small class="text-muted"><%= project.download_dir %></small>

@@ -43,7 +43,8 @@ module Dataverse
       CollectionResponse.new(response.body)
     end
 
-    def search_collection_items(collection_id, page: 1, per_page: 10, include_collections: true, include_datasets: true, query: nil)
+    def search_collection_items(collection_id, page: 1, per_page: nil, include_collections: true, include_datasets: true, include_drafts: false, query: nil)
+      per_page ||= Configuration.default_pagination_items
       url = SearchCollectionItemsUrlBuilder.new(
         collection_id: collection_id,
         page: page,
@@ -52,7 +53,10 @@ module Dataverse
         include_datasets: include_datasets,
         query: query
       ).build
-      response = @http_client.get(url)
+
+      headers = {}
+      headers[AUTH_HEADER] = @api_key if include_drafts && @api_key
+      response = @http_client.get(url, headers: headers)
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?
       raise "Error getting collection items: #{response.status} - #{response.body}" unless response.success?

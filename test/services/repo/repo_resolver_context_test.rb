@@ -8,7 +8,7 @@ class Repo::RepoResolverContextTest < ActiveSupport::TestCase
 
     assert_equal input, context.input
     assert context.parsed_input
-    assert_instance_of UrlParser, context.parsed_input
+    assert_instance_of Repo::RepoUrl, context.parsed_input
     assert_instance_of Common::HttpClient, context.http_client
     assert context.repo_db
   end

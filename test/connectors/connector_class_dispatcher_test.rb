@@ -55,6 +55,7 @@ class ConnectorClassDispatcherTest < ActiveSupport::TestCase
     assert_instance_of Dataverse::RepositorySettingsProcessor, result
   end
 
+
   test 'raises ConnectorNotSupported for unknown connector type' do
     file = OpenStruct.new(type: :unknown)
     error = assert_raises(ConnectorClassDispatcher::ConnectorNotSupported) do

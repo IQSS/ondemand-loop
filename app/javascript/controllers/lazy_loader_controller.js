@@ -46,7 +46,7 @@ export default class extends Controller {
         this.container.classList.remove("d-none")
 
         fetch(this.urlValue, {
-            headers: { "Accept": "text/html" }
+            headers: { "Accept": "text/html", 'X-Requested-With': 'XMLHttpRequest' }
         }).then(response => {
                 if (!response.ok) {
                     const contentType = response.headers.get('content-type');

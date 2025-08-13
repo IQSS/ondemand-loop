@@ -4,26 +4,67 @@ class Zenodo::DownloadConnectorStatusTest < ActiveSupport::TestCase
   include ModelHelper
 
   def setup
-    @tmp_dir = Dir.mktmpdir
-    @project = create_project
-    @file = create_download_file(@project)
-    @file.size = 100
+    @file = DownloadFile.new
+    @file.type = ConnectorType::ZENODO
+    @file.project_id = 'project_id'
+    @file.filename = 'not_found.txt'
+    @file.status = FileStatus::PENDING
+
+    project = Project.new
+    project.download_dir = fixture_path('/dataverse/download_connector_status')
+    Project.stubs(:find).with(@file.project_id).returns(project)
+
+  end
+
+  test "should return 0 for missing files" do
     @file.status = FileStatus::DOWNLOADING
-    @file.metadata = {temp_location: File.join(@tmp_dir, 'temp'), download_location: File.join(@tmp_dir, 'dest')}
-    File.write(@file.metadata[:temp_location], 'a' * 50)
-    @status = Zenodo::DownloadConnectorStatus.new(@file)
+    @file.size = 200
+    refute File.exist?(@file.download_location)
+    refute File.exist?(@file.download_tmp_location)
+
+    target = Dataverse::DownloadConnectorStatus.new(@file)
+    assert_equal 0, target.download_progress
   end
 
-  def teardown
-    FileUtils.rm_rf(@tmp_dir)
+  test "should calculated percentage for pending files when tmp file exists" do
+    @file.status = FileStatus::PENDING
+    @file.filename = '100bytes_partial_file.txt'
+    @file.size = 200
+    assert File.exist?(@file.download_tmp_location)
+    refute File.exist?(@file.download_location)
+
+    target = Dataverse::DownloadConnectorStatus.new(@file)
+    assert_equal 50, target.download_progress
   end
 
-  test 'calculates progress from temp file' do
-    assert_equal 50, @status.download_progress
+  test "should return 100 if the destination file already created" do
+    @file.status = FileStatus::DOWNLOADING
+    @file.filename = '100bytes_file.txt'
+    @file.size = 200
+    assert File.exist?(@file.download_location)
+
+    target = Dataverse::DownloadConnectorStatus.new(@file)
+    assert_equal 100, target.download_progress
   end
 
-  test 'returns 100 when destination exists' do
-    FileUtils.touch(@file.metadata[:download_location])
-    assert_equal 100, @status.download_progress
+  test "should return 100 for completed files" do
+    @file.status = FileStatus::SUCCESS
+    @file.filename = 'completed_file.txt'
+    @file.size = 100
+    assert File.exist?(@file.download_location)
+    refute File.exist?(@file.download_tmp_location)
+
+    target = Dataverse::DownloadConnectorStatus.new(@file)
+    assert_equal 100, target.download_progress
+  end
+
+  test "should calculated percentage for downloading files when tmp file exists" do
+    @file.status = FileStatus::DOWNLOADING
+    @file.filename = '100bytes_partial_file.txt'
+    @file.size = 200
+    assert File.exist?(@file.download_tmp_location)
+
+    target = Dataverse::DownloadConnectorStatus.new(@file)
+    assert_equal 50, target.download_progress
   end
 end

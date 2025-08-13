@@ -1,0 +1,80 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
+      <div class="flex-grow-1 d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-center gap-2">
+          <h2 class="mb-0 text-nowrap h5">
+            <%= t('.header_dataset_text') %> <%= dataset.data.dataset_persistent_id %>
+          </h2>
+          <% if dataset.version.present? %>
+            <a class="d-flex align-items-center text-decoration-none text-secondary"
+               data-controller="utils--icon-toggle lazy-loader"
+               data-utils--icon-toggle-icon-on-value="bi-plus-square"
+               data-utils--icon-toggle-icon-off-value="bi-dash-square"
+               data-action="click->utils--icon-toggle#toggle click->lazy-loader#toggle"
+               data-lazy-loader-container-id-value="dataset-versions-content"
+               data-lazy-loader-url-value="<%= link_to_explore(ConnectorType::DATAVERSE, repo_url,
+                                                              type: 'dataset_versions', id: dataset.data.dataset_persistent_id) %>"
+               data-lazy-loader-reload-on-toggle-value="false"
+               data-lazy-loader-display-errors-value="true"
+               href="#"
+               role="button"
+               aria-expanded="false"
+               aria-controls="dataset-versions">
+              <i data-utils--icon-toggle-target="icon" class="bi bi-plus-square me-2 transition" aria-hidden="true"></i>
+              <span class="badge text-bg-info"><%= dataset.version %></span>
+            </a>
+          <% end %>
+        </div>
+        <span class="text-muted" style="font-size: 0.8rem;">
+          <strong><%= dataset.metadata_field('title').to_s %></strong>
+        </span>
+        <% if dataset.version.present? %>
+          <div class="py-2 d-none position-relative" id="dataset-versions-content">
+            <div class="d-flex justify-content-center align-items-center" style="min-height: 3rem;">
+              <div class="spinner-border text-secondary" role="status" aria-hidden="true"></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="mt-2">
+      <a class="d-flex align-items-center text-decoration-none text-secondary"
+         data-bs-toggle="collapse"
+         data-controller="utils--icon-toggle"
+         data-utils--icon-toggle-icon-on-value="bi-plus-square"
+         data-utils--icon-toggle-icon-off-value="bi-dash-square"
+         data-action="click->utils--icon-toggle#toggle"
+         href="#dataset-details"
+         role="button"
+         aria-expanded="false"
+         aria-controls="dataset-details">
+        <i data-utils--icon-toggle-target="icon" class="bi bi-plus-square me-2 transition" id="toggle-icon" aria-hidden="true"></i>
+        <span><%= t('.button_toggle_label') %></span>
+      </a>
+      <div class="collapse" id="dataset-details">
+        <div class="pt-2">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <%= strip_tags(dataset.description) %>
+            </li>
+            <li class="list-group-item">
+              <strong><%= t('.field_publication_date_text') %></strong> <%= dataset.data.publication_date %>
+            </li>
+            <li class="list-group-item">
+              <strong><%= t('.field_authors_text') %></strong> <%= dataset.authors %>
+            </li>
+            <li class="list-group-item">
+              <strong><%= t('.field_subjects_text') %></strong> <%= dataset.subjects %>
+            </li>
+            <li class="list-group-item">
+              <strong><%= t('.field_license_text') %></strong> <%= image_tag dataset.data.license&.icon_uri, alt: dataset.data.license&.name if dataset.data.license&.icon_uri %>
+              <%= dataset.data.license.name %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

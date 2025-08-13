@@ -45,16 +45,20 @@ module Dataverse
         return response(FileStatus::CANCELLED, 'file upload cancelled')
       end
 
-      md5_valid = true
+      success = true
       if response_body
         upload_response = Dataverse::UploadFileResponse.new(response_body)
-        server_md5 = upload_response.data.files.first&.data_file&.md5
-        md5_valid = verify(source_location, server_md5)
+        if Common::FileUtils.new.zip_file?(source_location)
+          log_info('Zip file detected. Skipping MD5 check', {filename: file.filename})
+        else
+          server_md5 = upload_response.data.files.first&.data_file&.md5
+          success = verify(source_location, server_md5)
+        end
       end
 
-      log_info('Upload completed', {id: file.id, md5_valid: md5_valid})
+      log_info('Upload completed', {id: file.id, success: success})
 
-      if md5_valid
+      if success
         response(FileStatus::SUCCESS, 'file upload completed')
       else
         response(FileStatus::ERROR, 'file upload completed, md5 check failed')

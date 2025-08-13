@@ -9,19 +9,19 @@ module Zenodo
     end
 
     def create(project, request_params)
-      Zenodo::Actions::UploadBundleCreate.new.create(project, request_params)
+      Zenodo::Handlers::UploadBundleCreate.new.create(project, request_params)
     end
 
     def edit(upload_bundle, request_params)
-      ConnectorResult.new(partial: '/connectors/zenodo/connector_edit_form', locals: { upload_bundle: upload_bundle })
+      ConnectorResult.new(template: '/connectors/zenodo/connector_edit_form', locals: { upload_bundle: upload_bundle })
     end
 
     def update(upload_bundle, request_params)
       case request_params[:form].to_s
       when 'deposition_fetch'
-        Zenodo::Actions::DepositionFetch.new.update(upload_bundle, request_params)
+        Zenodo::Handlers::DepositionFetch.new.update(upload_bundle, request_params)
       else
-        Zenodo::Actions::ConnectorEdit.new.update(upload_bundle, request_params)
+        Zenodo::Handlers::ConnectorEdit.new.update(upload_bundle, request_params)
       end
     end
 

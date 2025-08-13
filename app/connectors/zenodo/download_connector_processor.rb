@@ -14,27 +14,44 @@ module Zenodo
     end
 
     def download
-      project = Project.find(file.project_id)
       download_url = connector_metadata.download_url
-      download_location = File.join(project.download_dir, file.filename)
-      temp_location = "#{download_location}.part"
+      download_location = file.download_location
+      temp_location = file.download_tmp_location
       FileUtils.mkdir_p(File.dirname(download_location))
 
-      connector_metadata.download_location = download_location
       connector_metadata.temp_location = temp_location
-      file.update({metadata: connector_metadata.to_h})
+      file.update({ metadata: connector_metadata.to_h })
+
+      repo_info = RepoRegistry.repo_db.get(connector_metadata.zenodo_url)
+      api_key = repo_info&.metadata&.auth_key
+      headers = {}
+      headers[Zenodo::ApiService::AUTH_HEADER] = "Bearer #{api_key}" if api_key.present?
 
       download_processor = Download::BasicHttpRubyDownloader.new(
         download_url,
         download_location,
         temp_location,
-        headers: {}
+        headers: headers,
       )
-      download_processor.download do |_context|
-        cancelled
+      begin
+        download_processor.download do |_context|
+          cancelled
+        end
+      rescue StandardError => e
+        connector_metadata.partial_downloads = download_processor.partial_downloads
+        file.update({ metadata: connector_metadata.to_h })
+        FileUtils.rm_f(temp_location) if download_processor.partial_downloads == false
+        log_error('Download failed', { id: file.id, url: download_url, partial_downloads: download_processor.partial_downloads }, e)
+        return response(FileStatus::ERROR, 'file download failed')
       end
 
-      return response(FileStatus::CANCELLED, 'file download cancelled') if cancelled
+      connector_metadata.partial_downloads = download_processor.partial_downloads
+      file.update({ metadata: connector_metadata.to_h })
+
+      if cancelled
+        FileUtils.rm_f(temp_location) if download_processor.partial_downloads == false
+        return response(FileStatus::CANCELLED, 'file download cancelled')
+      end
 
       response(FileStatus::SUCCESS, 'file download completed')
     end
@@ -54,3 +71,4 @@ module Zenodo
     end
   end
 end
+

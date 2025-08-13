@@ -47,4 +47,11 @@ class Dataverse::UploadConnectorProcessorTest < ActiveSupport::TestCase
     res = @processor.process(req)
     assert_equal ctx, res[:status]
   end
+
+  test 'upload returns cancelled when flagged' do
+    Upload::MultipartHttpRubyUploader.any_instance.stubs(:upload).yields({total:1, uploaded:0}).returns(nil)
+    @processor.instance_variable_set(:@cancelled, true)
+    result = @processor.upload
+    assert_equal FileStatus::CANCELLED, result.status
+  end
 end

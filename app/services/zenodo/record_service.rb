@@ -2,7 +2,7 @@ module Zenodo
   class RecordService
     include LoggingCommon
 
-    def initialize(zenodo_url = 'https://zenodo.org', http_client: Common::HttpClient.new(base_url: zenodo_url))
+    def initialize(zenodo_url = Zenodo::ZenodoUrl::DEFAULT_URL, http_client: Common::HttpClient.new(base_url: zenodo_url))
       @zenodo_url = zenodo_url
       @http_client = http_client
     end

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
     # delete /projects/:project_id/downloads/files/:id => delete download file
     # post /projects/:project_id/downloads/files/:id/cancel => cancel download file
-    resources :download_files, path: 'downloads/files', only: [ :destroy ] do
+    resources :download_files, path: 'downloads/files', only: [:destroy, :update] do
       post :cancel, on: :member
     end
 
@@ -50,19 +50,13 @@ Rails.application.routes.draw do
   # SITEMAP
   get '/sitemap' => 'sitemap#index', as: :sitemap
 
-  # DATAVERSE ROUTES
-  get "integrations/dataverse/external_tool/dataset" => "dataverse/external_tool#dataset"
+  # EXPLORE ROUTE
+  get "/explore/:connector_type/*server_domain/:object_type/*object_id" => "explore#show", as: :explore
+  post "/explore/:connector_type/*server_domain/:object_type/*object_id" => "explore#create"
 
-  post "/view/dataverse/download/dataset" => "dataverse/datasets#download", as: :download_dataverse_dataset_files
-  get "/view/dataverse" => "dataverse/landing_page#index", as: :view_dataverse_landing
-  get "/view/dataverse/*dv_hostname/datasets/*persistent_id/versions" => "dataverse/dataset_versions#versions", as: :view_dataverse_dataset_versions, format: false
-  get "/view/dataverse/*dv_hostname/datasets/*persistent_id" => "dataverse/datasets#show", as: :view_dataverse_dataset, format: false
-  get "/view/dataverse/*dv_hostname/dataverses/:id" => "dataverse/collections#show", as: :view_dataverse, format: false
-
-  # ZENODO ROUTES
-  post "/view/zenodo/download/record" => "zenodo/records#download", as: :download_zenodo_record_files
-  get "/view/zenodo" => "zenodo/landing_page#index", as: :view_zenodo_landing
-  get "/view/zenodo/records/:id" => "zenodo/records#show", as: :view_zenodo_record, format: false
+  # CONNECT ROUTES
+  get "/connect/:connector_type/:object_type" => "connect#show", as: :connect_repo
+  post "/connect/:connector_type/:object_type" => "connect#handle"
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

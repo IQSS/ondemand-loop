@@ -1,0 +1,53 @@
+<div class="card dataset-header">
+  <div class="card-header d-flex align-items-center">
+    <%= files_page.to_s %>
+    <nav aria-label="<%= t('connectors.dataverse.datasets.dataset_files.paginator_bar_a11y_label') %>" class="ms-auto">
+      <div class="d-flex align-items-center gap-2">
+        <%= link_to_dataset_prev_page(repo_url, persistent_id, dataset.version, files_page, {class: "text-decoration-none"}) %>
+        <%= t('connectors.dataverse.datasets.dataset_files.paginator_page_text', page: files_page.page) %>
+        <%= link_to_dataset_next_page(repo_url, persistent_id, dataset.version, files_page, {class: "text-decoration-none"}) %>
+      </div>
+    </nav>
+  </div>
+  <% if files_page.total_count > 0 %>
+    <%= form_with url: link_to_explore(ConnectorType::DATAVERSE, repo_url, type: 'datasets', id: dataset.data.dataset_persistent_id), id: 'dataset-download-files-form', method: :post, local: true, class: "p-3 rounded bg-light", data: {controller: "select-files-project", "select-files-project-external-targets-value": '["dataset_create_bundle"]'} do %>
+      <%= hidden_field_tag 'version', dataset.version %>
+      <%= hidden_field_tag 'page', files_page.page %>
+      <%= hidden_field_tag 'query', files_page.query %>
+      <div class="row">
+        <h2 id="search-results-heading" class="visually-hidden"><%= t('connectors.dataverse.datasets.dataset_files.header_dataset_files_a11y_text') %></h2>
+        <table class="table table-bordered table-hover align-middle">
+          <caption class="visually-hidden"><%= t('connectors.dataverse.datasets.dataset_files.table_dataset_files_caption') %></caption>
+          <thead class="table-light">
+          <tr>
+            <th scope="col" class="text-nowrap p-0 align-middle" style="width: 1%;">
+              <div class="d-flex justify-content-center align-items-center" style="min-width: 3rem;">
+                <label class="visually-hidden" for="select_all_files">
+                  <%= t('connectors.dataverse.datasets.dataset_files.checkbox_select_all_label') %>
+                </label>
+                <input type="checkbox" id="select_all_files" class="form-check-input m-0" data-select-files-project-target="selectAll" data-action="select-files-project#toggleSelectAll">
+              </div>
+            </th>
+            <th scope="col"><%= t('connectors.dataverse.datasets.dataset_files.col_file_name_text') %></th>
+            <th scope="col"><%= t('connectors.dataverse.datasets.dataset_files.col_size_text') %></th>
+            <th scope="col"><%= t('connectors.dataverse.datasets.dataset_files.col_storage_text') %></th>
+            <th scope="col"><%= t('connectors.dataverse.datasets.dataset_files.col_published_text') %></th>
+          </tr>
+          </thead>
+          <tbody>
+            <%= render partial: "connectors/dataverse/datasets/dataset_file_row", collection: files_page.files, as: :file %>
+          </tbody>
+        </table>
+      </div>
+      <div class="text-center">
+        <%= render partial: '/shared/project_selection' %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="list-group list-group-flush">
+      <span class="list-group-item list-group-item-action" role="status">
+        <%= t('connectors.dataverse.datasets.dataset_files.msg_empty_dataset_text') %>
+      </span>
+    </div>
+  <% end %>
+</div>
