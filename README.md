@@ -21,8 +21,6 @@ The core goal of OnDemand Loop is to **lower the barrier for non-technical users
 > - Minor UI/UX inconsistencies are expected as the product evolves.
 > - We welcome feedback and bug reports to help us improve!
 
-This project has been funded by [FAS-HUIT Project Review Board (PRB) initiative](https://adminops.fas.harvard.edu/FAS-HUIT-PRB) Fall 2024.
-
 For complete documentation please see the [OnDemand Loop Guide](https://iqss.github.io/ondemand-loop/).
 
 ### License
@@ -64,3 +62,6 @@ Password: ood
 ## ⚙️ Available Make Commands
 A list of `make` commands is maintained in the [Development Guide](https://iqss.github.io/ondemand-loop/development_guide/local_environment/#make-commands).
 
+## 📝 Additional Notes
+
+This project has been funded by [FAS-HUIT Project Review Board (PRB) initiative](https://adminops.fas.harvard.edu/FAS-HUIT-PRB).
