@@ -44,6 +44,6 @@ This documentation introduces the entire application. It is divided into the fol
 
 Together, these sections take you from basic usage through administration and development.
 
-!!! note
+!!! info "Acknowledgment:"
 
     This project has been funded by [FAS-HUIT Project Review Board (PRB) initiative](https://adminops.fas.harvard.edu/FAS-HUIT-PRB).

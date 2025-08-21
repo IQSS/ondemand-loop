@@ -62,6 +62,6 @@ Password: ood
 ## ⚙️ Available Make Commands
 A list of `make` commands is maintained in the [Development Guide](https://iqss.github.io/ondemand-loop/development_guide/local_environment/#make-commands).
 
-## 📝 Additional Notes
+---
 
-This project has been funded by [FAS-HUIT Project Review Board (PRB) initiative](https://adminops.fas.harvard.edu/FAS-HUIT-PRB).
+<sub>This project has been funded by [FAS-HUIT Project Review Board (PRB) initiative](https://adminops.fas.harvard.edu/FAS-HUIT-PRB).</sub>
