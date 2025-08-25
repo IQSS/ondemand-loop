@@ -20,4 +20,5 @@ class ConnectorResultTest < ActiveSupport::TestCase
     assert result.redirect_back?
     refute result.redirect?
   end
+
 end

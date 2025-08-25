@@ -58,6 +58,17 @@
             <%= hidden_field_tag :redirect_back, true if on_explore? %>
           <% end %>
 
+          <button type="button"
+                  class="btn btn-sm btn-outline-dark"
+                  title="History"
+                  data-controller="modal"
+                  data-action="click->modal#load"
+                  data-modal-url-value="<%= widgets_path('repository_items_tabs') %>"
+                  data-modal-title-value="History"
+                  data-modal-id-value="global-modal">
+            <i class="bi bi-database-add me-1"></i>
+          </button>
+
         </div>
       </div>
 

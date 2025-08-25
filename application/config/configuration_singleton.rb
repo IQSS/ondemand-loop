@@ -46,6 +46,10 @@ class ConfigurationSingleton
     File.join(metadata_root, 'repos', 'repo_db.yml')
   end
 
+  def repo_history_file
+    File.join(metadata_root, 'repos', 'repo_history.yml')
+  end
+
   def config
     @config ||= read_config
   end

@@ -17,6 +17,10 @@ module Dataverse
       field.value if field
     end
 
+    def title
+      metadata_field("title")
+    end
+
     def authors
       authors = metadata_field("author")
       return "" if authors.nil?

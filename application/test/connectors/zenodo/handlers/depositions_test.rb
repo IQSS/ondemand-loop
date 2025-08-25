@@ -20,15 +20,23 @@ class Zenodo::Handlers::DepositionsTest < ActiveSupport::TestCase
     RepoRegistry.repo_db.stubs(:get).with('https://zenodo.org').returns(repo_info)
 
     service = mock('service')
-    dataset = OpenStruct.new(title: 'Deposition Title')
+    dataset = OpenStruct.new(title: 'Deposition Title', draft?: true, version: 'draft')
     service.expects(:find_deposition).with('10').returns(dataset)
     Zenodo::DepositionService.expects(:new).with('https://zenodo.org', api_key: 'KEY').returns(service)
 
+    url = Zenodo::Concerns::ZenodoUrlBuilder.build_deposition_url('https://zenodo.org', '10')
+    RepoRegistry.repo_history.expects(:add_repo).with(
+      url,
+      ConnectorType::ZENODO,
+      title: 'Deposition Title',
+      note: 'draft'
+    )
     result = @explorer.show(repo_url: @repo_url)
     assert result.success?
     assert_equal dataset, result.locals[:dataset]
     assert_equal 'Deposition Title', result.locals[:dataset_title]
-    assert_equal Zenodo::Concerns::ZenodoUrlBuilder.build_deposition_url('https://zenodo.org', '10'), result.locals[:external_zenodo_url]
+    assert_equal url, result.locals[:external_zenodo_url]
+    assert_equal dataset, result.resource
   end
 
   test 'show returns error when api key missing' do

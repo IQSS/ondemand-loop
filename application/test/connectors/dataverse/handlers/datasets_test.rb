@@ -19,16 +19,25 @@ class Dataverse::Handlers::DatasetsTest < ActiveSupport::TestCase
   end
 
   test 'show renders dataset when found' do
-    dataset = OpenStruct.new(version: '1', data: OpenStruct.new(dataset_persistent_id: 'pid'))
+    dataset = OpenStruct.new(version: '1', title: 'Title', data: OpenStruct.new(dataset_persistent_id: 'pid'))
     files_page = OpenStruct.new(total_count: 0, page: 1, query: nil, files: [])
     service = mock('service')
     service.expects(:find_dataset_version_by_persistent_id).with('pid', version: nil).returns(dataset)
     service.expects(:search_dataset_files_by_persistent_id).with('pid', version: '1', page: 1, query: nil).returns(files_page)
     Dataverse::DatasetService.expects(:new).with('https://dataverse.org', api_key: 'key').returns(service)
+    expected_url = Dataverse::Concerns::DataverseUrlBuilder.build_dataset_url('https://dataverse.org', 'pid', version: '1')
+    RepoRegistry.repo_history.expects(:add_repo).with(
+      expected_url,
+      ConnectorType::DATAVERSE,
+      title: 'Title',
+      note: '1'
+    )
+
     res = @explorer.show(repo_url: @repo_url)
     assert res.success?
     assert_equal dataset, res.locals[:dataset]
     assert_equal files_page, res.locals[:files_page]
+    assert_equal dataset, res.resource
   end
 
   test 'show returns error when dataset missing' do

@@ -25,6 +25,7 @@ class Zenodo::DepositionResponseTest < ActiveSupport::TestCase
     assert_equal 'https://zenodo.org/api/files/123/file.txt', file.download_link
     assert_equal 'https://zenodo.org/api/files/123/file.txt', file.download_url
     assert @resp.draft?
+    assert_equal 'draft', @resp.version
     assert_nil @resp.record_id
   end
 end

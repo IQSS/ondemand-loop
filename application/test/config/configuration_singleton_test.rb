@@ -114,6 +114,11 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     assert_equal expected, @config_instance.repo_db_file
   end
 
+  test 'should return path to repo_history_file based on metadata_root' do
+    expected = File.join(@config_instance.metadata_root, 'repos', 'repo_history.yml')
+    assert_equal expected, @config_instance.repo_history_file
+  end
+
   test 'rails_env should fall back to development if no ENV vars are set' do
     ENV.delete('RAILS_ENV')
     ENV.delete('RACK_ENV')

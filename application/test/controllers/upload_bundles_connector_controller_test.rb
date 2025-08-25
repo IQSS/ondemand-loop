@@ -16,7 +16,7 @@ class UploadBundlesConnectorControllerTest < ActionDispatch::IntegrationTest
 
     processor = mock('proc')
     processor.stubs(:params_schema).returns([:remote_repo_url])
-    processor.stubs(:create).returns(ConnectorResult.new(resource: UploadBundle.new, message: {notice: 'ok'}, success: true))
+    processor.stubs(:create).returns(ConnectorResult.new(redirect_url: root_path, message: {notice: 'ok'}, success: true))
     ConnectorClassDispatcher.stubs(:upload_bundle_connector_processor).with(ConnectorType::ZENODO).returns(processor)
 
     post connector_project_upload_bundles_url(project.id), params: { remote_repo_url: 'u' }
@@ -56,11 +56,12 @@ class UploadBundlesConnectorControllerTest < ActionDispatch::IntegrationTest
 
     processor = mock('proc')
     processor.stubs(:params_schema).returns([:remote_repo_url])
-    processor.stubs(:create).returns(ConnectorResult.new(resource: UploadBundle.new({id: 'bundle_id'}), message: {notice: 'expected message'}, success: true))
+    redirect = project_path(id: project.id.to_s)
+    processor.stubs(:create).returns(ConnectorResult.new(redirect_url: redirect, message: {notice: 'expected message'}, success: true))
     ConnectorClassDispatcher.stubs(:upload_bundle_connector_processor).with(ConnectorType::ZENODO).returns(processor)
     post connector_project_upload_bundles_url(':project_id'), params: { project_id: project.id.to_s, remote_repo_url: 'u' }
 
-    assert_redirected_to project_path(id: project.id.to_s, anchor: 'tab-link-bundle_id')
+    assert_redirected_to redirect
     follow_redirect!
     assert_match 'expected message', flash[:notice]
   end

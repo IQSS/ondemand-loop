@@ -6,6 +6,7 @@ class Zenodo::Handlers::UploadBundleCreateTest < ActiveSupport::TestCase
   def setup
     @project = create_project
     @action = Zenodo::Handlers::UploadBundleCreate.new
+    RepoRegistry.repo_history.stubs(:add_repo)
   end
 
   test 'params schema includes expected keys' do
@@ -86,4 +87,24 @@ class Zenodo::Handlers::UploadBundleCreateTest < ActiveSupport::TestCase
     assert_equal 'cid', result.resource.metadata[:concept_id]
   end
 
+test 'create adds repo history' do
+  url_data = OpenStruct.new(deposition?: true, record?: false, domain: 'zenodo.org',
+                            zenodo_url: 'https://zenodo.org', deposition_id: '10')
+  Zenodo::ZenodoUrl.stubs(:parse).returns(url_data)
+
+  repo_info = OpenStruct.new(metadata: OpenStruct.new(auth_key: 'KEY'))
+  RepoRegistry.repo_db.stubs(:get).with('https://zenodo.org').returns(repo_info)
+
+  dep = OpenStruct.new(title: 'Depo', bucket_url: 'b', draft?: true, version: 'draft')
+  service = mock('service')
+  service.stubs(:find_deposition).with('10').returns(dep)
+  Zenodo::DepositionService.stubs(:new).returns(service)
+
+  Common::FileUtils.any_instance.stubs(:normalize_name).returns('bundle')
+  UploadBundle.any_instance.stubs(:save)
+
+  RepoRegistry.repo_history.expects(:add_repo).with('https://zenodo.org/deposit/10', ConnectorType::ZENODO, title: 'Depo', note: 'draft')
+
+  @action.create(@project, object_url: 'https://zenodo.org/deposit/10')
+end
 end

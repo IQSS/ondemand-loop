@@ -32,6 +32,10 @@ module Zenodo
       false
     end
 
+    def version
+      draft? ? 'draft' : 'published'
+    end
+
     private
 
     def encode_url_path(url)

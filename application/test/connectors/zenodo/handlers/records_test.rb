@@ -17,14 +17,22 @@ class Zenodo::Handlers::RecordsTest < ActiveSupport::TestCase
 
   test 'show renders dataset when found' do
     service = mock('service')
-    dataset = OpenStruct.new(title: 'Record Title')
+    dataset = OpenStruct.new(title: 'Record Title', draft?: false, version: 'published')
     service.expects(:find_record).with('123').returns(dataset)
     Zenodo::RecordService.expects(:new).with('https://zenodo.org').returns(service)
+    url = Zenodo::Concerns::ZenodoUrlBuilder.build_record_url('https://zenodo.org', '123')
+    RepoRegistry.repo_history.expects(:add_repo).with(
+      url,
+      ConnectorType::ZENODO,
+      title: 'Record Title',
+      note: 'published'
+    )
     res = @explorer.show(repo_url: @repo_url)
     assert res.success?
     assert_equal dataset, res.locals[:dataset]
     assert_equal 'Record Title', res.locals[:dataset_title]
-    assert_equal Zenodo::Concerns::ZenodoUrlBuilder.build_record_url('https://zenodo.org', '123'), res.locals[:external_zenodo_url]
+    assert_equal url, res.locals[:external_zenodo_url]
+    assert_equal dataset, res.resource
   end
 
   test 'show returns error when dataset missing' do

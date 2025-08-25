@@ -36,11 +36,18 @@ module Zenodo::Handlers
       metadata[:bucket_url] = deposition.bucket_url
       metadata[:draft] = deposition.draft?
       upload_bundle.update({ metadata: metadata })
-
       log_info('Dataset selected', { upload_bundle: upload_bundle.id, deposition_id: deposition.id, record_id: deposition.record_id })
+
+      RepoRegistry.repo_history.add_repo(
+        upload_bundle.connector_metadata.title_url,
+        ConnectorType::ZENODO,
+        title: deposition.title,
+        note: deposition.version
+      )
 
       ConnectorResult.new(
         message: { notice: I18n.t('connectors.zenodo.handlers.dataset_select.message_success', title: deposition.title) },
+        resource: deposition,
         success: true
       )
     rescue Zenodo::ApiService::UnauthorizedException => e

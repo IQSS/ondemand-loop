@@ -21,10 +21,18 @@ class Dataverse::Handlers::CollectionsTest < ActiveSupport::TestCase
     Dataverse::CollectionService.expects(:new).with(@repo_url.server_url).returns(service)
     service.expects(:find_collection_by_id).with(':root').returns(@collection)
     service.expects(:search_collection_items).with(':root', has_entries(page: 1, query: nil)).returns(@search_response)
+    expected_url = Dataverse::Concerns::DataverseUrlBuilder.build_collection_url(@repo_url.server_url, ':root')
+    RepoRegistry.repo_history.expects(:add_repo).with(
+      expected_url,
+      ConnectorType::DATAVERSE,
+      title: @collection.data.name,
+      note: 'collection'
+    )
     res = @explorer.show(repo_url: @repo_url, page: 1)
     assert res.success?
     assert_equal @collection, res.locals[:collection]
     assert_equal @search_response, res.locals[:search_result]
+    assert_equal @collection, res.resource
   end
 
   test 'show returns not found message when missing data' do

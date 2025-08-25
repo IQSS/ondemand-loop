@@ -29,6 +29,13 @@ module Dataverse::Handlers
             success: false
           )
         end
+        collection_url = Dataverse::Concerns::DataverseUrlBuilder.build_collection_url(dataverse_url, @collection_id)
+        RepoRegistry.repo_history.add_repo(
+          collection_url,
+          ConnectorType::DATAVERSE,
+          title: collection.data.name,
+          note: 'collection'
+        )
         ConnectorResult.new(
           template: '/connectors/dataverse/collections/show',
           locals: {
@@ -37,6 +44,7 @@ module Dataverse::Handlers
             dataverse_url: dataverse_url,
             repo_url: request_params[:repo_url]
           },
+          resource: collection,
           success: true
         )
       rescue Dataverse::CollectionService::UnauthorizedException => e
