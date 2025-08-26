@@ -6,11 +6,6 @@ module ProjectsHelper
     Current.settings.user_settings.active_project.to_s == project_id
   end
 
-  def select_project_list_name(project)
-    return project.name unless active_project?(project.id.to_s)
-    "#{project.name} (#{t('helpers.projects.active_project_text')})"
-  end
-
   # Returns all projects ordered with the active project first (if present).
   def select_project_list
     active_id = Current.settings.user_settings.active_project.to_s

@@ -42,21 +42,6 @@ class ProjectsHelperTest < ActionView::TestCase
     refute active_project?('456')
   end
 
-  test 'select_project_list_name appends active text for active project' do
-    project = OpenStruct.new(id: 1, name: 'Project A')
-    Current.settings = OpenStruct.new(user_settings: OpenStruct.new(active_project: '1'))
-    self.stubs(:t).with('helpers.projects.active_project_text').returns('Active')
-
-    assert_equal 'Project A (Active)', select_project_list_name(project)
-  end
-
-  test 'select_project_list_name returns name for inactive project' do
-    project = OpenStruct.new(id: 1, name: 'Project A')
-    Current.settings = OpenStruct.new(user_settings: OpenStruct.new(active_project: '2'))
-
-    assert_equal 'Project A', select_project_list_name(project)
-  end
-
   test 'select_project_list moves active project to top' do
     project1 = OpenStruct.new(id: 1, name: 'Project A')
     project2 = OpenStruct.new(id: 2, name: 'Project B')

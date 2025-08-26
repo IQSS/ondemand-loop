@@ -5,7 +5,7 @@
   type = on_project_index? ? 'form' : 'json'
 %>
 <div id="<%= id %>" class="shadow-sm sticky-top bg-primary-subtle" style="z-index: 500;">
-  <div class="d-flex align-items-center justify-content-between py-2 px-5 gap-5">
+  <div class="d-flex align-items-center justify-content-between py-2 px-4 gap-5">
     <div class="d-flex align-items-center gap-3">
       <div class="d-flex flex-column gap-1">
         <label for="repo_resolver_project_select" class="form-label mb-0 small">
@@ -58,22 +58,12 @@
             <%= hidden_field_tag :redirect_back, true if on_explore? %>
           <% end %>
 
-          <button type="button"
-                  class="btn btn-sm btn-outline-dark"
-                  title="History"
-                  data-controller="modal"
-                  data-action="click->modal#load"
-                  data-modal-url-value="<%= widgets_path('repository_items_tabs') %>"
-                  data-modal-title-value="History"
-                  data-modal-id-value="global-modal">
-            <i class="bi bi-database-add me-1"></i>
-          </button>
-
         </div>
       </div>
 
     </div>
 
+    <div class="d-flex align-items-center flex-grow-1 gap-2">
     <%= render layout: "shared/button_to", locals: {
       url: url,
       form_class: 'd-flex align-items-center gap-2 flex-grow-1',
@@ -83,11 +73,11 @@
     } do %>
 
       <div class="input-group">
-  <span class="input-group-text bg-white">
-    <%=  image_tag('doi.svg', alt: 'DOI', class: 'me-1', height: '20') %>
-    <%=  image_tag('dataverse.svg', alt: 'Dataverse', class: 'me-1', height: '16') %>
-    <%=  image_tag('zenodo.svg', alt: 'Zenodo', class: 'me-1', height: '16') %>
-  </span>
+        <span class="input-group-text bg-white">
+          <%=  image_tag('doi.svg', alt: 'DOI', class: 'me-1', height: '20') %>
+          <%=  image_tag('dataverse.svg', alt: 'Dataverse', class: 'me-1', height: '16') %>
+          <%=  image_tag('zenodo.svg', alt: 'Zenodo', class: 'me-1', height: '16') %>
+        </span>
         <input type="text"
                name="repo_url"
                id="<%= input_id %>"
@@ -95,8 +85,20 @@
                placeholder="<%= t('layouts.app_actions_bar.input_repo_url_placeholder') %>"
                aria-label="<%= t('layouts.app_actions_bar.input_repo_url_label') %>">
       </div>
-
     <% end %>
+
+    <button type="button"
+            class="btn btn-primary-dark"
+            title="<%= t('widgets.repository_items_tabs.button_open_modal_title') %>"
+            data-controller="modal"
+            data-action="click->modal#load"
+            data-modal-url-value="<%= widgets_path('repository_items_tabs') %>"
+            data-modal-title-value="<%= t('widgets.repository_items_tabs.modal_title') %>"
+            data-modal-id-value="global-modal">
+      <i class="bi bi-folder-symlink-fill" style="font-size: 1.1rem;"></i>
+      <span class="visually-hidden"><%= t('widgets.repository_items_tabs.button_open_modal_title') %></span>
+    </button>
+    </div>
 
   </div>
 </div>

@@ -272,9 +272,10 @@ en:
       modal_delete_confirmation_content: "This will remove the repository settings from the app. No local or remote file will be affected"
   widgets:
     repository_items_tabs:
-      tab_global_label: "Recent for All Projects"
-      tab_project_label: "Recent for This Project"
-      field_creation_date_title: "Creation date"
+      button_open_modal_title: "Open repository activity"
+      modal_title: "Recent Repository Activity"
+      tab_global_label: "Across All Projects"
+      field_date_title: "Last used date"
       section_item_actions_label: "Item actions"
-      button_explore_item_title: "Explore item"
-      button_open_repository_title: "Open repository"
+      button_explore_item_title: "Browse repository"
+      button_open_repository_title: "Open repository on website"
