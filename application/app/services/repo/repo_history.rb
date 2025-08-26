@@ -36,7 +36,7 @@ module Repo
       alias_method :to_hash, :to_h
     end
 
-    DEFAULT_MAX_ENTRIES = 100
+    DEFAULT_MAX_ENTRIES = 50
 
     attr_reader :db_path, :max_entries
 
