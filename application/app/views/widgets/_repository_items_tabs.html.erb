@@ -1,6 +1,6 @@
 <%# Renders tabs for repository history items in a modal %>
 <%
-  service = HistoryService.new
+  service = Repo::RepoActivityService.new
   global = service.global
 %>
 <div id="repository-items-tabs">
