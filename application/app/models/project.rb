@@ -123,13 +123,4 @@ class Project < ApplicationDiskRecord
     metadata_file = File.join(directory, 'metadata.yml')
     load_from_file(metadata_file)
   end
-
-  def self.load_from_file(filename)
-    data = YAML.safe_load(File.read(filename), permitted_classes: [Hash], aliases: true)
-    new.tap do |project|
-      ATTRIBUTES.each { |attr| project.send("#{attr}=", data[attr]) }
-    end
-  rescue StandardError
-    nil
-  end
 end

@@ -2,6 +2,7 @@
 
 module Repo
   class RepoDb
+    include YamlStorageCommon
     include LoggingCommon
     include DateTimeCommon
 
@@ -60,7 +61,7 @@ module Repo
         last_updated: Time.now.to_s,
         metadata: metadata
       )
-      persist!
+      store_to_file(db_path)
       log_info('Entry added', {repo_url: repo_url, type: type})
     end
 
@@ -71,7 +72,8 @@ module Repo
       entry.last_updated = Time.now.to_s
       entry[:metadata] ||= {}
       entry[:metadata] = entry[:metadata].merge(metadata).compact_blank
-      persist!
+
+      store_to_file(db_path)
       log_info('Entry updated', { repo_url: repo_url, type: entry.type })
     end
 
@@ -79,7 +81,7 @@ module Repo
       return unless @data.key?(repo_url)
 
       entry = @data.delete(repo_url)
-      persist!
+      store_to_file(db_path)
       log_info('Entry deleted', { repo_url: repo_url, type: entry&.type })
     end
 
@@ -93,10 +95,14 @@ module Repo
 
     private
 
+    public def to_yaml
+      @data.transform_values{ |v| v.to_h.deep_stringify_keys }.to_yaml
+    end
+
     def load_data
       return {} unless File.exist?(db_path)
 
-      raw = YAML.load_file(db_path) || {}
+      raw = self.class.load_from_file(db_path) || {}
       raw.each_with_object({}) do |(url, v), data|
         v = v.symbolize_keys
         data[url] = Entry.new(
@@ -107,11 +113,6 @@ module Repo
           metadata: v[:metadata] || {}
         )
       end
-    end
-
-    def persist!
-      FileUtils.mkdir_p(File.dirname(db_path))
-      File.write(db_path, YAML.dump(@data.transform_values(&:to_h)))
     end
   end
 end

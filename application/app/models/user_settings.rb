@@ -1,4 +1,5 @@
 class UserSettings
+  include YamlStorageCommon
   include LoggingCommon
 
   def initialize(path: nil)
@@ -14,28 +15,21 @@ class UserSettings
     # Ensure @user_settings is initialized
     user_settings
     @user_settings.deep_merge!(new_user_settings.deep_symbolize_keys)
-    save_user_settings
+    store_to_file(path)
   end
 
   private
 
   attr_reader :path
 
-  def read_user_settings
-    user_settings = {}
-    return user_settings unless path.exist?
-
-    begin
-      yml = YAML.safe_load(path.read) || {}
-      user_settings = yml.deep_symbolize_keys
-    rescue StandardError => e
-      log_error('Cannot read or parse settings file', {path: path}, e)
-    end
-
-    user_settings
+  def to_yaml
+    @user_settings.deep_stringify_keys.to_yaml
   end
 
-  def save_user_settings
-    File.open(path.to_s, 'w') { |file| file.write(@user_settings.deep_stringify_keys.to_yaml) }
+  def read_user_settings
+    return {} unless path.exist?
+
+    yml = self.class.load_from_file(path) || {}
+    yml.deep_symbolize_keys
   end
 end

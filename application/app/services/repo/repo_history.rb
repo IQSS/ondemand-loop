@@ -5,6 +5,7 @@ require 'fileutils'
 
 module Repo
   class RepoHistory
+    include YamlStorageCommon
     include DateTimeCommon
     include LoggingCommon
 
@@ -64,7 +65,7 @@ module Repo
       end
 
       @data = new_data.freeze
-      persist!
+      store_to_file(db_path)
       log_info('Repo added', { repo_url: url, type: type })
       new_entry
     end
@@ -79,10 +80,15 @@ module Repo
 
     private
 
+    public def to_yaml
+      @data.map { |e| e.to_h.stringify_keys }.to_yaml
+    end
+
     def load_data
       return [] unless File.exist?(db_path)
 
-      raw = YAML.load_file(db_path) || []
+
+      raw = self.class.load_from_file(db_path) || []
       raw.map do |v|
         v = v.symbolize_keys
         Entry.new(
@@ -94,12 +100,6 @@ module Repo
           last_added: v[:last_added]
         )
       end
-    end
-
-    def persist!
-      FileUtils.mkdir_p(File.dirname(db_path))
-      payload = @data.map { |e| e.to_h.stringify_keys }
-      File.write(db_path, YAML.dump(payload))
     end
   end
 end
