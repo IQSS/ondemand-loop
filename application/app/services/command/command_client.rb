@@ -15,8 +15,7 @@ module Command
     def request(request, timeout: 1)
       socket = nil
       unless File.exist?(@socket_path)
-        log_error('Socket file not found', { socket: @socket_path })
-        return Response.error(status: 521, message: 'Socket file not found')
+        return Response.error(status: 521, message: 'Socket file not found. Server not running')
       end
 
       log_info('Sending command', { socket: @socket_path, command: request.command })
