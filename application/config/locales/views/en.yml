@@ -61,6 +61,11 @@ en:
         link_guide_text: "Guide"
         link_sitemap_text: "Sitemap"
         link_restart_text: "Restart"
+        link_reset_text: "Reset Application"
+        reset_confirmation_title: "Confirm Reset"
+        reset_confirmation_subtitle: "This action cannot be undone"
+        reset_confirmation_content: "This will remove all projects and file metadata from the app, returning it to a brand new state. Files on disk and in remote repositories will remain untouched."
+        reset_confirmation_button_text: "Reset"
     flash_messages:
       button_close_label: "Close"
     footer:
@@ -190,6 +195,16 @@ en:
         <p>This project has been funded by <a href="https://adminops.fas.harvard.edu/FAS-HUIT-PRB" target="_blank">FAS-HUIT Project Review Board (PRB) initiative</a>.</p>
         <p>Start by creating a project with the <strong>Create Project</strong> button above.</p>
       button_welcome_text: "Read the Guide"
+      beta_notice_title: "Beta Notice"
+      beta_notice_html: >
+        <p><strong>OnDemand Loop</strong> is currently in <strong>Beta</strong> status. While we strive to provide a stable experience, please be aware of the following:</p>
+        <ul class="mb-0">
+        <li>You may encounter occasional bugs or incomplete features.</li>
+        <li>User interface and workflow changes may occur without backward compatibility guarantees.</li>
+        <li>Minor UI/UX inconsistencies are expected as the product evolves.</li>
+        <li>If you encounter errors or inconsistencies, you can try using the <strong>Help → Reset</strong> option to return your instance to a clean state.</li>
+        <li>We welcome <a href="https://github.com/IQSS/ondemand-loop/issues" target="_blank">feedback and bug reports</a> to help us improve!</li>
+        </ul>
   shared:
     breadcrumbs:
       home: "Home"

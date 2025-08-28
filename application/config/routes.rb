@@ -52,8 +52,8 @@ Rails.application.routes.draw do
   get '/detached_process/status', to: 'detached_process#status'
   # FILE BROWSER
   get '/file_browser', to: 'file_browser#index'
-  #WIDGETS
-  get '/widgets/*widget_path', to: 'widgets#show', via: [:get], as: 'widgets'
+  # WIDGETS
+  match '/widgets/*widget_path', to: 'widgets#show', via: [:get, :post], as: 'widgets'
   # SITEMAP
   get '/sitemap' => 'sitemap#index', as: :sitemap
 

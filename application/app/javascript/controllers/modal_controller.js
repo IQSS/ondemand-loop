@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { showFlash } from 'utils/flash_message'
 
 export default class extends Controller {
-    static targets = ["title", "subtitle", "content", "spinner", "confirmButton", "confirmText"]
+    static targets = ["title", "subtitle", "content", "spinner", "confirmText"]
     static values = { url: String, id: String, title: String }
 
     connect() {
