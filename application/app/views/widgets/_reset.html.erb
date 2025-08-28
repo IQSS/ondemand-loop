@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= valid_reset_request ? "Reset Completed" : "Invalid Reset Request" %></title>
+  <title><%= valid_reset_request ? t('.success_page_title') : t('.error_page_title') %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application", defer: true %>
@@ -20,13 +20,8 @@
         <% ResetService.new.reset %>
         <div class="alert alert-success border-2 rounded-3 shadow-sm text-center" role="alert">
           <i class="bi bi-check-circle-fill fs-3 text-success mb-2"></i>
-          <h4 class="alert-heading">Reset Completed</h4>
-          <p>Your personal <em>OnDemand Loop</em> instance has been successfully reset.</p>
-          <p>The application will automatically restart in <strong>3 seconds</strong>.</p>
-          <hr>
-          <p class="mb-0">
-            If the page does not refresh, <a href="<%= restart_url %>">click here to continue</a>.
-          </p>
+          <h4 class="alert-heading"><%= t('.success_content_title') %></h4>
+          <%= t('.success_content_html', url: restart_url) %>
         </div>
         <!-- Success redirect -->
         <script>
@@ -37,13 +32,8 @@
       <% else %>
         <div class="alert alert-danger border-2 rounded-3 shadow-sm text-center" role="alert">
           <i class="bi bi-exclamation-octagon-fill fs-3 text-danger mb-2"></i>
-          <h4 class="alert-heading">Invalid Request</h4>
-          <p>The reset request is only allowed via POST.</p>
-          <p>You will be redirected to the home page in <strong>3 seconds</strong>.</p>
-          <hr>
-          <p class="mb-0">
-            If the page does not refresh, <a href="<%= root_path %>">click here to continue</a>.
-          </p>
+          <h4 class="alert-heading"><%= t('.error_content_title') %></h4>
+          <%= t('.error_content_html', url: root_path) %>
         </div>
         <!-- Error redirect -->
         <script>

@@ -157,7 +157,7 @@
     <div id="process-status"
          data-controller="lazy-loader"
          aria-live="polite"
-         aria-label="Background process status"
+         aria-label="<%= t(".detached_process_widget_label") %>"
          data-lazy-loader-url-value="<%= detached_process_status_path %>"
          data-lazy-loader-stop-on-inactive-value="true"
          data-lazy-loader-interval-value="<%= ::Configuration.detached_process_status_interval %>">
@@ -166,7 +166,7 @@
            style="min-width: 100px; height: 100%;">
         <span class="text-light spinner-border spinner-border-sm"
               role="status"
-              aria-label="Loading process status"></span>
+              aria-label="<%= t(".detached_process_spinner_label") %>"></span>
       </div>
     </div>
   </div>

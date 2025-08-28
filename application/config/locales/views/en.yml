@@ -66,6 +66,8 @@ en:
         reset_confirmation_subtitle: "This action cannot be undone"
         reset_confirmation_content: "This will remove all projects and file metadata from the app, returning it to a brand new state. Files on disk and in remote repositories will remain untouched."
         reset_confirmation_button_text: "Reset"
+        detached_process_widget_label: "Detached process status widget"
+        detached_process_spinner_label: "Detached process status loading"
     flash_messages:
       button_close_label: "Close"
     footer:
@@ -294,3 +296,22 @@ en:
       section_item_actions_label: "Item actions"
       button_explore_item_title: "Browse repository"
       button_open_repository_title: "Open repository on website"
+    reset:
+      success_page_title: "Reset Completed"
+      success_content_title: "Reset Completed"
+      success_content_html: >
+        <p>Your personal <em>OnDemand Loop</em> instance has been successfully reset.</p>
+        <p>The application will automatically restart in <strong>3 seconds</strong>.</p>
+        <hr>
+        <p class="mb-0">
+        If the page does not refresh, <a href="%{url}">click here to continue</a>.
+        </p>
+      error_page_title: "Invalid Reset Request"
+      error_content_title: "Invalid Request"
+      error_content_html: >
+        <p>The reset request is only allowed via POST.</p>
+        <p>You will be redirected to the home page in <strong>3 seconds</strong>.</p>
+        <hr>
+        <p class="mb-0">
+        If the page does not refresh, <a href="%{url}">click here to continue</a>.
+        </p>
