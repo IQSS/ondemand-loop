@@ -45,6 +45,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to project_url(id: 'generated_project')
     follow_redirect!
     assert_match "Project generated_project created", flash[:notice]
+    assert_equal 1, Event.for_project('generated_project').count
   end
 
   test "should create project with provided name" do
@@ -53,6 +54,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to project_url(id: 'manual_project')
     follow_redirect!
     assert_match "Project manual_project created", flash[:notice]
+    assert_equal 1, Event.for_project('manual_project').count
   end
 
   test "should create project and redirect back when redirect_back param provided" do
@@ -63,6 +65,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
     follow_redirect!
     assert_match "Project hidden_project created", flash[:notice]
+    assert_equal 1, Event.for_project('hidden_project').count
   end
 
   test "should set active project" do
@@ -71,6 +74,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to projects_url
     follow_redirect!
     assert_match "#{@project.name} is now the active project.", flash[:notice]
+    assert_equal 1, Event.for_project(@project.id).count
   end
 
   test "should set active project via JSON" do
@@ -79,6 +83,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     json = JSON.parse(@response.body)
     assert_equal @project.id, json["id"]
+    assert_equal 1, Event.for_project(@project.id).count
   end
 
   test "should not set active project if not found" do
@@ -86,6 +91,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to projects_url
     follow_redirect!
     assert_match "Project missing-id not found", flash[:alert]
+    assert_equal 0, Event.for_project('missing-id').count
   end
 
   test "should not set active project via JSON if not found" do
@@ -93,6 +99,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :not_found
     json = JSON.parse(@response.body)
     assert_match "missing-id", json["error"]
+    assert_equal 0, Event.for_project('missing-id').count
   end
 
   test "should destroy project" do
@@ -141,6 +148,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     json = JSON.parse(@response.body)
     assert_equal "Updated JSON Name", json["name"]
     assert_equal new_dir, json["download_dir"]
+    assert_equal 1, Event.for_project(@project.id).count
   end
 
   test "should not update missing project via HTML" do
@@ -201,6 +209,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unprocessable_entity
     json = JSON.parse(@response.body)
     assert_equal ["Invalid fields"], json["error"]
+    assert_equal 0, Event.for_project(@project.id).count
   end
 
 end

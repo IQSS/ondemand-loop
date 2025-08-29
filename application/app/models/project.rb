@@ -60,6 +60,14 @@ class Project < ApplicationDiskRecord
       end
   end
 
+  def all_events
+    Event.for_project(id)
+  end
+
+  def events
+    all_events.select { |event| event.entity_type == 'project' }
+  end
+
   def update(attributes = {})
     attrs = attributes.with_indifferent_access
     old_dir = download_dir
@@ -99,6 +107,10 @@ class Project < ApplicationDiskRecord
 
   def self.project_metadata_dir(id)
     File.join(metadata_directory, id)
+  end
+
+  def self.events_file(id)
+    File.join(project_metadata_dir(id), 'events.yml')
   end
 
   private

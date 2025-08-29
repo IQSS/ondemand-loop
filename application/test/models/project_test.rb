@@ -219,6 +219,26 @@ class ProjectTest < ActiveSupport::TestCase
     end
   end
 
+  test "saving events creates file and loads them" do
+    in_temp_directory do
+      project = create_valid_project
+      assert project.save
+
+      evt1 = Event.new(project_id: project.id, entity_id: project.id, message: 'project_created', entity_type: 'project', metadata: {})
+      evt2 = Event.new(project_id: project.id, entity_id: project.id, message: 'project_updated', entity_type: 'project', metadata: {})
+      assert evt1.save
+      assert evt2.save
+
+      events_path = Project.events_file(project.id)
+      assert File.exist?(events_path), 'events file was not created'
+
+      saved_project = Project.find(project.id)
+      loaded_events = saved_project.events
+      assert_equal 2, loaded_events.count
+      assert_equal project.id, loaded_events.last.entity_id
+    end
+  end
+
   test "update download_dir fails when files pending or downloading" do
     in_temp_directory do |dir|
       project = create_valid_project

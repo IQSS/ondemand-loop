@@ -129,6 +129,8 @@ en:
         button_delete_project_title: "Delete Project"
         button_open_project_folder_label: "Open Project workspace folder"
         button_open_project_folder_title: "Open Project workspace folder"
+        button_view_events_title: "View Project Events"
+        button_view_events_label: "View Events"
         field_creation_date_title: "Creation date"
         modal_delete_confirmation_title: "Delete Project"
         modal_delete_confirmation_content: "This will remove the project from the app. Files on disk and in remote repositories will remain untouched."
@@ -207,6 +209,11 @@ en:
         <li>If you encounter errors or inconsistencies, you can try using the <strong>Help → Reset</strong> option to return your instance to a clean state.</li>
         <li>We welcome <a href="https://github.com/IQSS/ondemand-loop/issues" target="_blank">feedback and bug reports</a> to help us improve!</li>
         </ul>
+  events:
+    table:
+      header_message: "Message"
+      header_creation_date: "Creation date"
+      header_metadata: "Metadata"
   shared:
     breadcrumbs:
       home: "Home"
