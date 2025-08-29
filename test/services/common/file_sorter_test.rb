@@ -69,5 +69,28 @@ module Common
       shuffled = expected.shuffle(random: Random.new(1))
       assert_equal expected, @sorter.most_relevant(shuffled)
     end
+
+    test 'most_recent sorts files by available date descending' do
+      times = (1..4).map { |i| format('2023-01-%02dT00:00:00', i) }
+
+      end_date_file = create_download_file(@project)
+      end_date_file.end_date = times[3]
+
+      start_date_file = create_download_file(@project)
+      start_date_file.start_date = times[2]
+
+      creation_date_file = create_download_file(@project)
+      creation_date_file.creation_date = times[1]
+
+      no_date_file = create_download_file(@project)
+      no_date_file.end_date = nil
+      no_date_file.start_date = nil
+      no_date_file.creation_date = nil
+
+      expected = [end_date_file, start_date_file, creation_date_file, no_date_file]
+      shuffled = expected.shuffle(random: Random.new(1))
+
+      assert_equal expected, @sorter.most_recent(shuffled)
+    end
   end
 end

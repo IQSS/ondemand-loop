@@ -2,14 +2,25 @@
   <div class="d-flex align-items-center gap-2">
     <h2 class="mb-0 me-2 fs-4 h5">Repositories</h2>
   </div>
-<%= render partial: 'shared/inline_field_submit', locals: {
-  url: repository_settings_path,
-  type: 'form',
-  field_name: 'repo_url',
-  label: t('.button_add_repository_label'),
-  placeholder: t('.button_add_repository_placeholder'),
-  title: t('.button_add_repository_title'),
-  icon: 'bi bi-file-earmark-plus-fill',
-} %>
+  <div data-controller="update-inline-field"
+       data-update-inline-field-url-value="<%= repository_settings_path %>"
+       data-update-inline-field-field-name-value="repo_url"
+       data-update-inline-field-type-value="form"
+       class="flex-grow-1 d-inline-flex justify-content-end align-items-center gap-2">
+    <div data-update-inline-field-target="display">
+      <%= link_to '#', class: 'btn btn-outline-dark btn-sm', title: t('.button_add_repository_title'), role: 'button', data: { action: 'click->update-inline-field#edit' } do %>
+        <i class="bi bi-file-earmark-plus-fill" aria-hidden="true"></i>
+        <span class="ps-1"><%= t('.button_add_repository_label') %></span>
+      <% end %>
+    </div>
+    <%= render partial: 'shared/update_inline_field_form', locals: {
+          aria_label: t('.button_add_repository_placeholder'),
+          save_title: t('shared.inline_field_submit.button_submit_title'),
+          cancel_title: t('shared.inline_field_submit.button_cancel_title'),
+          input_value: '',
+          field_name: 'repo_url',
+          placeholder: t('.button_add_repository_placeholder')
+        } %>
+  </div>
 </div>
 <hr class="mt-2">

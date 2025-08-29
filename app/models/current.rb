@@ -1,4 +1,4 @@
 class Current < ActiveSupport::CurrentAttributes
-  attribute :settings
-
+  DYNAMIC_ATTRIBUTES = %i[active_project].freeze
+  attribute :settings, *DYNAMIC_ATTRIBUTES
 end

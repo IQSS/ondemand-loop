@@ -1,0 +1,44 @@
+<%
+  aria_label = local_assigns.fetch(:aria_label, '')
+  save_title = local_assigns.fetch(:save_title, '')
+  cancel_title = local_assigns.fetch(:cancel_title, '')
+  input_value = local_assigns.fetch(:input_value, '')
+  field_name = local_assigns.fetch(:field_name)
+  placeholder = local_assigns.fetch(:placeholder, nil)
+%>
+<div data-update-inline-field-target="form"
+     class="d-flex align-items-center gap-2 d-none position-relative"
+     style="flex-grow: 1000;"
+     role="group"
+     aria-label="<%= aria_label %>">
+
+  <%= text_field_tag field_name, input_value,
+                     class: 'form-control form-control-sm flex-grow-1',
+                     data: { update_inline_field_target: 'input label' },
+                     placeholder: placeholder.presence,
+                     'aria-label': placeholder.presence %>
+
+  <button class="btn btn-sm btn-outline-primary"
+          data-action="click->update-inline-field#save"
+          data-update-inline-field-target="label"
+          title="<%= save_title %>">
+    <i class="bi bi-check-lg" aria-hidden="true"></i>
+    <span class="visually-hidden"><%= save_title %></span>
+  </button>
+
+  <button class="btn btn-sm btn-outline-danger"
+          type="button"
+          data-action="click->update-inline-field#cancel"
+          data-update-inline-field-target="label"
+          title="<%= cancel_title %>">
+    <i class="bi bi-x-lg" aria-hidden="true"></i>
+    <span class="visually-hidden"><%= cancel_title %></span>
+  </button>
+
+  <div data-update-inline-field-target="spinner" aria-live="polite"
+       class="position-absolute top-50 start-50 translate-middle d-none">
+    <div class="spinner-border spinner-border-sm" role="status">
+      <span class="visually-hidden"><%= t('shared.inline_field_submit.spinner_loading_label') %></span>
+    </div>
+  </div>
+</div>

@@ -35,7 +35,7 @@
                     title="<%= t('connectors.dataverse.upload_bundle_actions_bar.button_select_collection_title') %>"
                     data-controller="modal"
                     data-action="click->modal#load"
-                    data-modal-url-value="<%= edit_project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id, form: 'collection_select') %>"
+                    data-modal-url-value="<%= edit_project_upload_bundle_connector_path(upload_bundle.project_id, upload_bundle.id, form: 'collection_select') %>"
                     data-modal-title-value="<%= t('connectors.dataverse.upload_bundle_actions_bar.modal_select_collection_title') %>"
                     data-modal-id-value="global-modal">
               <i class="bi bi-database-add me-1"></i><%= t('connectors.dataverse.upload_bundle_actions_bar.button_select_collection_title') %>
@@ -48,7 +48,7 @@
                     title="<%= t('connectors.dataverse.upload_bundle_actions_bar.button_dataset_form_tabs_title') %>"
                     data-controller="modal"
                     data-action="click->modal#load"
-                    data-modal-url-value="<%= edit_project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id, form: 'dataset_form_tabs') %>"
+                    data-modal-url-value="<%= edit_project_upload_bundle_connector_path(upload_bundle.project_id, upload_bundle.id, form: 'dataset_form_tabs') %>"
                     data-modal-title-value="<%= t('connectors.dataverse.upload_bundle_actions_bar.modal_dataset_form_tabs_title', collection: upload_bundle.connector_metadata.collection_title) %>"
                     data-modal-id-value="global-modal">
               <i class="bi bi-file-earmark-plus me-1" aria-hidden="true"></i><%= t('connectors.dataverse.upload_bundle_actions_bar.button_dataset_form_tabs_title') %>
@@ -74,7 +74,7 @@
             title="<%= t(".button_edit_key_title") %>"
             data-controller="modal"
             data-action="click->modal#load"
-            data-modal-url-value="<%= edit_project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id) %>"
+            data-modal-url-value="<%= edit_project_upload_bundle_connector_path(upload_bundle.project_id, upload_bundle.id) %>"
             data-modal-title-value="<%= t(".modal_edit_key_title") %>"
             data-modal-id-value="global-modal">
       <i class="bi bi-pencil-fill" aria-hidden="true"></i>

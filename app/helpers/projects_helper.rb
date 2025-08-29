@@ -1,20 +1,22 @@
+# frozen_string_literal: true
+
 module ProjectsHelper
 
   def active_project?(project_id)
     Current.settings.user_settings.active_project.to_s == project_id
   end
 
+  # Returns all projects ordered with the active project first (if present).
   def select_project_list
-    [].tap do |list|
-      Project.all.each do |project|
-        if active_project?(project.id.to_s)
-          project.name = "#{project.name} (#{t('helpers.projects.active_project_text')})"
-          list.unshift(project)
-        else
-          list << project
-        end
-      end
-    end
+    active_id = Current.settings.user_settings.active_project.to_s
+    # partition returns [active, others]; flatten keeps active project first
+    Project.all.partition { |project| project.id.to_s == active_id }.flatten
+  end
+
+  def most_recent_explore_url(project)
+    files = project.download_files
+    most_recent = Common::FileSorter.new.most_recent(files).first
+    most_recent.connector_metadata.files_url if most_recent
   end
 
   def project_header_class(active)

@@ -1,6 +1,4 @@
-require 'net/http'
-require 'uri'
-require 'json'
+# frozen_string_literal: true
 
 module Common
   # Common::HttpClient

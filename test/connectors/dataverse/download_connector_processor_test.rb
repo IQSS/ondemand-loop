@@ -35,7 +35,8 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
   end
 
   test 'should return success response when download and md5 match' do
-    RepoRegistry.repo_db = Repo::RepoDb.new(db_path: Tempfile.new('repo').path)
+    repo_db = Repo::RepoDb.new(db_path: Tempfile.new('repo').path)
+    ::Configuration.stubs(:repo_db).returns(repo_db)
     mock_downloader = mock('downloader')
     Download::BasicHttpRubyDownloader
       .expects(:new).with('http://example.com/api/access/datafile/456?format=original',
@@ -114,7 +115,8 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
   end
 
   test 'keeps temp file and flags restart when download fails with range support' do
-    RepoRegistry.repo_db = Repo::RepoDb.new(db_path: Tempfile.new('repo').path)
+    repo_db = Repo::RepoDb.new(db_path: Tempfile.new('repo').path)
+    ::Configuration.stubs(:repo_db).returns(repo_db)
     file = create_download_file(@project)
     file.id = 'file-x'
     file.filename = 'data2.csv'
@@ -147,7 +149,8 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
 
   test 'removes temp file when download fails without range support' do
     file = create_download_file(@project)
-    RepoRegistry.repo_db = Repo::RepoDb.new(db_path: Tempfile.new('repo').path)
+    repo_db = Repo::RepoDb.new(db_path: Tempfile.new('repo').path)
+    ::Configuration.stubs(:repo_db).returns(repo_db)
     file.id = 'file-y'
     file.filename = 'data3.csv'
     file.metadata = {
@@ -178,8 +181,9 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
   end
 
   test 'includes api key header when available' do
-    RepoRegistry.repo_db = Repo::RepoDb.new(db_path: Tempfile.new('repo').path)
-    RepoRegistry.repo_db.set('http://example.com', type: ConnectorType::DATAVERSE, metadata: {auth_key: 'KEY'})
+    repo_db = Repo::RepoDb.new(db_path: Tempfile.new('repo').path)
+    repo_db.set('http://example.com', type: ConnectorType::DATAVERSE, metadata: {auth_key: 'KEY'})
+    ::Configuration.stubs(:repo_db).returns(repo_db)
 
       mock_downloader = mock('downloader')
       Download::BasicHttpRubyDownloader

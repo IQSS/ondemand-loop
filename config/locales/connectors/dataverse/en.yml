@@ -139,6 +139,12 @@ en:
           paginator_bar_a11y_label: "Search result pagination"
           paginator_page_text: "page %{page}"
           table_dataset_files_caption: "Dataset files"
+
+          label_selected_project_text: "Selected project:"
+          input_selected_project_default_value: "➕ A new project will be automatically created"
+          button_open_project_title: "Open selected project details page"
+          button_open_project_label: "Open selected project"
+          button_submit_form_text: "Add Files to Project"
         dataset_info:
           button_toggle_label: "Dataset details"
           field_authors_text: "Authors:"
@@ -151,8 +157,6 @@ en:
           button_create_bundle_label: "Create Upload Bundle"
           button_create_bundle_title: "Create Upload Bundle from this dataset on the selected project"
           link_open_dataset_title: "Open dataset on Dataverse"
-          button_open_project_title: "Open selected project details page"
-          button_open_project_label: "Open selected project"
         search_bar:
           button_submit_text: "Search Files"
           field_search_placeholder: "Search files within the dataset"

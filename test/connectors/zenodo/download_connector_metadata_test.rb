@@ -3,6 +3,7 @@ require 'test_helper'
 class Zenodo::DownloadConnectorMetadataTest < ActiveSupport::TestCase
   def setup
     file = DownloadFile.new
+    file.project_id = '123'
     file.metadata = {type: 'records', type_id: 1, zenodo_url: 'https://zenodo_server.com'}
     @meta = Zenodo::DownloadConnectorMetadata.new(file)
   end
@@ -12,7 +13,7 @@ class Zenodo::DownloadConnectorMetadataTest < ActiveSupport::TestCase
   end
 
   test 'files_url uses type and id' do
-    assert_equal '/explore/zenodo/zenodo_server.com/records/1', @meta.files_url
+    assert_equal '/explore/zenodo/zenodo_server.com/records/1?active_project=123', @meta.files_url
   end
 
   test 'to_h and missing methods' do

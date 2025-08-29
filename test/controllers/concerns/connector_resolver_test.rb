@@ -28,7 +28,7 @@ class ConnectorResolverTest < ActionController::TestCase
   def stub_resolver(type:, object_url: 'https://example.org/')
     mock_service = mock('RepoResolverService')
     mock_service.stubs(:resolve).returns(Repo::RepoResolverResponse.new(object_url, type))
-    Repo::RepoResolverService.stubs(:new).returns(mock_service)
+    ::Configuration.stubs(:repo_resolver_service).returns(mock_service)
   end
 
   test 'validate_repo_url redirects when repo type mismatches' do

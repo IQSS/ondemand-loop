@@ -15,8 +15,8 @@ module Dataverse::Handlers
 
     def show(request_params)
       begin
-        hub_registry = DataverseHubRegistry.registry
-        installations = hub_registry.installations
+        hub = ::Configuration.dataverse_hub
+        installations = hub.installations
         page = request_params[:page] ? request_params[:page].to_i : 1
         installations_page = Page.new(installations, page, ::Configuration.default_pagination_items,
                                       query: request_params[:query], filter_by: :name)

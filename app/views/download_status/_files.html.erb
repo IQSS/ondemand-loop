@@ -8,8 +8,7 @@
     <div class="container files" role="table">
       <% files.each_with_index do |data, index| %>
         <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>" role="row">
-          <!-- info for medium and large screens -->
-          <div class="col-md-8" role="cell">
+          <div class="col-md-10" role="cell">
             <div class="d-flex align-items-center">
               <%= link_to(files_app_url(data.project.download_dir), class: 'btn btn-sm btn-outline-secondary me-2',
                           title: t('.button_browse_file_title'), target: '_blank') do %>
@@ -18,7 +17,7 @@
               <% end %>
               <%= render partial: '/shared/file_row_date', locals: { date: data.file.creation_date, title: t('.field_creation_date_title'), classes: "mx-2" } %>
               <span class="me-2"><%= connector_icon(data.file.type) %></span>
-              <span class="text-truncate cursor-default" style="max-width: 560px;" >
+              <span class="text-truncate cursor-default" style="max-width: 620px;" >
                 <%= link_to project_path(id: data.project.id), class: "position-relative project-name-link text-reset text-decoration-none rounded-end", title: t('.field_project_title', name: data.project.name) do %>
                   <%= data.project.name %>
                   <span class="text-muted">&raquo;</span>
@@ -28,17 +27,14 @@
               <small class="text-muted file-size"><%= download_file_size(data.file) %></small>
             </div>
           </div>
-          <!-- end info for medium and large screens -->
 
-          <div class="col-md-2" role="cell">
+          <div class="download-actions col-md-2 text-end d-flex justify-content-end align-items-center" role="cell">
             <% if data.file.status.downloading? %>
               <%= render partial: '/shared/progress_bar', locals: { progress: data.file.connector_status.download_progress, file: data.file } %>
+            <% else %>
+              <%= status_badge(data.file.status, filename: data.file.filename) %>
             <% end %>
-          </div>
-
-          <div class="download-actions col-md-2 text-end" role="cell">
-            <%= status_badge(data.file.status, filename: data.file.filename) %>
-
+            &nbsp;
             <% if retry_button_visible?(data.file) %>
               <%= render layout: '/shared/button_to',
                          locals: {

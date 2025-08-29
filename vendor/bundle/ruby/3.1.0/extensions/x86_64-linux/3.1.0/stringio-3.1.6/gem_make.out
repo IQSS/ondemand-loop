@@ -3,18 +3,18 @@ current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/stringio-3.1.6/e
 creating Makefile
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/stringio-3.1.6/ext/stringio
-make DESTDIR\= sitearchdir\=./.gem.20250813-37-v211bf sitelibdir\=./.gem.20250813-37-v211bf clean
+make DESTDIR\= sitearchdir\=./.gem.20250829-37-w9i5c5 sitelibdir\=./.gem.20250829-37-w9i5c5 clean
 rm -f 
 rm -fr stringio.so false *.o  *.bak mkmf.log .*.time
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/stringio-3.1.6/ext/stringio
-make DESTDIR\= sitearchdir\=./.gem.20250813-37-v211bf sitelibdir\=./.gem.20250813-37-v211bf
+make DESTDIR\= sitearchdir\=./.gem.20250829-37-w9i5c5 sitelibdir\=./.gem.20250829-37-w9i5c5
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.   -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o stringio.o -c stringio.c
 rm -f stringio.so
 gcc -shared -o stringio.so stringio.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld  -m64  -lruby  -lm  -lc
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/stringio-3.1.6/ext/stringio
-make DESTDIR\= sitearchdir\=./.gem.20250813-37-v211bf sitelibdir\=./.gem.20250813-37-v211bf install
-/usr/bin/mkdir -p . ./.gem.20250813-37-v211bf
+make DESTDIR\= sitearchdir\=./.gem.20250829-37-w9i5c5 sitelibdir\=./.gem.20250829-37-w9i5c5 install
+/usr/bin/mkdir -p . ./.gem.20250829-37-w9i5c5
 exit > .sitearchdir.time
-/usr/bin/install -c -m 0755 stringio.so ./.gem.20250813-37-v211bf
+/usr/bin/install -c -m 0755 stringio.so ./.gem.20250829-37-w9i5c5

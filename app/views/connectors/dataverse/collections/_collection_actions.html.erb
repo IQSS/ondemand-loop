@@ -4,7 +4,7 @@
   </div>
   <div class="d-flex align-items-center gap-2">
     <% if Current.settings.user_settings.active_project.present? %>
-      <%= button_to project_upload_bundles_path(Current.settings.user_settings.active_project),
+      <%= button_to connector_project_upload_bundles_path(Current.settings.user_settings.active_project),
                     method: :post,
                     params: { remote_repo_url: external_collection_url(dataverse_url, collection.data.alias) },
                     class: 'btn btn-sm btn-outline-secondary',

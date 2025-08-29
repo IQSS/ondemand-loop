@@ -5,11 +5,12 @@ class Project < ApplicationDiskRecord
   include FileStatusSummary
   include LoggingCommon
 
-  ATTRIBUTES = %w[id name download_dir creation_date].freeze
+  REQUIRED_ATTRIBUTES = %w[id name download_dir creation_date].freeze
+  ATTRIBUTES = REQUIRED_ATTRIBUTES
 
-  attr_accessor *ATTRIBUTES
+  attr_accessor(*ATTRIBUTES)
 
-  validates_presence_of *ATTRIBUTES
+  validates_presence_of(*REQUIRED_ATTRIBUTES)
 
   def self.all
     Dir.glob(File.join(metadata_directory, '*'))
@@ -121,14 +122,5 @@ class Project < ApplicationDiskRecord
   def self.load_metadata_from_directory(directory)
     metadata_file = File.join(directory, 'metadata.yml')
     load_from_file(metadata_file)
-  end
-
-  def self.load_from_file(filename)
-    data = YAML.safe_load(File.read(filename), permitted_classes: [Hash], aliases: true)
-    new.tap do |project|
-      ATTRIBUTES.each { |attr| project.send("#{attr}=", data[attr]) }
-    end
-  rescue StandardError
-    nil
   end
 end

@@ -24,7 +24,7 @@
         <small class="text-muted me-2"><%= upload_bundle.remote_repo_url %></small>
         <% if upload_bundle.connector_metadata.create_draft? %>
           <%= render layout: "shared/button_to", locals: {
-            url:  project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id),
+            url:  project_upload_bundle_connector_path(upload_bundle.project_id, upload_bundle.id),
             method: 'PUT',
             label: t('connectors.zenodo.upload_bundle_actions_bar.button_create_draft_title'),
             title: t('connectors.zenodo.upload_bundle_actions_bar.button_create_draft_title'),
@@ -40,14 +40,14 @@
                   title="<%= t('connectors.zenodo.upload_bundle_actions_bar.button_select_create_deposition_title') %>"
                   data-controller="modal"
                   data-action="click->modal#load"
-                  data-modal-url-value="<%= edit_project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id, form: 'dataset_form_tabs') %>"
+                  data-modal-url-value="<%= edit_project_upload_bundle_connector_path(upload_bundle.project_id, upload_bundle.id, form: 'dataset_form_tabs') %>"
                   data-modal-title-value="<%= t('connectors.zenodo.upload_bundle_actions_bar.modal_select_create_deposition_title') %>"
                   data-modal-id-value="global-modal">
             <i class="bi bi-database-add me-1"></i><%= t('connectors.zenodo.upload_bundle_actions_bar.button_select_create_deposition_title') %>
           </button>
         <% elsif upload_bundle.connector_metadata.fetch_deposition? %>
           <%= render layout: "shared/button_to", locals: {
-            url:  project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id),
+            url:  project_upload_bundle_connector_path(upload_bundle.project_id, upload_bundle.id),
             method: 'PUT',
             label: t('connectors.zenodo.upload_bundle_actions_bar.button_deposition_fetch_label'),
             title: t('connectors.zenodo.upload_bundle_actions_bar.button_deposition_fetch_title'),
@@ -84,7 +84,7 @@
             title="<%= t(".button_edit_key_title") %>"
             data-controller="modal"
             data-action="click->modal#load"
-            data-modal-url-value="<%= edit_project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id) %>"
+            data-modal-url-value="<%= edit_project_upload_bundle_connector_path(upload_bundle.project_id, upload_bundle.id) %>"
             data-modal-title-value="<%= t(".modal_edit_key_title") %>"
             data-modal-id-value="global-modal">
       <i class="bi bi-pencil-fill"></i>

@@ -1,6 +1,6 @@
 class RepositorySettingsController < ApplicationController
   def index
-    @repositories = RepoRegistry.repo_db.all
+    @repositories = ::Configuration.repo_db.all
   end
 
   def create
@@ -9,7 +9,7 @@ class RepositorySettingsController < ApplicationController
       redirect_to repository_settings_path, alert: t('.message_invalid_request', url: repo_url) and return
     end
 
-    repo_resolver = Repo::RepoResolverService.new(RepoRegistry.resolvers)
+    repo_resolver = ::Configuration.repo_resolver_service
     result = repo_resolver.resolve(repo_url)
 
     if result.unknown?
@@ -21,7 +21,7 @@ class RepositorySettingsController < ApplicationController
 
   def update
     repo_url = params[:repo_url]
-    repo = RepoRegistry.repo_db.get(repo_url)
+    repo = ::Configuration.repo_db.get(repo_url)
     unless repo
       redirect_to repository_settings_path, alert: t('.message_not_found', domain: repo_url) and return
     end
@@ -35,12 +35,12 @@ class RepositorySettingsController < ApplicationController
 
   def destroy
     repo_url = params[:repo_url].to_s.strip
-    repo = RepoRegistry.repo_db.get(repo_url)
+    repo = ::Configuration.repo_db.get(repo_url)
     unless repo
       redirect_to repository_settings_path, alert: t('.message_not_found', domain: repo_url) and return
     end
 
-    RepoRegistry.repo_db.delete(repo_url)
+    ::Configuration.repo_db.delete(repo_url)
     redirect_to repository_settings_path, notice: t('.message_deleted', domain: repo_url, type: repo.type.to_s)
   end
 end

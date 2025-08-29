@@ -38,6 +38,10 @@ module Zenodo
       submitted == false
     end
 
+    def version
+      draft? ? 'draft' : 'published'
+    end
+
     def to_s
       "deposition{id=#{id} files=#{file_count} draft=#{draft?}}"
     end

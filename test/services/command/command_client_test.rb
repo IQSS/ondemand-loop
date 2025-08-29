@@ -66,7 +66,7 @@ class Command::CommandClientTest < ActiveSupport::TestCase
     result = client.request(request)
 
     assert_equal 521, result.status
-    assert_equal 'Socket file not found', result.body.message
+    assert_equal 'Socket file not found. Server not running', result.body.message
   end
 
   test 'Should raise CommandError if error processing the response' do

@@ -2,7 +2,7 @@
 en:
   zenodo:
     records:
-      message_record_not_found: "Record not found. Record id: %{record_id}"
+      message_record_not_found: "Dataset not found. Dataset id: %{record_id}"
       message_project_error: "Error generating project: %{errors}"
       message_validation_file_error: "Invalid file in selection: %{filename} errors: %{errors}"
       message_save_file_error: "Error generating the download files for project: %{project_name}"

@@ -1,5 +1,5 @@
 <div data-controller="list-filter">
-<%= form_with url: project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id), method: :put, data: { action: "submit->modal#showSpinner" }, local: true do |f| %>
+<%= form_with url: project_upload_bundle_connector_path(upload_bundle.project_id, upload_bundle.id), method: :put, data: { action: "submit->modal#showSpinner" }, local: true do |f| %>
   <%= hidden_field_tag :form, 'dataset_select' %>
   <%= hidden_field_tag :anchor, tab_anchor_for(upload_bundle) %>
 
@@ -14,7 +14,7 @@
   <div class="list-group mb-3" data-list-filter-target="list" style="max-height: 50vh; overflow-y: auto;">
     <% depositions.items.each do |item| %>
       <% title = item.title %>
-      <% status_text = item.submitted ? t('connectors.zenodo.shared.zenodo_record_info.badge_published_text') : t('connectors.zenodo.shared.zenodo_record_info.badge_draft_text') %>
+      <% status_text = item.submitted ? t('connectors.zenodo.shared.zenodo_view_info.badge_published_text') : t('connectors.zenodo.shared.zenodo_view_info.badge_draft_text') %>
       <label class="list-group-item list-group-item-action d-flex align-items-center gap-2" data-filter-item>
         <%= radio_button_tag :deposition_id, item.id, false, class: 'form-check-input mt-0' %>
         <span class="text-truncate" style="max-width: 800px;" title="<%= title %>"><%= title %></span>

@@ -16,7 +16,7 @@ module Zenodo::Handlers
 
     def show(request_params)
       repo_url = request_params[:repo_url]
-      repo_info = RepoRegistry.repo_db.get(repo_url.server_url)
+      repo_info = ::Configuration.repo_db.get(repo_url.server_url)
       api_key = repo_info&.metadata&.auth_key
 
       unless api_key
@@ -35,13 +35,25 @@ module Zenodo::Handlers
         )
       end
 
+      external_url = Zenodo::Concerns::ZenodoUrlBuilder.build_deposition_url(repo_url.server_url, @deposition_id)
+
+      ::Configuration.repo_history.add_repo(
+        external_url,
+        ConnectorType::ZENODO,
+        title: deposition.title,
+        note: deposition.version
+      )
+
       ConnectorResult.new(
         template: '/connectors/zenodo/depositions/show',
         locals: {
-          record: deposition,
-          record_id: @deposition_id,
-          repo_url: repo_url
+          dataset: deposition,
+          dataset_id: @deposition_id,
+          repo_url: repo_url,
+          dataset_title: deposition.title,
+          external_zenodo_url: external_url
         },
+        resource: deposition,
         success: true
       )
     rescue Zenodo::ApiService::ApiKeyRequiredException
@@ -56,12 +68,12 @@ module Zenodo::Handlers
       file_ids = request_params[:file_ids] || []
       project_id = request_params[:project_id]
 
-      repo_info = RepoRegistry.repo_db.get(repo_url.server_url)
+      repo_info = ::Configuration.repo_db.get(repo_url.server_url)
       api_key = repo_info&.metadata&.auth_key
 
       service = Zenodo::DepositionService.new(repo_url.server_url, api_key: api_key)
       deposition = service.find_deposition(@deposition_id)
-      return ConnectorResult.new(message: { alert: I18n.t('zenodo.depositions.message_deposition_not_found', record_id: @deposition_id) }, success: false) unless deposition
+      return ConnectorResult.new(message: { alert: I18n.t('zenodo.depositions.message_deposition_not_found', deposition_id: @deposition_id) }, success: false) unless deposition
 
       project = Project.find(project_id)
       project_service = Zenodo::ProjectService.new(repo_url.server_url)
@@ -71,6 +83,7 @@ module Zenodo::Handlers
           errors = project.errors.full_messages.join(', ')
           return ConnectorResult.new(message: { alert: I18n.t('zenodo.depositions.message_project_error', errors: errors) }, success: false)
         end
+        Current.settings.update_user_settings({ active_project: project.id.to_s })
       end
 
       download_files = project_service.create_files_from_deposition(project, deposition, file_ids)

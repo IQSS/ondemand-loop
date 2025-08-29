@@ -16,27 +16,29 @@ class StatusHelperTest < ActionView::TestCase
     end
   end
 
-  test 'retry_button_visible? is true when restart is possible' do
+  test 'retry_button_visible? is true when file status does allow retry' do
     project = create_project
     file = create_download_file(project)
     file.status = FileStatus::CANCELLED
-    file.metadata = { partial_downloads: true }
     assert retry_button_visible?(file)
 
     file.status = FileStatus::ERROR
-    file.metadata = { partial_downloads: nil }
+    assert retry_button_visible?(file)
+
+    file.status = FileStatus::CANCELLED
     assert retry_button_visible?(file)
   end
 
-  test 'retry_button_visible? is false when status does not allow retry or partial downloads disabled' do
+  test 'retry_button_visible? is false when file status does not allow retry' do
     project = create_project
     file = create_download_file(project)
     file.status = FileStatus::SUCCESS
-    file.metadata = { partial_downloads: true }
     refute retry_button_visible?(file)
 
-    file.status = FileStatus::CANCELLED
-    file.metadata = { partial_downloads: false }
+    file.status = FileStatus::DOWNLOADING
+    refute retry_button_visible?(file)
+
+    file.status = FileStatus::UPLOADING
     refute retry_button_visible?(file)
   end
 end

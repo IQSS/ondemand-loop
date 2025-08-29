@@ -12,24 +12,29 @@
 
   <%= yield %>
 
-  <% accessible_label = local_assigns[:label] || local_assigns[:title] || t('.button_accessibility_default_label') %>
+  <%
+    accessible_label = local_assigns[:label] || local_assigns[:title] || t('.button_accessibility_default_label')
+
+    button_client_data = local_assigns[:button_data] || {}
+    button_merged_data = {
+      action: 'click->submit-button#click',
+      submit_button_target: 'button'
+    }.merge(button_client_data)
+  %>
   <%= button_tag type: 'submit',
                  id: local_assigns[:button_id],
                  disabled: local_assigns[:disabled] || false,
                  class: "btn #{local_assigns[:class] || 'btn-outline-dark btn-sm'}",
                  title: local_assigns[:title] || accessible_label,
                  "aria-label" => accessible_label,
-                 data: {
-                   action: 'click->submit-button#click',
-                   submit_button_target: 'button'
-                 } do %>
+                 data: button_merged_data do %>
 
     <span data-submit-button-target="spinner"
           class="spinner-border spinner-border-sm me-1 d-none"
           role="status" aria-hidden="true"></span>
 
     <span data-submit-button-target="label" class="d-inline-flex align-items-center gap-2">
-    <% if local_assigns[:icon] %>
+      <% if local_assigns[:icon] %>
         <i class="<%= icon %>" aria-hidden="true"></i>
       <% end %>
       <% if local_assigns[:icon_html] %>

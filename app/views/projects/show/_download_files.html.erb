@@ -2,8 +2,6 @@
 <div id="<%= tab_id_for(project) %>" class="tab-pane fade show active" role="tabpanel" aria-labelledby="<%= tab_label_for(project) %>">
   <%= render partial: '/projects/show/download_actions', locals: { project: project } %>
 
-  <%= render partial: '/layouts/repo_resolver_bar', locals: { id: 'download-repo-resolver', color: 'bg-light-darker', collapse: true, show_images: false } %>
-
   <ul class="container files rounded border">
     <% if files.empty? %>
       <div class="row py-2 justify-content-center custom-stripe">

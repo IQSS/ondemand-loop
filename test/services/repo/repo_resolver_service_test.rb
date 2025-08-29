@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'test_helper'
 
-class Repo::RepoResolverServiceTest < ActiveSupport::TestCase
+  class Repo::RepoResolverServiceTest < ActiveSupport::TestCase
   DummyResolver = Struct.new(:should_resolve, :raise_error) do
     def resolve(context)
       raise raise_error if raise_error
@@ -66,5 +66,28 @@ class Repo::RepoResolverServiceTest < ActiveSupport::TestCase
     result = service.resolve('https://demo.dataverse.org/nothing')
 
     assert result.unknown?
+  end
+
+  test '.build loads and orders resolvers' do
+    resolver_a = Class.new(Repo::BaseResolver) do
+      def self.build = new
+      def priority = 1
+      def resolve(_); end
+    end
+    resolver_b = Class.new(Repo::BaseResolver) do
+      def self.build = new
+      def priority = 2
+      def resolve(_); end
+    end
+    Repo::Resolvers.const_set(:ResolverA, resolver_a)
+    Repo::Resolvers.const_set(:ResolverB, resolver_b)
+    Repo::Resolvers.stubs(:constants).returns(%i[ResolverA ResolverB])
+
+    service = Repo::RepoResolverService.build
+    resolvers = service.instance_variable_get(:@resolvers)
+    assert_equal [resolver_b, resolver_a], resolvers.map(&:class)
+  ensure
+    Repo::Resolvers.send(:remove_const, :ResolverA)
+    Repo::Resolvers.send(:remove_const, :ResolverB)
   end
 end

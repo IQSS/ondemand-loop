@@ -13,7 +13,7 @@ class RepoResolverControllerTest < ActionDispatch::IntegrationTest
     repo_url = 'https://unknown.repo.org'
     mock_service = mock
     mock_service.stubs(:resolve).returns(OpenStruct.new(unknown?: true, object_url: repo_url, type: nil))
-    Repo::RepoResolverService.stubs(:new).returns(mock_service)
+    ::Configuration.stubs(:repo_resolver_service).returns(mock_service)
 
     post repo_resolver_url, params: { repo_url: repo_url }
 
@@ -30,7 +30,7 @@ class RepoResolverControllerTest < ActionDispatch::IntegrationTest
 
     mock_service = mock
     mock_service.stubs(:resolve).returns(resolution)
-    Repo::RepoResolverService.stubs(:new).returns(mock_service)
+    ::Configuration.stubs(:repo_resolver_service).returns(mock_service)
 
     controller_result = OpenStruct.new(redirect_url: '/projects/123', message: { notice: 'Resolved!' })
     mock_controller = mock

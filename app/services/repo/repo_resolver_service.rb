@@ -2,6 +2,19 @@ module Repo
   class RepoResolverService
     include LoggingCommon
 
+    def self.build
+      resolvers = []
+      Repo::Resolvers.constants.each do |constant_name|
+        constant = Repo::Resolvers.const_get(constant_name)
+        if constant.is_a?(Class) && constant < Repo::BaseResolver
+          resolvers << constant.build
+        end
+      end
+      resolvers.sort_by! { |r| -r.priority }
+      LoggingCommon.log_info("[RepoResolverService] Resolvers loaded: #{resolvers.map { |r| "#{r.class} (#{r.priority})" }.join(', ')}")
+      new(resolvers)
+    end
+
     def initialize(resolvers)
       @resolvers = resolvers
     end

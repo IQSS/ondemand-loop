@@ -1,9 +1,10 @@
+
 .projects {
-  [data-project-name-target="form"] {
+  [data-update-inline-field-target="form"] {
     min-height: 3rem;
   }
 
-  [data-project-name-target="form"] input {
+  [data-update-inline-field-target="form"] input {
     min-width: 400px;
   }
 

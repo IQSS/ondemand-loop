@@ -15,7 +15,13 @@ class ProjectsController < ApplicationController
     project_name = params[:project_name] || ProjectNameGenerator.generate
     project = Project.new(id: project_name, name: project_name)
     if project.save
-      redirect_to  project_path(id: project.id), notice: t(".project_created", project_name: project_name)
+      Current.settings.update_user_settings({ active_project: project.id.to_s })
+      notice = t(".project_created", project_name: project_name)
+      if params.key?(:redirect_back)
+        redirect_back fallback_location: projects_path, notice: notice
+      else
+        redirect_to project_path(id: project.id), notice: notice
+      end
     else
       redirect_back fallback_location: projects_path, alert: t(".project_create_error", errors: project.errors.full_messages)
     end
@@ -54,12 +60,19 @@ class ProjectsController < ApplicationController
     project_id = params[:id]
     project = Project.find(project_id)
     if project.nil?
-      redirect_back fallback_location: projects_path, alert: t(".project_not_found", id: project_id)
+      error_message = t(".project_not_found", id: project_id)
+      respond_to do |format|
+        format.html { redirect_back fallback_location: projects_path, alert: error_message }
+        format.json { render json: { error: error_message }, status: :not_found }
+      end
       return
     end
 
     Current.settings.update_user_settings({active_project: project_id})
-    redirect_back fallback_location: projects_path, notice: t(".project_is_now_the_active_project", project_name: project.name)
+    respond_to do |format|
+      format.html { redirect_back fallback_location: projects_path, notice: t(".project_is_now_the_active_project", project_name: project.name) }
+      format.json { render json: project.to_json, status: :ok }
+    end
   end
 
   def destroy

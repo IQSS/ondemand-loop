@@ -1,10 +1,18 @@
 <% progress ||= 0 %>
-<div class="progress" aria-live="polite" style="height: 20px;">
-  <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
-       role="progressbar"
-       style="width: <%= progress %>%"
-       aria-labelledby="progress-bar-label-<%= file.id %>"
-       aria-valuenow="<%= progress%>" aria-valuemin="0" aria-valuemax="100">
+<div class="progress-container d-flex flex-column justify-content-end flex-grow-1">
+  <div class="progress" aria-live="polite" style="height: 20px;">
+    <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+         role="progressbar"
+         style="width: <%= progress %>%"
+         aria-labelledby="progress-bar-label-<%= file.id %>"
+         aria-valuenow="<%= progress %>" aria-valuemin="0" aria-valuemax="100">
+    </div>
+    <span class="progress-text text-secondary" id="progress-bar-label-<%= file.id %>">
+      <%= progress %>%
+    </span>
   </div>
-  <span class="progress-text text-secondary" id="progress-bar-label-<%= file.id %>"><%= progress %>%</span>
+
+  <div class="text-muted text-center" style="font-size: 0.7rem; line-height: 1; margin-top: 1px;">
+    <%= file.status.to_s %>
+  </div>
 </div>

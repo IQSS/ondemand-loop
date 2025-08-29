@@ -4,8 +4,9 @@ require Rails.root.join('app/services/repo/repo_resolver_context')
 class RepositorySettingsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @tempfile = Tempfile.new('repo_db')
-    RepoRegistry.repo_db = Repo::RepoDb.new(db_path: @tempfile.path)
-    RepoRegistry.repo_db.set('https://demo.org', type: ConnectorType::DATAVERSE, metadata: {auth_key: 'old'})
+    repo_db = Repo::RepoDb.new(db_path: @tempfile.path)
+    ::Configuration.stubs(:repo_db).returns(repo_db)
+    repo_db.set('https://demo.org', type: ConnectorType::DATAVERSE, metadata: {auth_key: 'old'})
   end
 
   def teardown
@@ -21,7 +22,7 @@ class RepositorySettingsControllerTest < ActionDispatch::IntegrationTest
     resolver = mock('resolver')
     response = Repo::RepoResolverResponse.new('https://zenodo.org/', ConnectorType::ZENODO)
     resolver.stubs(:resolve).with('https://zenodo.org/').returns(response)
-    Repo::RepoResolverService.stubs(:new).returns(resolver)
+    ::Configuration.stubs(:repo_resolver_service).returns(resolver)
 
     post repository_settings_url, params: { repo_url: 'https://zenodo.org/' }
 
@@ -33,7 +34,7 @@ class RepositorySettingsControllerTest < ActionDispatch::IntegrationTest
     resolver = mock('resolver')
     response = Repo::RepoResolverResponse.new('u', nil)
     resolver.stubs(:resolve).with('u').returns(response)
-    Repo::RepoResolverService.stubs(:new).returns(resolver)
+    ::Configuration.stubs(:repo_resolver_service).returns(resolver)
 
     post repository_settings_url, params: { repo_url: 'u' }
 
@@ -42,7 +43,7 @@ class RepositorySettingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'update delegates to processor' do
-    repo = RepoRegistry.repo_db.get('https://demo.org')
+    repo = ::Configuration.repo_db.get('https://demo.org')
     processor = mock('processor')
     ConnectorClassDispatcher.stubs(:repository_settings_processor).with(repo.type).returns(processor)
     processor.stubs(:params_schema).returns([:repo_url, :auth_key])
@@ -63,7 +64,7 @@ class RepositorySettingsControllerTest < ActionDispatch::IntegrationTest
     delete repository_settings_url, params: { repo_url: 'https://demo.org' }
     assert_redirected_to repository_settings_url
     assert_equal I18n.t('repository_settings.destroy.message_deleted', domain: 'https://demo.org', type: 'dataverse'), flash[:notice]
-    assert_nil RepoRegistry.repo_db.get('https://demo.org')
+    assert_nil ::Configuration.repo_db.get('https://demo.org')
   end
 
   test 'destroy should show error when repository missing' do

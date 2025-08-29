@@ -39,7 +39,7 @@ class Zenodo::DownloadConnectorProcessorTest < ActiveSupport::TestCase
 
   test 'includes api key header when available' do
     repo_info = OpenStruct.new(metadata: OpenStruct.new(auth_key: 'KEY'))
-    RepoRegistry.repo_db.stubs(:get).with('https://zenodo.org').returns(repo_info)
+    ::Configuration.repo_db.stubs(:get).with('https://zenodo.org').returns(repo_info)
     FileUtils.stubs(:mkdir_p)
 
     download_location = @file.download_location
@@ -57,7 +57,8 @@ class Zenodo::DownloadConnectorProcessorTest < ActiveSupport::TestCase
   end
 
   test 'keeps temp file and flags restart when download fails with range support' do
-    RepoRegistry.repo_db = Repo::RepoDb.new(db_path: Tempfile.new('repo').path)
+    repo_db = Repo::RepoDb.new(db_path: Tempfile.new('repo').path)
+    ::Configuration.stubs(:repo_db).returns(repo_db)
     file = create_download_file(@project)
     file.metadata = {
       zenodo_url: 'https://zenodo.org',
@@ -85,7 +86,8 @@ class Zenodo::DownloadConnectorProcessorTest < ActiveSupport::TestCase
   end
 
   test 'removes temp file when download fails without range support' do
-    RepoRegistry.repo_db = Repo::RepoDb.new(db_path: Tempfile.new('repo').path)
+    repo_db = Repo::RepoDb.new(db_path: Tempfile.new('repo').path)
+    ::Configuration.stubs(:repo_db).returns(repo_db)
     file = create_download_file(@project)
     file.metadata = {
       zenodo_url: 'https://zenodo.org',

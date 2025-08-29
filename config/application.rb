@@ -20,6 +20,7 @@ Bundler.require(*Rails.groups)
 
 # Libraries required by the Loop App
 require 'ostruct'
+require 'net/http'
 
 module DataverseForOndemand
   class Application < Rails::Application

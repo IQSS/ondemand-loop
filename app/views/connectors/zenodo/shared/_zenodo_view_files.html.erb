@@ -1,0 +1,79 @@
+<% post_url = local_assigns.fetch(:post_url) %>
+<div class="card">
+  <div class="card-header d-flex align-items-center">
+    <%= t('zenodo.records.show.caption_files_text', count: dataset.files.size) %>
+  </div>
+  <% if dataset.files.any? %>
+    <%= form_with url: post_url, id: 'dataset-download-files-form', method: :post, local: true, class: "p-3 rounded bg-light", data: {controller: "select-files"} do %>
+      <%= hidden_field_tag :id, dataset_id %>
+      <div class="row">
+        <h2 id="dataset-files-heading" class="visually-hidden"><%= t('.header_dataset_files_a11y_text') %></h2>
+        <table class="table table-bordered table-hover align-middle">
+          <caption class="visually-hidden"><%= t('.table_dataset_files_caption') %></caption>
+          <thead class="table-light">
+          <tr>
+            <th scope="col" class="text-nowrap p-0 align-middle" style="width: 1%;">
+              <div class="d-flex justify-content-center align-items-center" style="min-width: 3rem;">
+                <label class="visually-hidden" for="select_all_files">
+                  <%= t('.checkbox_select_all_label') %>
+                </label>
+                <input type="checkbox" id="select_all_files" class="form-check-input m-0" data-select-files-target="selectAll" data-action="select-files#toggleSelectAll">
+              </div>
+            </th>
+            <th scope="col"><%= t('.col_file_name_text') %></th>
+            <th scope="col"><%= t('.col_size_text') %></th>
+          </tr>
+          </thead>
+          <tbody>
+            <% dataset.files.each do |file| %>
+              <tr>
+                <td class="text-center">
+                  <input type="checkbox" id="file_checkbox_<%= file.id %>" name="file_ids[]" class="form-check-input" value="<%= file.id %>" data-select-files-target="item" data-action="select-files#updateState">
+                </td>
+                <td>
+                  <label for="file_checkbox_<%= file.id %>" class="d-block mb-1">
+                    <%= file.filename %>
+                  </label>
+                </td>
+                <td class="text-nowrap"><%= number_to_human_size(file.filesize) %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="row g-3 align-items-end p-3">
+        <div class="col-md-9 text-start mt-0" data-controller="select-project-listener">
+          <label for="active_project" class="form-label small mb-1 ms-1"><%= t('.label_selected_project_text') %></label>
+
+          <div class="d-flex align-items-center">
+            <input type="text" id="active_project" class="form-control me-3" value="<%= t('.input_selected_project_default_value') %>"
+                   data-select-project-listener-target="inputProjectName" disabled>
+            <input type="hidden" name="project_id" id="project_id" autocomplete="off" data-select-project-listener-target="inputProjectId">
+            <!-- link to project details page -->
+            <%= link_to projects_path,
+                        class: 'btn btn-outline-secondary',
+                        title: t('.button_open_project_title'),
+                        data: { select_project_listener_target: 'link' } do %>
+              <i class="bi bi-display" aria-hidden="true"></i>
+              <span class="visually-hidden"><%= t('.button_open_project_label') %></span>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-md-3 text-center">
+          <button id="files_submit" type="submit" class="btn btn-primary" data-select-files-target="submitButton">
+            <i class="bi bi-download me-1" aria-hidden="true"></i>
+            <%= t('.button_submit_form_text') %>
+          </button>
+        </div>
+      </div>
+
+    <% end %>
+  <% else %>
+    <div class="list-group list-group-flush">
+      <span class="list-group-item list-group-item-action" role="status">
+        <%= t('.msg_empty_dataset_text') %>
+      </span>
+    </div>
+  <% end %>
+</div>

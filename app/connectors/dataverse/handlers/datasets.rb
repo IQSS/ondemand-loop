@@ -23,7 +23,7 @@ module Dataverse::Handlers
       version = request_params[:version]
       page = request_params[:page] ? request_params[:page].to_i : 1
       search_query = request_params[:query].present? ? ActionView::Base.full_sanitizer.sanitize(request_params[:query]) : nil
-      repo_info = RepoRegistry.repo_db.get(dataverse_url)
+      repo_info = ::Configuration.repo_db.get(dataverse_url)
       api_key = repo_info&.metadata&.auth_key
       service = Dataverse::DatasetService.new(dataverse_url, api_key: api_key)
 
@@ -59,6 +59,19 @@ module Dataverse::Handlers
         )
       end
 
+      dataset_url = Dataverse::Concerns::DataverseUrlBuilder.build_dataset_url(
+        dataverse_url,
+        @persistent_id,
+        version: dataset.version
+      )
+
+      ::Configuration.repo_history.add_repo(
+        dataset_url,
+        ConnectorType::DATAVERSE,
+        title: dataset.title,
+        note: dataset.version
+      )
+
       ConnectorResult.new(
         template: '/connectors/dataverse/datasets/show',
         locals: {
@@ -68,6 +81,7 @@ module Dataverse::Handlers
           repo_url: repo_url,
           persistent_id: @persistent_id
         },
+        resource: dataset,
         success: true
       )
     end
@@ -81,7 +95,7 @@ module Dataverse::Handlers
       page = request_params[:page] ? request_params[:page].to_i : 1
       search_query = request_params[:query].present? ? ActionView::Base.full_sanitizer.sanitize(request_params[:query]) : nil
 
-      repo_info = RepoRegistry.repo_db.get(dataverse_url)
+      repo_info = ::Configuration.repo_db.get(dataverse_url)
       api_key = repo_info&.metadata&.auth_key
       service = Dataverse::DatasetService.new(dataverse_url, api_key: api_key)
 
@@ -109,6 +123,7 @@ module Dataverse::Handlers
           errors = project.errors.full_messages.join(', ')
           return ConnectorResult.new(message: { alert: I18n.t('connectors.dataverse.datasets.download.error_generating_project', errors: errors) }, success: false)
         end
+        Current.settings.update_user_settings({ active_project: project.id.to_s })
       end
 
       download_files = project_service.initialize_download_files(project, @persistent_id, dataset, files_page, file_ids)
@@ -122,7 +137,6 @@ module Dataverse::Handlers
       if save_results.include?(false)
         return ConnectorResult.new(message: { alert: I18n.t('connectors.dataverse.datasets.download.error_generating_the_download_file') }, success: false)
       end
-
       ConnectorResult.new(message: { notice: I18n.t('connectors.dataverse.datasets.download.files_added_to_project', project_name: project.name) }, success: true)
     end
   end

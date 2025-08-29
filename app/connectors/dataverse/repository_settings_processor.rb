@@ -9,7 +9,7 @@ module Dataverse
     end
 
     def update(repo, request_params)
-      RepoRegistry.repo_db.update(repo.repo_url, metadata: { auth_key: request_params[:auth_key] })
+      ::Configuration.repo_db.update(repo.repo_url, metadata: { auth_key: request_params[:auth_key] })
       ConnectorResult.new(
         message: { notice: I18n.t('connectors.dataverse.handlers.repository_settings_update.message_success', url: repo.repo_url, type: repo.type) },
         success: true

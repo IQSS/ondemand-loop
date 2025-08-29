@@ -8,7 +8,7 @@ class RepoResolverController < ApplicationController
       return
     end
 
-    repo_resolver = Repo::RepoResolverService.new(RepoRegistry.resolvers)
+    repo_resolver = ::Configuration.repo_resolver_service
     url_resolution = repo_resolver.resolve(repo_url)
     if url_resolution.unknown?
       redirect_back fallback_location: root_path, alert: t('.url_not_supported', input: repo_url, url: url_resolution.object_url)

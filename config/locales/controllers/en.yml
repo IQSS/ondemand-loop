@@ -49,6 +49,8 @@ en:
       invalid_parameters: "Invalid parameters project_id: %{project_id} upload_bundle_id: %{upload_bundle_id}"
     update:
       not_found: "Upload Bundle not found: %{upload_bundle_id}"
+      success: "Upload bundle updated: %{bundle_name}"
+      error: "Failed to update upload bundle: %{errors}"
     destroy:
       not_found: "Upload Bundle not found: %{upload_bundle_id}"
       success: "Upload bundle deleted: %{bundle_name}"

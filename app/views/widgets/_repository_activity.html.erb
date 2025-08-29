@@ -1,0 +1,51 @@
+<%# Renders tabs for repository activity items in a modal %>
+<%
+  service = Repo::RepoActivityService.new
+  global = service.global
+%>
+<div id="repository-items-tabs">
+  <%# Tab Labels %>
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link text-secondary active" id="repository-items-global-tab" data-bs-toggle="tab" data-bs-target="#repository-items-global" type="button" role="tab" aria-controls="repository-items-global" aria-selected="true"><%= t('.tab_global_label') %></button>
+    </li>
+  </ul>
+
+  <div class="tab-content mt-3">
+    <%# Tab Content: global items tab %>
+    <div id="repository-items-global" class="tab-pane fade show active" role="tabpanel" aria-labelledby="repository-items-global-tab">
+      <ul class="list-unstyled m-0">
+        <% global.each do |item| %>
+          <li class="card mb-2 shadow-sm rounded">
+            <header class="card-header d-flex justify-content-between align-items-center gap-3">
+              <div class="d-flex align-items-center gap-3 flex-grow-1">
+                <%= render partial: '/shared/file_row_date', locals: { date: item.date, title: t('.field_date_title') } if item.date %>
+                <span class="lh-1" aria-hidden="true"><%= connector_icon(item.type) %></span>
+                <div class="d-flex flex-column flex-grow-1">
+                  <h2 class="mb-0 h6"><%= item.title %></h2>
+                  <small class="text-muted"><%= item.url %></small>
+                </div>
+                <span class="badge bg-secondary flex-shrink-0"><%= item.note %></span>
+              </div>
+              <div class="d-flex align-items-center gap-2" role="group" aria-label="<%= t('.section_item_actions_label') %>">
+                <%= render layout: "shared/button_to", locals: {
+                  url: repo_resolver_path,
+                  title: t('.button_explore_item_title'),
+                  class: 'btn-sm btn-outline-dark',
+                  icon: 'bi bi-folder2-open'
+                } do %>
+                  <input type="hidden" name="repo_url" value="<%= item.url %>">
+                <% end %>
+                <%= link_to item.url, target: '_blank', class: 'btn btn-sm btn-outline-dark', title: t('.button_open_repository_title') do %>
+                  <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+                  <span class="visually-hidden"><%= t('.button_open_repository_title') %></span>
+                <% end %>
+              </div>
+            </header>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+  </div>
+</div>

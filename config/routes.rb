@@ -19,7 +19,14 @@ Rails.application.routes.draw do
 
     # post /projects/:project_id/uploads => create new upload batch
     # get /projects/:project_id/uploads => get batches from a project
-    resources :upload_bundles, path: 'uploads', only: [:create, :index, :edit, :update, :destroy ] do
+    resources :upload_bundles, path: 'uploads', only: [:index, :update, :destroy] do
+      # POST /projects/:project_id/uploads/connector => create new upload bundle via connector
+      post :connector, on: :collection, to: 'upload_bundles_connector#create'
+
+      # GET /projects/:project_id/uploads/:upload_bundle_id/connector/edit => edit connector form
+      # PUT /projects/:project_id/uploads/:upload_bundle_id/connector => update via connector
+      resource :connector, only: [:edit, :update], controller: 'upload_bundles_connector'
+
       # post /projects/:project_id/uploads/:upload_bundle_id/files => create new upload_file
       # get /projects/:project_id/uploads/:upload_bundle_id/files => gets upload_files from a collection
       # delete /projects/:project_id/uploads/:upload_bundle_id/files/:id => delete upload_file
@@ -45,8 +52,8 @@ Rails.application.routes.draw do
   get '/detached_process/status', to: 'detached_process#status'
   # FILE BROWSER
   get '/file_browser', to: 'file_browser#index'
-  #WIDGETS
-  get '/widgets/*widget_path', to: 'widgets#show', via: [:get], as: 'widgets'
+  # WIDGETS
+  match '/widgets/*widget_path', to: 'widgets#show', via: [:get, :post], as: 'widgets'
   # SITEMAP
   get '/sitemap' => 'sitemap#index', as: :sitemap
 

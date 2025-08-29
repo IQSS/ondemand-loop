@@ -1,28 +1,49 @@
-<nav class="navbar navbar-expand-lg shadow-sm bg-dark" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg shadow-sm bg-dark" data-bs-theme="dark" aria-label="Main navigation">
   <div class="container-fluid">
     <%= render partial: 'layouts/nav/logo' %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+    <!-- Mobile toggle button -->
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0" role="menubar">
-        <li class="nav-item" role="menuitem">
-          <%= nav_link_to t(".link_projects_text"), projects_path, class: 'nav-link' %>
+      <!-- Primary nav links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= nav_link_to t(".link_projects_text"), projects_path, class: 'nav-link', aria: { current: 'page' } %>
         </li>
-        <li class="nav-item" role="menuitem">
+        <li class="nav-item">
           <%= nav_link_to t(".link_downloads_text"), download_status_path, class: 'nav-link' %>
         </li>
-        <li class="nav-item" role="menuitem">
+        <li class="nav-item">
           <%= nav_link_to t(".link_uploads_text"), upload_status_path, class: 'nav-link' %>
         </li>
+
+        <!-- Dropdown: Repositories -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle"
+             href="#"
+             id="repositoriesDropdown"
+             role="button"
+             data-bs-toggle="dropdown"
+             aria-expanded="false"
+             aria-haspopup="true"
+             aria-controls="repositoriesMenu">
             <%= t(".link_repositories_text") %>
           </a>
-          <ul class="dropdown-menu">
-            <li role="menuitem">
-              <a class="dropdown-item d-flex align-items-center gap-2" href="<%= link_to_landing(ConnectorType::DATAVERSE) %>">
-                <span class="icon-wrapper bg-white rounded d-inline-flex align-items-center justify-content-center p-1">
+          <ul class="dropdown-menu"
+              id="repositoriesMenu"
+              aria-labelledby="repositoriesDropdown">
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2"
+                 href="<%= link_to_landing(ConnectorType::DATAVERSE) %>">
+                <span class="icon-wrapper bg-white rounded d-inline-flex align-items-center justify-content-center p-1" aria-hidden="true">
                   <%= connector_icon(ConnectorType::DATAVERSE) %>
                 </span>
                 <%= t('.link_dataverse_text') %>
@@ -30,20 +51,23 @@
             </li>
 
             <% if ::Configuration.zenodo_enabled %>
-              <li role="menuitem">
-                <a class="dropdown-item d-flex align-items-center gap-2" href="<%= explore_path(connector_type: ConnectorType::ZENODO.to_s, server_domain: Zenodo::ZenodoUrl::DEFAULT_SERVER, object_type: 'landing', object_id: ':root') %>">
-                  <span class="icon-wrapper bg-white rounded d-inline-flex align-items-center justify-content-center p-1">
+              <li>
+                <a class="dropdown-item d-flex align-items-center gap-2"
+                   href="<%= explore_path(connector_type: ConnectorType::ZENODO.to_s, server_domain: Zenodo::ZenodoUrl::DEFAULT_SERVER, object_type: 'landing', object_id: ':root') %>">
+                  <span class="icon-wrapper bg-white rounded d-inline-flex align-items-center justify-content-center p-1" aria-hidden="true">
                     <%= connector_icon(ConnectorType::ZENODO) %>
                   </span>
                   <%= t('.link_zenodo_text') %>
                 </a>
               </li>
             <% end %>
-            <li><hr class="dropdown-divider"></li>
-            <li role="menuitem">
+
+            <li><hr class="dropdown-divider" role="separator"></li>
+
+            <li>
               <%= nav_link_to repository_settings_path, class: 'dropdown-item d-flex align-items-center gap-2' do %>
-                <span class="icon-wrapper bg-white text-dark rounded d-inline-flex align-items-center justify-content-center p-1">
-                  <i class="bi bi-gear-fill" aria-hidden="true"></i>
+                <span class="icon-wrapper bg-white text-dark rounded d-inline-flex align-items-center justify-content-center p-1" aria-hidden="true">
+                  <i class="bi bi-gear-fill"></i>
                 </span>
                 <%= t('.link_repo_settings_text') %>
               <% end %>
@@ -51,56 +75,98 @@
           </ul>
         </li>
       </ul>
-      <ul class="navbar-nav ms-auto" role="menubar"> <!-- ms-auto pushes this section to the right -->
-        <li class="nav-item" role="menuitem">
+
+      <!-- Right-aligned nav -->
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
           <%= nav_link_to ood_dashboard_url, class: 'nav-link d-flex align-items-center' do %>
-            <%= image_tag('ood_icon.svg', alt: t('.icon_ood_alt'), class: 'icon-class me-1') %> Open OnDemand
+            <%= image_tag('ood_icon.svg',
+                          alt: t('.icon_ood_alt'),
+                          class: 'icon-class me-1') %>
+            Open OnDemand
           <% end %>
         </li>
+
+        <!-- Dropdown: Help -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle"
+             href="#"
+             id="helpDropdown"
+             role="button"
+             data-bs-toggle="dropdown"
+             aria-expanded="false"
+             aria-haspopup="true"
+             aria-controls="helpMenu">
             <%= t(".link_help_text") %>
           </a>
-          <ul class="dropdown-menu">
-            <li role="menuitem">
-              <a class="dropdown-item d-flex align-items-center gap-2" href="<%= guide_url %>" target="_blank">
-                <span class="icon-wrapper icon-wrapper bg-white text-dark rounded d-inline-flex align-items-center justify-content-center p-1">
-                  <i class="bi bi-book" aria-hidden="true"></i>
+          <ul class="dropdown-menu dropdown-menu-end"
+              id="helpMenu"
+              aria-labelledby="helpDropdown">
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" href="<%= guide_url %>" target="_blank" rel="noopener">
+                <span class="icon-wrapper bg-white text-dark rounded d-inline-flex align-items-center justify-content-center p-1" aria-hidden="true">
+                  <i class="bi bi-book"></i>
                 </span>
                 <%= t(".link_guide_text") %>
               </a>
             </li>
-            <li role="menuitem">
-              <a class="dropdown-item d-flex align-items-center gap-2" href="<%= sitemap_path %>" target="_blank">
-                <span class="icon-wrapper icon-wrapper bg-white text-dark rounded d-inline-flex align-items-center justify-content-center p-1">
-                  <i class="bi bi-diagram-3" aria-hidden="true"></i>
+            <li>
+              <a class="dropdown-item d-flex align-items-center gap-2" href="<%= sitemap_path %>" target="_blank" rel="noopener">
+                <span class="icon-wrapper bg-white text-dark rounded d-inline-flex align-items-center justify-content-center p-1" aria-hidden="true">
+                  <i class="bi bi-diagram-3"></i>
                 </span>
                 <%= t(".link_sitemap_text") %>
               </a>
             </li>
-            <li role="menuitem">
+            <li>
               <a class="dropdown-item d-flex align-items-center gap-2" href="<%= restart_url %>">
-                <span class="icon-wrapper icon-wrapper bg-white text-dark rounded d-inline-flex align-items-center justify-content-center p-1">
-                  <i class="bi bi-bootstrap-reboot" aria-hidden="true"></i>
+                <span class="icon-wrapper bg-white text-dark rounded d-inline-flex align-items-center justify-content-center p-1" aria-hidden="true">
+                  <i class="bi bi-bootstrap-reboot"></i>
                 </span>
                 <%= t(".link_restart_text") %>
               </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <% # RESET BUTTON WITH CONFIRMATION MESSAGE  %>
+              <%= button_to widgets_path('reset'),
+                    method: :post,
+                    form: { data: {
+                      controller: "utils--link-confirmation",
+                      "utils--link-confirmation-target": "form",
+                      "utils--link-confirmation-modal-id-value": "modal-delete-confirmation",
+                      "utils--link-confirmation-modal-title-value": t('.reset_confirmation_title'),
+                      "utils--link-confirmation-modal-subtitle-value": t('.reset_confirmation_subtitle'),
+                      "utils--link-confirmation-modal-content-value": t('.reset_confirmation_content'),
+                      "utils--link-confirmation-modal-confirm-text-value": t('.reset_confirmation_button_text')
+                    } },
+                    data: { action: "click->utils--link-confirmation#click" },
+                    class: "dropdown-item d-flex align-items-center gap-2" do %>
+                <span class="icon-wrapper bg-white text-dark rounded d-inline-flex align-items-center justify-content-center p-1" aria-hidden="true">
+                  <i class="bi bi-exclamation-octagon-fill"></i>
+                </span>
+                <%= t(".link_reset_text") %>
+              <% end %>
             </li>
           </ul>
         </li>
       </ul>
     </div>
 
+    <!-- Process status -->
     <div id="process-status"
          data-controller="lazy-loader"
          aria-live="polite"
+         aria-label="<%= t(".detached_process_widget_label") %>"
          data-lazy-loader-url-value="<%= detached_process_status_path %>"
          data-lazy-loader-stop-on-inactive-value="true"
          data-lazy-loader-interval-value="<%= ::Configuration.detached_process_status_interval %>">
       <div id="file-activity-status"
            class="d-flex justify-content-center align-items-start py-2"
            style="min-width: 100px; height: 100%;">
-        <span class="text-light spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="text-light spinner-border spinner-border-sm"
+              role="status"
+              aria-label="<%= t(".detached_process_spinner_label") %>"></span>
       </div>
     </div>
   </div>

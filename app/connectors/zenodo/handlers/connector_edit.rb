@@ -30,7 +30,7 @@ module Zenodo::Handlers
         upload_bundle.update({ metadata: metadata })
       else
         zenodo_url = upload_bundle.connector_metadata.zenodo_url
-        RepoRegistry.repo_db.update(zenodo_url, metadata: {auth_key: repo_key})
+        ::Configuration.repo_db.update(zenodo_url, metadata: {auth_key: repo_key})
       end
 
       ConnectorResult.new(

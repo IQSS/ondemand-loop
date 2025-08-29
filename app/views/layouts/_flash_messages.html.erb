@@ -1,5 +1,5 @@
 <div id="flash-container" class="position-relative z-3">
-  <% flash.each do |type, message| %>
+  <% flash_messages.each do |type, message| %>
     <div class="alert-dismissible fade show <%= alert_class(type) %>" role="alert">
       <%= message.html_safe %>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<%= t('.button_close_label') %>"></button>

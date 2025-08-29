@@ -60,15 +60,11 @@ class DownloadFile < ApplicationDiskRecord
   end
 
   def connector_status
-    ConnectorClassDispatcher.download_connector_status(self)
+    DownloadStatus.new(self)
   end
 
   def connector_metadata
     ConnectorClassDispatcher.download_connector_metadata(self)
-  end
-
-  def restart_possible?
-    FileStatus.retryable_statuses.include?(status) && connector_metadata.partial_downloads != false
   end
 
   def max_file_size

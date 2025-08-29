@@ -42,17 +42,15 @@ class ProjectsHelperTest < ActionView::TestCase
     refute active_project?('456')
   end
 
-  test 'select_project_list moves active project to top and labels it' do
+  test 'select_project_list moves active project to top' do
     project1 = OpenStruct.new(id: 1, name: 'Project A')
     project2 = OpenStruct.new(id: 2, name: 'Project B')
     Project.stubs(:all).returns([project1, project2])
     Current.settings = OpenStruct.new(user_settings: OpenStruct.new(active_project: '2'))
-    self.stubs(:t).with('helpers.projects.active_project_text').returns('Active')
 
     result = select_project_list
 
     assert_equal [project2, project1], result
-    assert_equal 'Project B (Active)', result.first.name
   end
 
   test 'select_project_list returns original order if no active match' do
@@ -66,8 +64,35 @@ class ProjectsHelperTest < ActionView::TestCase
     assert_equal [project1, project2], result
   end
 
+  test 'select_project_list returns original order if no active project set' do
+    project1 = OpenStruct.new(id: 1, name: 'Project A')
+    project2 = OpenStruct.new(id: 2, name: 'Project B')
+    Project.stubs(:all).returns([project1, project2])
+    Current.settings = OpenStruct.new(user_settings: OpenStruct.new(active_project: nil))
+
+    result = select_project_list
+
+    assert_equal [project1, project2], result
+  end
+
+  test 'most_recent_explore_url returns nil when no files exist' do
+    project = OpenStruct.new(download_files: [])
+    assert_nil most_recent_explore_url(project)
+  end
+
+  test 'most_recent_explore_url returns url of most recent file' do
+    file_old = OpenStruct.new(end_date: '2023-01-01T00:00:00', start_date: nil, creation_date: nil,
+                              connector_metadata: OpenStruct.new(files_url: '/old'))
+    file_new = OpenStruct.new(end_date: '2023-01-02T00:00:00', start_date: nil, creation_date: nil,
+                              connector_metadata: OpenStruct.new(files_url: '/new'))
+    project = OpenStruct.new(download_files: [file_old, file_new])
+
+    assert_equal '/new', most_recent_explore_url(project)
+  end
+
   test 'project_download_dir_browser_id returns id string' do
     project = OpenStruct.new(id: 42)
     assert_equal 'download-dir-browser-42', project_download_dir_browser_id(project)
   end
 end
+

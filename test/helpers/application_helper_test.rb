@@ -40,6 +40,11 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_equal 'alert alert-info', alert_class(:other)
   end
 
+  test 'flash_messages filters non-alert flash keys' do
+    messages = { notice: 'hi', foo: 'bar', error: 'ouch' }
+    assert_equal({ notice: 'hi', error: 'ouch' }, flash_messages(messages))
+  end
+
   test 'status_badge renders span with status text' do
     html = status_badge(FileStatus::SUCCESS, title: 'ok', filename: 'f')
     assert_includes html, 'badge file-status bg-success'

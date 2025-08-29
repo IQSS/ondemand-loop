@@ -10,7 +10,7 @@
     </nav>
   </div>
   <% if files_page.total_count > 0 %>
-    <%= form_with url: link_to_explore(ConnectorType::DATAVERSE, repo_url, type: 'datasets', id: dataset.data.dataset_persistent_id), id: 'dataset-download-files-form', method: :post, local: true, class: "p-3 rounded bg-light", data: {controller: "select-files-project", "select-files-project-external-targets-value": '["dataset_create_bundle"]'} do %>
+    <%= form_with url: link_to_explore(ConnectorType::DATAVERSE, repo_url, type: 'datasets', id: dataset.data.dataset_persistent_id), id: 'dataset-download-files-form', method: :post, local: true, class: "p-3 rounded bg-light", data: {controller: "select-files"} do %>
       <%= hidden_field_tag 'version', dataset.version %>
       <%= hidden_field_tag 'page', files_page.page %>
       <%= hidden_field_tag 'query', files_page.query %>
@@ -25,7 +25,7 @@
                 <label class="visually-hidden" for="select_all_files">
                   <%= t('connectors.dataverse.datasets.dataset_files.checkbox_select_all_label') %>
                 </label>
-                <input type="checkbox" id="select_all_files" class="form-check-input m-0" data-select-files-project-target="selectAll" data-action="select-files-project#toggleSelectAll">
+                <input type="checkbox" id="select_all_files" class="form-check-input m-0" data-select-files-target="selectAll" data-action="select-files#toggleSelectAll">
               </div>
             </th>
             <th scope="col"><%= t('connectors.dataverse.datasets.dataset_files.col_file_name_text') %></th>
@@ -39,9 +39,33 @@
           </tbody>
         </table>
       </div>
-      <div class="text-center">
-        <%= render partial: '/shared/project_selection' %>
+
+      <div class="row g-3 align-items-end p-3">
+        <div class="col-md-9 text-start mt-0" data-controller="select-project-listener">
+          <label for="active_project" class="form-label small mb-1 ms-1"><%= t('.label_selected_project_text') %></label>
+
+          <div class="d-flex align-items-center">
+          <input type="text" id="active_project" class="form-control me-3" value="<%= t('.input_selected_project_default_value') %>"
+                 data-select-project-listener-target="inputProjectName" disabled>
+          <input type="hidden" name="project_id" id="project_id" autocomplete="off" data-select-project-listener-target="inputProjectId">
+          <!-- link to project details page -->
+          <%= link_to projects_path,
+                      class: 'btn btn-outline-secondary',
+                      title: t('.button_open_project_title'),
+                      data: { select_project_listener_target: 'link' } do %>
+            <i class="bi bi-display" aria-hidden="true"></i>
+            <span class="visually-hidden"><%= t('.button_open_project_label') %></span>
+          <% end %>
+        </div>
+        </div>
+        <div class="col-md-3 text-center">
+          <button id="files_submit" type="submit" class="btn btn-primary" data-select-files-target="submitButton">
+            <i class="bi bi-download me-1" aria-hidden="true"></i>
+            <%= t('.button_submit_form_text') %>
+          </button>
+        </div>
       </div>
+
     <% end %>
   <% else %>
     <div class="list-group list-group-flush">

@@ -61,6 +61,13 @@ en:
         link_guide_text: "Guide"
         link_sitemap_text: "Sitemap"
         link_restart_text: "Restart"
+        link_reset_text: "Reset Application"
+        reset_confirmation_title: "Confirm Reset"
+        reset_confirmation_subtitle: "This action cannot be undone"
+        reset_confirmation_content: "This will remove all projects and file metadata from the app, returning it to a brand new state. Files on disk and in remote repositories will remain untouched."
+        reset_confirmation_button_text: "Reset"
+        detached_process_widget_label: "Detached process status widget"
+        detached_process_spinner_label: "Detached process status loading"
     flash_messages:
       button_close_label: "Close"
     footer:
@@ -79,8 +86,7 @@ en:
       button_active_project_title: "Active Project"
       field_creation_date_title: "Creation date"
       link_open_downloads_title: "Open Project workspace folder"
-      link_open_metadata_title: "Open Project metadata folder"
-    repo_resolver_bar:
+    app_actions_bar:
       input_repo_url_placeholder: "Paste Repository URL"
       input_repo_url_label: "Repository URL"
       button_submit_text: "Explore"
@@ -90,10 +96,14 @@ en:
       download_actions:
         button_open_downloads_folder_title: "Open Project workspace folder"
         header_download_files_text: "Downloads"
-        button_add_files_text: "Add Files"
-        button_add_files_title: "Add dataset to browse and select files"
+        button_add_files_text: "Select More Files"
+        button_add_files_title: "Select more files from the last repository dataset"
+        button_browse_dataset_text: "Add From URL"
+        button_browse_dataset_title: "Use a repository URL to to browse and select files from"
         button_edit_download_dir_title: "Update project workspace folder"
         button_edit_download_dir_label: "Update workspace folder"
+        button_submit_icon_alt: "OnDemand Loop Application Icon"
+        button_submit_text: "Explore"
       download_files:
         badge_repository_files_tooltip: "Repository Files"
         button_retry_download_title: "Retry download"
@@ -119,7 +129,6 @@ en:
         button_delete_project_title: "Delete Project"
         button_open_project_folder_label: "Open Project workspace folder"
         button_open_project_folder_title: "Open Project workspace folder"
-        button_open_project_metadata_title: "Open Project metadata folder"
         field_creation_date_title: "Creation date"
         modal_delete_confirmation_title: "Delete Project"
         modal_delete_confirmation_content: "This will remove the project from the app. Files on disk and in remote repositories will remain untouched."
@@ -135,6 +144,10 @@ en:
         button_add_files_title: "Add Files"
         button_delete_title: "Delete Bundle"
         field_creation_date_title: "Creation date"
+        button_edit_bundle_name_title: "Edit Upload Bundle name"
+        button_save_bundle_name_title: "Save bundle name"
+        button_cancel_bundle_name_title: "Cancel"
+        section_rename_bundle_label: "Rename upload bundle section"
         modal_delete_confirmation_title: "Delete Upload Bundle"
         modal_delete_confirmation_content: "This will remove the upload bundle from the app. Files on disk and any already uploaded files will remain unchanged. To upload again, you’ll need to create a new bundle."
       upload_files:
@@ -167,7 +180,6 @@ en:
         section_project_actions_label: "Project actions section"
         section_rename_project_label: "Rename project section"
       project_summary:
-        button_metadata_folder_title: "Open project metadata folder"
         button_toggle_label: "Project Summary"
         tab_download_label: "Download Files"
       project_summary_downloads:
@@ -182,9 +194,19 @@ en:
         <p><strong>OnDemand Loop</strong> is a companion application to <strong>Open OnDemand</strong>, designed to simplify the movement of research data between high-performance computing (HPC) clusters and remote repositories such as Dataverse, or Zenodo.</p>
         <p>The core goal of OnDemand Loop is to <strong>lower the barrier for non-technical users</strong> to interact with research data repositories. Following the Open OnDemand philosophy, it aims to provide a user-friendly interface for tasks that typically require complex command-line operations or custom scripts. Researchers can upload and download datasets to and from remote repositories directly from their HPC environment with minimal friction.</p>
         <p>In OnDemand Loop you organize transfers using <strong>projects</strong>. A project groups related download requests and upload bundles so you can keep track of all activity in one place. Projects are created from the home page and only one project is active at a time.</p>
-        <p>This project has been funded by <a href="https://adminops.fas.harvard.edu/FAS-HUIT-PRB" target="_blank">FAS-HUIT Project Review Board (PRB) initiative</a> Fall 2024.</p>
+        <p>This project has been funded by <a href="https://adminops.fas.harvard.edu/FAS-HUIT-PRB" target="_blank">FAS-HUIT Project Review Board (PRB) initiative</a>.</p>
         <p>Start by creating a project with the <strong>Create Project</strong> button above.</p>
       button_welcome_text: "Read the Guide"
+      beta_notice_title: "Beta Notice"
+      beta_notice_html: >
+        <p><strong>OnDemand Loop</strong> is currently in <strong>Beta</strong> status. While we strive to provide a stable experience, please be aware of the following:</p>
+        <ul class="mb-0">
+        <li>You may encounter occasional bugs or incomplete features.</li>
+        <li>User interface and workflow changes may occur without backward compatibility guarantees.</li>
+        <li>Minor UI/UX inconsistencies are expected as the product evolves.</li>
+        <li>If you encounter errors or inconsistencies, you can try using the <strong>Help → Reset</strong> option to return your instance to a clean state.</li>
+        <li>We welcome <a href="https://github.com/IQSS/ondemand-loop/issues" target="_blank">feedback and bug reports</a> to help us improve!</li>
+        </ul>
   shared:
     breadcrumbs:
       home: "Home"
@@ -214,21 +236,22 @@ en:
     inline_field_submit:
       button_submit_title: "Submit"
       button_cancel_title: "Cancel"
-      input_default_placeholder: "Enter value"
       spinner_loading_label: "Loading..."
+    metadata_folder_link:
+      button_open_folder_text: "Open metadata folder"
+      button_open_folder_title: "Open metadata folder in Open OnDemand"
     ood_folder_button:
       button_open_in_ondemand_title: "Open in OnDemand"
       image_ood_icon_alt: "Open OnDemand Icon"
-    project_selection:
-      project_select_label: "Choose an existing project"
-      option_create_project_text: "➕ Create new project"
-      button_submit_aria_label: "Add selected files to project"
-      button_submit_text: "Add Files to Project"
-      button_open_project_title: "Open selected project details page"
-      button_open_project_label: "Open selected project"
     tabs_scrollable:
       button_tabs_scroll_left_label: "Scroll tabs left"
       button_tabs_scroll_right_label: "Scroll tabs right"
+  project_selection:
+    button_empty_list_text: "Create a project using the plus button ➔"
+    selected_project_label: "Selected project:"
+    button_open_project_title: "Open selected project details page"
+    button_open_project_label: "Open selected project"
+    button_create_project_title: "Create new project"
   sitemap:
     index:
       breadcrumbs_text: "Sitemap"
@@ -264,3 +287,31 @@ en:
       button_delete_repository_title: "Delete repository"
       modal_delete_confirmation_title: "Delete Repository"
       modal_delete_confirmation_content: "This will remove the repository settings from the app. No local or remote file will be affected"
+  widgets:
+    repository_activity:
+      button_open_modal_title: "Open repository activity"
+      modal_title: "Recent Repository Activity"
+      tab_global_label: "Across All Projects"
+      field_date_title: "Last used date"
+      section_item_actions_label: "Item actions"
+      button_explore_item_title: "Browse repository"
+      button_open_repository_title: "Open repository on website"
+    reset:
+      success_page_title: "Reset Completed"
+      success_content_title: "Reset Completed"
+      success_content_html: >
+        <p>Your personal <em>OnDemand Loop</em> instance has been successfully reset.</p>
+        <p>The application will automatically restart in <strong>3 seconds</strong>.</p>
+        <hr>
+        <p class="mb-0">
+        If the page does not refresh, <a href="%{url}">click here to continue</a>.
+        </p>
+      error_page_title: "Invalid Reset Request"
+      error_content_title: "Invalid Request"
+      error_content_html: >
+        <p>The reset request is only allowed via POST.</p>
+        <p>You will be redirected to the home page in <strong>3 seconds</strong>.</p>
+        <hr>
+        <p class="mb-0">
+        If the page does not refresh, <a href="%{url}">click here to continue</a>.
+        </p>

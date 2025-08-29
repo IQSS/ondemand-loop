@@ -7,6 +7,7 @@ module Dataverse
     def initialize(download_file)
       @metadata = ActiveSupport::OrderedOptions.new
       @metadata.merge!(download_file.metadata.to_h.deep_symbolize_keys)
+      @project_id = download_file.project_id
     end
 
     def repo_name
@@ -24,7 +25,8 @@ module Dataverse
         server_port: dataverse_uri.port,
         object_type: 'datasets',
         object_id: dataset_id,
-        version: version
+        version: version,
+        active_project: @project_id
       )
     end
 

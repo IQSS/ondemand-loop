@@ -3,7 +3,7 @@ require 'test_helper'
 class Zenodo::Handlers::LandingIntegrationTest < ActionDispatch::IntegrationTest
   def setup
     @repo_db = Repo::RepoDb.new(db_path: Tempfile.new('repo').path)
-    RepoRegistry.repo_db = @repo_db
+    ::Configuration.stubs(:repo_db).returns(@repo_db)
     @repo_db.set('https://zenodo.org', type: ConnectorType.get('zenodo'))
     Project.stubs(:all).returns([])
     FileUtils.mkdir_p(Rails.root.join('app/assets/builds'))

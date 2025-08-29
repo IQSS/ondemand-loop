@@ -42,8 +42,8 @@ class Dataverse::Handlers::DatasetFormTabsTest < ActiveSupport::TestCase
     @bundle.stubs(:connector_metadata).returns(meta)
     repo = mock('repo')
     repo.stubs(:metadata).returns(OpenStruct.new(subjects: nil))
-    RepoRegistry.repo_db.stubs(:get).with('https://demo.dv').returns(repo)
-    RepoRegistry.repo_db.stubs(:update)
+    ::Configuration.repo_db.stubs(:get).with('https://demo.dv').returns(repo)
+    ::Configuration.repo_db.stubs(:update)
 
     md_service = mock('md')
     md_service.expects(:get_citation_metadata).returns(OpenStruct.new(subjects: ['Bio']))
@@ -59,8 +59,8 @@ class Dataverse::Handlers::DatasetFormTabsTest < ActiveSupport::TestCase
 
     repo = mock('repo')
     repo.stubs(:metadata).returns(OpenStruct.new(subjects: ['Chem']))
-    RepoRegistry.repo_db.stubs(:get).with('https://demo.dv').returns(repo)
-    RepoRegistry.repo_db.expects(:update).never
+    ::Configuration.repo_db.stubs(:get).with('https://demo.dv').returns(repo)
+    ::Configuration.repo_db.expects(:update).never
     Dataverse::MetadataService.expects(:new).never
 
     result = @action.send(:subjects, @bundle)

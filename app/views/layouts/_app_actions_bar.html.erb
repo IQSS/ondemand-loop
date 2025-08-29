@@ -1,0 +1,104 @@
+<%
+  id = 'app-actions-bar'
+  input_id = "#{id}_input"
+  url ||= repo_resolver_path
+  type = on_project_index? ? 'form' : 'json'
+%>
+<div id="<%= id %>" class="shadow-sm sticky-top bg-primary-subtle" style="z-index: 500;">
+  <div class="d-flex align-items-center justify-content-between py-2 px-4 gap-5">
+    <div class="d-flex align-items-center gap-3">
+      <div class="d-flex flex-column gap-1">
+        <label for="repo_resolver_project_select" class="form-label mb-0 small">
+          <%= t('project_selection.selected_project_label') %>
+        </label>
+
+        <div class="d-flex align-items-center gap-2">
+          <div class="dropdown flex-grow-1" data-controller="select-project" data-select-project-type-value="<%= type %>" style="width: 20rem;">
+            <button class="btn btn-sm btn-outline-dark dropdown-toggle d-flex justify-content-between align-items-center text-start w-100"
+                    type="button"
+                    id="repo_resolver_project_dropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+              <span class="flex-grow-1 text-truncate" data-select-project-target="displayLabel">
+                <%= select_project_list.any? ? select_project_list.first.name : t('project_selection.button_empty_list_text') %>
+              </span>
+              <span class="spinner-border spinner-border-sm ms-2 d-none" data-select-project-target="spinner" role="status" aria-hidden="true"></span>
+            </button>
+            <ul class="dropdown-menu w-100" aria-labelledby="repo_resolver_project_dropdown">
+              <% select_project_list.each do |project| %>
+                <li>
+                  <a href="#"
+                     class="dropdown-item text-truncate"
+                     title="<%= project.name %>"
+                     data-action="select-project#chooseProject"
+                     data-project-id="<%= project.id %>"
+                     data-project-name="<%= project.name %>"
+                     data-project-path="<%= project_path(project.id) %>">
+                    <%= project.name %>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+
+          <%= link_to projects_path,
+                      class: 'btn btn-sm btn-outline-dark flex-shrink-0',
+                      title: t('project_selection.button_open_project_title'),
+                      data: { controller: 'select-project-listener', select_project_listener_target: 'link' } do %>
+            <i class="bi bi-display" aria-hidden="true"></i>
+            <span class="visually-hidden"><%= t('project_selection.button_open_project_label') %></span>
+          <% end %>
+
+          <%= render layout: "shared/button_to", locals: {
+            url: projects_path,
+            class: 'btn btn-sm btn-outline-dark',
+            title: t('project_selection.button_create_project_title'),
+            icon: "bi bi-plus-square-fill"
+          } do %>
+            <%= hidden_field_tag :redirect_back, true if on_explore? %>
+          <% end %>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="d-flex align-items-center flex-grow-1 gap-2">
+    <%= render layout: "shared/button_to", locals: {
+      url: url,
+      form_class: 'd-flex align-items-center gap-2 flex-grow-1',
+      class: 'btn-primary-dark',
+      icon_html: image_tag('icon.png', alt: t('.button_submit_icon_alt'), class: 'icon-class d-block', style: 'height: 1rem; width: auto; object-fit: contain;' ),
+      label: t('.button_submit_text')
+    } do %>
+
+      <div class="input-group">
+        <span class="input-group-text bg-white">
+          <%=  image_tag('doi.svg', alt: 'DOI', class: 'me-1', height: '20') %>
+          <%=  image_tag('dataverse.svg', alt: 'Dataverse', class: 'me-1', height: '16') %>
+          <%=  image_tag('zenodo.svg', alt: 'Zenodo', class: 'me-1', height: '16') %>
+        </span>
+        <input type="text"
+               name="repo_url"
+               id="<%= input_id %>"
+               class="form-control"
+               placeholder="<%= t('layouts.app_actions_bar.input_repo_url_placeholder') %>"
+               aria-label="<%= t('layouts.app_actions_bar.input_repo_url_label') %>">
+      </div>
+    <% end %>
+
+    <button type="button"
+            class="btn btn-primary-dark"
+            title="<%= t('widgets.repository_activity.button_open_modal_title') %>"
+            data-controller="modal"
+            data-action="click->modal#load"
+            data-modal-url-value="<%= widgets_path('repository_activity') %>"
+            data-modal-title-value="<%= t('widgets.repository_activity.modal_title') %>"
+            data-modal-id-value="global-modal">
+      <i class="bi bi-folder-symlink-fill" style="font-size: 1.1rem;"></i>
+      <span class="visually-hidden"><%= t('widgets.repository_activity.button_open_modal_title') %></span>
+    </button>
+    </div>
+
+  </div>
+</div>

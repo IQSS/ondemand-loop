@@ -1,5 +1,5 @@
 <div data-controller="list-filter">
-<%= form_with url: project_upload_bundle_path(upload_bundle.project_id, upload_bundle.id), method: :put, data: { action: "submit->modal#showSpinner" }, local: true do |f| %>
+<%= form_with url: project_upload_bundle_connector_path(upload_bundle.project_id, upload_bundle.id), method: :put, data: { action: "submit->modal#showSpinner" }, local: true do |f| %>
   <%= hidden_field_tag :form, 'collection_select' %>
   <%= hidden_field_tag :anchor, tab_anchor_for(upload_bundle) %>
 

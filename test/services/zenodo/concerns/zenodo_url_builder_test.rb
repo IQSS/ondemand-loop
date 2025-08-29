@@ -27,6 +27,21 @@ class Zenodo::Concerns::ZenodoUrlBuilderTest < ActiveSupport::TestCase
     assert_equal 'https://zenodo.org/uploads/20', @builder.deposition_url
   end
 
+  test 'build_record_url builds correct URL' do
+    url = Zenodo::Concerns::ZenodoUrlBuilder.build_record_url('https://zenodo.org', '1')
+    assert_equal 'https://zenodo.org/records/1', url
+  end
+
+  test 'build_file_url builds correct URL' do
+    url = Zenodo::Concerns::ZenodoUrlBuilder.build_file_url('https://zenodo.org', '1', 'file.txt')
+    assert_equal 'https://zenodo.org/records/1/files/file.txt', url
+  end
+
+  test 'build_deposition_url builds correct URL' do
+    url = Zenodo::Concerns::ZenodoUrlBuilder.build_deposition_url('https://zenodo.org', '20')
+    assert_equal 'https://zenodo.org/uploads/20', url
+  end
+
   test 'user_depositions_url builds correct URL' do
     assert_equal 'https://zenodo.org/me/uploads', @builder.user_depositions_url
   end

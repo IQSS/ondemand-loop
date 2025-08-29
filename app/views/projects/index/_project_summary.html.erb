@@ -13,13 +13,8 @@
     <strong><%= t('.button_toggle_label') %></strong>
   </a>
   <div>
-    <a href="<%= files_app_url(Project.project_metadata_dir(project.id)) %>"
-       target="_blank"
-       class="btn btn-sm btn-outline-secondary"
-       title="<%= t('.button_metadata_folder_title') %>">
-      <i class="bi bi-card-list" aria-hidden="true"></i>
-      <span class="visually-hidden"><%= t('.button_metadata_folder_title') %></span>
-    </a>
+    <%= render partial: '/shared/metadata_folder_link',
+               locals: { path: Project.project_metadata_dir(project.id) } %>
   </div>
 </div>
 

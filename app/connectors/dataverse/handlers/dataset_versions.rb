@@ -16,7 +16,7 @@ module Dataverse::Handlers
       repo_url = request_params[:repo_url]
       dataverse_url = repo_url.server_url
 
-      repo_info = RepoRegistry.repo_db.get(dataverse_url)
+      repo_info = ::Configuration.repo_db.get(dataverse_url)
       api_key = repo_info&.metadata&.auth_key
       service = Dataverse::DatasetService.new(dataverse_url, api_key: api_key)
 

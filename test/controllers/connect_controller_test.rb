@@ -56,4 +56,5 @@ class ConnectControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     assert_equal I18n.t('connect.handle.message_processor_error', connector_type: 'zenodo', action: 'landing'), flash[:alert]
   end
+
 end

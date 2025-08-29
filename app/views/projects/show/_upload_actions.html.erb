@@ -1,18 +1,56 @@
 <section class="card mb-3 shadow-sm rounded overflow-hidden">
-  <div class="card-header d-flex justify-content-between align-items-center bg-light-darker">
-    <div class="d-flex align-items-center gap-3">
-      <%= render partial: '/shared/file_row_date', locals: { date: bundle.creation_date, title: t('.field_creation_date_title') } if bundle.creation_date %>
+  <div class="card-header bg-light-darker py-1">
+    <div data-controller="update-inline-field"
+         data-update-inline-field-initial-value-value="<%= bundle.name %>"
+         data-update-inline-field-url-value="<%= project_upload_bundle_path(project_id: bundle.project_id, id: bundle.id) %>"
+          data-update-inline-field-error-message-value="<%= t('js.upload_bundle_name.save.error') %>"
+          data-update-inline-field-field-name-value="name"
+          data-update-inline-field-payload-value='{"anchor": "<%= tab_anchor_for(bundle) %>"}'
+          data-update-inline-field-type-value="form"
+          data-update-inline-field-method-value="PUT">
+      <div class="d-flex justify-content-between align-items-center py-2">
+        <div class="d-flex align-items-center gap-3 me-2">
+          <%= render partial: '/shared/file_row_date', locals: { date: bundle.creation_date, title: t('.field_creation_date_title') } if bundle.creation_date %>
 
-      <div>
-        <!-- PROJECT METADATA -->
-        <div class="d-flex flex-column">
-          <h3 class="mb-0 h5"><%= bundle.name %></h3>
+          <h3 class="mb-0 h5" data-update-inline-field-target="name display"><%= bundle.name %></h3>
+        </div>
+
+        <div class="d-flex align-items-center gap-2 flex-wrap justify-content-end flex-grow-1">
+          <%= render partial: 'shared/update_inline_field_form', locals: {
+            aria_label: t('.section_rename_bundle_label'),
+            save_title: t('.button_save_bundle_name_title'),
+            cancel_title: t('.button_cancel_bundle_name_title'),
+            input_value: bundle.name,
+            field_name: 'name'
+          } %>
+
+          <button class="btn btn-sm btn-outline-secondary"
+                  data-action="click->update-inline-field#edit"
+                  title="<%= t('.button_edit_bundle_name_title') %>">
+            <i class="bi bi-pencil-fill" aria-hidden="true"></i>
+            <span class="visually-hidden"><%= t('.button_edit_bundle_name_title') %></span>
+          </button>
+
+          <%= render layout: "shared/button_to", locals: {
+            url: project_upload_bundle_path(project_id: bundle.project_id, id: bundle.id),
+            method: 'DELETE',
+            title: t('.button_delete_title'),
+            class: 'btn btn-sm btn-outline-secondary icon-hover-danger',
+            icon: "bi bi-trash",
+            modal_id: 'modal-delete-confirmation',
+            modal_title: t('.modal_delete_confirmation_title'),
+            modal_subtitle: bundle.name,
+            modal_content: t('.modal_delete_confirmation_content'),
+          } do %>
+            <%= hidden_field_tag :anchor, '' %>
+          <% end %>
         </div>
       </div>
-
     </div>
 
-    <div class="d-flex align-items-center gap-2">
+    <hr class="m-0">
+
+    <div class="d-flex justify-content-between align-items-center py-2">
       <div class="me-4" data-controller="lazy-loader"
            data-lazy-loader-url-value="<%= widgets_path(widget_path: 'upload_bundle_summary', project_id: project.id, upload_bundle_id: bundle.id) %>"
            data-lazy-loader-event-name-value="file-drop:file-submitted:<%= file_target_id %>">
@@ -30,23 +68,10 @@
         <i class="bi bi-plus-square-fill" aria-hidden="true"></i>
         <span class="ps-1"><%= t('.button_add_files_text') %></span>
       </button>
-
-      <%= render layout: "shared/button_to", locals: {
-        url: project_upload_bundle_path(project_id: bundle.project_id, id: bundle.id),
-        method: 'DELETE',
-        title: t('.button_delete_title'),
-        class: 'btn btn-sm btn-outline-secondary icon-hover-danger',
-        icon: "bi bi-trash",
-        modal_id: 'modal-delete-confirmation',
-        modal_title: t('.modal_delete_confirmation_title'),
-        modal_subtitle: bundle.name,
-        modal_content: t('.modal_delete_confirmation_content'),
-      } do %>
-        <%= hidden_field_tag :anchor, '' %>
-      <% end %>
     </div>
   </div>
 
   <%= render partial: upload_bundle_connector_actions_bar(bundle), locals: { upload_bundle: bundle } %>
 
 </section>
+

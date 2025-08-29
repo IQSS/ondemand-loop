@@ -38,7 +38,7 @@ class Dataverse::UploadBundleConnectorMetadataTest < ActiveSupport::TestCase
   test 'api_key falls back to repo auth key when bundle lacks key' do
     @bundle.metadata.delete(:auth_key)
     repo = OpenStruct.new(metadata: OpenStruct.new(auth_key: 'REPOKEY'))
-    RepoRegistry.repo_db.stubs(:get).with('https://demo.dataverse.org').returns(repo)
+    ::Configuration.repo_db.stubs(:get).with('https://demo.dataverse.org').returns(repo)
     meta = Dataverse::UploadBundleConnectorMetadata.new(@bundle)
     assert meta.api_key?
     assert_equal 'REPOKEY', meta.api_key.value
@@ -48,7 +48,7 @@ class Dataverse::UploadBundleConnectorMetadataTest < ActiveSupport::TestCase
   test 'api_key required when no key provided' do
     @bundle.metadata.delete(:auth_key)
     repo = OpenStruct.new(metadata: OpenStruct.new(auth_key: nil))
-    RepoRegistry.repo_db.stubs(:get).with('https://demo.dataverse.org').returns(repo)
+    ::Configuration.repo_db.stubs(:get).with('https://demo.dataverse.org').returns(repo)
     meta = Dataverse::UploadBundleConnectorMetadata.new(@bundle)
     refute meta.api_key?
     assert meta.api_key_required?

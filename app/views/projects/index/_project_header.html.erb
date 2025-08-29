@@ -1,8 +1,10 @@
 <header class="card-header d-flex justify-content-between align-items-center <%= project_header_class(active) %>"
-     data-controller="project-name"
-     data-project-name-initial-name-value="<%= project.name %>"
-     data-project-name-url-value="<%= project_path(id: project.id) %>"
-     data-project-name-project-id-value="<%= project.id %>">
+     data-controller="update-inline-field"
+     data-update-inline-field-initial-value-value="<%= project.name %>"
+     data-update-inline-field-url-value="<%= project_path(id: project.id) %>"
+      data-update-inline-field-error-message-value="<%= t('js.project_name.save.error') %>"
+      data-update-inline-field-field-name-value="name"
+      data-update-inline-field-method-value="PUT">
   <div class="d-flex align-items-center gap-3 flex-grow-1">
     <a href="<%= files_app_url(project.download_dir) %>"
        target="_blank"
@@ -15,40 +17,28 @@
     <%= render partial: '/shared/file_row_date', locals: { date: project.creation_date, title: t('.field_creation_date_title') } if project.creation_date %>
 
     <!-- PROJECT METADATA -->
-    <div data-project-name-target="display" class="d-flex flex-column">
+    <div data-update-inline-field-target="display" class="d-flex flex-column">
       <%= link_to project_path(id: project.id), class: "position-relative project-name-link text-reset text-decoration-none rounded-end  ps-1 pe-3" do %>
-        <h2 class="mb-0 h5" data-project-name-target="name"><%= project.name %></h2>
+        <h2 class="mb-0 h5" data-update-inline-field-target="name"><%= project.name %></h2>
         <small class="text-muted"><%= project.download_dir %></small>
       <% end %>
     </div>
 
     <div class="flex-grow-1 me-2">
       <!-- PROJECT ACTIONS -->
-      <div data-project-name-target="form" class="d-flex align-items-center gap-2 d-none" role="group" aria-label="<%= t('.section_rename_project_label') %>">
-        <input type="text"
-               class="form-control form-control-sm"
-               data-project-name-target="input"
-               value="<%= project.name %>">
-        <button class="btn btn-sm btn-outline-primary"
-                data-action="click->project-name#save"
-                title="<%= t('.button_save_project_name_title') %>">
-          <i class="bi bi-check-lg" aria-hidden="true"></i>
-          <span class="visually-hidden"><%= t('.button_save_project_name_title') %></span>
-        </button>
-        <button class="btn btn-sm btn-outline-danger"
-                type="button"
-                data-action="click->project-name#cancel"
-                title="<%= t('.button_cancel_title') %>">
-          <i class="bi bi-x-lg" aria-hidden="true"></i>
-          <span class="visually-hidden"><%= t('.button_cancel_title') %></span>
-        </button>
-      </div>
+      <%= render partial: 'shared/update_inline_field_form', locals: {
+        aria_label: t('.section_rename_project_label'),
+        save_title: t('.button_save_project_name_title'),
+        cancel_title: t('.button_cancel_title'),
+        input_value: project.name,
+        field_name: 'name'
+      } %>
     </div>
   </div>
 
   <div class="d-flex align-items-center gap-2" role="group" aria-label="<%= t('.section_project_actions_label') %>">
     <button class="btn btn-sm btn-outline-dark"
-            data-action="click->project-name#edit"
+            data-action="click->update-inline-field#edit"
             title="<%= t('.button_edit_project_name_title') %>">
       <i class="bi bi-pencil-fill" aria-hidden="true"></i>
       <span class="visually-hidden"><%= t('.button_edit_project_name_title') %></span>

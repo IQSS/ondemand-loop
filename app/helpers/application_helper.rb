@@ -1,6 +1,14 @@
 module ApplicationHelper
   include DateTimeCommon
 
+  ALERT_TYPES = {
+    error: 'danger',
+    alert: 'danger',
+    warning: 'warning',
+    notice: 'success',
+    info: 'success'
+  }.freeze
+
   def restart_url
     "/nginx/stop?redir=#{root_path}"
   end
@@ -39,8 +47,12 @@ module ApplicationHelper
   end
 
   def alert_class(type)
-    class_type = {error: 'danger', alert: 'danger', warning: 'warning', notice: 'success', info: 'success'}.fetch(type.to_sym, 'info')
+    class_type = ALERT_TYPES.fetch(type.to_sym, 'info')
     "alert alert-#{class_type}"
+  end
+
+  def flash_messages(messages = flash)
+    messages.to_hash.symbolize_keys.slice(*ALERT_TYPES.keys)
   end
 
   def status_badge(status, title: nil, filename: nil)

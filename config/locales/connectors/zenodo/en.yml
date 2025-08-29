@@ -73,27 +73,30 @@ en:
         cancel: "Cancel"
 
       shared:
-        zenodo_record_actions:
+        zenodo_view_actions:
           actions_bar_title_a11y_label: "Record actions bar"
           link_open_record_title: "Open record on Zenodo"
           button_create_bundle_label: "Create Upload Bundle"
           button_create_bundle_title: "Create Upload Bundle from this record on the selected project"
-          button_open_project_title: "Open selected project details page"
-          button_open_project_label: "Open selected project"
-        zenodo_record_info:
-          header_record_text: "Record"
+        zenodo_view_info:
+          header_dataset_text: "Dataset"
           badge_draft_text: "Draft"
           badge_published_text: "Published"
-          button_toggle_label: "Record details"
+          button_toggle_label: "Dataset details"
           field_publication_date_text: "Publication date:"
           field_files_text: "Files:"
-        zenodo_record_files:
+        zenodo_view_files:
           col_file_name_text: "File name"
           col_size_text: "Size"
           checkbox_select_all_label: "Select all files"
-          header_record_files_a11y_text: "Record files"
-          msg_empty_record_text: "The record does not contain files to download"
-          table_record_files_caption: "Record files"
+          header_dataset_files_a11y_text: "Dataset files"
+          msg_empty_dataset_text: "The dataset does not contain files to download"
+          table_dataset_files_caption: "Dataset files"
+          label_selected_project_text: "Selected project:"
+          input_selected_project_default_value: "➕ A new project will be automatically created"
+          button_open_project_title: "Open selected project details page"
+          button_open_project_label: "Open selected project"
+          button_submit_form_text: "Add Files to Project"
 
   zenodo:
     depositions:
@@ -102,7 +105,7 @@ en:
     records:
       show:
         page_title: "OnDemand Loop - Zenodo Records"
-        caption_files_text: "Zenodo record files (%{count})"
+        caption_files_text: "Zenodo dataset files (%{count})"
     landing_page:
       index:
         page_title: "OnDemand Loop - Zenodo"

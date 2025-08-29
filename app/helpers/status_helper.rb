@@ -10,6 +10,6 @@ module StatusHelper
   end
 
   def retry_button_visible?(file)
-    file.restart_possible?
+    FileStatus.retryable_statuses.include?(file.status)
   end
 end

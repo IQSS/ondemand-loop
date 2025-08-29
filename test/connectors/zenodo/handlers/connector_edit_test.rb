@@ -20,7 +20,7 @@ class Zenodo::Handlers::ConnectorEditTest < ActiveSupport::TestCase
   end
 
   test 'update saves api key in repo' do
-    RepoRegistry.repo_db.stubs(:update)
+    ::Configuration.repo_db.stubs(:update)
     result = @action.update(@bundle, {api_key: 'KEY', key_scope: 'server'})
     assert result.success?
   end

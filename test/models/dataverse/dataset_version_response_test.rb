@@ -45,6 +45,10 @@ class Dataverse::DatasetVersionResponseTest < ActiveSupport::TestCase
     assert_equal "sample dataset", @dataset.metadata_field("title")
   end
 
+  test "title returns dataset title" do
+    assert_equal "sample dataset", @dataset.title
+  end
+
   test "valid json parses dataset version response files metadata fields author" do
     assert_equal "Admin, Dataverse", @dataset.authors
   end
@@ -84,6 +88,7 @@ class Dataverse::DatasetVersionResponseTest < ActiveSupport::TestCase
     assert_equal "", @invalid_dataset.subjects
     assert_nil @invalid_dataset.data.dataset_persistent_id
     assert_nil @invalid_dataset.metadata_field('title')
+    assert_nil @invalid_dataset.title
     assert_nil @invalid_dataset.data.publication_date
     assert_nil @invalid_dataset.data.license.name
     assert_nil @invalid_dataset.data.license.icon_uri
@@ -106,6 +111,7 @@ class Dataverse::DatasetVersionResponseTest < ActiveSupport::TestCase
     assert_equal "", @invalid_dataset.subjects
     assert_equal "doi:10.5072/FK2/4INDFN", @invalid_dataset.data.dataset_persistent_id
     assert_nil @invalid_dataset.metadata_field('title')
+    assert_nil @invalid_dataset.title
     assert_nil @invalid_dataset.data.publication_date
     assert_nil @invalid_dataset.data.license.name
     assert_nil @invalid_dataset.data.license.icon_uri
@@ -120,6 +126,7 @@ class Dataverse::DatasetVersionResponseTest < ActiveSupport::TestCase
     assert_equal "Astronomy and Astrophysics", @dataset_incomplete.subjects
     assert_equal "doi:10.5072/FK2/4INDFN", @dataset_incomplete.data.dataset_persistent_id
     assert_equal "sample dataset", @dataset_incomplete.metadata_field('title')
+    assert_equal "sample dataset", @dataset_incomplete.title
     assert_equal "2025-01-20", @dataset_incomplete.data.publication_date
     assert_nil @dataset_incomplete.data.license.name
     assert_nil @dataset_incomplete.data.license.icon_uri
@@ -134,6 +141,7 @@ class Dataverse::DatasetVersionResponseTest < ActiveSupport::TestCase
     assert_equal "", @dataset_incomplete.subjects
     assert_nil @dataset_incomplete.data.dataset_persistent_id
     assert_nil @dataset_incomplete.metadata_field('title')
+    assert_nil @dataset_incomplete.title
     assert_nil @dataset_incomplete.data.publication_date
     assert_nil @dataset_incomplete.data.license.name
     assert_nil @dataset_incomplete.data.license.icon_uri
@@ -148,6 +156,7 @@ class Dataverse::DatasetVersionResponseTest < ActiveSupport::TestCase
     assert_equal "", @dataset_incomplete.subjects
     assert_equal "doi:10.5072/FK2/4INDFN", @dataset_incomplete.data.dataset_persistent_id
     assert_nil @dataset_incomplete.metadata_field('title')
+    assert_nil @dataset_incomplete.title
     assert_equal "2025-01-20", @dataset_incomplete.data.publication_date
     assert_equal "CC0 1.0", @dataset_incomplete.data.license.name
     assert_equal "https://licensebuttons.net/p/zero/1.0/88x31.png", @dataset_incomplete.data.license.icon_uri

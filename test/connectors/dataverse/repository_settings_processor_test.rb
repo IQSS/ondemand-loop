@@ -4,8 +4,9 @@ class Dataverse::RepositorySettingsProcessorTest < ActiveSupport::TestCase
   def setup
     @processor = Dataverse::RepositorySettingsProcessor.new
     @tempfile = Tempfile.new('repo_db')
-    RepoRegistry.repo_db = Repo::RepoDb.new(db_path: @tempfile.path)
-    RepoRegistry.repo_db.set('https://demo.org', type: ConnectorType::DATAVERSE)
+    repo_db = Repo::RepoDb.new(db_path: @tempfile.path)
+    ::Configuration.stubs(:repo_db).returns(repo_db)
+    repo_db.set('https://demo.org', type: ConnectorType::DATAVERSE)
   end
 
   def teardown
@@ -18,9 +19,9 @@ class Dataverse::RepositorySettingsProcessorTest < ActiveSupport::TestCase
   end
 
   test 'update stores key and returns message' do
-    repo = RepoRegistry.repo_db.get('https://demo.org')
+    repo = ::Configuration.repo_db.get('https://demo.org')
     result = @processor.update(repo, { repo_url: 'https://demo.org', auth_key: 'k' })
-    assert_equal 'k', RepoRegistry.repo_db.get('https://demo.org').metadata.auth_key
+    assert_equal 'k', ::Configuration.repo_db.get('https://demo.org').metadata.auth_key
     assert_equal({ notice: I18n.t('connectors.dataverse.handlers.repository_settings_update.message_success', url: 'https://demo.org', type: repo.type) }, result.message)
   end
 end

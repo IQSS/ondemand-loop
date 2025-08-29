@@ -28,7 +28,7 @@ class Dataverse::Handlers::ConnectorEditTest < ActiveSupport::TestCase
   end
 
   test 'update stores key server wide' do
-    RepoRegistry.repo_db.stubs(:update)
+    ::Configuration.repo_db.stubs(:update)
     @bundle.stubs(:connector_metadata).returns(OpenStruct.new(server_domain: 'host'))
     result = @action.update(@bundle, {api_key: 'S', key_scope: 'server'})
     assert result.success?

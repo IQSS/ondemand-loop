@@ -19,7 +19,7 @@ module Zenodo
       temp_location = file.download_tmp_location
       FileUtils.mkdir_p(File.dirname(download_location))
 
-      repo_info = RepoRegistry.repo_db.get(connector_metadata.zenodo_url)
+      repo_info = ::Configuration.repo_db.get(connector_metadata.zenodo_url)
       api_key = repo_info&.metadata&.auth_key
       headers = {}
       headers[Zenodo::ApiService::AUTH_HEADER] = "Bearer #{api_key}" if api_key.present?

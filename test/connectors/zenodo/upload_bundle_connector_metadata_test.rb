@@ -41,7 +41,7 @@ class Zenodo::UploadBundleConnectorMetadataTest < ActiveSupport::TestCase
   test 'api_key falls back to repo registry if auth_key not in metadata' do
     fake_key = 'from_repo'
     mock_repo_info = stub(metadata: stub(auth_key: fake_key))
-    RepoRegistry.repo_db.stubs(:get).returns(mock_repo_info)
+    ::Configuration.repo_db.stubs(:get).returns(mock_repo_info)
 
     meta = build_meta({ zenodo_url: 'https://zenodo.org' })
     key = meta.api_key
@@ -51,7 +51,7 @@ class Zenodo::UploadBundleConnectorMetadataTest < ActiveSupport::TestCase
   end
 
   test 'api_key returns nil if no key is present anywhere' do
-    RepoRegistry.repo_db.stubs(:get).returns(nil)
+    ::Configuration.repo_db.stubs(:get).returns(nil)
     meta = build_meta({ zenodo_url: 'https://zenodo.org' })
     assert_nil meta.api_key
     refute meta.api_key?
@@ -99,7 +99,7 @@ class Zenodo::UploadBundleConnectorMetadataTest < ActiveSupport::TestCase
   end
 
   test 'api_key_required? returns true if no api key and draft nil' do
-    RepoRegistry.repo_db.stubs(:get).returns(nil)
+    ::Configuration.repo_db.stubs(:get).returns(nil)
     meta = build_meta({ zenodo_url: 'https://zenodo.org' })
     assert meta.api_key_required?
   end

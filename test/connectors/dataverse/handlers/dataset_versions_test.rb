@@ -4,7 +4,7 @@ class Dataverse::Handlers::DatasetVersionsTest < ActiveSupport::TestCase
   def setup
     @repo_url = Repo::RepoUrl.parse('https://dataverse.org')
     repo_info = OpenStruct.new(metadata: OpenStruct.new(auth_key: 'key'))
-    RepoRegistry.stubs(:repo_db).returns(stub(get: repo_info))
+    ::Configuration.stubs(:repo_db).returns(stub(get: repo_info))
     @explorer = Dataverse::Handlers::DatasetVersions.new('pid')
   end
 

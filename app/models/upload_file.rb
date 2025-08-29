@@ -45,7 +45,7 @@ class UploadFile < ApplicationDiskRecord
   end
 
   def connector_status
-    ConnectorClassDispatcher.upload_file_connector_status(upload_bundle, self)
+    UploadStatus.new(self)
   end
 
   def max_file_size

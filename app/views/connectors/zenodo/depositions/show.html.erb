@@ -2,24 +2,24 @@
 <div class="zenodo container-md content" role="main">
   <%= render partial: '/shared/breadcrumbs', locals: { links: [
     { text: t('shared.breadcrumbs.zenodo'), url: link_to_explore(ConnectorType::ZENODO, repo_url, type: 'landing', id: ':root') },
-    { text: record.title }
+    { text: dataset.title }
   ] } %>
 
   <div class="row">
     <div class="col-md-12">
-      <%= render partial: 'connectors/zenodo/shared/zenodo_record_actions', locals: { record: record, zenodo_url: repo_url.server_url } %>
+      <%= render partial: 'connectors/zenodo/shared/zenodo_view_actions', locals: { dataset_title: dataset_title, external_zenodo_url: external_zenodo_url } %>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-12">
-      <%= render partial: 'connectors/zenodo/shared/zenodo_record_info', locals: { record: record } %>
+      <%= render partial: 'connectors/zenodo/shared/zenodo_view_info', locals: { dataset: dataset } %>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-12">
-      <%= render partial: 'connectors/zenodo/shared/zenodo_record_files', locals: { post_url: link_to_explore(ConnectorType::ZENODO, repo_url, type: 'depositions', id: record_id), record: record, record_id: record_id, repo_url: repo_url } %>
+      <%= render partial: 'connectors/zenodo/shared/zenodo_view_files', locals: { post_url: link_to_explore(ConnectorType::ZENODO, repo_url, type: 'depositions', id: dataset_id), dataset: dataset, dataset_id: dataset_id, repo_url: repo_url } %>
     </div>
   </div>
 </div>

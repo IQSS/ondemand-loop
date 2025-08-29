@@ -28,13 +28,25 @@ module Zenodo::Handlers
         )
       end
 
+      external_url = Zenodo::Concerns::ZenodoUrlBuilder.build_record_url(repo_url.server_url, @record_id)
+
+      ::Configuration.repo_history.add_repo(
+        external_url,
+        ConnectorType::ZENODO,
+        title: record.title,
+        note: record.version
+      )
+
       ConnectorResult.new(
         template: '/connectors/zenodo/records/show',
         locals: {
-          record: record,
-          record_id: @record_id,
-          repo_url: repo_url
+          dataset: record,
+          dataset_id: @record_id,
+          repo_url: repo_url,
+          dataset_title: record.title,
+          external_zenodo_url: external_url
         },
+        resource: record,
         success: true
       )
     end
@@ -57,6 +69,7 @@ module Zenodo::Handlers
           errors = project.errors.full_messages.join(', ')
           return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.message_project_error', errors: errors) }, success: false)
         end
+        Current.settings.update_user_settings({ active_project: project.id.to_s })
       end
 
       download_files = project_service.create_files_from_record(project, record, file_ids)

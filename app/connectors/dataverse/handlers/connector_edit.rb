@@ -30,7 +30,7 @@ module Dataverse::Handlers
         upload_bundle.update({ metadata: metadata })
       else
         dataverse_url = upload_bundle.connector_metadata.dataverse_url
-        RepoRegistry.repo_db.update(dataverse_url, metadata: {auth_key: repo_key})
+        ::Configuration.repo_db.update(dataverse_url, metadata: {auth_key: repo_key})
       end
 
       ConnectorResult.new(

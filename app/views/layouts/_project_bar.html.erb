@@ -11,7 +11,7 @@
     <%= render partial: '/shared/file_row_date', locals: { date: project.creation_date, title: t('.field_creation_date_title')} if project.creation_date %>
 
     <!-- PROJECT METADATA -->
-    <div data-project-name-target="display" class="d-flex flex-column">
+    <div class="d-flex flex-column">
       <%= link_to project_path(id: project.id), class: "position-relative project-name-link text-reset text-decoration-none rounded-end ps-1 pe-3" do %>
         <h2 class="mb-0 h5"><%= project.name %></h2>
         <small class="text-muted"><%= project.download_dir %></small>
@@ -20,13 +20,9 @@
   </div>
 
   <div>
-    <a href="<%= files_app_url(Project.project_metadata_dir(project.id)) %>"
-       target="_blank"
-       class="btn btn-sm btn-outline-primary ms-3"
-       title="<%= t('.link_open_metadata_title') %>">
-      <i class="bi bi-card-list" aria-hidden="true"></i>
-      <span class="visually-hidden"><%= t('.link_open_metadata_title') %></span>
-    </a>
+    <%= render partial: '/shared/metadata_folder_link',
+               locals: { path: Project.project_metadata_dir(project.id),
+                         class: 'btn btn-sm btn-outline-primary ms-3' } %>
     <button class="btn btn-sm btn-outline-primary cursor-default" title="<%= t('.button_active_project_title') %>">
       <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
       <span class="visually-hidden"><%= t('.button_active_project_title') %></span>

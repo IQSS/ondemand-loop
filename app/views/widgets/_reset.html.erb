@@ -1,0 +1,49 @@
+<%
+  valid_reset_request = request.post?
+%>
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= valid_reset_request ? t('.success_page_title') : t('.error_page_title') %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "application", defer: true %>
+
+  <!-- Meta refresh fallback -->
+  <meta http-equiv="refresh" content="3;url=<%= root_path %>">
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <% if valid_reset_request %>
+        <% ResetService.new.reset %>
+        <div class="alert alert-success border-2 rounded-3 shadow-sm text-center" role="alert">
+          <i class="bi bi-check-circle-fill fs-3 text-success mb-2"></i>
+          <h4 class="alert-heading"><%= t('.success_content_title') %></h4>
+          <%= t('.success_content_html', url: restart_url) %>
+        </div>
+        <!-- Success redirect -->
+        <script>
+            setTimeout(function() {
+                window.location.href = "<%= restart_url %>";
+            }, 3000);
+        </script>
+      <% else %>
+        <div class="alert alert-danger border-2 rounded-3 shadow-sm text-center" role="alert">
+          <i class="bi bi-exclamation-octagon-fill fs-3 text-danger mb-2"></i>
+          <h4 class="alert-heading"><%= t('.error_content_title') %></h4>
+          <%= t('.error_content_html', url: root_path) %>
+        </div>
+        <!-- Error redirect -->
+        <script>
+            setTimeout(function() {
+                window.location.href = "<%= root_path %>";
+            }, 3000);
+        </script>
+      <% end %>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -40,6 +40,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create project with generated name" do
     ProjectNameGenerator.stubs(:generate).returns("generated_project")
+    @user_settings_mock.expects(:update_user_settings).with({active_project: 'generated_project'})
     post projects_url
     assert_redirected_to project_url(id: 'generated_project')
     follow_redirect!
@@ -47,10 +48,21 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create project with provided name" do
+    @user_settings_mock.expects(:update_user_settings).with({active_project: 'manual_project'})
     post projects_url, params: { project_name: "manual_project" }
     assert_redirected_to project_url(id: 'manual_project')
     follow_redirect!
     assert_match "Project manual_project created", flash[:notice]
+  end
+
+  test "should create project and redirect back when redirect_back param provided" do
+    @user_settings_mock.expects(:update_user_settings).with({active_project: 'hidden_project'})
+    post projects_url,
+         params: { project_name: "hidden_project", redirect_back: true },
+         headers: { "HTTP_REFERER": root_url }
+    assert_redirected_to root_url
+    follow_redirect!
+    assert_match "Project hidden_project created", flash[:notice]
   end
 
   test "should set active project" do
@@ -61,11 +73,26 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_match "#{@project.name} is now the active project.", flash[:notice]
   end
 
+  test "should set active project via JSON" do
+    @user_settings_mock.expects(:update_user_settings).with({active_project: @project.id.to_s})
+    post set_active_project_url(id: @project.id), headers: { "Accept" => "application/json" }
+    assert_response :success
+    json = JSON.parse(@response.body)
+    assert_equal @project.id, json["id"]
+  end
+
   test "should not set active project if not found" do
     post set_active_project_url(id: "missing-id")
     assert_redirected_to projects_url
     follow_redirect!
     assert_match "Project missing-id not found", flash[:alert]
+  end
+
+  test "should not set active project via JSON if not found" do
+    post set_active_project_url(id: "missing-id"), headers: { "Accept" => "application/json" }
+    assert_response :not_found
+    json = JSON.parse(@response.body)
+    assert_match "missing-id", json["error"]
   end
 
   test "should destroy project" do

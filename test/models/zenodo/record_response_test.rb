@@ -21,5 +21,6 @@ class Zenodo::RecordResponseTest < ActiveSupport::TestCase
     assert_equal 'data/file1.txt', first.filename
     assert_equal 'md5:abc', first.checksum
     assert_not @resp.draft?
+    assert_equal 'published', @resp.version
   end
 end

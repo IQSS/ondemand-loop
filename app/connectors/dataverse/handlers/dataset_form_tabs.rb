@@ -38,7 +38,7 @@ module Dataverse::Handlers
 
     def subjects(upload_bundle)
       connector_metadata = upload_bundle.connector_metadata
-      repo_db = RepoRegistry.repo_db
+      repo_db = ::Configuration.repo_db
       dataverse_data = repo_db.get(connector_metadata.dataverse_url)
       if dataverse_data.metadata.subjects.nil?
         dv_metadata_service = Dataverse::MetadataService.new(connector_metadata.dataverse_url)

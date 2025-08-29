@@ -16,10 +16,10 @@ class RepositorySettingsHelperTest < ActionView::TestCase
 
   test 'repo_api_key? returns true only when auth_key exists' do
     repo_info = OpenStruct.new(metadata: OpenStruct.new(auth_key: 'secret'))
-    RepoRegistry.stubs(:repo_db).returns(stub(get: repo_info))
+    ::Configuration.stubs(:repo_db).returns(stub(get: repo_info))
     assert repo_api_key?('https://demo.org')
 
-    RepoRegistry.stubs(:repo_db).returns(stub(get: nil))
+    ::Configuration.stubs(:repo_db).returns(stub(get: nil))
     refute repo_api_key?('https://demo.org')
   end
 end

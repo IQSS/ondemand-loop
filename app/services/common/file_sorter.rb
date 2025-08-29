@@ -10,6 +10,12 @@ module Common
       end
     end
 
+    def most_recent(files)
+      files.sort_by do |file|
+        -sort_date(file)
+      end
+    end
+
     private
 
     def sort_date(file)

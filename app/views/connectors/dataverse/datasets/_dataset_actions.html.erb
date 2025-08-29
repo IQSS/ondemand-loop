@@ -2,49 +2,20 @@
   <div class="d-flex align-items-center gap-2">
     <h2 class="mb-0 me-2 fs-4 h5 text-truncate cursor-default" style="max-width: 800px;" title="<%= dataset.metadata_field('title').to_s %>"><%= dataset.metadata_field('title').to_s %></h2>
   </div>
-  <div class="d-flex align-items-center gap-2">
+  <div class="d-flex align-items-center gap-2" data-controller="select-project-listener">
     <!-- create bundle button -->
-    <%= form_with url: project_upload_bundles_path(':project_id'),
-                  method: :post,
-                  class: "d-inline",
-                  data: {
-                    controller: "submit-button select-files-project-listener",
-                    select_files_project_listener_enable_on_select_value: "true",
-                  } do %>
+    <%= render layout: "shared/button_to", locals: {
+      url: connector_project_upload_bundles_path(':project_id'),
+      method: 'POST',
+      label: t('.button_create_bundle_label'),
+      title:  t('.button_create_bundle_title'),
+      class: "btn-sm btn-outline-secondary",
+      icon: "bi bi-folder-plus",
+      button_data: {select_project_listener_target: 'button'}
+    } do %>
 
       <input type="hidden" name="remote_repo_url" id="remote_repo_url" autocomplete="off" value="<%= external_dataset_url(dataverse_url, dataset.data.dataset_persistent_id) %>">
-      <input type="hidden" name="project_id" id="project_id" autocomplete="off" data-select-files-project-listener-target="field">
-
-      <%= button_tag type: 'submit',
-                     class: 'btn btn-sm btn-outline-secondary',
-                     title: t('.button_create_bundle_title'),
-                     "aria-label" => t('.button_create_bundle_title'),
-                     data: {
-                       action: 'click->submit-button#click',
-                       submit_button_target: 'button',
-                       select_files_project_listener_target: 'button'
-                     } do %>
-
-        <span data-submit-button-target="spinner"
-        class="spinner-border spinner-border-sm me-1 d-none"
-        role="status" aria-hidden="true"></span>
-
-        <span data-submit-button-target="label">
-          <i class="bi bi-folder-plus" aria-hidden="true"></i>
-          <span class="ps-1"><%= t('.button_create_bundle_label') %></span>
-        </span>
-
-      <% end %>
-    <% end %>
-
-    <!-- link to project details page -->
-    <%= link_to projects_path,
-                class: 'btn btn-sm btn-outline-secondary disabled',
-                title: t('.button_open_project_title'),
-                data: { controller: 'select-files-project-listener', select_files_project_listener_target: 'link' },
-                aria: { disabled: true } do %>
-      <i class="bi bi-display" aria-hidden="true"></i>
-      <span class="visually-hidden"><%= t('.button_open_project_label') %></span>
+      <input type="hidden" name="project_id" id="project_id" autocomplete="off" data-select-project-listener-target="inputProjectId">
     <% end %>
 
     <!-- link to external repository dataset -->

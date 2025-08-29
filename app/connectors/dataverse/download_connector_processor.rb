@@ -27,7 +27,7 @@ module Dataverse
       connector_metadata.download_url = download_url
       file.update({metadata: connector_metadata.to_h})
 
-      repo_info = RepoRegistry.repo_db.get(connector_metadata.dataverse_url)
+      repo_info = ::Configuration.repo_db.get(connector_metadata.dataverse_url)
       api_key = repo_info&.metadata&.auth_key
       headers = {}
       headers[Dataverse::ApiService::AUTH_HEADER] = api_key if api_key.present?
