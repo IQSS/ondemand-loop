@@ -67,10 +67,6 @@ class DownloadFile < ApplicationDiskRecord
     ConnectorClassDispatcher.download_connector_metadata(self)
   end
 
-  def restart_possible?
-    FileStatus.retryable_statuses.include?(status) && connector_metadata.partial_downloads != false
-  end
-
   def max_file_size
     Configuration.max_download_file_size
   end
