@@ -6,6 +6,8 @@
   <% if dataset.files.any? %>
     <%= form_with url: post_url, id: 'dataset-download-files-form', method: :post, local: true, class: "p-3 rounded bg-light", data: {controller: "select-files"} do %>
       <%= hidden_field_tag :id, dataset_id %>
+      <%= hidden_field_tag :server_scheme, repo_url.scheme_override %>
+      <%= hidden_field_tag :server_port, repo_url.port_override %>
       <div class="row">
         <h2 id="dataset-files-heading" class="visually-hidden"><%= t('.header_dataset_files_a11y_text') %></h2>
         <table class="table table-bordered table-hover align-middle">

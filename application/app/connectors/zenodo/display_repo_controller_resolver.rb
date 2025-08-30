@@ -19,7 +19,7 @@ module Zenodo
         object_type = 'depositions'
         object_id = zenodo_url.deposition_id
       else
-        server_domain =  Zenodo::ZenodoUrl::DEFAULT_SERVER
+        server_domain =  zenodo_url.domain
         object_type = 'landing'
         object_id = ':root'
         if zenodo_url&.unknown?

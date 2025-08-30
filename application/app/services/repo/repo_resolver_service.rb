@@ -20,7 +20,7 @@ module Repo
     end
 
     def resolve(object_url)
-      context = RepoResolverContext.new(object_url)
+      context = Repo::RepoResolverContext.new(object_url)
       return context.result if object_url.blank?
 
       @resolvers.each do |resolver|
