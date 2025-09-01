@@ -5,9 +5,17 @@ module Command
     attr_reader :status, :headers, :body
 
     def initialize(status: 200, headers: {}, body: {})
-      @status = status
+      @status = status.to_i
       @headers = headers || {}
       @body = OpenStruct.new(body)
+    end
+
+    def success?
+      status == 200
+    end
+
+    def error?
+      !success?
     end
 
     def to_h

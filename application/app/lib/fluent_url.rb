@@ -11,7 +11,7 @@ class FluentUrl
   def add_path(part)
     return self if part.blank?
 
-    @segments << part
+    @segments << Addressable::URI.encode_component(part, Addressable::URI::CharacterClasses::PATH)
     self
   end
 
