@@ -10,7 +10,11 @@ class ConnectorResolverTest < ActionController::TestCase
     before_action :validate_repo_url
 
     def show
-      render plain: 'ok'
+      render json: { 
+        scheme: @repo_url&.scheme, 
+        port: @repo_url&.port,
+        domain: @repo_url&.domain
+      }
     end
   end
 
@@ -41,5 +45,46 @@ class ConnectorResolverTest < ActionController::TestCase
     stub_resolver(type: ConnectorType.get('zenodo'), object_url: 'https://example.org/')
     get :show, params: { connector_type: 'zenodo', server_domain: 'example.org' }
     assert_response :success
+  end
+
+  test 'build_repo_url uses https when server_scheme is empty' do
+    stub_resolver(type: ConnectorType.get('zenodo'), object_url: 'https://example.org/')
+    get :show, params: { connector_type: 'zenodo', server_domain: 'example.org', server_scheme: '' }
+    assert_response :success
+    response_data = JSON.parse(response.body)
+    assert_equal 'https', response_data['scheme']
+  end
+
+  test 'build_repo_url uses https when server_scheme is nil' do
+    stub_resolver(type: ConnectorType.get('zenodo'), object_url: 'https://example.org/')
+    get :show, params: { connector_type: 'zenodo', server_domain: 'example.org', server_scheme: nil }
+    assert_response :success
+    response_data = JSON.parse(response.body)
+    assert_equal 'https', response_data['scheme']
+  end
+
+  test 'build_repo_url uses default port when server_port is empty' do
+    stub_resolver(type: ConnectorType.get('zenodo'), object_url: 'https://example.org/')
+    get :show, params: { connector_type: 'zenodo', server_domain: 'example.org', server_port: '' }
+    assert_response :success
+    response_data = JSON.parse(response.body)
+    assert_nil response_data['port']
+  end
+
+  test 'build_repo_url uses default port when server_port is nil' do
+    stub_resolver(type: ConnectorType.get('zenodo'), object_url: 'https://example.org/')
+    get :show, params: { connector_type: 'zenodo', server_domain: 'example.org', server_port: nil }
+    assert_response :success
+    response_data = JSON.parse(response.body)
+    assert_nil response_data['port']
+  end
+
+  test 'build_repo_url respects custom scheme and port' do
+    stub_resolver(type: ConnectorType.get('zenodo'), object_url: 'http://example.org:8080/')
+    get :show, params: { connector_type: 'zenodo', server_domain: 'example.org', server_scheme: 'http', server_port: '8080' }
+    assert_response :success
+    response_data = JSON.parse(response.body)
+    assert_equal 'http', response_data['scheme']
+    assert_equal 8080, response_data['port']
   end
 end

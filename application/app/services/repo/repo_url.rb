@@ -24,9 +24,9 @@ module Repo
       return nil if domain.blank?
 
       uri = Addressable::URI.new(
-        scheme: scheme.presence&.downcase || 'https',
+        scheme: scheme.to_s.strip.presence&.downcase || 'https',
         host: domain,
-        port: port
+        port: port.to_s.strip.presence
       )
 
       parse(uri.to_s)
