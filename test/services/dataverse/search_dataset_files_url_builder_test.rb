@@ -61,5 +61,23 @@ module Dataverse
         SearchDatasetFilesUrlBuilder.new(persistent_id: nil).build
       end
     end
+
+    def test_uses_default_version_for_nil
+      builder = SearchDatasetFilesUrlBuilder.new(persistent_id: 'doi:10.5072/FK2/ABC123', version: nil)
+      url = builder.build
+      assert_includes url, '/versions/:latest-published/files'
+    end
+
+    def test_uses_default_version_for_empty_string
+      builder = SearchDatasetFilesUrlBuilder.new(persistent_id: 'doi:10.5072/FK2/ABC123', version: '')
+      url = builder.build
+      assert_includes url, '/versions/:latest-published/files'
+    end
+
+    def test_uses_default_version_for_whitespace
+      builder = SearchDatasetFilesUrlBuilder.new(persistent_id: 'doi:10.5072/FK2/ABC123', version: '  ')
+      url = builder.build
+      assert_includes url, '/versions/:latest-published/files'
+    end
   end
 end

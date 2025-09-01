@@ -6,12 +6,12 @@ checking for whether -fvisibility=hidden is accepted as CFLAGS... yes
 creating Makefile
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/ext/prism
-make DESTDIR\= sitearchdir\=./.gem.20250829-37-dbpuie sitelibdir\=./.gem.20250829-37-dbpuie clean
+make DESTDIR\= sitearchdir\=./.gem.20250901-37-43ltki sitelibdir\=./.gem.20250901-37-43ltki clean
 rm -f 
 rm -fr prism.so false *.o  *.bak mkmf.log .*.time
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/ext/prism
-make DESTDIR\= sitearchdir\=./.gem.20250829-37-dbpuie sitelibdir\=./.gem.20250829-37-dbpuie
+make DESTDIR\= sitearchdir\=./.gem.20250901-37-43ltki sitelibdir\=./.gem.20250901-37-43ltki
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/include -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/ext   -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -fvisibility=hidden -m64 -o api_node.o -c api_node.c
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/include -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/ext   -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -fvisibility=hidden -m64 -o api_pack.o -c api_pack.c
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/include -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/ext   -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -fvisibility=hidden -m64 -o extension.o -c extension.c
@@ -40,7 +40,7 @@ rm -f prism.so
 gcc -shared -o prism.so api_node.o api_pack.o extension.o diagnostic.o encoding.o node.o options.o pack.o prettyprint.o prism.o regexp.o serialize.o static_literals.o token_type.o pm_buffer.o pm_char.o pm_constant_pool.o pm_integer.o pm_list.o pm_memchr.o pm_newline_list.o pm_string.o pm_strncasecmp.o pm_strpbrk.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld  -m64  -lruby  -lm  -lc
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/prism-1.4.0/ext/prism
-make DESTDIR\= sitearchdir\=./.gem.20250829-37-dbpuie sitelibdir\=./.gem.20250829-37-dbpuie install
-/usr/bin/mkdir -p . ./.gem.20250829-37-dbpuie/prism
+make DESTDIR\= sitearchdir\=./.gem.20250901-37-43ltki sitelibdir\=./.gem.20250901-37-43ltki install
+/usr/bin/mkdir -p . ./.gem.20250901-37-43ltki/prism
 exit > .sitearchdir.-.prism.time
-/usr/bin/install -c -m 0755 prism.so ./.gem.20250829-37-dbpuie/prism
+/usr/bin/install -c -m 0755 prism.so ./.gem.20250901-37-43ltki/prism

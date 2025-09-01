@@ -4,7 +4,7 @@ module Dataverse
 
     def initialize(persistent_id:, version: ':latest-published', page: 1, per_page: nil, query: nil)
       @persistent_id = persistent_id
-      @version = version
+      @version = version.to_s.strip.empty? ? ':latest-published' : version
       @page = page
       @per_page = per_page || Configuration.default_pagination_items
       @query = query

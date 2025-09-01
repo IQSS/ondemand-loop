@@ -9,6 +9,8 @@
   </div>
 
   <%= form_with url: link_to_explore(ConnectorType::ZENODO, repo_url, type: 'landing', id: ':root'), method: :get, local: true do |f| %>
+    <%= hidden_field_tag :server_scheme, repo_url.scheme_override %>
+    <%= hidden_field_tag :server_port, repo_url.port_override %>
     <div class="input-group mb-3">
       <%= f.text_field :query, class: 'form-control', value: query, placeholder: t('zenodo.landing_page.index.field_search_placeholder') %>
       <%= f.submit t('zenodo.landing_page.index.button_submit_text'), class: 'btn btn-primary' %>

@@ -25,7 +25,7 @@ module Dataverse
     end
 
     def find_dataset_version_by_persistent_id(persistent_id, version: ':latest-published')
-      version ||= ':latest-published'
+      version = ':latest-published' if version.to_s.strip.empty?
       headers = {}
       headers[AUTH_HEADER] = @api_key if @api_key && version != ':latest-published'
       url = FluentUrl.new('')
@@ -38,15 +38,17 @@ module Dataverse
               .add_param('returnOwners', true)
               .add_param('excludeFiles', true)
               .to_s
+      log_info('dataset', {url: url, version: version})
       response = @http_client.get(url, headers: headers)
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?
       raise "Error getting dataset: #{response.status} - #{response.body}" unless response.success?
+      log_info('dataset response', {response: response.body})
       DatasetVersionResponse.new(response.body)
     end
 
     def search_dataset_files_by_persistent_id(persistent_id, version: ':latest-published', page: 1, per_page: nil, query: nil)
-      version ||= ':latest-published'
+      version = ':latest-published' if version.to_s.strip.empty?
       per_page ||= Configuration.default_pagination_items
       headers = {}
       headers[AUTH_HEADER] = @api_key if @api_key
@@ -57,10 +59,12 @@ module Dataverse
         per_page: per_page,
         query: query,
       ).build
+      log_info('files', {url: url, version: version})
       response = @http_client.get(url, headers: headers)
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?
       raise "Error getting dataset files: #{response.status} - #{response.body}" unless response.success?
+      log_info('files response', {response: response.body})
       DatasetFilesResponse.new(response.body, page: page, per_page: per_page, query: query)
     end
 

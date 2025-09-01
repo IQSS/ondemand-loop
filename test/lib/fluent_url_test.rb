@@ -93,4 +93,41 @@ class FluentUrlTest < ActiveSupport::TestCase
                    .add_path('xyz')
     assert_equal 'https://example.com/files/abc/xyz', url.to_s
   end
+
+  test 'add_path should support deep paths' do
+    url = FluentUrl.new('https://example.com/api/v1/')
+                   .add_path('/projects/123/xyz')
+    assert_equal 'https://example.com/api/v1/projects/123/xyz', url.to_s
+  end
+
+  test 'add_path should encode spaces in path segments' do
+    url = FluentUrl.new('https://example.com')
+                   .add_path('my file name.txt')
+    assert_equal 'https://example.com/my%20file%20name.txt', url.to_s
+
+    url = FluentUrl.new('https://example.com')
+                   .add_path('/projects/123/my file name.txt')
+    assert_equal 'https://example.com/projects/123/my%20file%20name.txt', url.to_s
+  end
+
+  test 'add_path should encode special characters in path segments' do
+    url = FluentUrl.new('https://example.com')
+                   .add_path('/projects/file&name')
+                   .add_path('/dataset/data+set')
+    assert_equal 'https://example.com/projects/file&name/dataset/data+set', url.to_s
+  end
+
+  test 'add_path should encode unicode characters in path segments' do
+    url = FluentUrl.new('https://example.com')
+                   .add_path('résumé.pdf')
+    assert_equal 'https://example.com/r%C3%A9sum%C3%A9.pdf', url.to_s
+  end
+
+  test 'add_path should handle mixed encoded and unencoded segments' do
+    url = FluentUrl.new('https://example.com')
+                   .add_path('api')
+                   .add_path('files with spaces')
+                   .add_path('normal')
+    assert_equal 'https://example.com/api/files%20with%20spaces/normal', url.to_s
+  end
 end
