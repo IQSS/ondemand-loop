@@ -22,11 +22,6 @@ en:
     success: "success"
     error: "error"
     cancelled: "cancelled"
-  events:
-    project:
-      created: "Project created"
-      updated: "Project updated"
-      active: "Project set as active"
   js:
     generic_server_error: "There was an error processing your request."
     drop:

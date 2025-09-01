@@ -1,0 +1,6 @@
+en:
+  events:
+    project:
+      created: "Project created"
+      updated: "Project updated"
+      active: "Project set as active"
