@@ -7,13 +7,13 @@ class Event
 
   validates_presence_of :id, :project_id, :message, :entity_type, :creation_date
 
-  def initialize(project_id:, entity_type:, entity_id: nil, message:, metadata: {})
-    @id = SecureRandom.uuid.to_s
+  def initialize(project_id:, entity_type:, entity_id: nil, message:, metadata: {}, id: nil, creation_date: nil)
+    @id = id || SecureRandom.uuid.to_s
     @project_id = project_id
     @entity_type = entity_type
     @entity_id = entity_id
     @message = message
-    @creation_date = DateTimeCommon.now
+    @creation_date = creation_date || DateTimeCommon.now
     @metadata = metadata || {}
   end
 
@@ -28,9 +28,8 @@ class Event
         entity_type: data['entity_type'],
         entity_id: data['entity_id'],
         message: data['message'],
-        metadata: data['metadata']).tap do |instance|
-      instance.instance_variable_set(:@id, data['id'])
-      instance.instance_variable_set(:@creation_date, data['creation_date'])
-    end
+        metadata: data['metadata'],
+        id: data['id'],
+        creation_date: data['creation_date'])
   end
 end

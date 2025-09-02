@@ -1,7 +1,22 @@
 # frozen_string_literal: true
 
 module EventLogger
-  def record_event(project_id:, entity_type:, entity_id:, message:, metadata:)
+
+  def log_project_event(project, message:, metadata:)
+    unless project.is_a?(Project)
+      raise ArgumentError, "Expected Project model, got #{project.class}"
+    end
+
+    log_event(
+      project_id: project.id,
+      entity_type: 'Project',
+      entity_id: project.id,
+      message: message,
+      metadata: metadata
+    )
+  end
+
+  def log_event(project_id:, entity_type:, entity_id:, message:, metadata:)
     attributes = {
       project_id: project_id,
       entity_type: entity_type,
@@ -17,13 +32,13 @@ module EventLogger
       LoggingCommon.log_info("Event saved", event_saved.to_h)
       true
     else
-      LoggingCommon.log_error('Cannot record event', { event: attributes })
+      LoggingCommon.log_error('Cannot log event', { event: attributes })
       false
     end
   rescue => e
-    LoggingCommon.log_error('Cannot record event', attributes, e)
+    LoggingCommon.log_error('Cannot log event', attributes, e)
     false
   end
 
-  module_function :record_event
+  module_function :log_project_event, :log_event
 end
