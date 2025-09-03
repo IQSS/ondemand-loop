@@ -14,7 +14,7 @@ describe('Projects', () => {
     cy.get('#create-project-btn').click()
     
     // Assert success message appears
-    cy.get('.alert-success, .alert.alert-success, [role="alert"]').should('contain', 'created')
+    cy.get('#flash-container [role="alert"]').should('contain', 'created')
     
     // Assert we're on the project details page
     cy.url().should('include', '/projects/')
@@ -40,7 +40,7 @@ describe('Projects', () => {
     cy.get('#app-bar-create-project-btn').click()
     
     // Assert success message appears
-    cy.get('.alert-success, .alert.alert-success, [role="alert"]').should('contain', 'created')
+    cy.get('#flash-container [role="alert"]').should('contain', 'created')
     
     // Assert we're on the project details page
     cy.url().should('include', '/projects/')

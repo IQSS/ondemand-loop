@@ -26,6 +26,7 @@ export const visitLoopRoot = () => {
 export const navigateToProjects = () => {
   cy.get('#nav-projects').click()
   cy.get('h1').should('contain', PAGE_TITLES.projects)
+  cy.wait(500) // HACK TO WAIT FOR STIMULUS TO LOAD
 }
 
 export const navigateToDownloads = () => {
