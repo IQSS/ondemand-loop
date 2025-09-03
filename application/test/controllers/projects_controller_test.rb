@@ -45,7 +45,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to project_url(id: 'generated_project')
     follow_redirect!
     assert_match "Project generated_project created", flash[:notice]
-    assert_equal 1, ProjectEventList.new(project_id: 'generated_project').all.count
+    assert_equal 2, ProjectEventList.new(project_id: 'generated_project').all.count
   end
 
   test "should create project with provided name" do
@@ -54,7 +54,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to project_url(id: 'manual_project')
     follow_redirect!
     assert_match "Project manual_project created", flash[:notice]
-    assert_equal 1, ProjectEventList.new(project_id: 'manual_project').all.count
+    assert_equal 2, ProjectEventList.new(project_id: 'manual_project').all.count
   end
 
   test "should create project and redirect back when redirect_back param provided" do
@@ -65,7 +65,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
     follow_redirect!
     assert_match "Project hidden_project created", flash[:notice]
-    assert_equal 1, ProjectEventList.new(project_id: 'hidden_project').all.count
+    assert_equal 2, ProjectEventList.new(project_id: 'hidden_project').all.count
   end
 
   test "should set active project" do

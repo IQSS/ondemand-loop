@@ -1,6 +1,6 @@
 en:
   events:
     project:
-      created: "Project created"
-      updated: "Project updated"
-      active: "Project set as active"
+      created: "New project created"
+      updated: "Project details updated"
+      active: "Project marked as active"

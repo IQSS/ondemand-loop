@@ -5,29 +5,31 @@
   entity_id = project_id
   events = project ? project.event_list&.all_by_entity_type_and_id(entity_type: entity_type, entity_id: entity_id) : []
 %>
-<table class="table table-sm">
-  <thead>
-  <tr>
-    <th><%= t('events.table.header_message') %></th>
-    <th><%= t('events.table.header_creation_date') %></th>
-    <th><%= t('events.table.header_metadata') %></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% events.each do |event| %>
-    <tr>
-      <td><%= t(event.message) %></td>
-      <td><%= event.creation_date %></td>
-      <td>
-        <% if event.metadata.present? %>
-          <ul class="list-unstyled mb-0">
-            <% event.metadata.each do |key, value| %>
-              <li><strong><%= key %></strong>: <%= value %></li>
-            <% end %>
-          </ul>
-        <% end %>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+<div id="events-list">
+  <ul class="list-unstyled m-0">
+    <% events.each do |event| %>
+      <li class="card mb-2 shadow-sm rounded">
+        <header class="card-header d-flex justify-content-between align-items-center gap-3">
+          <div class="d-flex align-items-center gap-3 flex-grow-1">
+            <%= render partial: '/shared/file_row_date', locals: { date: event.creation_date, title: t('events.table.header_creation_date') } if event.creation_date %>
+            <div class="d-flex align-items-center flex-grow-1 gap-3">
+              <h2 class="mb-0 h6">
+                <%= t(event.message) %>
+              </h2>
+                <% if event.metadata.present? %>
+                  <div class="d-flex gap-3">
+                    <% event.metadata.each do |key, value| %>
+                      <div class="text-start lh-sm">
+                        <span class="d-block fs-7 text-muted fw-semibold"><%= key %>:</span>
+                        <span class="d-block fs-7 text-muted"><%= value %></span>
+                      </div>
+                    <% end %>
+                  </div>
+                <% end %>
+            </div>
+          </div>
+        </header>
+      </li>
+    <% end %>
+  </ul>
+</div>
