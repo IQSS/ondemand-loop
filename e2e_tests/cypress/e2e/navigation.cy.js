@@ -61,7 +61,7 @@ describe('Navigation', () => {
     cy.get('nav').contains('Repositories').should('be.visible')
 
     // Verify logo link exists
-    cy.get('nav [data-testid="logo-link"]').should('exist')
+    cy.get('nav #logo-link').should('exist')
     
     cy.task('log', 'Navigation menu contains all expected links')
   })
