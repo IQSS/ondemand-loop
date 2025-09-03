@@ -209,11 +209,7 @@ en:
         <li>If you encounter errors or inconsistencies, you can try using the <strong>Help → Reset</strong> option to return your instance to a clean state.</li>
         <li>We welcome <a href="https://github.com/IQSS/ondemand-loop/issues" target="_blank">feedback and bug reports</a> to help us improve!</li>
         </ul>
-  events:
-    table:
-      header_message: "Message"
-      header_creation_date: "Creation date"
-      header_metadata: "Metadata"
+
   shared:
     breadcrumbs:
       home: "Home"
