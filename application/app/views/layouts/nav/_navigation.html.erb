@@ -16,13 +16,13 @@
       <!-- Primary nav links -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <%= nav_link_to t(".link_projects_text"), projects_path, class: 'nav-link', aria: { current: 'page' } %>
+          <%= nav_link_to t(".link_projects_text"), projects_path, class: 'nav-link', aria: { current: 'page' }, data: { testid: 'nav-projects' } %>
         </li>
         <li class="nav-item">
-          <%= nav_link_to t(".link_downloads_text"), download_status_path, class: 'nav-link' %>
+          <%= nav_link_to t(".link_downloads_text"), download_status_path, class: 'nav-link', data: { testid: 'nav-downloads' } %>
         </li>
         <li class="nav-item">
-          <%= nav_link_to t(".link_uploads_text"), upload_status_path, class: 'nav-link' %>
+          <%= nav_link_to t(".link_uploads_text"), upload_status_path, class: 'nav-link', data: { testid: 'nav-uploads' } %>
         </li>
 
         <!-- Dropdown: Repositories -->
@@ -42,7 +42,8 @@
               aria-labelledby="repositoriesDropdown">
             <li>
               <a class="dropdown-item d-flex align-items-center gap-2"
-                 href="<%= link_to_landing(ConnectorType::DATAVERSE) %>">
+                 href="<%= link_to_landing(ConnectorType::DATAVERSE) %>"
+                 data-testid="nav-dataverse">
                 <span class="icon-wrapper bg-white rounded d-inline-flex align-items-center justify-content-center p-1" aria-hidden="true">
                   <%= connector_icon(ConnectorType::DATAVERSE) %>
                 </span>
@@ -53,7 +54,8 @@
             <% if ::Configuration.zenodo_enabled %>
               <li>
                 <a class="dropdown-item d-flex align-items-center gap-2"
-                   href="<%= explore_path(connector_type: ConnectorType::ZENODO.to_s, server_domain: Zenodo::ZenodoUrl::DEFAULT_SERVER, object_type: 'landing', object_id: ':root') %>">
+                   href="<%= explore_path(connector_type: ConnectorType::ZENODO.to_s, server_domain: Zenodo::ZenodoUrl::DEFAULT_SERVER, object_type: 'landing', object_id: ':root') %>"
+                   data-testid="nav-zenodo">
                   <span class="icon-wrapper bg-white rounded d-inline-flex align-items-center justify-content-center p-1" aria-hidden="true">
                     <%= connector_icon(ConnectorType::ZENODO) %>
                   </span>
@@ -65,7 +67,7 @@
             <li><hr class="dropdown-divider" role="separator"></li>
 
             <li>
-              <%= nav_link_to repository_settings_path, class: 'dropdown-item d-flex align-items-center gap-2' do %>
+              <%= nav_link_to repository_settings_path, class: 'dropdown-item d-flex align-items-center gap-2', data: { testid: 'nav-repo-settings' } do %>
                 <span class="icon-wrapper bg-white text-dark rounded d-inline-flex align-items-center justify-content-center p-1" aria-hidden="true">
                   <i class="bi bi-gear-fill"></i>
                 </span>

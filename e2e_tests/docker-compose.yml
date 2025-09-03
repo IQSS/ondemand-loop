@@ -25,7 +25,7 @@ services:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
       - ../application:/var/www/ood/apps/sys/loop
       - ./config/.env:/var/www/ood/apps/sys/loop/.env
-      - ../docker/loop.conf:/var/lib/ondemand-nginx/config/apps/sys/loop.conf
+      - ./config/loop.conf:/var/lib/ondemand-nginx/config/apps/sys/loop.conf
     ports:
       - "22200:443"
     expose:

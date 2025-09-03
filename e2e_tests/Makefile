@@ -48,6 +48,9 @@ env_down:
 	@echo "Stopping test environment..."
 	$(ENV) $(COMPOSE_CMD) -f docker-compose.yml -p $(PROJECT_NAME) down -v --remove-orphans || :
 
+bash:
+	docker exec -it test_loop_ood /bin/bash
+
 # Show environment status
 env_status:
 	@echo "Environment status:"
@@ -89,6 +92,7 @@ cypress_build:
 cypress_run:
 	@echo "Running Cypress tests in headless mode..."
 	docker run --rm \
+	    --shm-size=2g \
 		--network host \
 		-e LOOP_USERNAME=$(LOOP_USERNAME) \
 		-e LOOP_PASSWORD=$(LOOP_PASSWORD) \
