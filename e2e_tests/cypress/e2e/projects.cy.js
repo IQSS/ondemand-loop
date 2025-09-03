@@ -1,5 +1,5 @@
 import { visitLoopRoot, navigateToProjects } from '../plugins/navigation'
-import { cleanProject } from '../plugins/projects'
+import { deleteProject } from '../plugins/projects'
 
 describe('Projects', () => {
   beforeEach(() => {
@@ -28,7 +28,7 @@ describe('Projects', () => {
     
     // Cleanup
     cy.get('[data-project-id]').invoke('attr', 'data-project-id').then(projectId => {
-      cleanProject(projectId)
+      deleteProject(projectId)
     })
   })
 
@@ -54,7 +54,7 @@ describe('Projects', () => {
     
     // Cleanup
     cy.get('[data-project-id]').invoke('attr', 'data-project-id').then(projectId => {
-      cleanProject(projectId)
+      deleteProject(projectId)
     })
   })
 
@@ -87,7 +87,7 @@ describe('Projects', () => {
       cy.get(`li#${projectId} [data-test="project-name"]`).should('have.text', newName)
       
       // Cleanup
-      cleanProject(projectId)
+      deleteProject(projectId)
     })
     
     cy.task('log', 'Successfully edited project name')

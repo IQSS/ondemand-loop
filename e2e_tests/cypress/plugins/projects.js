@@ -1,24 +1,26 @@
 import { navigateToProjects } from './navigation'
 
-export const cleanProject = (projectId) => {
+export const deleteProject = (projectId) => {
   // Navigate to projects page
   navigateToProjects()
   
   // Find the project by ID and click delete button
   cy.get(`li#${projectId}`).within(() => {
-    cy.get('button[title*="Delete"], button[aria-label*="delete"], .btn-outline-dark.icon-hover-danger').click()
+    cy.get('button.project-delete-btn').click()
   })
-  
+
   // Confirm deletion in the modal
-  cy.get('#modal-delete-confirmation .btn-danger, .modal .btn-danger').click()
-  
-  // Verify delete success message
-  cy.get('.alert-success, .alert.alert-success, [role="alert"]').should('contain', 'deleted')
+  cy.get('#modal-delete-confirmation').should('be.visible').within(() => {
+    cy.get('[data-action="modal#confirm"]').click()
+  })
+
+  // Wait for success message
+  cy.get('#flash-container [role="alert"]').should('contain', 'deleted')
   
   cy.task('log', `Successfully cleaned up project: ${projectId}`)
 }
 
-export const cleanAllProjects = () => {
+export const deleteAllProjects = () => {
   // Navigate to projects page
   navigateToProjects()
   
@@ -30,14 +32,16 @@ export const cleanAllProjects = () => {
         if (projectId) {
           // Click delete button for this project
           cy.wrap($el).within(() => {
-            cy.get('button[title*="Delete"], button[aria-label*="delete"], .btn-outline-dark.icon-hover-danger').click()
+            cy.get('button.project-delete-btn').click()
           })
           
           // Confirm deletion in the modal
-          cy.get('#modal-delete-confirmation .btn-danger, .modal .btn-danger').click()
+          cy.get('#modal-delete-confirmation').should('be.visible').within(() => {
+            cy.get('[data-action="modal#confirm"]').click()
+          })
           
           // Wait for success message
-          cy.get('.alert-success, .alert.alert-success, [role="alert"]').should('contain', 'deleted')
+          cy.get('#flash-container [role="alert"]').should('contain', 'deleted')
           
           cy.task('log', `Cleaned up project: ${projectId}`)
         }
