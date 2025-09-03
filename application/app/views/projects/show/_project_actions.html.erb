@@ -20,7 +20,7 @@
 
     <%= render partial: '/shared/file_row_date', locals: { date: project.creation_date, title: t('.field_creation_date_title'), classes: 'me-1' } %>
 
-    <h2 class="mb-0 fs-4 h5" data-update-inline-field-target="name display"><%= project.name %></h2>
+    <h2 class="mb-0 fs-4 h5" id="project-name" data-update-inline-field-target="name display"><%= project.name %></h2>
   </div>
 
   <!-- RIGHT: Inline forms and action buttons -->
@@ -36,6 +36,7 @@
     } %>
 
     <button class="btn btn-sm btn-outline-secondary"
+            id="edit-project-name-btn"
             data-action="click->update-inline-field#edit"
             title="<%= t('.button_edit_project_name_title') %>">
       <i class="bi bi-pencil-fill" aria-hidden="true"></i>

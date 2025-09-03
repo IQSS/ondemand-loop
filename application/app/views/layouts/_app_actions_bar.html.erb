@@ -53,7 +53,8 @@
             url: projects_path,
             class: 'btn btn-sm btn-outline-dark',
             title: t('project_selection.button_create_project_title'),
-            icon: "bi bi-plus-square-fill"
+            icon: "bi bi-plus-square-fill",
+            button_id: "app-bar-create-project-btn"
           } do %>
             <%= hidden_field_tag :redirect_back, true if on_explore? %>
           <% end %>

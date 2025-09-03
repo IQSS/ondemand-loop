@@ -6,7 +6,8 @@
     <%= render partial: "shared/button_to", locals: {
       url: projects_path,
       label: t(".button_create_project_text"),
-      icon: "bi bi-plus-square-fill"
+      icon: "bi bi-plus-square-fill",
+      button_id: "create-project-btn"
     } %>
 
     <%= link_to(files_app_url(Configuration.download_root), class: 'btn btn-outline-dark btn-sm', target: '_blank',

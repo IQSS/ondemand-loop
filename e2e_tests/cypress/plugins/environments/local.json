@@ -1,0 +1,8 @@
+{
+  "baseUrl": "https://localhost:22200",
+  "environment": "local",
+  "loopPath": "/pun/sys/loop",
+  "dashboardPath": "/pun/sys/dashboard",
+  "timeout": 10000,
+  "retries": 2
+}

@@ -1,7 +1,7 @@
 export const NAVIGATION = {
   baseUrl: Cypress.env('baseUrl'),
-  dashboardPath: '/pun/sys/dashboard',
-  loopPath: '/pun/sys/loop',
+  dashboardPath: Cypress.env('dashboardPath'),
+  loopPath: Cypress.env('loopPath'),
 }
 
 export const PAGE_TITLES = {

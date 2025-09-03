@@ -2,6 +2,14 @@ const path = require('path');
 const fs = require('fs');
 const MESSAGE_INDENTATION = '      '
 
+const getLoopEnvConfig = (envName) => {
+  const envPath = path.resolve(__dirname, 'environments', `${envName}.json`)
+  if (fs.existsSync(envPath)) {
+    return JSON.parse(fs.readFileSync(envPath, 'utf8'));
+  }
+  return {};
+};
+
 /// <reference types="cypress" />
 // ***********************************************************
 // Loop project Cypress plugins configuration
@@ -26,7 +34,7 @@ module.exports = (on, config) => {
   const credentialsPath = path.resolve(process.cwd(), 'credentials.json')
   
   if (fs.existsSync(credentialsPath)) {
-    const credentials = JSON.parse(fs.readFileSync(credentialsPath));
+    const credentials = JSON.parse(fs.readFileSync(credentialsPath, 'utf8'));
     config.env['ood_username'] = credentials.username
     config.env['ood_password'] = credentials.password
     console.log(`Loop credentials loaded from: ${credentialsPath}`)
@@ -43,21 +51,19 @@ module.exports = (on, config) => {
     console.log('Overriding password with $LOOP_PASSWORD')
   }
 
-  // Environment-specific base URLs for Loop
-  const loopEnvironments = {
-    "local": "https://localhost:22200",
-    "development": "https://localhost:22200",
-    "test": "https://localhost:22200"
-  }
-
+  // Load environment-specific configuration from JSON files
   const loopEnvironment = process.env['LOOP_ENVIRONMENT'] || 'local'
   console.log(`Using Loop environment: ${loopEnvironment}`)
+  const customEnv = getLoopEnvConfig(loopEnvironment)
+  config.env = { ...config.env, ...customEnv }
 
-  const baseUrl = loopEnvironments[loopEnvironment] || config.baseUrl
-  if (baseUrl) {
-    config.baseUrl = baseUrl
-    config.env['baseUrl'] = baseUrl
+  const baseUrl = config.env['baseUrl']
+  if (!baseUrl) {
+    console.error(`No baseUrl configured for environment: ${loopEnvironment}`)
+    return Promise.reject(new Error(`Invalid Loop Environment: ${loopEnvironment}`))
   }
+
+  config.baseUrl = baseUrl
 
   // Credential validation and logging
   const credentialsCheck = config.env['ood_username'] && config.env['ood_password'] ? 'provided' : 'not provided'
