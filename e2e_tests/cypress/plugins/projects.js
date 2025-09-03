@@ -1,12 +1,9 @@
 import { navigateToProjects } from './navigation'
 
-export const deleteProject = (projectId) => {
-  // Navigate to projects page
-  navigateToProjects()
-  
-  // Find the project by ID and click delete button
+const performProjectDeletion = (projectId) => {
+  // Click delete button for the project
   cy.get(`li#${projectId}`).within(() => {
-    cy.get('button.project-delete-btn').click()
+    cy.get('button.project-delete-btn').waitClick()
   })
 
   // Confirm deletion in the modal
@@ -16,38 +13,33 @@ export const deleteProject = (projectId) => {
 
   // Wait for success message
   cy.get('#flash-container [role="alert"]').should('contain', 'deleted')
-  
-  cy.task('log', `Successfully cleaned up project: ${projectId}`)
+  cy.get('#flash-container button[data-bs-dismiss="alert"]').waitClick()
+
+  cy.task('log', `Successfully deleted project: ${projectId}`)
+}
+
+export const deleteProject = (projectId) => {
+  // Navigate to projects page
+  navigateToProjects()
+  // Perform deletion
+  performProjectDeletion(projectId)
 }
 
 export const deleteAllProjects = () => {
   // Navigate to projects page
   navigateToProjects()
   
-  // Get all project list items and delete them one by one
-  cy.get('body').then($body => {
-    if ($body.find('.list-group .list-group-item').length > 0) {
-      cy.get('.list-group .list-group-item').each($el => {
-        const projectId = $el.attr('id')
-        if (projectId) {
-          // Click delete button for this project
-          cy.wrap($el).within(() => {
-            cy.get('button.project-delete-btn').click()
-          })
-          
-          // Confirm deletion in the modal
-          cy.get('#modal-delete-confirmation').should('be.visible').within(() => {
-            cy.get('[data-action="modal#confirm"]').click()
-          })
-          
-          // Wait for success message
-          cy.get('#flash-container [role="alert"]').should('contain', 'deleted')
-          
-          cy.task('log', `Cleaned up project: ${projectId}`)
-        }
+  // Delete all projects
+  cy.get('body').then(($body) => {
+    if ($body.find('[data-test="project-summary"]').length) {
+      let deletedCount = 0
+      cy.get('[data-test="project-summary"]').each(($project) => {
+        const projectId = $project.attr('id')
+        performProjectDeletion(projectId)
+        deletedCount++
+      }).then(() => {
+        cy.task('log', `Successfully deleted ${deletedCount} projects`)
       })
     }
   })
-  
-  cy.task('log', 'Successfully cleaned up all projects')
 }

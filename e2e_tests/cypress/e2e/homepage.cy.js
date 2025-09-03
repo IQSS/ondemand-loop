@@ -1,7 +1,14 @@
 import { visitLoopRoot } from '../plugins/navigation'
+import { deleteAllProjects } from '../plugins/projects'
 
 describe('Home page', () => {
+  beforeEach(() => {
+    visitLoopRoot()
+  })
+
   it('shows welcome and beta notices on first visit', () => {
+    // CLEANUP TO SEE THE WELCOME MESSAGE
+    deleteAllProjects();
     // Visit the page with authentication using navigation utility
     visitLoopRoot();
     

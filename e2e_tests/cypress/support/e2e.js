@@ -3,4 +3,4 @@
 
 // Import Loop project configuration
 import '../plugins/config'
-
+import '../plugins/stimulus'
