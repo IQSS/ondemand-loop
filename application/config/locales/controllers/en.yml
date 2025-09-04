@@ -82,4 +82,5 @@ en:
 
   connector_resolver:
     message_invalid_connector_type: "Invalid connector type: %{connector_type}"
-    message_invalid_repo_url: "The repository URL %{repo_url} is not verified. For security reasons, only trusted repositories already registered in the system can be used"
+    message_invalid_repo_url: "Invalid repository URL %{repo_url}. Unable to verify repository type using the API"
+    message_repo_mismatch: "Invalid request. The repository %{repo_url} type %{repo_type} does not match the expected type: %{explore_type}"

@@ -87,4 +87,53 @@ class ConnectorResolverTest < ActionController::TestCase
     assert_equal 'http', response_data['scheme']
     assert_equal 8080, response_data['port']
   end
+
+  test 'parse_connector_type redirects with invalid connector type' do
+    get :show, params: { connector_type: 'invalid_type', server_domain: 'example.org' }
+    assert_redirected_to '/'
+    assert_equal I18n.t('connector_resolver.message_invalid_connector_type', connector_type: 'invalid_type'), flash[:alert]
+  end
+
+  test 'parse_connector_type handles nil connector type' do
+    get :show, params: { server_domain: 'example.org' }
+    assert_redirected_to '/'
+  end
+
+  test 'build_repo_url redirects when server_domain is missing' do
+    get :show, params: { connector_type: 'zenodo' }
+    assert_redirected_to '/'
+    assert_equal I18n.t('connector_resolver.message_invalid_repo_url', repo_url: ''), flash[:alert]
+  end
+
+  test 'validate_repo_url redirects when resolver returns unknown type' do
+    mock_service = mock('RepoResolverService')
+    mock_service.stubs(:resolve).returns(Repo::RepoResolverResponse.new('https://example.org/', nil))
+    ::Configuration.stubs(:repo_resolver_service).returns(mock_service)
+    
+    get :show, params: { connector_type: 'zenodo', server_domain: 'example.org' }
+    assert_redirected_to '/'
+    assert_equal I18n.t('connector_resolver.message_invalid_repo_url', repo_url: 'https://example.org/'), flash[:alert]
+  end
+
+  test 'validates dataverse connector type successfully' do
+    stub_resolver(type: ConnectorType.get('dataverse'), object_url: 'https://dataverse.harvard.edu/')
+    get :show, params: { connector_type: 'dataverse', server_domain: 'dataverse.harvard.edu' }
+    assert_response :success
+  end
+
+  test 'build_repo_url handles whitespace in server_scheme' do
+    stub_resolver(type: ConnectorType.get('zenodo'), object_url: 'https://example.org/')
+    get :show, params: { connector_type: 'zenodo', server_domain: 'example.org', server_scheme: '  ' }
+    assert_response :success
+    response_data = JSON.parse(response.body)
+    assert_equal 'https', response_data['scheme']
+  end
+
+  test 'build_repo_url handles whitespace in server_port' do
+    stub_resolver(type: ConnectorType.get('zenodo'), object_url: 'https://example.org/')
+    get :show, params: { connector_type: 'zenodo', server_domain: 'example.org', server_port: '  ' }
+    assert_response :success
+    response_data = JSON.parse(response.body)
+    assert_nil response_data['port']
+  end
 end

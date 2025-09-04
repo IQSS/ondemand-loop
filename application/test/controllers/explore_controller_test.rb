@@ -163,30 +163,100 @@ class ExploreControllerTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t('explore.create.message_processor_error', connector_type: 'zenodo', object_type: 'records', object_id: '1'), flash[:alert]
   end
 
-  test 'show action redirects when repo url not in repo db' do
-    stub_repo_resolver(type: ConnectorType.get('dataverse'), object_url: 'https://missing.org/')
+  test 'show action redirects when repo url type does not match the explore type' do
+    stub_repo_resolver(type: ConnectorType.get('dataverse'), object_url: 'https://dataverse.org/')
     get explore_url(
       connector_type: 'zenodo',
-      server_domain: 'missing.org',
+      server_domain: 'dataverse.org',
       object_type: 'records',
       object_id: '1',
     )
 
     assert_redirected_to root_path
-    assert_equal I18n.t('connector_resolver.message_invalid_repo_url', repo_url: 'https://missing.org/'), flash[:alert]
+    assert_equal I18n.t('connector_resolver.message_repo_mismatch', repo_url: 'https://dataverse.org/', repo_type: 'dataverse', explore_type: 'zenodo'), flash[:alert]
   end
 
-  test 'create action redirects when repo url not in repo db' do
-    stub_repo_resolver(type: ConnectorType.get('dataverse'), object_url: 'https://missing.org/')
+  test 'create action redirects when repo url type does not match the explore type' do
+    stub_repo_resolver(type: ConnectorType.get('dataverse'), object_url: 'https://dataverse.org/')
     post explore_url(
       connector_type: 'zenodo',
-      server_domain: 'missing.org',
+      server_domain: 'dataverse.org',
       object_type: 'records',
       object_id: '1',
     )
 
     assert_redirected_to root_path
-    assert_equal I18n.t('connector_resolver.message_invalid_repo_url', repo_url: 'https://missing.org/'), flash[:alert]
+    assert_equal I18n.t('connector_resolver.message_repo_mismatch', repo_url: 'https://dataverse.org/', repo_type: 'dataverse', explore_type: 'zenodo'), flash[:alert]
+  end
+
+  test 'show action handles dataverse connector type' do
+    stub_handler(:show, result: ConnectorResult.new(template: '/sitemap/index', locals: {}, success: true))
+    stub_repo_resolver(type: ConnectorType.get('dataverse'), object_url: 'https://dataverse.harvard.edu/')
+
+    get explore_url(
+      connector_type: 'dataverse',
+      server_domain: 'dataverse.harvard.edu',
+      object_type: 'dataset',
+      object_id: 'doi:10.7910/DVN/123456',
+    )
+
+    assert_response :success
+  end
+
+  test 'create action handles dataverse connector type' do
+    stub_handler(:create, result: ConnectorResult.new(message: { notice: 'Dataset downloaded' }, success: true))
+    stub_repo_resolver(type: ConnectorType.get('dataverse'), object_url: 'https://dataverse.harvard.edu/')
+
+    post explore_url(
+      connector_type: 'dataverse',
+      server_domain: 'dataverse.harvard.edu',
+      object_type: 'dataset',
+      object_id: 'doi:10.7910/DVN/123456',
+    )
+
+    assert_redirected_to root_path
+    assert_equal 'Dataset downloaded', flash[:notice]
+  end
+
+  test 'show action passes all permitted params to handler' do
+    handler = mock('ExploreHandler')
+    handler.stubs(:params_schema).returns([:version, :file_id, :custom_param])
+    handler.expects(:show).with({
+      'version' => 'latest',
+      'file_id' => '123',
+      'custom_param' => 'test_value',
+      'repo_url' => instance_of(Repo::RepoUrl)
+    }).returns(ConnectorResult.new(template: '/sitemap/index', locals: {}, success: true))
+    ConnectorHandlerDispatcher.stubs(:handler).returns(handler)
+    stub_repo_resolver(type: ConnectorType.get('zenodo'), object_url: 'https://example.org/')
+
+    get explore_url(
+      connector_type: 'zenodo',
+      server_domain: 'example.org',
+      object_type: 'records',
+      object_id: '1',
+      version: 'latest',
+      file_id: '123',
+      custom_param: 'test_value',
+      ignored_param: 'should_not_pass'
+    )
+
+    assert_response :success
+  end
+
+  test 'create action with failed handler result' do
+    stub_handler(:create, result: ConnectorResult.new(message: { alert: 'Upload failed' }, success: false))
+    stub_repo_resolver(type: ConnectorType.get('zenodo'), object_url: 'https://example.org/')
+
+    post explore_url(
+      connector_type: 'zenodo',
+      server_domain: 'example.org',
+      object_type: 'records',
+      object_id: '1',
+    )
+
+    assert_redirected_to root_path
+    assert_equal 'Upload failed', flash[:alert]
   end
 end
 
