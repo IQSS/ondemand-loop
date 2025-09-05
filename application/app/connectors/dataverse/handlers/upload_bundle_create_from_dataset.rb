@@ -27,6 +27,8 @@ module Dataverse::Handlers
         collection_service = Dataverse::CollectionService.new(url_data.dataverse_url)
         root = collection_service.find_collection_by_id(':root')
         root_title = root.data.name
+        collection_title = root.data.alias
+        collection_id = root.data.alias
       else
         dataset_service = Dataverse::DatasetService.new(url_data.dataverse_url, api_key: api_key)
         dataset = dataset_service.find_dataset_version_by_persistent_id(url_data.dataset_id, version: url_data.version)
@@ -52,7 +54,7 @@ module Dataverse::Handlers
       ::Configuration.repo_history.add_repo(
         remote_repo_url,
         ConnectorType::DATAVERSE,
-        title: dataset_title,
+        title: dataset_title || url_data.dataset_id,
         note: url_data.version
       )
 

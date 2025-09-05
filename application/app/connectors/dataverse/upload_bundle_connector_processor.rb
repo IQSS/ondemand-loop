@@ -25,9 +25,10 @@ module Dataverse
       else
         Dataverse::Handlers::UploadBundleCreateFromDataverse.new.create(project, request_params)
       end
+
     rescue => e
-      log_error('UploadBundle creation error', { dataverse: remote_repo_url }, e)
-      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_error', url: remote_repo_url))
+      log_error('UploadBundle creation error', { remote_repo_url: remote_repo_url }, e)
+      return error(I18n.t('connectors.dataverse.upload_bundle_connector_processor.message_create_error', url: remote_repo_url))
     end
 
     def edit(upload_bundle, request_params)
@@ -43,9 +44,10 @@ module Dataverse
       else
         Dataverse::Handlers::ConnectorEdit.new.edit(upload_bundle, request_params)
       end
+
     rescue => e
       log_error('UploadBundle edit error', { bundle_id: upload_bundle.id, form: request_params[:form] }, e)
-      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_error', url: upload_bundle.remote_repo_url))
+      return error(I18n.t('connectors.dataverse.upload_bundle_connector_processor.message_edit_error', url: upload_bundle.remote_repo_url))
     end
 
     def update(upload_bundle, request_params)
@@ -63,9 +65,10 @@ module Dataverse
       else
         Dataverse::Handlers::ConnectorEdit.new.update(upload_bundle, request_params)
       end
+
     rescue => e
       log_error('UploadBundle update error', { bundle_id: upload_bundle.id, form: request_params[:form] }, e)
-      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_error', url: upload_bundle.remote_repo_url))
+      return error(I18n.t('connectors.dataverse.upload_bundle_connector_processor.message_update_error', url: upload_bundle.remote_repo_url))
     end
 
     private

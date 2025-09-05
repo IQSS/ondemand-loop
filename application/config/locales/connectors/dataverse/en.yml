@@ -4,6 +4,11 @@ en:
     dataverse:
       title: "Dataverse"
 
+      upload_bundle_connector_processor:
+        message_create_error: "Error while creating Upload Bundle for Dataverse url: %{url}"
+        message_edit_error: "Error while editing Upload Bundle for Dataverse url: %{url}"
+        message_update_error: "Error while updating Upload Bundle for Dataverse url: %{url}"
+
       handlers:
         collection_select:
           message_success: "Collection selected: %{title}"
@@ -21,8 +26,6 @@ en:
           message_success: "Draft dataset data fetched successfully: %{title}"
         repository_settings_update:
           message_success: "Repository updated: %{url} type: %{type}"
-        upload_bundle_create:
-          message_error: "Error while creating Upload Bundle for Dataverse url: %{url}"
         upload_bundle_create_from_collection:
           message_collection_not_found: "Dataverse collection not found: %{url}"
           message_authentication_error: "Collection requires authorization to access: %{url}. Add an API token"

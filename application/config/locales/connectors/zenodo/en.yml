@@ -5,6 +5,11 @@ en:
       title: "Zenodo"
       aria_label: "Visit the Zenodo project homepage"
 
+      upload_bundle_connector_processor:
+        message_create_error: "Error while creating Upload Bundle for Zenodo url: %{url}"
+        message_edit_error: "Error while editing Upload Bundle for Zenodo url: %{url}"
+        message_update_error: "Error while updating Upload Bundle for Zenodo url: %{url}"
+
       handlers:
         connector_edit:
           message_success: "Access token updated: %{name}"

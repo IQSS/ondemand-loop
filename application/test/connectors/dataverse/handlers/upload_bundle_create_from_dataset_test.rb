@@ -86,7 +86,7 @@ class Dataverse::Handlers::UploadBundleCreateFromDatasetTest < ActiveSupport::Te
     
     # Mock root collection service (no dataset service call for draft without API key)
     root_collection = mock('root_collection')
-    root_collection.stubs(:data).returns(OpenStruct.new(name: 'Test University Dataverse'))
+    root_collection.stubs(:data).returns(OpenStruct.new(name: 'Test University Dataverse', alias: 'testuniversity'))
     collection_service = mock('collection_service')
     collection_service.expects(:find_collection_by_id).with(':root').returns(root_collection)
     Dataverse::CollectionService.expects(:new).with('https://dataverse.test.edu').returns(collection_service)
@@ -98,9 +98,9 @@ class Dataverse::Handlers::UploadBundleCreateFromDatasetTest < ActiveSupport::Te
     
     assert result.success?
     assert_equal 'Test University Dataverse', result.resource.metadata[:dataverse_title]
-    assert_nil result.resource.metadata[:collection_title]
+    assert_equal 'testuniversity', result.resource.metadata[:collection_title]
     assert_nil result.resource.metadata[:dataset_title]
-    assert_nil result.resource.metadata[:collection_id]
+    assert_equal 'testuniversity', result.resource.metadata[:collection_id]
     assert_equal 'doi:10.5072/FK2/DRAFT123', result.resource.metadata[:dataset_id]
   end
 
@@ -185,15 +185,17 @@ class Dataverse::Handlers::UploadBundleCreateFromDatasetTest < ActiveSupport::Te
 
   test 'create adds repo history with draft version note for draft without API key' do
     @metadata.stubs(:auth_key).returns(nil)
-    
-    Dataverse::CollectionService.stubs(:new).returns(stub(find_collection_by_id: mock(data: OpenStruct.new(name: 'Draft Root'))))
+
+    root_collection = mock('root_collection')
+    root_collection.stubs(:data).returns(OpenStruct.new(name: 'Draft Root', alias: 'draftroot'))
+    Dataverse::CollectionService.expects(:new).with('https://version.dataverse.org').returns(stub(find_collection_by_id: root_collection))
     Common::FileUtils.any_instance.stubs(:normalize_name).returns('draft_history_bundle')
     UploadBundle.any_instance.stubs(:save)
 
     ::Configuration.repo_history.expects(:add_repo).with(
       'https://version.dataverse.org/dataset.xhtml?persistentId=doi:10.5072/FK2/HISTORY&version=DRAFT',
       ConnectorType::DATAVERSE,
-      title: nil, # no dataset title available without API key
+      title: 'doi:10.5072/FK2/HISTORY', # no dataset title available without API key => defaults to dataset_id
       note: ':draft'
     )
     
@@ -204,7 +206,7 @@ class Dataverse::Handlers::UploadBundleCreateFromDatasetTest < ActiveSupport::Te
     ::Configuration.repo_db.stubs(:get).returns(nil)
     
     root_collection = mock('root_collection')
-    root_collection.stubs(:data).returns(OpenStruct.new(name: 'Unknown Dataverse'))
+    root_collection.stubs(:data).returns(OpenStruct.new(name: 'Unknown Dataverse', alias: 'unknown'))
     Dataverse::CollectionService.expects(:new).with('https://unknown.dataverse.org').returns(stub(find_collection_by_id: root_collection))
     
     Common::FileUtils.any_instance.stubs(:normalize_name).returns('unknown_bundle')

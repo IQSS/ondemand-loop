@@ -59,7 +59,7 @@ class Dataverse::UploadBundleConnectorProcessorTest < ActiveSupport::TestCase
   test 'create handles errors gracefully' do
     Dataverse::DataverseUrl.expects(:parse).raises(StandardError.new('Parse error'))
     
-    @processor.expects(:log_error).with('UploadBundle creation error', { dataverse: 'http://bad-url.com' }, kind_of(StandardError))
+    @processor.expects(:log_error).with('UploadBundle creation error', { remote_repo_url: 'http://bad-url.com' }, kind_of(StandardError))
     
     result = @processor.create(@project, {object_url: 'http://bad-url.com'})
     
