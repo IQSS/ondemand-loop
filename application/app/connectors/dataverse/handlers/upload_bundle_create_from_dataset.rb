@@ -1,7 +1,8 @@
-module Dataverse::Handlers
-  class UploadBundleCreate
-    include LoggingCommon
+# frozen_string_literal: true
 
+module Dataverse::Handlers
+  class UploadBundleCreateFromDataset
+    include LoggingCommon
     include DateTimeCommon
 
     def initialize(object_id = nil)
@@ -17,25 +18,20 @@ module Dataverse::Handlers
     def create(project, request_params)
       remote_repo_url = request_params[:object_url]
       url_data = Dataverse::DataverseUrl.parse(remote_repo_url)
-      log_info('Creating upload bundle', { project_id: project.id, remote_repo_url: remote_repo_url })
+      log_info('Creating upload bundle from dataset', { project_id: project.id, remote_repo_url: remote_repo_url })
 
       # Get API key from repository configuration
       repo_info = ::Configuration.repo_db.get(url_data.dataverse_url)
       api_key = repo_info&.metadata&.auth_key
 
-      repo_history_note = nil
-
-      if url_data.collection?
-        collection_service = Dataverse::CollectionService.new(url_data.dataverse_url, api_key: api_key)
-        collection = collection_service.find_collection_by_id(url_data.collection_id)
-        return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_collection_not_found', url: remote_repo_url)) unless collection
-
-        root_dv = collection.data.parents.first || {}
-        root_title = root_dv[:name]
-        collection_title = collection.data.name
-        collection_id = collection.data.alias
-        repo_history_note = 'collection'
-      elsif url_data.dataset?
+      # If it's a draft dataset and there's no API key, skip dataset service call
+      # and proceed with collection service logic (same as when parents are empty)
+      if url_data.draft? && api_key.nil?
+        collection_service = Dataverse::CollectionService.new(url_data.dataverse_url)
+        root = collection_service.find_collection_by_id(':root')
+        root_title = root.data.name
+        repo_history_note = url_data.version
+      else
         dataset_service = Dataverse::DatasetService.new(url_data.dataverse_url, api_key: api_key)
         dataset = dataset_service.find_dataset_version_by_persistent_id(url_data.dataset_id, version: url_data.version)
         return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_dataset_not_found', url: remote_repo_url)) unless dataset
@@ -56,17 +52,12 @@ module Dataverse::Handlers
 
         dataset_title = dataset.metadata_field('title').to_s
         repo_history_note = dataset.version
-      else
-        collection_service = Dataverse::CollectionService.new(url_data.dataverse_url, api_key: api_key)
-        collection = collection_service.find_collection_by_id(':root')
-        root_title = collection.data.name
-        repo_history_note = 'dataverse'
       end
 
       ::Configuration.repo_history.add_repo(
         remote_repo_url,
         ConnectorType::DATAVERSE,
-        title: dataset_title || collection_title || root_title,
+        title: dataset_title,
         note: repo_history_note
       )
 
@@ -88,7 +79,7 @@ module Dataverse::Handlers
         }
       end
       upload_bundle.save
-      log_info('Upload bundle created', { bundle_id: upload_bundle.id })
+      log_info('Upload bundle created from dataset', { bundle_id: upload_bundle.id })
 
       ConnectorResult.new(
         resource: upload_bundle,

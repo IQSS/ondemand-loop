@@ -43,6 +43,10 @@ module Dataverse
       define_method("#{t}?") { type == t }
     end
 
+    def draft?
+      dataset? && version == ':draft'
+    end
+
     private_class_method :new
     def initialize(base_parser)
       @base = base_parser
@@ -50,7 +54,7 @@ module Dataverse
     end
 
     def dataverse_url
-      build_dataverse_url(@base.scheme, @base.domain, @base.port)
+      base.server_url
     end
 
     private

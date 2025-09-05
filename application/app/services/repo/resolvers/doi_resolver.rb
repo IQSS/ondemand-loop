@@ -23,7 +23,9 @@ module Repo
         elsif context.parsed_input.server_url.include?(@api_url)
           object_url = check_url(context, context.input)
         else
-          object_url = context.input
+          # IT IS A POSSIBLE REPO URL => NORMALIZE WITH PARSED_INPUT
+          object_url = context.parsed_input.to_s
+          log_info('NORMALIZED', {object_url: object_url})
         end
 
         context.object_url = object_url

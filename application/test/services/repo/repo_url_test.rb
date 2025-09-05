@@ -152,4 +152,33 @@ class Repo::RepoUrlTest < ActiveSupport::TestCase
       Repo::RepoUrl.new('https://example.com/path')
     end
   end
+
+  test 'to_s should not have trailing slash for domain-only URLs' do
+    parser = Repo::RepoUrl.parse('https://example.com')
+    assert_equal 'https://example.com', parser.to_s
+    
+    parser_with_slash = Repo::RepoUrl.parse('https://example.com/')
+    assert_equal 'https://example.com', parser_with_slash.to_s
+  end
+
+  test 'to_s should preserve paths without adding trailing slashes' do
+    parser_with_path = Repo::RepoUrl.parse('https://example.com/path/to/resource')
+    assert_equal 'https://example.com/path/to/resource', parser_with_path.to_s
+
+    parser_with_path_slash = Repo::RepoUrl.parse('https://example.com/path/to/resource/')
+    assert_equal 'https://example.com/path/to/resource', parser_with_path_slash.to_s
+  end
+
+  test 'to_s should include query parameters' do
+    parser_with_params = Repo::RepoUrl.parse('https://example.com/path?foo=bar')
+    assert_equal 'https://example.com/path?foo=bar', parser_with_params.to_s
+
+    parser_with_params_slash = Repo::RepoUrl.parse('https://example.com/path/?foo=bar')
+    assert_equal 'https://example.com/path?foo=bar', parser_with_params_slash.to_s
+  end
+
+  test 'server_url should not have trailing slash' do
+    parser = Repo::RepoUrl.parse('https://example.com/path/to/resource')
+    assert_equal 'https://example.com', parser.server_url
+  end
 end

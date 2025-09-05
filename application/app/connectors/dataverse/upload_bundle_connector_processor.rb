@@ -15,7 +15,17 @@ module Dataverse
     end
 
     def create(project, request_params)
-      Dataverse::Handlers::UploadBundleCreate.new.create(project, request_params)
+      remote_repo_url = request_params[:object_url]
+      url_data = Dataverse::DataverseUrl.parse(remote_repo_url)
+      
+      case
+      when url_data.collection?
+        Dataverse::Handlers::UploadBundleCreateFromCollection.new.create(project, request_params)
+      when url_data.dataset?
+        Dataverse::Handlers::UploadBundleCreateFromDataset.new.create(project, request_params)
+      else
+        Dataverse::Handlers::UploadBundleCreateFromDataverse.new.create(project, request_params)
+      end
     end
 
     def edit(upload_bundle, request_params)
@@ -43,6 +53,8 @@ module Dataverse
         Dataverse::Handlers::DatasetSelect.new.update(upload_bundle, request_params)
       when 'collection_select'
         Dataverse::Handlers::CollectionSelect.new.update(upload_bundle, request_params)
+      when 'draft_fetch'
+        Dataverse::Handlers::DraftFetch.new.update(upload_bundle, request_params)
       else
         Dataverse::Handlers::ConnectorEdit.new.update(upload_bundle, request_params)
       end

@@ -65,7 +65,7 @@ module Repo
         scheme: scheme,
         host: domain,
         port: port,
-        path: path,
+        path: path.chomp('/'),
         query_values: params.presence
       ).to_s
     end

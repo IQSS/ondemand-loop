@@ -112,7 +112,7 @@ class ConnectorResolverTest < ActionController::TestCase
     
     get :show, params: { connector_type: 'zenodo', server_domain: 'example.org' }
     assert_redirected_to '/'
-    assert_equal I18n.t('connector_resolver.message_invalid_repo_url', repo_url: 'https://example.org/'), flash[:alert]
+    assert_equal I18n.t('connector_resolver.message_invalid_repo_url', repo_url: 'https://example.org'), flash[:alert]
   end
 
   test 'validates dataverse connector type successfully' do

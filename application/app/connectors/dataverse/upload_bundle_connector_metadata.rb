@@ -33,6 +33,10 @@ module Dataverse
       dataverse_url
     end
 
+    def fetch_draft?
+      api_key? && dataset_id.present? && dataset_title.nil?
+    end
+
     def display_collection?
       collection_title.present?
     end

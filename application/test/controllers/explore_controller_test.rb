@@ -173,7 +173,7 @@ class ExploreControllerTest < ActionDispatch::IntegrationTest
     )
 
     assert_redirected_to root_path
-    assert_equal I18n.t('connector_resolver.message_repo_mismatch', repo_url: 'https://dataverse.org/', repo_type: 'dataverse', explore_type: 'zenodo'), flash[:alert]
+    assert_equal I18n.t('connector_resolver.message_repo_mismatch', repo_url: 'https://dataverse.org', repo_type: 'dataverse', explore_type: 'zenodo'), flash[:alert]
   end
 
   test 'create action redirects when repo url type does not match the explore type' do
@@ -186,7 +186,7 @@ class ExploreControllerTest < ActionDispatch::IntegrationTest
     )
 
     assert_redirected_to root_path
-    assert_equal I18n.t('connector_resolver.message_repo_mismatch', repo_url: 'https://dataverse.org/', repo_type: 'dataverse', explore_type: 'zenodo'), flash[:alert]
+    assert_equal I18n.t('connector_resolver.message_repo_mismatch', repo_url: 'https://dataverse.org', repo_type: 'dataverse', explore_type: 'zenodo'), flash[:alert]
   end
 
   test 'show action handles dataverse connector type' do
