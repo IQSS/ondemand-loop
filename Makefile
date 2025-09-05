@@ -1,5 +1,5 @@
 all:: loop_up
-.PHONY: loop_up loop_down loop_build remote_dev_build release_build loop_docker_builder clean logs bash test test_bash version release_notes coverage guide guide_dev
+.PHONY: loop_up loop_down loop_build remote_dev_build release_build loop_docker_builder clean logs bash test test_bash test_exec version release_notes coverage guide guide_dev
 
 # OOD Configuration
 include tools/make/ood_versions.mk
@@ -46,8 +46,14 @@ bash:
 test:
 	docker run --platform=linux/amd64 --rm -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app $(LOOP_BUILDER_IMAGE) /usr/local/scripts/loop_test.sh
 
+# Default TTY flags for interactive terminal
+test_bash: TEST_TTY := -it
 test_bash:
-	docker run --platform=linux/amd64 --rm -it -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app $(LOOP_BUILDER_IMAGE) /bin/bash
+	docker run --platform=linux/amd64 --rm $(TEST_TTY) -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app $(LOOP_BUILDER_IMAGE) /bin/bash
+
+# Override TTY flags for non-interactive execution
+test_exec: TEST_TTY := -i
+test_exec: test_bash
 
 version:
 	docker run --rm -e VERSION_TYPE=$(VERSION_TYPE) -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app $(LOOP_BUILDER_IMAGE) /usr/local/scripts/loop_version.sh
