@@ -5,14 +5,11 @@ module Dataverse::Handlers
     include LoggingCommon
     include DateTimeCommon
 
-    def initialize(object_id = nil)
-      @object_id = object_id
-    end
+    # Needed to implement expected interface in ConnectorHandlerDispatcher
+    def initialize(object = nil); end
 
     def params_schema
-      [
-        :object_url
-      ]
+      [:object_url]
     end
 
     def create(project, request_params)
@@ -27,13 +24,12 @@ module Dataverse::Handlers
       collection_service = Dataverse::CollectionService.new(url_data.dataverse_url, api_key: api_key)
       collection = collection_service.find_collection_by_id(':root')
       root_title = collection.data.name
-      repo_history_note = 'dataverse'
 
       ::Configuration.repo_history.add_repo(
         remote_repo_url,
         ConnectorType::DATAVERSE,
         title: root_title,
-        note: repo_history_note
+        note: 'dataverse'
       )
 
       file_utils = Common::FileUtils.new
@@ -50,7 +46,7 @@ module Dataverse::Handlers
           collection_title: nil,
           dataset_title: nil,
           collection_id: nil,
-          dataset_id: url_data.dataset_id,
+          dataset_id: nil,
         }
       end
       upload_bundle.save
@@ -58,16 +54,13 @@ module Dataverse::Handlers
 
       ConnectorResult.new(
         resource: upload_bundle,
-        message: { notice: I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_success', name: upload_bundle.name) },
+        message: { notice: I18n.t('connectors.dataverse.handlers.upload_bundle_create_from_dataverse.message_success', name: upload_bundle.name) },
         success: true
       )
 
     rescue Dataverse::DatasetService::UnauthorizedException => e
       log_error('Repo URL requires authentication', { dataverse: remote_repo_url }, e)
-      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_authentication_error', url: remote_repo_url))
-    rescue => e
-      log_error('UploadBundle creation error', { dataverse: remote_repo_url }, e)
-      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_error', url: remote_repo_url))
+      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create_from_dataverse.message_authentication_error', url: remote_repo_url))
     end
 
     private

@@ -5,14 +5,11 @@ module Dataverse::Handlers
     include LoggingCommon
     include DateTimeCommon
 
-    def initialize(object_id = nil)
-      @object_id = object_id
-    end
+    # Needed to implement expected interface in ConnectorHandlerDispatcher
+    def initialize(object = nil); end
 
     def params_schema
-      [
-        :object_url
-      ]
+      [:object_url]
     end
 
     def create(project, request_params)
@@ -24,17 +21,16 @@ module Dataverse::Handlers
       repo_info = ::Configuration.repo_db.get(url_data.dataverse_url)
       api_key = repo_info&.metadata&.auth_key
 
-      # If it's a draft dataset and there's no API key, skip dataset service call
-      # and proceed with collection service logic (same as when parents are empty)
+      # If it's a draft dataset and there's no API key, find_dataset_version_by_persistent_id will fail.
+      # Fetch root collection to display in the UI
       if url_data.draft? && api_key.nil?
         collection_service = Dataverse::CollectionService.new(url_data.dataverse_url)
         root = collection_service.find_collection_by_id(':root')
         root_title = root.data.name
-        repo_history_note = url_data.version
       else
         dataset_service = Dataverse::DatasetService.new(url_data.dataverse_url, api_key: api_key)
         dataset = dataset_service.find_dataset_version_by_persistent_id(url_data.dataset_id, version: url_data.version)
-        return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_dataset_not_found', url: remote_repo_url)) unless dataset
+        return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create_from_dataset.message_dataset_not_found', url: remote_repo_url)) unless dataset
 
         if dataset.data.parents.empty?
           collection_service = Dataverse::CollectionService.new(url_data.dataverse_url, api_key: api_key)
@@ -51,14 +47,13 @@ module Dataverse::Handlers
         end
 
         dataset_title = dataset.metadata_field('title').to_s
-        repo_history_note = dataset.version
       end
 
       ::Configuration.repo_history.add_repo(
         remote_repo_url,
         ConnectorType::DATAVERSE,
         title: dataset_title,
-        note: repo_history_note
+        note: url_data.version
       )
 
       file_utils = Common::FileUtils.new
@@ -83,16 +78,13 @@ module Dataverse::Handlers
 
       ConnectorResult.new(
         resource: upload_bundle,
-        message: { notice: I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_success', name: upload_bundle.name) },
+        message: { notice: I18n.t('connectors.dataverse.handlers.upload_bundle_create_from_dataset.message_success', name: upload_bundle.name) },
         success: true
       )
 
     rescue Dataverse::DatasetService::UnauthorizedException => e
       log_error('Repo URL requires authentication', { dataverse: remote_repo_url }, e)
-      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_authentication_error', url: remote_repo_url))
-    rescue => e
-      log_error('UploadBundle creation error', { dataverse: remote_repo_url }, e)
-      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_error', url: remote_repo_url))
+      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create_from_dataset.message_authentication_error', url: remote_repo_url))
     end
 
     private

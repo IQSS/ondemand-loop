@@ -23,10 +23,17 @@ en:
         repository_settings_update:
           message_success: "Repository updated: %{url} type: %{type}"
         upload_bundle_create:
-          message_collection_not_found: "Dataverse collection not found: %{url}"
-          message_dataset_not_found: "Dataverse dataset not found: %{url}"
-          message_authentication_error: "Dataverse requires authorization to access the URL: %{url}. Add an API token"
           message_error: "Error while creating Upload Bundle for Dataverse url: %{url}"
+        upload_bundle_create_from_collection:
+          message_collection_not_found: "Dataverse collection not found: %{url}"
+          message_authentication_error: "Collection requires authorization to access: %{url}. Add an API token"
+          message_success: "Collection upload bundle created: %{name}"
+        upload_bundle_create_from_dataset:
+          message_dataset_not_found: "Dataverse dataset not found: %{url}"
+          message_authentication_error: "Dataset requires authorization to access: %{url}. Add an API token"
+          message_success: "Dataset upload bundle created: %{name}"
+        upload_bundle_create_from_dataverse:
+          message_authentication_error: "Dataverse requires authorization to access: %{url}. Add an API token"
           message_success: "Dataverse upload bundle created: %{name}"
 
       external_tool_dataset:

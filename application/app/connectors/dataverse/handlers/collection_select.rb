@@ -2,9 +2,8 @@ module Dataverse::Handlers
   class CollectionSelect
     include LoggingCommon
 
-    def initialize(object_id = nil)
-      @object_id = object_id
-    end
+    # Needed to implement expected interface in ConnectorHandlerDispatcher
+    def initialize(object = nil); end
 
     def params_schema
       [

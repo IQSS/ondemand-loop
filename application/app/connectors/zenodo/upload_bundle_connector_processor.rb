@@ -2,6 +2,8 @@
 
 module Zenodo
   class UploadBundleConnectorProcessor
+
+    # Needed to implement expected interface in ConnectorClassDispatcher
     def initialize(object = nil); end
 
     def params_schema

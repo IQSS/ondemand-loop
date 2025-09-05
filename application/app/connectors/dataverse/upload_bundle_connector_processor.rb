@@ -6,9 +6,8 @@ module Dataverse
     include LoggingCommon
     include DateTimeCommon
 
-    def initialize(object = nil)
-      # Needed to implement expected interface in ConnectorClassDispatcher
-    end
+    # Needed to implement expected interface in ConnectorClassDispatcher
+    def initialize(object = nil); end
 
     def params_schema
       %i[remote_repo_url form active_tab api_key key_scope collection_id dataset_id title description author contact_email subject]
@@ -26,6 +25,9 @@ module Dataverse
       else
         Dataverse::Handlers::UploadBundleCreateFromDataverse.new.create(project, request_params)
       end
+    rescue => e
+      log_error('UploadBundle creation error', { dataverse: remote_repo_url }, e)
+      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_error', url: remote_repo_url))
     end
 
     def edit(upload_bundle, request_params)
@@ -41,6 +43,9 @@ module Dataverse
       else
         Dataverse::Handlers::ConnectorEdit.new.edit(upload_bundle, request_params)
       end
+    rescue => e
+      log_error('UploadBundle edit error', { bundle_id: upload_bundle.id, form: request_params[:form] }, e)
+      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_error', url: upload_bundle.remote_repo_url))
     end
 
     def update(upload_bundle, request_params)
@@ -58,7 +63,18 @@ module Dataverse
       else
         Dataverse::Handlers::ConnectorEdit.new.update(upload_bundle, request_params)
       end
+    rescue => e
+      log_error('UploadBundle update error', { bundle_id: upload_bundle.id, form: request_params[:form] }, e)
+      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_error', url: upload_bundle.remote_repo_url))
     end
 
+    private
+
+    def error(message)
+      ConnectorResult.new(
+        message: { alert: message },
+        success: false
+      )
+    end
   end
 end

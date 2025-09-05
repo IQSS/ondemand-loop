@@ -5,14 +5,11 @@ module Dataverse::Handlers
     include LoggingCommon
     include DateTimeCommon
 
-    def initialize(object_id = nil)
-      @object_id = object_id
-    end
+    # Needed to implement expected interface in ConnectorHandlerDispatcher
+    def initialize(object = nil); end
 
     def params_schema
-      [
-        :object_url
-      ]
+      [:object_url]
     end
 
     def create(project, request_params)
@@ -26,19 +23,18 @@ module Dataverse::Handlers
 
       collection_service = Dataverse::CollectionService.new(url_data.dataverse_url, api_key: api_key)
       collection = collection_service.find_collection_by_id(url_data.collection_id)
-      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_collection_not_found', url: remote_repo_url)) unless collection
+      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create_from_collection.message_collection_not_found', url: remote_repo_url)) unless collection
 
       root_dv = collection.data.parents.first || {}
       root_title = root_dv[:name]
       collection_title = collection.data.name
       collection_id = collection.data.alias
-      repo_history_note = 'collection'
 
       ::Configuration.repo_history.add_repo(
         remote_repo_url,
         ConnectorType::DATAVERSE,
         title: collection_title || root_title,
-        note: repo_history_note
+        note: 'collection'
       )
 
       file_utils = Common::FileUtils.new
@@ -55,7 +51,7 @@ module Dataverse::Handlers
           collection_title: collection_title,
           dataset_title: nil,
           collection_id: collection_id,
-          dataset_id: url_data.dataset_id,
+          dataset_id: nil
         }
       end
       upload_bundle.save
@@ -63,16 +59,13 @@ module Dataverse::Handlers
 
       ConnectorResult.new(
         resource: upload_bundle,
-        message: { notice: I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_success', name: upload_bundle.name) },
+        message: { notice: I18n.t('connectors.dataverse.handlers.upload_bundle_create_from_collection.message_success', name: upload_bundle.name) },
         success: true
       )
 
     rescue Dataverse::DatasetService::UnauthorizedException => e
       log_error('Repo URL requires authentication', { dataverse: remote_repo_url }, e)
-      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_authentication_error', url: remote_repo_url))
-    rescue => e
-      log_error('UploadBundle creation error', { dataverse: remote_repo_url }, e)
-      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create.message_error', url: remote_repo_url))
+      return error(I18n.t('connectors.dataverse.handlers.upload_bundle_create_from_collection.message_authentication_error', url: remote_repo_url))
     end
 
     private
