@@ -18,7 +18,6 @@ en:
           message_no_dataset_id: "Dataset ID is required to fetch draft dataset data"
           message_dataset_not_found: "Draft dataset not found"
           message_unauthorized: "Unauthorized access to draft dataset. Check your API token permissions"
-          message_error: "Error while fetching draft dataset data"
           message_success: "Draft dataset data fetched successfully: %{title}"
         repository_settings_update:
           message_success: "Repository updated: %{url} type: %{type}"
