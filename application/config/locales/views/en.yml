@@ -61,6 +61,7 @@ en:
         link_guide_text: "Guide"
         link_sitemap_text: "Sitemap"
         link_restart_text: "Restart"
+        menu_reset_warning_text: "Clear your settings"
         link_reset_text: "Reset Application"
         reset_confirmation_title: "Confirm Reset"
         reset_confirmation_subtitle: "This action cannot be undone"

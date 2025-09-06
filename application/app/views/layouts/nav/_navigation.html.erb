@@ -127,6 +127,13 @@
               </a>
             </li>
             <li><hr class="dropdown-divider"></li>
+            <!-- Warning note above reset -->
+            <li class="px-3 pb-3">
+              <small class="text-warning d-block fw-semibold">
+                <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                <%= t('.menu_reset_warning_text') %>
+              </small>
+            </li>
             <li>
               <% # RESET BUTTON WITH CONFIRMATION MESSAGE  %>
               <%= button_to widgets_path('reset'),

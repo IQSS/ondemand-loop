@@ -47,9 +47,7 @@ module Upload
     end
 
     def process(request)
-      data = stats.merge({start_date: @start_time, elapsed: elapsed_time})
-      log_info('Requested stats', { stats: data })
-      data
+      stats.merge({start_date: @start_time, elapsed: elapsed_time})
     end
 
     def shutdown
