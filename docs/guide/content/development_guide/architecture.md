@@ -82,11 +82,12 @@ The main configuration class for the application is lives under `config/configur
 This globally accessible object defines all adjustable settings which can be
 overridden via YAML or environment variables (see the [Admin Guide](../admin.md) for details).
 
-## Testing
+### Testing
 
-OnDemand Loop uses a comprehensive testing strategy with multiple types of tests:
+OnDemand Loop uses a comprehensive testing strategy with multiple types of tests.
+For instructions on running the test suite see the [Testing](testing.md) guide.
 
-### Unit and Integration Tests (`application/test`)
+#### Unit and Integration Tests (`application/test`)
 
 The Rails application uses standard [Rails testing](https://guides.rubyonrails.org/testing.html) with Minitest and Mocha for mocking. Test types include:
 
@@ -98,7 +99,7 @@ The Rails application uses standard [Rails testing](https://guides.rubyonrails.o
 
 The static fixtures for tests are stored under `application/test/fixtures`.
 
-### End-to-End Tests (`e2e_tests/`)
+#### End-to-End Tests (`e2e_tests/`)
 
 Cypress-based E2E tests verify complete user workflows from the browser perspective:
 

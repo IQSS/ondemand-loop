@@ -43,6 +43,9 @@ The documentation is organized by topic to help you find what you need quickly:
 - [Contributing a Change](contributing.md)  
   Best practices and workflow for contributing code or documentation.
 
+- [Testing](testing.md)  
+  How the Rails test suite is structured and executed using the provided Make targets.
+
 - [E2E Tests](e2e_tests.md)  
   End-to-end testing with Cypress, including local execution and CI/CD integration.
 

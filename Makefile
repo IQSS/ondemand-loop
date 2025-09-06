@@ -47,7 +47,7 @@ test:
 	docker run --platform=linux/amd64 --rm -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app $(LOOP_BUILDER_IMAGE) /usr/local/scripts/loop_test.sh
 
 # Default TTY flags for interactive terminal
-test_bash: TEST_TTY := -it
+TEST_TTY := -it
 test_bash:
 	docker run --platform=linux/amd64 --rm $(TEST_TTY) -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app $(LOOP_BUILDER_IMAGE) /bin/bash
 
