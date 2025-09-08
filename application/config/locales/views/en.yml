@@ -124,8 +124,8 @@ en:
         button_active_project_title: "Active project"
         button_set_as_active_project_title: "Set as Active Project"
 
-        button_add_files_text: "Add Files"
-        button_add_files_title: "Add Files"
+        button_create_upload_bundle_recent_datasets_text: "Create From recent"
+        button_create_upload_bundle_recent_datasets_title: "Create Upload Bundle from recently used datasets"
 
         button_create_upload_bundle_label: "Create Upload Bundle"
         button_create_upload_bundle_placeholder: "Dataset URL"
