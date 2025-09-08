@@ -7,7 +7,7 @@
   "dependencies": {
     "@popperjs/core": "^2.11.8",
     "autoprefixer": "^10.4.21",
-    "bootstrap": "^5.3.7",
+    "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.11.3",
     "nodemon": "^3.1.9",
     "postcss": "^8.5.6",
