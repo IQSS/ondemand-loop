@@ -46,6 +46,7 @@ export default class extends Controller {
         if (!modalController) return;
 
         // Call a public method on the modal controller (you define this)
+        modalController.clearContent();
         modalController.showSpinner();
         modalController.loadFromUrl(this.urlValue, this.titleValue);
     }
@@ -77,6 +78,15 @@ export default class extends Controller {
 
         const bsModal = new bootstrap.Modal(this.element);
         bsModal.show();
+    }
+
+    clearContent() {
+        if (this.hasTitleTarget) this.titleTarget.textContent = ''
+        if (this.hasSubtitleTarget) this.subtitleTarget.textContent = ''
+        if (this.hasContentTarget) this.contentTarget.innerHTML = ''
+        if (this.hasConfirmTextTarget) this.confirmTextTarget.textContent = ''
+
+        this.confirmCallback = null
     }
 
     showSpinner() {

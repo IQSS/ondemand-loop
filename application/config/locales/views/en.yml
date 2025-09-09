@@ -97,10 +97,11 @@ en:
       download_actions:
         button_open_downloads_folder_title: "Open Project workspace folder"
         header_download_files_text: "Downloads"
-        button_add_files_text: "Select More Files"
-        button_add_files_title: "Select more files from the last repository dataset"
-        button_browse_dataset_text: "Add From URL"
-        button_browse_dataset_title: "Use a repository URL to to browse and select files from"
+        button_add_files_text: "Add from Recent"
+        button_add_files_title: "Add files from recently used repositories"
+        modal_add_files_title: "Add Files from Recently Used Repositories"
+        button_browse_dataset_text: "Add from URL"
+        button_browse_dataset_title: "Enter a repository URL to browse and select files"
         button_edit_download_dir_title: "Update project workspace folder"
         button_edit_download_dir_label: "Update workspace folder"
         button_submit_icon_alt: "OnDemand Loop Application Icon"
@@ -295,7 +296,7 @@ en:
     repository_activity:
       button_open_modal_title: "Open repository activity"
       modal_title: "Recent Repository Activity"
-      tab_global_label: "Across All Projects"
+      tab_global_label: "All Projects"
       tab_project_label: "This Project Downloads"
       field_date_title: "Last used date"
       section_item_actions_label: "Item actions"
@@ -306,7 +307,7 @@ en:
       from_url_title: "Enter Dataset URL"
       from_url_help_text: "Enter the URL of the repository destination where files will be uploaded."
       from_recent_datasets_title: "Select a Recently Used Dataset"
-      tab_project_label: "This Project"
+      tab_project_label: "This Project Downloads"
       tab_global_label: "All Projects"
       empty_recent_text: "No recently used datasets found."
     reset:
