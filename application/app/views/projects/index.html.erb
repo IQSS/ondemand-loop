@@ -10,6 +10,12 @@
             <%= render partial: '/projects/index/project', locals: { project: project } unless project.id == @active_project&.id %>
           <% end %>
         </ul>
+
+        <% if @projects.empty? %>
+          <div class="d-flex justify-content-center py-2 rounded border bg-light-grey">
+            <%= t('.empty_projects_text') %>
+          </div>
+        <% end %>
       </div>
   </div>
 </div>

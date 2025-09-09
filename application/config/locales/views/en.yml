@@ -188,6 +188,9 @@ en:
       breadcrumbs_text: "Projects"
       page_title: "OnDemand Loop - Project Details"
     index:
+      breadcrumbs_text: "Projects"
+      page_title: "OnDemand Loop - Projects"
+      empty_projects_text: "No projects available. Create a project to start working."
       actions:
         actions_bar_title: "Projects"
         actions_bar_title_a11y_label: "Project List"
@@ -214,8 +217,6 @@ en:
         button_download_folder_title: "Open Project workspace folder"
       project_summary_bundle:
         creation_date_title: "Creation date"
-      breadcrumbs_text: "Projects"
-      page_title: "OnDemand Loop - Projects"
 
   shared:
     breadcrumbs:
