@@ -1,0 +1,40 @@
+<% content_for :title, t('.page_title') %>
+<div class="home container-md content" role="main">
+  <%= render partial: '/shared/breadcrumbs', locals: { links: []} %>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert bg-primary-subtle mt-4">
+        <h4 class="alert-heading"><i class="bi bi-info-circle me-2" aria-hidden="true"></i><%= t('.welcome_title').html_safe %></h4>
+        <div class="mt-3">
+          <%= t('.welcome_message_html') %>
+        </div>
+
+        <div class="d-flex justify-content-center gap-3 pt-3">
+          <%= link_to t('.button_welcome_text'), guide_url,
+                      class: 'btn btn-primary',
+                      target: '_blank' %>
+
+          <%= render layout: "shared/button_to", locals: {
+            url: projects_path,
+            class: 'btn btn-outline-dark',
+            label: t('.button_create_project_label'),
+            title: t('.button_create_project_label'),
+            icon: "bi bi-plus-square-fill",
+          } do %>
+          <% end %>
+        </div>
+
+      </div>
+
+      <div class="alert alert-warning border-2 rounded-3 shadow-sm" role="alert">
+        <h4 class="alert-heading"><i class="bi bi-exclamation-triangle me-2" aria-hidden="true"></i><%= t('.beta_notice_title').html_safe %></h4>
+        <div class="mt-3">
+          <%= t('.beta_notice_html') %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,5 +1,28 @@
 ---
 en:
+  home:
+    index:
+      page_title: "OnDemand Loop - Homepage"
+      welcome_title: "Welcome to OnDemand Loop!"
+      welcome_message_html: >
+        <p><strong>OnDemand Loop</strong> is a companion application to <strong>Open OnDemand</strong>, designed to simplify the movement of research data between high-performance computing (HPC) clusters and remote repositories such as Dataverse, or Zenodo.</p>
+        <p>The core goal of OnDemand Loop is to <strong>lower the barrier for non-technical users</strong> to interact with research data repositories. Following the Open OnDemand philosophy, it aims to provide a user-friendly interface for tasks that typically require complex command-line operations or custom scripts. Researchers can upload and download datasets to and from remote repositories directly from their HPC environment with minimal friction.</p>
+        <p>In OnDemand Loop you organize transfers using <strong>projects</strong>. A project groups related download requests and upload bundles so you can keep track of all activity in one place. Projects are created from the home page and only one project is active at a time.</p>
+        <p>This project has been funded by <a href="https://adminops.fas.harvard.edu/FAS-HUIT-PRB" target="_blank">FAS-HUIT Project Review Board (PRB) initiative</a>.</p>
+        <p>Start by creating a project with the <strong>Create Project</strong> button.</p>
+      button_welcome_text: "Read the Guide"
+      button_create_project_label: "Create Project"
+      beta_notice_title: "Beta Notice"
+      beta_notice_html: >
+        <p><strong>OnDemand Loop</strong> is currently in <strong>Beta</strong> status. While we strive to provide a stable experience, please be aware of the following:</p>
+        <ul class="mb-0">
+        <li>You may encounter occasional bugs or incomplete features.</li>
+        <li>User interface and workflow changes may occur without backward compatibility guarantees.</li>
+        <li>Minor UI/UX inconsistencies are expected as the product evolves.</li>
+        <li>If you encounter errors or inconsistencies, you can try using the <strong>Help → Reset</strong> option to return your instance to a clean state.</li>
+        <li>We welcome <a href="https://github.com/IQSS/ondemand-loop/issues" target="_blank">feedback and bug reports</a> to help us improve!</li>
+        </ul>
+
   detached_process:
     file_activity_status:
       icon_downloads_title: "Download process status"
@@ -193,24 +216,6 @@ en:
         creation_date_title: "Creation date"
       breadcrumbs_text: "Projects"
       page_title: "OnDemand Loop - Projects"
-      welcome_title: "Welcome to OnDemand Loop!"
-      welcome_message_html: >
-        <p><strong>OnDemand Loop</strong> is a companion application to <strong>Open OnDemand</strong>, designed to simplify the movement of research data between high-performance computing (HPC) clusters and remote repositories such as Dataverse, or Zenodo.</p>
-        <p>The core goal of OnDemand Loop is to <strong>lower the barrier for non-technical users</strong> to interact with research data repositories. Following the Open OnDemand philosophy, it aims to provide a user-friendly interface for tasks that typically require complex command-line operations or custom scripts. Researchers can upload and download datasets to and from remote repositories directly from their HPC environment with minimal friction.</p>
-        <p>In OnDemand Loop you organize transfers using <strong>projects</strong>. A project groups related download requests and upload bundles so you can keep track of all activity in one place. Projects are created from the home page and only one project is active at a time.</p>
-        <p>This project has been funded by <a href="https://adminops.fas.harvard.edu/FAS-HUIT-PRB" target="_blank">FAS-HUIT Project Review Board (PRB) initiative</a>.</p>
-        <p>Start by creating a project with the <strong>Create Project</strong> button above.</p>
-      button_welcome_text: "Read the Guide"
-      beta_notice_title: "Beta Notice"
-      beta_notice_html: >
-        <p><strong>OnDemand Loop</strong> is currently in <strong>Beta</strong> status. While we strive to provide a stable experience, please be aware of the following:</p>
-        <ul class="mb-0">
-        <li>You may encounter occasional bugs or incomplete features.</li>
-        <li>User interface and workflow changes may occur without backward compatibility guarantees.</li>
-        <li>Minor UI/UX inconsistencies are expected as the product evolves.</li>
-        <li>If you encounter errors or inconsistencies, you can try using the <strong>Help → Reset</strong> option to return your instance to a clean state.</li>
-        <li>We welcome <a href="https://github.com/IQSS/ondemand-loop/issues" target="_blank">feedback and bug reports</a> to help us improve!</li>
-        </ul>
 
   shared:
     breadcrumbs:
