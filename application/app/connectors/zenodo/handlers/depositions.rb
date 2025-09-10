@@ -26,7 +26,7 @@ module Zenodo::Handlers
         )
       end
 
-      service = Zenodo::DepositionService.new(repo_url.server_url, api_key: api_key)
+      service = Zenodo::DepositionService.new(zenodo_url: repo_url.server_url, api_key: api_key)
       deposition = service.find_deposition(@deposition_id)
       if deposition.nil?
         return ConnectorResult.new(
@@ -71,12 +71,12 @@ module Zenodo::Handlers
       repo_info = ::Configuration.repo_db.get(repo_url.server_url)
       api_key = repo_info&.metadata&.auth_key
 
-      service = Zenodo::DepositionService.new(repo_url.server_url, api_key: api_key)
+      service = Zenodo::DepositionService.new(zenodo_url: repo_url.server_url, api_key: api_key)
       deposition = service.find_deposition(@deposition_id)
       return ConnectorResult.new(message: { alert: I18n.t('zenodo.depositions.message_deposition_not_found', deposition_id: @deposition_id) }, success: false) unless deposition
 
       project = Project.find(project_id)
-      project_service = Zenodo::ProjectService.new(repo_url.server_url)
+      project_service = Zenodo::ProjectService.new(zenodo_url: repo_url.server_url)
       if project.nil?
         project = project_service.initialize_project
         unless project.save

@@ -32,7 +32,7 @@ class Zenodo::Handlers::RecordsIntegrationTest < ActionDispatch::IntegrationTest
     record = Zenodo::RecordResponse.new(record_json)
     service = mock('record_service')
     service.expects(:find_record).with('123').returns(record)
-    Zenodo::RecordService.expects(:new).with('https://zenodo.org').returns(service)
+    Zenodo::RecordService.expects(:new).with(zenodo_url: 'https://zenodo.org').returns(service)
 
     get explore_url(
       connector_type: 'zenodo',

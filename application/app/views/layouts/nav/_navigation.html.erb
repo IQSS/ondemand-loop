@@ -53,7 +53,7 @@
 
             <li>
               <a class="dropdown-item d-flex align-items-center gap-2"
-                 href="<%= explore_path(connector_type: ConnectorType::ZENODO.to_s, server_domain: Zenodo::ZenodoUrl::DEFAULT_SERVER, object_type: 'landing', object_id: ':root') %>"
+                 href="<%= zenodo_landing_url %>"
                  id="nav-zenodo">
                 <span class="icon-wrapper bg-white rounded d-inline-flex align-items-center justify-content-center p-1" aria-hidden="true">
                   <%= connector_icon(ConnectorType::ZENODO) %>

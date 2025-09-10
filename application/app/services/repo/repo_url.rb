@@ -6,6 +6,17 @@ module Repo
   class RepoUrl
     attr_reader :scheme, :domain, :port, :path, :params
 
+    def self.with_scheme(url)
+      return nil if url.blank?
+
+      uri = URI.parse(url)
+      if %w[http https].include?(uri.scheme&.downcase)
+        url
+      else
+        "https://#{url}"
+      end
+    end
+
     def self.parse(url)
       return nil if url.blank?
 

@@ -6,7 +6,7 @@ class Zenodo::ProjectServiceTest < ActiveSupport::TestCase
   def setup
     @tmp_dir = Dir.mktmpdir
     Project.stubs(:metadata_root_directory).returns(@tmp_dir)
-    @service = Zenodo::ProjectService.new('https://zenodo.org', file_utils: Common::FileUtils.new)
+    @service = Zenodo::ProjectService.new(zenodo_url: 'https://zenodo.org', file_utils: Common::FileUtils.new)
   end
 
   def teardown

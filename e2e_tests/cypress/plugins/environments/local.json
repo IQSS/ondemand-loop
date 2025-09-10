@@ -4,5 +4,6 @@
   "loopPath": "/pun/sys/loop",
   "dashboardPath": "/pun/sys/dashboard",
   "timeout": 10000,
-  "retries": 2
+  "retries": 2,
+  "dataverseUrl": "http://dataverse:8080"
 }

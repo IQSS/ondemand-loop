@@ -14,7 +14,7 @@ class Zenodo::Handlers::LandingIntegrationTest < ActionDispatch::IntegrationTest
     results = Zenodo::SearchResponse.new('{}', 1, 10)
     service = mock('search_service')
     service.expects(:search).with('query', page: 1).returns(results)
-    Zenodo::SearchService.expects(:new).with('https://zenodo.org').returns(service)
+    Zenodo::SearchService.expects(:new).with(zenodo_url: 'https://zenodo.org').returns(service)
 
     get explore_url(
       connector_type: 'zenodo',

@@ -45,7 +45,7 @@ class Zenodo::Handlers::DatasetSelectTest < ActiveSupport::TestCase
     deposition = OpenStruct.new(id: '10', title: 'Test', bucket_url: 'burl', draft?: true)
     service = mock('service')
     service.expects(:find_deposition).with('10').returns(deposition)
-    Zenodo::DepositionService.expects(:new).with('http://zenodo.org', api_key: 'KEY').returns(service)
+    Zenodo::DepositionService.expects(:new).with(zenodo_url: 'http://zenodo.org', api_key: 'KEY').returns(service)
     result = @action.update(@bundle, { deposition_id: '10' })
     assert result.success?
     assert_equal '10', @bundle.metadata[:deposition_id]
@@ -57,7 +57,7 @@ class Zenodo::Handlers::DatasetSelectTest < ActiveSupport::TestCase
     deposition = OpenStruct.new(id: '10', record_id: '99', title: 'Pub', bucket_url: 'burl', draft?: false)
     service = mock('service')
     service.expects(:find_deposition).with('10').returns(deposition)
-    Zenodo::DepositionService.expects(:new).with('http://zenodo.org', api_key: 'KEY').returns(service)
+    Zenodo::DepositionService.expects(:new).with(zenodo_url: 'http://zenodo.org', api_key: 'KEY').returns(service)
     result = @action.update(@bundle, { deposition_id: '10' })
     assert result.success?
     assert_equal '99', @bundle.metadata[:record_id]
@@ -68,7 +68,7 @@ class Zenodo::Handlers::DatasetSelectTest < ActiveSupport::TestCase
     service = mock('service')
     deposition = OpenStruct.new(id: '10', record_id: '20', title: 'Draft', bucket_url: 'b', draft?: true, version: 'draft')
     service.expects(:find_deposition).with('10').returns(deposition)
-    Zenodo::DepositionService.expects(:new).with('http://zenodo.org', api_key: 'KEY').returns(service)
+    Zenodo::DepositionService.expects(:new).with(zenodo_url: 'http://zenodo.org', api_key: 'KEY').returns(service)
 
     ::Configuration.repo_history.expects(:add_repo).with(
       regexp_matches(%r{zenodo\.org}),
@@ -89,7 +89,7 @@ class Zenodo::Handlers::DatasetSelectTest < ActiveSupport::TestCase
     service = mock('service')
     deposition = OpenStruct.new(id: '10', record_id: '20', title: 'Pub', bucket_url: 'b', draft?: false, version: 'published')
     service.expects(:find_deposition).with('10').returns(deposition)
-    Zenodo::DepositionService.expects(:new).with('http://zenodo.org', api_key: 'KEY').returns(service)
+    Zenodo::DepositionService.expects(:new).with(zenodo_url: 'http://zenodo.org', api_key: 'KEY').returns(service)
 
     ::Configuration.repo_history.expects(:add_repo).with(
       regexp_matches(%r{zenodo\.org}),

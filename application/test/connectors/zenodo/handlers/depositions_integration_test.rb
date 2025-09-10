@@ -31,7 +31,7 @@ class Zenodo::Handlers::DepositionsIntegrationTest < ActionDispatch::Integration
     deposition = Zenodo::DepositionResponse.new(deposition_json)
     service = mock('deposition_service')
     service.expects(:find_deposition).with('10').returns(deposition)
-    Zenodo::DepositionService.expects(:new).with('https://zenodo.org', api_key: 'KEY').returns(service)
+    Zenodo::DepositionService.expects(:new).with(zenodo_url: 'https://zenodo.org', api_key: 'KEY').returns(service)
 
     get explore_url(
       connector_type: 'zenodo',

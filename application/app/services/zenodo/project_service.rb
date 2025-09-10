@@ -4,7 +4,7 @@ module Zenodo
   class ProjectService
     include DateTimeCommon
 
-    def initialize(zenodo_url = Zenodo::ZenodoUrl::DEFAULT_URL, file_utils: Common::FileUtils.new)
+    def initialize(zenodo_url:, file_utils: Common::FileUtils.new)
       @zenodo_url = zenodo_url
       @file_utils = file_utils
     end

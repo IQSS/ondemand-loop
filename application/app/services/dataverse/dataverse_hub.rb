@@ -2,11 +2,10 @@ module Dataverse
   class DataverseHub
     include LoggingCommon
     DEFAULT_CACHE_EXPIRY = 24.hours.freeze
-    HUB_API_URL = 'https://hub.dataverse.org/api/installations'
 
     def initialize(
       url: HUB_API_URL,
-      http_client: Common::HttpClient.new(base_url: HUB_API_URL),
+      http_client: Common::HttpClient.new,
       expires_in: DEFAULT_CACHE_EXPIRY
     )
       @url = url

@@ -29,7 +29,7 @@ class Zenodo::Handlers::DatasetFormTabsTest < ActiveSupport::TestCase
     service = mock('service')
     resp = Zenodo::DepositionsResponse.new('[{"id":1},{"id":2}]', page: 1, per_page: 20, total_count: 2)
     service.expects(:list_depositions).returns(resp)
-    Zenodo::UserService.expects(:new).with('http://zen', api_key: 'KEY').returns(service)
+    Zenodo::UserService.expects(:new).with(zenodo_url: 'http://zen', api_key: 'KEY').returns(service)
     assert_equal resp, @action.send(:depositions, @bundle)
   end
 end

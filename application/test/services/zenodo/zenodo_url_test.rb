@@ -85,4 +85,52 @@ class Zenodo::ZenodoUrlTest < ActiveSupport::TestCase
 
     assert zurl.unknown?
   end
+
+  test 'parses file url with single file name (plural)' do
+    url = 'https://zenodo.org/records/99/files/data.txt'
+    zurl = Zenodo::ZenodoUrl.parse(url)
+
+    assert zurl.file?
+    assert_equal '99', zurl.record_id
+    assert_equal 'data.txt', zurl.file_name
+  end
+
+  test 'parses file url with single file name (singular legacy)' do
+    url = 'https://zenodo.org/record/99/files/data.txt'
+    zurl = Zenodo::ZenodoUrl.parse(url)
+
+    assert zurl.file?
+    assert_equal '99', zurl.record_id
+    assert_equal 'data.txt', zurl.file_name
+  end
+
+  test 'returns nil for invalid URLs' do
+    url = 'not-a-valid-url'
+    zurl = Zenodo::ZenodoUrl.parse(url)
+
+    assert_nil zurl
+  end
+
+  test 'marks non-zenodo URLs as unknown type' do
+    url = 'https://github.com/user/repo'
+    zurl = Zenodo::ZenodoUrl.parse(url)
+
+    assert zurl.unknown?
+  end
+
+  test 'handles empty path segments correctly' do
+    url = 'https://zenodo.org'
+    zurl = Zenodo::ZenodoUrl.parse(url)
+
+    assert zurl.zenodo?
+    assert_equal 'https://zenodo.org', zurl.zenodo_url
+  end
+
+  test 'class methods work correctly' do
+    # Assuming Configuration.zenodo_default_url returns a valid URL
+    default_url = Zenodo::ZenodoUrl.default_url
+
+    assert_instance_of Zenodo::ZenodoUrl, default_url
+    assert_not_nil default_url.zenodo_url
+  end
 end

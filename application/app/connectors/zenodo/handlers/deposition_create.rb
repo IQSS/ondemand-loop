@@ -29,7 +29,7 @@ module Zenodo::Handlers
         creators: creators
       )
 
-      service = Zenodo::DepositionService.new(connector_metadata.zenodo_url, api_key: api_key)
+      service = Zenodo::DepositionService.new(zenodo_url: connector_metadata.zenodo_url, api_key: api_key)
       response = service.create_deposition(request)
 
       metadata = upload_bundle.metadata

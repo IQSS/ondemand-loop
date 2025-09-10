@@ -18,7 +18,7 @@ module Zenodo::Handlers
       url_data = Zenodo::ZenodoUrl.parse(remote_repo_url)
       log_info('Creating upload bundle from record', { project_id: project.id, remote_repo_url: remote_repo_url })
 
-      records_service = Zenodo::RecordService.new(url_data.zenodo_url)
+      records_service = Zenodo::RecordService.new(zenodo_url: url_data.zenodo_url)
       record = records_service.find_record(url_data.record_id)
       return error(I18n.t('connectors.zenodo.handlers.upload_bundle_create_from_record.message_record_not_found', url: remote_repo_url)) unless record
 

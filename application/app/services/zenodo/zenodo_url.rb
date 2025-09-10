@@ -2,8 +2,6 @@
 
 module Zenodo
   class ZenodoUrl
-    DEFAULT_SERVER = 'zenodo.org'
-    DEFAULT_URL = 'https://zenodo.org'
     TYPES = %w[zenodo doi record deposition file unknown].freeze
 
     attr_reader :type, :record_id, :deposition_id, :file_name
@@ -14,6 +12,10 @@ module Zenodo
       return nil unless base
 
       new(base)
+    end
+
+    def self.default_url
+      @default_url ||= parse(::Configuration.zenodo_default_url)
     end
 
     TYPES.each do |t|

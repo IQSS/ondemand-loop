@@ -28,7 +28,7 @@ module Zenodo::Handlers
     def depositions(upload_bundle)
       connector_metadata = upload_bundle.connector_metadata
       api_key = connector_metadata.api_key.value
-      service = Zenodo::UserService.new(connector_metadata.zenodo_url, api_key: api_key)
+      service = Zenodo::UserService.new(zenodo_url: connector_metadata.zenodo_url, api_key: api_key)
       service.list_depositions
     end
   end

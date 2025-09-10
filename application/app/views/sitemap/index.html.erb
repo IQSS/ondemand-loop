@@ -8,7 +8,7 @@
     <li><%= t('layouts.nav.navigation.link_repositories_text') %></li>
     <ul>
       <li><%= link_to t('layouts.nav.navigation.link_dataverse_text'), link_to_landing(ConnectorType::DATAVERSE) %></li>
-      <li><%= link_to t('layouts.nav.navigation.link_zenodo_text'), explore_path(connector_type: ConnectorType::ZENODO.to_s, server_domain: Zenodo::ZenodoUrl::DEFAULT_SERVER, object_type: 'landing', object_id: ':root') %></li>
+      <li><%= link_to t('layouts.nav.navigation.link_zenodo_text'), zenodo_landing_url %></li>
       <li><%= link_to t('layouts.nav.navigation.link_repo_settings_text'), repository_settings_path %></li>
     </ul>
     <li><%= link_to t('layouts.nav.navigation.link_guide_text'), guide_url %></li>

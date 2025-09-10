@@ -19,7 +19,7 @@ class Zenodo::Handlers::RecordsTest < ActiveSupport::TestCase
     service = mock('service')
     dataset = OpenStruct.new(title: 'Record Title', draft?: false, version: 'published')
     service.expects(:find_record).with('123').returns(dataset)
-    Zenodo::RecordService.expects(:new).with('https://zenodo.org').returns(service)
+    Zenodo::RecordService.expects(:new).with(zenodo_url: 'https://zenodo.org').returns(service)
     url = Zenodo::Concerns::ZenodoUrlBuilder.build_record_url('https://zenodo.org', '123')
     ::Configuration.repo_history.expects(:add_repo).with(
       url,
@@ -38,7 +38,7 @@ class Zenodo::Handlers::RecordsTest < ActiveSupport::TestCase
   test 'show returns error when dataset missing' do
     service = mock('service')
     service.expects(:find_record).with('123').returns(nil)
-    Zenodo::RecordService.expects(:new).with('https://zenodo.org').returns(service)
+    Zenodo::RecordService.expects(:new).with(zenodo_url: 'https://zenodo.org').returns(service)
     res = @explorer.show(repo_url: @repo_url)
     refute res.success?
   end
@@ -46,7 +46,7 @@ class Zenodo::Handlers::RecordsTest < ActiveSupport::TestCase
   test 'create initializes project and files' do
     service = mock('service')
     service.expects(:find_record).with('123').returns(:dataset)
-    Zenodo::RecordService.expects(:new).with('https://zenodo.org').returns(service)
+    Zenodo::RecordService.expects(:new).with(zenodo_url: 'https://zenodo.org').returns(service)
 
     Project.stubs(:find).with('1').returns(nil)
     project = mock('project')
@@ -61,7 +61,7 @@ class Zenodo::Handlers::RecordsTest < ActiveSupport::TestCase
     proj_service = mock('proj_service')
     proj_service.expects(:initialize_project).returns(project)
     proj_service.expects(:create_files_from_record).with(project, :dataset, ['f1']).returns([file])
-    Zenodo::ProjectService.expects(:new).with('https://zenodo.org').returns(proj_service)
+    Zenodo::ProjectService.expects(:new).with(zenodo_url: 'https://zenodo.org').returns(proj_service)
 
     @settings.expects(:update_user_settings).with({ active_project: project.id.to_s })
     res = @explorer.create(repo_url: @repo_url, file_ids: ['f1'], project_id: '1')
@@ -71,7 +71,7 @@ class Zenodo::Handlers::RecordsTest < ActiveSupport::TestCase
   test 'create returns error when dataset not found' do
     service = mock('service')
     service.expects(:find_record).with('123').returns(nil)
-    Zenodo::RecordService.expects(:new).with('https://zenodo.org').returns(service)
+    Zenodo::RecordService.expects(:new).with(zenodo_url: 'https://zenodo.org').returns(service)
     res = @explorer.create(repo_url: @repo_url, file_ids: [], project_id: '1')
     refute res.success?
   end

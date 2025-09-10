@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/installations"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "installations_response.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

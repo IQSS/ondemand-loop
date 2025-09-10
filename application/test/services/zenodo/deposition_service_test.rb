@@ -9,7 +9,7 @@ class Zenodo::DepositionServiceTest < ActiveSupport::TestCase
 
   test 'create_deposition returns response object' do
     http = HttpClientMock.new(file_path: fixture_path('zenodo/create_deposition_response.json'))
-    service = Zenodo::DepositionService.new(@base, http_client: http, api_key: 'KEY')
+    service = Zenodo::DepositionService.new(zenodo_url: @base, http_client: http, api_key: 'KEY')
     req = Zenodo::CreateDepositionRequest.new(title: 't', upload_type: 'software', description: 'd', creators: [ { name: 'me' } ])
     resp = service.create_deposition(req)
     assert_instance_of Zenodo::CreateDepositionResponse, resp
@@ -19,14 +19,14 @@ class Zenodo::DepositionServiceTest < ActiveSupport::TestCase
 
   test 'create_deposition raises on unauthorized' do
     http = HttpClientMock.new(file_path: fixture_path('zenodo/create_deposition_response.json'), status_code: 401)
-    service = Zenodo::DepositionService.new(@base, http_client: http, api_key: 'KEY')
+    service = Zenodo::DepositionService.new(zenodo_url: @base, http_client: http, api_key: 'KEY')
     req = Zenodo::CreateDepositionRequest.new(title: 't', upload_type: 'software', description: 'd', creators: [])
     assert_raises(Zenodo::ApiService::UnauthorizedException) { service.create_deposition(req) }
   end
 
   test 'find_deposition returns deposition response' do
     http = HttpClientMock.new(file_path: fixture_path('zenodo/deposition_response.json'))
-    service = Zenodo::DepositionService.new(@base, http_client: http, api_key: 'KEY')
+    service = Zenodo::DepositionService.new(zenodo_url: @base, http_client: http, api_key: 'KEY')
     resp = service.find_deposition('1')
     assert_instance_of Zenodo::DepositionResponse, resp
     assert_equal '1', resp.id
@@ -35,7 +35,7 @@ class Zenodo::DepositionServiceTest < ActiveSupport::TestCase
 
   test 'find_deposition returns nil when not found' do
     http = HttpClientMock.new(file_path: fixture_path('zenodo/deposition_response.json'), status_code: 404)
-    service = Zenodo::DepositionService.new(@base, http_client: http, api_key: 'KEY')
+    service = Zenodo::DepositionService.new(zenodo_url: @base, http_client: http, api_key: 'KEY')
     assert_nil service.find_deposition('1')
   end
 end

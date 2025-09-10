@@ -16,7 +16,7 @@ class Zenodo::Handlers::LandingTest < ActiveSupport::TestCase
     service = mock('search')
     results = OpenStruct.new(items: [])
     service.expects(:search).with('q', page: 2).returns(results)
-    Zenodo::SearchService.expects(:new).with('https://zenodo.org').returns(service)
+    Zenodo::SearchService.expects(:new).with(zenodo_url: 'https://zenodo.org').returns(service)
     res = @explorer.show(query: 'q', page: 2, repo_url: @repo_url)
     assert res.success?
     assert_equal results, res.locals[:results]

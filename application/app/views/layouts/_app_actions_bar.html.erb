@@ -1,10 +1,8 @@
 <%
-  id = 'app-actions-bar'
-  input_id = "#{id}_input"
   url ||= repo_resolver_path
   type = on_project_index? ? 'form' : 'json'
 %>
-<div id="<%= id %>" class="shadow-sm sticky-top bg-primary-subtle" style="z-index: 500;">
+<div id="app-actions-bar" class="shadow-sm sticky-top bg-primary-subtle" style="z-index: 500;">
   <div class="d-flex align-items-center justify-content-between py-2 px-4 gap-5">
     <div class="d-flex align-items-center gap-3">
       <div class="d-flex flex-column gap-1">
@@ -67,7 +65,8 @@
     <div class="d-flex align-items-center flex-grow-1 gap-2">
     <%= render layout: "shared/button_to", locals: {
       url: url,
-      form_class: 'd-flex align-items-center gap-2 flex-grow-1',
+      button_id: 'explore-repo-url-submit',
+      form_class: 'explore-repo d-flex align-items-center gap-2 flex-grow-1',
       class: 'btn-primary-dark',
       icon_html: image_tag('icon.png', alt: t('.button_submit_icon_alt'), class: 'icon-class d-block', style: 'height: 1rem; width: auto; object-fit: contain;' ),
       label: t('.button_submit_text')
@@ -81,7 +80,7 @@
         </span>
         <input type="text"
                name="repo_url"
-               id="<%= input_id %>"
+               id="explore-repo-url-input"
                class="form-control"
                placeholder="<%= t('layouts.app_actions_bar.input_repo_url_placeholder') %>"
                aria-label="<%= t('layouts.app_actions_bar.input_repo_url_label') %>">

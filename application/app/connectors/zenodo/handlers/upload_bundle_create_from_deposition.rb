@@ -21,7 +21,7 @@ module Zenodo::Handlers
       title = bucket_url = draft = version = nil
       repo_info = ::Configuration.repo_db.get(url_data.zenodo_url)
       if repo_info&.metadata&.auth_key.present?
-        deposition_service = Zenodo::DepositionService.new(url_data.zenodo_url, api_key: repo_info.metadata.auth_key)
+        deposition_service = Zenodo::DepositionService.new(zenodo_url: url_data.zenodo_url, api_key: repo_info.metadata.auth_key)
         deposition = deposition_service.find_deposition(url_data.deposition_id)
         return error(I18n.t('connectors.zenodo.handlers.upload_bundle_create_from_deposition.message_deposition_not_found', url: remote_repo_url)) unless deposition
 

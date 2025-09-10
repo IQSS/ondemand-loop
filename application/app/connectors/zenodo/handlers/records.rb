@@ -18,7 +18,7 @@ module Zenodo::Handlers
       repo_url = request_params[:repo_url]
       log_info('Record show', { record_id: @record_id, repo_url: repo_url })
 
-      service = Zenodo::RecordService.new(repo_url.server_url)
+      service = Zenodo::RecordService.new(zenodo_url: repo_url.server_url)
       record = service.find_record(@record_id)
       if record.nil?
         log_info('Record not found', { record_id: @record_id })
@@ -57,12 +57,12 @@ module Zenodo::Handlers
       project_id = request_params[:project_id]
       log_info('Record create', { record_id: @record_id, project_id: project_id, file_ids: file_ids })
 
-      record_service = Zenodo::RecordService.new(repo_url.server_url)
+      record_service = Zenodo::RecordService.new(zenodo_url: repo_url.server_url)
       record = record_service.find_record(@record_id)
       return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.message_record_not_found', record_id: @record_id) }, success: false) unless record
 
       project = Project.find(project_id)
-      project_service = Zenodo::ProjectService.new(repo_url.server_url)
+      project_service = Zenodo::ProjectService.new(zenodo_url: repo_url.server_url)
       if project.nil?
         project = project_service.initialize_project
         unless project.save

@@ -19,7 +19,7 @@ module Zenodo::Handlers
       deposition_id = request_params[:deposition_id]
       connector_metadata = upload_bundle.connector_metadata
       api_key = connector_metadata.api_key.value
-      service = Zenodo::DepositionService.new(connector_metadata.zenodo_url, api_key: api_key)
+      service = Zenodo::DepositionService.new(zenodo_url: connector_metadata.zenodo_url, api_key: api_key)
       deposition = service.find_deposition(deposition_id)
       return error(I18n.t('connectors.zenodo.handlers.deposition_fetch.message_deposition_not_found', url: upload_bundle.repo_url)) unless deposition
 

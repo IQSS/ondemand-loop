@@ -181,4 +181,22 @@ class Repo::RepoUrlTest < ActiveSupport::TestCase
     parser = Repo::RepoUrl.parse('https://example.com/path/to/resource')
     assert_equal 'https://example.com', parser.server_url
   end
+
+  test 'with_scheme should return nil for blank URLs' do
+    assert_nil Repo::RepoUrl.with_scheme(nil)
+    assert_nil Repo::RepoUrl.with_scheme('')
+    assert_nil Repo::RepoUrl.with_scheme('   ')
+  end
+
+  test 'with_scheme should return URLs with existing scheme unchanged' do
+    assert_equal 'http://test.com', Repo::RepoUrl.with_scheme('http://test.com')
+    assert_equal 'https://test.com:8080/path', Repo::RepoUrl.with_scheme('https://test.com:8080/path')
+  end
+
+  test 'with_scheme should add https scheme to URLs without scheme' do
+    assert_equal 'https://test.com', Repo::RepoUrl.with_scheme('test.com')
+    assert_equal 'https://www.test.com/path', Repo::RepoUrl.with_scheme('www.test.com/path')
+    assert_equal 'https://example.org:8080/path', Repo::RepoUrl.with_scheme('example.org:8080/path')
+    assert_equal 'https://localhost:8080', Repo::RepoUrl.with_scheme('localhost:8080')
+  end
 end
