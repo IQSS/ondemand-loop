@@ -33,7 +33,7 @@
               <%= render partial: '/shared/progress_bar', locals: { progress: data.file.connector_status.download_progress, file: data.file } %>
             <% else %>
               <%= button_tag type: 'button',
-                             class: 'btn p-0 border-0 bg-transparent',
+                             class: 'btn p-0 border-0 bg-transparent status-badge-button',
                              title: t('.button_view_events_title'),
                              data: {
                                controller: 'modal',
