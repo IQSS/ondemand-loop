@@ -1,5 +1,7 @@
 module Zenodo
   class SearchService
+    include LoggingCommon
+
     def initialize(zenodo_url:, http_client: Common::HttpClient.new(base_url: zenodo_url))
       @zenodo_url = zenodo_url
       @http_client = http_client
@@ -15,6 +17,7 @@ module Zenodo
               .add_param('size', per_page)
               .to_s
       response = @http_client.get(url)
+      log_info('Zenodo search completed', {query: query, url: url, response: response.inspect})
       return nil unless response.success?
       SearchResponse.new(response.body, page, per_page)
     end
