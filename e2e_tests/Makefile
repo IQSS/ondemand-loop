@@ -58,7 +58,7 @@ env_status:
 
 # Show environment logs
 env_logs:
-	$(ENV) $(COMPOSE_CMD) -f docker-compose.yml -p $(PROJECT_NAME) logs -f
+	$(ENV) $(COMPOSE_CMD) -f docker-compose.yml -p $(PROJECT_NAME) logs --tail=500
 
 # Generate/update package-lock.json using Docker container
 cypress_deps:
