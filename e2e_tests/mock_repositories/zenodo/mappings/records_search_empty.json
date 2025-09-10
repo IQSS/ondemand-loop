@@ -1,14 +1,15 @@
 {
+  "priority": 1,
   "request": {
     "method": "GET",
     "urlPath": "/api/records",
     "queryParameters": {
-      "q": { "matches": ".*" }
+      "q": { "matches": "empty" }
     }
   },
   "response": {
     "status": 200,
-    "bodyFileName": "records_search_response.json",
+    "bodyFileName": "records_search_empty_response.json",
     "headers": {
       "Content-Type": "application/json"
     }

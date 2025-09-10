@@ -1,6 +1,6 @@
 import { visitLoopRoot } from '../../plugins/navigation'
 
-describe('Explore Widget', () => {
+describe('Explore Widget - Dataverse', () => {
   const EXPLORE_INPUT_SELECTOR = '#explore-repo-url-input'
   const EXPLORE_SUBMIT_SELECTOR = '#explore-repo-url-submit'
   const DATAVERSE_URL = Cypress.env('dataverseUrl')

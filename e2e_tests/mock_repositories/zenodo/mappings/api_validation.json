@@ -3,13 +3,13 @@
     "method": "GET",
     "urlPath": "/api/records",
     "queryParameters": {
-      "page": { "matches": ".*" },
-      "size": { "matches": ".*" }
+      "page": { "equalTo": "1" },
+      "size": { "equalTo": "1" }
     }
   },
   "response": {
     "status": 200,
-    "bodyFileName": "records_page_response.json",
+    "bodyFileName": "records_search_empty_response.json",
     "headers": {
       "Content-Type": "application/json"
     }

@@ -135,7 +135,7 @@ describe('Browse Repositories - Zenodo', () => {
   it('should handle search results with mock data', () => {
     // Navigate to Zenodo and perform any search (mock returns same 2 records for all queries)
     navigateToZenodo()
-    cy.get('input[name="query"]').type('nonexistent')
+    cy.get('input[name="query"]').type('Record')
     cy.get('input[type="submit"]').click()
     
     // With WireMock, any search query returns the same 2 mock records
