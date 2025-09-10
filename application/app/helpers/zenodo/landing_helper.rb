@@ -3,8 +3,7 @@ module Zenodo
 
     def zenodo_landing_url
       default_zenodo_url = Zenodo::ZenodoUrl.default_url
-      return explore_path(connector_type: ConnectorType::ZENODO.to_s, server_domain: 'zenodo.org', object_type: 'landing', object_id: ':root') unless default_zenodo_url
-      
+
       explore_path(
         connector_type: ConnectorType::ZENODO.to_s,
         server_domain: default_zenodo_url.domain,

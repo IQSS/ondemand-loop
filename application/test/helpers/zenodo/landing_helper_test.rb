@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class LandingExploreHelperTest < ActionView::TestCase
+class Zenodo::LandingHelperTest < ActionView::TestCase
   include Zenodo::LandingHelper
 
   def setup
@@ -27,24 +27,17 @@ class LandingExploreHelperTest < ActionView::TestCase
   end
 
   test 'zenodo_landing_url uses default URL components' do
-    default_zenodo = mock('zenodo_url')
-    default_zenodo.stubs(:domain).returns('zenodo.org')
-    default_zenodo.stubs(:scheme_override).returns(nil)
-    default_zenodo.stubs(:port_override).returns(nil)
-    Zenodo::ZenodoUrl.stubs(:default_url).returns(default_zenodo)
-    stubs(:explore_path).returns('/zenodo/landing')
-    
+    ::Configuration.stubs(:zenodo_default_url).returns('https://zenodo.org')
     result = zenodo_landing_url
     
-    assert_equal '/zenodo/landing', result
+    assert_equal '/explore/zenodo/zenodo.org/landing/:root', result
   end
 
   test 'zenodo_landing_url handles custom scheme and port' do
-    default_zenodo = mock('zenodo_url')
-    default_zenodo.stubs(:domain).returns('localhost')
-    default_zenodo.stubs(:scheme_override).returns('http')
-    default_zenodo.stubs(:port_override).returns(3000)
-    Zenodo::ZenodoUrl.stubs(:default_url).returns(default_zenodo)
+    # Test with a custom URL that has different scheme and port
+    ::Configuration.stubs(:zenodo_default_url).returns('http://localhost:3000')
+    # Clear the memoized default_url to pick up the new configuration
+    Zenodo::ZenodoUrl.instance_variable_set(:@default_url, nil)
     
     expects(:explore_path).with(
       connector_type: 'zenodo',
@@ -57,19 +50,8 @@ class LandingExploreHelperTest < ActionView::TestCase
     
     result = zenodo_landing_url
     assert_equal '/custom/landing', result
-  end
-
-  test 'zenodo_landing_url fallback when default_url is nil' do
-    Zenodo::ZenodoUrl.stubs(:default_url).returns(nil)
-    
-    expects(:explore_path).with(
-      connector_type: 'zenodo',
-      server_domain: 'zenodo.org',
-      object_type: 'landing',
-      object_id: ':root'
-    ).returns('/fallback/landing')
-    
-    result = zenodo_landing_url
-    assert_equal '/fallback/landing', result
+  ensure
+    # Clean up: reset the memoized value to avoid affecting other tests
+    Zenodo::ZenodoUrl.instance_variable_set(:@default_url, nil)
   end
 end

@@ -80,6 +80,8 @@ You can define environment variables in one of the following ways:
 - [default_connect_timeout](#default_connect_timeout)
 - [default_read_timeout](#default_read_timeout)
 - [default_pagination_items](#default_pagination_items)
+- [dataverse_hub_url](#dataverse_hub_url)
+- [zenodo_default_url](#zenodo_default_url)
 
 ---
 
@@ -274,9 +276,33 @@ Global default timeout (in seconds) for waiting for data to be read from an open
 **`default_pagination_items`**  
 Specifies the default number of items to display per page in paginated responses.
 This setting affects UI components and API calls that support pagination, ensuring consistent page sizes across the application when no explicit value is provided.
-- 
+
 - **Default**: `20` items
 - **Environment Variable**: `OOD_LOOP_DEFAULT_PAGINATION_ITEMS`
+
+---
+
+<a id="dataverse_hub_url"></a>
+**`dataverse_hub_url`**  
+Specifies the URL to the Dataverse Hub API endpoint for retrieving the list of available Dataverse installations.
+This endpoint provides a registry of public Dataverse repositories that users can browse and connect to from the application.
+The URL should point to the `/api/installations` endpoint of a Dataverse Hub instance.
+For development or testing environments, this can be pointed to a mock server.
+
+- **Default**: `https://hub.dataverse.org/api/installations`
+- **Environment Variable**: `OOD_LOOP_DATAVERSE_HUB_URL`
+
+---
+
+<a id="zenodo_default_url"></a>
+**`zenodo_default_url`**  
+Defines the default Zenodo server URL used throughout the application.
+This URL serves as the default target for Zenodo operations when no specific server is configured.
+It affects the Zenodo landing page, search functionality, and server selection in the UI.
+For development or testing environments, this can be pointed to alternative Zenodo instances or mock servers.
+
+- **Default**: `https://zenodo.org`
+- **Environment Variable**: `OOD_LOOP_ZENODO_DEFAULT_URL`
 
 ---
 
@@ -353,6 +379,8 @@ detached_process_status_interval: 2_000
 max_download_file_size: 15_000_000_000
 max_upload_file_size: 2_000_000_000
 guide_url: https://example.com/loop
+dataverse_hub_url: https://hub.dataverse.org/api/installations
+zenodo_default_url: https://zenodo.org
 ```
 
 #### `.env` File example
@@ -379,4 +407,6 @@ OOD_LOOP_DETACHED_PROCESS_STATUS_INTERVAL=2_000
 OOD_LOOP_MAX_DOWNLOAD_FILE_SIZE=15_000_000_000
 OOD_LOOP_MAX_UPLOAD_FILE_SIZE=2_000_000_000
 OOD_LOOP_GUIDE_URL=https://example.com/loop
+OOD_LOOP_DATAVERSE_HUB_URL=https://hub.dataverse.org/api/installations
+OOD_LOOP_ZENODO_DEFAULT_URL=https://zenodo.org
 ```

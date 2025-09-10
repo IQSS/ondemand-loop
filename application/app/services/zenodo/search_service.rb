@@ -17,8 +17,13 @@ module Zenodo
               .add_param('size', per_page)
               .to_s
       response = @http_client.get(url)
-      log_info('Zenodo search completed', {query: query, url: url, response: response.inspect})
-      return nil unless response.success?
+
+      unless response.success?
+        log_error('Zenodo search error', { zenodo: @zenodo_url, url: url, response: response.status, body: response.body.to_s })
+        return nil
+      end
+
+      log_info('Zenodo search completed', {query: query, url: url, response: response.status})
       SearchResponse.new(response.body, page, per_page)
     end
   end

@@ -27,4 +27,15 @@ class Zenodo::Handlers::LandingTest < ActiveSupport::TestCase
     assert res.success?
     assert_nil res.locals[:results]
   end
+
+  test 'show returns error when search service returns nil' do
+    service = mock('search')
+    service.expects(:search).with('query', page: 1).returns(nil)
+    Zenodo::SearchService.expects(:new).with(zenodo_url: 'https://zenodo.org').returns(service)
+    
+    res = @explorer.show(query: 'query', repo_url: @repo_url)
+    
+    assert_not res.success?
+    assert_equal({ alert: I18n.t('zenodo.landing.message_search_error') }, res.message)
+  end
 end

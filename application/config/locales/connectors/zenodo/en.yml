@@ -115,7 +115,8 @@ en:
       show:
         page_title: "OnDemand Loop - Zenodo Records"
         caption_files_text: "Zenodo dataset files (%{count})"
-    landing_page:
+    landing:
+      message_search_error: "Invalid Zenodo response while searching"
       index:
         page_title: "OnDemand Loop - Zenodo"
         button_submit_text: "Search"

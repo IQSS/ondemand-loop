@@ -65,8 +65,9 @@ jobs:
         if: failure()
         working-directory: e2e_tests
         run: |
-          make loop_logs
-          make env_logs
+          mkdir -p cypress/logs
+          make loop_logs > cypress/logs/loop_log.txt
+          make env_logs > cypress/logs/env_log.txt
 
       - name: Upload Cypress artifacts
         if: failure()
@@ -75,5 +76,5 @@ jobs:
           name: cypress_artifacts
           path: |
             e2e_tests/cypress/screenshots
-            e2e_tests/cypress/results
+            e2e_tests/cypress/logs
           if-no-files-found: ignore
