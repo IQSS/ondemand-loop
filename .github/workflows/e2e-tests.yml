@@ -64,7 +64,9 @@ jobs:
       - name: Show logs on error
         if: failure()
         working-directory: e2e_tests
-        run: make env_logs
+        run: |
+          make loop_logs
+          make env_logs
 
       - name: Upload Cypress artifacts
         if: failure()
