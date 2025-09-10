@@ -13,4 +13,4 @@ en:
       finished: "Download service - Download processing completed"
       error: "Download failure"
       error_checksum_verification: "Download failure - MD5 validation failed"
-      cancel_completed: "Cancel request completed"
+      cancel_completed: "Cancel request processed"
