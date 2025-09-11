@@ -16,12 +16,10 @@ module Zenodo::Handlers
 
     def show(request_params)
       repo_url = request_params[:repo_url]
-      log_info('Record show', { record_id: @record_id, repo_url: repo_url })
-
       service = Zenodo::RecordService.new(zenodo_url: repo_url.server_url)
       record = service.find_record(@record_id)
       if record.nil?
-        log_info('Record not found', { record_id: @record_id })
+        log_error('Record not found', { repo_url: repo_url.to_s, record_id: @record_id })
         return ConnectorResult.new(
           message: { alert: I18n.t('zenodo.records.message_record_not_found', record_id: @record_id) },
           success: false
@@ -37,6 +35,7 @@ module Zenodo::Handlers
         note: record.version
       )
 
+      log_info('Records.show completed', { repo_url: repo_url.to_s, record_id: @record_id })
       ConnectorResult.new(
         template: '/connectors/zenodo/records/show',
         locals: {
@@ -55,11 +54,13 @@ module Zenodo::Handlers
       repo_url = request_params[:repo_url]
       file_ids = request_params[:file_ids] || []
       project_id = request_params[:project_id]
-      log_info('Record create', { record_id: @record_id, project_id: project_id, file_ids: file_ids })
 
       record_service = Zenodo::RecordService.new(zenodo_url: repo_url.server_url)
       record = record_service.find_record(@record_id)
-      return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.message_record_not_found', record_id: @record_id) }, success: false) unless record
+      if record.nil?
+        log_error('Unable to find Record', {project_id: project_id, record_id: @record_id, repo_url: repo_url.to_s})
+        return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.message_record_not_found', record_id: @record_id) }, success: false)
+      end
 
       project = Project.find(project_id)
       project_service = Zenodo::ProjectService.new(zenodo_url: repo_url.server_url)
@@ -76,14 +77,17 @@ module Zenodo::Handlers
       download_files.each do |file|
         unless file.valid?
           errors = file.errors.full_messages.join(', ')
+          log_error('Unable to create DownloadFiles - Validation errors', {project_id: project.id.to_s, files: download_files.size, file: file.filename, errors: errors})
           return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.message_validation_file_error', filename: file.filename, errors: errors) }, success: false)
         end
       end
       save_results = download_files.map(&:save)
       if save_results.include?(false)
+        log_error('Unable to create DownloadFiles - Save failed', {project_id: project.id.to_s, files: download_files.size})
         return ConnectorResult.new(message: { alert: I18n.t('zenodo.records.message_save_file_error', project_name: project.name) }, success: false)
       end
-      log_info('Download files created', { project_id: project.id, files: download_files.size })
+
+      log_info('Zenodo files added', {project_id: project.id.to_s, files: download_files.size})
       ConnectorResult.new(message: { notice: I18n.t('zenodo.records.message_success', files: save_results.size, project_name: project.name) }, success: true)
     end
   end

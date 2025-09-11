@@ -7,9 +7,7 @@ module Dataverse::Handlers
     end
 
     def params_schema
-      [
-        :repo_url
-      ]
+      [:repo_url]
     end
 
     def show(request_params)
@@ -22,8 +20,8 @@ module Dataverse::Handlers
 
       versions_response = service.dataset_versions_by_persistent_id(@persistent_id)
       versions = versions_response&.versions || []
-      log_info('Dataset versions', { dataverse_url: dataverse_url, dataset_id: @persistent_id, versions: versions.map(&:version) })
 
+      log_info('Dataset versions', { dataverse_url: dataverse_url, dataset_id: @persistent_id, versions: versions.map(&:version) })
       ConnectorResult.new(
         template: '/connectors/dataverse/dataset_versions/show',
         locals: { repo_url: repo_url, dataset_id: @persistent_id, versions: versions },

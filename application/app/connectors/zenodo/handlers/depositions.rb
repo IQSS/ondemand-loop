@@ -29,6 +29,7 @@ module Zenodo::Handlers
       service = Zenodo::DepositionService.new(zenodo_url: repo_url.server_url, api_key: api_key)
       deposition = service.find_deposition(@deposition_id)
       if deposition.nil?
+        log_error('Deposition not found', { repo_url: repo_url.to_s, deposition_id: @deposition_id })
         return ConnectorResult.new(
           message: { alert: I18n.t('zenodo.depositions.message_deposition_not_found', deposition_id: @deposition_id) },
           success: false
@@ -44,6 +45,7 @@ module Zenodo::Handlers
         note: deposition.version
       )
 
+      log_info('Depositions.show completed', { repo_url: repo_url.to_s, deposition_id: @deposition_id })
       ConnectorResult.new(
         template: '/connectors/zenodo/depositions/show',
         locals: {
@@ -57,6 +59,7 @@ module Zenodo::Handlers
         success: true
       )
     rescue Zenodo::ApiService::ApiKeyRequiredException
+      log_error('Deposition requires authorization', { repo_url: repo_url.to_s, deposition_id: @deposition_id }, e)
       ConnectorResult.new(
         message: { alert: I18n.t('zenodo.depositions.message_api_key_required') },
         success: false
@@ -73,7 +76,11 @@ module Zenodo::Handlers
 
       service = Zenodo::DepositionService.new(zenodo_url: repo_url.server_url, api_key: api_key)
       deposition = service.find_deposition(@deposition_id)
-      return ConnectorResult.new(message: { alert: I18n.t('zenodo.depositions.message_deposition_not_found', deposition_id: @deposition_id) }, success: false) unless deposition
+      if deposition.nil?
+        log_error('Unable to find Deposition', {project_id: project.id.to_s, deposition_id: @deposition_id, repo_url: repo_url.to_s})
+        return ConnectorResult.new(message: { alert: I18n.t('zenodo.depositions.message_deposition_not_found', deposition_id: @deposition_id) }, success: false)
+      end
+
 
       project = Project.find(project_id)
       project_service = Zenodo::ProjectService.new(zenodo_url: repo_url.server_url)
@@ -90,13 +97,17 @@ module Zenodo::Handlers
       download_files.each do |file|
         unless file.valid?
           errors = file.errors.full_messages.join(', ')
+          log_error('Unable to create DownloadFiles - Validation errors', {project_id: project.id.to_s, files: download_files.size, file: file.filename, errors: errors})
           return ConnectorResult.new(message: { alert: I18n.t('zenodo.depositions.message_validation_file_error', filename: file.filename, errors: errors) }, success: false)
         end
       end
       save_results = download_files.map(&:save)
       if save_results.include?(false)
+        log_error('Unable to create DownloadFiles - Save failed', {project_id: project.id.to_s, files: download_files.size})
         return ConnectorResult.new(message: { alert: I18n.t('zenodo.depositions.message_save_file_error', project_name: project.name) }, success: false)
       end
+
+      log_info('Zenodo files added', {project_id: project.id.to_s, files: download_files.size})
       ConnectorResult.new(message: { notice: I18n.t('zenodo.depositions.message_success', files: save_results.size, project_name: project.name) }, success: true)
     end
   end

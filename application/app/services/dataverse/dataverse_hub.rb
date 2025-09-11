@@ -4,7 +4,7 @@ module Dataverse
     DEFAULT_CACHE_EXPIRY = 24.hours.freeze
 
     def initialize(
-      url: HUB_API_URL,
+      url:,
       http_client: Common::HttpClient.new,
       expires_in: DEFAULT_CACHE_EXPIRY
     )

@@ -17,7 +17,7 @@ module Zenodo::Handlers
       query = request_params[:query]
       page = request_params[:page]&.to_i || 1
       repo_url = request_params[:repo_url]
-      log_info('Zenodo landing.show', { repo_url: repo_url, query: query, page: page })
+      log_info('Landing.show', { repo_url: repo_url.to_s, query: query, page: page })
       results = nil
 
       if query.present?
@@ -31,7 +31,7 @@ module Zenodo::Handlers
         end
       end
 
-      log_info('Zenodo landing.show completed', { query: query, page: page, results: results&.items&.size })
+      log_info('Landing.show completed', { repo_url: repo_url.to_s, query: query, page: page, results: results&.items&.size })
       ConnectorResult.new(
         template: '/connectors/zenodo/landing/index',
         locals: { query: query, results: results, page: page, repo_url: repo_url },
