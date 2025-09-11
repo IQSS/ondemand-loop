@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   def set_dynamic_user_settings
     new_values = {}
-    Current::DYNAMIC_ATTRIBUTES.each do |key|
+    UserSettings::DYNAMIC_ATTRIBUTES.each do |key|
       value = request.request_parameters[key] || params[key]
       next if value.nil?
 

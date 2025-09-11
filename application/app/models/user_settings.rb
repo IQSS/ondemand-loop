@@ -2,6 +2,8 @@ class UserSettings
   include YamlStorageCommon
   include LoggingCommon
 
+  DYNAMIC_ATTRIBUTES = %i[active_project].freeze
+
   def initialize(path: nil)
     @path = path || Configuration.metadata_root.join('user_settings.yml')
   end

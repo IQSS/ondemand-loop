@@ -2,7 +2,8 @@
 <%
   service = Repo::RepoActivityService.new
   global = service.global
-  project_downloads = service.project_downloads(params[:project_id])
+  project_id = params[:project_id]
+  project_downloads = service.project_downloads(project_id)
 %>
 <div id="repository-items-tabs">
   <%# Tab Labels %>
@@ -41,6 +42,7 @@
                   icon: 'bi bi-folder2-open'
                 } do %>
                   <input type="hidden" name="repo_url" value="<%= item.url %>">
+                  <input type="hidden" name="active_project" value="<%= project_id %>">
                 <% end %>
                 <%= link_to item.url, target: '_blank', class: 'btn btn-sm btn-outline-dark', title: t('.button_open_repository_title') do %>
                   <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
@@ -75,6 +77,7 @@
                     icon: 'bi bi-folder2-open'
                   } do %>
                     <input type="hidden" name="repo_url" value="<%= item.url %>">
+                    <input type="hidden" name="active_project" value="<%= project_id %>">
                   <% end %>
                   <%= link_to item.url, target: '_blank', class: 'btn btn-sm btn-outline-dark', title: t('.button_open_repository_title') do %>
                     <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
