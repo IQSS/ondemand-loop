@@ -66,8 +66,8 @@ class Download::DownloadServiceTest < ActiveSupport::TestCase
       files_provider = DownloadFilesProviderMock.new([file])
       target = Download::DownloadService.new(files_provider)
       target.stubs(:now).returns(now_time)
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {'previous_status' => ''}).once
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished', metadata: {'previous_status' => 'downloading'}).once
+        target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {}).once
+        target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished', metadata: {}).once
 
       target.start
       assert true
@@ -93,9 +93,9 @@ class Download::DownloadServiceTest < ActiveSupport::TestCase
       files_provider = DownloadFilesProviderMock.new([file])
       target = Download::DownloadService.new(files_provider)
       target.stubs(:now).returns(now_time)
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {'previous_status' => ''}).once
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.error', metadata: {'error' => 'An error occurred', 'previous_status' => ''}).once
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished', metadata: {'previous_status' => ''}).once
+        target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {}).once
+        target.expects(:log_download_file_event).with(file, message: 'events.download_file.error', metadata: {'error' => 'An error occurred', 'previous_status' => ''}).once
+        target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished', metadata: {}).once
       target.start
       assert true
     end
@@ -119,8 +119,8 @@ class Download::DownloadServiceTest < ActiveSupport::TestCase
       files_provider = DownloadFilesProviderMock.new([file])
       target = Download::DownloadService.new(files_provider)
       target.stubs(:now).returns(now_time)
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {'previous_status' => ''}).once
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished', metadata: {'previous_status' => 'downloading'}).once
+        target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {}).once
+        target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished', metadata: {}).once
 
       target.start
       assert true
@@ -145,8 +145,8 @@ class Download::DownloadServiceTest < ActiveSupport::TestCase
       files_provider = DownloadFilesProviderMock.new([file])
       target = Download::DownloadService.new(files_provider)
       target.stubs(:now).returns(now_time)
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {'previous_status' => 'downloading'}).once
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished', metadata: {'previous_status' => 'downloading'}).once
+        target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {}).once
+        target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished', metadata: {}).once
       target.start
       assert true
     end

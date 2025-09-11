@@ -44,8 +44,8 @@ class Upload::UploadServiceTest < ActiveSupport::TestCase
 
     service = Upload::UploadService.new(provider)
     service.stubs(:now).returns(now_time)
-    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.started', metadata: {'previous_status' => 'pending'}).once
-    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.finished', metadata: {'previous_status' => 'uploading'}).once
+      service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.started', metadata: {}).once
+      service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.finished', metadata: {}).once
     service.start
     assert_equal 1, service.stats[:completed]
   end
@@ -67,9 +67,9 @@ class Upload::UploadServiceTest < ActiveSupport::TestCase
 
     service = Upload::UploadService.new(provider)
     service.stubs(:now).returns(now_time)
-    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.started', metadata: {'previous_status' => 'pending'}).once
-    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.error', metadata: {'error' => 'boom', 'previous_status' => 'pending'}).once
-    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.finished', metadata: {'previous_status' => 'pending'}).once
+      service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.started', metadata: {}).once
+      service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.error', metadata: {'error' => 'boom', 'previous_status' => 'pending'}).once
+      service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.finished', metadata: {}).once
     service.start
     assert_equal 1, service.stats[:completed]
   end
@@ -90,8 +90,8 @@ class Upload::UploadServiceTest < ActiveSupport::TestCase
 
     service = Upload::UploadService.new(provider)
     service.stubs(:now).returns(now_time)
-    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.started', metadata: {'previous_status' => 'pending'}).once
-    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.finished', metadata: {'previous_status' => 'uploading'}).once
+      service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.started', metadata: {}).once
+      service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.finished', metadata: {}).once
     service.start
     assert_equal 1, service.stats[:completed]
   end
