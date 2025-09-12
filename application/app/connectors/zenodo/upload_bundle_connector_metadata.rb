@@ -26,6 +26,14 @@ module Zenodo
       api_key.present?
     end
 
+    def configured?
+      api_key? && draft? && bucket_url.present?
+    end
+
+    def external_url
+      deposition_url
+    end
+
     def display_title?
       title.present?
     end

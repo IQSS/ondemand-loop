@@ -64,7 +64,8 @@
               data-action="click->lazy-loader#toggle click->file-drop-activation#toggleFileDrop"
               title="<%= t('.button_add_files_title') %>"
               aria-label="<%= t('.button_add_files_title') %>"
-              class="btn btn-outline-secondary btn-sm">
+              class="btn btn-outline-secondary btn-sm"
+              <%= 'disabled' unless bundle.connector_metadata.configured? %>>
         <i class="bi bi-plus-square-fill" aria-hidden="true"></i>
         <span class="ps-1"><%= t('.button_add_files_text') %></span>
       </button>
