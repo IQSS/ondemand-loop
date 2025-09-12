@@ -1,0 +1,24 @@
+en:
+  events:
+    view:
+      creation_date_title: "Event creation date"
+      header_details_text: "Additional Event Data"
+      empty_events_text: "No events for this item"
+    project:
+      created: "New project created (%{name})"
+      updated: "Project details updated (%{name})"
+      active: "Project marked as active"
+    download_file:
+      started: "Download service - Download started"
+      finished: "Download service - Download processing completed (%{status})"
+      error: "Download failure (%{status})"
+      error_checksum_verification: "Download failure - MD5 validation failed (%{status})"
+      error_checksum_verification_message: "Checksum verification failed: file may be corrupted or incomplete"
+      cancel_completed: "Cancel request processed (%{status})"
+    upload_file:
+      started: "Upload service - Upload started"
+      finished: "Upload service - Upload processing completed (%{status})"
+      error: "Upload failure (%{status})"
+      error_checksum_verification: "Upload failure - MD5 validation failed (%{status})"
+      error_checksum_verification_message: "Checksum verification failed: file may be corrupted or incomplete"
+      cancel_completed: "Cancel request processed (%{status})"

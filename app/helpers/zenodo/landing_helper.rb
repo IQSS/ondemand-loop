@@ -1,6 +1,19 @@
 module Zenodo
   module LandingHelper
 
+    def zenodo_landing_url
+      default_zenodo_url = Zenodo::ZenodoUrl.default_url
+
+      explore_path(
+        connector_type: ConnectorType::ZENODO.to_s,
+        server_domain: default_zenodo_url.domain,
+        server_scheme: default_zenodo_url.scheme_override,
+        server_port: default_zenodo_url.port_override,
+        object_type: 'landing',
+        object_id: ':root'
+      )
+    end
+
     def link_to_explore_prev_page(query, search_result, repo_url, html_options = {})
       return if search_result.first_page?
       html_options['aria-label'] = I18n.t('acts_as_page.link_prev_page_a11y_label')

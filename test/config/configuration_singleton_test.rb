@@ -65,18 +65,6 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     ENV.delete('OOD_LOOP_MAX_UPLOAD_FILE_SIZE')
   end
 
-  test 'should return default boolean values when ENV is not set' do
-    assert_equal false, @config_instance.zenodo_enabled
-  end
-
-  test 'should override boolean values from ENV' do
-    ENV['OOD_LOOP_ZENODO_ENABLED'] = 'true'
-    config = ConfigurationSingleton.new
-    assert_equal true, config.zenodo_enabled
-  ensure
-    ENV.delete('OOD_LOOP_ZENODO_ENABLED')
-  end
-
   test 'should return default guide_url when not set' do
     assert_equal 'https://iqss.github.io/ondemand-loop/', @config_instance.guide_url
   end

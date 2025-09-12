@@ -152,4 +152,51 @@ class Repo::RepoUrlTest < ActiveSupport::TestCase
       Repo::RepoUrl.new('https://example.com/path')
     end
   end
+
+  test 'to_s should not have trailing slash for domain-only URLs' do
+    parser = Repo::RepoUrl.parse('https://example.com')
+    assert_equal 'https://example.com', parser.to_s
+    
+    parser_with_slash = Repo::RepoUrl.parse('https://example.com/')
+    assert_equal 'https://example.com', parser_with_slash.to_s
+  end
+
+  test 'to_s should preserve paths without adding trailing slashes' do
+    parser_with_path = Repo::RepoUrl.parse('https://example.com/path/to/resource')
+    assert_equal 'https://example.com/path/to/resource', parser_with_path.to_s
+
+    parser_with_path_slash = Repo::RepoUrl.parse('https://example.com/path/to/resource/')
+    assert_equal 'https://example.com/path/to/resource', parser_with_path_slash.to_s
+  end
+
+  test 'to_s should include query parameters' do
+    parser_with_params = Repo::RepoUrl.parse('https://example.com/path?foo=bar')
+    assert_equal 'https://example.com/path?foo=bar', parser_with_params.to_s
+
+    parser_with_params_slash = Repo::RepoUrl.parse('https://example.com/path/?foo=bar')
+    assert_equal 'https://example.com/path?foo=bar', parser_with_params_slash.to_s
+  end
+
+  test 'server_url should not have trailing slash' do
+    parser = Repo::RepoUrl.parse('https://example.com/path/to/resource')
+    assert_equal 'https://example.com', parser.server_url
+  end
+
+  test 'with_scheme should return nil for blank URLs' do
+    assert_nil Repo::RepoUrl.with_scheme(nil)
+    assert_nil Repo::RepoUrl.with_scheme('')
+    assert_nil Repo::RepoUrl.with_scheme('   ')
+  end
+
+  test 'with_scheme should return URLs with existing scheme unchanged' do
+    assert_equal 'http://test.com', Repo::RepoUrl.with_scheme('http://test.com')
+    assert_equal 'https://test.com:8080/path', Repo::RepoUrl.with_scheme('https://test.com:8080/path')
+  end
+
+  test 'with_scheme should add https scheme to URLs without scheme' do
+    assert_equal 'https://test.com', Repo::RepoUrl.with_scheme('test.com')
+    assert_equal 'https://www.test.com/path', Repo::RepoUrl.with_scheme('www.test.com/path')
+    assert_equal 'https://example.org:8080/path', Repo::RepoUrl.with_scheme('example.org:8080/path')
+    assert_equal 'https://localhost:8080', Repo::RepoUrl.with_scheme('localhost:8080')
+  end
 end

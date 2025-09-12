@@ -37,7 +37,7 @@ module ModelHelper
       upload_bundle.id = id
       upload_bundle.name = "sample name"
       upload_bundle.type = type
-        upload_bundle.metadata = { test: 'test' }
+      upload_bundle.metadata = { test: 'test' }
       upload_bundle.stubs(:files).returns(files)
     end
   end

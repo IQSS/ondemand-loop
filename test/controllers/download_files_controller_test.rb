@@ -5,6 +5,9 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
     @project_id = "test_project"
     @file_id = "file_123"
     @file = mock("DownloadFile")
+    @file.stubs(:is_a?).with(DownloadFile).returns(true)
+    @file.stubs(:id).returns(@file_id)
+    @file.stubs(:project_id).returns(@project_id)
   end
 
   test "cancel should redirect with error message when file is nil" do
@@ -58,6 +61,11 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
     @file.expects(:update).with(status: FileStatus::CANCELLED).returns(true)
 
     DownloadFile.stubs(:find).returns(@file)
+    DownloadFilesController.any_instance.expects(:log_download_file_event).with(
+      @file,
+      message: 'events.download_file.cancel_completed',
+      metadata: { filename: 'filename_test', previous_status: 'success' }
+    )
 
     post cancel_project_download_file_url(project_id: @project_id, id: @file_id)
     assert_redirected_to root_path

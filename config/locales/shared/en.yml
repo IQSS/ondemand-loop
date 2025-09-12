@@ -41,3 +41,12 @@ en:
     upload_bundle_name:
       save:
         error: "Could not update upload bundle name."
+    events:
+      load:
+        error: "There was an error loading the events."
+      table:
+        header_id: "ID"
+        header_type: "Type"
+        header_creation_date: "Creation date"
+        header_metadata: "Metadata"
+        empty: "No events found"

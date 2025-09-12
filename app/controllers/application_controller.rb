@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   include RedirectBackWithAnchor
 
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
   before_action :load_user_settings
   before_action :set_dynamic_user_settings
 
@@ -18,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   def set_dynamic_user_settings
     new_values = {}
-    Current::DYNAMIC_ATTRIBUTES.each do |key|
+    UserSettings::DYNAMIC_ATTRIBUTES.each do |key|
       value = request.request_parameters[key] || params[key]
       next if value.nil?
 

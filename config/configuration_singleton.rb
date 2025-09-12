@@ -27,12 +27,13 @@ class ConfigurationSingleton
       ::ConfigurationProperty.integer(:detached_process_status_interval, default: 10 * 1000), # 10s in MILLISECONDS
       ::ConfigurationProperty.integer(:max_download_file_size, default: 10 * 1024 * 1024 * 1024), # 10 GIGABYTE
       ::ConfigurationProperty.integer(:max_upload_file_size, default: 1024 * 1024 * 1024), # 1 GIGABYTE
-      ::ConfigurationProperty.boolean(:zenodo_enabled, default: false),
       ::ConfigurationProperty.property(:guide_url, default: 'https://iqss.github.io/ondemand-loop/'),
       ::ConfigurationProperty.property(:http_proxy, read_from_env: false),
       ::ConfigurationProperty.integer(:default_connect_timeout, default: 5),
       ::ConfigurationProperty.integer(:default_read_timeout, default: 15),
       ::ConfigurationProperty.integer(:default_pagination_items, default: 20),
+      ::ConfigurationProperty.property(:dataverse_hub_url, default: 'https://hub.dataverse.org/api/installations'),
+      ::ConfigurationProperty.property(:zenodo_default_url, default: 'https://zenodo.org'),
     ].freeze
   end
 
@@ -62,8 +63,8 @@ class ConfigurationSingleton
 
   def dataverse_hub
     @dataverse_hub ||= begin
-      log_info('[Configuration] Created Dataverse::DataverseHub')
-      Dataverse::DataverseHub.new
+      log_info('[Configuration] Created Dataverse::DataverseHub', {dataverse_hub_url: dataverse_hub_url})
+      Dataverse::DataverseHub.new(url: dataverse_hub_url)
     end
   end
 

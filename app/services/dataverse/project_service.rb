@@ -28,6 +28,7 @@ module Dataverse
             dataverse_url: @dataverse_url,
             dataset_id: dataset_id,
             version: dataset.version,
+            title: dataset.title,
             parents: dataset.data.parents,
             id: dataset_file.data_file.id.to_s,
             content_type: dataset_file.content_type,

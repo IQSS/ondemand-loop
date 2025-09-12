@@ -22,7 +22,7 @@ class Zenodo::Handlers::DepositionsTest < ActiveSupport::TestCase
     service = mock('service')
     dataset = OpenStruct.new(title: 'Deposition Title', draft?: true, version: 'draft')
     service.expects(:find_deposition).with('10').returns(dataset)
-    Zenodo::DepositionService.expects(:new).with('https://zenodo.org', api_key: 'KEY').returns(service)
+    Zenodo::DepositionService.expects(:new).with(zenodo_url: 'https://zenodo.org', api_key: 'KEY').returns(service)
 
     url = Zenodo::Concerns::ZenodoUrlBuilder.build_deposition_url('https://zenodo.org', '10')
     ::Configuration.repo_history.expects(:add_repo).with(
@@ -53,7 +53,7 @@ class Zenodo::Handlers::DepositionsTest < ActiveSupport::TestCase
     ::Configuration.repo_db.stubs(:get).with('https://zenodo.org').returns(repo_info)
     service = mock('service')
     service.expects(:find_deposition).with('10').returns(nil)
-    Zenodo::DepositionService.expects(:new).with('https://zenodo.org', api_key: 'KEY').returns(service)
+    Zenodo::DepositionService.expects(:new).with(zenodo_url: 'https://zenodo.org', api_key: 'KEY').returns(service)
     result = @explorer.show(repo_url: @repo_url)
     refute result.success?
   end
@@ -64,7 +64,7 @@ class Zenodo::Handlers::DepositionsTest < ActiveSupport::TestCase
 
     service = mock('service')
     service.expects(:find_deposition).with('10').returns(:dataset)
-    Zenodo::DepositionService.expects(:new).with('https://zenodo.org', api_key: 'KEY').returns(service)
+    Zenodo::DepositionService.expects(:new).with(zenodo_url: 'https://zenodo.org', api_key: 'KEY').returns(service)
 
     Project.stubs(:find).with('1').returns(nil)
     project = mock('project')
@@ -79,7 +79,7 @@ class Zenodo::Handlers::DepositionsTest < ActiveSupport::TestCase
     proj_service = mock('proj_service')
     proj_service.expects(:initialize_project).returns(project)
     proj_service.expects(:create_files_from_deposition).with(project, :dataset, ['f1']).returns([file])
-    Zenodo::ProjectService.expects(:new).with('https://zenodo.org').returns(proj_service)
+    Zenodo::ProjectService.expects(:new).with(zenodo_url: 'https://zenodo.org').returns(proj_service)
 
     @settings.expects(:update_user_settings).with({ active_project: project.id.to_s })
     result = @explorer.create(repo_url: @repo_url, file_ids: ['f1'], project_id: '1')

@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   include LoggingCommon
+  include EventLogger
 
   def index
     @projects = Project.all
@@ -15,7 +16,9 @@ class ProjectsController < ApplicationController
     project_name = params[:project_name] || ProjectNameGenerator.generate
     project = Project.new(id: project_name, name: project_name)
     if project.save
+      log_project_event(project, message: 'events.project.created', metadata: { name: project.name, folder: project.download_dir })
       Current.settings.update_user_settings({ active_project: project.id.to_s })
+      log_project_event(project, message: 'events.project.active', metadata: { name: project.name })
       notice = t(".project_created", project_name: project_name)
       if params.key?(:redirect_back)
         redirect_back fallback_location: projects_path, notice: notice
@@ -42,6 +45,7 @@ class ProjectsController < ApplicationController
     update_params = params.permit(:name, :download_dir).to_h.compact
 
     if project.update(update_params)
+      log_project_event(project, message: 'events.project.updated', metadata: { name: project.name, folder: project.download_dir })
       respond_to do |format|
         format.html { redirect_back fallback_location: projects_path, notice: t(".project_updated_successfully", project_name: project.name) }
         format.json { render json: project.to_json, status: :ok }
@@ -69,6 +73,7 @@ class ProjectsController < ApplicationController
     end
 
     Current.settings.update_user_settings({active_project: project_id})
+    log_project_event(project, message: 'events.project.active', metadata: { name: project.name })
     respond_to do |format|
       format.html { redirect_back fallback_location: projects_path, notice: t(".project_is_now_the_active_project", project_name: project.name) }
       format.json { render json: project.to_json, status: :ok }
@@ -86,4 +91,5 @@ class ProjectsController < ApplicationController
     project.destroy
     redirect_to projects_path, notice: t(".project_deleted_successfully", project_name: project.name)
   end
+
 end

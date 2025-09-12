@@ -2,9 +2,8 @@ module Zenodo::Handlers
   class DatasetFormTabs
     include LoggingCommon
 
-    def initialize(object_id = nil)
-      @object_id = object_id
-    end
+    # Needed to implement expected interface in ConnectorHandlerDispatcher
+    def initialize(object = nil); end
 
     def params_schema
       []
@@ -29,7 +28,7 @@ module Zenodo::Handlers
     def depositions(upload_bundle)
       connector_metadata = upload_bundle.connector_metadata
       api_key = connector_metadata.api_key.value
-      service = Zenodo::UserService.new(connector_metadata.zenodo_url, api_key: api_key)
+      service = Zenodo::UserService.new(zenodo_url: connector_metadata.zenodo_url, api_key: api_key)
       service.list_depositions
     end
   end

@@ -4,6 +4,11 @@ en:
     dataverse:
       title: "Dataverse"
 
+      upload_bundle_connector_processor:
+        message_create_error: "Error while creating Upload Bundle for Dataverse url: %{url}"
+        message_edit_error: "Error while editing Upload Bundle for Dataverse url: %{url}"
+        message_update_error: "Error while updating Upload Bundle for Dataverse url: %{url}"
+
       handlers:
         collection_select:
           message_success: "Collection selected: %{title}"
@@ -13,11 +18,24 @@ en:
           message_success: "Dataset created: %{id} > %{title}"
         dataset_select:
           message_success: "Dataset selected: %{title}"
+        draft_fetch:
+          message_no_api_key: "API token is required to fetch draft dataset data"
+          message_no_dataset_id: "Dataset ID is required to fetch draft dataset data"
+          message_dataset_not_found: "Draft dataset not found"
+          message_unauthorized: "Unauthorized access to draft dataset. Check your API token permissions"
+          message_success: "Draft dataset data fetched successfully: %{title}"
         repository_settings_update:
           message_success: "Repository updated: %{url} type: %{type}"
-        upload_bundle_create:
-          message_collection_not_found: "Dataverse collection not found: %{url}. Only public and published collections are supported"
-          message_dataset_not_found: "Dataverse dataset not found: %{url}.<br />Only public and published datasets are supported"
+        upload_bundle_create_from_collection:
+          message_collection_not_found: "Dataverse collection not found: %{url}"
+          message_authentication_error: "Collection requires authorization to access: %{url}. Add an API token"
+          message_success: "Collection upload bundle created: %{name}"
+        upload_bundle_create_from_dataset:
+          message_dataset_not_found: "Dataverse dataset not found: %{url}"
+          message_authentication_error: "Dataset requires authorization to access: %{url}. Add an API token"
+          message_success: "Dataset upload bundle created: %{name}"
+        upload_bundle_create_from_dataverse:
+          message_authentication_error: "Dataverse requires authorization to access: %{url}. Add an API token"
           message_success: "Dataverse upload bundle created: %{name}"
 
       external_tool_dataset:
@@ -39,6 +57,8 @@ en:
         link_dataverse_title: "Open Dataverse: %{name}"
         link_collection_title: "Open Dataverse collection: %{name}"
         link_dataset_title: "Open Dataverse dataset: %{name}"
+        button_draft_fetch_label: "Fetch dataset data"
+        button_draft_fetch_title: "Fetch dataset data"
       dataset_create_form:
         field_title_label: "Dataset Title"
         field_title_placeholder: "Enter a descriptive title for the dataset"

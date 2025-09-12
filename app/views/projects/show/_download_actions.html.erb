@@ -52,15 +52,18 @@
 
       <div>
 
-        <% explore_url = most_recent_explore_url(project) %>
-        <a href="<%= explore_url if explore_url %>"
-           class="btn btn-sm btn-outline-secondary <%= 'disabled' unless explore_url %>"
-           aria-label="<%= t('.button_add_files_title') %>"
-           title="<%= t('.button_add_files_title') %>"
-           aria-disabled="<%= explore_url.nil? %>">
-          <i class="bi bi-files" aria-hidden="true"></i>
+        <button type="button"
+                class="btn btn-sm btn-outline-secondary"
+                aria-label="<%= t('.button_add_files_title') %>"
+                title="<%= t('.button_add_files_title') %>"
+                data-controller="modal"
+                data-action="click->modal#load"
+                data-modal-url-value="<%= widgets_path('repository_activity', project_id: project.id) %>"
+                data-modal-title-value="<%= t('.modal_add_files_title') %>"
+                data-modal-id-value="global-modal">
+          <i class="bi bi-folder-symlink-fill" aria-hidden="true"></i>
           <span><%= t('.button_add_files_text') %></span>
-        </a>
+        </button>
 
         <button data-controller="utils--icon-toggle"
                 data-utils--icon-toggle-icon-on-value="bi-plus-square-fill"

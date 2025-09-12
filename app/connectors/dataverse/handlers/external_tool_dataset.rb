@@ -8,9 +8,8 @@ module Dataverse::Handlers
 
     PERMITTED_PARAMS = [:dataverse_url, :dataset_id, :version, :locale].freeze
 
-    def initialize(object_id = nil)
-      # no object id required
-    end
+    # Needed to implement expected interface in ConnectorHandlerDispatcher
+    def initialize(object = nil); end
 
     def params_schema
       PERMITTED_PARAMS

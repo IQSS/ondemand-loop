@@ -5,7 +5,7 @@ class Zenodo::SearchServiceTest < ActiveSupport::TestCase
 
   def setup
     @client = HttpClientMock.new(file_path: fixture_path('zenodo/search_response.json'))
-    @service = Zenodo::SearchService.new('https://zenodo.org', http_client: @client)
+    @service = Zenodo::SearchService.new(zenodo_url: 'https://zenodo.org', http_client: @client)
   end
 
   test 'search builds URL and parses response' do
@@ -17,7 +17,7 @@ class Zenodo::SearchServiceTest < ActiveSupport::TestCase
 
   test 'search returns nil when request fails' do
     client = HttpClientMock.new(file_path: fixture_path('zenodo/search_response.json'), status_code: 404)
-    service = Zenodo::SearchService.new('https://zenodo.org', http_client: client)
+    service = Zenodo::SearchService.new(zenodo_url: 'https://zenodo.org', http_client: client)
     assert_nil service.search('missing')
   end
 end

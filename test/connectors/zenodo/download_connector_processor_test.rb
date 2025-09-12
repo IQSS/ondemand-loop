@@ -79,6 +79,12 @@ class Zenodo::DownloadConnectorProcessorTest < ActiveSupport::TestCase
     Download::BasicHttpRubyDownloader.stubs(:new).returns(mock_downloader)
     mock_downloader.expects(:download).raises(StandardError.new('boom'))
 
+    processor.expects(:log_download_file_event).with(
+      file,
+      message: 'events.download_file.error',
+      metadata: {error: 'boom', url: 'https://zenodo.org/file.txt', partial_downloads: true}
+    )
+
     result = processor.download
     assert_equal FileStatus::ERROR, result.status
     assert File.exist?(temp_location)
@@ -107,6 +113,12 @@ class Zenodo::DownloadConnectorProcessorTest < ActiveSupport::TestCase
     mock_downloader.stubs(:partial_downloads).returns(false)
     Download::BasicHttpRubyDownloader.stubs(:new).returns(mock_downloader)
     mock_downloader.expects(:download).raises(StandardError.new('boom'))
+
+    processor.expects(:log_download_file_event).with(
+      file,
+      message: 'events.download_file.error',
+      metadata: {error: 'boom', url: 'https://zenodo.org/file.txt', partial_downloads: false}
+    )
 
     result = processor.download
     assert_equal FileStatus::ERROR, result.status

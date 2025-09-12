@@ -48,4 +48,15 @@ class RedirectBackWithAnchorTest < ActionController::TestCase
     get :test_action, params: { anchor: 'bad' }
     assert_redirected_to '::::invalid:::url'
   end
+
+  test 'does not add anchor when anchor param is empty string' do
+    @request.env['HTTP_REFERER'] = '/referer_path'
+    get :test_action, params: { anchor: '' }
+    assert_redirected_to '/referer_path'
+  end
+
+  test 'does not add anchor to fallback when anchor param is empty string' do
+    get :test_action, params: { anchor: '' }
+    assert_redirected_to '/fallback'
+  end
 end

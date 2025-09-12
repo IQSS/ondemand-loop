@@ -16,7 +16,7 @@ class Repo::Resolvers::DomainResolverTest < ActiveSupport::TestCase
     context.stubs(:parsed_input).returns(nil)
     @resolver.stubs(:resolvable_domain?).returns(true)
     @resolver.resolve(context)
-    assert_equal 'https://example.com/', context.input
+    assert_equal 'https://example.com', context.input
   end
 
   test 'resolve updates input for localhost and docker hosts with ports' do
@@ -25,7 +25,7 @@ class Repo::Resolvers::DomainResolverTest < ActiveSupport::TestCase
       context = Repo::RepoResolverContext.new(input)
       context.stubs(:parsed_input).returns(nil)
       @resolver.resolve(context)
-      assert_equal "https://#{input}/", context.input
+      assert_equal "https://#{input}", context.input
     end
   end
 

@@ -48,6 +48,7 @@ class Dataverse::ProjectServiceTest < ActiveSupport::TestCase
     assert_equal '4', download_files[0].metadata[:id]
     assert_equal 'https://example.com', download_files[0].metadata[:dataverse_url]
     assert_equal '2.0', download_files[0].metadata[:version]
+    assert_equal dataset.title, download_files[0].metadata[:title]
     assert_equal 'local://1946f5acedb-fdf849a8d0f3', download_files[0].metadata[:storage]
     assert_equal '13035cba04a51f54dd8101fe726cda5c', download_files[0].metadata[:md5]
     assert_equal 'image/png', download_files[0].metadata[:content_type]

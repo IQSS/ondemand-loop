@@ -28,6 +28,17 @@ class Dataverse::UploadConnectorProcessorTest < ActiveSupport::TestCase
     Upload::MultipartHttpRubyUploader.any_instance.stubs(:upload).yields({total:1, uploaded:1}).returns(json)
     Digest::MD5.expects(:file).with('/tmp/file.txt').returns(stub(hexdigest: 'deadbeef'))
 
+    @processor.expects(:log_upload_file_event).with(
+      @file,
+      message: 'events.upload_file.error_checksum_verification',
+      metadata: {
+        error: I18n.t('events.upload_file.error_checksum_verification_message'),
+        file_path: '/tmp/file.txt',
+        expected_md5: '5f02321dba2a37355a9f1f810565c1c8',
+        current_md5: 'deadbeef'
+      }
+    )
+
     result = @processor.upload
     assert_equal FileStatus::ERROR, result.status
     assert_match 'md5 check failed', result.message

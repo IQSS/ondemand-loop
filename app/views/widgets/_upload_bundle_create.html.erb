@@ -1,0 +1,99 @@
+<%
+  project_id = params[:project_id]
+  service = Repo::RepoActivityService.new
+  project_recent = service.project_downloads(project_id)
+  global_recent = service.global
+%>
+<h3 class="h6"><%= t('.from_url_title') %></h3>
+<p class="mb-3 text-muted fs-7"><%= t('.from_url_help_text') %></p>
+
+<%= form_with url: connector_project_upload_bundles_path(project_id: project_id), method: :post, local: true, class: 'd-flex gap-2 mb-4', data: {action: "submit->modal#showSpinner"} do |form| %>
+  <%= form.text_field :remote_repo_url,
+                      placeholder: t('projects.show.project_actions.button_create_upload_bundle_placeholder'),
+                      class: 'form-control',
+                      'aria-label': t('projects.show.project_actions.button_create_upload_bundle_placeholder') %>
+  <%= button_tag type: 'submit',
+                 class: 'btn btn-outline-primary',
+                 title: t('projects.show.project_actions.button_create_upload_bundle_title') do %>
+    <i class="bi bi-folder-plus" aria-hidden="true"></i>
+    <span class="visually-hidden"><%= t('projects.show.project_actions.button_create_upload_bundle_label') %></span>
+  <% end %>
+<% end %>
+
+<h3 class="h6"><%= t('.from_recent_datasets_title') %></h3>
+<div id="recent-datasets-tabs">
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link text-secondary active" id="recent-datasets-project-tab" data-bs-toggle="tab" data-bs-target="#recent-datasets-project" type="button" role="tab" aria-controls="recent-datasets-project" aria-selected="true"><%= t('.tab_project_label') %></button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link text-secondary" id="recent-datasets-global-tab" data-bs-toggle="tab" data-bs-target="#recent-datasets-global" type="button" role="tab" aria-controls="recent-datasets-global" aria-selected="false"><%= t('.tab_global_label') %></button>
+    </li>
+  </ul>
+  <div class="tab-content mt-3">
+    <div id="recent-datasets-project" class="tab-pane fade show active" role="tabpanel" aria-labelledby="recent-datasets-project-tab">
+      <% if project_recent.any? %>
+        <ul class="list-unstyled mt-3 mb-0">
+          <% project_recent.each do |item| %>
+            <li class="card mb-2 shadow-sm rounded">
+              <header class="card-header d-flex justify-content-between align-items-center gap-3">
+                <div class="d-flex align-items-center gap-3 flex-grow-1">
+                  <%= render partial: '/shared/file_row_date', locals: { date: item.date, title: t('widgets.repository_activity.field_date_title') } if item.date %>
+                  <span class="lh-1" aria-hidden="true"><%= connector_icon(item.type) %></span>
+                  <div class="d-flex flex-column flex-grow-1">
+                    <h3 class="mb-0 h6"><%= item.title %></h3>
+                    <small class="text-muted text-truncate"><%= item.url %></small>
+                  </div>
+                  <%= content_tag(:span, item.note, class: 'badge bg-secondary flex-shrink-0') if item.note %>
+                </div>
+                <%= button_to connector_project_upload_bundles_path(project_id: project_id),
+                            method: :post,
+                            params: { remote_repo_url: item.url },
+                            class: 'btn btn-sm btn-outline-dark',
+                            data: {action: "click->modal#showSpinner"},
+                            title: t('projects.show.project_actions.button_create_upload_bundle_title'),
+                            'aria-label': t('projects.show.project_actions.button_create_upload_bundle_title') do %>
+                  <i class="bi bi-folder-plus" aria-hidden="true"></i>
+                <% end %>
+              </header>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-muted"><%= t('.empty_recent_text') %></p>
+      <% end %>
+    </div>
+    <div id="recent-datasets-global" class="tab-pane fade" role="tabpanel" aria-labelledby="recent-datasets-global-tab">
+      <% if global_recent.any? %>
+        <ul class="list-unstyled mt-3 mb-0">
+          <% global_recent.each do |item| %>
+            <li class="card mb-2 shadow-sm rounded">
+              <header class="card-header d-flex justify-content-between align-items-center gap-3">
+                <div class="d-flex align-items-center gap-3 flex-grow-1">
+                  <%= render partial: '/shared/file_row_date', locals: { date: item.date, title: t('widgets.repository_activity.field_date_title') } if item.date %>
+                  <span class="lh-1" aria-hidden="true"><%= connector_icon(item.type) %></span>
+                  <div class="d-flex flex-column flex-grow-1">
+                    <h3 class="mb-0 h6"><%= item.title %></h3>
+                    <small class="text-muted text-truncate"><%= item.url %></small>
+                  </div>
+                  <%= content_tag(:span, item.note, class: 'badge bg-secondary flex-shrink-0') if item.note %>
+                </div>
+                <%= button_to connector_project_upload_bundles_path(project_id: project_id),
+                            method: :post,
+                            params: { remote_repo_url: item.url },
+                            class: 'btn btn-sm btn-outline-dark',
+                            data: {action: "click->modal#showSpinner"},
+                            title: t('projects.show.project_actions.button_create_upload_bundle_title'),
+                            'aria-label': t('projects.show.project_actions.button_create_upload_bundle_title') do %>
+                  <i class="bi bi-folder-plus" aria-hidden="true"></i>
+                <% end %>
+              </header>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-muted"><%= t('.empty_recent_text') %></p>
+      <% end %>
+    </div>
+  </div>
+</div>

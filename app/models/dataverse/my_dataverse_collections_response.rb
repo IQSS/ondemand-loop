@@ -23,7 +23,6 @@ module Dataverse
         @url = item[:url]
         @identifier = item[:identifier]
         @published_at = item[:published_at]
-        #@publication_statuses = item[:publicationStatuses]
         @affiliation = item[:affiliation]
         @parent_dataverse_name = item[:parentDataverseName]
         @parent_dataverse_identifier = item[:parentDataverseIdentifier]

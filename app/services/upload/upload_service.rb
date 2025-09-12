@@ -3,6 +3,7 @@ module Upload
   class UploadService
     include LoggingCommon
     include DateTimeCommon
+    include EventLogger
 
     attr_reader :files_provider, :stats
 
@@ -27,17 +28,22 @@ module Upload
 
         upload_threads = batch.map do |file_data|
           upload_processor = ConnectorClassDispatcher.upload_processor(file_data.upload_bundle, file_data.file)
+          previous_status = file_data.file.status.to_s
           Thread.new do
             file_data.file.update(start_date: now, end_date: nil, status: FileStatus::UPLOADING)
+            log_upload_file_event(file_data.file, message: 'events.upload_file.started', metadata: {destination: file_data.upload_bundle.connector_metadata.external_url})
             stats[:progress] += 1
             result = upload_processor.upload
+            previous_status = file_data.file.status.to_s
             file_data.file.update(end_date: now, status: result.status)
           rescue => e
             log_error('Error while processing file', {project_id: file_data.project.id, bundle: file_data.upload_bundle.id, file_id: file_data.file.id}, e)
             file_data.file.update(end_date: now, status: FileStatus::ERROR)
+            log_upload_file_event(file_data.file, message: 'events.upload_file.error', metadata: {error: e.message, previous_status: previous_status})
           ensure
             stats[:completed] += 1
             stats[:progress] -= 1
+            log_upload_file_event(file_data.file, message: 'events.upload_file.finished')
           end
         end
         # Wait for all downloads to complete
@@ -47,9 +53,7 @@ module Upload
     end
 
     def process(request)
-      data = stats.merge({start_date: @start_time, elapsed: elapsed_time})
-      log_info('Requested stats', { stats: data })
-      data
+      stats.merge({start_date: @start_time, elapsed: elapsed_time})
     end
 
     def shutdown

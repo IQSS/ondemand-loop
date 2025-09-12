@@ -3,6 +3,7 @@ module Download
   class DownloadService
     include LoggingCommon
     include DateTimeCommon
+    include EventLogger
 
     attr_reader :files_provider, :stats
 
@@ -24,22 +25,27 @@ module Download
         batch = files.first(1)
         return if batch.empty?
 
-        log_info('Processing Batch', {elapsed_time: elapsed_time, stats: stats_to_s})
-        download_threads = batch.map do |file|
-          download_processor = ConnectorClassDispatcher.download_processor(file)
-          Thread.new do
-            file.update(start_date: now, end_date: nil, status: FileStatus::DOWNLOADING)
-            stats[:progress] += 1
-            result = download_processor.download
-            file.update(end_date: now, status: result.status)
-          rescue => e
-            log_error('Error while processing file', {file_id: file.id}, e)
-            file.update(end_date: now, status: FileStatus::ERROR)
-          ensure
-            stats[:completed] += 1
-            stats[:progress] -= 1
+          log_info('Processing Batch', {elapsed_time: elapsed_time, stats: stats_to_s})
+          download_threads = batch.map do |file|
+            download_processor = ConnectorClassDispatcher.download_processor(file)
+            previous_status = file.status.to_s
+            Thread.new do
+              file.update(start_date: now, end_date: nil, status: FileStatus::DOWNLOADING)
+              log_download_file_event(file, message: 'events.download_file.started', metadata: {repo_url: file.connector_metadata.external_url})
+              stats[:progress] += 1
+              result = download_processor.download
+              previous_status = file.status.to_s
+              file.update(end_date: now, status: result.status)
+            rescue => e
+              log_error('Error while processing file', {file_id: file.id}, e)
+              file.update(end_date: now, status: FileStatus::ERROR)
+              log_download_file_event(file, message: 'events.download_file.error', metadata: {error: e.message, previous_status: previous_status})
+            ensure
+              stats[:completed] += 1
+              stats[:progress] -= 1
+              log_download_file_event(file, message: 'events.download_file.finished')
+            end
           end
-        end
         # Wait for all downloads to complete
         download_threads.each(&:join)
       end
@@ -63,6 +69,5 @@ module Download
     def stats_to_s
       "zombies=#{stats[:zombies]} in_progress=#{stats[:progress]} pending=#{stats[:pending]} completed=#{stats[:completed]}"
     end
-
   end
 end

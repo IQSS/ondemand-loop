@@ -87,6 +87,24 @@ class FluentUrlTest < ActiveSupport::TestCase
     assert_equal 'https://example.com/api/v1/resource?token=abc123', url.to_s
   end
 
+  test 'to_s should remove trailing /' do
+    url = FluentUrl.new('https://example.com/')
+    assert_equal 'https://example.com', url.to_s
+
+    url = FluentUrl.new('https://example.com')
+                   .add_path('/')
+    assert_equal 'https://example.com', url.to_s
+
+    url = FluentUrl.new('https://example.com/')
+                   .add_path('/test/path/')
+    assert_equal 'https://example.com/test/path', url.to_s
+
+    url = FluentUrl.new('https://example.com/')
+                   .add_path('/test/path/')
+                   .add_param('token', 'abc123')
+    assert_equal 'https://example.com/test/path?token=abc123', url.to_s
+  end
+
   test 'add_path should work when base path is a single segment' do
     url = FluentUrl.new('https://example.com/files')
                    .add_path('abc')

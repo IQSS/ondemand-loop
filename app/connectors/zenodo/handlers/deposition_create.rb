@@ -2,9 +2,8 @@ module Zenodo::Handlers
   class DepositionCreate
     include LoggingCommon
 
-    def initialize(object_id = nil)
-      @object_id = object_id
-    end
+    # Needed to implement expected interface in ConnectorHandlerDispatcher
+    def initialize(object = nil); end
 
     def params_schema
       %i[title upload_type description creators]
@@ -30,7 +29,7 @@ module Zenodo::Handlers
         creators: creators
       )
 
-      service = Zenodo::DepositionService.new(connector_metadata.zenodo_url, api_key: api_key)
+      service = Zenodo::DepositionService.new(zenodo_url: connector_metadata.zenodo_url, api_key: api_key)
       response = service.create_deposition(request)
 
       metadata = upload_bundle.metadata

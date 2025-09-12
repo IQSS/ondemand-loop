@@ -46,4 +46,38 @@ class Repo::Resolvers::DoiResolverTest < ActiveSupport::TestCase
     assert_equal url, context.object_url
     refute client.called?
   end
+
+  test 'resolve normalizes URL with trailing slash' do
+    client = HttpClientMock.new(file_path: fixture_path('downloads/basic_http/sample_utf8.txt'))
+    input_url = 'https://dataverse.org/'
+    expected_url = 'https://dataverse.org'
+    context = Repo::RepoResolverContext.new(input_url, http_client: client)
+    @resolver.resolve(context)
+    assert_equal expected_url, context.object_url
+    refute client.called?
+  end
+
+  test 'resolve normalizes URL when parsed input exists' do
+    client = HttpClientMock.new(file_path: fixture_path('downloads/basic_http/sample_utf8.txt'))
+    input_url = 'https://zenodo.org/records/123/'
+    expected_url = 'https://zenodo.org/records/123'
+    context = Repo::RepoResolverContext.new(input_url, http_client: client)
+    @resolver.resolve(context)
+    assert_equal expected_url, context.object_url
+    refute client.called?
+  end
+
+  test 'resolve handles parsed input with server url containing doi.org' do
+    client = HttpClientMock.new(file_path: fixture_path('downloads/basic_http/sample_utf8.txt'),
+                                status_code: 302,
+                                headers: { 'location' => 'https://resolved.example.com' })
+    
+    # Create a context where parsed_input.server_url includes doi.org
+    input_url = 'https://doi.org/10.123/redirected'
+    context = Repo::RepoResolverContext.new(input_url, http_client: client)
+    @resolver.resolve(context)
+    
+    assert_equal 'https://resolved.example.com', context.object_url
+    assert_equal input_url, client.called_path
+  end
 end

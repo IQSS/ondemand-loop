@@ -1,0 +1,55 @@
+<%
+  project_id = params[:project_id]
+  project = Project.find(project_id)
+  entity_type = params[:entity_type].to_s.downcase.presence || 'project'
+  entity_id = params[:entity_id].presence || project_id
+  events = project ? project.event_list&.all_by_entity_type_and_id(entity_type: entity_type, entity_id: entity_id) : []
+%>
+<div id="events-list">
+  <ul class="list-unstyled m-0">
+    <% if events.empty? %>
+      <%= t('events.view.empty_events_text') %>
+    <% end %>
+    <% events.each do |event| %>
+      <li class="card mb-2 shadow-sm rounded">
+        <header class="card-header px-3">
+          <a class="d-flex align-items-center gap-3 text-decoration-none text-body"
+             data-bs-toggle="collapse"
+             data-controller="utils--icon-toggle"
+             data-utils--icon-toggle-icon-on-value="bi-plus-square"
+             data-utils--icon-toggle-icon-off-value="bi-dash-square"
+             data-action="click->utils--icon-toggle#toggle"
+             href="#event-metadata-<%= event.object_id %>"
+             role="button"
+             aria-expanded="false"
+             aria-controls="event-metadata-<%= event.object_id %>">
+            <i data-utils--icon-toggle-target="icon" class="bi bi-plus-square transition" aria-hidden="true"></i>
+
+            <%= render partial: '/shared/file_row_date', locals: { date: event.creation_date, title: t('events.view.creation_date_title') } %>
+
+            <div class="d-flex align-items-center flex-grow-1 gap-3">
+              <h2 class="mb-0 h6">
+                <%= t(event.message, **event.metadata.transform_keys(&:to_sym)) %>
+              </h2>
+            </div>
+          </a>
+        </header>
+
+        <div class="collapse bg-light" id="event-metadata-<%= event.object_id %>">
+          <div class="pt-3 px-3">
+            <h3 class="mb-0 h6 text-muted"><%= t('events.view.header_details_text') %></h3>
+          </div>
+          <div class="card-body py-2">
+            <ul class="list-unstyled mb-0">
+              <% event.metadata.each do |key, value| %>
+                <li class="fs-8 text-muted">
+                  <span class="fw-semibold"><%= key %>:</span> <%= value %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

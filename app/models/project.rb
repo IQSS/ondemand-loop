@@ -60,6 +60,10 @@ class Project < ApplicationDiskRecord
       end
   end
 
+  def event_list
+    @event_list ||= ProjectEventList.new(project_id: id)
+  end
+
   def update(attributes = {})
     attrs = attributes.with_indifferent_access
     old_dir = download_dir

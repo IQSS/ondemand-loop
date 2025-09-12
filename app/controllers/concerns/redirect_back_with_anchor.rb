@@ -9,9 +9,8 @@ module RedirectBackWithAnchor
       referer = request.referer
       url = referer.presence || fallback_location
 
-      if params[:anchor].present?
-        url = append_anchor(url, params[:anchor])
-      end
+      anchor = params[:anchor].to_s.strip
+      url = append_anchor(url, anchor) if anchor.present?
 
       redirect_to url, allow_other_host: allow_other_host, **args
     end

@@ -20,7 +20,7 @@ module Repo
         return unless context.parsed_input.nil?
 
         input = context.input
-        parsed = RepoUrl.parse("https://#{input}")
+        parsed = ::Repo::RepoUrl.parse("https://#{input}")
         domain = parsed&.domain
 
         log_info('Checking input', {input: input, domain: domain, candidate: parsed})

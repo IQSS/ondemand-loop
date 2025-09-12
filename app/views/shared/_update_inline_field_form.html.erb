@@ -5,6 +5,9 @@
   input_value = local_assigns.fetch(:input_value, '')
   field_name = local_assigns.fetch(:field_name)
   placeholder = local_assigns.fetch(:placeholder, nil)
+  edit_id = "edit-#{field_name}-input"
+  save_id = "save-#{field_name}-btn"
+  cancel_id = "cancel-#{field_name}-btn"
 %>
 <div data-update-inline-field-target="form"
      class="d-flex align-items-center gap-2 d-none position-relative"
@@ -14,11 +17,13 @@
 
   <%= text_field_tag field_name, input_value,
                      class: 'form-control form-control-sm flex-grow-1',
+                     id: edit_id,
                      data: { update_inline_field_target: 'input label' },
                      placeholder: placeholder.presence,
                      'aria-label': placeholder.presence %>
 
   <button class="btn btn-sm btn-outline-primary"
+          id="<%= save_id %>"
           data-action="click->update-inline-field#save"
           data-update-inline-field-target="label"
           title="<%= save_title %>">
@@ -28,6 +33,7 @@
 
   <button class="btn btn-sm btn-outline-danger"
           type="button"
+          id="<%= cancel_id %>"
           data-action="click->update-inline-field#cancel"
           data-update-inline-field-target="label"
           title="<%= cancel_title %>">

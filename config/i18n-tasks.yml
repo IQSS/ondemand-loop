@@ -7,3 +7,4 @@ search:
     - app
 ignore_unused:
   - 'js.*'
+  - 'events.*'

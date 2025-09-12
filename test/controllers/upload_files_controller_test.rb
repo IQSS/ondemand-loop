@@ -123,11 +123,37 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     mock_response.stubs(:status).returns(200)
 
     Command::CommandClient.any_instance.stubs(:request).returns(mock_response)
+    UploadFilesController.any_instance.expects(:log_upload_file_event).with(
+      file,
+      message: 'events.upload_file.cancel_completed',
+      metadata: { filename: 'cancel.txt', previous_status: 'uploading' }
+    )
 
     post cancel_project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
     assert_redirected_to root_path
     follow_redirect!
     assert_match 'Upload cancelled', flash[:notice]
     assert_match 'cancel.txt', flash[:notice]
+  end
+
+  test 'cancel should log event when file is not uploading' do
+    file = UploadFile.new
+    file.stubs(:status).returns(FileStatus::SUCCESS)
+    file.stubs(:filename).returns('done.txt')
+    file.expects(:update).with(status: FileStatus::CANCELLED).returns(true)
+
+    UploadFile.stubs(:find).returns(file)
+
+    UploadFilesController.any_instance.expects(:log_upload_file_event).with(
+      file,
+      message: 'events.upload_file.cancel_completed',
+      metadata: { filename: 'done.txt', previous_status: 'success' }
+    )
+
+    post cancel_project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match 'Upload cancelled', flash[:notice]
+    assert_match 'done.txt', flash[:notice]
   end
 end

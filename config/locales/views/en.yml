@@ -1,5 +1,28 @@
 ---
 en:
+  home:
+    index:
+      page_title: "OnDemand Loop - Homepage"
+      welcome_title: "Welcome to OnDemand Loop!"
+      welcome_message_html: >
+        <p><strong>OnDemand Loop</strong> is a companion application to <strong>Open OnDemand</strong>, designed to simplify the movement of research data between high-performance computing (HPC) clusters and remote repositories such as Dataverse, or Zenodo.</p>
+        <p>The core goal of OnDemand Loop is to <strong>lower the barrier for non-technical users</strong> to interact with research data repositories. Following the Open OnDemand philosophy, it aims to provide a user-friendly interface for tasks that typically require complex command-line operations or custom scripts. Researchers can upload and download datasets to and from remote repositories directly from their HPC environment with minimal friction.</p>
+        <p>In OnDemand Loop you organize transfers using <strong>projects</strong>. A project groups related download requests and upload bundles so you can keep track of all activity in one place. Projects are created from the home page and only one project is active at a time.</p>
+        <p>This project has been funded by <a href="https://adminops.fas.harvard.edu/FAS-HUIT-PRB" target="_blank">FAS-HUIT Project Review Board (PRB) initiative</a>.</p>
+        <p>Start by creating a project with the <strong>Create Project</strong> button.</p>
+      button_welcome_text: "Read the Guide"
+      button_create_project_label: "Create Project"
+      beta_notice_title: "Beta Notice"
+      beta_notice_html: >
+        <p><strong>OnDemand Loop</strong> is currently in <strong>Beta</strong> status. While we strive to provide a stable experience, please be aware of the following:</p>
+        <ul class="mb-0">
+        <li>You may encounter occasional bugs or incomplete features.</li>
+        <li>User interface and workflow changes may occur without backward compatibility guarantees.</li>
+        <li>Minor UI/UX inconsistencies are expected as the product evolves.</li>
+        <li>If you encounter errors or inconsistencies, you can try using the <strong>Help → Reset</strong> option to return your instance to a clean state.</li>
+        <li>We welcome <a href="https://github.com/IQSS/ondemand-loop/issues" target="_blank">feedback and bug reports</a> to help us improve!</li>
+        </ul>
+
   detached_process:
     file_activity_status:
       icon_downloads_title: "Download process status"
@@ -14,6 +37,8 @@ en:
       button_browse_file_title: "Browse file"
       button_cancel_download_title: "Cancel download"
       button_retry_download_title: "Retry download"
+      button_view_events_title: "View File Events"
+      button_view_events_label: "View Events"
       field_creation_date_title: "Creation date"
       field_project_title: "Project: %{name}"
       field_file_title: "Download file: %{filename}"
@@ -61,6 +86,7 @@ en:
         link_guide_text: "Guide"
         link_sitemap_text: "Sitemap"
         link_restart_text: "Restart"
+        menu_reset_warning_text: "Clear your settings"
         link_reset_text: "Reset Application"
         reset_confirmation_title: "Confirm Reset"
         reset_confirmation_subtitle: "This action cannot be undone"
@@ -96,10 +122,11 @@ en:
       download_actions:
         button_open_downloads_folder_title: "Open Project workspace folder"
         header_download_files_text: "Downloads"
-        button_add_files_text: "Select More Files"
-        button_add_files_title: "Select more files from the last repository dataset"
-        button_browse_dataset_text: "Add From URL"
-        button_browse_dataset_title: "Use a repository URL to to browse and select files from"
+        button_add_files_text: "Add from Recent"
+        button_add_files_title: "Add files from recently used repositories"
+        modal_add_files_title: "Add Files from Recently Used Repositories"
+        button_browse_dataset_text: "Add from URL"
+        button_browse_dataset_title: "Enter a repository URL to browse and select files"
         button_edit_download_dir_title: "Update project workspace folder"
         button_edit_download_dir_label: "Update workspace folder"
         button_submit_icon_alt: "OnDemand Loop Application Icon"
@@ -108,6 +135,8 @@ en:
         badge_repository_files_tooltip: "Repository Files"
         button_retry_download_title: "Retry download"
         button_delete_file_title: "Delete File"
+        button_view_events_title: "View File Events"
+        button_view_events_label: "View Events"
         field_completion_date_title: "Completion date"
         field_download_start_date_title: "Download start date"
         field_schedule_date_title: "Schedule date"
@@ -129,6 +158,8 @@ en:
         button_delete_project_title: "Delete Project"
         button_open_project_folder_label: "Open Project workspace folder"
         button_open_project_folder_title: "Open Project workspace folder"
+        button_view_events_title: "View Project Events"
+        button_view_events_label: "View Events"
         field_creation_date_title: "Creation date"
         modal_delete_confirmation_title: "Delete Project"
         modal_delete_confirmation_content: "This will remove the project from the app. Files on disk and in remote repositories will remain untouched."
@@ -141,7 +172,7 @@ en:
         button_cancel_text: "Cancel"
       upload_actions:
         button_add_files_text: "Add Files"
-        button_add_files_title: "Add Files"
+        button_add_files_title: "Add files - available when the destination is configured"
         button_delete_title: "Delete Bundle"
         field_creation_date_title: "Creation date"
         button_edit_bundle_name_title: "Edit Upload Bundle name"
@@ -152,6 +183,8 @@ en:
         modal_delete_confirmation_content: "This will remove the upload bundle from the app. Files on disk and any already uploaded files will remain unchanged. To upload again, you’ll need to create a new bundle."
       upload_files:
         button_delete_file_title: "Delete File"
+        button_view_events_title: "View File Events"
+        button_view_events_label: "View Events"
         field_completion_date_title: "Completion date"
         field_download_start_date_title: "Download start date"
         field_schedule_date_title: "Schedule date"
@@ -159,8 +192,11 @@ en:
         modal_delete_confirmation_title: "Delete File from Bundle"
         modal_delete_confirmation_content: "This will remove the file from the upload bundle. The file will remain on disk and in the remote repository if already uploaded."
       breadcrumbs_text: "Projects"
-      page_title: "OnDemand Loop - Project detail"
+      page_title: "OnDemand Loop - Project Details"
     index:
+      breadcrumbs_text: "Projects"
+      page_title: "OnDemand Loop - Projects"
+      empty_projects_text: "No projects available. Create a project to start working."
       actions:
         actions_bar_title: "Projects"
         actions_bar_title_a11y_label: "Project List"
@@ -187,26 +223,7 @@ en:
         button_download_folder_title: "Open Project workspace folder"
       project_summary_bundle:
         creation_date_title: "Creation date"
-      breadcrumbs_text: "Projects"
-      page_title: "OnDemand Loop - Projects"
-      welcome_title: "Welcome to OnDemand Loop!"
-      welcome_message_html: >
-        <p><strong>OnDemand Loop</strong> is a companion application to <strong>Open OnDemand</strong>, designed to simplify the movement of research data between high-performance computing (HPC) clusters and remote repositories such as Dataverse, or Zenodo.</p>
-        <p>The core goal of OnDemand Loop is to <strong>lower the barrier for non-technical users</strong> to interact with research data repositories. Following the Open OnDemand philosophy, it aims to provide a user-friendly interface for tasks that typically require complex command-line operations or custom scripts. Researchers can upload and download datasets to and from remote repositories directly from their HPC environment with minimal friction.</p>
-        <p>In OnDemand Loop you organize transfers using <strong>projects</strong>. A project groups related download requests and upload bundles so you can keep track of all activity in one place. Projects are created from the home page and only one project is active at a time.</p>
-        <p>This project has been funded by <a href="https://adminops.fas.harvard.edu/FAS-HUIT-PRB" target="_blank">FAS-HUIT Project Review Board (PRB) initiative</a>.</p>
-        <p>Start by creating a project with the <strong>Create Project</strong> button above.</p>
-      button_welcome_text: "Read the Guide"
-      beta_notice_title: "Beta Notice"
-      beta_notice_html: >
-        <p><strong>OnDemand Loop</strong> is currently in <strong>Beta</strong> status. While we strive to provide a stable experience, please be aware of the following:</p>
-        <ul class="mb-0">
-        <li>You may encounter occasional bugs or incomplete features.</li>
-        <li>User interface and workflow changes may occur without backward compatibility guarantees.</li>
-        <li>Minor UI/UX inconsistencies are expected as the product evolves.</li>
-        <li>If you encounter errors or inconsistencies, you can try using the <strong>Help → Reset</strong> option to return your instance to a clean state.</li>
-        <li>We welcome <a href="https://github.com/IQSS/ondemand-loop/issues" target="_blank">feedback and bug reports</a> to help us improve!</li>
-        </ul>
+
   shared:
     breadcrumbs:
       home: "Home"
@@ -264,6 +281,8 @@ en:
       button_browse_file_a11y_text: "Browse file %{filename}"
       button_browse_file_title: "Browse file"
       button_cancel_upload_title: "Cancel upload"
+      button_view_events_title: "View File Events"
+      button_view_events_label: "View Events"
       field_creation_date_title: "Creation date"
       field_project_title: "Project: %{name}"
       field_bundle_title: "Upload Bundle: %{name}"
@@ -291,11 +310,20 @@ en:
     repository_activity:
       button_open_modal_title: "Open repository activity"
       modal_title: "Recent Repository Activity"
-      tab_global_label: "Across All Projects"
+      tab_global_label: "All Projects"
+      tab_project_label: "This Project Downloads"
       field_date_title: "Last used date"
       section_item_actions_label: "Item actions"
       button_explore_item_title: "Browse repository"
       button_open_repository_title: "Open repository on website"
+    upload_bundle_create:
+      modal_title: "Create Upload Bundle"
+      from_url_title: "Enter Dataset URL"
+      from_url_help_text: "Enter the URL of the repository destination where files will be uploaded."
+      from_recent_datasets_title: "Select a Recently Used Dataset"
+      tab_project_label: "This Project Downloads"
+      tab_global_label: "All Projects"
+      empty_recent_text: "No recently used datasets found."
     reset:
       success_page_title: "Reset Completed"
       success_content_title: "Reset Completed"

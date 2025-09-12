@@ -5,6 +5,11 @@ en:
       title: "Zenodo"
       aria_label: "Visit the Zenodo project homepage"
 
+      upload_bundle_connector_processor:
+        message_create_error: "Error while creating Upload Bundle for Zenodo url: %{url}"
+        message_edit_error: "Error while editing Upload Bundle for Zenodo url: %{url}"
+        message_update_error: "Error while updating Upload Bundle for Zenodo url: %{url}"
+
       handlers:
         connector_edit:
           message_success: "Access token updated: %{name}"
@@ -19,8 +24,12 @@ en:
           message_success: "Dataset selected: %{title}"
         repository_settings_update:
           message_success: "Repository updated: %{url} type: %{type}"
-        upload_bundle_create:
+        upload_bundle_create_from_server:
+          message_success: "Zenodo upload bundle created: %{name}"
+        upload_bundle_create_from_record:
           message_record_not_found: "Zenodo record not found: %{url}. Only published records are supported"
+          message_success: "Zenodo upload bundle created: %{name}"
+        upload_bundle_create_from_deposition:
           message_deposition_not_found: "Zenodo deposition not found for record: %{url}"
           message_success: "Zenodo upload bundle created: %{name}"
           message_auth_error: "Authorization error. A valid Zenodo access token is required to fetch/create deposition from this record"
@@ -106,7 +115,8 @@ en:
       show:
         page_title: "OnDemand Loop - Zenodo Records"
         caption_files_text: "Zenodo dataset files (%{count})"
-    landing_page:
+    landing:
+      message_search_error: "Invalid Zenodo response while searching"
       index:
         page_title: "OnDemand Loop - Zenodo"
         button_submit_text: "Search"

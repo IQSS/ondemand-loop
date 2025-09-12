@@ -10,21 +10,25 @@
   <div class="card-header d-flex align-items-center">
     <%= installations_page.to_s %>
     <nav aria-label="<%= t('dataverse.landing.installation_items.paginator_bar_a11y_label') %>" class="ms-auto">
-      <%= link_to_landing_prev_page(installations_page, {class: "text-decoration-none"}) %>
+      <%= link_to_landing_prev_page(installations_page, {class: "text-decoration-none", data: {test: 'header-pagination-prev'}}) %>
       <%= t('dataverse.landing.installation_items.paginator_page_text', page: installations_page.page) %>
-      <%= link_to_landing_next_page(installations_page, {class: "text-decoration-none"}) %>
+      <%= link_to_landing_next_page(installations_page, {class: "text-decoration-none", data: {test: 'header-pagination-next'}}) %>
     </nav>
   </div>
   <% if installations_page.page_items.any? %>
     <ul class="list-group">
-      <%= render partial: 'connectors/dataverse/landing/installation', collection: installations_page.page_items, as: :installation %>
+      <% installations_page.page_items.each do |installation| %>
+        <li class="list-group-item flex-column align-items-start">
+          <%= link_to_dataverse_collection "#{installation[:name]} - #{installation[:hostname]}", Repo::RepoUrl.with_scheme(installation[:hostname]), ":root", { class: "text-decoration-none"} %>
+        </li>
+      <% end %>
     </ul>
     <div class="card-header d-flex justify-content-end">
       <nav aria-label="<%= t('dataverse.landing.installation_items.paginator_bar_a11y_label') %>" class="ms-auto">
         <div class="d-flex align-items-center gap-2">
-          <%= link_to_landing_prev_page(installations_page, {class: "text-decoration-none"}) %>
+          <%= link_to_landing_prev_page(installations_page, {class: "text-decoration-none", data: {test: 'footer-pagination-prev'}}) %>
           <%= t('dataverse.landing.installation_items.paginator_page_text', page: installations_page.page) %>
-          <%= link_to_landing_next_page(installations_page, {class: "text-decoration-none"}) %>
+          <%= link_to_landing_next_page(installations_page, {class: "text-decoration-none", data: {test: 'footer-pagination-next'}}) %>
         </div>
       </nav>
     </div>

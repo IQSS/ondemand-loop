@@ -30,10 +30,14 @@ module ConnectorResolver
   end
 
   def validate_repo_url
-      repo_resolver = ::Configuration.repo_resolver_service
+    repo_resolver = ::Configuration.repo_resolver_service
     resolution = repo_resolver.resolve(@repo_url.to_s)
+    if resolution.unknown?
+      return redirect_to root_path, alert: I18n.t('connector_resolver.message_invalid_repo_url', repo_url: @repo_url.to_s)
+    end
+
     if resolution.type != @connector_type
-      redirect_to root_path, alert: I18n.t('connector_resolver.message_invalid_repo_url', repo_url: @repo_url.to_s)
+      redirect_to root_path, alert: I18n.t('connector_resolver.message_repo_mismatch', repo_url: @repo_url.to_s, repo_type: resolution.type.to_s, explore_type: @connector_type.to_s)
     end
   end
 end

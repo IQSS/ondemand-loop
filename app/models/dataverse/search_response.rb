@@ -19,11 +19,9 @@ module Dataverse
         @total_count = data[:total_count]
         @start = data[:start]
         @items = (data[:items] || []).map { |item| item[:type] == 'dataset' ? DatasetItem.new(item) : DataverseItem.new(item) }
-        #@facets = data[:facets]
         @count_in_response = data[:count_in_response]
         @page = page
         @per_page = per_page
-        #@total_count_per_object_type = data[:total_count_per_object_type]
       end
 
       def total_pages
@@ -95,7 +93,6 @@ module Dataverse
           @url = item[:url]
           @identifier = item[:identifier]
           @published_at = item[:published_at]
-          #@publication_statuses = item[:publicationStatuses]
           @affiliation = item[:affiliation]
           @parent_dataverse_name = item[:parentDataverseName]
           @parent_dataverse_identifier = item[:parentDataverseIdentifier]

@@ -4,6 +4,7 @@ module Dataverse
   # Dataverse upload connector processor. Responsible for uploading files of type Dataverse
   class UploadConnectorProcessor
     include LoggingCommon
+    include EventLogger
 
     attr_reader :file, :connector_metadata, :cancelled, :status_context
     def initialize(file)
@@ -92,6 +93,12 @@ module Dataverse
         true
       else
         log_error('Checksum verification failed', {file_path: file_path, expected_md5: expected_md5, current_md5: file_md5})
+        log_upload_file_event(file, message: 'events.upload_file.error_checksum_verification', metadata: {
+          error: I18n.t('events.upload_file.error_checksum_verification_message'),
+          file_path: file_path,
+          expected_md5: expected_md5,
+          current_md5: file_md5
+        })
         false
       end
     end

@@ -263,6 +263,37 @@ class ProjectTest < ActiveSupport::TestCase
     end
   end
 
+  test "event_list default is empty" do
+    in_temp_directory do
+      project = create_valid_project
+      project.save
+      saved_project = Project.find(project.id)
+      assert_empty saved_project.event_list.all
+    end
+  end
+
+  test "event_list stores events with metadata" do
+    in_temp_directory do |dir|
+      project = create_valid_project
+      project.save
+      saved_project = Project.find(project.id)
+
+      event = Event.new(project_id: project.id,
+                        entity_type: 'project',
+                        entity_id: project.id,
+                        message: 'created',
+                        metadata: { 'user' => 'alice' })
+      saved_project.event_list.add(event)
+
+      reloaded_project = Project.find(project.id)
+      events = reloaded_project.event_list.all
+      assert_equal 1, events.count
+      assert_equal({ 'user' => 'alice' }, events.first.metadata)
+      expected_file = File.join(dir, 'projects', project.id, 'events.yml')
+      assert File.exist?(expected_file)
+    end
+  end
+
   private
 
   def create_valid_project(id: 'ab12345', name: 'test_project', download_dir: '/tmp/test_project')

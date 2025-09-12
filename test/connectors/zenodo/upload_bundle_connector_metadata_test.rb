@@ -108,4 +108,157 @@ class Zenodo::UploadBundleConnectorMetadataTest < ActiveSupport::TestCase
     meta = build_meta({ })
     assert_nil meta.undefined_key
   end
+
+  test 'method_missing returns nil for undefined methods with arguments' do
+    meta = build_meta({ })
+    assert_nil meta.undefined_method('arg1', 'arg2')
+  end
+
+  test 'method_missing returns nil for undefined methods with block' do
+    meta = build_meta({ })
+    result = meta.undefined_method { 'block content' }
+    assert_nil result
+  end
+
+  test 'configured? returns true when api_key, draft, and bucket_url are all present' do
+    meta = build_meta({ auth_key: 'key123', draft: true, bucket_url: 'https://zenodo.org/api/files/bucket123' })
+    assert meta.configured?
+  end
+
+  test 'configured? returns false when api_key is missing' do
+    ::Configuration.repo_db.stubs(:get).returns(nil)
+    meta = build_meta({ draft: true, bucket_url: 'https://zenodo.org/api/files/bucket123', zenodo_url: 'https://zenodo.org' })
+    refute meta.configured?
+  end
+
+  test 'configured? returns false when draft is not present' do
+    meta = build_meta({ auth_key: 'key123', bucket_url: 'https://zenodo.org/api/files/bucket123' })
+    refute meta.configured?
+  end
+
+  test 'configured? returns false when draft is false' do
+    meta = build_meta({ auth_key: 'key123', draft: false, bucket_url: 'https://zenodo.org/api/files/bucket123' })
+    refute meta.configured?
+  end
+
+  test 'configured? returns false when bucket_url is missing' do
+    meta = build_meta({ auth_key: 'key123', draft: true })
+    refute meta.configured?
+  end
+
+  test 'configured? returns false when bucket_url is blank' do
+    meta = build_meta({ auth_key: 'key123', draft: true, bucket_url: '' })
+    refute meta.configured?
+  end
+
+  test 'external_url returns deposition_url' do
+    meta = build_meta({ zenodo_url: 'https://zenodo.org', deposition_id: 12345 })
+    meta.stubs(:deposition_url).returns('https://zenodo.org/uploads/12345')
+    
+    assert_equal 'https://zenodo.org/uploads/12345', meta.external_url
+  end
+
+  test 'fetch_deposition? returns false when api_key is missing' do
+    ::Configuration.repo_db.stubs(:get).returns(nil)
+    meta = build_meta({ deposition_id: 1, zenodo_url: 'https://zenodo.org' })
+    refute meta.fetch_deposition?
+  end
+
+  test 'fetch_deposition? returns false when draft is true' do
+    meta = build_meta({ auth_key: 'abc', draft: true, deposition_id: 1 })
+    refute meta.fetch_deposition?
+  end
+
+  test 'fetch_deposition? returns false when deposition_id is missing' do
+    meta = build_meta({ auth_key: 'abc' })
+    refute meta.fetch_deposition?
+  end
+
+  test 'create_draft? returns false when api_key is missing' do
+    ::Configuration.repo_db.stubs(:get).returns(nil)
+    meta = build_meta({ record_id: 42, zenodo_url: 'https://zenodo.org' })
+    refute meta.create_draft?
+  end
+
+  test 'create_draft? returns false when draft is true' do
+    meta = build_meta({ auth_key: 'abc', draft: true, record_id: 42 })
+    refute meta.create_draft?
+  end
+
+  test 'create_draft? returns false when deposition_id is present' do
+    meta = build_meta({ auth_key: 'abc', deposition_id: 1, record_id: 42 })
+    refute meta.create_draft?
+  end
+
+  test 'create_draft? returns false when record_id is missing' do
+    meta = build_meta({ auth_key: 'abc' })
+    refute meta.create_draft?
+  end
+
+  test 'create_deposition? returns false when api_key is missing' do
+    ::Configuration.repo_db.stubs(:get).returns(nil)
+    meta = build_meta({ zenodo_url: 'https://zenodo.org' })
+    refute meta.create_deposition?
+  end
+
+  test 'create_deposition? returns false when draft is true' do
+    meta = build_meta({ auth_key: 'abc', draft: true })
+    refute meta.create_deposition?
+  end
+
+  test 'create_deposition? returns false when deposition_id is present' do
+    meta = build_meta({ auth_key: 'abc', deposition_id: 1 })
+    refute meta.create_deposition?
+  end
+
+  test 'create_deposition? returns false when record_id is present' do
+    meta = build_meta({ auth_key: 'abc', record_id: 42 })
+    refute meta.create_deposition?
+  end
+
+  test 'draft? returns false when draft is nil' do
+    meta = build_meta({})
+    refute meta.draft?
+  end
+
+  test 'draft? returns false when draft is false' do
+    meta = build_meta({ draft: false })
+    refute meta.draft?
+  end
+
+  test 'draft? returns false when draft is blank string' do
+    meta = build_meta({ draft: '' })
+    refute meta.draft?
+  end
+
+  test 'api_key_required? returns false when api_key is present' do
+    meta = build_meta({ auth_key: 'key123' })
+    refute meta.api_key_required?
+  end
+
+  test 'api_key_required? returns false when draft is present' do
+    meta = build_meta({ draft: true })
+    refute meta.api_key_required?
+  end
+
+  test 'api_key_required? returns true when both api_key and draft are missing' do
+    ::Configuration.repo_db.stubs(:get).returns(nil)
+    meta = build_meta({ zenodo_url: 'https://zenodo.org' })
+    assert meta.api_key_required?
+  end
+
+  test 'display_title? returns false if title is blank string' do
+    meta = build_meta({ title: '' })
+    refute meta.display_title?
+  end
+
+  test 'title_url returns zenodo_url when both deposition_id and record_id are missing' do
+    meta = build_meta({ zenodo_url: 'https://sandbox.zenodo.org' })
+    assert_equal 'https://sandbox.zenodo.org', meta.title_url
+  end
+
+  test 'title_url prefers deposition_id over record_id when both are present' do
+    meta = build_meta({ zenodo_url: 'https://zenodo.org', deposition_id: 123, record_id: 456 })
+    assert_equal 'https://zenodo.org/uploads/123', meta.title_url
+  end
 end

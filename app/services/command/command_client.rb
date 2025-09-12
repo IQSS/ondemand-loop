@@ -18,7 +18,7 @@ module Command
         return Response.error(status: 521, message: 'Socket file not found. Server not running')
       end
 
-      log_info('Sending command', { socket: @socket_path, command: request.command })
+      log_info('Sending command', { command: request.command, socket: @socket_path })
 
       Timeout.timeout(timeout) do
         begin
@@ -32,7 +32,7 @@ module Command
           end
 
           response = Command::Response.from_json(raw_response.strip)
-          log_info('Command response', { status: response.status })
+          log_info('Command response', { status: response.status, body: response.body })
           response
         rescue => e
           log_error('Error processing request', { request: request.inspect }, e)

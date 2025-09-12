@@ -19,7 +19,7 @@
     <!-- PROJECT METADATA -->
     <div data-update-inline-field-target="display" class="d-flex flex-column">
       <%= link_to project_path(id: project.id), class: "position-relative project-name-link text-reset text-decoration-none rounded-end  ps-1 pe-3" do %>
-        <h2 class="mb-0 h5" data-update-inline-field-target="name"><%= project.name %></h2>
+        <h2 class="mb-0 h5" data-update-inline-field-target="name" data-test="project-name"><%= project.name %></h2>
         <small class="text-muted"><%= project.download_dir %></small>
       <% end %>
     </div>
@@ -48,7 +48,7 @@
       url: project_path(id: project.id),
       method: 'DELETE',
       title: t('.button_delete_project_title'),
-      class: 'btn-sm btn-outline-dark icon-hover-danger',
+      class: 'btn-sm btn-outline-dark icon-hover-danger project-delete-btn',
       icon: "bi bi-trash-fill",
       modal_id: 'modal-delete-confirmation',
       modal_title: t('.modal_delete_confirmation_title'),

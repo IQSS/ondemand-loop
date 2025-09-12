@@ -10,11 +10,11 @@ module Dataverse
       @query = query
     end
 
-  def build
-    raise 'persistent_id is required' if persistent_id.nil? || persistent_id.strip.empty?
+    def build
+      raise 'persistent_id is required' if persistent_id.nil? || persistent_id.strip.empty?
 
-    offset = (page - 1) * per_page
-    url = FluentUrl.new('')
+      offset = (page - 1) * per_page
+      url = FluentUrl.new('')
               .add_path('api')
               .add_path('datasets')
               .add_path(':persistentId')
@@ -24,8 +24,8 @@ module Dataverse
               .add_param('persistentId', persistent_id)
               .add_param('offset', offset)
               .add_param('limit', per_page)
-    url.add_param('searchText', @query) if @query
-    url.to_s
+      url.add_param('searchText', @query) if @query
+      url.to_s
     end
   end
 end

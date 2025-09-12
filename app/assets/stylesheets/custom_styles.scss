@@ -19,6 +19,10 @@ div.creation-date span, span.creation-date {
   cursor: default;
 }
 
+.status-badge-button .badge.file-status {
+  cursor: pointer;
+}
+
 .btn-icon-sm {
   padding: 0.25rem;
   line-height: 1;
@@ -89,6 +93,11 @@ div.creation-date span, span.creation-date {
 
 .bg-light-darker {
   background-color: #f1f3f5 !important;
+}
+
+.bg-light-grey {
+  color: #343a40;
+  background-color: #e9ecef;
 }
 
 .icon-hover-primary:hover {

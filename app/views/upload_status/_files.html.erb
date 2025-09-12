@@ -31,9 +31,24 @@
 
           <div class="upload-actions col-md-2 text-end d-flex justify-content-end align-items-center" role="cell">
             <% if data.file.status.uploading? %>
-              <%= render partial: '/shared/progress_bar', locals: { progress: data.file.connector_status.upload_progress, file: data.file } %>
+              <%= render partial: '/shared/progress_bar',
+                         locals: { progress: data.file.connector_status.upload_progress, file: data.file } %>
             <% else %>
-              <%= status_badge(data.file.status, filename: data.file.filename) %>
+              <%= button_tag type: 'button',
+                             class: 'btn p-0 border-0 bg-transparent status-badge-button',
+                             title: t('.button_view_events_title'),
+                             data: {
+                               controller: 'modal',
+                               action: 'click->modal#load',
+                               'modal-url-value': widgets_path('events', project_id: data.file.project_id,
+                                                                      entity_type: 'upload_file',
+                                                                      entity_id: data.file.id),
+                               'modal-title-value': t('.button_view_events_title'),
+                               'modal-id-value': 'global-modal'
+                             } do %>
+                <%= status_badge(data.file.status, filename: data.file.filename) %>
+                <span class="visually-hidden"><%= t('.button_view_events_label') %></span>
+              <% end %>
             <% end %>
             &nbsp;
 

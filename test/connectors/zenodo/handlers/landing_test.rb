@@ -16,7 +16,7 @@ class Zenodo::Handlers::LandingTest < ActiveSupport::TestCase
     service = mock('search')
     results = OpenStruct.new(items: [])
     service.expects(:search).with('q', page: 2).returns(results)
-    Zenodo::SearchService.expects(:new).with('https://zenodo.org').returns(service)
+    Zenodo::SearchService.expects(:new).with(zenodo_url: 'https://zenodo.org').returns(service)
     res = @explorer.show(query: 'q', page: 2, repo_url: @repo_url)
     assert res.success?
     assert_equal results, res.locals[:results]
@@ -26,5 +26,16 @@ class Zenodo::Handlers::LandingTest < ActiveSupport::TestCase
     res = @explorer.show(query: nil, repo_url: @repo_url)
     assert res.success?
     assert_nil res.locals[:results]
+  end
+
+  test 'show returns error when search service returns nil' do
+    service = mock('search')
+    service.expects(:search).with('query', page: 1).returns(nil)
+    Zenodo::SearchService.expects(:new).with(zenodo_url: 'https://zenodo.org').returns(service)
+    
+    res = @explorer.show(query: 'query', repo_url: @repo_url)
+    
+    assert_not res.success?
+    assert_equal({ alert: I18n.t('zenodo.landing.message_search_error') }, res.message)
   end
 end

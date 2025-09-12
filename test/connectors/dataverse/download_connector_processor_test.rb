@@ -70,6 +70,19 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
   test 'should return error response if md5 does not match' do
     File.write(@download_path, 'bad content') # Wrong checksum
 
+    bad_md5 = Digest::MD5.hexdigest('bad content')
+
+    @processor.expects(:log_download_file_event).with(
+      @file,
+      message: 'events.download_file.error_checksum_verification',
+      metadata: {
+        error: I18n.t('events.download_file.error_checksum_verification_message'),
+        file_path: @download_path,
+        expected_md5: @file.metadata[:md5],
+        current_md5: bad_md5
+      }
+    )
+
     mock_downloader = mock('downloader')
     Download::BasicHttpRubyDownloader.stubs(:new).returns(mock_downloader)
     mock_downloader.stubs(:partial_downloads).returns(false)
@@ -141,6 +154,13 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
     Download::BasicHttpRubyDownloader.stubs(:new).returns(mock_downloader)
     mock_downloader.expects(:download).raises(StandardError.new('boom'))
 
+    expected_url = 'http://example.com/api/access/datafile/789?format=original'
+    processor.expects(:log_download_file_event).with(
+      file,
+      message: 'events.download_file.error',
+      metadata: {error: 'boom', url: expected_url, partial_downloads: true}
+    )
+
     result = processor.download
     assert_equal FileStatus::ERROR, result.status
     assert File.exist?(temp_location)
@@ -173,6 +193,13 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
     mock_downloader.stubs(:partial_downloads).returns(false)
     Download::BasicHttpRubyDownloader.stubs(:new).returns(mock_downloader)
     mock_downloader.expects(:download).raises(StandardError.new('boom'))
+
+    expected_url = 'http://example.com/api/access/datafile/790?format=original'
+    processor.expects(:log_download_file_event).with(
+      file,
+      message: 'events.download_file.error',
+      metadata: {error: 'boom', url: expected_url, partial_downloads: false}
+    )
 
     result = processor.download
     assert_equal FileStatus::ERROR, result.status

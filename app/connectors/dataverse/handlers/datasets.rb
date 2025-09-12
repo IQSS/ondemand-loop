@@ -72,6 +72,7 @@ module Dataverse::Handlers
         note: dataset.version
       )
 
+      log_info('Datasets.show completed', { dataverse: dataverse_url, persistent_id: @persistent_id, version: version })
       ConnectorResult.new(
         template: '/connectors/dataverse/datasets/show',
         locals: {
@@ -105,6 +106,7 @@ module Dataverse::Handlers
         version = dataset.version
         files_page = service.search_dataset_files_by_persistent_id(@persistent_id, version: version, page: page, query: search_query)
         if files_page.nil?
+          log_error('Unable to find Dataset', { dataverse: dataverse_url, persistent_id: @persistent_id, version: version, query: search_query })
           return ConnectorResult.new(message: { alert: I18n.t('connectors.dataverse.datasets.show.dataset_files_not_found', dataverse_url: dataverse_url, persistent_id: @persistent_id, version: version, page: page) }, success: false)
         end
       rescue Dataverse::DatasetService::UnauthorizedException => e
@@ -130,13 +132,17 @@ module Dataverse::Handlers
       download_files.each do |file|
         unless file.valid?
           errors = file.errors.full_messages.join(', ')
+          log_error('Unable to create DownloadFiles - Validation errors', {project_id: project.id.to_s, files: download_files.size, file: file.filename, errors: errors})
           return ConnectorResult.new(message: { alert: I18n.t('connectors.dataverse.datasets.download.invalid_file_in_selection', filename: file.filename, errors: errors) }, success: false)
         end
       end
       save_results = download_files.map(&:save)
       if save_results.include?(false)
+        log_error('Unable to create DownloadFiles - Save failed', {project_id: project.id.to_s, files: download_files.size})
         return ConnectorResult.new(message: { alert: I18n.t('connectors.dataverse.datasets.download.error_generating_the_download_file') }, success: false)
       end
+
+      log_info('Dataverse files added', {project_id: project.id.to_s, files: download_files.size})
       ConnectorResult.new(message: { notice: I18n.t('connectors.dataverse.datasets.download.files_added_to_project', project_name: project.name) }, success: true)
     end
   end

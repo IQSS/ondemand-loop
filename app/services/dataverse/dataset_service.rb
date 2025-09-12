@@ -38,12 +38,10 @@ module Dataverse
               .add_param('returnOwners', true)
               .add_param('excludeFiles', true)
               .to_s
-      log_info('dataset', {url: url, version: version})
       response = @http_client.get(url, headers: headers)
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?
       raise "Error getting dataset: #{response.status} - #{response.body}" unless response.success?
-      log_info('dataset response', {response: response.body})
       DatasetVersionResponse.new(response.body)
     end
 
@@ -59,12 +57,10 @@ module Dataverse
         per_page: per_page,
         query: query,
       ).build
-      log_info('files', {url: url, version: version})
       response = @http_client.get(url, headers: headers)
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?
       raise "Error getting dataset files: #{response.status} - #{response.body}" unless response.success?
-      log_info('files response', {response: response.body})
       DatasetFilesResponse.new(response.body, page: page, per_page: per_page, query: query)
     end
 

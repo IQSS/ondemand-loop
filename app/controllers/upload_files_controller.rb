@@ -3,6 +3,7 @@ require 'find'
 class UploadFilesController < ApplicationController
   include LoggingCommon
   include DateTimeCommon
+  include EventLogger
 
   def index
     project_id = params[:project_id]
@@ -84,6 +85,7 @@ class UploadFilesController < ApplicationController
       return redirect_back fallback_location: root_path, alert: t(".file_not_found", project_id: project_id, upload_bundle_id: upload_bundle_id, file_id: file_id)
     end
 
+    previous_status = file.status.to_s
     if file.status.uploading?
       command_client = Command::CommandClient.new(socket_path: ::Configuration.command_server_socket_file)
       request = Command::Request.new(command: 'upload.cancel', body: { project_id: project_id, upload_bundle_id: upload_bundle_id, file_id: file_id})
@@ -92,6 +94,7 @@ class UploadFilesController < ApplicationController
     end
 
     if file.update(status: FileStatus::CANCELLED)
+      log_upload_file_event(file, message: 'events.upload_file.cancel_completed', metadata: { filename: file.filename, previous_status: previous_status })
       redirect_back fallback_location: root_path, notice: t('.file_cancellation_success', filename: file.filename)
     else
       redirect_back fallback_location: root_path, notice: t('.file_cancellation_update_error', filename: file.filename)
