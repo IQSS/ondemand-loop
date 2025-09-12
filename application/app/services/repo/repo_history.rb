@@ -80,7 +80,7 @@ module Repo
 
     private
 
-    public def to_yaml
+    def to_yaml
       @data.map { |e| e.to_h.stringify_keys }.to_yaml
     end
 

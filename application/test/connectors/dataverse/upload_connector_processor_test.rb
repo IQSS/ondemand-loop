@@ -32,10 +32,10 @@ class Dataverse::UploadConnectorProcessorTest < ActiveSupport::TestCase
       @file,
       message: 'events.upload_file.error_checksum_verification',
       metadata: {
-        'error' => 'Checksum verification failed after the file was uploaded',
-        'file_path' => '/tmp/file.txt',
-        'expected_md5' => '5f02321dba2a37355a9f1f810565c1c8',
-        'current_md5' => 'deadbeef'
+        error: I18n.t('events.upload_file.error_checksum_verification_message'),
+        file_path: '/tmp/file.txt',
+        expected_md5: '5f02321dba2a37355a9f1f810565c1c8',
+        current_md5: 'deadbeef'
       }
     )
 

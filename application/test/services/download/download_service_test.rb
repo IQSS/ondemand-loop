@@ -14,11 +14,14 @@ class Download::DownloadServiceTest < ActiveSupport::TestCase
       # THIS CONNECTOR WILL BLOCK ON CALLING download
       connector = ConnectorDownloadProcessorMock.new
       ConnectorClassDispatcher.stubs(:download_processor).returns(connector)
+      connector_metadata = mock('connector_metadata')
+      connector_metadata.stubs(:external_url).returns('http://example.com/file')
 
       file = mock("download_file")
       file.stubs(:project_id).returns('p1')
       file.stubs(:id).returns('f1')
       file.stubs(:filename).returns('file.txt')
+      file.stubs(:connector_metadata).returns(connector_metadata)
       file.stubs(:save).returns(nil)
       file.stubs(:update).returns(nil)
       file.stubs(:is_a?).with(DownloadFile).returns(true)
@@ -57,17 +60,20 @@ class Download::DownloadServiceTest < ActiveSupport::TestCase
 
       now_time = file_now
       file = mock("download_file")
+      connector_metadata = mock('connector_metadata')
+      connector_metadata.stubs(:external_url).returns('http://example.com/file')
       file.stubs(:project_id).returns('p1')
       file.stubs(:id).returns('f1')
       file.stubs(:filename).returns('file.txt')
+      file.stubs(:connector_metadata).returns(connector_metadata)
       file.stubs(:status).returns('', FileStatus::DOWNLOADING)
       file.expects(:update).with(start_date: now_time, end_date: nil, status: FileStatus::DOWNLOADING).once
       file.expects(:update).with(end_date: now_time, status: FileStatus::SUCCESS).once
       files_provider = DownloadFilesProviderMock.new([file])
       target = Download::DownloadService.new(files_provider)
       target.stubs(:now).returns(now_time)
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {}).once
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished', metadata: {}).once
+      target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {repo_url: 'http://example.com/file'}).once
+      target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished').once
 
       target.start
       assert true
@@ -83,9 +89,12 @@ class Download::DownloadServiceTest < ActiveSupport::TestCase
 
       now_time = file_now
       file = mock('download_file')
+      connector_metadata = mock('connector_metadata')
+      connector_metadata.stubs(:external_url).returns('http://example.com/error-file')
       file.stubs(:project_id).returns('p1')
       file.stubs(:id).returns('f1')
       file.stubs(:filename).returns('file.txt')
+      file.stubs(:connector_metadata).returns(connector_metadata)
       file.stubs(:status).returns('')
       file.expects(:status).once
       file.expects(:update).with(start_date: now_time, end_date: nil, status: FileStatus::DOWNLOADING).once
@@ -93,9 +102,9 @@ class Download::DownloadServiceTest < ActiveSupport::TestCase
       files_provider = DownloadFilesProviderMock.new([file])
       target = Download::DownloadService.new(files_provider)
       target.stubs(:now).returns(now_time)
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {}).once
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.error', metadata: {'error' => 'An error occurred', 'previous_status' => ''}).once
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished', metadata: {}).once
+      target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {repo_url: 'http://example.com/error-file'}).once
+      target.expects(:log_download_file_event).with(file, message: 'events.download_file.error', metadata: {error: 'An error occurred', previous_status: ''}).once
+      target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished').once
       target.start
       assert true
     end
@@ -110,17 +119,20 @@ class Download::DownloadServiceTest < ActiveSupport::TestCase
 
       now_time = file_now
       file = mock('download_file')
+      connector_metadata = mock('connector_metadata')
+      connector_metadata.stubs(:external_url).returns('http://example.com/cancelled-file')
       file.stubs(:project_id).returns('p1')
       file.stubs(:id).returns('f1')
       file.stubs(:filename).returns('file.txt')
+      file.stubs(:connector_metadata).returns(connector_metadata)
       file.stubs(:status).returns('', FileStatus::DOWNLOADING)
       file.expects(:update).with(start_date: now_time, end_date: nil, status: FileStatus::DOWNLOADING).once
       file.expects(:update).with(end_date: now_time, status: FileStatus::CANCELLED).once
       files_provider = DownloadFilesProviderMock.new([file])
       target = Download::DownloadService.new(files_provider)
       target.stubs(:now).returns(now_time)
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {}).once
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished', metadata: {}).once
+      target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {repo_url: 'http://example.com/cancelled-file'}).once
+      target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished').once
 
       target.start
       assert true
@@ -136,17 +148,20 @@ class Download::DownloadServiceTest < ActiveSupport::TestCase
 
       now_time = file_now
       file = mock('download_file')
+      connector_metadata = mock('connector_metadata')
+      connector_metadata.stubs(:external_url).returns('http://example.com/error-status-file')
       file.stubs(:project_id).returns('p1')
       file.stubs(:id).returns('f1')
       file.stubs(:filename).returns('file.txt')
+      file.stubs(:connector_metadata).returns(connector_metadata)
       file.stubs(:status).returns(FileStatus::DOWNLOADING)
       file.expects(:update).with(start_date: now_time, end_date: nil, status: FileStatus::DOWNLOADING).once
       file.expects(:update).with(end_date: now_time, status: FileStatus::ERROR).once
       files_provider = DownloadFilesProviderMock.new([file])
       target = Download::DownloadService.new(files_provider)
       target.stubs(:now).returns(now_time)
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {}).once
-      target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished', metadata: {}).once
+      target.expects(:log_download_file_event).with(file, message: 'events.download_file.started', metadata: {repo_url: 'http://example.com/error-status-file'}).once
+      target.expects(:log_download_file_event).with(file, message: 'events.download_file.finished').once
       target.start
       assert true
     end

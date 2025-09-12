@@ -41,9 +41,9 @@ module Zenodo
         FileUtils.rm_f(temp_location) if download_processor.partial_downloads == false
         log_error('Download failed', { id: file.id, url: download_url, partial_downloads: download_processor.partial_downloads }, e)
         log_download_file_event(file, message: 'events.download_file.error', metadata: {
-          'error' => e.message,
-          'url' => download_url,
-          'partial_downloads' => download_processor.partial_downloads
+          error: e.message,
+          url: download_url,
+          partial_downloads: download_processor.partial_downloads
         })
         return response(FileStatus::ERROR, 'file download failed')
       end

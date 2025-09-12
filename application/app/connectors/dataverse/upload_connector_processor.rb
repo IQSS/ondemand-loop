@@ -94,10 +94,10 @@ module Dataverse
       else
         log_error('Checksum verification failed', {file_path: file_path, expected_md5: expected_md5, current_md5: file_md5})
         log_upload_file_event(file, message: 'events.upload_file.error_checksum_verification', metadata: {
-          'error' => 'Checksum verification failed after the file was uploaded',
-          'file_path' => file_path,
-          'expected_md5' => expected_md5,
-          'current_md5' => file_md5
+          error: I18n.t('events.upload_file.error_checksum_verification_message'),
+          file_path: file_path,
+          expected_md5: expected_md5,
+          current_md5: file_md5
         })
         false
       end

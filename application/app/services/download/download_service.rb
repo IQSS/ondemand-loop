@@ -31,7 +31,7 @@ module Download
             previous_status = file.status.to_s
             Thread.new do
               file.update(start_date: now, end_date: nil, status: FileStatus::DOWNLOADING)
-              log_download_file_event(file, message: 'events.download_file.started', metadata: {})
+              log_download_file_event(file, message: 'events.download_file.started', metadata: {repo_url: file.connector_metadata.external_url})
               stats[:progress] += 1
               result = download_processor.download
               previous_status = file.status.to_s
@@ -39,11 +39,11 @@ module Download
             rescue => e
               log_error('Error while processing file', {file_id: file.id}, e)
               file.update(end_date: now, status: FileStatus::ERROR)
-              log_download_file_event(file, message: 'events.download_file.error', metadata: { 'error' => e.message, 'previous_status' => previous_status})
+              log_download_file_event(file, message: 'events.download_file.error', metadata: {error: e.message, previous_status: previous_status})
             ensure
               stats[:completed] += 1
               stats[:progress] -= 1
-              log_download_file_event(file, message: 'events.download_file.finished', metadata: {})
+              log_download_file_event(file, message: 'events.download_file.finished')
             end
           end
         # Wait for all downloads to complete

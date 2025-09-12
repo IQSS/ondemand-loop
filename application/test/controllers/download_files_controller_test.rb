@@ -64,7 +64,7 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
     DownloadFilesController.any_instance.expects(:log_download_file_event).with(
       @file,
       message: 'events.download_file.cancel_completed',
-      metadata: { 'filename' => 'filename_test', 'previous_status' => 'success' }
+      metadata: { filename: 'filename_test', previous_status: 'success' }
     )
 
     post cancel_project_download_file_url(project_id: @project_id, id: @file_id)

@@ -126,7 +126,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     UploadFilesController.any_instance.expects(:log_upload_file_event).with(
       file,
       message: 'events.upload_file.cancel_completed',
-      metadata: { 'filename' => 'cancel.txt', 'previous_status' => 'uploading' }
+      metadata: { filename: 'cancel.txt', previous_status: 'uploading' }
     )
 
     post cancel_project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
@@ -147,7 +147,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     UploadFilesController.any_instance.expects(:log_upload_file_event).with(
       file,
       message: 'events.upload_file.cancel_completed',
-      metadata: { 'filename' => 'done.txt', 'previous_status' => 'success' }
+      metadata: { filename: 'done.txt', previous_status: 'success' }
     )
 
     post cancel_project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)

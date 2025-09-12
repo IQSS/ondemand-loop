@@ -2,7 +2,7 @@
 
 module EventLogger
 
-  def log_project_event(project, message:, metadata:)
+  def log_project_event(project, message:, metadata: {})
     unless project.is_a?(Project)
       raise ArgumentError, "Expected Project model, got #{project.class}"
     end
@@ -16,7 +16,7 @@ module EventLogger
     )
   end
 
-  def log_download_file_event(file, message:, metadata:)
+  def log_download_file_event(file, message:, metadata: {})
     unless file.is_a?(DownloadFile)
       raise ArgumentError, "Expected DownloadFile model, got #{file.class}"
     end
@@ -26,11 +26,11 @@ module EventLogger
       entity_type: 'download_file',
       entity_id: file.id,
       message: message,
-      metadata: { 'filename' => file.filename, 'status' => file.status.to_s }.merge(metadata)
+      metadata: { filename: file.filename, status: file.status.to_s }.merge(metadata)
     )
   end
 
-  def log_upload_file_event(file, message:, metadata:)
+  def log_upload_file_event(file, message:, metadata: {})
     unless file.is_a?(UploadFile)
       raise ArgumentError, "Expected UploadFile model, got #{file.class}"
     end
@@ -40,7 +40,7 @@ module EventLogger
       entity_type: 'upload_file',
       entity_id: file.id,
       message: message,
-      metadata: { 'filename' => file.filename, 'status' => file.status.to_s }.merge(metadata)
+      metadata: { filename: file.filename, status: file.status.to_s }.merge(metadata)
     )
   end
 
@@ -57,7 +57,7 @@ module EventLogger
     event = Event.new(**attributes)
     event_saved = list.add(event)
     if event_saved
-      LoggingCommon.log_info("Event saved", event_saved.to_h)
+      LoggingCommon.log_info('Event saved', event_saved.to_h)
       true
     else
       LoggingCommon.log_error('Cannot log event', { event: attributes })

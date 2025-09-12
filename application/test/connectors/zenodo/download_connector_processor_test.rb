@@ -82,7 +82,7 @@ class Zenodo::DownloadConnectorProcessorTest < ActiveSupport::TestCase
     processor.expects(:log_download_file_event).with(
       file,
       message: 'events.download_file.error',
-      metadata: {'error' => 'boom', 'url' => 'https://zenodo.org/file.txt', 'partial_downloads' => true}
+      metadata: {error: 'boom', url: 'https://zenodo.org/file.txt', partial_downloads: true}
     )
 
     result = processor.download
@@ -117,7 +117,7 @@ class Zenodo::DownloadConnectorProcessorTest < ActiveSupport::TestCase
     processor.expects(:log_download_file_event).with(
       file,
       message: 'events.download_file.error',
-      metadata: {'error' => 'boom', 'url' => 'https://zenodo.org/file.txt', 'partial_downloads' => false}
+      metadata: {error: 'boom', url: 'https://zenodo.org/file.txt', partial_downloads: false}
     )
 
     result = processor.download

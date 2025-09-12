@@ -39,7 +39,7 @@ class ProjectEventList
   end
 
   def to_yaml
-    @events.map(&:to_h).to_yaml
+    @events.map { |e| e.to_h.deep_stringify_keys }.to_yaml
   end
 
   def store

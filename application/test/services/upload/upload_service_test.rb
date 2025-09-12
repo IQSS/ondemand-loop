@@ -31,6 +31,9 @@ class Upload::UploadServiceTest < ActiveSupport::TestCase
   test 'start processes files and updates status' do
     project = create_project
     bundle = create_upload_bundle(project)
+    connector_metadata = mock('connector_metadata')
+    connector_metadata.stubs(:external_url).returns('http://example.com/upload')
+    bundle.stubs(:connector_metadata).returns(connector_metadata)
     file = create_upload_file(project, bundle)
     file.stubs(:status).returns(FileStatus::PENDING, FileStatus::UPLOADING)
     data = OpenStruct.new(file: file, project: project, upload_bundle: bundle)
@@ -44,8 +47,8 @@ class Upload::UploadServiceTest < ActiveSupport::TestCase
 
     service = Upload::UploadService.new(provider)
     service.stubs(:now).returns(now_time)
-    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.started', metadata: {}).once
-    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.finished', metadata: {}).once
+    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.started', metadata: {destination: 'http://example.com/upload'}).once
+    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.finished').once
     service.start
     assert_equal 1, service.stats[:completed]
   end
@@ -53,6 +56,9 @@ class Upload::UploadServiceTest < ActiveSupport::TestCase
   test 'start handles errors and marks file' do
     project = create_project
     bundle = create_upload_bundle(project)
+    connector_metadata = mock('connector_metadata')
+    connector_metadata.stubs(:external_url).returns('http://example.com/upload-error')
+    bundle.stubs(:connector_metadata).returns(connector_metadata)
     file = create_upload_file(project, bundle)
     file.stubs(:status).returns(FileStatus::PENDING)
     data = OpenStruct.new(file: file, project: project, upload_bundle: bundle)
@@ -67,9 +73,9 @@ class Upload::UploadServiceTest < ActiveSupport::TestCase
 
     service = Upload::UploadService.new(provider)
     service.stubs(:now).returns(now_time)
-    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.started', metadata: {}).once
-    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.error', metadata: {'error' => 'boom', 'previous_status' => 'pending'}).once
-    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.finished', metadata: {}).once
+    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.started', metadata: {destination: 'http://example.com/upload-error'}).once
+    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.error', metadata: {error: 'boom', previous_status: 'pending'}).once
+    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.finished').once
     service.start
     assert_equal 1, service.stats[:completed]
   end
@@ -77,6 +83,9 @@ class Upload::UploadServiceTest < ActiveSupport::TestCase
   test 'logs events when upload processor returns cancelled status' do
     project = create_project
     bundle = create_upload_bundle(project)
+    connector_metadata = mock('connector_metadata')
+    connector_metadata.stubs(:external_url).returns('http://example.com/upload-cancelled')
+    bundle.stubs(:connector_metadata).returns(connector_metadata)
     file = create_upload_file(project, bundle)
     file.stubs(:status).returns(FileStatus::PENDING, FileStatus::UPLOADING)
     data = OpenStruct.new(file: file, project: project, upload_bundle: bundle)
@@ -90,8 +99,8 @@ class Upload::UploadServiceTest < ActiveSupport::TestCase
 
     service = Upload::UploadService.new(provider)
     service.stubs(:now).returns(now_time)
-    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.started', metadata: {}).once
-    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.finished', metadata: {}).once
+    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.started', metadata: {destination: 'http://example.com/upload-cancelled'}).once
+    service.expects(:log_upload_file_event).with(file, message: 'events.upload_file.finished').once
     service.start
     assert_equal 1, service.stats[:completed]
   end

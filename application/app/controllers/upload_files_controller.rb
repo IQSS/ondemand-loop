@@ -94,7 +94,7 @@ class UploadFilesController < ApplicationController
     end
 
     if file.update(status: FileStatus::CANCELLED)
-      log_upload_file_event(file, message: 'events.upload_file.cancel_completed', metadata: { 'filename' => file.filename, 'previous_status' => previous_status })
+      log_upload_file_event(file, message: 'events.upload_file.cancel_completed', metadata: { filename: file.filename, previous_status: previous_status })
       redirect_back fallback_location: root_path, notice: t('.file_cancellation_success', filename: file.filename)
     else
       redirect_back fallback_location: root_path, notice: t('.file_cancellation_update_error', filename: file.filename)
