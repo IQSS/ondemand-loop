@@ -43,6 +43,7 @@ nav:
       - Dataverse Integration: development_guide/dataverse_integration.md
       - Contributing a Change: development_guide/contributing.md
       - Testing: development_guide/testing.md
+      - Manual Testing: development_guide/manual_testing.md
       - E2E Tests: development_guide/e2e_tests.md
       - GitHub Actions: development_guide/github_actions.md
       - Languages and Translations: development_guide/languages_and_translations.md

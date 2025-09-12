@@ -13,8 +13,9 @@ The test suite is divided into layers:
 
 - **Unit tests** – verify models, services, and helpers in isolation.
 - **Integration tests** – check how components interact across boundaries (controllers, connectors).
-- **System tests** – simulate user flows in a real browser using Rails’ built-in system test framework.
+- **System tests** – simulate user flows in a real browser using Rails' built-in system test framework.
 - **End-to-End (E2E) tests** – Cypress tests that run against the full application stack (see [E2E Tests](e2e_tests.md)).
+- **Manual testing** – systematic verification of user workflows and visual validation (see [Manual Testing](manual_testing.md)).
 
 All Rails tests live under `application/test` and follow Rails conventions:
 
@@ -103,4 +104,5 @@ application/tmp/coverage/index.html
 - Use **descriptive test names** that explain behavior, not implementation.
 - Organize tests consistently with application code (mirror directory structure).
 - Add **system tests** for new UI workflows; add **E2E tests** when behavior depends on the full environment.
-- Run the full test suite locally before opening a pull request.  
+- Run the full test suite locally before opening a pull request.
+- Complement automated testing with **manual verification** for user experience and visual validation.  
