@@ -18,16 +18,13 @@ module Dataverse
       if dataverse_url.nil?
         redirect_url = link_to_landing(ConnectorType::DATAVERSE)
       elsif dataverse_url.dataverse? || (dataverse_url.file? && dataverse_url.dataset_id.nil?)
-        redirect_url = link_to_explore(ConnectorType::DATAVERSE, dataverse_url,
-                                       type: 'collections', id: ':root')
+        redirect_url = link_to_explore(ConnectorType::DATAVERSE, dataverse_url, type: 'collections', id: ':root')
       elsif dataverse_url.collection?
-        redirect_url = link_to_explore(ConnectorType::DATAVERSE, dataverse_url,
-                                       type: 'collections', id: dataverse_url.collection_id)
+        redirect_url = link_to_explore(ConnectorType::DATAVERSE, dataverse_url, type: 'collections', id: dataverse_url.collection_id)
       elsif dataverse_url.dataset? || dataverse_url.file?
         params = {}
         params[:version] = dataverse_url.version if dataverse_url.version
-        redirect_url = link_to_explore(ConnectorType::DATAVERSE, dataverse_url,
-                                       type: 'datasets', id: dataverse_url.dataset_id, **params)
+        redirect_url = link_to_explore(ConnectorType::DATAVERSE, dataverse_url, type: 'datasets', id: dataverse_url.dataset_id, **params)
       else
         redirect_url = link_to_landing(ConnectorType::DATAVERSE)
         message = { alert: I18n.t('connectors.dataverse.display_repo_controller.message_url_not_supported', url: object_url) }
