@@ -172,7 +172,7 @@ en:
         button_cancel_text: "Cancel"
       upload_actions:
         button_add_files_text: "Add Files"
-        button_add_files_title: "Add Files"
+        button_add_files_title: "Add files - available when the destination is configured"
         button_delete_title: "Delete Bundle"
         field_creation_date_title: "Creation date"
         button_edit_bundle_name_title: "Edit Upload Bundle name"

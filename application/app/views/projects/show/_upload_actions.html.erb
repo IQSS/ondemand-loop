@@ -57,18 +57,21 @@
         <%= render partial: '/shared/file_summary_widget', locals: project_progress_data(bundle.status_summary) %>
       </div>
 
-      <button data-controller="lazy-loader file-drop-activation"
-              data-lazy-loader-container-id-value="<%= file_browser_id %>"
-              data-lazy-loader-url-value="<%= file_browser_path(path: project.download_dir) %>"
-              data-file-drop-activation-file-drop-id-value="<%= file_target_id %>"
-              data-action="click->lazy-loader#toggle click->file-drop-activation#toggleFileDrop"
-              title="<%= t('.button_add_files_title') %>"
-              aria-label="<%= t('.button_add_files_title') %>"
-              class="btn btn-outline-secondary btn-sm"
-              <%= 'disabled' unless bundle.connector_metadata.configured? %>>
-        <i class="bi bi-plus-square-fill" aria-hidden="true"></i>
-        <span class="ps-1"><%= t('.button_add_files_text') %></span>
-      </button>
+      <span title="<%= t('.button_add_files_title') %>">
+        <button data-controller="lazy-loader file-drop-activation"
+                data-lazy-loader-container-id-value="<%= file_browser_id %>"
+                data-lazy-loader-url-value="<%= file_browser_path(path: project.download_dir) %>"
+                data-file-drop-activation-file-drop-id-value="<%= file_target_id %>"
+                data-action="click->lazy-loader#toggle click->file-drop-activation#toggleFileDrop"
+                title="<%= t('.button_add_files_title') %>"
+                aria-label="<%= t('.button_add_files_title') %>"
+                class="btn btn-outline-secondary btn-sm"
+                <%= 'disabled' unless bundle.connector_metadata.configured? %>>
+          <i class="bi bi-plus-square-fill" aria-hidden="true"></i>
+          <span class="ps-1"><%= t('.button_add_files_text') %></span>
+        </button>
+      </span>
+
     </div>
   </div>
 
