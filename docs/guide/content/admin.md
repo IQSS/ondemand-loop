@@ -410,3 +410,13 @@ OOD_LOOP_GUIDE_URL=https://example.com/loop
 OOD_LOOP_DATAVERSE_HUB_URL=https://hub.dataverse.org/api/installations
 OOD_LOOP_ZENODO_DEFAULT_URL=https://zenodo.org
 ```
+
+### Navigation Menu Configuration
+
+OnDemand Loop's appearance in the Open OnDemand navigation menu can be customized through the `manifest.yml` file. Administrators can configure:
+
+- **Application name and description** displayed to users
+- **Menu category placement** (Files, Interactive Apps, custom categories)
+- **Icon and display options** for the application
+
+For detailed configuration instructions, examples, and best practices, see the [Navigation Menu Configuration section](installation.md#configuring-navigation-menu-appearance) in the Installation Guide.

@@ -177,3 +177,66 @@ your server names.
 1. Check the NodeJS modules are deployed `node_modules`
 1. Launch the OnDemand Loop application by visiting the URL: `https://<your-server>/pun/sys/loop` in a browser. The application should load after clicking **Initialize** once.
 1. The OnDemand Loop homepage should display with a welcome message.
+
+### Configuring Navigation Menu Appearance
+
+OnDemand Loop's appearance in the Open OnDemand navigation menu is controlled by the `manifest.yml` file located in the application directory. This configuration determines how the application appears to users in the OOD dashboard.
+
+#### Default Configuration
+
+The default `manifest.yml` contains:
+
+```yaml
+---
+name: OnDemand Loop
+category: Files
+description: |-
+  Transfer files from and to remote repositories like Dataverse.
+icon: fa://copy
+new_window: false
+```
+
+#### Customizing Navigation Placement
+
+You can customize how OnDemand Loop appears in the navigation menu by modifying the `manifest.yml` file:
+
+**Navigation Fields:**
+- **`name`** - Display name in navigation menus and icons
+- **`category`** - Primary menu category (creates dropdown menus)  
+- **`subcategory`** - Submenu grouping within categories (optional)
+- **`description`** - Tooltip and description text shown to users
+- **`icon`** - Icon displayed in menus (FontAwesome format)
+- **`new_window`** - Whether app opens in new window (`true`/`false`)
+
+#### Example Customizations
+
+**Place in Interactive Apps menu:**
+```yaml
+---
+name: OnDemand Loop
+category: Interactive Apps
+subcategory: Data Transfer
+description: |-
+  Transfer files from and to remote repositories like Dataverse.
+icon: fa://exchange-alt
+new_window: false
+```
+
+**Create custom Data Tools menu:**
+```yaml
+---
+name: OnDemand Loop
+category: Data Tools
+description: |-
+  Transfer files from and to remote repositories like Dataverse.
+icon: fa://database
+new_window: true
+```
+
+By default, OnDemand Loop appears in the **Files** category alongside other file management applications. Adjust the `category` field in `manifest.yml` to place it in a different menu location based on your site's organization preferences.
+
+!!! tip "Navigation Best Practices"
+    - Use existing categories when possible to avoid menu proliferation
+    - Choose descriptive `subcategory` values to group related applications
+    - Test navigation changes with end users to ensure intuitive placement
+    - Coordinate with other application deployments for consistent categorization

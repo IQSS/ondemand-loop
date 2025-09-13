@@ -14,7 +14,7 @@ This guide provides a systematic approach to manually verify that **OnDemand Loo
 
 ---
 
-## Prerequisites
+### Prerequisites
 
 Manual verification should be performed on **deployed environments** (staging, production, or test instances) rather than local development environments. Before beginning manual verification:
 
@@ -31,9 +31,9 @@ Manual verification should be performed on **deployed environments** (staging, p
 
 ---
 
-## 1. Navigation & UI Components
+### 1. Navigation & UI Components
 
-### Core Navigation Testing
+#### Core Navigation Testing
 1. **Logo & Branding**: Verify OnDemand Loop logo displays correctly in top navigation
 2. **Logo Navigation**: Click logo to confirm it returns to home page  
 3. **Primary Navigation**: Test **Projects**, **Downloads**, and **Uploads** links load their respective pages
@@ -48,9 +48,9 @@ Manual verification should be performed on **deployed environments** (staging, p
 
 ---
 
-## 2. Home Page
+### 2. Home Page
 
-### Welcome Experience
+#### Welcome Experience
 1. **Page Access**: Visit home page via logo click or root URL
 2. **Welcome Content**: Verify welcome card displays guide link and **Create Project** button
 3. **Quick Actions**: Test **Create Project** button triggers project creation flow
@@ -59,9 +59,9 @@ Manual verification should be performed on **deployed environments** (staging, p
 
 ---
 
-## 3. Project Management
+### 3. Project Management
 
-### Project Lifecycle
+#### Project Lifecycle
 1. **Project Creation**: Create new project via navigation bar or home page **Create Project** button
 2. **Project Naming**: Test rename functionality using the pencil icon next to project title
 3. **Active Project**: Verify only one project can be active at a time using pin icon or dropdown selector
@@ -72,9 +72,9 @@ Manual verification should be performed on **deployed environments** (staging, p
 
 ---
 
-## 4. Data Discovery & Repository Integration
+### 4. Data Discovery & Repository Integration
 
-### Repository Browsing
+#### Repository Browsing
 1. **Direct Dataset Access**: Paste dataset DOI or URL into **Explore** bar and verify dataset loads
 2. **Repository Browsing**: Use **Repositories** menu to browse supported repositories:
    - Test Dataverse connector and search functionality
@@ -85,9 +85,9 @@ Manual verification should be performed on **deployed environments** (staging, p
 
 ---
 
-## 5. File Download Workflow
+### 5. File Download Workflow
 
-### Download Management
+#### Download Management
 1. **File Selection**: On dataset page, select one or more files and click **Add Files to Project**
 2. **Download Queue**: Verify files appear in active project's **Downloads** tab with accurate metadata and status
 3. **Download Status Monitoring**: Visit global **Downloads** page and confirm:
@@ -100,9 +100,9 @@ Manual verification should be performed on **deployed environments** (staging, p
 
 ---
 
-## 6. File Upload Workflow
+### 6. File Upload Workflow
 
-### Upload Management  
+#### Upload Management  
 1. **Upload Bundle Creation**: From project page, create **Upload Bundle** with target dataset or collection URL
 2. **Repository Authentication**: Add or edit required API key and complete repository-specific setup
 3. **File Staging**: Use **Add Files** to open upload file selector and stage files or folders
@@ -115,9 +115,9 @@ Manual verification should be performed on **deployed environments** (staging, p
 
 ---
 
-## 7. Repository Configuration & Settings
+### 7. Repository Configuration & Settings
 
-### Credential Management
+#### Credential Management
 1. **Settings Access**: Open **Repositories → Settings** from navigation bar
 2. **Credential Management**: Verify previously used repositories appear with options to:
    - Edit existing API keys
@@ -128,9 +128,9 @@ Manual verification should be performed on **deployed environments** (staging, p
 
 ---
 
-## 8. Additional System Checks
+### 8. Additional System Checks
 
-### Error Handling & Edge Cases
+#### Error Handling & Edge Cases
 1. **Error Handling**: Test application behavior with:
    - Invalid URLs/DOIs in explore bar
    - Network connectivity issues
@@ -142,17 +142,17 @@ Manual verification should be performed on **deployed environments** (staging, p
 
 ---
 
-## Verification Checklist
+### Verification Checklist
 
 Use this checklist to track testing progress:
 
-### Navigation & Interface
+#### Navigation & Interface
 - [ ] Logo and branding display correctly
 - [ ] All navigation links function properly
 - [ ] Help menu and external links work
 - [ ] Responsive design on mobile devices
 
-### Core Functionality
+#### Core Functionality
 - [ ] Project creation and management
 - [ ] Dataset discovery via explore bar
 - [ ] Repository browsing (Dataverse & Zenodo)
@@ -160,20 +160,20 @@ Use this checklist to track testing progress:
 - [ ] File upload workflow
 - [ ] Repository settings management
 
-### Error Handling
+#### Error Handling
 - [ ] Invalid input handling
 - [ ] Network error scenarios
 - [ ] Authentication failures
 - [ ] Flash message display
 
-### Integration
+#### Integration
 - [ ] Open OnDemand Files app integration
 - [ ] Repository API connectivity
 - [ ] File system operations
 
 ---
 
-## Reporting Issues
+### Reporting Issues
 
 When manual testing reveals issues:
 
@@ -185,7 +185,7 @@ When manual testing reveals issues:
 
 ---
 
-## Best Practices
+### Best Practices
 
 - **Test systematically** - Follow the verification order to catch dependency issues
 - **Use fresh projects** - Create new test projects to avoid state contamination
