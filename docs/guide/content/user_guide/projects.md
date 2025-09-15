@@ -38,6 +38,7 @@ Selecting a project opens its **detail page**, where you can:
 - **Create upload bundles** linked to a specific remote dataset.
 - **Stage files for upload** by selecting local files from the HPC filesystem to include in a bundle.
 - **Explore project folders**, including the local workspace and the associated metadata directory, directly on the cluster.
+- **View lifecycle events** using the **Events** button to see when the project was created, updated, or set as active.
 - **Delete the project** when it is no longer needed.
 
 !!! warning
@@ -58,6 +59,11 @@ Selecting a project opens its **detail page**, where you can:
     - Uploaded files remain in the remote repository.
 
     You can manually clean up downloaded data from disk if needed.
+
+!!! note "Events"
+
+    The **Events** view provides a chronological log of the project's history. Each entry records actions such as creation, name
+    changes, and when the project was marked active, helping you track activity over time.
 
 ### Project Folder Structure
 
