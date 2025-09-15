@@ -106,12 +106,18 @@ This section appears below the header and includes:
 **Filename:** Name of the file as it will appear in the remote repository.  
 **Size:** File size reported by the local filesystem.  
 **Status:** The current upload state. One of: `pending`, `uploading`, `success`, `error`, `cancelled`.  
+**Events:** Click the Status badge to view the event history, including when the upload started, was cancelled, completed, or failed.  
 **Completion Date:** When the file upload finished (or failed).  
 **Delete Action:** Removes the file from the upload queue (does not delete the file from disk).
 
 !!! note
 
     This view does **not auto-refresh**. Reload manually to see updates.
+
+!!! note "Events"
+
+    The **Events** view provides a chronological log of the file's history. Each entry records actions such as upload process started,
+    finished, cancelled and the error details if they occur, helping you track activity over time.
 
 ---
 
@@ -151,7 +157,8 @@ At the top of the global Uploads page, a summary panel displays the current syst
 **Filename:** The name (and relative path) assigned to the file and used for upload.  
 **Size:** File size as reported by the filesystem.  
 **Progress Bar:** Visual indicator shown while a file is uploading. Updates every 5 seconds.  
-**Status:** One of: `pending`, `uploading`, `success`, `error`, `cancelled`.  
+**Status:** One of: `pending`, `uploading`, `success`, `error`, `cancelled`.    
+**Events:** Click the Status badge to view the event history, including when the upload started, was cancelled, completed, or failed.  
 **Cancel Action:** Cancel available only for files in `pending` or `uploading` status.  
 
 #### Behavior
