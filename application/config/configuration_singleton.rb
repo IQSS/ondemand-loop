@@ -53,8 +53,21 @@ class ConfigurationSingleton
     File.join(metadata_root, 'repos', 'repo_history.yml')
   end
 
+  def navigation
+    if reload_config || @navigation.nil?
+      log_info('[Configuration] Building Navigation')
+      defaults  = Nav::NavDefaults.navigation_items
+      overrides = ::Configuration.config.fetch(:navigation, [])
+      @navigation = Nav::NavBuilder.build(defaults, overrides)
+    end
+    @navigation
+  end
+
   def config
-    @config ||= read_config
+    if reload_config || @config.nil?
+      @config = read_config
+    end
+    @config
   end
 
   def connector_config(connector_type)
@@ -115,15 +128,19 @@ class ConfigurationSingleton
     Pathname.new(ENV['OOD_LOOP_CONFIG_DIRECTORY'] || '/etc/loop/config/loop.d')
   end
 
+  def reload_config
+    ENV['OOD_LOOP_RELOAD_CONFIG'].present?
+  end
+
   def read_config
-    files = Pathname.glob(config_directory.join('*.{yml,yaml,yml.erb,yaml.erb}'))
+    Rails.logger.info("Reading OnDemand Loop configuration files from: #{config_directory}")
+    files = Pathname.glob(config_directory.join('*.{yml,yaml}'))
     files.sort.each_with_object({}) do |f, conf|
       begin
-        content = ERB.new(f.read, trim_mode: '-').result(binding)
-        yml = YAML.safe_load(content, aliases: true) || {}
+        yml = YAML.safe_load_file(f, aliases: true) || {}
         conf.deep_merge!(yml.deep_symbolize_keys)
       rescue => e
-        log_error("Can't read or parse #{f}", {}, e)
+        Rails.logger.error("Can't read or parse #{f}: #{e.class} - #{e.message}")
       end
     end
   end

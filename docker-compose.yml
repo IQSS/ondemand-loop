@@ -28,6 +28,7 @@ services:
       - ./data/downloads:/home/ood/loop_downloads
       - ./application:/var/www/ood/apps/sys/loop
       - ./config/.env:/var/www/ood/apps/sys/loop/.env
+      - ./config/loop.d:/etc/loop/config/loop.d
       - ./docker/loop.conf:/var/lib/ondemand-nginx/config/apps/sys/loop.conf
     ports:
       - "33000:443"

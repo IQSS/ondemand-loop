@@ -74,7 +74,6 @@ en:
       logo:
         logo_alt_text: "OnDemand Loop Logo"
       navigation:
-        icon_ood_alt: "Open OnDemand Icon"
         link_projects_text: "Projects"
         link_downloads_text: "Downloads"
         link_uploads_text: "Uploads"

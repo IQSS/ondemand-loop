@@ -1,0 +1,11 @@
+<% nav_items.each do |nav_item| %>
+  <li><%= link_to nav_item.label, nav_item.url || '#' %></li>
+  <% if nav_item.items.present? %>
+    <ul>
+      <% nav_item.items.each do |menu_item| %>
+        <% next if menu_item.divider? %>
+        <li><%= link_to menu_item.label, menu_item.url || '#' %></li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

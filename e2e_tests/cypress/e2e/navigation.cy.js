@@ -71,19 +71,19 @@ describe('Navigation', () => {
     cy.get('nav a').contains('Open OnDemand').should('have.attr', 'href', Cypress.env('dashboardPath'))
     
     // Open Help dropdown and verify links
-    cy.get('#helpDropdown').click()
+    cy.get('#help-dropdown').click()
     
     // Verify Guide link has target="_blank"
-    cy.get('#helpMenu a').contains('Guide').should('have.attr', 'target', '_blank')
+    cy.get('#help-menu a').contains('Guide').should('have.attr', 'target', '_blank')
 
     // Verify Sitemap link
-    cy.get('#helpMenu a').contains('Sitemap').should('exist')
+    cy.get('#help-menu a').contains('Sitemap').should('exist')
 
     // Verify Restart link exists
-    cy.get('#helpMenu a').contains('Restart').should('exist')
+    cy.get('#help-menu a').contains('Restart').should('exist')
     
     // Verify Reset form exists
-    cy.get('#helpMenu form').contains('Reset App')
+    cy.get('#help-menu form').contains('Reset App')
     
     cy.task('log', 'Right-hand side navigation URLs verified')
   })

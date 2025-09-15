@@ -11,7 +11,7 @@ class ConnectControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'show action renders template when handler succeeds' do
-    stub_handler(:show, result: ConnectorResult.new(template: '/sitemap/index', locals: {}, success: true))
+    stub_handler(:show, result: ConnectorResult.new(template: '/connect/template_response', locals: {}, success: true))
 
     get connect_repo_url(connector_type: 'zenodo', object_type: 'landing')
     assert_response :success

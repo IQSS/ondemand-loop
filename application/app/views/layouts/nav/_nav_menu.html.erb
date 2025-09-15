@@ -1,0 +1,22 @@
+<!-- Dropdown menu -->
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle"
+     href="#"
+     id="<%= nav_item.id %>-dropdown"
+     role="button"
+     data-bs-toggle="dropdown"
+     aria-expanded="false"
+     aria-haspopup="true"
+     aria-controls="<%= nav_item.id %>-menu">
+
+    <%= render_icon(nav_item.icon) if nav_item.icon %>
+    <%= nav_item.label %>
+  </a>
+  <ul class="dropdown-menu<%= ' dropdown-menu-end' if nav_item.rhs? %>"
+      id="<%= nav_item.id %>-menu"
+      aria-labelledby="<%= nav_item.id %>-dropdown">
+    <% nav_item.items.each do |menu_item| %>
+      <%= render partial: "layouts/nav/#{menu_item.partial_name}", locals: { nav_item: menu_item } %>
+    <% end %>
+  </ul>
+</li>

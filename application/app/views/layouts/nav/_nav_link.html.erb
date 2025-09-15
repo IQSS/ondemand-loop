@@ -1,0 +1,11 @@
+<li class="nav-item">
+  <%= nav_link_to nav_item.url,
+                  class: 'nav-link d-flex align-items-center gap-2',
+                  id: nav_item.id,
+                  target: (nav_item.new_tab ? '_blank' : nil),
+                  rel: (nav_item.new_tab ? 'noopener' : nil) do %>
+
+    <%= render_icon(nav_item.icon, classes: 'main-item-icon') if nav_item.icon %>
+    <%= nav_item.label %>
+  <% end %>
+</li>

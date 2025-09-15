@@ -39,19 +39,19 @@ export const navigateToUploads = () => {
 }
 
 export const navigateToDataverse = () => {
-  cy.get('#repositoriesDropdown').click()
+  cy.get('#repositories-dropdown').click()
   cy.get('#nav-dataverse').click()
   cy.get('body').should('contain', PAGE_TITLES.dataverse)
 }
 
 export const navigateToZenodo = () => {
-  cy.get('#repositoriesDropdown').click()
+  cy.get('#repositories-dropdown').click()
   cy.get('#nav-zenodo').click()
   cy.get('body').should('contain',  PAGE_TITLES.zenodo)
 }
 
 export const navigateToRepositorySettings = () => {
-  cy.get('#repositoriesDropdown').click()
+  cy.get('#repositories-dropdown').click()
   cy.get('#nav-repo-settings').click()
   cy.get('h1').should('contain', PAGE_TITLES.repositorySettings)
 }

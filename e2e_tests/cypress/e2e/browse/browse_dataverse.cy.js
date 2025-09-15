@@ -108,11 +108,11 @@ describe('Browse Repositories - Dataverse', () => {
 
   it('should validate repositories dropdown menu functionality', () => {
     // Verify repositories dropdown exists and is accessible
-    cy.get('#repositoriesDropdown').should('be.visible')
-    cy.get('#repositoriesDropdown').click()
+    cy.get('#repositories-dropdown').should('be.visible')
+    cy.get('#repositories-dropdown').click()
     
     // Verify dropdown menu opens
-    cy.get('#repositoriesMenu').should('be.visible')
+    cy.get('#repositories-menu').should('be.visible')
     
     // Verify Dataverse option exists with proper icon
     cy.get('#nav-dataverse').should('be.visible')
