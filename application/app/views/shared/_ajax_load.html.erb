@@ -7,7 +7,9 @@
 <button data-controller="lazy-loader"
         data-lazy-loader-container-id-value="<%= container_id %>"
         data-lazy-loader-url-value="<%= partial_html_url %>"
-        class="btn <%= button_classes %>" data-action="click->lazy-loader#load">
+        class="btn <%= button_classes %>"
+        data-action="click->lazy-loader#load"
+        type="button">
   <i class="<%= icon %>"></i>
   <span class="ps-1"><%= label %></span>
 </button>

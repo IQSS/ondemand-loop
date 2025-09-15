@@ -39,7 +39,8 @@
   <div class="d-flex align-items-center gap-2" role="group" aria-label="<%= t('.section_project_actions_label') %>">
     <button class="btn btn-sm btn-outline-dark"
             data-action="click->update-inline-field#edit"
-            title="<%= t('.button_edit_project_name_title') %>">
+            title="<%= t('.button_edit_project_name_title') %>"
+            type="button">
       <i class="bi bi-pencil-fill" aria-hidden="true"></i>
       <span class="visually-hidden"><%= t('.button_edit_project_name_title') %></span>
     </button>
@@ -57,7 +58,7 @@
     } %>
 
     <% if active %>
-      <button class="btn btn-sm btn-outline-primary cursor-default" title="<%= t('.button_active_project_title') %>">
+      <button class="btn btn-sm btn-outline-primary cursor-default" title="<%= t('.button_active_project_title') %>" type="button">
         <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
         <span class="visually-hidden"><%= t('.button_active_project_title') %></span>
       </button>

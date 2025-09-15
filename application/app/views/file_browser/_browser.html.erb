@@ -3,7 +3,7 @@
   <div class="card-header d-flex justify-content-between align-items-center">
     <!-- Path display (left) -->
     <nav aria-label="<%= t('.nav_file_browser_label') %>">
-      <ol data-file-browser-target="pathDisplay" class="breadcrumb d-flex align-items-center flex-wrap gap-2">
+      <ol data-file-browser-target="pathDisplay" class="breadcrumb d-flex align-items-center flex-wrap gap-2 mb-0">
         <% path_parts = current_path.split('/').reject(&:blank?) %>
         <% accumulated_path = '/' %>
         <% path_parts.each do |part| %>
@@ -23,7 +23,7 @@
     </nav>
 
     <!-- Path editor (hidden initially) -->
-    <div data-file-browser-target="pathEditor" class="flex-grow-1 d-flex align-items-center gap-2 d-none" style="max-width: 75%;">
+    <div data-file-browser-target="pathEditor" class="flex-grow-1 d-flex align-items-center gap-2 me-4 d-none">
       <input type="text"
              class="form-control form-control-sm flex-grow-1"
              value="<%= current_path %>"
@@ -47,7 +47,7 @@
 
     <!-- Actions (right) -->
     <div>
-      <button class="btn btn-sm btn-outline-dark"
+      <button class="btn btn-sm btn-outline-dark" type="button"
               title="<%= t('.button_edit_path_title') %>"
               aria-label="<%= t('.button_edit_path_label') %>"
               data-action="click->file-browser#editPath">
@@ -55,7 +55,7 @@
         <span class="visually-hidden"><%= t('.button_edit_path_text') %></span>
       </button>
 
-      <button class="btn btn-sm btn-outline-dark"
+      <button class="btn btn-sm btn-outline-dark" type="button"
               data-entry-path="<%= Dir.home %>"
               data-entry-type="folder"
               title="<%= t('.button_home_title') %>"
@@ -67,7 +67,7 @@
 
       <%= render partial: '/shared/ood_folder_button', locals: { path: current_path }%>
 
-      <button class="btn btn-sm btn-outline-dark"
+      <button class="btn btn-sm btn-outline-dark" type="button"
               title="<%= t('.button_close_browser_title') %>"
               aria-label="<%= t('.button_close_browser_label') %>"
               data-action="click->file-browser#hideContainer">

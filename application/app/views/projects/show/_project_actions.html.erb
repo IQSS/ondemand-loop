@@ -38,7 +38,8 @@
     <button class="btn btn-sm btn-outline-secondary"
             id="edit-project-name-btn"
             data-action="click->update-inline-field#edit"
-            title="<%= t('.button_edit_project_name_title') %>">
+            title="<%= t('.button_edit_project_name_title') %>"
+            type="button">
       <i class="bi bi-pencil-fill" aria-hidden="true"></i>
       <span class="visually-hidden"><%= t('.button_edit_project_name_title') %></span>
     </button>
@@ -69,7 +70,7 @@
       </button>
 
     <% if active_project?(project.id) %>
-      <button class="btn btn-sm btn-outline-primary cursor-default" title="<%= t('.button_active_project_title') %>">
+      <button class="btn btn-sm btn-outline-primary cursor-default" title="<%= t('.button_active_project_title') %>" type="button">
         <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
         <span class="visually-hidden"><%= t('.button_active_project_title') %></span>
       </button>
