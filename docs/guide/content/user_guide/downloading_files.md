@@ -70,13 +70,19 @@ The large circular indicator highlights the **percentage of completed downloads*
 **Repository Badge:** Identifies the source repository. Links to the dataset view in OnDemand Loop.  
 **Filename:** The filename and relative path created by OnDemand Loop in the project workspace.  
 **Size:** The file size reported by the remote repository.  
-**Status:** The current download state. One of: `pending`, `downloading`, `success`, `error`, `cancelled`.  
+**Status:** The current download state. One of: `pending`, `downloading`, `success`, `error`, `cancelled`.   
+**Events:** Click the Status badge to view the event history, including when the download started, was cancelled, completed, or failed.  
 **Completed Date:** The date the system finished processing the file (successfully or not).  
 **Delete Action:** Removes the file from the project’s list in the UI.  
 
 !!! note
     
     This view does **not auto-refresh**. Reload manually to see updates.
+
+!!! note "Events"
+
+    The **Events** view provides a chronological log of the file's history. Each entry records actions such as download process started,
+    finished, cancelled and the error details if they occur, helping you track activity over time.
 
 ---
 
@@ -119,6 +125,7 @@ At the top of the global **Downloads** page, a summary panel displays the curren
 **Size:** The file size as reported by the remote repository.  
 **Progress Bar:** A visual indicator shown when status is `downloading`. Updates every 5 seconds.  
 **Status:** The current download state. One of: `pending`, `downloading`, `success`, `error`, `cancelled`.  
+**Events:** Click the Status badge to view the event history, including when the download started, was cancelled, completed, or failed.  
 **Cancel Action:** Lets you cancel files in `pending` or `downloading` state. Not available once completed.  
 
 #### Behavior
