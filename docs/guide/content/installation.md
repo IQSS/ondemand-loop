@@ -201,6 +201,7 @@ new_window: false
 You can customize how OnDemand Loop appears in the navigation menu by modifying the `manifest.yml` file:
 
 **Navigation Fields:**
+
 - **`name`** - Display name in navigation menus and icons
 - **`category`** - Primary menu category (creates dropdown menus)  
 - **`subcategory`** - Submenu grouping within categories (optional)
@@ -210,8 +211,8 @@ You can customize how OnDemand Loop appears in the navigation menu by modifying 
 
 #### Example Customizations
 
-**Place in Interactive Apps menu:**
 ```yaml
+# Place in Interactive Apps menu:
 ---
 name: OnDemand Loop
 category: Interactive Apps
@@ -222,8 +223,8 @@ icon: fa://exchange-alt
 new_window: false
 ```
 
-**Create custom Data Tools menu:**
 ```yaml
+# Create custom Data Tools menu:
 ---
 name: OnDemand Loop
 category: Data Tools
