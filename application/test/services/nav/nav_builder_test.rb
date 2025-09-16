@@ -343,4 +343,58 @@ class Nav::NavBuilderTest < ActiveSupport::TestCase
     assert_equal '---', menu_items_by_id['nav-separator'].label
     assert_not_includes repos_item.items.map(&:id), 'nav-zenodo'
   end
+
+  test 'boolean merging handles falsy values correctly' do
+    # Create default item with true values
+    default_item = Nav::MainItem.new(
+      id: 'test-bool',
+      label: 'Test',
+      hidden: true,
+      new_tab: true,
+      position: 1
+    )
+    
+    # Override with explicit false values
+    overrides = [
+      { id: 'test-bool', hidden: false, new_tab: false }
+    ]
+    
+    result = Nav::NavBuilder.build([default_item], overrides)
+    
+    # Should include the item (not hidden) and the override values should be respected
+    assert_equal 1, result.size
+    item = result.first
+    assert_equal 'test-bool', item.id
+    assert_equal false, item.hidden  # Override false should be used, not default true
+    assert_equal false, item.new_tab # Override false should be used, not default true
+  end
+
+  test 'menu item boolean merging handles falsy values correctly' do
+    # Create default with menu items having true values
+    default_item = Nav::MainItem.new(
+      id: 'dropdown-test',
+      label: 'Test Dropdown',
+      items: [
+        { id: 'menu1', label: 'Menu 1', hidden: true, new_tab: true, position: 1 }
+      ],
+      position: 1
+    )
+    
+    # Override menu item with explicit false values
+    overrides = [
+      {
+        id: 'dropdown-test',
+        items: [
+          { id: 'menu1', hidden: false, new_tab: false }
+        ]
+      }
+    ]
+    
+    result = Nav::NavBuilder.build([default_item], overrides)
+    
+    item = result.first
+    menu_item = item.items.first
+    assert_equal false, menu_item.hidden  # Override false should be used, not default true
+    assert_equal false, menu_item.new_tab # Override false should be used, not default true
+  end
 end

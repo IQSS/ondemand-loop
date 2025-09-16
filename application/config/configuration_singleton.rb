@@ -54,20 +54,16 @@ class ConfigurationSingleton
   end
 
   def navigation
-    if reload_config || @navigation.nil?
+    @navigation ||= begin
       log_info('[Configuration] Building Navigation')
       defaults  = Nav::NavDefaults.navigation_items
       overrides = ::Configuration.config.fetch(:navigation, [])
-      @navigation = Nav::NavBuilder.build(defaults, overrides)
+      Nav::NavBuilder.build(defaults, overrides)
     end
-    @navigation
   end
 
   def config
-    if reload_config || @config.nil?
-      @config = read_config
-    end
-    @config
+    @config ||= read_config
   end
 
   def connector_config(connector_type)
@@ -128,15 +124,12 @@ class ConfigurationSingleton
     Pathname.new(ENV['OOD_LOOP_CONFIG_DIRECTORY'] || '/etc/loop/config/loop.d')
   end
 
-  def reload_config
-    ENV['OOD_LOOP_RELOAD_CONFIG'].present?
-  end
-
   def read_config
     Rails.logger.info("Reading OnDemand Loop configuration files from: #{config_directory}")
     files = Pathname.glob(config_directory.join('*.{yml,yaml}'))
     files.sort.each_with_object({}) do |f, conf|
       begin
+        Rails.logger.info("Loading file: #{f}")
         yml = YAML.safe_load_file(f, aliases: true) || {}
         conf.deep_merge!(yml.deep_symbolize_keys)
       rescue => e

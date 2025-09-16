@@ -2,9 +2,9 @@
 
 module Nav
   class MainItem
-    attr_reader :id, :label, :url, :items, :position, :hidden, :type, :alignment, :new_tab, :icon, :partial
+    attr_reader :id, :label, :url, :items, :position, :hidden, :type, :alignment, :new_tab, :icon, :partial, :custom
 
-    def initialize(id:, label: nil, url: nil, items: nil, position: nil, hidden: nil, alignment: nil, new_tab: nil, icon: nil, partial: nil)
+    def initialize(id: nil, label: nil, url: nil, items: nil, position: nil, hidden: nil, alignment: nil, new_tab: nil, icon: nil, partial: nil, custom: nil)
       @id = id
       @label = label
       @url = url
@@ -16,10 +16,15 @@ module Nav
       @new_tab = new_tab.nil? ? false : new_tab
       @icon = icon
       @partial = partial
+      @custom = custom.nil? ? false : custom
     end
 
     def hidden?
       !!@hidden
+    end
+
+    def custom?
+      !!@custom
     end
 
     def menu?

@@ -28,6 +28,7 @@ class Nav::MenuItemTest < ActiveSupport::TestCase
     assert_nil item.position
     assert_equal false, item.hidden
     assert_equal false, item.new_tab
+    assert_equal false, item.custom
     assert_nil item.icon
     assert_nil item.partial
   end
@@ -164,6 +165,22 @@ class Nav::MenuItemTest < ActiveSupport::TestCase
     assert_not hash.key?(:partial)
   end
 
+  test 'to_h excludes custom attribute from hash output' do
+    custom_item = Nav::MenuItem.new(id: 'custom-menu-test', custom: true)
+    non_custom_item = Nav::MenuItem.new(id: 'non-custom-menu-test', custom: false)
+
+    custom_hash = custom_item.to_h
+    non_custom_hash = non_custom_item.to_h
+
+    # custom attribute should not be included in hash output
+    assert_not custom_hash.key?(:custom)
+    assert_not non_custom_hash.key?(:custom)
+    
+    # But custom? method should still work on the objects
+    assert custom_item.custom?
+    assert_not non_custom_item.custom?
+  end
+
   test 'new_tab defaults to false but can be set to true' do
     default_item = Nav::MenuItem.new(id: 'default-menu')
     new_tab_item = Nav::MenuItem.new(id: 'new-tab-menu', new_tab: true)
@@ -201,5 +218,25 @@ class Nav::MenuItemTest < ActiveSupport::TestCase
 
     assert_equal 'bs://bi-house', item.icon
     assert_equal 99, item.position
+  end
+
+  test 'custom defaults to false but can be set to true' do
+    default_item = Nav::MenuItem.new(id: 'default-menu')
+    custom_item = Nav::MenuItem.new(id: 'custom-menu', custom: true)
+    explicit_non_custom = Nav::MenuItem.new(id: 'non-custom-menu', custom: false)
+
+    assert_equal false, default_item.custom
+    assert_equal true, custom_item.custom
+    assert_equal false, explicit_non_custom.custom
+  end
+
+  test 'custom? returns correct boolean value' do
+    default_item = Nav::MenuItem.new(id: 'default-menu')
+    custom_item = Nav::MenuItem.new(id: 'custom-menu', custom: true)
+    explicit_non_custom = Nav::MenuItem.new(id: 'non-custom-menu', custom: false)
+
+    assert_not default_item.custom?
+    assert custom_item.custom?
+    assert_not explicit_non_custom.custom?
   end
 end

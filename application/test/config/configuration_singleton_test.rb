@@ -190,13 +190,10 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     end
   end
 
-  test 'config memoizes result when reload_config is false' do
+  test 'config memoizes result on subsequent calls' do
     config = ConfigurationSingleton.new
     
-    # Ensure reload_config returns false for memoization
-    config.stubs(:reload_config).returns(false)
-    
-    # Mock read_config to verify it's only called once
+    # Mock read_config to verify it's only called once due to memoization
     config.expects(:read_config).once.returns({ test: 'value' })
     
     # Clear existing config to ensure fresh test
@@ -206,21 +203,6 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     second_call = config.config
     
     assert_same first_call, second_call
-  end
-
-  test 'config reloads when reload_config is true' do
-    config = ConfigurationSingleton.new
-    
-    # Stub reload_config to return true, forcing config reload
-    config.stubs(:reload_config).returns(true)
-    
-    # Mock read_config - should be called on each config call
-    config.expects(:read_config).twice.returns({ test: 'value' })
-    
-    first_call = config.config
-    second_call = config.config
-    
-    # Both calls should trigger reload due to reload_config being true
   end
 
   test 'dataverse_hub memoizes and logs creation' do
@@ -272,16 +254,13 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     assert navigation.size > 0
   end
 
-  test 'navigation memoizes result on subsequent calls when reload_config is false' do
+  test 'navigation memoizes result on subsequent calls' do
     config = ConfigurationSingleton.new
-    
-    # Ensure reload_config returns false for memoization to work
-    config.stubs(:reload_config).returns(false)
     
     # Clear any existing navigation instance variable to ensure fresh test
     config.instance_variable_set(:@navigation, nil)
     
-    # Mock the building process to verify it's only called once
+    # Mock the building process to verify it's only called once due to memoization
     Nav::NavDefaults.expects(:navigation_items).once.returns([])
     ::Configuration.expects(:config).once.returns({})
     Nav::NavBuilder.expects(:build).once.returns([])
@@ -319,32 +298,8 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     assert_equal 'Custom Projects Label', projects_item.label
   end
 
-  test 'navigation rebuilds when reload_config is true' do
+  test 'navigation rebuilds when @navigation is nil' do
     config = ConfigurationSingleton.new
-    
-    # Stub reload_config to return true, forcing navigation rebuild
-    config.stubs(:reload_config).returns(true)
-    
-    # Clear any existing navigation instance variable
-    config.instance_variable_set(:@navigation, nil)
-    
-    # Mock the building process - should be called on each navigation call
-    Nav::NavDefaults.expects(:navigation_items).twice.returns([])
-    ::Configuration.expects(:config).twice.returns({})
-    Nav::NavBuilder.expects(:build).twice.returns([])
-    
-    first_call = config.navigation
-    second_call = config.navigation
-    
-    # Both calls should trigger rebuilding due to reload_config being true
-    # The actual objects won't be the same since they're rebuilt each time
-  end
-
-  test 'navigation rebuilds when @navigation is nil even with reload_config false' do
-    config = ConfigurationSingleton.new
-    
-    # Ensure reload_config returns false
-    config.stubs(:reload_config).returns(false)
     
     # Clear navigation instance variable to simulate initial state
     config.instance_variable_set(:@navigation, nil)

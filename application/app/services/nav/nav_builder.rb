@@ -2,6 +2,8 @@
 
 module Nav
   class NavBuilder
+    include LoggingCommon
+
     def self.build(defaults, overrides)
       builder = new(defaults, overrides)
       builder.build
@@ -13,9 +15,21 @@ module Nav
     end
 
     def build
+      log_info "Building navigation", { 
+        defaults_count: @defaults.size, 
+        overrides_count: @overrides.size 
+      }
+      
       # Start with defaults, apply overrides, add new items, then sort
       merged_items = apply_overrides_and_add_new_items
-      sort_items(merged_items)
+      result = sort_navigation_items(merged_items)
+      
+      log_info "Navigation built successfully", { 
+        final_items_count: result.size,
+        hidden_items_filtered: merged_items.size - result.size
+      }
+      
+      result
     end
 
     private
@@ -50,11 +64,10 @@ module Nav
       override_items = override_hash[:items]
 
       # Merge menu items if provided
-      merged_items = if override_items
-                       merge_menu_items(default_item.items || [], override_items)
-                     else
-                       default_item.items
-                     end
+      merged_items = default_item.items
+      if override_items
+        merged_items = merge_menu_items(default_item.items || [], override_items)
+      end
 
       # Create new MainItem with merged attributes
       Nav::MainItem.new(
@@ -63,11 +76,12 @@ module Nav
         url: override_hash[:url] || default_item.url,
         items: merged_items&.map(&:to_h), # Convert back to hashes for MainItem constructor
         position: override_hash[:position] || default_item.position,
-        hidden: override_hash[:hidden] || default_item.hidden,
+        hidden: override_hash.key?(:hidden) ? override_hash[:hidden] : default_item.hidden,
         alignment: override_hash[:alignment] || default_item.alignment,
-        new_tab: override_hash[:new_tab] || default_item.new_tab,
+        new_tab: override_hash.key?(:new_tab) ? override_hash[:new_tab] : default_item.new_tab,
         icon: override_hash[:icon] || default_item.icon,
-        partial: override_hash[:partial] || default_item.partial
+        partial: override_hash[:partial] || default_item.partial,
+        custom: true
       )
     end
 
@@ -88,12 +102,11 @@ module Nav
         else
           # New menu item
           new_item = create_menu_item_from_hash(override_hash)
-          item_id = id || "new_menu_item_#{SecureRandom.hex(4)}"
-          result[item_id] = new_item
+          result[new_item.id] = new_item
         end
       end
 
-      sort_menu_items(result.values)
+      sort_navigation_items(result.values)
     end
 
     def merge_menu_item(default_item, override_hash)
@@ -102,10 +115,11 @@ module Nav
         label: override_hash[:label] || default_item.label,
         url: override_hash[:url] || default_item.url,
         position: override_hash[:position] || default_item.position,
-        hidden: override_hash[:hidden] || default_item.hidden,
-        new_tab: override_hash[:new_tab] || default_item.new_tab,
+        hidden: override_hash.key?(:hidden) ? override_hash[:hidden] : default_item.hidden,
+        new_tab: override_hash.key?(:new_tab) ? override_hash[:new_tab] : default_item.new_tab,
         icon: override_hash[:icon] || default_item.icon,
-        partial: override_hash[:partial] || default_item.partial
+        partial: override_hash[:partial] || default_item.partial,
+        custom: true
       )
     end
 
@@ -120,7 +134,8 @@ module Nav
         alignment: hash[:alignment],
         new_tab: hash[:new_tab],
         icon: hash[:icon],
-        partial: hash[:partial]
+        partial: hash[:partial],
+        custom: true
       )
     end
 
@@ -133,20 +148,15 @@ module Nav
         hidden: hash[:hidden],
         new_tab: hash[:new_tab],
         icon: hash[:icon],
-        partial: hash[:partial]
+        partial: hash[:partial],
+        custom: true
       )
     end
 
-    def sort_items(items)
+    def sort_navigation_items(items)
       items
         .reject(&:hidden?)
-        .sort_by { |item| [item.position || Float::INFINITY, item.id.start_with?('new_item_') ? 0 : 1, item.id] }
-    end
-
-    def sort_menu_items(items)
-      items
-        .reject(&:hidden?)
-        .sort_by { |item| [item.position || Float::INFINITY, item.id.start_with?('new_menu_item_') ? 0 : 1, item.id] }
+        .sort_by { |item| [item.position || Float::INFINITY, item.custom? ? 0 : 1] }
     end
   end
 end
