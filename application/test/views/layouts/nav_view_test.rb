@@ -68,7 +68,7 @@ class NavViewTest < ActionView::TestCase
 
     assert_includes html, 'class="navbar-toggler"'
     assert_includes html, 'data-bs-toggle="collapse"'
-    assert_includes html, 'data-bs-target="#navbarSupportedContent"'
+    assert_includes html, 'data-bs-target="#navbar-content"'
     assert_includes html, 'aria-label="Toggle navigation"'
   end
 
