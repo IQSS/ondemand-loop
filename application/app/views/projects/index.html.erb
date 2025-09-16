@@ -1,18 +1,18 @@
 <% content_for :title, t('.page_title') %>
-<div class="projects container-md content" role="main">
+<div id="projects-page" class="projects container-md content" role="main">
   <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: t('.breadcrumbs_text')}]} %>
   <div class="row">
       <div class="col-md-12">
         <%= render partial: '/projects/index/actions' %>
-        <ul class="list-group">
+        <ul id="project-list" class="list-group">
           <%= render partial: '/projects/index/project', locals: { project: @active_project, active: true } if @active_project %>
           <% @projects.each do |project| %>
             <%= render partial: '/projects/index/project', locals: { project: project } unless project.id == @active_project&.id %>
           <% end %>
         </ul>
 
-        <% if @projects.empty? %>
-          <div class="d-flex justify-content-center py-2 rounded border bg-light-grey">
+          <% if @projects.empty? %>
+            <div id="projects-empty-state" class="d-flex justify-content-center py-2 rounded border bg-light-grey">
             <%= t('.empty_projects_text') %>
           </div>
         <% end %>
