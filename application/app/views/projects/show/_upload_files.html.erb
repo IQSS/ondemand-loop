@@ -1,12 +1,15 @@
 <% files = bundle.files %>
-<ul id="<%= bundle.id %>-upload-files" class="container files">
+<% list_id = local_assigns[:list_id] || "upload-bundle-#{bundle.id}-files" %>
+<% empty_id = local_assigns[:empty_id] || "upload-bundle-#{bundle.id}-files-empty" %>
+<ul id="<%= list_id %>" class="container files">
   <% if files.empty? %>
-    <div class="row py-2 justify-content-center custom-stripe" role="alert">
+    <div class="row py-2 justify-content-center custom-stripe" id="<%= empty_id %>" role="alert">
       <%= t('.message_no_upload_files_text') %>
     </div>
   <% end %>
   <% files.each_with_index do |file, index| %>
-    <li class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
+    <li class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>"
+        data-upload-file-id="<%= file.id %>">
       <div class="col-md-10">
         <div class="d-flex align-items-center">
           <%= render partial: '/shared/file_row_date', locals: { date: file.creation_date, title: t('.field_schedule_date_title'), classes: 'mx-2'} %>
@@ -27,7 +30,8 @@
                            action: 'click->modal#load',
                            'modal-url-value': widgets_path('events', project_id: bundle.project_id, entity_type: 'upload_file', entity_id: file.id),
                            'modal-title-value': t('.button_view_events_title'),
-                           'modal-id-value': 'global-modal'
+                           'modal-id-value': 'global-modal',
+                           'upload-file-id': file.id
                          } do %>
             <%= status_badge(file.status, title: file.end_date, filename: file.filename) %>
             <span class="visually-hidden"><%= t('.button_view_events_label') %></span>
@@ -50,6 +54,7 @@
           modal_title: t('.modal_delete_confirmation_title'),
           modal_subtitle: file.filename,
           modal_content: t('.modal_delete_confirmation_content'),
+          button_id: "delete-upload-file-#{file.id}-btn"
         } do %>
           <%= hidden_field_tag :anchor, tab_anchor_for(bundle) %>
         <% end %>

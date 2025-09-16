@@ -2,14 +2,15 @@
 <div id="<%= tab_id_for(project) %>" class="tab-pane fade show active" role="tabpanel" aria-labelledby="<%= tab_label_for(project) %>">
   <%= render partial: '/projects/show/download_actions', locals: { project: project } %>
 
-  <ul class="container files rounded border">
+  <ul id="download-files-list" class="container files rounded border">
     <% if files.empty? %>
-      <div class="row py-2 justify-content-center custom-stripe">
+      <div class="row py-2 justify-content-center custom-stripe" id="download-files-empty">
         <%= t('.message_download_files_empty_text') %>
       </div>
     <% end %>
     <% files.each_with_index do |file, index| %>
-      <li class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>">
+      <li class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>"
+          data-download-file-id="<%= file.id %>">
         <div class="col-md-10">
           <div class="d-flex align-items-center">
             <%= render partial: '/shared/file_row_date', locals: { date: file.creation_date, title: t('.field_schedule_date_title'), classes: 'mx-2'} %>
@@ -37,7 +38,8 @@
                              action: 'click->modal#load',
                              'modal-url-value': widgets_path('events', project_id: project.id, entity_type: 'download_file', entity_id: file.id),
                              'modal-title-value': t('.button_view_events_title'),
-                             'modal-id-value': 'global-modal'
+                             'modal-id-value': 'global-modal',
+                             'download-file-id': file.id
                            } do %>
               <%= status_badge(file.status, title: file.end_date, filename: file.filename) %>
               <span class="visually-hidden"><%= t('.button_view_events_label') %></span>
@@ -57,7 +59,8 @@
                          method: :patch,
                          icon: 'bi bi-arrow-clockwise',
                          class: 'btn-icon-sm btn-outline-secondary icon-hover-success',
-                         title: t('.button_retry_download_title')
+                         title: t('.button_retry_download_title'),
+                         button_id: "retry-download-file-#{file.id}-btn"
                        } do %>
               <%= hidden_field_tag :state, FileStatus::PENDING.to_s %>
             <% end %>
@@ -73,6 +76,7 @@
             modal_title: t('.modal_delete_confirmation_title'),
             modal_subtitle: file.filename,
             modal_content: t('.modal_delete_confirmation_content'),
+            button_id: "delete-download-file-#{file.id}-btn"
           } do %>
             <%= hidden_field_tag :anchor, tab_anchor_for(project) %>
           <% end %>
