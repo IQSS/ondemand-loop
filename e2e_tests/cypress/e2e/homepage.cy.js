@@ -1,4 +1,5 @@
 import { visitLoopRoot } from '../plugins/navigation'
+import homePage from '../pages/HomePage'
 
 describe('Home page', () => {
   beforeEach(() => {
@@ -6,15 +7,13 @@ describe('Home page', () => {
   })
 
   it('shows welcome and beta notices', () => {
-    visitLoopRoot();
-    
-    // Try to find the expected content, but don't fail immediately
-    cy.get('body').then(($body) => {
-      cy.contains('Welcome to OnDemand Loop!').should('be.visible');
-      cy.contains('Beta Notice').should('be.visible');
-    });
+    homePage.visit()
+    homePage.getWelcomeMessage().should('be.visible')
+    homePage.getBetaMessage().should('be.visible')
+    homePage.getGuideLink().should('have.attr', 'href')
+    homePage.getCreateProjectForm().should('exist')
+    homePage.getBetaFeedbackLink().should('have.attr', 'href')
 
-    cy.task('log', 'Test completed successfully using cy.loop configuration');
-
-  });
-});
+    cy.task('log', 'Test completed successfully using cy.loop configuration')
+  })
+})

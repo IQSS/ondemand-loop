@@ -1,6 +1,7 @@
 <%= form_with url: url,
               method: (local_assigns[:method] || :post),
               class: (local_assigns[:form_class] || "d-inline"),
+              id: local_assigns[:form_id],
               data: {
                 controller: "submit-button",
                 'submit-button-modal-id-value': local_assigns[:modal_id],
