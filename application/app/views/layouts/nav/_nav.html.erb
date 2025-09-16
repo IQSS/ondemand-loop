@@ -5,14 +5,14 @@
     <!-- Mobile toggle button -->
     <button class="navbar-toggler" type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
+            data-bs-target="#navbar-content"
+            aria-controls="navbar-content"
             aria-expanded="false"
-            aria-label="Toggle navigation">
+            aria-label="<%= t('layouts.nav.navigation.button_toggle_label') %>">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbar-content">
       <!-- Primary nav links (left-aligned) -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <% navigation.select(&:lhs?).each do |nav_item| %>
