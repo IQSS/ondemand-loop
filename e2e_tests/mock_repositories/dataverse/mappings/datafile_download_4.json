@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/access/datafile/4",
+    "queryParameters": {
+      "format": {
+        "equalTo": "original"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "screenshot.png",
+    "headers": {
+      "Content-Type": "image/png",
+      "Content-Disposition": "attachment; filename=\"screenshot.png\""
+    }
+  }
+}

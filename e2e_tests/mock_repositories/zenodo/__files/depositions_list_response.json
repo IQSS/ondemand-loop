@@ -1,4 +1,4 @@
 [
-  {"id": 1, "links": {"html": "https://zenodo.org/deposit/1"}},
-  {"id": 2, "links": {"html": "https://zenodo.org/deposit/2"}}
+  {"id": 1, "links": {"html": "http://zenodo:8080/deposit/1"}},
+  {"id": 2, "links": {"html": "http://zenodo:8080/deposit/2"}}
 ]

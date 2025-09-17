@@ -14,7 +14,7 @@
             "key": "file1.txt",
             "size": 100,
             "checksum": "md5:111",
-            "links": {"self": "https://zenodo.org/record/1/files/file1.txt"}
+            "links": {"self": "http://zenodo:8080/record/1/files/file1.txt"}
           }
         ]
       },

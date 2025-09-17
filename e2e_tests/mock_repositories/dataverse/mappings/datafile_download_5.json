@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/access/datafile/5",
+    "queryParameters": {
+      "format": {
+        "equalTo": "original"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "396944036d-773953a40e4c.png",
+    "headers": {
+      "Content-Type": "image/png",
+      "Content-Disposition": "attachment; filename=\"396944036d-773953a40e4c.png\""
+    }
+  }
+}

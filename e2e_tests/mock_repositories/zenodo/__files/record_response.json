@@ -12,14 +12,14 @@
       "key": "data/file1.txt",
       "size": 100,
       "checksum": "md5:abc",
-      "links": {"self": "https://zenodo.org/record/11/files/data%2Ffile1.txt"}
+      "links": {"self": "http://zenodo:8080/record/11/files/data%2Ffile1.txt"}
     },
     {
       "id": "2",
       "key": "image.png",
       "size": 200,
       "checksum": "md5:def",
-      "links": {"self": "https://zenodo.org/record/11/files/image.png"}
+      "links": {"self": "http://zenodo:8080/record/11/files/image.png"}
     }
   ]
 }

@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/record/11/files/data%2Ffile1.txt"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "data_file1.txt",
+    "headers": {
+      "Content-Type": "text/plain",
+      "Content-Disposition": "attachment; filename=\"file1.txt\""
+    }
+  }
+}

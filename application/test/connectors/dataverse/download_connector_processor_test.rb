@@ -19,7 +19,6 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
       md5: Digest::MD5.hexdigest('test content'),
       dataverse_url: 'http://example.com',
       download_url: nil,
-      temp_location: nil,
     }
 
     @download_path = @file.download_location
@@ -138,7 +137,6 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
       md5: Digest::MD5.hexdigest('content'),
       dataverse_url: 'http://example.com',
       download_url: nil,
-      temp_location: nil,
       partial_downloads: nil,
     }
     file.stubs(:update) { |**args| file.metadata = args[:metadata]; true }
@@ -178,7 +176,6 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
       md5: Digest::MD5.hexdigest('content'),
       dataverse_url: 'http://example.com',
       download_url: nil,
-      temp_location: nil,
       partial_downloads: nil,
     }
     file.stubs(:update) { |**args| file.metadata = args[:metadata]; true }

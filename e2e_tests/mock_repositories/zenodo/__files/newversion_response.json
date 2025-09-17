@@ -1,5 +1,5 @@
 {
   "links": {
-    "latest_draft": "https://zenodo.org/api/deposit/depositions/9"
+    "latest_draft": "http://zenodo:8080/api/deposit/depositions/9"
   }
 }

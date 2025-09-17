@@ -2,9 +2,9 @@
   "id": 1,
   "metadata": {"doi": "10.1234/zenodo.1"},
   "links": {
-    "bucket": "https://zenodo.org/api/files/123",
-    "html": "https://zenodo.org/deposit/1",
-    "self": "https://zenodo.org/api/deposit/depositions/1"
+    "bucket": "http://zenodo:8080/api/files/123",
+    "html": "http://zenodo:8080/deposit/1",
+    "self": "http://zenodo:8080/api/deposit/depositions/1"
   },
   "submitted": false
 }
