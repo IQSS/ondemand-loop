@@ -83,6 +83,7 @@ class Zenodo::Handlers::DepositionsTest < ActiveSupport::TestCase
     Zenodo::ProjectService.expects(:new).with(zenodo_url: 'https://zenodo.org').returns(proj_service)
 
     @settings.expects(:update_user_settings).with({ active_project: project.id.to_s })
+    @explorer.stubs(:log_project_event).returns(true)
     @explorer.expects(:log_project_event).with(project, message: 'events.project.created', metadata: { name: project.name, folder: project.download_dir })
     @explorer.expects(:log_project_event).with(project, message: 'events.project.active', metadata: { name: project.name })
     result = @explorer.create(repo_url: @repo_url, file_ids: ['f1'], project_id: '1')
