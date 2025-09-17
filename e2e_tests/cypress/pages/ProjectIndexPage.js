@@ -1,15 +1,16 @@
 const selectors = {
   navProjectsLink: '#nav-projects',
   pageContainer: '#projects-page',
-  breadcrumbs: 'nav[aria-label="Breadcrumb"]',
   actionsBar: '#project-actions-bar',
   createProjectButton: '#create-project-btn',
-  appBarCreateProjectButton: '#app-bar-create-project-btn',
   projectList: '#project-list',
   projectSummaryItems: '#project-list [data-test="project-summary"]',
   projectName: '[data-test="project-name"]',
   emptyState: '#projects-empty-state',
-  flashAlert: '#flash-container [role="alert"]',
+  projectDeleteButton: 'button.project-delete-btn',
+  deleteConfirmationModal: '#modal-delete-confirmation',
+  modalConfirmButton: '[data-action="modal#confirm"]',
+  flashDismissButton: '#flash-container button[data-bs-dismiss="alert"]',
 };
 
 export class ProjectIndexPage {
@@ -21,9 +22,6 @@ export class ProjectIndexPage {
     return cy.get(selectors.pageContainer);
   }
 
-  getBreadcrumbs() {
-    return cy.get(selectors.breadcrumbs);
-  }
 
   getActionsBar() {
     return cy.get(selectors.actionsBar);
@@ -31,14 +29,6 @@ export class ProjectIndexPage {
 
   clickCreateProject() {
     cy.get(selectors.createProjectButton).click();
-  }
-
-  clickAppBarCreateProject() {
-    cy.get(selectors.appBarCreateProjectButton).click();
-  }
-
-  getFlashAlert() {
-    return cy.get(selectors.flashAlert);
   }
 
   getProjectList() {
@@ -59,6 +49,24 @@ export class ProjectIndexPage {
 
   getEmptyState() {
     return cy.get(selectors.emptyState);
+  }
+
+  deleteProject(projectId) {
+    // Click delete button for the project
+    cy.get(`li#${projectId}`).within(() => {
+      cy.get(selectors.projectDeleteButton).waitClick();
+    });
+
+    // Confirm deletion in the modal
+    cy.get(selectors.deleteConfirmationModal).should('be.visible').within(() => {
+      cy.get(selectors.modalConfirmButton).click();
+    });
+
+    // Wait for success message and dismiss it
+    cy.get('#flash-container [role="alert"]').should('contain', 'deleted');
+    cy.get(selectors.flashDismissButton).waitClick();
+
+    cy.task('log', `Successfully deleted project: ${projectId}`);
   }
 }
 

@@ -1,29 +1,25 @@
-import { visitLoopRoot } from '../../plugins/navigation'
+import appActionsBar from '../../pages/AppActionsBar'
+import homePage from '../../pages/HomePage'
 
 // Note: These tests use WireMock to mock the Zenodo API running at http://zenodo:8080
 // The mock server contains 2 dummy records for search and pagination testing
 // Mock behavior: any search returns "Record One" and "Record Two" with basic metadata
 describe('Explore Widget - Zenodo', () => {
-  const EXPLORE_INPUT_SELECTOR = '#explore-repo-url-input'
-  const EXPLORE_SUBMIT_SELECTOR = '#explore-repo-url-submit'
   const ZENODO_URL = 'http://zenodo:8080'
 
   beforeEach(() => {
-    visitLoopRoot()
+    homePage.visitLoopRoot()
   })
 
   it('should navigate to explore Zenodo page and verify rendering', () => {
     // Navigate to the homepage first
-    visitLoopRoot()
+    homePage.visitLoopRoot()
 
     // Find and interact with the explore widget input
-    cy.get(EXPLORE_INPUT_SELECTOR).should('be.visible')
-    
+    appActionsBar.getExploreRepoInput().should('be.visible')
+
     // Enter the Zenodo URL (pointing to mock server)
-    cy.get(EXPLORE_INPUT_SELECTOR).clear().type(ZENODO_URL)
-    
-    // Submit the explore form
-    cy.get(EXPLORE_SUBMIT_SELECTOR).waitClick()
+    appActionsBar.exploreRepository(ZENODO_URL)
     
     // Verify that we're on the explore page and it rendered successfully
     cy.url().should('include', '/explore/')
@@ -55,16 +51,13 @@ describe('Explore Widget - Zenodo', () => {
 
   it('should handle explore widget with zenodo URL via explore button', () => {
     // Navigate to the homepage
-    visitLoopRoot()
+    homePage.visitLoopRoot()
 
     // Find the explore widget
-    cy.get(EXPLORE_INPUT_SELECTOR).should('be.visible')
-    
-    // Enter the Zenodo URL (pointing to mock server)
-    cy.get(EXPLORE_INPUT_SELECTOR).clear().type(ZENODO_URL)
-    
-    // Click the explore button instead of submitting form
-    cy.get(EXPLORE_SUBMIT_SELECTOR).waitClick()
+    appActionsBar.getExploreRepoInput().should('be.visible')
+
+    // Enter the Zenodo URL and submit via explore button
+    appActionsBar.exploreRepository(ZENODO_URL)
     
     // Verify navigation to explore page
     cy.url().should('include', '/explore/')
@@ -78,18 +71,17 @@ describe('Explore Widget - Zenodo', () => {
 
   it('should validate explore widget is present on homepage', () => {
     // Verify the explore widget exists and is properly structured
-    cy.get('#app-actions-bar .explore-repo').should('be.visible')
-    cy.get(EXPLORE_INPUT_SELECTOR).should('be.visible')
-    cy.get(EXPLORE_INPUT_SELECTOR).should('have.attr', 'placeholder')
-    cy.get(EXPLORE_SUBMIT_SELECTOR).should('be.visible')
+    appActionsBar.getExploreRepoForm().should('be.visible')
+    appActionsBar.getExploreRepoInput().should('be.visible')
+    appActionsBar.getExploreRepoInput().should('have.attr', 'placeholder')
+    appActionsBar.getExploreSubmitButton().should('be.visible')
 
     cy.task('log', 'Explore widget validation completed for Zenodo')
   })
 
   it('should test search functionality within zenodo repository', () => {
     // Navigate to zenodo repository first via explore widget
-    cy.get(EXPLORE_INPUT_SELECTOR).clear().type(ZENODO_URL)
-    cy.get(EXPLORE_SUBMIT_SELECTOR).click()
+    appActionsBar.exploreRepository(ZENODO_URL)
     
     // Wait for page to load and verify we're on the Zenodo landing page
     cy.get('div[data-test="zenodo-logo-container"]').should('be.visible')
@@ -112,8 +104,7 @@ describe('Explore Widget - Zenodo', () => {
 
   it('should test record navigation from search results', () => {
     // Navigate to zenodo repository and perform search
-    cy.get(EXPLORE_INPUT_SELECTOR).clear().type(ZENODO_URL)
-    cy.get(EXPLORE_SUBMIT_SELECTOR).click()
+    appActionsBar.exploreRepository(ZENODO_URL)
     
     // Perform search to get results
     cy.get('form input[name="query"]').type('Record')
@@ -144,11 +135,10 @@ describe('Explore Widget - Zenodo', () => {
 
     zenodoUrls.forEach((url, index) => {
       // Navigate to homepage
-      visitLoopRoot()
+      homePage.visitLoopRoot()
       
-      // Enter the URL
-      cy.get(EXPLORE_INPUT_SELECTOR).clear().type(url)
-      cy.get(EXPLORE_SUBMIT_SELECTOR).click()
+      // Enter the URL and submit
+      appActionsBar.exploreRepository(url)
       
       // Verify navigation works
       cy.url().should('include', '/explore/')
@@ -163,8 +153,7 @@ describe('Explore Widget - Zenodo', () => {
 
   it('should verify zenodo server configuration in search form', () => {
     // Navigate to zenodo explore page
-    cy.get(EXPLORE_INPUT_SELECTOR).clear().type(ZENODO_URL)
-    cy.get(EXPLORE_SUBMIT_SELECTOR).click()
+    appActionsBar.exploreRepository(ZENODO_URL)
     
     // Verify hidden server configuration fields point to mock server
     cy.get('#zenodo-search-form').should('have.attr', 'action').and('include', 'zenodo')

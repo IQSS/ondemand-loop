@@ -1,9 +1,8 @@
-import { visitLoopRoot } from '../plugins/navigation'
 import homePage from '../pages/HomePage'
 
 describe('Home page', () => {
   beforeEach(() => {
-    visitLoopRoot()
+    homePage.visitLoopRoot()
   })
 
   it('shows welcome and beta notices', () => {

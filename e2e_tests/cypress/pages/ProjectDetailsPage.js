@@ -5,6 +5,8 @@ const selectors = {
   projectName: '#project-name',
   openProjectFolderButton: '#open-project-folder-btn',
   editProjectNameButton: '#edit-project-name-btn',
+  editNameInput: '#edit-name-input',
+  saveNameButton: '#save-name-btn',
   deleteProjectButton: '#delete-project-btn',
   viewProjectEventsButton: '#view-project-events-btn',
   activeProjectIndicator: '#active-project-indicator',
@@ -47,6 +49,12 @@ const selectors = {
 };
 
 export class ProjectDetailsPage {
+
+  assertInProjectDetails() {
+    // Assert we're on the project details page
+    cy.url().should('include', '/projects/')
+    cy.title().should('match', /project details/i)
+  }
   getPageContainer() {
     return cy.get(selectors.pageContainer);
   }
@@ -69,6 +77,22 @@ export class ProjectDetailsPage {
 
   clickEditProjectName() {
     cy.get(selectors.editProjectNameButton).click();
+  }
+
+  waitClickEditProjectName() {
+    cy.get(selectors.editProjectNameButton).waitClick();
+  }
+
+  getEditNameInput() {
+    return cy.get(selectors.editNameInput);
+  }
+
+  typeProjectName(name) {
+    this.getEditNameInput().clear().type(name);
+  }
+
+  clickSaveName() {
+    cy.get(selectors.saveNameButton).click();
   }
 
   clickDeleteProject() {

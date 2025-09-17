@@ -1,55 +1,52 @@
-import { 
-  visitLoopRoot, 
-  navigateToProjects, 
-  navigateToDownloads, 
-  navigateToUploads,
-  navigateToRepositorySettings,
-  navigateToDataverse,
-  navigateToZenodo,
-  navigateToHome
-} from '../plugins/navigation'
+import homePage from '../pages/HomePage'
+import projectIndexPage from '../pages/ProjectIndexPage'
+import downloadsPage from '../pages/DownloadsPage'
+import uploadsPage from '../pages/UploadsPage'
+import dataverse from '../pages/connectors/Dataverse'
+import zenodo from '../pages/connectors/Zenodo'
+import repositorySettingsPage from '../pages/RepositorySettingsPage'
 
 describe('Navigation', () => {
   beforeEach(() => {
-    visitLoopRoot()
+    homePage.visitLoopRoot()
   })
 
   it('should navigate to Projects page', () => {
-    navigateToProjects()
+    projectIndexPage.visit()
     cy.task('log', 'Successfully navigated to Projects page')
   })
 
   it('should navigate to Downloads page', () => {
-    navigateToDownloads()
+    downloadsPage.visit()
     cy.task('log', 'Successfully navigated to Downloads page')
   })
 
   it('should navigate to Uploads page', () => {
-    navigateToUploads()
+    uploadsPage.visit()
     cy.task('log', 'Successfully navigated to Uploads page')
   })
 
   it('should navigate to Dataverse explore page', () => {
-    navigateToDataverse()
+    dataverse.navigateToDataverse()
     cy.task('log', 'Successfully navigated to Dataverse explore page')
   })
 
   it('should navigate to Zenodo explore page', () => {
-    navigateToZenodo()
+    zenodo.navigateToZenodo()
     cy.task('log', 'Successfully navigated to Zenodo explore page')
   })
 
   it('should navigate to Repository Settings page', () => {
-    navigateToRepositorySettings()
+    repositorySettingsPage.visit()
     cy.task('log', 'Successfully navigated to Repository Settings page')
   })
 
   it('should navigate to Home page via logo link', () => {
     // First navigate away from home
-    navigateToProjects()
+    projectIndexPage.visit()
     
     // Then navigate back home using logo
-    navigateToHome()
+    homePage.visit()
     cy.task('log', 'Successfully navigated to Home page via logo')
   })
 

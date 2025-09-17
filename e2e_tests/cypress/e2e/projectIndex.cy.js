@@ -1,6 +1,7 @@
-import { visitLoopRoot } from '../plugins/navigation'
-import { deleteProject } from '../plugins/projects'
 import projectIndexPage from '../pages/ProjectIndexPage'
+import projectDetailsPage from '../pages/ProjectDetailsPage'
+import flashMessageComponent from '../pages/FlashMessageComponent'
+import homePage from '../pages/HomePage'
 
 const confirmProjectVisibleOnIndex = () => {
   return cy
@@ -15,7 +16,7 @@ const confirmProjectVisibleOnIndex = () => {
         projectIndexPage.getProjectSummaryById(projectId).should('exist')
         projectIndexPage.getProjectNameById(projectId).should('contain', trimmedName)
 
-        deleteProject(projectId)
+        projectIndexPage.deleteProject(projectId)
         cy.task('log', `Verified project ${projectId} appears on index and cleaned up`)
       })
     })
@@ -23,7 +24,7 @@ const confirmProjectVisibleOnIndex = () => {
 
 describe('Project Index', () => {
   beforeEach(() => {
-    visitLoopRoot()
+    homePage.visitLoopRoot()
   })
 
   it('creates a new project from the project actions bar', () => {
@@ -32,18 +33,46 @@ describe('Project Index', () => {
     projectIndexPage.getActionsBar().should('be.visible')
 
     projectIndexPage.clickCreateProject()
-    projectIndexPage.getFlashAlert().should('contain', 'created')
+    projectDetailsPage.assertInProjectDetails()
+    flashMessageComponent.getFlashAlert().should('contain', 'created')
 
     return confirmProjectVisibleOnIndex()
   })
 
-  it('creates a new project from the app actions bar', () => {
+  it('should edit project name', () => {
     projectIndexPage.visit()
     projectIndexPage.getPageContainer().should('be.visible')
 
-    projectIndexPage.clickAppBarCreateProject()
-    projectIndexPage.getFlashAlert().should('contain', 'created')
+    projectIndexPage.clickCreateProject()
+    projectDetailsPage.assertInProjectDetails()
 
-    return confirmProjectVisibleOnIndex()
+    // Get the created project ID
+    cy.get('[data-project-id]').invoke('attr', 'data-project-id').as('projectId')
+
+    // Click edit project name button
+    projectDetailsPage.waitClickEditProjectName()
+
+    // Clear input and add new name
+    const newName = 'Updated Project Name'
+    projectDetailsPage.typeProjectName(newName)
+
+    // Click save
+    projectDetailsPage.clickSaveName()
+
+    // Verify the name has been updated in the H tag
+    projectDetailsPage.getProjectName().should('contain', newName)
+
+    // Navigate to the projects page
+    projectIndexPage.visit()
+
+    // Verify that the specific project shows the new name using project ID
+    cy.get('@projectId').then(projectId => {
+      projectIndexPage.getProjectNameById(projectId).should('have.text', newName)
+
+      // Cleanup
+      projectIndexPage.deleteProject(projectId)
+    })
+
+    cy.task('log', 'Successfully edited project name')
   })
 })

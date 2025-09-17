@@ -1,3 +1,9 @@
+const NAVIGATION = {
+  baseUrl: Cypress.env('baseUrl'),
+  dashboardPath: Cypress.env('dashboardPath'),
+  loopPath: Cypress.env('loopPath'),
+};
+
 const selectors = {
   logoLink: '#logo-link',
   welcomeMessage: '#welcome-message',
@@ -8,6 +14,17 @@ const selectors = {
 };
 
 export class HomePage {
+
+  visitLoopRoot() {
+    const auth = cy.loop.auth;
+    const timeout = cy.loop.timeout;
+    cy.visit(NAVIGATION.loopPath, {
+      auth,
+      failOnStatusCode: false,
+      timeout
+    });
+  }
+
   visit() {
     cy.get(selectors.logoLink).click();
   }
