@@ -1,6 +1,6 @@
 const selectors = {
   // Navigation selectors
-  repositoriesDropdown: '#repositoriesDropdown',
+  repositoriesDropdown: '#repositories-dropdown',
   dataverseNavItem: '#nav-dataverse',
 
   // Landing page selectors

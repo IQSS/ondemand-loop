@@ -1,6 +1,6 @@
 const selectors = {
   // Navigation selectors
-  repositoriesDropdown: '#repositoriesDropdown',
+  repositoriesDropdown: '#repositories-dropdown',
   zenodoNavItem: '#nav-zenodo',
 
   // Landing page selectors

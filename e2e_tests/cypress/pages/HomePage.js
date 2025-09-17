@@ -6,10 +6,10 @@ const NAVIGATION = {
 
 const selectors = {
   logoLink: '#logo-link',
-  welcomeMessage: '#welcome-message',
-  betaMessage: '#beta-message',
-  guideLink: '#guide-link',
-  createProjectForm: '#create-project-form',
+  welcomeMessage: '[data-test-id="welcome-message"]',
+  betaMessage: '[data-test-id="beta-message"]',
+  guideLink: '[data-test-id="guide-link"]',
+  createProjectButton: '[data-test-id="home-create-project-button"]',
   betaFeedbackLink: '#beta-feedback-link',
 };
 
@@ -41,8 +41,8 @@ export class HomePage {
     return cy.get(selectors.guideLink);
   }
 
-  getCreateProjectForm() {
-    return cy.get(selectors.createProjectForm);
+  getCreateProjectButton() {
+    return cy.get(selectors.createProjectButton);
   }
 
   getBetaFeedbackLink() {

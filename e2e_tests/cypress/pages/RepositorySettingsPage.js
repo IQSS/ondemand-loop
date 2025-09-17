@@ -1,5 +1,5 @@
 const selectors = {
-  repositoriesDropdown: '#repositoriesDropdown',
+  repositoriesDropdown: '#repositories-dropdown',
   navRepoSettingsLink: '#nav-repo-settings',
 };
 
