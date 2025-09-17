@@ -9,8 +9,8 @@ const selectors = {
   welcomeMessage: '[data-test-id="welcome-message"]',
   betaMessage: '[data-test-id="beta-message"]',
   guideLink: '[data-test-id="guide-link"]',
-  createProjectButton: '[data-test-id="home-create-project-button"]',
-  betaFeedbackLink: '#beta-feedback-link',
+  createProjectButton: '[data-test-id="home-create-project-btn"]',
+  betaFeedbackLink: '[data-test-id="beta-feedback-link"]',
 };
 
 export class HomePage {

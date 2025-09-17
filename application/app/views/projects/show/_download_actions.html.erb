@@ -102,11 +102,10 @@
     <%= render layout: "shared/button_to", locals: {
       url: repo_resolver_path(active_project: project.id),
       form_class: 'flex-grow-1 d-flex align-items-center gap-2',
-      form_id: 'download-repo-resolver-form',
       class: 'btn-primary-dark',
       icon_html: image_tag('icon.png', alt: t('.button_submit_icon_alt'), class: 'icon-class d-block', style: 'height: 1rem; width: auto; object-fit: contain;' ),
       label: t('.button_submit_text'),
-      button_test_id: 'submit-download-repo-resolver-btn'
+      button_id: 'submit-download-repo-resolver-btn'
     } do %>
 
       <input type="text"
