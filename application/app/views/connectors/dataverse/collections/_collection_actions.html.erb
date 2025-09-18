@@ -8,7 +8,8 @@
                     method: :post,
                     params: { remote_repo_url: external_collection_url(dataverse_url, collection.data.alias) },
                     class: 'btn btn-sm btn-outline-secondary',
-                    title: t('.button_create_bundle_title') do %>
+                    title: t('.button_create_bundle_title'),
+                    data: { test_id: 'create-collection-bundle-btn' } do %>
         <i class="bi bi-folder-plus" aria-hidden="true"></i>
         <span class="ps-1"><%= t('.button_create_bundle_label') %></span>
       <% end %>
@@ -16,7 +17,8 @@
     <%= link_to external_collection_url(dataverse_url, collection.data.alias),
                 target: '_blank',
                 class: 'btn btn-sm btn-outline-secondary',
-                title: t('.link_open_collection_title') do %>
+                title: t('.link_open_collection_title'),
+                data: { test_id: 'open-collection-link' } do %>
       <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
       <span class="visually-hidden"><%= t('.link_open_collection_title') %></span>
     <% end %>

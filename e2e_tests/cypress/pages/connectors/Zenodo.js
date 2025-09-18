@@ -13,8 +13,8 @@ const selectors = {
 
   // Search functionality
   searchForm: '#zenodo-search-form',
-  searchInput: 'form input[name="query"]',
-  searchSubmitButton: 'input[type="submit"]',
+  searchInput: '[data-test-id="zenodo-search-input"]',
+  searchSubmitButton: '[data-test-id="zenodo-search-submit"]',
   serverSchemeField: 'input[name="server_scheme"]',
   serverPortField: 'input[name="server_port"]',
 
@@ -28,14 +28,14 @@ const selectors = {
 
   // Pagination
   paginationNav: 'nav[aria-label="Search result pagination"]',
-  nextPageLink: 'a[title="Next page"]',
-  prevPageLink: 'a[title="Previous page"]',
+  nextPageLink: '[data-test-id="header-pagination-next"], [data-test-id="footer-pagination-next"]',
+  prevPageLink: '[data-test-id="header-pagination-prev"], [data-test-id="footer-pagination-prev"]',
 
   // Record page selectors
-  recordActionsBar: '.d-flex.justify-content-between.align-items-center.mt-3',
-  recordTitle: 'h2.mb-0.me-2.fs-4.h5',
-  createBundleButton: 'button:contains("Create Bundle")',
-  openRecordLink: 'a[title*="Open record"]',
+  recordActionsBar: '[data-test-id="record-actions-bar"]',
+  recordTitle: '[data-test-id="record-title"]',
+  createBundleButton: '[data-test-id="create-bundle-btn"]',
+  openRecordLink: '[data-test-id="open-record-link"]',
 
   // Record files
   recordFiles: '[data-test-id="record-files"]',

@@ -1,5 +1,5 @@
 <% post_url = local_assigns.fetch(:post_url) %>
-<div class="card">
+<div class="card" data-test-id="record-files">
   <div class="card-header d-flex align-items-center">
     <%= t('zenodo.records.show.caption_files_text', count: dataset.files.size) %>
   </div>

@@ -11,8 +11,8 @@
     </ol>
   </nav>
   <div class="my-4">
-    <%= link_to 'https://dataverse.org/', target: '_blank', rel: 'noopener', aria: { label: t('dataverse.landing.index.image_dataverse_icon_aria_label') } do %>
-      <%= image_tag('dataverse_project.svg', alt: t('dataverse.landing.index.image_dataverse_icon_alt'), width: 300) %>
+    <%= link_to 'https://dataverse.org/', target: '_blank', rel: 'noopener', aria: { label: t('dataverse.landing.index.image_dataverse_icon_aria_label') }, data: { test_id: 'dataverse-project-link' } do %>
+      <%= image_tag('dataverse_project.svg', alt: t('dataverse.landing.index.image_dataverse_icon_alt'), width: 300, data: { test_id: 'dataverse-icon' }) %>
     <% end %>
   </div>
   <div class="row">

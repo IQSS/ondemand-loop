@@ -12,8 +12,8 @@
     <%= hidden_field_tag :server_scheme, repo_url.scheme_override %>
     <%= hidden_field_tag :server_port, repo_url.port_override %>
     <div class="input-group mb-3">
-      <%= f.text_field :query, class: 'form-control', value: query, placeholder: t('zenodo.landing.index.field_search_placeholder') %>
-      <%= f.submit t('zenodo.landing.index.button_submit_text'), class: 'btn btn-primary' %>
+      <%= f.text_field :query, class: 'form-control', value: query, placeholder: t('zenodo.landing.index.field_search_placeholder'), data: { test_id: 'zenodo-search-input' } %>
+      <%= f.submit t('zenodo.landing.index.button_submit_text'), class: 'btn btn-primary', data: { test_id: 'zenodo-search-submit' } %>
     </div>
   <% end %>
 

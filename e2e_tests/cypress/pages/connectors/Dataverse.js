@@ -7,13 +7,13 @@ const selectors = {
   breadcrumbs: 'nav[aria-label="Breadcrumb"]',
   breadcrumbHome: '.breadcrumb .breadcrumb-item:first-child',
   breadcrumbActive: '.breadcrumb .breadcrumb-item.active',
-  dataverseIcon: 'img[alt="Dataverse icon"]',
-  dataverseProjectLink: 'a[aria-label="Visit the Dataverse project homepage"]',
+  dataverseIcon: '[data-test-id="dataverse-icon"]',
+  dataverseProjectLink: '[data-test-id="dataverse-project-link"]',
 
   // Search functionality
-  searchForm: 'form',
-  searchInput: 'form input[name="query"]',
-  searchSubmitButton: 'form input[value="Search"]',
+  searchForm: '[data-test-id="installation-search-form"]',
+  searchInput: '[data-test-id="installation-search-input"]',
+  searchSubmitButton: '[data-test-id="installation-search-submit"]',
 
   // Installation list
   installationsList: 'ul.list-group',
@@ -29,12 +29,12 @@ const selectors = {
   // Collection page selectors
   collectionActionsBar: '#dataverse-collection-action-bar',
   collectionTitle: '#dataverse-collection-action-bar h2',
-  createBundleButton: 'button:contains("Create Collection Bundle")',
-  openCollectionLink: 'a:contains("Open collection on Dataverse")',
+  createBundleButton: '[data-test-id="create-collection-bundle-btn"]',
+  openCollectionLink: '[data-test-id="open-collection-link"]',
 
   // Collection search
-  collectionSearchInput: 'form input[name="query"]',
-  collectionSearchButton: 'form input[value="Search Inside"]',
+  collectionSearchInput: '[data-test-id="collection-search-input"]',
+  collectionSearchButton: '[data-test-id="collection-search-submit"]',
 
   // Results and items
   resultsList: 'ul.list-group',
