@@ -208,8 +208,6 @@ en:
         paginator_page_text: "page %{page}"
         msg_no_items_text: "No items found."
       index:
-        breadcrumb_home_text: "Home"
-        breadcrumb_home_title: "Home"
         image_dataverse_icon_alt: "Dataverse icon"
         image_dataverse_icon_aria_label: "Visit the Dataverse project homepage"
         page_title: "OnDemand Loop - Dataverse Landing page"
