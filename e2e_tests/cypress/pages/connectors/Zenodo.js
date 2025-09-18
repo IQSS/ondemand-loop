@@ -1,12 +1,11 @@
+import pageBreadcrumbs from '../PageBreadcrumbs';
+
 const selectors = {
   // Navigation selectors
   repositoriesDropdown: '#repositories-dropdown',
   zenodoNavItem: '#nav-zenodo',
 
   // Landing page selectors
-  breadcrumbs: 'nav[aria-label="Breadcrumb"]',
-  breadcrumbHome: '.breadcrumb .breadcrumb-item:first-child',
-  breadcrumbActive: '.breadcrumb .breadcrumb-item.active',
   zenodoLogoContainer: 'div[data-test-id="zenodo-logo-container"]',
   zenodoLogo: 'div[data-test-id="zenodo-logo-container"] img',
   zenodoProjectLink: 'div[data-test-id="zenodo-logo-container"] a',
@@ -52,18 +51,6 @@ export class Zenodo {
   }
 
   // Landing page methods
-  getBreadcrumbs() {
-    return cy.get(selectors.breadcrumbs);
-  }
-
-  getBreadcrumbHome() {
-    return cy.get(selectors.breadcrumbHome);
-  }
-
-  getBreadcrumbActive() {
-    return cy.get(selectors.breadcrumbActive);
-  }
-
   getZenodoLogoContainer() {
     return cy.get(selectors.zenodoLogoContainer);
   }
@@ -194,9 +181,9 @@ export class Zenodo {
   validateLandingPage() {
     cy.url().should('include', '/explore/zenodo/');
     cy.url().should('include', '/landing/');
-    this.getBreadcrumbs().should('be.visible');
-    this.getBreadcrumbHome().should('contain', 'Home');
-    this.getBreadcrumbActive().should('contain', 'Zenodo');
+    pageBreadcrumbs.getBreadcrumbs().should('be.visible');
+    pageBreadcrumbs.getBreadcrumbHome().should('contain', 'Home');
+    pageBreadcrumbs.getBreadcrumbActive().should('contain', 'Zenodo');
     this.getZenodoLogo().should('be.visible');
     this.getZenodoProjectLink().should('have.attr', 'href').and('include', 'zenodo:8080');
   }

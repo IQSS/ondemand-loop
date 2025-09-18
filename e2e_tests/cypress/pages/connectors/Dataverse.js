@@ -1,12 +1,11 @@
+import pageBreadcrumbs from '../PageBreadcrumbs';
+
 const selectors = {
   // Navigation selectors
   repositoriesDropdown: '#repositories-dropdown',
   dataverseNavItem: '#nav-dataverse',
 
   // Landing page selectors
-  breadcrumbs: 'nav[aria-label="Breadcrumb"]',
-  breadcrumbHome: '.breadcrumb .breadcrumb-item:first-child',
-  breadcrumbActive: '.breadcrumb .breadcrumb-item.active',
   dataverseIcon: '[data-test-id="dataverse-icon"]',
   dataverseProjectLink: '[data-test-id="dataverse-project-link"]',
 
@@ -51,18 +50,6 @@ export class Dataverse {
   }
 
   // Landing page methods
-  getBreadcrumbs() {
-    return cy.get(selectors.breadcrumbs);
-  }
-
-  getBreadcrumbHome() {
-    return cy.get(selectors.breadcrumbHome);
-  }
-
-  getBreadcrumbActive() {
-    return cy.get(selectors.breadcrumbActive);
-  }
-
   getDataverseIcon() {
     return cy.get(selectors.dataverseIcon);
   }
@@ -187,9 +174,9 @@ export class Dataverse {
   validateLandingPage() {
     cy.title().should('eq', 'OnDemand Loop - Dataverse Landing page');
     cy.url().should('include', '/connect/dataverse/landing');
-    this.getBreadcrumbs().should('be.visible');
-    this.getBreadcrumbHome().should('contain', 'Home');
-    this.getBreadcrumbActive().should('contain', 'Dataverse');
+    pageBreadcrumbs.getBreadcrumbs().should('be.visible');
+    pageBreadcrumbs.getBreadcrumbHome().should('contain', 'Home');
+    pageBreadcrumbs.getBreadcrumbActive().should('contain', 'Dataverse');
     this.getDataverseIcon().should('be.visible');
     this.getDataverseProjectLink().should('have.attr', 'href', 'https://dataverse.org/');
   }

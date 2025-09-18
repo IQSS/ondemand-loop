@@ -1,6 +1,5 @@
 const selectors = {
   pageContainer: '[data-test-id="project-details-page"]',
-  breadcrumbs: '[data-test-id="project-details-breadcrumbs"] nav[aria-label="Breadcrumb"]',
   projectActions: '[data-test-id="project-actions"]',
   projectName: '#project-name',
   openProjectFolderButton: '[data-test-id="open-project-folder-btn"]',
@@ -56,10 +55,6 @@ export class ProjectDetailsPage {
   }
   getPageContainer() {
     return cy.get(selectors.pageContainer);
-  }
-
-  getBreadcrumbs() {
-    return cy.get(selectors.breadcrumbs);
   }
 
   getProjectActions() {

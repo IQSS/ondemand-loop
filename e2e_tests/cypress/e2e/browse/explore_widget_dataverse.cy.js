@@ -1,5 +1,6 @@
 import appActionsBar from '../../pages/AppActionsBar'
 import homePage from '../../pages/HomePage'
+import pageBreadcrumbs from '../../pages/PageBreadcrumbs'
 
 describe('Explore Widget - Dataverse', () => {
   const DATAVERSE_URL = Cypress.env('dataverseUrl')
@@ -26,12 +27,12 @@ describe('Explore Widget - Dataverse', () => {
     cy.title().should('eq', 'OnDemand Loop - Dataverse Collection')
     
     // Verify breadcrumbs are present and structured correctly
-    cy.get('nav[aria-label="Breadcrumb"]').should('be.visible')
+    pageBreadcrumbs.getBreadcrumbs().should('be.visible')
     cy.get('.breadcrumb').should('be.visible')
     cy.get('.breadcrumb .breadcrumb-item').should('have.length.at.least', 3)
-    
+
     // Verify specific breadcrumb items
-    cy.get('.breadcrumb .breadcrumb-item').first().should('contain', 'Home')
+    pageBreadcrumbs.getBreadcrumbHome().should('contain', 'Home')
     cy.get('.breadcrumb .breadcrumb-item').eq(1).should('contain', 'Dataverse')
     cy.get('.breadcrumb .breadcrumb-item').eq(2).should('contain', DATAVERSE_URL)
     

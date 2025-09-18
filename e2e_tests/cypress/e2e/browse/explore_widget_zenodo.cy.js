@@ -1,5 +1,6 @@
 import appActionsBar from '../../pages/AppActionsBar'
 import homePage from '../../pages/HomePage'
+import pageBreadcrumbs from '../../pages/PageBreadcrumbs'
 
 // Note: These tests use WireMock to mock the Zenodo API running at http://zenodo:8080
 // The mock server contains 2 dummy records for search and pagination testing
@@ -29,13 +30,13 @@ describe('Explore Widget - Zenodo', () => {
     cy.title().should('eq', 'OnDemand Loop - Zenodo')
     
     // Verify breadcrumbs are present and structured correctly
-    cy.get('nav[aria-label="Breadcrumb"]').should('be.visible')
+    pageBreadcrumbs.getBreadcrumbs().should('be.visible')
     cy.get('.breadcrumb').should('be.visible')
     cy.get('.breadcrumb .breadcrumb-item').should('have.length.at.least', 2)
-    
+
     // Verify specific breadcrumb items
-    cy.get('.breadcrumb .breadcrumb-item').first().should('contain', 'Home')
-    cy.get('.breadcrumb .breadcrumb-item.active').should('contain', 'Zenodo')
+    pageBreadcrumbs.getBreadcrumbHome().should('contain', 'Home')
+    pageBreadcrumbs.getBreadcrumbActive().should('contain', 'Zenodo')
     
     // Verify the Zenodo logo container is present
     cy.get('div[data-test-id="zenodo-logo-container"]').should('be.visible')
