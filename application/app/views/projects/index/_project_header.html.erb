@@ -19,7 +19,7 @@
     <!-- PROJECT METADATA -->
     <div data-update-inline-field-target="display" class="d-flex flex-column">
       <%= link_to project_path(id: project.id), class: "position-relative project-name-link text-reset text-decoration-none rounded-end  ps-1 pe-3" do %>
-        <h2 class="mb-0 h5" data-update-inline-field-target="name" data-test="project-name"><%= project.name %></h2>
+        <h2 class="mb-0 h5" data-update-inline-field-target="name" data-test-id="project-name"><%= project.name %></h2>
         <small class="text-muted"><%= project.download_dir %></small>
       <% end %>
     </div>

@@ -21,10 +21,10 @@ const selectors = {
 
   // Pagination
   resultsHeader: '.card-header',
-  headerPaginationPrev: '[data-test="header-pagination-prev"]',
-  headerPaginationNext: '[data-test="header-pagination-next"]',
-  footerPaginationPrev: '[data-test="footer-pagination-prev"]',
-  footerPaginationNext: '[data-test="footer-pagination-next"]',
+  headerPaginationPrev: '[data-test-id="header-pagination-prev"]',
+  headerPaginationNext: '[data-test-id="header-pagination-next"]',
+  footerPaginationPrev: '[data-test-id="footer-pagination-prev"]',
+  footerPaginationNext: '[data-test-id="footer-pagination-next"]',
 
   // Collection page selectors
   collectionActionsBar: '#dataverse-collection-action-bar',

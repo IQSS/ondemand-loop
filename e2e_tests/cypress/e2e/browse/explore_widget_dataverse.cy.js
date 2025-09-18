@@ -119,7 +119,7 @@ describe('Explore Widget - Dataverse', () => {
     cy.get('.card-header').contains('11 to 30 of 195882 results').should('be.visible')
     
     // Click next page
-      cy.get('a[data-test="header-pagination-next"]').click()
+      cy.get('a[data-test-id="header-pagination-next"]').click()
     
     // Verify we're now on page 2
     cy.url().should('include', 'page=2')

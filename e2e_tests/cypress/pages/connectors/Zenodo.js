@@ -7,9 +7,9 @@ const selectors = {
   breadcrumbs: 'nav[aria-label="Breadcrumb"]',
   breadcrumbHome: '.breadcrumb .breadcrumb-item:first-child',
   breadcrumbActive: '.breadcrumb .breadcrumb-item.active',
-  zenodoLogoContainer: 'div[data-test="zenodo-logo-container"]',
-  zenodoLogo: 'div[data-test="zenodo-logo-container"] img',
-  zenodoProjectLink: 'div[data-test="zenodo-logo-container"] a',
+  zenodoLogoContainer: 'div[data-test-id="zenodo-logo-container"]',
+  zenodoLogo: 'div[data-test-id="zenodo-logo-container"] img',
+  zenodoProjectLink: 'div[data-test-id="zenodo-logo-container"] a',
 
   // Search functionality
   searchForm: '#zenodo-search-form',
@@ -38,7 +38,7 @@ const selectors = {
   openRecordLink: 'a[title*="Open record"]',
 
   // Record files
-  recordFiles: '[data-test="record-files"]',
+  recordFiles: '[data-test-id="record-files"]',
   filesList: '.list-group',
   fileItems: '.list-group-item',
 };

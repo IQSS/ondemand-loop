@@ -38,8 +38,8 @@ describe('Explore Widget - Zenodo', () => {
     cy.get('.breadcrumb .breadcrumb-item.active').should('contain', 'Zenodo')
     
     // Verify the Zenodo logo container is present
-    cy.get('div[data-test="zenodo-logo-container"]').should('be.visible')
-    cy.get('div[data-test="zenodo-logo-container"] img').should('be.visible')
+    cy.get('div[data-test-id="zenodo-logo-container"]').should('be.visible')
+    cy.get('div[data-test-id="zenodo-logo-container"] img').should('be.visible')
     
     // Verify the search form is present and functional
     cy.get('form input[name="query"]').should('be.visible')
@@ -84,7 +84,7 @@ describe('Explore Widget - Zenodo', () => {
     appActionsBar.exploreRepository(ZENODO_URL)
     
     // Wait for page to load and verify we're on the Zenodo landing page
-    cy.get('div[data-test="zenodo-logo-container"]').should('be.visible')
+    cy.get('div[data-test-id="zenodo-logo-container"]').should('be.visible')
     
     // Test search functionality (any search returns mock data with 2 records)
     cy.get('form input[name="query"]').type('Record')
@@ -145,7 +145,7 @@ describe('Explore Widget - Zenodo', () => {
       cy.url().should('include', 'zenodo')
       
       // Verify page loads
-      cy.get('div[data-test="zenodo-logo-container"]').should('be.visible')
+      cy.get('div[data-test-id="zenodo-logo-container"]').should('be.visible')
       
       cy.task('log', `Successfully tested Zenodo URL format ${index + 1}: ${url}`)
     })
