@@ -21,7 +21,7 @@
     <div class="card">
       <div class="card-header d-flex align-items-center">
         <%= results.to_s %>
-        <nav aria-label="<%= t('zenodo.landing.index.paginator_bar_a11y_label') %>" class="ms-auto">
+        <nav aria-label="<%= t('zenodo.landing.index.paginator_bar_a11y_label') %>" class="ms-auto" data-test-id="header-pagination">
           <div class="d-flex align-items-center gap-2">
             <%= link_to_explore_prev_page(query, results, repo_url, class: 'text-decoration-none', data: {test_id: 'header-pagination-prev'}) %>
             <%= t('zenodo.landing.index.paginator_page_text', page: results.page) %>
@@ -55,7 +55,7 @@
         <div class="alert alert-warning m-3" role="status"><%= t('zenodo.landing.index.msg_no_items_found_text') %></div>
       <% end %>
       <div class="card-header d-flex justify-content-end">
-        <nav aria-label="<%= t('zenodo.landing.index.paginator_bar_a11y_label') %>" class="ms-auto">
+        <nav aria-label="<%= t('zenodo.landing.index.paginator_bar_a11y_label') %>" class="ms-auto" data-test-id="footer-pagination">
           <div class="d-flex align-items-center gap-2">
             <%= link_to_explore_prev_page(query, results, repo_url, class: 'text-decoration-none', data: {test_id: 'footer-pagination-prev'}) %>
             <%= t('zenodo.landing.index.paginator_page_text', page: results.page) %>

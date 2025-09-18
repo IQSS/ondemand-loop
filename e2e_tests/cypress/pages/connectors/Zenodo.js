@@ -27,7 +27,7 @@ const selectors = {
   noResultsAlert: '.alert.alert-warning',
 
   // Pagination
-  paginationNav: 'nav[aria-label="Search result pagination"]',
+  paginationNav: 'nav[data-test-id="header-pagination"]',
   nextPageLink: '[data-test-id="header-pagination-next"], [data-test-id="footer-pagination-next"]',
   prevPageLink: '[data-test-id="header-pagination-prev"], [data-test-id="footer-pagination-prev"]',
 
