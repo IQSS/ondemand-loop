@@ -46,7 +46,7 @@ follow the steps below or refer to the [Quick Start section of the Development G
 
 ```sh
 make loop_build
-make loop_up
+make dev_up
 ```
 
 Once the containers are running, navigate to the application URL and log in with the local test credentials:
