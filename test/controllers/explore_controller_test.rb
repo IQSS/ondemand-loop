@@ -31,7 +31,7 @@ class ExploreControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'show action renders template when handler succeeds' do
-    stub_handler(:show, result: ConnectorResult.new(template: '/sitemap/index', locals: {}, success: true))
+    stub_handler(:show, result: ConnectorResult.new(template: '/explore/template_response', locals: {}, success: true))
     stub_repo_resolver(type: ConnectorType.get('zenodo'), object_url: 'https://example.org/')
 
     get explore_url(
@@ -45,7 +45,7 @@ class ExploreControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'show action renders partial when handler succeeds via ajax request' do
-    stub_handler(:show, result: ConnectorResult.new(template: '/sitemap/index', locals: {}, success: true))
+    stub_handler(:show, result: ConnectorResult.new(template: '/explore/partial_response', locals: {}, success: true))
     stub_repo_resolver(type: ConnectorType.get('zenodo'), object_url: 'https://example.org/')
 
     get explore_url(
@@ -190,7 +190,7 @@ class ExploreControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'show action handles dataverse connector type' do
-    stub_handler(:show, result: ConnectorResult.new(template: '/sitemap/index', locals: {}, success: true))
+    stub_handler(:show, result: ConnectorResult.new(template: '/explore/template_response', locals: {}, success: true))
     stub_repo_resolver(type: ConnectorType.get('dataverse'), object_url: 'https://dataverse.harvard.edu/')
 
     get explore_url(
@@ -226,7 +226,7 @@ class ExploreControllerTest < ActionDispatch::IntegrationTest
       'file_id' => '123',
       'custom_param' => 'test_value',
       'repo_url' => instance_of(Repo::RepoUrl)
-    }).returns(ConnectorResult.new(template: '/sitemap/index', locals: {}, success: true))
+    }).returns(ConnectorResult.new(template: '/explore/template_response', locals: {}, success: true))
     ConnectorHandlerDispatcher.stubs(:handler).returns(handler)
     stub_repo_resolver(type: ConnectorType.get('zenodo'), object_url: 'https://example.org/')
 

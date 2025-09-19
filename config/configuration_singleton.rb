@@ -53,6 +53,15 @@ class ConfigurationSingleton
     File.join(metadata_root, 'repos', 'repo_history.yml')
   end
 
+  def navigation
+    @navigation ||= begin
+      log_info('[Configuration] Building Navigation')
+      defaults  = Nav::NavDefaults.navigation_items
+      overrides = ::Configuration.config.fetch(:navigation, [])
+      Nav::NavBuilder.build(defaults, overrides)
+    end
+  end
+
   def config
     @config ||= read_config
   end
@@ -116,14 +125,15 @@ class ConfigurationSingleton
   end
 
   def read_config
-    files = Pathname.glob(config_directory.join('*.{yml,yaml,yml.erb,yaml.erb}'))
+    Rails.logger.info("Reading OnDemand Loop configuration files from: #{config_directory}")
+    files = Pathname.glob(config_directory.join('*.{yml,yaml}'))
     files.sort.each_with_object({}) do |f, conf|
       begin
-        content = ERB.new(f.read, trim_mode: '-').result(binding)
-        yml = YAML.safe_load(content, aliases: true) || {}
+        Rails.logger.info("Loading file: #{f}")
+        yml = YAML.safe_load_file(f, aliases: true) || {}
         conf.deep_merge!(yml.deep_symbolize_keys)
       rescue => e
-        log_error("Can't read or parse #{f}", {}, e)
+        Rails.logger.error("Can't read or parse #{f}: #{e.class} - #{e.message}")
       end
     end
   end

@@ -1,6 +1,7 @@
 <%= form_with url: url,
               method: (local_assigns[:method] || :post),
               class: (local_assigns[:form_class] || "d-inline"),
+              id: local_assigns[:form_id],
               data: {
                 controller: "submit-button",
                 'submit-button-modal-id-value': local_assigns[:modal_id],
@@ -23,6 +24,7 @@
   %>
   <%= button_tag type: 'submit',
                  id: local_assigns[:button_id],
+                 'data-test-id': local_assigns[:button_test_id],
                  disabled: local_assigns[:disabled] || false,
                  class: "btn #{local_assigns[:class] || 'btn-outline-dark btn-sm'}",
                  title: local_assigns[:title] || accessible_label,

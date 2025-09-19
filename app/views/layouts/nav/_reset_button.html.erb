@@ -1,0 +1,28 @@
+<!-- Warning note above reset -->
+<li class="px-3 pb-3">
+  <small class="text-warning d-block fw-semibold">
+    <i class="bi bi-exclamation-triangle-fill me-1" aria-hidden="true"></i>
+    <%= t('layouts.nav.navigation.menu_reset_warning_text') %>
+  </small>
+</li>
+<li id="<%= nav_item.id %>">
+  <% # RESET BUTTON WITH CONFIRMATION MESSAGE  %>
+  <%= button_to widgets_path('reset'),
+        method: :post,
+        form: { data: {
+          controller: "utils--link-confirmation",
+          "utils--link-confirmation-target": "form",
+          "utils--link-confirmation-modal-id-value": "modal-delete-confirmation",
+          "utils--link-confirmation-modal-title-value": t('layouts.nav.navigation.reset_confirmation_title'),
+          "utils--link-confirmation-modal-subtitle-value": t('layouts.nav.navigation.reset_confirmation_subtitle'),
+          "utils--link-confirmation-modal-content-value": t('layouts.nav.navigation.reset_confirmation_content'),
+          "utils--link-confirmation-modal-confirm-text-value": t('layouts.nav.navigation.reset_confirmation_button_text')
+        } },
+        data: { action: "click->utils--link-confirmation#click" },
+        class: "dropdown-item d-flex align-items-center gap-2" do %>
+    <span class="icon-wrapper bg-white text-dark rounded d-inline-flex align-items-center justify-content-center p-1" aria-hidden="true">
+      <i class="bi bi-exclamation-octagon-fill"></i>
+    </span>
+    <%= nav_item.label %>
+  <% end %>
+</li>

@@ -3,9 +3,9 @@
     <%= search_results_count(search_result) %>
     <nav aria-label="<%= t('connectors.dataverse.collections.search_items.paginator_bar_a11y_label') %>" class="ms-auto">
       <div class="d-flex align-items-center gap-2">
-        <%= link_to_search_results_prev_page(repo_url, dataverse, search_result, { class: "text-decoration-none", data: {test: 'header-pagination-prev'} }) %>
+        <%= link_to_search_results_prev_page(repo_url, dataverse, search_result, { class: "text-decoration-none", data: {test_id: 'header-pagination-prev'} }) %>
         <%= t(".paginator_page_text", page: search_result.data.page) %>
-        <%= link_to_search_results_next_page(repo_url, dataverse, search_result, { class: "text-decoration-none", data: {test: 'header-pagination-next'} }) %>
+        <%= link_to_search_results_next_page(repo_url, dataverse, search_result, { class: "text-decoration-none", data: {test_id: 'header-pagination-next'} }) %>
       </div>
     </nav>
   </div>
@@ -17,9 +17,9 @@
     <div class="card-header d-flex justify-content-end">
       <nav aria-label="<%= t('.paginator_bar_a11y_label') %>" class="ms-auto">
         <div class="d-flex align-items-center gap-2">
-          <%= link_to_search_results_prev_page(repo_url, dataverse, search_result, { class: "text-decoration-none", data: {test: 'footer-pagination-prev'} }) %>
+          <%= link_to_search_results_prev_page(repo_url, dataverse, search_result, { class: "text-decoration-none", data: {test_id: 'footer-pagination-prev'} }) %>
           <%= t(".paginator_page_text", page: search_result.data.page) %>
-          <%= link_to_search_results_next_page(repo_url, dataverse, search_result, { class: "text-decoration-none", data: {test: 'footer-pagination-next'} }) %>
+          <%= link_to_search_results_next_page(repo_url, dataverse, search_result, { class: "text-decoration-none", data: {test_id: 'footer-pagination-next'} }) %>
         </div>
       </nav>
     </div>

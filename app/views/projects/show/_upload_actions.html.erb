@@ -1,4 +1,6 @@
-<section class="card mb-3 shadow-sm rounded overflow-hidden">
+<section class="card mb-3 shadow-sm rounded overflow-hidden"
+         data-test-id="upload-bundle-<%= bundle.id %>-card"
+         data-upload-bundle-id="<%= bundle.id %>">
   <div class="card-header bg-light-darker py-1">
     <div data-controller="update-inline-field"
          data-update-inline-field-initial-value-value="<%= bundle.name %>"
@@ -25,8 +27,10 @@
           } %>
 
           <button class="btn btn-sm btn-outline-secondary"
+                  data-test-id="rename-upload-bundle-<%= bundle.id %>-btn"
                   data-action="click->update-inline-field#edit"
-                  title="<%= t('.button_edit_bundle_name_title') %>">
+                  title="<%= t('.button_edit_bundle_name_title') %>"
+                  type="button">
             <i class="bi bi-pencil-fill" aria-hidden="true"></i>
             <span class="visually-hidden"><%= t('.button_edit_bundle_name_title') %></span>
           </button>
@@ -41,6 +45,7 @@
             modal_title: t('.modal_delete_confirmation_title'),
             modal_subtitle: bundle.name,
             modal_content: t('.modal_delete_confirmation_content'),
+            button_test_id: "delete-upload-bundle-#{bundle.id}-btn"
           } do %>
             <%= hidden_field_tag :anchor, '' %>
           <% end %>
@@ -51,7 +56,7 @@
     <hr class="m-0">
 
     <div class="d-flex justify-content-between align-items-center py-2">
-      <div class="me-4" data-controller="lazy-loader"
+      <div class="me-4" data-test-id="upload-bundle-<%= bundle.id %>-summary" data-controller="lazy-loader"
            data-lazy-loader-url-value="<%= widgets_path(widget_path: 'upload_bundle_summary', project_id: project.id, upload_bundle_id: bundle.id) %>"
            data-lazy-loader-event-name-value="file-drop:file-submitted:<%= file_target_id %>">
         <%= render partial: '/shared/file_summary_widget', locals: project_progress_data(bundle.status_summary) %>
@@ -59,6 +64,7 @@
 
       <span title="<%= t('.button_add_files_title') %>">
         <button data-controller="lazy-loader file-drop-activation"
+                data-test-id="upload-bundle-<%= bundle.id %>-add-files-btn"
                 data-lazy-loader-container-id-value="<%= file_browser_id %>"
                 data-lazy-loader-url-value="<%= file_browser_path(path: project.download_dir) %>"
                 data-file-drop-activation-file-drop-id-value="<%= file_target_id %>"
@@ -66,12 +72,12 @@
                 title="<%= t('.button_add_files_title') %>"
                 aria-label="<%= t('.button_add_files_title') %>"
                 class="btn btn-outline-secondary btn-sm"
+                type="button"
                 <%= 'disabled' unless bundle.connector_metadata.configured? %>>
           <i class="bi bi-plus-square-fill" aria-hidden="true"></i>
           <span class="ps-1"><%= t('.button_add_files_text') %></span>
         </button>
       </span>
-
     </div>
   </div>
 

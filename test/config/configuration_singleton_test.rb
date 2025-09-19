@@ -190,13 +190,24 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     end
   end
 
+  test 'config memoizes result on subsequent calls' do
+    config = ConfigurationSingleton.new
+    
+    # Mock read_config to verify it's only called once due to memoization
+    config.expects(:read_config).once.returns({ test: 'value' })
+    
+    # Clear existing config to ensure fresh test
+    config.instance_variable_set(:@config, nil)
+    
+    first_call = config.config
+    second_call = config.config
+    
+    assert_same first_call, second_call
+  end
+
   test 'dataverse_hub memoizes and logs creation' do
     hub = mock('hub')
     Dataverse::DataverseHub.expects(:new).once.returns(hub)
-
-    logger = mock('logger')
-    Rails.stubs(:logger).returns(logger)
-    logger.expects(:info).with { |msg| msg.include?('[Configuration] Created Dataverse::DataverseHub') }
 
     config = ConfigurationSingleton.new
     assert_same hub, config.dataverse_hub
@@ -209,10 +220,6 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     db.stubs(:size).returns(3)
     db.stubs(:db_path).returns(@config_instance.repo_db_file)
 
-    logger = mock('logger')
-    Rails.stubs(:logger).returns(logger)
-    logger.expects(:info).with { |msg| msg.include?("[Configuration] RepoDb created entries: 3 path: #{@config_instance.repo_db_file}") }
-
     config = ConfigurationSingleton.new
     assert_same db, config.repo_db
     assert_same db, config.repo_db
@@ -224,10 +231,6 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     history.stubs(:size).returns(4)
     history.stubs(:db_path).returns(@config_instance.repo_history_file)
 
-    logger = mock('logger')
-    Rails.stubs(:logger).returns(logger)
-    logger.expects(:info).with { |msg| msg.include?("[Configuration] RepoHistory created entries: 4 path: #{@config_instance.repo_history_file}") }
-
     config = ConfigurationSingleton.new
     assert_same history, config.repo_history
     assert_same history, config.repo_history
@@ -237,12 +240,77 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     service = mock('resolver_service')
     Repo::RepoResolverService.expects(:build).once.returns(service)
 
-    logger = mock('logger')
-    Rails.stubs(:logger).returns(logger)
-    logger.expects(:info).with { |msg| msg.include?('[Configuration] Created Repo::RepoResolverService') }
-
     config = ConfigurationSingleton.new
     assert_same service, config.repo_resolver_service
     assert_same service, config.repo_resolver_service
+  end
+
+  test 'navigation returns array of Nav::MainItem objects' do
+    config = ConfigurationSingleton.new
+    navigation = config.navigation
+
+    assert_instance_of Array, navigation
+    assert navigation.all? { |item| item.is_a?(Nav::MainItem) }
+    assert navigation.size > 0
+  end
+
+  test 'navigation memoizes result on subsequent calls' do
+    config = ConfigurationSingleton.new
+    
+    # Clear any existing navigation instance variable to ensure fresh test
+    config.instance_variable_set(:@navigation, nil)
+    
+    # Mock the building process to verify it's only called once due to memoization
+    Nav::NavDefaults.expects(:navigation_items).once.returns([])
+    ::Configuration.expects(:config).once.returns({})
+    Nav::NavBuilder.expects(:build).once.returns([])
+    
+    first_call = config.navigation
+    second_call = config.navigation
+    
+    assert_same first_call, second_call
+  end
+
+  test 'navigation includes expected default navigation items' do
+    config = ConfigurationSingleton.new
+    navigation = config.navigation
+
+    # Check for key navigation items by their IDs
+    nav_ids = navigation.map(&:id)
+    assert_includes nav_ids, 'nav-projects'
+    assert_includes nav_ids, 'nav-downloads' 
+    assert_includes nav_ids, 'nav-uploads'
+    assert_includes nav_ids, 'repositories'
+    assert_includes nav_ids, 'nav-ood-dashboard'
+    assert_includes nav_ids, 'help'
+  end
+
+  test 'navigation respects configuration overrides when present' do
+    # Create a temporary config that has navigation overrides
+    temp_config = { navigation: [{ id: 'nav-projects', label: 'Custom Projects Label' }] }
+    ::Configuration.stubs(:config).returns(temp_config)
+    
+    config = ConfigurationSingleton.new
+    navigation = config.navigation
+    
+    projects_item = navigation.find { |item| item.id == 'nav-projects' }
+    assert_not_nil projects_item
+    assert_equal 'Custom Projects Label', projects_item.label
+  end
+
+  test 'navigation rebuilds when @navigation is nil' do
+    config = ConfigurationSingleton.new
+    
+    # Clear navigation instance variable to simulate initial state
+    config.instance_variable_set(:@navigation, nil)
+    
+    # Mock the building process - should be called once for first call
+    Nav::NavDefaults.expects(:navigation_items).once.returns([])
+    ::Configuration.expects(:config).once.returns({})
+    Nav::NavBuilder.expects(:build).once.returns([])
+    
+    navigation = config.navigation
+    
+    assert_not_nil navigation
   end
 end

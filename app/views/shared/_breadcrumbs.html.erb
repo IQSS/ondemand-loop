@@ -1,5 +1,5 @@
 <% links = local_assigns.fetch(:links, []) %>
-<nav aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb" data-test-id="breadcrumbs">
   <ol class="breadcrumb">
     <li class="breadcrumb-item active">
       <a href="<%= root_path %>"><%= t('.home') %></a>

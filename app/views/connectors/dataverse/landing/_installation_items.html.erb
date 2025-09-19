@@ -1,8 +1,8 @@
 <div class="mb-3">
-  <%= form_with url: link_to_landing(ConnectorType::DATAVERSE), method: :get, local: true do |f| %>
+  <%= form_with url: link_to_landing(ConnectorType::DATAVERSE), method: :get, local: true, data: { test_id: 'installation-search-form' } do |f| %>
     <div class="input-group">
-      <%= f.text_field :query, value: params[:query], class: 'form-control', placeholder: t('dataverse.landing.installation_items.field_search_placeholder') %>
-      <%= f.submit t('dataverse.landing.installation_items.button_submit_text'), class: 'btn btn-primary' %>
+      <%= f.text_field :query, value: params[:query], class: 'form-control', placeholder: t('dataverse.landing.installation_items.field_search_placeholder'), data: { test_id: 'installation-search-input' } %>
+      <%= f.submit t('dataverse.landing.installation_items.button_submit_text'), class: 'btn btn-primary', data: { test_id: 'installation-search-submit' } %>
     </div>
   <% end %>
 </div>
@@ -10,9 +10,9 @@
   <div class="card-header d-flex align-items-center">
     <%= installations_page.to_s %>
     <nav aria-label="<%= t('dataverse.landing.installation_items.paginator_bar_a11y_label') %>" class="ms-auto">
-      <%= link_to_landing_prev_page(installations_page, {class: "text-decoration-none", data: {test: 'header-pagination-prev'}}) %>
+      <%= link_to_landing_prev_page(installations_page, {class: "text-decoration-none", data: {test_id: 'header-pagination-prev'}}) %>
       <%= t('dataverse.landing.installation_items.paginator_page_text', page: installations_page.page) %>
-      <%= link_to_landing_next_page(installations_page, {class: "text-decoration-none", data: {test: 'header-pagination-next'}}) %>
+      <%= link_to_landing_next_page(installations_page, {class: "text-decoration-none", data: {test_id: 'header-pagination-next'}}) %>
     </nav>
   </div>
   <% if installations_page.page_items.any? %>
@@ -26,9 +26,9 @@
     <div class="card-header d-flex justify-content-end">
       <nav aria-label="<%= t('dataverse.landing.installation_items.paginator_bar_a11y_label') %>" class="ms-auto">
         <div class="d-flex align-items-center gap-2">
-          <%= link_to_landing_prev_page(installations_page, {class: "text-decoration-none", data: {test: 'footer-pagination-prev'}}) %>
+          <%= link_to_landing_prev_page(installations_page, {class: "text-decoration-none", data: {test_id: 'footer-pagination-prev'}}) %>
           <%= t('dataverse.landing.installation_items.paginator_page_text', page: installations_page.page) %>
-          <%= link_to_landing_next_page(installations_page, {class: "text-decoration-none", data: {test: 'footer-pagination-next'}}) %>
+          <%= link_to_landing_next_page(installations_page, {class: "text-decoration-none", data: {test_id: 'footer-pagination-next'}}) %>
         </div>
       </nav>
     </div>

@@ -1,0 +1,19 @@
+<% if nav_item.partial %>
+  <!-- Custom partial -->
+  <%= render partial: "layouts/nav/#{nav_item.partial}", locals: { nav_item: nav_item } %>
+<% else %>
+  <!-- Dropdown menu link -->
+  <li>
+    <a class="dropdown-item d-flex align-items-center gap-2"
+       href="<%= nav_item.url %>"
+       id="<%= nav_item.id %>"
+       <% if nav_item.new_tab %>target="_blank" rel="noopener"<% end %>>
+      <% if nav_item.icon %>
+        <span class="icon-wrapper bg-white text-dark rounded d-inline-flex align-items-center justify-content-center p-1" aria-hidden="true">
+          <%= render_icon(nav_item.icon) %>
+        </span>
+      <% end %>
+      <%= nav_item.label %>
+    </a>
+  </li>
+<% end %>

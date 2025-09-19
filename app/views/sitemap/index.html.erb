@@ -2,18 +2,8 @@
 <div class="container-md content" role="main">
   <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: t('.breadcrumbs_text')}]} %>
   <ul>
-    <li><%= link_to t('layouts.nav.navigation.link_projects_text'), projects_path %></li>
-    <li><%= link_to t('layouts.nav.navigation.link_downloads_text'), download_status_path %></li>
-    <li><%= link_to t('layouts.nav.navigation.link_uploads_text'), upload_status_path %></li>
-    <li><%= t('layouts.nav.navigation.link_repositories_text') %></li>
-    <ul>
-      <li><%= link_to t('layouts.nav.navigation.link_dataverse_text'), link_to_landing(ConnectorType::DATAVERSE) %></li>
-      <li><%= link_to t('layouts.nav.navigation.link_zenodo_text'), zenodo_landing_url %></li>
-      <li><%= link_to t('layouts.nav.navigation.link_repo_settings_text'), repository_settings_path %></li>
-    </ul>
-    <li><%= link_to t('layouts.nav.navigation.link_guide_text'), guide_url %></li>
-    <li><%= link_to 'Open OnDemand', ood_dashboard_url %></li>
-    <li><%= link_to t('layouts.nav.navigation.link_restart_text'), restart_url %></li>
+    <%= render partial: 'navigation_items', locals: { nav_items: @navigation.select(&:lhs?) } %>
+    <%= render partial: 'navigation_items', locals: { nav_items: @navigation.select(&:rhs?) } %>
   </ul>
 </div>
 

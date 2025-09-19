@@ -1,10 +1,11 @@
 <% file_browser_id = project_download_dir_browser_id(project) %>
-<div class="card mb-3 shadow-sm rounded overflow-hidden">
+<div class="card mb-3 shadow-sm rounded overflow-hidden" data-test-id="download-actions-card">
   <div class="card-header bg-light-darker py-1">
     <div class="d-flex justify-content-between align-items-center py-2">
       <div class="d-flex align-items-center gap-3 me-2">
         <!-- open workspace folder -->
         <a href="<%= files_app_url(project.download_dir) %>"
+           data-test-id="open-downloads-folder-btn"
            target="_blank"
            class="btn btn-sm btn-outline-secondary"
            aria-label="<%= t('.button_open_downloads_folder_title') %>"
@@ -24,6 +25,7 @@
         <div data-controller="project-download-dir"
              data-project-download-dir-browser-id-value="<%= file_browser_id %>">
           <button type="button" class="btn btn-sm btn-outline-secondary"
+                  data-test-id="edit-download-dir-btn"
                   data-controller="lazy-loader"
                   data-lazy-loader-container-id-value="<%= file_browser_id %>"
                   data-lazy-loader-url-value="<%= file_browser_path(path: project.download_dir) %>"
@@ -39,14 +41,14 @@
 
         <!-- Open metadata link -->
         <%= render partial: '/shared/metadata_folder_link',
-                   locals: { path: Project.download_files_directory(project.id) } %>
+                   locals: { path: Project.download_files_directory(project.id), test_id: 'download-metadata-link' } %>
       </div>
     </div>
 
     <hr class="m-0">
 
     <div class="d-flex justify-content-between align-items-center py-2">
-      <div class="me-4">
+      <div class="me-4" data-test-id="download-summary">
         <%= render partial: '/shared/file_summary_widget', locals: project_progress_data(project.status_summary) %>
       </div>
 
@@ -54,6 +56,7 @@
 
         <button type="button"
                 class="btn btn-sm btn-outline-secondary"
+                data-test-id="add-download-files-btn"
                 aria-label="<%= t('.button_add_files_title') %>"
                 title="<%= t('.button_add_files_title') %>"
                 data-controller="modal"
@@ -76,7 +79,9 @@
                 role="button"
                 aria-expanded="false"
                 aria-controls="download-repo-resolver"
-                class="btn btn-outline-secondary btn-sm">
+                class="btn btn-outline-secondary btn-sm"
+                data-test-id="browse-dataset-btn"
+                type="button">
           <i data-utils--icon-toggle-target="icon" class="bi bi-plus-square-fill" aria-hidden="true"></i>
           <span class="ps-1"><%= t('.button_browse_dataset_text') %></span>
         </button>
@@ -99,7 +104,8 @@
       form_class: 'flex-grow-1 d-flex align-items-center gap-2',
       class: 'btn-primary-dark',
       icon_html: image_tag('icon.png', alt: t('.button_submit_icon_alt'), class: 'icon-class d-block', style: 'height: 1rem; width: auto; object-fit: contain;' ),
-      label: t('.button_submit_text')
+      label: t('.button_submit_text'),
+      button_id: 'submit-download-repo-resolver-btn'
     } do %>
 
       <input type="text"

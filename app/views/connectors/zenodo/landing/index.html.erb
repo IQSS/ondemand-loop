@@ -2,7 +2,7 @@
 <div class="zenodo container-md content" role="main">
   <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: t('shared.breadcrumbs.zenodo')}]} %>
 
-  <div class="my-4 pb-1" data-test="zenodo-logo-container">
+  <div class="my-4 pb-1" data-test-id="zenodo-logo-container">
     <%= link_to Zenodo::ZenodoUrl.default_url&.zenodo_url, target: '_blank', rel: 'noopener', aria: { label: t('connectors.zenodo.aria_label') } do %>
       <%= image_tag 'zenodo_project.svg', alt: t('connectors.zenodo.title'), width: 280 %>
     <% end %>
@@ -12,8 +12,8 @@
     <%= hidden_field_tag :server_scheme, repo_url.scheme_override %>
     <%= hidden_field_tag :server_port, repo_url.port_override %>
     <div class="input-group mb-3">
-      <%= f.text_field :query, class: 'form-control', value: query, placeholder: t('zenodo.landing.index.field_search_placeholder') %>
-      <%= f.submit t('zenodo.landing.index.button_submit_text'), class: 'btn btn-primary' %>
+      <%= f.text_field :query, class: 'form-control', value: query, placeholder: t('zenodo.landing.index.field_search_placeholder'), data: { test_id: 'zenodo-search-input' } %>
+      <%= f.submit t('zenodo.landing.index.button_submit_text'), class: 'btn btn-primary', data: { test_id: 'zenodo-search-submit' } %>
     </div>
   <% end %>
 
@@ -21,11 +21,11 @@
     <div class="card">
       <div class="card-header d-flex align-items-center">
         <%= results.to_s %>
-        <nav aria-label="<%= t('zenodo.landing.index.paginator_bar_a11y_label') %>" class="ms-auto">
+        <nav aria-label="<%= t('zenodo.landing.index.paginator_bar_a11y_label') %>" class="ms-auto" data-test-id="header-pagination">
           <div class="d-flex align-items-center gap-2">
-            <%= link_to_explore_prev_page(query, results, repo_url, class: 'text-decoration-none') %>
+            <%= link_to_explore_prev_page(query, results, repo_url, class: 'text-decoration-none', data: {test_id: 'header-pagination-prev'}) %>
             <%= t('zenodo.landing.index.paginator_page_text', page: results.page) %>
-            <%= link_to_explore_next_page(query, results, repo_url, class: 'text-decoration-none') %>
+            <%= link_to_explore_next_page(query, results, repo_url, class: 'text-decoration-none', data: {test_id: 'header-pagination-next'}) %>
           </div>
         </nav>
       </div>
@@ -55,11 +55,11 @@
         <div class="alert alert-warning m-3" role="status"><%= t('zenodo.landing.index.msg_no_items_found_text') %></div>
       <% end %>
       <div class="card-header d-flex justify-content-end">
-        <nav aria-label="<%= t('zenodo.landing.index.paginator_bar_a11y_label') %>" class="ms-auto">
+        <nav aria-label="<%= t('zenodo.landing.index.paginator_bar_a11y_label') %>" class="ms-auto" data-test-id="footer-pagination">
           <div class="d-flex align-items-center gap-2">
-            <%= link_to_explore_prev_page(query, results, repo_url, class: 'text-decoration-none') %>
+            <%= link_to_explore_prev_page(query, results, repo_url, class: 'text-decoration-none', data: {test_id: 'footer-pagination-prev'}) %>
             <%= t('zenodo.landing.index.paginator_page_text', page: results.page) %>
-            <%= link_to_explore_next_page(query, results, repo_url, class: 'text-decoration-none') %>
+            <%= link_to_explore_next_page(query, results, repo_url, class: 'text-decoration-none', data: {test_id: 'footer-pagination-next'}) %>
           </div>
         </nav>
       </div>

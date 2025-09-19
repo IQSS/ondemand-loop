@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg shadow-sm bg-dark" data-bs-theme="dark" aria-label="Main navigation">
+  <div class="container-fluid">
+    <%= render partial: 'layouts/nav/logo' %>
+
+    <!-- Mobile toggle button -->
+    <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbar-content"
+            aria-controls="navbar-content"
+            aria-expanded="false"
+            aria-label="<%= t('layouts.nav.navigation.button_toggle_label') %>">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbar-content">
+      <!-- Primary nav links (left-aligned) -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <% navigation.select(&:lhs?).each do |nav_item| %>
+          <%= render partial: "layouts/nav/#{nav_item.partial_name}", locals: { nav_item: nav_item } %>
+        <% end %>
+      </ul>
+
+      <!-- Right-aligned nav -->
+      <ul class="navbar-nav ms-auto">
+        <% navigation.select(&:rhs?).each do |nav_item| %>
+          <%= render partial: "layouts/nav/#{nav_item.partial_name}", locals: { nav_item: nav_item } %>
+        <% end %>
+      </ul>
+    </div>
+
+    <!-- Process status -->
+    <div id="process-status"
+         data-controller="lazy-loader"
+         aria-live="polite"
+         aria-label="<%= t('layouts.nav.navigation.detached_process_widget_label') %>"
+         data-lazy-loader-url-value="<%= detached_process_status_path %>"
+         data-lazy-loader-stop-on-inactive-value="true"
+         data-lazy-loader-interval-value="<%= ::Configuration.detached_process_status_interval %>">
+      <div id="file-activity-status"
+           class="d-flex justify-content-center align-items-start py-2"
+           style="min-width: 100px; height: 100%;">
+        <span class="text-light spinner-border spinner-border-sm"
+              role="status"
+              aria-label="<%= t('layouts.nav.navigation.detached_process_spinner_label') %>"></span>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,6 +1,7 @@
 module Zenodo::Handlers
   class Depositions
     include LoggingCommon
+    include EventLogger
 
     def initialize(object_id = nil)
       @deposition_id = object_id
@@ -90,7 +91,9 @@ module Zenodo::Handlers
           errors = project.errors.full_messages.join(', ')
           return ConnectorResult.new(message: { alert: I18n.t('zenodo.depositions.message_project_error', errors: errors) }, success: false)
         end
+        log_project_event(project, message: 'events.project.created', metadata: { name: project.name, folder: project.download_dir })
         Current.settings.update_user_settings({ active_project: project.id.to_s })
+        log_project_event(project, message: 'events.project.active', metadata: { name: project.name })
       end
 
       download_files = project_service.create_files_from_deposition(project, deposition, file_ids)

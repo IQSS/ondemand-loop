@@ -63,7 +63,6 @@ class Zenodo::DownloadConnectorProcessorTest < ActiveSupport::TestCase
     file.metadata = {
       zenodo_url: 'https://zenodo.org',
       download_url: 'https://zenodo.org/file.txt',
-      temp_location: nil,
       partial_downloads: nil,
     }
     file.stubs(:update) { |**args| file.metadata = args[:metadata]; true }
@@ -98,7 +97,6 @@ class Zenodo::DownloadConnectorProcessorTest < ActiveSupport::TestCase
     file.metadata = {
       zenodo_url: 'https://zenodo.org',
       download_url: 'https://zenodo.org/file.txt',
-      temp_location: nil,
       partial_downloads: nil,
     }
     file.stubs(:update) { |**args| file.metadata = args[:metadata]; true }

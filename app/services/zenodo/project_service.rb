@@ -50,8 +50,7 @@ module Zenodo
             type_id: source.id,
             title: source.title,
             id: file.id,
-            download_url: file.download_url,
-            temp_location: nil
+            download_url: file.download_url
           }
           @file_utils.make_download_file_unique(f)
         end

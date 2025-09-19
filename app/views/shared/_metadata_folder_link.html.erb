@@ -5,9 +5,11 @@
   classes = local_assigns.fetch(:class, 'btn btn-sm btn-outline-secondary')
 %>
 <!-- Open metadata link -->
+<% element_test_id = local_assigns[:test_id] %>
 <a href="<%= files_app_url(path) %>"
    target="_blank"
    class="<%= classes %>"
+   <%= "data-test-id=\"#{element_test_id}\"" if element_test_id.present? %>
    title="<%= title %>">
   <i class="bi bi-card-list" aria-hidden="true"></i>
   <span class="visually-hidden"><%= text %></span>

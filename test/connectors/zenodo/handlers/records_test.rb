@@ -53,6 +53,7 @@ class Zenodo::Handlers::RecordsTest < ActiveSupport::TestCase
     project.expects(:save).returns(true)
     project.stubs(:name).returns('Proj')
     project.stubs(:id).returns(1)
+    project.stubs(:download_dir).returns('/tmp')
 
     file = mock('file')
     file.stubs(:valid?).returns(true)
@@ -64,6 +65,9 @@ class Zenodo::Handlers::RecordsTest < ActiveSupport::TestCase
     Zenodo::ProjectService.expects(:new).with(zenodo_url: 'https://zenodo.org').returns(proj_service)
 
     @settings.expects(:update_user_settings).with({ active_project: project.id.to_s })
+    @explorer.stubs(:log_project_event).returns(true)
+    @explorer.expects(:log_project_event).with(project, message: 'events.project.created', metadata: { name: project.name, folder: project.download_dir })
+    @explorer.expects(:log_project_event).with(project, message: 'events.project.active', metadata: { name: project.name })
     res = @explorer.create(repo_url: @repo_url, file_ids: ['f1'], project_id: '1')
     assert res.success?
   end

@@ -1,18 +1,20 @@
 <%
-  upload_files_id = "upload-files-#{bundle.id}"
+  upload_files_container_id = "upload-bundle-#{bundle.id}-files-container"
+  upload_files_list_id = "upload-bundle-#{bundle.id}-files"
 %>
-<div id="<%= tab_id_for(bundle) %>" class="tab-pane fade" role="tabpanel" aria-labelledby="<%= tab_label_for(bundle) %>">
+<div id="<%= tab_id_for(bundle) %>" class="tab-pane fade" role="tabpanel" aria-labelledby="<%= tab_label_for(bundle) %>"
+     data-upload-bundle-id="<%= bundle.id %>">
   <%= render partial: '/projects/show/upload_actions', locals: { project: project, bundle: bundle, file_browser_id: file_drop_browser_id(bundle), file_target_id: file_drop_target_id(bundle) } %>
 
   <%= render layout: '/file_browser/file_drop', locals: { id: file_drop_target_id(bundle), file_browser_id: file_drop_browser_id(bundle), url: project_upload_bundle_upload_files_path(project_id: project.id, upload_bundle_id: bundle.id) } do %>
     <div data-controller="lazy-loader"
-         data-lazy-loader-container-id-value="<%= upload_files_id %>"
+         data-lazy-loader-container-id-value="<%= upload_files_container_id %>"
          data-lazy-loader-url-value="<%= project_upload_bundle_upload_files_path(project_id: project.id, upload_bundle_id: bundle.id) %>"
          data-lazy-loader-event-name-value="file-drop:file-submitted:<%= file_drop_target_id(bundle) %>"
          class="position-relative rounded border border-2">
 
-      <div id="<%= upload_files_id %>" class="upload-files-container">
-        <%= render partial: '/projects/show/upload_files', locals: { bundle: bundle } %>
+      <div id="<%= upload_files_container_id %>" class="upload-files-container">
+        <%= render partial: '/projects/show/upload_files', locals: { bundle: bundle, list_id: upload_files_list_id } %>
       </div>
     </div>
   <% end %>

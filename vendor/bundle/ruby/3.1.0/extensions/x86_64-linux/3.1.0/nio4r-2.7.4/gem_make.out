@@ -13,12 +13,12 @@ checking for sys/resource.h... yes
 creating Makefile
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nio4r-2.7.4/ext/nio4r
-make DESTDIR\= sitearchdir\=./.gem.20250912-37-7ls59s sitelibdir\=./.gem.20250912-37-7ls59s clean
+make DESTDIR\= sitearchdir\=./.gem.20250919-37-jj6k22 sitelibdir\=./.gem.20250919-37-jj6k22 clean
 rm -f 
 rm -fr nio4r_ext.so false *.o  *.bak mkmf.log .*.time
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nio4r-2.7.4/ext/nio4r
-make DESTDIR\= sitearchdir\=./.gem.20250912-37-7ls59s sitelibdir\=./.gem.20250912-37-7ls59s
+make DESTDIR\= sitearchdir\=./.gem.20250919-37-jj6k22 sitelibdir\=./.gem.20250919-37-jj6k22
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_UNISTD_H -DHAVE_RB_IO_DESCRIPTOR -DHAVE_LINUX_AIO_ABI_H -DEV_USE_LINUXAIO -DHAVE_LINUX_IO_URING_H -DEV_USE_IOURING -DHAVE_SYS_SELECT_H -DEV_USE_SELECT -DHAVE_SYS_EPOLL_H -DEV_USE_EPOLL -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_RESOURCE_H -DEV_STANDALONE    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o bytebuffer.o -c bytebuffer.c
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_UNISTD_H -DHAVE_RB_IO_DESCRIPTOR -DHAVE_LINUX_AIO_ABI_H -DEV_USE_LINUXAIO -DHAVE_LINUX_IO_URING_H -DEV_USE_IOURING -DHAVE_SYS_SELECT_H -DEV_USE_SELECT -DHAVE_SYS_EPOLL_H -DEV_USE_EPOLL -DHAVE_SYS_RESOURCE_H -DHAVE_SYS_RESOURCE_H -DEV_STANDALONE    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o monitor.o -c monitor.c
 In file included from libev.h:7,
@@ -975,7 +975,7 @@ rm -f nio4r_ext.so
 gcc -shared -o nio4r_ext.so bytebuffer.o monitor.o nio4r_ext.o selector.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld  -m64  -lruby  -lm  -lc
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nio4r-2.7.4/ext/nio4r
-make DESTDIR\= sitearchdir\=./.gem.20250912-37-7ls59s sitelibdir\=./.gem.20250912-37-7ls59s install
-/usr/bin/mkdir -p . ./.gem.20250912-37-7ls59s
+make DESTDIR\= sitearchdir\=./.gem.20250919-37-jj6k22 sitelibdir\=./.gem.20250919-37-jj6k22 install
+/usr/bin/mkdir -p . ./.gem.20250919-37-jj6k22
 exit > .sitearchdir.time
-/usr/bin/install -c -m 0755 nio4r_ext.so ./.gem.20250912-37-7ls59s
+/usr/bin/install -c -m 0755 nio4r_ext.so ./.gem.20250919-37-jj6k22

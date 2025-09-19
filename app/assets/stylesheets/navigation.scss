@@ -12,4 +12,12 @@ nav {
     width: 100%;
     height: 100%;
   }
+
+  .main-item-icon {
+    margin-right: -3px
+  }
+
+  .dropdown-header {
+    color: var(--bs-dropdown-link-color) !important;
+  }
 }

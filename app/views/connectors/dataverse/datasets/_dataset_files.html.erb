@@ -3,9 +3,9 @@
     <%= files_page.to_s %>
     <nav aria-label="<%= t('connectors.dataverse.datasets.dataset_files.paginator_bar_a11y_label') %>" class="ms-auto">
       <div class="d-flex align-items-center gap-2">
-        <%= link_to_dataset_prev_page(repo_url, persistent_id, dataset.version, files_page, {class: "text-decoration-none"}) %>
+        <%= link_to_dataset_prev_page(repo_url, persistent_id, dataset.version, files_page, {class: "text-decoration-none", data: {test_id: 'header-pagination-prev'}}) %>
         <%= t('connectors.dataverse.datasets.dataset_files.paginator_page_text', page: files_page.page) %>
-        <%= link_to_dataset_next_page(repo_url, persistent_id, dataset.version, files_page, {class: "text-decoration-none"}) %>
+        <%= link_to_dataset_next_page(repo_url, persistent_id, dataset.version, files_page, {class: "text-decoration-none", data: {test_id: 'header-pagination-next'}}) %>
       </div>
     </nav>
   </div>

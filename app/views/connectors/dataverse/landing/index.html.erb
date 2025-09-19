@@ -1,18 +1,9 @@
 <% content_for :title, t('dataverse.landing.index.page_title') %>
 <div class="dataverse container-md content" role="main">
-  <nav aria-label="Breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item">
-        <a href="<%= root_path %>" title="<%= t('dataverse.landing.index.breadcrumb_home_title') %>"><%= t('dataverse.landing.index.breadcrumb_home_text') %></a>
-      </li>
-      <li class="breadcrumb-item active" aria-current="page">
-        <%= t('connectors.dataverse.title') %>
-      </li>
-    </ol>
-  </nav>
+  <%= render partial: '/shared/breadcrumbs', locals: { links: [{ text: t('connectors.dataverse.title') }] } %>
   <div class="my-4">
-    <%= link_to 'https://dataverse.org/', target: '_blank', rel: 'noopener', aria: { label: t('dataverse.landing.index.image_dataverse_icon_aria_label') } do %>
-      <%= image_tag('dataverse_project.svg', alt: t('dataverse.landing.index.image_dataverse_icon_alt'), width: 300) %>
+    <%= link_to 'https://dataverse.org/', target: '_blank', rel: 'noopener', aria: { label: t('dataverse.landing.index.image_dataverse_icon_aria_label') }, data: { test_id: 'dataverse-project-link' } do %>
+      <%= image_tag('dataverse_project.svg', alt: t('dataverse.landing.index.image_dataverse_icon_alt'), width: 300, data: { test_id: 'dataverse-icon' }) %>
     <% end %>
   </div>
   <div class="row">

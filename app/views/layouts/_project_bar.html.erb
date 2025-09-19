@@ -23,7 +23,7 @@
     <%= render partial: '/shared/metadata_folder_link',
                locals: { path: Project.project_metadata_dir(project.id),
                          class: 'btn btn-sm btn-outline-primary ms-3' } %>
-    <button class="btn btn-sm btn-outline-primary cursor-default" title="<%= t('.button_active_project_title') %>">
+    <button class="btn btn-sm btn-outline-primary cursor-default" title="<%= t('.button_active_project_title') %>" type="button">
       <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
       <span class="visually-hidden"><%= t('.button_active_project_title') %></span>
     </button>
