@@ -33,12 +33,12 @@ checking for whether -DNOKOGIRI_OTHER_LIBRARY_VERSIONS="\"libgumbo:1.0.0-nokogir
 creating Makefile
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.9/ext/nokogiri
-make DESTDIR\= sitearchdir\=./.gem.20250919-37-iq139i sitelibdir\=./.gem.20250919-37-iq139i clean
+make DESTDIR\= sitearchdir\=./.gem.20250919-37-cdeiqg sitelibdir\=./.gem.20250919-37-cdeiqg clean
 rm -f 
 rm -fr nokogiri.so false *.o  *.bak mkmf.log .*.time
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.9/ext/nokogiri
-make DESTDIR\= sitearchdir\=./.gem.20250919-37-iq139i sitelibdir\=./.gem.20250919-37-iq139i
+make DESTDIR\= sitearchdir\=./.gem.20250919-37-cdeiqg sitelibdir\=./.gem.20250919-37-cdeiqg
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -I/usr/include/libxml2 -DHAVE_GUMBO_PARSE_WITH_OPTIONS -DHAVE_RB_CATEGORY_WARNING    -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.9/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/include -DNOKOGIRI_OTHER_LIBRARY_VERSIONS="\"libgumbo:1.0.0-nokogiri\"" -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -std=c99 -Wno-declaration-after-statement -O2 -g -Winline -Wmissing-noreturn -Wconversion  -m64 -o gumbo.o -c gumbo.c
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -I/usr/include/libxml2 -DHAVE_GUMBO_PARSE_WITH_OPTIONS -DHAVE_RB_CATEGORY_WARNING    -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.9/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/include -DNOKOGIRI_OTHER_LIBRARY_VERSIONS="\"libgumbo:1.0.0-nokogiri\"" -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -std=c99 -Wno-declaration-after-statement -O2 -g -Winline -Wmissing-noreturn -Wconversion  -m64 -o html4_document.o -c html4_document.c
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -I/usr/include/libxml2 -DHAVE_GUMBO_PARSE_WITH_OPTIONS -DHAVE_RB_CATEGORY_WARNING    -I/usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.9/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/include -DNOKOGIRI_OTHER_LIBRARY_VERSIONS="\"libgumbo:1.0.0-nokogiri\"" -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -std=c99 -Wno-declaration-after-statement -O2 -g -Winline -Wmissing-noreturn -Wconversion  -m64 -o html4_element_description.o -c html4_element_description.c
@@ -121,7 +121,7 @@ gcc -shared -o nokogiri.so gumbo.o html4_document.o html4_element_description.o 
 Cleaning files only used during build.
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.18.9/ext/nokogiri
-make DESTDIR\= sitearchdir\=./.gem.20250919-37-iq139i sitelibdir\=./.gem.20250919-37-iq139i install
-/usr/bin/mkdir -p . ./.gem.20250919-37-iq139i/nokogiri
+make DESTDIR\= sitearchdir\=./.gem.20250919-37-cdeiqg sitelibdir\=./.gem.20250919-37-cdeiqg install
+/usr/bin/mkdir -p . ./.gem.20250919-37-cdeiqg/nokogiri
 exit > .sitearchdir.-.nokogiri.time
-/usr/bin/install -c -m 0755 nokogiri.so ./.gem.20250919-37-iq139i/nokogiri
+/usr/bin/install -c -m 0755 nokogiri.so ./.gem.20250919-37-cdeiqg/nokogiri
