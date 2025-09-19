@@ -13,12 +13,12 @@ checking for whether -DSTR_UMINUS_DEDUPE_FROZEN=1 is accepted as CFLAGS... yes
 creating Makefile
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/msgpack-1.8.0/ext/msgpack
-make DESTDIR\= sitearchdir\=./.gem.20250919-37-2azz3s sitelibdir\=./.gem.20250919-37-2azz3s clean
+make DESTDIR\= sitearchdir\=./.gem.20250919-37-dnxln3 sitelibdir\=./.gem.20250919-37-dnxln3 clean
 rm -f 
 rm -fr msgpack.so false *.o  *.bak mkmf.log .*.time
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/msgpack-1.8.0/ext/msgpack
-make DESTDIR\= sitearchdir\=./.gem.20250919-37-2azz3s sitelibdir\=./.gem.20250919-37-2azz3s
+make DESTDIR\= sitearchdir\=./.gem.20250919-37-dnxln3 sitelibdir\=./.gem.20250919-37-dnxln3
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_RB_ENC_INTERNED_STR -DHAVE_RB_PROC_CALL_WITH_BLOCK -DHAVE_RB_GC_MARK_LOCATIONS    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -fvisibility=hidden -I.. -Wall -std=gnu99 -DHASH_ASET_DEDUPE=1 -DSTR_UMINUS_DEDUPE_FROZEN=1 -m64 -o buffer.o -c buffer.c
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_RB_ENC_INTERNED_STR -DHAVE_RB_PROC_CALL_WITH_BLOCK -DHAVE_RB_GC_MARK_LOCATIONS    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -fvisibility=hidden -I.. -Wall -std=gnu99 -DHASH_ASET_DEDUPE=1 -DSTR_UMINUS_DEDUPE_FROZEN=1 -m64 -o buffer_class.o -c buffer_class.c
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I. -DHAVE_RB_ENC_INTERNED_STR -DHAVE_RB_PROC_CALL_WITH_BLOCK -DHAVE_RB_GC_MARK_LOCATIONS    -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -fvisibility=hidden -I.. -Wall -std=gnu99 -DHASH_ASET_DEDUPE=1 -DSTR_UMINUS_DEDUPE_FROZEN=1 -m64 -o extension_value_class.o -c extension_value_class.c
@@ -35,7 +35,7 @@ rm -f msgpack.so
 gcc -shared -o msgpack.so buffer.o buffer_class.o extension_value_class.o factory_class.o packer.o packer_class.o packer_ext_registry.o rbinit.o rmem.o unpacker.o unpacker_class.o unpacker_ext_registry.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld  -m64  -lruby  -lm  -lc
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/msgpack-1.8.0/ext/msgpack
-make DESTDIR\= sitearchdir\=./.gem.20250919-37-2azz3s sitelibdir\=./.gem.20250919-37-2azz3s install
-/usr/bin/mkdir -p . ./.gem.20250919-37-2azz3s/msgpack
+make DESTDIR\= sitearchdir\=./.gem.20250919-37-dnxln3 sitelibdir\=./.gem.20250919-37-dnxln3 install
+/usr/bin/mkdir -p . ./.gem.20250919-37-dnxln3/msgpack
 exit > .sitearchdir.-.msgpack.time
-/usr/bin/install -c -m 0755 msgpack.so ./.gem.20250919-37-2azz3s/msgpack
+/usr/bin/install -c -m 0755 msgpack.so ./.gem.20250919-37-dnxln3/msgpack
