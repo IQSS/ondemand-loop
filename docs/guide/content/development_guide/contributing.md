@@ -26,7 +26,7 @@ Whether you're fixing bugs, adding features, or improving documentation, this gu
 4. **Start the development environment:**
    ```bash
    make loop_build   # Builds the application
-   make loop_up      # Starts the environment
+   make local_up     # Starts the development environment
    ```
 
 ---

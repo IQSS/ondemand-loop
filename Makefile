@@ -1,5 +1,5 @@
-all:: loop_up
-.PHONY: loop_up loop_down loop_build remote_dev_build release_build loop_docker_builder clean logs bash test test_bash test_exec version release_notes coverage guide guide_dev
+all:: local_up
+.PHONY: loop_up loop_down local_up local_down loop_build remote_dev_build release_build loop_docker_builder clean logs bash test test_bash test_exec version release_notes coverage guide guide_dev
 
 # OOD Configuration
 include tools/make/ood_versions.mk
@@ -15,6 +15,12 @@ loop_up: loop_down
 
 loop_down:
 	$(ENV) $(COMPOSE_CMD) -p loop_passenger down -v || :
+
+local_up: local_down
+	$(ENV) $(COMPOSE_CMD) -f docker-compose.yml -f docker/docker-local-override.yaml -p loop_passenger up --build || :
+
+local_down:
+	$(ENV) $(COMPOSE_CMD) -f docker-compose.yml -f docker/docker-local-override.yaml -p loop_passenger down -v || :
 
 loop_build:
 	docker run --platform=linux/amd64 --rm -v $(WORKING_DIR)/application:/usr/local/app -v $(WORKING_DIR)/scripts:/usr/local/scripts -w /usr/local/app $(LOOP_BUILDER_IMAGE) /usr/local/scripts/loop_build.sh

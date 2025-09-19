@@ -52,15 +52,23 @@ Build the application in development mode and start the containers:
 
 ```bash
 make loop_build
-make loop_up
+make local_up
 ```
 
-The `make loop_up` command starts the development environment using Docker Compose.
+The `make local_up` command starts the development environment using Docker Compose with local development configuration.
 It runs in the foreground, streaming logs from all containers to your terminal.
 The shell prompt will not return until you stop the environment manually.
 
 To stop the environment, press <kbd>Ctrl</kbd>+<kbd>C</kbd>. This will gracefully shut down all containers.
-Alternatively, in another terminal you can run: `make loop_down`
+Alternatively, in another terminal you can run: `make local_down`
+
+#### Development vs Vanilla Environment
+
+The project provides two different targets for running the application locally:
+
+- **`make local_up`** - **Recommended for development**. Uses additional volume mounts for local configuration and development files. This target loads both the main `docker-compose.yml` and the local override file `docker/docker-local-override.yaml`.
+
+- **`make loop_up`** - **Vanilla installation**. Uses only the base Docker Compose configuration without local development overrides. Use this when you need to test the application in a configuration closer to production or for troubleshooting configuration issues.
 
 Once the containers are running visit [https://localhost:33000/pun/sys/loop](https://localhost:33000/pun/sys/loop) and log in with the test user `ood/ood`.
 
@@ -80,8 +88,10 @@ You may also override `OOD_IMAGE` to use another container that already has Open
 |---------------------------|----------------------------------------------------------------------|
 | `make loop_docker_builder`| Build the Docker image used for compiling the app                    |
 | `make loop_build`         | Install dependencies and build the application under `application/`  |
-| `make loop_up`            | Start the local environment                                          |
-| `make loop_down`          | Stop and remove the containers                                       |
+| `make local_up`           | **Start the local development environment** (recommended)            |
+| `make local_down`         | **Stop and remove the development environment containers**           |
+| `make loop_up`            | Start the vanilla environment (no local overrides)                  |
+| `make loop_down`          | Stop and remove the vanilla environment containers                   |
 | `make clean`              | Remove build artifacts and log files                                 |
 | `make logs`               | Tail the application logs                                            |
 | `make bash`               | Open a shell inside the running container                            |

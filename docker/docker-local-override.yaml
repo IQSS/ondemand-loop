@@ -1,0 +1,8 @@
+services:
+  ood:
+    volumes:
+      - ./data/ood:/home/ood/ondemand/data
+      - ./data/metadata:/home/ood/.loop_metadata
+      - ./data/downloads:/home/ood/loop_downloads
+      - ./config/.env:/var/www/ood/apps/sys/loop/.env
+      - ./config/loop.d:/etc/loop/config/loop.d
