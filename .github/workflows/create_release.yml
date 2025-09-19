@@ -78,6 +78,9 @@ jobs:
     with:
       commit_hash: ${{ needs.validate.outputs.commit_hash }}
       release_type: ${{ needs.validate.outputs.release_type }}
+    secrets:
+      APP_ID: ${{ secrets.APP_ID }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
 
   comment:
     name: Comment on Release Result
