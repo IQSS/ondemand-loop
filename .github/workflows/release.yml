@@ -9,6 +9,11 @@ on:
       release_type:
         required: true
         type: string
+    secrets:
+      APP_ID:
+        required: true
+      APP_PRIVATE_KEY:
+        required: true
     outputs:
       version:
         description: "The version number created"
