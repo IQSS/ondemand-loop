@@ -266,9 +266,7 @@ class ScriptLauncherTest < ActiveSupport::TestCase
     # Stub Date.today to return a specific date
     Date.stubs(:today).returns(Date.new(2025, 8, 28)) # Thursday of week 35, 2025
 
-    # Note: The method currently has variables swapped - cweek assigned to year, cwyear assigned to week
-    # This generates: launch_detached_process-35-W2025.log (which is wrong but matches current implementation)
-    expected_filename = 'launch_detached_process-35-W2025.log'
+    expected_filename = 'launch_detached_process-2025-W35.log'
     assert_equal expected_filename, @launcher.send(:script_log_filename)
   end
 end

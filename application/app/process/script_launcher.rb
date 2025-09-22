@@ -105,7 +105,8 @@ class ScriptLauncher
 
   def script_log_filename
     # ISO week number with year, e.g. launch_detached_process-2025-W38.log
-    year, week = Date.today.cweek, Date.today.cwyear
+    week = Date.today.cweek
+    year = Date.today.cwyear
     "launch_detached_process-#{year}-W#{format('%02d', week)}.log"
   end
 end
