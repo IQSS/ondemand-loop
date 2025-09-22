@@ -31,7 +31,10 @@ class ScriptLauncherTest < ActiveSupport::TestCase
     @download_files_provider.stubs(:pending_files).returns(['file1'])
     @upload_files_provider.stubs(:pending_files).returns([])
 
-    @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', 'launch_detached_process.log').returns(12345)
+    expected_log_filename = 'launch_detached_process-2025-W35.log'
+    @launcher.expects(:script_log_filename).returns(expected_log_filename)
+
+    @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', expected_log_filename).returns(12345)
     @launcher.expects(:log_info).with("Launching Detached Process Script...", { lock_file: @lock_file_path })
     @launcher.expects(:log_info).with("DetachedProcess started", {
       pid: 12345,
@@ -54,7 +57,10 @@ class ScriptLauncherTest < ActiveSupport::TestCase
     @download_files_provider.stubs(:pending_files).returns([])
     @upload_files_provider.stubs(:pending_files).returns(['file1'])
 
-    @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', 'launch_detached_process.log').returns(12345)
+    expected_log_filename = 'launch_detached_process-2025-W35.log'
+    @launcher.expects(:script_log_filename).returns(expected_log_filename)
+
+    @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', expected_log_filename).returns(12345)
     @launcher.expects(:log_info).with("Launching Detached Process Script...", { lock_file: @lock_file_path })
     @launcher.expects(:log_info).with("DetachedProcess started", {
       pid: 12345,
@@ -116,10 +122,13 @@ class ScriptLauncherTest < ActiveSupport::TestCase
     @launcher.stubs(:elapsed_string).with(Time.parse('2025-08-28T14:30:45')).returns('00:02:00')
     @launcher.stubs(:now).returns('2025-08-28T14:32:45')
 
+    expected_log_filename = 'launch_detached_process-2025-W35.log'
+    @launcher.expects(:script_log_filename).returns(expected_log_filename)
+
     # Mock that process doesn't exist
     Process.expects(:getpgid).with(12345).raises(Errno::ESRCH)
 
-    @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', 'launch_detached_process.log').returns(67890)
+    @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', expected_log_filename).returns(67890)
     @launcher.expects(:log_info).with("Stale lock file detected - process no longer exists", {
       pid: 12345,
       was_started_at: '2025-08-28T14:30:45',
@@ -158,7 +167,10 @@ class ScriptLauncherTest < ActiveSupport::TestCase
     # Create empty lock file
     File.write(@lock_file_path, '')
 
-    @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', 'launch_detached_process.log').returns(12345)
+    expected_log_filename = 'launch_detached_process-2025-W35.log'
+    @launcher.expects(:script_log_filename).returns(expected_log_filename)
+
+    @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', expected_log_filename).returns(12345)
     @launcher.stubs(:now).returns('2025-08-28T14:30:45')
 
     @launcher.launch_script
@@ -171,7 +183,10 @@ class ScriptLauncherTest < ActiveSupport::TestCase
     # Create malformed lock file (only one line)
     File.write(@lock_file_path, '12345')
 
-    @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', 'launch_detached_process.log').returns(67890)
+    expected_log_filename = 'launch_detached_process-2025-W35.log'
+    @launcher.expects(:script_log_filename).returns(expected_log_filename)
+
+    @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', expected_log_filename).returns(67890)
     @launcher.stubs(:now).returns('2025-08-28T14:30:45')
 
     @launcher.launch_script
@@ -185,11 +200,14 @@ class ScriptLauncherTest < ActiveSupport::TestCase
     @launcher.stubs(:to_time).with('2025-08-28T14:30:45').returns(Time.parse('2025-08-28T14:30:45'))
     @launcher.stubs(:elapsed).with(Time.parse('2025-08-28T14:30:45')).returns(120)
 
+    expected_log_filename = 'launch_detached_process-2025-W35.log'
+    @launcher.expects(:script_log_filename).returns(expected_log_filename)
+
     # Mock unexpected error
     Process.expects(:getpgid).with(12345).raises(StandardError, 'Unexpected error')
 
     @launcher.expects(:log_warn).with("Error checking process status", { pid: 12345, error: 'Unexpected error' })
-    @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', 'launch_detached_process.log').returns(67890)
+    @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', expected_log_filename).returns(67890)
     @launcher.stubs(:now).returns('2025-08-28T14:32:45')
 
     @launcher.launch_script
@@ -242,5 +260,13 @@ class ScriptLauncherTest < ActiveSupport::TestCase
     assert_raises(IOError) do
       @launcher.send(:update_lock_file, mock_file, 12345)
     end
+  end
+
+  test 'script_log_filename generates correct weekly log filename' do
+    # Stub Date.today to return a specific date
+    Date.stubs(:today).returns(Date.new(2025, 8, 28)) # Thursday of week 35, 2025
+
+    expected_filename = 'launch_detached_process-2025-W35.log'
+    assert_equal expected_filename, @launcher.send(:script_log_filename)
   end
 end

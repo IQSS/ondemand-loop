@@ -20,7 +20,7 @@ class ScriptLauncher
           log_info('Skip. DetachedProcess already running', { lock_file: lock_file })
         else
           log_info("Launching Detached Process Script...", { lock_file: lock_file })
-          spawn_pid = start_process_from_script(LAUNCH_SCRIPT, 'launch_detached_process.log')
+          spawn_pid = start_process_from_script(LAUNCH_SCRIPT, script_log_filename)
 
           # Write PID and timestamp to lock file while we have the lock
           update_lock_file(service_lock, spawn_pid)
@@ -101,5 +101,12 @@ class ScriptLauncher
   rescue => e
     log_error("Failed to update lock file", { pid: pid, error: e.message })
     raise
+  end
+
+  def script_log_filename
+    # ISO week number with year, e.g. launch_detached_process-2025-W38.log
+    week = Date.today.cweek
+    year = Date.today.cwyear
+    "launch_detached_process-#{year}-W#{format('%02d', week)}.log"
   end
 end
