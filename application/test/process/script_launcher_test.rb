@@ -31,7 +31,7 @@ class ScriptLauncherTest < ActiveSupport::TestCase
     @download_files_provider.stubs(:pending_files).returns(['file1'])
     @upload_files_provider.stubs(:pending_files).returns([])
 
-    expected_log_filename = 'launch_detached_process-35-W2025.log'
+    expected_log_filename = 'launch_detached_process-2025-W35.log'
     @launcher.expects(:script_log_filename).returns(expected_log_filename)
 
     @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', expected_log_filename).returns(12345)
@@ -57,7 +57,7 @@ class ScriptLauncherTest < ActiveSupport::TestCase
     @download_files_provider.stubs(:pending_files).returns([])
     @upload_files_provider.stubs(:pending_files).returns(['file1'])
 
-    expected_log_filename = 'launch_detached_process-35-W2025.log'
+    expected_log_filename = 'launch_detached_process-2025-W35.log'
     @launcher.expects(:script_log_filename).returns(expected_log_filename)
 
     @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', expected_log_filename).returns(12345)
@@ -122,7 +122,7 @@ class ScriptLauncherTest < ActiveSupport::TestCase
     @launcher.stubs(:elapsed_string).with(Time.parse('2025-08-28T14:30:45')).returns('00:02:00')
     @launcher.stubs(:now).returns('2025-08-28T14:32:45')
 
-    expected_log_filename = 'launch_detached_process-35-W2025.log'
+    expected_log_filename = 'launch_detached_process-2025-W35.log'
     @launcher.expects(:script_log_filename).returns(expected_log_filename)
 
     # Mock that process doesn't exist
@@ -167,7 +167,7 @@ class ScriptLauncherTest < ActiveSupport::TestCase
     # Create empty lock file
     File.write(@lock_file_path, '')
 
-    expected_log_filename = 'launch_detached_process-35-W2025.log'
+    expected_log_filename = 'launch_detached_process-2025-W35.log'
     @launcher.expects(:script_log_filename).returns(expected_log_filename)
 
     @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', expected_log_filename).returns(12345)
@@ -183,7 +183,7 @@ class ScriptLauncherTest < ActiveSupport::TestCase
     # Create malformed lock file (only one line)
     File.write(@lock_file_path, '12345')
 
-    expected_log_filename = 'launch_detached_process-35-W2025.log'
+    expected_log_filename = 'launch_detached_process-2025-W35.log'
     @launcher.expects(:script_log_filename).returns(expected_log_filename)
 
     @launcher.expects(:start_process_from_script).with('scripts/launch_detached_process.rb', expected_log_filename).returns(67890)
@@ -200,7 +200,7 @@ class ScriptLauncherTest < ActiveSupport::TestCase
     @launcher.stubs(:to_time).with('2025-08-28T14:30:45').returns(Time.parse('2025-08-28T14:30:45'))
     @launcher.stubs(:elapsed).with(Time.parse('2025-08-28T14:30:45')).returns(120)
 
-    expected_log_filename = 'launch_detached_process-35-W2025.log'
+    expected_log_filename = 'launch_detached_process-2025-W35.log'
     @launcher.expects(:script_log_filename).returns(expected_log_filename)
 
     # Mock unexpected error
