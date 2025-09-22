@@ -1,8 +1,6 @@
 require 'dotenv'
 require_relative 'configuration_property'
-require_relative '../app/lib/logging_common'
 class ConfigurationSingleton
-  include LoggingCommon
 
   def initialize
     load_dotenv_files
@@ -55,7 +53,7 @@ class ConfigurationSingleton
 
   def navigation
     @navigation ||= begin
-      log_info('[Configuration] Building Navigation')
+      LoggingCommon.log_info('[Configuration] Building Navigation')
       defaults  = Nav::NavDefaults.navigation_items
       overrides = ::Configuration.config.fetch(:navigation, [])
       Nav::NavBuilder.build(defaults, overrides)
@@ -72,7 +70,7 @@ class ConfigurationSingleton
 
   def dataverse_hub
     @dataverse_hub ||= begin
-      log_info('[Configuration] Created Dataverse::DataverseHub', {dataverse_hub_url: dataverse_hub_url})
+      LoggingCommon.log_info('[Configuration] Created Dataverse::DataverseHub', {dataverse_hub_url: dataverse_hub_url})
       Dataverse::DataverseHub.new(url: dataverse_hub_url)
     end
   end
@@ -80,7 +78,7 @@ class ConfigurationSingleton
   def repo_db
     @repo_db ||= begin
       db = Repo::RepoDb.new(db_path: repo_db_file)
-      log_info("[Configuration] RepoDb created entries: #{db.size} path: #{db.db_path}")
+      LoggingCommon.log_info("[Configuration] RepoDb created entries: #{db.size} path: #{db.db_path}")
       db
     end
   end
@@ -88,14 +86,14 @@ class ConfigurationSingleton
   def repo_history
     @repo_history ||= begin
       history = Repo::RepoHistory.new(db_path: repo_history_file)
-      log_info("[Configuration] RepoHistory created entries: #{history.size} path: #{history.db_path}")
+      LoggingCommon.log_info("[Configuration] RepoHistory created entries: #{history.size} path: #{history.db_path}")
       history
     end
   end
 
   def repo_resolver_service
     @repo_resolver_service ||= begin
-      log_info('[Configuration] Created Repo::RepoResolverService')
+      LoggingCommon.log_info('[Configuration] Created Repo::RepoResolverService')
       Repo::RepoResolverService.build
     end
   end

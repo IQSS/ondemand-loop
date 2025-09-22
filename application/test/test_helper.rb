@@ -11,6 +11,20 @@ if ENV['COVERAGE']
     enable_coverage :branch
     add_filter '/test/'
 
+    add_group 'Controllers', 'app/controllers'
+    add_group 'Models', 'app/models'
+    add_group 'Services', 'app/services'
+    add_group 'Connectors', 'app/connectors'
+    add_group 'Helpers', 'app/helpers'
+    add_group 'Libraries', 'app/lib'
+    add_group 'Validators', 'app/validators'
+    add_group 'Process', 'app/process'
+
+    # Remove default Rails groups we don't use
+    groups.delete('Channels')
+    groups.delete('Jobs')
+    groups.delete('Mailers')
+
     SimpleCov.formatters = [
       SimpleCov::Formatter::HTMLFormatter,
     ]
