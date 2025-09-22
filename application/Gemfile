@@ -49,7 +49,6 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "selenium-webdriver"
   gem "mocha"
   gem 'simplecov', require: false
   gem 'i18n-tasks', require: false
