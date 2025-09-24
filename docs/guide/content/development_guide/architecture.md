@@ -80,7 +80,7 @@ Inside `application/app` important subfolders include:
 
 The main configuration class for the application is lives under `config/configuration_singleton.rb`.
 This globally accessible object defines all adjustable settings which can be
-overridden via YAML or environment variables (see the [Admin Guide](../admin.md) for details).
+overridden via YAML or environment variables (see the [Admin Guide](../admin/index.md) for details).
 
 ### Testing
 
