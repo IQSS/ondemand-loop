@@ -3,7 +3,7 @@ import { showFlash } from 'utils/flash_message'
 
 export default class extends Controller {
     static targets = ["icon", "text", "feedback"]
-    static values = { url: String, fileBrowserId: String }
+    static values = { url: String, fileBrowserId: String, errorContainerId: String }
 
     connect() {
         this.wasDropped = false
@@ -61,6 +61,7 @@ export default class extends Controller {
     uploadPath(filePath) {
         const path = this.urlValue
         const csrfToken = window.loop_app_config.csrf_token
+        const errorContainerId = this.errorContainerIdValue || this.element.id
         fetch(path, {
             method: "POST",
             headers: {
@@ -76,14 +77,14 @@ export default class extends Controller {
                     this.showFeedback(filePath, data.message); // pass message to showFeedback
                 } else {
                     const msg = data.message || `${window.loop_app_config.i18n.drop.path.save_error} ${filePath}`;
-                    showFlash('error', msg, this.element.id);
+                    showFlash('error', msg, errorContainerId);
                     this.hideDroppingZone()
                     this.wasDropped = false
                 }
             });
         }).catch(error => {
             console.error('Network error:', error);
-            showFlash('error', `${window.loop_app_config.i18n.drop.path.network_error} ${filePath}`, this.element.id);
+            showFlash('error', `${window.loop_app_config.i18n.drop.path.network_error} ${filePath}`, errorContainerId);
             this.wasDropped = false;
         });
     }
