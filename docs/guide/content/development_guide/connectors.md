@@ -41,7 +41,7 @@ Based on analysis of existing implementations (Dataverse and Zenodo), a complete
 
 - **`DownloadConnectorProcessor`** - Handles file downloads from the repository
 - **`UploadConnectorProcessor`** - Handles individual file uploads
-- **`UploadBundleConnectorProcessor`** - Handles batch upload operations
+- **`UploadBundleConnectorProcessor`** - Handles upload bundle operations
 - **`RepositorySettingsProcessor`** - Manages repository configuration
 
 #### Metadata Classes (in `app/connectors/<connector>/`)
@@ -62,7 +62,7 @@ Handlers implement repository browsing and dataset/file selection workflows:
 #### Supporting Services (in `app/services/<connector>/`)
 
 - **`ApiService`** - Base API service with authentication headers
-- **`ProjectService`** - Creates download/upload projects and files
+- **`ProjectService`** - Creates projects and configures download files with connector specific metadata
 - **Domain-specific services** (e.g., `DatasetService`, `CollectionService`)
 
 #### Views and Templates (in `app/views/connectors/<connector>/`)
