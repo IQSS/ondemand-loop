@@ -4,6 +4,17 @@
     <!-- Path display (left) -->
     <nav aria-label="<%= t('.nav_file_browser_label') %>">
       <ol data-file-browser-target="pathDisplay" class="breadcrumb d-flex align-items-center flex-wrap gap-2 mb-0">
+        <!-- Root link -->
+        <li>
+          <a class="breadcrumb-folder text-body text-decoration-none"
+             tabindex="0"
+             data-entry-path="/"
+             data-entry-type="folder"
+             data-action="dblclick->file-browser#handleDoubleClick keydown->file-browser#handleKeydown">
+            <i class="bi bi-diagram-3"></i>
+          </a>
+        </li>
+
         <% path_parts = current_path.split('/').reject(&:blank?) %>
         <% accumulated_path = '/' %>
         <% path_parts.each do |part| %>
@@ -79,7 +90,7 @@
 
   <div class="card-body p-0 overflow-auto" style="height: 500px;">
     <ul class="list-group list-group-flush">
-      <% if true %>
+      <% unless path_parts.empty? %>
         <li class="list-group-item d-flex align-items-center gap-3 file-row text-muted"
             data-entry-path="<%= File.expand_path('..', current_path) %>"
             data-entry-type="folder"
@@ -91,7 +102,7 @@
       <% end %>
 
       <% entries.each do |entry| %>
-        <li class="list-group-item d-flex align-items-center gap-3 file-row"
+        <li class="list-group-item d-flex align-items-center gap-3 file-row <%= 'disabled opacity-50' unless entry.supported? %>"
             data-entry-path="<%= entry.path %>"
             data-entry-type="<%= entry.type %>"
             draggable="true"
@@ -99,13 +110,13 @@
             data-action="dragstart->file-browser#handleDragStart dragend->file-browser#handleDragEnd dblclick->file-browser#handleDoubleClick keydown->file-browser#handleKeydown">
 
           <!-- Icon -->
-          <i class="bi <%= entry[:type] == 'folder' ? 'bi-folder-fill' : 'bi-file-earmark' %> fs-5 text-secondary" aria-hidden="true"></i>
+          <i class="bi <%= browser_entry_icon(entry) %> fs-5 text-secondary" aria-hidden="true"></i>
 
           <!-- Name -->
           <span class="flex-grow-1"><%= entry.name %></span>
 
           <!-- File Size -->
-          <% if entry.type == 'file' %>
+          <% if entry.file? %>
             <small class="text-muted"><%= number_to_human_size(entry.size) %></small>
           <% end %>
         </li>

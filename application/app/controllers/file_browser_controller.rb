@@ -11,23 +11,47 @@ class FileBrowserController < ApplicationController
 
     current_path = path
     #TODO: Abstract file management and utilities into a new class
-    entries = Dir.entries(path).reject { |e| e == '.' || e == '..' }
-                  .map do |entry|
+    entries = Dir.entries(path).reject { |e| e == '.' || e == '..' }.map do |entry|
       full_path = File.join(path, entry)
-      OpenStruct.new({
-        name: entry,
-        path: full_path,
-        size: File.size(full_path),
-        type: File.directory?(full_path) ? 'folder' : 'file'
-      })
-    end.sort_by do |f|
-      [File.file?(f.path) ? 1 : 0, f.name.downcase]
+      next unless File.exist?(full_path) # CHECK NEEDED INVALID SYM LINKS
+      DirectoryEntry.new( name: entry, path: full_path)
+    end.compact.sort_by do |f|
+      [f.type_order, f.name.downcase]
     end
 
     render partial: "file_browser/browser", locals: { current_path: current_path, entries: entries }
   end
 
   private
+
+  class DirectoryEntry
+    attr_reader :name, :path, :size, :type
+    def initialize(name:, path:)
+      @name = name
+      @path = path
+      @size = File.size(path)
+      @type = 'folder' if File.directory?(path)
+      @type = 'file' if File.file?(path)
+    end
+
+    def file?
+      @type == 'file'
+    end
+
+    def folder?
+      @type == 'folder'
+    end
+
+    def supported?
+      file? || folder?
+    end
+
+    def type_order
+      return 0 if folder? # FOLDERS FIRST
+      return 1 if file? # THEN FILES
+      2 # OTHERS SHOULD GO LAST
+    end
+  end
 
   def safe_path(path_param)
     return Dir.home unless path_param.present?
