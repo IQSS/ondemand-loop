@@ -45,7 +45,7 @@ module Dataverse
       DatasetVersionResponse.new(response.body)
     end
 
-    def search_dataset_files_by_persistent_id(persistent_id, version: ':latest-published', page: 1, per_page: nil, query: nil)
+    def search_dataset_files_by_persistent_id(persistent_id, version: ':latest-published', page: 1, per_page: nil, query: nil, dataset_total: nil)
       version = ':latest-published' if version.to_s.strip.empty?
       per_page ||= Configuration.default_pagination_items
       headers = {}
@@ -61,7 +61,7 @@ module Dataverse
       return nil if response.not_found?
       raise UnauthorizedException if response.unauthorized?
       raise "Error getting dataset files: #{response.status} - #{response.body}" unless response.success?
-      DatasetFilesResponse.new(response.body, page: page, per_page: per_page, query: query)
+      DatasetFilesResponse.new(response.body, page: page, per_page: per_page, query: query, dataset_total: dataset_total)
     end
 
     def dataset_versions_by_persistent_id(persistent_id)

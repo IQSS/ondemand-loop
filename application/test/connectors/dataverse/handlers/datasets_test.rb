@@ -19,11 +19,11 @@ class Dataverse::Handlers::DatasetsTest < ActiveSupport::TestCase
   end
 
   test 'show renders dataset when found' do
-    dataset = OpenStruct.new(version: '1', title: 'Title', data: OpenStruct.new(dataset_persistent_id: 'pid'))
+    dataset = OpenStruct.new(version: '1', title: 'Title', file_count: 2, data: OpenStruct.new(dataset_persistent_id: 'pid'))
     files_page = OpenStruct.new(total_count: 0, page: 1, query: nil, files: [])
     service = mock('service')
     service.expects(:find_dataset_version_by_persistent_id).with('pid', version: nil).returns(dataset)
-    service.expects(:search_dataset_files_by_persistent_id).with('pid', version: '1', page: 1, query: nil).returns(files_page)
+    service.expects(:search_dataset_files_by_persistent_id).with('pid', version: '1', page: 1, query: nil, dataset_total: 2).returns(files_page)
     Dataverse::DatasetService.expects(:new).with('https://dataverse.org', api_key: 'key').returns(service)
     expected_url = Dataverse::Concerns::DataverseUrlBuilder.build_dataset_url('https://dataverse.org', 'pid', version: '1')
     ::Configuration.repo_history.expects(:add_repo).with(
@@ -49,10 +49,10 @@ class Dataverse::Handlers::DatasetsTest < ActiveSupport::TestCase
   end
 
   test 'show returns error when files not found' do
-    dataset = OpenStruct.new(version: '1', data: OpenStruct.new(dataset_persistent_id: 'pid'))
+    dataset = OpenStruct.new(version: '1', file_count: nil, data: OpenStruct.new(dataset_persistent_id: 'pid'))
     service = mock('service')
     service.expects(:find_dataset_version_by_persistent_id).with('pid', version: nil).returns(dataset)
-    service.expects(:search_dataset_files_by_persistent_id).with('pid', version: '1', page: 1, query: nil).returns(nil)
+    service.expects(:search_dataset_files_by_persistent_id).with('pid', version: '1', page: 1, query: nil, dataset_total: nil).returns(nil)
     Dataverse::DatasetService.expects(:new).with('https://dataverse.org', api_key: 'key').returns(service)
     res = @explorer.show(repo_url: @repo_url)
     refute res.success?
@@ -68,11 +68,11 @@ class Dataverse::Handlers::DatasetsTest < ActiveSupport::TestCase
   end
 
   test 'create initializes project and files' do
-    dataset = OpenStruct.new(version: '1', data: OpenStruct.new(dataset_persistent_id: 'different', parents: []))
+    dataset = OpenStruct.new(version: '1', file_count: 5, data: OpenStruct.new(dataset_persistent_id: 'different', parents: []))
     files_page = OpenStruct.new(total_count: 0, page: 1, query: nil, files: [])
     service = mock('service')
     service.expects(:find_dataset_version_by_persistent_id).with('pid', version: nil).returns(dataset)
-    service.expects(:search_dataset_files_by_persistent_id).with('pid', version: '1', page: 1, query: nil).returns(files_page)
+    service.expects(:search_dataset_files_by_persistent_id).with('pid', version: '1', page: 1, query: nil, dataset_total: 5).returns(files_page)
     Dataverse::DatasetService.expects(:new).with('https://dataverse.org', api_key: 'key').returns(service)
 
     Project.stubs(:find).with('1').returns(nil)
@@ -108,10 +108,10 @@ class Dataverse::Handlers::DatasetsTest < ActiveSupport::TestCase
   end
 
   test 'create returns error when files not found' do
-    dataset = OpenStruct.new(version: '1', data: OpenStruct.new(dataset_persistent_id: 'pid', parents: []))
+    dataset = OpenStruct.new(version: '1', file_count: 0, data: OpenStruct.new(dataset_persistent_id: 'pid', parents: []))
     service = mock('service')
     service.expects(:find_dataset_version_by_persistent_id).with('pid', version: nil).returns(dataset)
-    service.expects(:search_dataset_files_by_persistent_id).with('pid', version: '1', page: 1, query: nil).returns(nil)
+    service.expects(:search_dataset_files_by_persistent_id).with('pid', version: '1', page: 1, query: nil, dataset_total: 0).returns(nil)
     Dataverse::DatasetService.expects(:new).with('https://dataverse.org', api_key: 'key').returns(service)
     res = @explorer.create(repo_url: @repo_url, file_ids: [], project_id: '1')
     refute res.success?

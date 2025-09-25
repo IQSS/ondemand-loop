@@ -8,7 +8,7 @@ module Dataverse
     include ActsAsPage
     attr_reader :status, :data
 
-    def initialize(json, page: 1, per_page: 10, query: nil)
+    def initialize(json, page: 1, per_page: 10, query: nil, dataset_total: nil)
       parsed = JSON.parse(json, symbolize_names: true)
       @status = parsed[:status]
       @page = page
@@ -16,15 +16,19 @@ module Dataverse
       @query = query
       all_data = (parsed[:data] || []).map { |file| DatasetFile.new(file) }
 
-      if parsed[:totalCount]
-        @total_count = parsed[:totalCount]
-        @data = all_data
-      else
-        # Manual pagination for APIs without native support
-        @total_count = all_data.size
-        @data = all_data.slice(offset, @per_page) || []
+      # Determine total count and pagination approach:
+      # 1. If API provides totalCount - use it (modern API with built-in pagination)
+      # 2. If dataset_total provided - use it (caller knows the total file count)
+      # 3. Fallback to all_data.size (unknown total, use what we received)
+      @total_count = parsed[:totalCount] || dataset_total || all_data.size
+      @data = all_data
+
+      # When all_data.size equals @total_count, it means the API returned ALL files
+      # (no server-side pagination), so we need to manually paginate the results
+      if all_data.size == @total_count
+        @data = all_data.slice(offset, per_page) || []
       end
-  end
+    end
 
     def files
       data || []
