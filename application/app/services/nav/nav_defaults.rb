@@ -92,7 +92,7 @@ module Nav
             {
               id: 'nav-restart',
               label: I18n.t('layouts.nav.navigation.link_restart_text'),
-              url: "/nginx/stop?redir=#{routes.root_path}",
+              url: routes.widgets_path('restart'),
               icon: 'bs://bi-bootstrap-reboot',
               position: 3
             },

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= t('.page_title') %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag "application" %>
+  <%= javascript_include_tag "application", defer: true %>
+</head>
+<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="alert alert-success border-2 rounded-3 shadow-sm text-center" role="alert">
+        <i class="bi bi-arrow-repeat fs-3 text-success mb-2"></i>
+        <h4 class="alert-heading"><%= t('.content_title') %></h4>
+        <%= t('.content_html', url: root_path) %>
+      </div>
+      <script>
+          // Fire and forget restart trigger
+          fetch("<%= restart_url %>").catch(() => { })
+          setTimeout(function() {
+              window.location.href = "<%= root_path %>";
+          }, <%= ::Configuration.restart_delay %>);
+      </script>
+    </div>
+  </div>
+</div>
+</body>
+</html>

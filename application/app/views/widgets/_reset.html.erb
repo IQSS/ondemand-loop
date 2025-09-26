@@ -8,9 +8,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag "application" %>
   <%= javascript_include_tag "application", defer: true %>
-
-  <!-- Meta refresh fallback -->
-  <meta http-equiv="refresh" content="3;url=<%= root_path %>">
 </head>
 <body class="bg-light d-flex justify-content-center align-items-center vh-100">
 <div class="container">
@@ -25,9 +22,11 @@
         </div>
         <!-- Success redirect -->
         <script>
+            <!-- FIRE AND FORGET -->
+            fetch("<%= restart_url %>").catch(() => { })
             setTimeout(function() {
-                window.location.href = "<%= restart_url %>";
-            }, 3000);
+                window.location.href = "<%= root_path %>";
+            }, <%= ::Configuration.restart_delay %>);
         </script>
       <% else %>
         <div class="alert alert-danger border-2 rounded-3 shadow-sm text-center" role="alert">
@@ -39,7 +38,7 @@
         <script>
             setTimeout(function() {
                 window.location.href = "<%= root_path %>";
-            }, 3000);
+            }, <%= ::Configuration.restart_delay %>);
         </script>
       <% end %>
     </div>

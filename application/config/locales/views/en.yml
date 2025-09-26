@@ -324,12 +324,22 @@ en:
       tab_project_label: "This Project Downloads"
       tab_global_label: "All Projects"
       empty_recent_text: "No recently used datasets found."
+    restart:
+      page_title: "Application Restarting"
+      content_title: "Restart in Progress"
+      content_html: >
+        <p>Your personal <em>OnDemand Loop</em> instance is restarting.</p>
+        <p>You will be redirected to the application <strong>shortly</strong>.</p>
+        <hr>
+        <p class="mb-0">
+          If the page does not refresh automatically, <a href="%{url}">click here to continue</a>.
+        </p>
     reset:
       success_page_title: "Reset Completed"
       success_content_title: "Reset Completed"
       success_content_html: >
         <p>Your personal <em>OnDemand Loop</em> instance has been successfully reset.</p>
-        <p>The application will automatically restart in <strong>3 seconds</strong>.</p>
+        <p>The application will automatically restart <strong>shortly</strong>.</p>
         <hr>
         <p class="mb-0">
         If the page does not refresh, <a href="%{url}">click here to continue</a>.
