@@ -64,6 +64,7 @@ The following properties control various aspects of OnDemand Loop's behavior. Ea
 - [download_files_retention_period](#download_files_retention_period)
 - [upload_files_retention_period](#upload_files_retention_period)
 - [ui_feedback_delay](#ui_feedback_delay)
+- [restart_delay](#restart_delay)
 - [detached_controller_interval](#detached_controller_interval)
 - [detached_process_status_interval](#detached_process_status_interval)
 - [max_download_file_size](#max_download_file_size)
@@ -188,6 +189,15 @@ Defines the delay in milliseconds for feedback messages in the UI, such as tempo
 
 - **Default**: `1_500`
 - **Environment Variable**: `OOD_LOOP_UI_FEEDBACK_DELAY`
+
+---
+
+<a id="restart_delay"></a>
+**`restart_delay`**  
+Sets the delay in milliseconds before redirecting users after application restart or reset operations. This gives users time to read completion messages.
+
+- **Default**: `3_000`
+- **Environment Variable**: `OOD_LOOP_RESTART_DELAY`
 
 ---
 
@@ -385,6 +395,7 @@ locale: ":es"
 download_files_retention_period: 172_800
 upload_files_retention_period: 172_800
 ui_feedback_delay: 2_000
+restart_delay: 3_000
 detached_controller_interval: 5
 detached_process_status_interval: 2_000
 max_download_file_size: 15_000_000_000
@@ -413,6 +424,7 @@ OOD_LOOP_LOCALE=:es
 OOD_LOOP_DOWNLOAD_FILES_RETENTION_PERIOD=172_800
 OOD_LOOP_UPLOAD_FILES_RETENTION_PERIOD=172_800
 OOD_LOOP_UI_FEEDBACK_DELAY=2_000
+OOD_LOOP_RESTART_DELAY=3_000
 OOD_LOOP_DETACHED_CONTROLLER_INTERVAL=5
 OOD_LOOP_DETACHED_PROCESS_STATUS_INTERVAL=2_000
 OOD_LOOP_MAX_DOWNLOAD_FILE_SIZE=15_000_000_000
