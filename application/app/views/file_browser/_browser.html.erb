@@ -10,7 +10,7 @@
              tabindex="0"
              data-entry-path="/"
              data-entry-type="folder"
-             data-action="dblclick->file-browser#handleDoubleClick keydown->file-browser#handleKeydown">
+             data-action="click->file-browser#handleClick">
             <i class="bi bi-diagram-3"></i>
           </a>
         </li>
@@ -25,7 +25,7 @@
                tabindex="0"
                data-entry-path="<%= accumulated_path %>"
                data-entry-type="folder"
-               data-action="dblclick->file-browser#handleDoubleClick keydown->file-browser#handleKeydown">
+               data-action="click->file-browser#handleClick keydown->file-browser#handleKeydown">
               <i class="bi bi-folder-fill" aria-hidden="true"></i> <%= part %>
             </a>
           </li>
@@ -71,7 +71,7 @@
               data-entry-type="folder"
               title="<%= t('.button_home_title') %>"
               aria-label="<%= t('.button_home_label') %>"
-              data-action="click->file-browser#handleDoubleClick">
+              data-action="click->file-browser#handleClick">
         <i class="bi bi-house-door-fill" aria-hidden="true"></i>
         <span class="visually-hidden"><%= t('.button_home_text') %></span>
       </button>
@@ -95,7 +95,7 @@
             data-entry-path="<%= File.expand_path('..', current_path) %>"
             data-entry-type="folder"
             tabindex="0"
-            data-action="dblclick->file-browser#handleDoubleClick keydown->file-browser#handleKeydown">
+            data-action="click->file-browser#handleClick keydown->file-browser#handleKeydown">
           <i class="bi bi-arrow-up fs-6"></i>
           <span>.. (<%= t('.browser_parent_folder_text') %>)</span>
         </li>
@@ -107,7 +107,7 @@
             data-entry-type="<%= entry.type %>"
             draggable="true"
             tabindex="0"
-            data-action="dragstart->file-browser#handleDragStart dragend->file-browser#handleDragEnd dblclick->file-browser#handleDoubleClick keydown->file-browser#handleKeydown">
+            data-action="dragstart->file-browser#handleDragStart dragend->file-browser#handleDragEnd click->file-browser#handleClick dblclick->file-browser#handleDoubleClick keydown->file-browser#handleKeydown">
 
           <!-- Icon -->
           <i class="bi <%= browser_entry_icon(entry) %> fs-5 text-secondary" aria-hidden="true"></i>

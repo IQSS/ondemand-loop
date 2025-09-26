@@ -55,7 +55,7 @@ export default class extends Controller {
             })
     }
 
-    handleDoubleClick(event) {
+    handleClick(event) {
         const row = event.currentTarget
         const type = row.dataset.entryType
         const path = row.dataset.entryPath
@@ -64,8 +64,21 @@ export default class extends Controller {
         if (type === "folder") {
             this.pathInputTarget.value = path
             this.navigate()
-        } else {
+        }
+    }
+
+    handleDoubleClick(event) {
+        const row = event.currentTarget
+        const type = row.dataset.entryType
+        const path = row.dataset.entryPath
+
+        if (type === "file") {
             this.notifyDropTarget(path)
+        }
+
+        if (type === "folder") {
+            this.pathInputTarget.value = path
+            this.navigate()
         }
     }
 
