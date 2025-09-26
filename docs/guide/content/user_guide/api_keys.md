@@ -34,14 +34,14 @@ Some repository features in OnDemand Loop require access to restricted content. 
 
 Once you have the token or key, add it to the corresponding repository connector:
 
-#### Scenario 1: The repository exists in Settings
+#### The repository exists in Settings
 
 1. In OnDemand Loop, open the **Repositories** drop-down in the navigation bar and choose **Settings**.
 2. Select the repository installation you want to configure (It has been used previously).
 3. Paste your API token in the field provided for that connector.
 4. Click on **Save Changes** to store the credentials securely for the current user account.
 
-#### Scenario 2: The repository does not exist in Settings
+#### The repository does not exist in Settings
 
 1. In OnDemand Loop, open the **Repositories** drop-down in the navigation bar and choose **Settings**.
 2. If the repository has not been configured, click on **Add repository** and enter the repository url (for example
