@@ -21,9 +21,9 @@ The selector temporarily splits the upload bundle tab into two areas:
 
 ### Navigating the Filesystem
 
-- Use **double-click** to enter a folder.
+- Use **single-click** to enter a folder.
 - To go up one level, click the `.. (Parent folder)` entry at the top of the list.
-- Use the **breadcrumb path** displayed in the action bar to jump to any parent directory by double clicking on its name.
+- Use the **breadcrumb path** displayed in the action bar to jump to any parent directory by clicking on its name.
 - Click the **pencil icon** to manually edit the path.
 - Click **Home** to return to your home directory.
 - Alternatively the user can rely on the keyboard.
