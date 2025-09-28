@@ -10,8 +10,8 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'index should return success' do
-    collection = create_upload_bundle(create_project)
-    UploadBundle.stubs(:find).returns(collection)
+    upload_bundle = create_upload_bundle(create_project)
+    UploadBundle.stubs(:find).returns(upload_bundle)
 
     get project_upload_bundle_upload_files_url(@project_id, @upload_bundle_id)
 
@@ -25,7 +25,9 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
       path: @test_path
     }
 
-    assert_response :not_found
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match 'Upload bundle not found', flash[:alert]
   end
 
   test 'create should return bad request if file is invalid' do
@@ -44,7 +46,10 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'create should create and return ok if files are valid' do
-    UploadBundle.stubs(:find).returns(mock)
+    upload_bundle = create_upload_bundle(create_project)
+    upload_bundle.id = @upload_bundle_id
+    upload_bundle.project_id = @project_id
+    UploadBundle.stubs(:find).returns(upload_bundle)
 
     UploadFilesController.any_instance.stubs(:list_files)
                          .returns([OpenStruct.new(fullpath: @test_path, filename: 'valid.txt', size: 456)])
@@ -71,10 +76,11 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'delete should destroy upload file and redirect when not uploading' do
-    file = mock
-    file.stubs(:nil?).returns(false)
-    file.stubs(:status).returns(FileStatus::PENDING)
-    file.stubs(:filename).returns('delete.txt')
+    file = UploadFile.new.tap do |file|
+      file.id = @file_id
+      file.filename = 'delete.txt'
+      file.status = FileStatus::PENDING
+    end
     file.expects(:destroy)
 
     UploadFile.stubs(:find).with(@project_id, @upload_bundle_id, @file_id).returns(file)
@@ -87,10 +93,11 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'delete should return error when file is uploading' do
-    file = mock
-    file.stubs(:nil?).returns(false)
-    file.stubs(:status).returns(FileStatus::UPLOADING)
-    file.stubs(:filename).returns('delete.txt')
+    file = UploadFile.new.tap do |file|
+      file.id = @file_id
+      file.filename = 'delete.txt'
+      file.status = FileStatus::UPLOADING
+    end
     file.expects(:destroy).never
 
     UploadFile.stubs(:find).with(@project_id, @upload_bundle_id, @file_id).returns(file)
@@ -108,13 +115,18 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     post cancel_project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
     assert_redirected_to root_path
     follow_redirect!
-    assert_match 'file not found', flash[:alert]
+    assert_match @file_id, flash[:alert]
+    assert_match 'not found', flash[:alert]
   end
 
   test 'cancel should cancel uploading file and return no content' do
-    file = UploadFile.new
-    file.stubs(:status).returns(FileStatus::UPLOADING)
-    file.stubs(:filename).returns('cancel.txt')
+    file = UploadFile.new.tap do |file|
+      file.id = @file_id
+      file.project_id = @project_id
+      file.upload_bundle_id = @upload_bundle_id
+      file.filename = 'cancel.txt'
+      file.status = FileStatus::UPLOADING
+    end
     file.expects(:update).with(status: FileStatus::CANCELLED).returns(true)
 
     UploadFile.stubs(:find).returns(file)
@@ -137,9 +149,13 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'cancel should log event when file is not uploading' do
-    file = UploadFile.new
-    file.stubs(:status).returns(FileStatus::SUCCESS)
-    file.stubs(:filename).returns('done.txt')
+    file = UploadFile.new.tap do |file|
+      file.id = @file_id
+      file.project_id = @project_id
+      file.upload_bundle_id = @upload_bundle_id
+      file.filename = 'done.txt'
+      file.status = FileStatus::SUCCESS
+    end
     file.expects(:update).with(status: FileStatus::CANCELLED).returns(true)
 
     UploadFile.stubs(:find).returns(file)
@@ -155,5 +171,59 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_match 'Upload cancelled', flash[:notice]
     assert_match 'done.txt', flash[:notice]
+  end
+
+  test 'retry should redirect with error message when file is missing' do
+    UploadFile.stubs(:find).returns(nil)
+
+    post retry_project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match @file_id, flash[:alert]
+    assert_match 'not found', flash[:alert]
+  end
+
+  test 'retry should update file status to pending and redirect with success message' do
+    file = UploadFile.new.tap do |file|
+      file.id = @file_id
+      file.project_id = @project_id
+      file.upload_bundle_id = @upload_bundle_id
+      file.filename = 'retry.txt'
+      file.status = FileStatus::ERROR
+    end
+    file.expects(:update).with(status: FileStatus::PENDING).returns(true)
+
+    UploadFile.stubs(:find).returns(file)
+
+    UploadFilesController.any_instance.expects(:log_upload_file_event).with(
+      file,
+      message: 'events.upload_file.retry_request',
+      metadata: { filename: 'retry.txt', previous_status: FileStatus::ERROR }
+    )
+
+    post retry_project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_includes flash[:notice], 'File has been moved back to the pending queue and will be uploaded again'
+  end
+
+  test 'retry should redirect with error message when update fails' do
+    file = UploadFile.new.tap do |file|
+      file.id = @file_id
+      file.project_id = @project_id
+      file.upload_bundle_id = @upload_bundle_id
+      file.filename = 'retry_fail.txt'
+      file.status = FileStatus::ERROR
+    end
+    file.expects(:update).with(status: FileStatus::PENDING).returns(false)
+
+    UploadFile.stubs(:find).returns(file)
+
+    UploadFilesController.any_instance.expects(:log_upload_file_event).never
+
+    post retry_project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_includes flash[:alert], 'Could not move file back to the pending queue'
   end
 end

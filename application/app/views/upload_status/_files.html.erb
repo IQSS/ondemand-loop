@@ -29,7 +29,7 @@
             </div>
           </div>
 
-          <div class="upload-actions col-md-2 text-end d-flex justify-content-end align-items-center" role="cell">
+          <div class="upload-actions col-md-2 text-end d-flex justify-content-end align-items-center gap-1" role="cell">
             <% if data.file.status.uploading? %>
               <%= render partial: '/shared/progress_bar',
                          locals: { progress: data.file.connector_status.upload_progress, file: data.file } %>
@@ -40,9 +40,7 @@
                              data: {
                                controller: 'modal',
                                action: 'click->modal#load',
-                               'modal-url-value': widgets_path('events', project_id: data.file.project_id,
-                                                                      entity_type: 'upload_file',
-                                                                      entity_id: data.file.id),
+                               'modal-url-value': widgets_path('events', project_id: data.file.project_id, entity_type: 'upload_file', entity_id: data.file.id),
                                'modal-title-value': t('.button_view_events_title'),
                                'modal-id-value': 'global-modal'
                              } do %>
@@ -50,17 +48,27 @@
                 <span class="visually-hidden"><%= t('.button_view_events_label') %></span>
               <% end %>
             <% end %>
-            &nbsp;
 
-            <%= render partial: '/shared/button_to',
-                       locals: {
-                         url: cancel_project_upload_bundle_upload_file_path(project_id: data.file.project_id, upload_bundle_id: data.file.upload_bundle_id, id: data.file.id),
-                         method: :post,
-                         disabled: cancel_button_disabled?(data.file.status),
-                         icon: 'bi bi-sign-stop',
-                         class: 'btn btn-icon-sm btn-outline-dark icon-hover-danger',
-                         title: t('.button_cancel_upload_title', filename: data.file.filename)
-                       } %>
+            <% if retry_button_visible?(data.file) %>
+              <%= render partial: '/shared/button_to',
+                         locals: {
+                           url: retry_project_upload_bundle_upload_file_path(project_id: data.file.project_id, upload_bundle_id: data.file.upload_bundle_id, id: data.file.id),
+                           method: :post,
+                           icon: 'bi bi-arrow-clockwise',
+                           class: 'btn-icon-sm btn-outline-dark icon-hover-success',
+                           title: t('.button_retry_upload_title', filename: data.file.filename)
+                         } %>
+            <% else %>
+              <%= render partial: '/shared/button_to',
+                         locals: {
+                           url: cancel_project_upload_bundle_upload_file_path(project_id: data.file.project_id, upload_bundle_id: data.file.upload_bundle_id, id: data.file.id),
+                           method: :post,
+                           disabled: cancel_button_disabled?(data.file.status),
+                           icon: 'bi bi-sign-stop',
+                           class: 'btn btn-icon-sm btn-outline-dark icon-hover-danger',
+                           title: t('.button_cancel_upload_title', filename: data.file.filename)
+                         } %>
+            <% end %>
           </div>
         </div>
       <% end %>

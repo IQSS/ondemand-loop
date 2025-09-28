@@ -14,7 +14,7 @@ class Event
     @entity_id = entity_id
     @message = message
     @creation_date = creation_date || DateTimeCommon.now
-    @metadata = metadata || {}
+    @metadata = stringify_metadata(metadata)
   end
 
   def to_h
@@ -25,11 +25,20 @@ class Event
 
   def self.from_hash(data)
     new(project_id: data['project_id'],
-        entity_type: data['entity_type'].to_s.downcase,
+        entity_type: data['entity_type'],
         entity_id: data['entity_id'],
         message: data['message'],
         metadata: data['metadata'],
         id: data['id'],
         creation_date: data['creation_date'])
+  end
+
+  private
+
+  # Convert all keys to strings, all values to strings
+  def stringify_metadata(input)
+    return {} if input.nil?
+
+    input.transform_values(&:to_s)
   end
 end
