@@ -15,7 +15,7 @@ class DownloadFilesController < ApplicationController
     end
 
     if @file.update(status: FileStatus::CANCELLED)
-      log_download_file_event(@file, message: 'events.download_file.cancel_completed', metadata: { filename: @file.filename, previous_status: previous_status })
+      log_download_file_event(@file, message: 'events.download_file.cancel_completed', metadata: { previous_status: previous_status })
       log_info('Download file cancelled', {id: @file.id, filename: @file.filename})
       redirect_back fallback_location: root_path, notice: t('download_files.file_cancellation_success', filename: @file.filename)
     else
@@ -30,6 +30,7 @@ class DownloadFilesController < ApplicationController
     end
 
     @file.destroy
+    log_download_file_event(@file, message: 'events.download_file.deleted')
     log_info('Download file deleted', {id: @file.id, filename: @file.filename})
     redirect_back fallback_location: root_path, notice: t('download_files.file_deletion_success', filename: @file.filename)
   end
@@ -37,7 +38,7 @@ class DownloadFilesController < ApplicationController
   def retry
     previous_status = @file.status
     if @file.update(status: FileStatus::PENDING)
-      log_download_file_event(@file, message: 'events.download_file.retry_request', metadata: { filename: @file.filename, previous_status: previous_status })
+      log_download_file_event(@file, message: 'events.download_file.retry_request', metadata: { previous_status: previous_status })
       log_info('Download file retry requested', {id: @file.id, filename: @file.filename})
       redirect_back fallback_location: root_path, notice: t('download_files.file_retry_success', filename: @file.filename)
     else

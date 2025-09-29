@@ -53,6 +53,7 @@ class UploadFilesController < ApplicationController
     end
 
     @upload_file.destroy
+    log_upload_file_event(@upload_file, message: 'events.upload_file.deleted')
     log_info('Upload file deleted', {id: @upload_file.id, filename: @upload_file.filename})
     redirect_back fallback_location: root_path, notice: t(".upload_file_removed", filename: @upload_file.filename)
   end
@@ -67,7 +68,7 @@ class UploadFilesController < ApplicationController
     end
 
     if @upload_file.update(status: FileStatus::CANCELLED)
-      log_upload_file_event(@upload_file, message: 'events.upload_file.cancel_completed', metadata: { filename: @upload_file.filename, previous_status: previous_status })
+      log_upload_file_event(@upload_file, message: 'events.upload_file.cancel_completed', metadata: { previous_status: previous_status })
       log_info('Upload file cancelled', {id: @upload_file.id, filename: @upload_file.filename})
       redirect_back fallback_location: root_path, notice: t('.file_cancellation_success', filename: @upload_file.filename)
     else
@@ -78,7 +79,7 @@ class UploadFilesController < ApplicationController
   def retry
     previous_status = @upload_file.status
     if @upload_file.update(status: FileStatus::PENDING)
-      log_upload_file_event(@upload_file, message: 'events.upload_file.retry_request', metadata: { filename: @upload_file.filename, previous_status: previous_status })
+      log_upload_file_event(@upload_file, message: 'events.upload_file.retry_request', metadata: { previous_status: previous_status })
       log_info('Upload file retry requested', {id: @upload_file.id, filename: @upload_file.filename})
       redirect_back fallback_location: root_path, notice: t('.file_retry_success', filename: @upload_file.filename)
     else

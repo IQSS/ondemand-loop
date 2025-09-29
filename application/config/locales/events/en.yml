@@ -16,6 +16,7 @@ en:
       error_checksum_verification_message: "Checksum verification failed: file may be corrupted or incomplete"
       cancel_completed: "Cancel request processed (%{status})"
       retry_request: "Retry: file moved back to pending queue"
+      deleted: "Download file deleted: %{filename}"
     upload_file:
       started: "Upload service - Upload started"
       finished: "Upload service - Upload processing completed (%{status})"
@@ -24,3 +25,4 @@ en:
       error_checksum_verification_message: "Checksum verification failed: file may be corrupted or incomplete"
       cancel_completed: "Cancel request processed (%{status})"
       retry_request: "Retry: file moved back to pending queue"
+      deleted: "Upload file deleted: %{filename}"

@@ -75,7 +75,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     assert_match 'not found for project', flash[:alert]
   end
 
-  test 'delete should destroy upload file and redirect when not uploading' do
+  test 'destroy should delete upload file and redirect when not uploading' do
     file = UploadFile.new.tap do |file|
       file.id = @file_id
       file.filename = 'delete.txt'
@@ -84,6 +84,10 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     file.expects(:destroy)
 
     UploadFile.stubs(:find).with(@project_id, @upload_bundle_id, @file_id).returns(file)
+    UploadFilesController.any_instance.expects(:log_upload_file_event).with(
+      file,
+      message: 'events.upload_file.deleted'
+    )
 
     delete project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
 
@@ -92,7 +96,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     assert_includes flash[:notice], 'delete.txt'
   end
 
-  test 'delete should return error when file is uploading' do
+  test 'destroy should return error when file is uploading' do
     file = UploadFile.new.tap do |file|
       file.id = @file_id
       file.filename = 'delete.txt'
@@ -138,7 +142,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     UploadFilesController.any_instance.expects(:log_upload_file_event).with(
       file,
       message: 'events.upload_file.cancel_completed',
-      metadata: { filename: 'cancel.txt', previous_status: 'uploading' }
+      metadata: { previous_status: 'uploading' }
     )
 
     post cancel_project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
@@ -163,7 +167,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     UploadFilesController.any_instance.expects(:log_upload_file_event).with(
       file,
       message: 'events.upload_file.cancel_completed',
-      metadata: { filename: 'done.txt', previous_status: 'success' }
+      metadata: { previous_status: 'success' }
     )
 
     post cancel_project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
@@ -198,7 +202,7 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     UploadFilesController.any_instance.expects(:log_upload_file_event).with(
       file,
       message: 'events.upload_file.retry_request',
-      metadata: { filename: 'retry.txt', previous_status: FileStatus::ERROR }
+      metadata: { previous_status: FileStatus::ERROR }
     )
 
     post retry_project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)

@@ -67,7 +67,7 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
     DownloadFilesController.any_instance.expects(:log_download_file_event).with(
       @file,
       message: 'events.download_file.cancel_completed',
-      metadata: { filename: 'filename_test', previous_status: 'success' }
+      metadata: { previous_status: 'success' }
     )
 
     post cancel_project_download_file_url(project_id: @project_id, id: @file_id)
@@ -103,6 +103,10 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
     @file.stubs(:filename).returns('file.zip')
     @file.expects(:destroy)
     DownloadFile.stubs(:find).with(@project_id, @file_id).returns(@file)
+    DownloadFilesController.any_instance.expects(:log_download_file_event).with(
+      @file,
+      message: 'events.download_file.deleted'
+    )
 
     delete project_download_file_url(project_id: @project_id, id: @file_id)
     assert_redirected_to root_path
