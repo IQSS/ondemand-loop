@@ -187,7 +187,24 @@ class UploadFilesControllerTest < ActionDispatch::IntegrationTest
     assert_match 'not found', flash[:alert]
   end
 
-  test 'retry should update file status to pending and redirect with success message' do
+  test 'retry should redirect with alert if file status is not retryable' do
+    file = UploadFile.new.tap do |file|
+      file.id = @file_id
+      file.project_id = @project_id
+      file.upload_bundle_id = @upload_bundle_id
+      file.filename = 'retry.txt'
+      file.status = FileStatus::SUCCESS
+    end
+
+    UploadFile.stubs(:find).returns(file)
+
+    post retry_project_upload_bundle_upload_file_url(@project_id, @upload_bundle_id, @file_id)
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match 'cannot be moved back to the pending queue', flash[:alert]
+  end
+
+  test 'retry should update file status to pending and redirect with success message for retryable status' do
     file = UploadFile.new.tap do |file|
       file.id = @file_id
       file.project_id = @project_id

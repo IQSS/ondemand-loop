@@ -7,8 +7,9 @@ en:
     file_cancellation_update_error: "Download cancelled: %{filename}, but status update failed. Try again"
     file_cancellation_success: "Download cancelled for file: %{filename}"
     file_deletion_success: "Download file deleted: %{filename}"
-    file_retry_success: "File has been moved back to the pending queue and will be downloaded again."
+    file_retry_success: "File has been moved back to the pending queue and will be downloaded again"
     file_retry_error: "Could not move file back to the pending queue"
+    file_retry_invalid: "File with status %{status} cannot be moved back to the pending queue"
   file_browser:
     directory_forbidden: "You do not have permission to access this directory."
   projects:
@@ -71,6 +72,7 @@ en:
     retry:
       file_retry_success: "File has been moved back to the pending queue and will be uploaded again."
       file_retry_error: "Could not move file back to the pending queue"
+      file_retry_invalid: "File with status %{status} cannot be moved back to the pending queue"
   explore:
     show:
       message_processor_error: "Error processing request for repository: %{connector_type} type: %{object_type} with id: %{object_id}"

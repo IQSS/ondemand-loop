@@ -124,7 +124,18 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
     assert_match 'not found for project', flash[:alert]
   end
 
-  test 'retry should change status and redirect' do
+  test 'retry should redirect with alert if file status is not retryable' do
+    @file.stubs(:status).returns(FileStatus::SUCCESS)
+    DownloadFile.stubs(:find).with(@project_id, @file_id).returns(@file)
+
+    post retry_project_download_file_url(project_id: @project_id, id: @file_id)
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match 'cannot be moved back to the pending queue', flash[:alert]
+  end
+
+  test 'retry should change status and redirect for retryable status' do
+    @file.stubs(:status).returns(FileStatus::ERROR)
     @file.expects(:update).with(status: FileStatus::PENDING).returns(true)
     DownloadFile.stubs(:find).with(@project_id, @file_id).returns(@file)
 

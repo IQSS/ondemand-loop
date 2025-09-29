@@ -77,9 +77,12 @@ class UploadFilesController < ApplicationController
   end
 
   def retry
-    previous_status = @upload_file.status
+    status = @upload_file.status
+    unless FileStatus.retryable_statuses.include?(status)
+      return redirect_back fallback_location: root_path, alert: t('.file_retry_invalid', status: status)
+    end
     if @upload_file.update(status: FileStatus::PENDING)
-      log_upload_file_event(@upload_file, message: 'events.upload_file.retry_request', metadata: { previous_status: previous_status })
+      log_upload_file_event(@upload_file, message: 'events.upload_file.retry_request', metadata: { previous_status: status })
       log_info('Upload file retry requested', {id: @upload_file.id, filename: @upload_file.filename})
       redirect_back fallback_location: root_path, notice: t('.file_retry_success', filename: @upload_file.filename)
     else

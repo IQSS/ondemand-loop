@@ -36,9 +36,13 @@ class DownloadFilesController < ApplicationController
   end
 
   def retry
-    previous_status = @file.status
+    status = @file.status
+    unless FileStatus.retryable_statuses.include?(status)
+      return redirect_back fallback_location: root_path, alert: t('download_files.file_retry_invalid', status: status)
+    end
+
     if @file.update(status: FileStatus::PENDING)
-      log_download_file_event(@file, message: 'events.download_file.retry_request', metadata: { previous_status: previous_status })
+      log_download_file_event(@file, message: 'events.download_file.retry_request', metadata: { previous_status: status })
       log_info('Download file retry requested', {id: @file.id, filename: @file.filename})
       redirect_back fallback_location: root_path, notice: t('download_files.file_retry_success', filename: @file.filename)
     else
