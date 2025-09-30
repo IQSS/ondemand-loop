@@ -45,6 +45,7 @@ nav:
       - Docker Images: development_guide/docker_images.md
       - Open OnDemand: development_guide/ood.md
       - Dataverse Integration: development_guide/dataverse_integration.md
+      - Accessibility: development_guide/accessibility.md
       - Contributing a Change: development_guide/contributing.md
       - Testing: development_guide/testing.md
       - Manual Testing: development_guide/manual_testing.md
