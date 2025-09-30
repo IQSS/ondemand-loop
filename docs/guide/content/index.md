@@ -34,6 +34,15 @@ The core goal of OnDemand Loop is to **lower the barrier for non-technical users
     - If you encounter issues after an update, use **Help → Reset** to restore the application to a clean state before reporting the problem.
     - We welcome [feedback and bug reports](https://github.com/IQSS/ondemand-loop/issues) to help us improve!
 
+!!! warning "About Help → Reset:"
+
+    Selecting **Reset** restarts your Per User NGINX (PUN). All Passenger applications running on the PUN — including
+    Loop, the Open OnDemand Dashboard, and the File Browser — are terminated and will cold-start the next time you 
+    open them. The applications persist their state on disk, so you may lose only in-memory caches and experience 
+    a brief startup delay when they relaunch.
+
+    This reset flow exists only during the Beta period to help users recover from issues that require a fresh PUN; it is not expected to be necessary in the future.
+
 ### Sections
 
 This documentation introduces the entire application. It is divided into the following guides:
