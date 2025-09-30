@@ -259,10 +259,10 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     
     # Clear any existing navigation instance variable to ensure fresh test
     config.instance_variable_set(:@navigation, nil)
+    config.expects(:config).once.returns({})
     
     # Mock the building process to verify it's only called once due to memoization
     Nav::NavDefaults.expects(:navigation_items).once.returns([])
-    ::Configuration.expects(:config).once.returns({})
     Nav::NavBuilder.expects(:build).once.returns([])
     
     first_call = config.navigation
@@ -288,30 +288,13 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
   test 'navigation respects configuration overrides when present' do
     # Create a temporary config that has navigation overrides
     temp_config = { navigation: [{ id: 'nav-projects', label: 'Custom Projects Label' }] }
-    ::Configuration.stubs(:config).returns(temp_config)
-    
     config = ConfigurationSingleton.new
+    config.stubs(:config).returns(temp_config)
     navigation = config.navigation
     
     projects_item = navigation.find { |item| item.id == 'nav-projects' }
     assert_not_nil projects_item
     assert_equal 'Custom Projects Label', projects_item.label
-  end
-
-  test 'navigation rebuilds when @navigation is nil' do
-    config = ConfigurationSingleton.new
-
-    # Clear navigation instance variable to simulate initial state
-    config.instance_variable_set(:@navigation, nil)
-
-    # Mock the building process - should be called once for first call
-    Nav::NavDefaults.expects(:navigation_items).once.returns([])
-    ::Configuration.expects(:config).once.returns({})
-    Nav::NavBuilder.expects(:build).once.returns([])
-
-    navigation = config.navigation
-
-    assert_not_nil navigation
   end
 
   test 'should return default timeout and pagination values when ENV is not set' do
