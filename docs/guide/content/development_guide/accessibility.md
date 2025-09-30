@@ -2,11 +2,13 @@
 
 OnDemand Loop is built having in mind the [WCAG 2.1 A and AA accessibility criteria](https://www.w3.org/TR/WCAG21/).  
 Some tools like [WAVE Evaluation Tool](https://wave.webaim.org/) and reviews assisted with AI have been used to keep the experience inclusive as much as possible.
-Nonetheless, despite the efforts, there might be parts of the UI that are not compliant. 
+Nonetheless, despite the efforts, there might be parts of the UI that are not fully compliant. 
 
 ---
 
 ### Continuous verification
+
+Accessibility is an ongoing effort. New additions to the code should consider it:
 
 - **Manual confirmation** – To keep pursuing accessibility on this application, it is desirable that developers ensure that their code follows the standards. PR reviewers should check accessibility as well.
 - **Automated audits** – In the future an automatic evaluation tool can be added to the GitHub workflows so that accessibility is fulfilled on each PR. 
