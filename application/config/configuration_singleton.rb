@@ -135,15 +135,15 @@ class ConfigurationSingleton
   end
 
   def read_config
-    Rails.logger.info("Reading OnDemand Loop configuration files from: #{config_directory}")
+    $stdout.puts("Reading OnDemand Loop configuration files from: #{config_directory}")
     files = Pathname.glob(config_directory.join('*.{yml,yaml}'))
     files.sort.each_with_object({}) do |f, conf|
       begin
-        Rails.logger.info("Loading file: #{f}")
+        $stdout.puts("Loading file: #{f}")
         yml = YAML.safe_load_file(f, aliases: true) || {}
         conf.deep_merge!(yml.deep_symbolize_keys)
       rescue => e
-        Rails.logger.error("Can't read or parse #{f}: #{e.class} - #{e.message}")
+        $stderr.puts("Can't read or parse #{f} because of error: #{e.class} - #{e.message}")
       end
     end
   end
