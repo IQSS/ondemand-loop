@@ -33,6 +33,7 @@ class ConfigurationSingleton
       ::ConfigurationProperty.integer(:default_pagination_items, default: 20),
       ::ConfigurationProperty.property(:dataverse_hub_url, default: 'https://hub.dataverse.org/api/installations'),
       ::ConfigurationProperty.property(:zenodo_default_url, default: 'https://zenodo.org'),
+      ::ConfigurationProperty.property(:logging_root),
     ].freeze
   end
 
@@ -42,6 +43,16 @@ class ConfigurationSingleton
 
   def command_server_socket_file
     ENV['OOD_LOOP_COMMAND_SERVER_FILE'] || File.join(metadata_root, 'command.server.sock')
+  end
+
+  def logging_root_path
+    @logging_root_path ||= begin
+      user = Etc.getpwuid(Process.euid).name || ENV['USER'] || ENV['USERNAME'] || 'unknown'
+      path = logging_root ? File.join(::Configuration.logging_root, user) : File.join(metadata_root, 'logs')
+      # ensure log folder exists and is private
+      FileUtils.mkdir_p(path, mode: 0o700)
+      path
+    end
   end
 
   def repo_db_file
@@ -56,7 +67,7 @@ class ConfigurationSingleton
     @navigation ||= begin
       LoggingCommon.log_info('[Configuration] Building Navigation')
       defaults  = Nav::NavDefaults.navigation_items
-      overrides = ::Configuration.config.fetch(:navigation, [])
+      overrides = config.fetch(:navigation, [])
       Nav::NavBuilder.build(defaults, overrides)
     end
   end

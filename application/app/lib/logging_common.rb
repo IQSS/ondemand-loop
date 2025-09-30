@@ -18,6 +18,13 @@ module LoggingCommon
 
   module_function :log_info, :log_error
 
+  def self.create_logger(log_file)
+    log_file_path = File.join(::Configuration.logging_root_path, log_file)
+    logger = ActiveSupport::Logger.new(log_file_path, 5, 10.megabytes)
+    logger.formatter = ::Logger::Formatter.new
+    ActiveSupport::TaggedLogging.new(logger)
+  end
+
   private
 
   def self.format_log(level, class_name, message, data)

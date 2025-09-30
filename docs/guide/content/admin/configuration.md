@@ -76,6 +76,7 @@ The following properties control various aspects of OnDemand Loop's behavior. Ea
 - [default_pagination_items](#default_pagination_items)
 - [dataverse_hub_url](#dataverse_hub_url)
 - [zenodo_default_url](#zenodo_default_url)
+- [logging_root](#logging_root)
 - [navigation](#navigation)
 
 ---
@@ -313,6 +314,23 @@ For development or testing environments, this can be pointed to alternative Zeno
 
 ---
 
+<a id="logging_root"></a>
+**`logging_root`**  
+Defines the root directory where application log files are written.
+When set, logs are organized into subdirectories named after the system user running the application (e.g., `<logging_root>/<username>/`).
+
+If this property is not set:
+
+- **Rails application logs** default to the OnDemand Passenger log location: `/var/log/ondemand-nginx/<username>/`
+- **Detached process logs** are written under the metadata directory: `~/.loop_metadata/logs/`
+
+This setting is useful for centralizing logs, integrating with system monitoring, or storing logs on dedicated volumes for backup and retention.
+
+- **Default**: `nil`
+- **Environment Variable**: `OOD_LOOP_LOGGING_ROOT`
+
+---
+
 <a id="navigation"></a>
 **`navigation`**
 Defines custom navigation bar items that override or extend the default application navigation.
@@ -403,6 +421,7 @@ max_upload_file_size: 2_000_000_000
 guide_url: https://example.com/loop
 dataverse_hub_url: https://hub.dataverse.org/api/installations
 zenodo_default_url: https://zenodo.org
+logging_root: /var/log/loop
 ```
 
 #### `.env` File example
@@ -432,4 +451,5 @@ OOD_LOOP_MAX_UPLOAD_FILE_SIZE=2_000_000_000
 OOD_LOOP_GUIDE_URL=https://example.com/loop
 OOD_LOOP_DATAVERSE_HUB_URL=https://hub.dataverse.org/api/installations
 OOD_LOOP_ZENODO_DEFAULT_URL=https://zenodo.org
+OOD_LOOP_LOGGING_ROOT=/var/log/loop
 ```

@@ -16,7 +16,7 @@ class ResetService
     FileUtils.rm_f(command_server_socket)
     FileUtils.rm_f(detached_process_lock)
     FileUtils.rm_rf(metadata_root)
-    log_info('Deleted metadata files', { root: metadata_root, detached_process_lock: detached_process_lock, command_server_socket: command_server_socket })
+    log_info('Reset completed')
   rescue StandardError => e
     log_error('Failed to reset application state', { root: metadata_root, detached_process_lock: detached_process_lock, command_server_socket: command_server_socket }, e)
     raise

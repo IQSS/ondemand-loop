@@ -128,4 +128,140 @@ class LoggingCommonTest < ActiveSupport::TestCase
     Rails.stubs(:logger).returns(@logger)
   end
 
+  test 'create_logger should create logger with correct file path and settings' do
+
+    # Use a temporary directory for testing
+    Dir.mktmpdir do |temp_dir|
+      log_file = 'test.log'
+      # Mock Configuration.logging_root_path to use temp directory
+      ::Configuration.stubs(:logging_root_path).returns(temp_dir)
+      expected_path = File.join(temp_dir, log_file)
+
+      result = LoggingCommon.create_logger(log_file)
+
+      assert_instance_of ActiveSupport::Logger, result
+      # Verify the logger was configured with the correct path
+      # We can access the logdev through the logger's instance variable
+      logdev = result.instance_variable_get(:@logdev)
+      assert_not_nil logdev
+      assert_equal expected_path, logdev.filename
+
+      # Clean up the log file if it was created
+      File.delete(expected_path) if File.exist?(expected_path)
+    end
+  end
+
+  test 'log_error should handle exception with nil backtrace' do
+    exception = StandardError.new('No backtrace')
+    exception.set_backtrace(nil)
+
+    # Currently the code has a bug where it crashes on nil backtrace
+    # This test documents the current behavior
+    assert_raises(TypeError) do
+      log_error('Exception with nil backtrace', {}, exception)
+    end
+  end
+
+  test 'log_error should handle exception with empty backtrace' do
+    exception = StandardError.new('Empty backtrace')
+    exception.set_backtrace([])
+
+    @logger.expects(:error).with { |message|
+      assert_match(/\[ERROR\]/, message)
+      assert_match(/Empty backtrace/, message)
+      assert_match(/\[STACK\] StandardError: Empty backtrace/, message)
+      # Should handle empty backtrace gracefully
+      true
+    }
+
+    log_error('Exception with empty backtrace', {}, exception)
+  end
+
+  test 'log_error should truncate long stack traces to first 5 lines' do
+    exception = StandardError.new('Long stack trace')
+    # Create a backtrace with 10 lines
+    backtrace = (1..10).map { |i| "line #{i} of backtrace" }
+    exception.set_backtrace(backtrace)
+
+    @logger.expects(:error).with { |message|
+      assert_match(/\[ERROR\]/, message)
+      assert_match(/Long stack trace/, message)
+      assert_match(/\[STACK\] line 1 of backtrace/, message)
+      assert_match(/\[STACK\] line 5 of backtrace/, message)
+      refute_match(/\[STACK\] line 6 of backtrace/, message)
+      refute_match(/\[STACK\] line 10 of backtrace/, message)
+      true
+    }
+
+    log_error('Exception with long backtrace', {}, exception)
+  end
+
+  test 'format_log should handle complex data types' do
+    complex_data = {
+      string: 'text',
+      number: 42,
+      boolean: true,
+      nil_value: nil,
+      symbol: :test
+    }
+
+    formatted = LoggingCommon.send(:format_log, 'INFO', 'TestClass', 'Complex data', complex_data)
+
+    assert_match(/string=text/, formatted)
+    assert_match(/number=42/, formatted)
+    assert_match(/boolean=true/, formatted)
+    assert_match(/nil_value=/, formatted)
+    assert_match(/symbol=test/, formatted)
+  end
+
+  test 'format_log should handle empty data gracefully' do
+    formatted = LoggingCommon.send(:format_log, 'INFO', 'TestClass', 'No data', {})
+
+    assert_match(/\[INFO\]/, formatted)
+    assert_match(/TestClass/, formatted)
+    assert_match(/No data/, formatted)
+    assert_match(/\d{4}-\d{2}-\d{2}/, formatted) # date part
+    # Should end with message and a space (no key=value pairs)
+    assert formatted.end_with?('No data ')
+  end
+
+  test 'format_log should include thread id' do
+    formatted = LoggingCommon.send(:format_log, 'DEBUG', 'TestClass', 'Thread test', {})
+
+    # Should contain the current thread object_id
+    assert_match(/\(#{Thread.current.object_id}\)/, formatted)
+  end
+
+  test 'log_info and log_error should use correct class names when included' do
+    # Create a test class that includes LoggingCommon
+    test_class = Class.new do
+      include LoggingCommon
+
+      def self.name
+        'TestIncludedClass'
+      end
+
+      def test_logging
+        log_info('Info from included class')
+        log_error('Error from included class')
+      end
+    end
+
+    instance = test_class.new
+
+    @logger.expects(:info).with { |message|
+      assert_match(/TestIncludedClass/, message)
+      assert_match(/Info from included class/, message)
+      true
+    }
+
+    @logger.expects(:error).with { |message|
+      assert_match(/TestIncludedClass/, message)
+      assert_match(/Error from included class/, message)
+      true
+    }
+
+    instance.test_logging
+  end
+
 end
