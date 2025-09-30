@@ -2,7 +2,7 @@
 
 OnDemand Loop uses [Cypress](https://cypress.io) for end-to-end (E2E) automated testing. These tests verify that the application works correctly from a user's perspective by simulating real interactions with the browser interface.
 
-## Overview
+### Overview
 
 The automated tests are located in the `e2e_tests/` directory and provide:
 
@@ -10,7 +10,7 @@ The automated tests are located in the `e2e_tests/` directory and provide:
 - **Docker-based execution** for consistency across development and CI/CD environments
 - **GitHub Actions integration** for automated testing on code changes
 
-### Test Structure
+#### Test Structure
 
 ```
 e2e_tests/
@@ -26,15 +26,15 @@ e2e_tests/
 └── docker-compose.yml         # Test environment setup
 ```
 
-## Running Tests Locally
+### Running Tests Locally
 
-### Prerequisites
+#### Prerequisites
 
 - Docker and Docker Compose installed
 - Make utility
 - Access to test credentials (see [Local Environment](local_environment.md))
 
-### Quick Start
+#### Quick Start
 
 1. **Start the test environment:**
 
@@ -64,7 +64,7 @@ make cypress_run
 make clean
 ```
 
-### Available Make Targets
+#### Available Make Targets
 
 | Target | Description |
 |--------|-------------|
@@ -77,7 +77,7 @@ make clean
 | `cypress_run` | Run Cypress tests headless |
 | `clean` | Stop environment and clean up artifacts |
 
-### Environment Variables
+#### Environment Variables
 
 Configure tests using these environment variables:
 
@@ -93,9 +93,9 @@ Example:
 CYPRESS_SPEC=cypress/e2e/homepage.cy.js make cypress_run
 ```
 
-## Writing Tests
+### Writing Tests
 
-### Test Structure
+#### Test Structure
 
 Follow this pattern for new tests:
 
@@ -116,7 +116,7 @@ describe('Feature Name', () => {
 })
 ```
 
-### Best Practices
+#### Best Practices
 
 1. **Use data attributes** for element selection:  
    ```html
@@ -147,13 +147,13 @@ describe('Feature Name', () => {
    })
    ```
 
-## Adding New Tests
+#### Adding New Tests
 
 1. **Create test files** in `cypress/e2e/` with the `.cy.js` extension
 2. **Follow naming conventions**: `feature-name.cy.js`
 3. **Import/create required utilities**
 
-## CI/CD Integration
+#### CI/CD Integration
 
 Tests run automatically in GitHub Actions on:
 
@@ -161,7 +161,7 @@ Tests run automatically in GitHub Actions on:
 - **Pull requests** targeting main branch with changes to `application/` or `e2e_tests/`
 - **Manual workflow dispatch**
 
-### GitHub Actions Workflow
+#### GitHub Actions Workflow
 
 The workflow (`.github/workflows/e2e-tests.yml`) performs:
 
@@ -172,16 +172,16 @@ The workflow (`.github/workflows/e2e-tests.yml`) performs:
 5. **Run tests** with `make cypress_run`
 6. **Upload artifacts** (results, screenshots) on failure
 
-### Test Artifacts
+#### Test Artifacts
 
 When tests fail, the following artifacts are automatically uploaded:
 
 - **Screenshots** from failed tests
 - **Test results** in JUnit XML format
 
-## Troubleshooting
+### Troubleshooting
 
-### Debugging Tests
+#### Debugging Tests
 
 1. **View environment logs:**
    ```bash

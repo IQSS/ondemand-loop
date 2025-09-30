@@ -58,10 +58,26 @@ Before submitting code changes:
     ```
 
 ## ♿ Accessibility
+Accessibility is a core consideration for this project. While OnDemand Loop is not fully compliant with accessibility standards (such as WCAG 2.1 or Section 508), we strive for **incremental improvements** with every change.
 
-- Review the [Accessibility guide](https://iqss.github.io/ondemand-loop/development_guide/accessibility.md) before submitting UI changes.
-- Run tools to audit accessibility on your pull request.
-- Call out notable accessibility improvements or mitigations in your PR description so reviewers can double-check them quickly.
+When contributing, please:
+
+- **Review the [Accessibility Guidelines](https://iqss.github.io/ondemand-loop/development_guide/accessibility.md)** before submitting UI changes.
+- **Follow best practices**:
+    - Use semantic HTML elements and landmarks.
+    - Ensure all functionality is available via keyboard.
+    - Provide descriptive labels for form inputs and interactive elements.
+    - Maintain sufficient color contrast.
+    - Apply ARIA attributes only when necessary and correctly.
+- **Run accessibility checks** using tools such as:
+    - [axe DevTools](https://www.deque.com/axe/devtools/)
+    - [Lighthouse](https://developers.google.com/web/tools/lighthouse)
+    - [WAVE](https://wave.webaim.org/)
+- **Call out accessibility considerations in your PR description**:
+    - Mention improvements you made (e.g., added keyboard support, improved labels).
+    - Flag any known limitations so reviewers can double-check.
+
+Even small contributions to accessibility make a meaningful difference. Please treat every change as an opportunity to improve inclusivity and avoid regressions.
 
 ## ✅ Pull Requests
 After completing your changes, open a Pull Request (PR):
