@@ -56,6 +56,13 @@ Before submitting code changes:
    ```bash
    make test
     ```
+
+## ♿ Accessibility
+
+- Review the [Accessibility guide](https://iqss.github.io/ondemand-loop/development_guide/accessibility.md) before submitting UI changes.
+- Run tools to audit accessibility on your pull request.
+- Call out notable accessibility improvements or mitigations in your PR description so reviewers can double-check them quickly.
+
 ## ✅ Pull Requests
 After completing your changes, open a Pull Request (PR):
 - Link it to the relevant issue.
