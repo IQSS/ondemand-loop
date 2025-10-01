@@ -24,7 +24,7 @@ Follow the steps below to create a release of OnDemand Loop.
    - Test the deployment in QA.
    - When ready to proceed, add a comment containing:
      ```
-     Release approved
+     release approved
      ```
 
 4. **Create the release**
