@@ -6,6 +6,16 @@ require 'fileutils'
 class ResetService
   include LoggingCommon
 
+  def reset_request_allowed?(request)
+    return false unless request.post?
+
+    return false if Download::DownloadFilesProvider.new.all.any?{|data| FileStatus.active_statuses.include?(data.file.status) }
+    return false if Upload::UploadFilesProvider.new.all.any?{|data| FileStatus.active_statuses.include?(data.file.status) }
+
+    # RESET
+    true
+  end
+
   # Deletes the metadata root directory configured for the application.
   def reset
     log_info('Resetting...')

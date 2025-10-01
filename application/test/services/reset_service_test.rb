@@ -49,4 +49,95 @@ class ResetServiceTest < ActiveSupport::TestCase
     assert_equal 1, reset_service.logged_messages.size
     assert_match 'Failed to reset application state', reset_service.logged_messages.first[:message]
   end
+
+  # Tests for reset_request_allowed?
+  test 'reset_request_allowed? returns false for GET request' do
+    request = ActionDispatch::TestRequest.create
+    request.request_method = 'GET'
+
+    refute ResetService.new.reset_request_allowed?(request)
+  end
+
+  test 'reset_request_allowed? returns false for PUT request' do
+    request = ActionDispatch::TestRequest.create
+    request.request_method = 'PUT'
+
+    refute ResetService.new.reset_request_allowed?(request)
+  end
+
+  test 'reset_request_allowed? returns false for DELETE request' do
+    request = ActionDispatch::TestRequest.create
+    request.request_method = 'DELETE'
+
+    refute ResetService.new.reset_request_allowed?(request)
+  end
+
+  test 'reset_request_allowed? returns false when active download files exist' do
+    request = ActionDispatch::TestRequest.create
+    request.request_method = 'POST'
+
+    project = download_project(files: 1)
+    project.download_files.first.status = FileStatus::DOWNLOADING
+    Project.stubs(:all).returns([project])
+
+    refute ResetService.new.reset_request_allowed?(request)
+  end
+
+  test 'reset_request_allowed? returns false when pending download files exist' do
+    request = ActionDispatch::TestRequest.create
+    request.request_method = 'POST'
+
+    project = download_project(files: 1)
+    project.download_files.first.status = FileStatus::PENDING
+    Project.stubs(:all).returns([project])
+
+    refute ResetService.new.reset_request_allowed?(request)
+  end
+
+  test 'reset_request_allowed? returns false when active upload files exist' do
+    request = ActionDispatch::TestRequest.create
+    request.request_method = 'POST'
+
+    project = upload_project(files: 1)
+    project.upload_bundles.first.files.first.status = FileStatus::UPLOADING
+    Project.stubs(:all).returns([project])
+
+    refute ResetService.new.reset_request_allowed?(request)
+  end
+
+  test 'reset_request_allowed? returns false when pending upload files exist' do
+    request = ActionDispatch::TestRequest.create
+    request.request_method = 'POST'
+
+    project = upload_project(files: 1)
+    project.upload_bundles.first.files.first.status = FileStatus::PENDING
+    Project.stubs(:all).returns([project])
+
+    refute ResetService.new.reset_request_allowed?(request)
+  end
+
+  test 'reset_request_allowed? returns true when POST request and no active files' do
+    request = ActionDispatch::TestRequest.create
+    request.request_method = 'POST'
+
+    # Create projects with completed files only
+    download_proj = download_project(files: 1)
+    download_proj.download_files.first.status = FileStatus::SUCCESS
+
+    upload_proj = upload_project(files: 1)
+    upload_proj.upload_bundles.first.files.first.status = FileStatus::SUCCESS
+
+    Project.stubs(:all).returns([download_proj, upload_proj])
+
+    assert ResetService.new.reset_request_allowed?(request)
+  end
+
+  test 'reset_request_allowed? returns true when POST request and no files exist' do
+    request = ActionDispatch::TestRequest.create
+    request.request_method = 'POST'
+
+    Project.stubs(:all).returns([])
+
+    assert ResetService.new.reset_request_allowed?(request)
+  end
 end
