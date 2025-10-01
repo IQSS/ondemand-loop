@@ -331,7 +331,7 @@ en:
       content_title: "Restart in Progress"
       content_html: >
         <p>Your personal <em>OnDemand Loop</em> instance is restarting.</p>
-        <p>You will be redirected to the application <strong>shortly</strong>.</p>
+        <p>You will be redirected to the home page <strong>shortly</strong>.</p>
         <hr>
         <p class="mb-0">
           If the page does not refresh automatically, <a href="%{url}">click here to continue</a>.
@@ -341,7 +341,7 @@ en:
       success_content_title: "Reset Completed"
       success_content_html: >
         <p>Your personal <em>OnDemand Loop</em> instance has been successfully reset.</p>
-        <p>The application will automatically restart <strong>shortly</strong>.</p>
+        <p>You will be redirected to the home page <strong>shortly</strong>.</p>
         <hr>
         <p class="mb-0">
         If the page does not refresh, <a href="%{url}">click here to continue</a>.
@@ -351,7 +351,7 @@ en:
       error_content_html: >
         <p>The reset request is only allowed via POST and cannot be performed while there are active or pending downloads/uploads.</p>
         <p>Please allow ongoing transfers to complete or delete them manually before trying again.</p>
-        <p>You will be redirected to the home page in <strong>3 seconds</strong>.</p>
+        <p>You will be redirected to the home page <strong>shortly</strong>.</p>
         <hr>
         <p class="mb-0">
           If the page does not refresh, <a href="%{url}">click here to continue</a>.
