@@ -56,7 +56,7 @@ Built‑in repository connectors handle the details of each repository’s API, 
     [feedback and bug reports](https://github.com/IQSS/ondemand-loop/issues) to help us improve!
 
     Selecting **Help → Restart** restarts your Per User NGINX (PUN). All Passenger applications running on the PUN — including
-    Loop, the Open OnDemand Dashboard, and the File Browser — are terminated and will cold-start the next time you
+    Loop and the Open OnDemand Dashboard — are terminated and will cold-start the next time you
     open them. The applications persist their state on disk, so you may lose only in-memory caches and experience
     a brief startup delay when they relaunch.
 
