@@ -31,7 +31,7 @@ The core goal of OnDemand Loop is to **lower the barrier for non-technical users
     - You may encounter occasional bugs or incomplete features.
     - User interface and workflow changes may occur without backward compatibility guarantees.
     - Minor UI/UX inconsistencies are expected as the product evolves.
-    - If you encounter issues after an update, use **Help → Reset** to restore the application to a clean state before reporting the problem.
+    - If you encounter issues after an update, use **Help → Reset Application** to restore the application to a clean state before reporting the problem.
     - We welcome [feedback and bug reports](https://github.com/IQSS/ondemand-loop/issues) to help us improve!
 
 ### Sections
