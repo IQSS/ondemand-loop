@@ -135,11 +135,9 @@ class ConfigurationSingleton
   end
 
   def read_config
-    $stdout.puts("Reading OnDemand Loop configuration files from: #{config_directory}")
     files = Pathname.glob(config_directory.join('*.{yml,yaml}'))
     files.sort.each_with_object({}) do |f, conf|
       begin
-        $stdout.puts("Loading file: #{f}")
         yml = YAML.safe_load_file(f, aliases: true) || {}
         conf.deep_merge!(yml.deep_symbolize_keys)
       rescue => e
