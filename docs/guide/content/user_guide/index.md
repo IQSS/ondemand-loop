@@ -51,8 +51,8 @@ Built‑in repository connectors handle the details of each repository’s API, 
 !!! warning "Beta Notice:"
 
     *OnDemand Loop* is currently in **Beta**. You may encounter bugs, incomplete features, workflow changes without
-    backward compatibility, and minor UI/UX inconsistencies. If issues arise after an update, use **Help → Restart**
-    or **Help → Reset Application** to restore the application before reporting problems. We welcome
+    backward compatibility, and minor UI/UX inconsistencies. If issues arise after an update, use 
+    **Help → Reset Application** to restore the application before reporting problems. We welcome
     [feedback and bug reports](https://github.com/IQSS/ondemand-loop/issues) to help us improve!
 
     Selecting **Help → Restart** restarts your Per User NGINX (PUN). All Passenger applications running on the PUN — including
@@ -60,7 +60,7 @@ Built‑in repository connectors handle the details of each repository’s API, 
     open them. The applications persist their state on disk, so you may lose only in-memory caches and experience
     a brief startup delay when they relaunch.
 
-    Selecting **Help → Reset Application** removes all projects and files metadata and then do a **Restart**, returning the
-    application to a brand new status. Transferred files on disk and in remote repositories will remain untouched.
-
-    Both Restart and Reset flows are temporary and intended only for the Beta period.
+    Selecting **Help → Reset Application** does the same as **Restart**, restarting the PUN, and also removes all projects 
+    and files metadata. This returns the application to a brand new status. Transferred files on disk and in remote 
+    repositories will remain untouched. Reset Application flow is temporary and intended only for the Beta period.
+ 
