@@ -43,6 +43,19 @@ Built‑in repository connectors handle the details of each repository’s API, 
      - Next to the Explore widget, a **folder icon** opens the **Repository Activity** window, giving you quick access to datasets you’ve recently explored.
 5. Use the application bar to create your first project — it becomes the active project automatically so you can immediately begin adding downloads.
 
-!!! info "Welcome Message"
-    The first time you open the application — or if no projects exist yet — a **welcome message** appears.  
-    It provides basic instructions and a direct link back to this **Guide**.
+!!! info "Home Page Welcome Message"
+
+    When you open the application on the **Home** page, a **welcome message** appears. It provides basic instructions and 
+    a direct link back to this **Guide**.
+
+!!! warning "Beta Notice:"
+
+    *OnDemand Loop* is currently in **Beta**. You may encounter bugs, incomplete features, workflow changes without
+    backward compatibility, and minor UI/UX inconsistencies. If issues arise after an update, use **Help → Reset**
+    to restore the application before reporting problems. We welcome
+    [feedback and bug reports](https://github.com/IQSS/ondemand-loop/issues) to help us improve!
+
+    Selecting **Help → Reset** restarts your Per User NGINX (PUN). All Passenger applications running on the PUN — including
+    Loop, the Open OnDemand Dashboard, and the File Browser — are terminated and will cold-start the next time you
+    open them. The applications persist their state on disk, so you may lose only in-memory caches and experience
+    a brief startup delay when they relaunch. This reset flow is temporary and intended only for the Beta period.  
