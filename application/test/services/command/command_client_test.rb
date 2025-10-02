@@ -10,7 +10,8 @@ class Command::CommandClientTest < ActiveSupport::TestCase
     @registry.reset!
 
     @handler = mock('handler')
-    @handler.stubs(:process).returns({ file_status: 'downloading' })
+    @handler.stubs(:is_a?).with(Command::CommandHandler).returns(true)
+    @handler.stubs(:handle_command).returns({ file_status: 'downloading' })
     @registry.register('status', @handler)
 
     @server = Command::CommandServer.new(socket_path: @socket_path)
@@ -43,7 +44,8 @@ class Command::CommandClientTest < ActiveSupport::TestCase
 
   test 'Should raise TimeoutError when server does not respond in time' do
     slow_handler = Class.new do
-      def process(_payload)
+      include Command::CommandHandler
+      def handle_command(_payload)
         sleep 2
         { result: 'delayed' }
       end

@@ -4,6 +4,7 @@ module Download
     include LoggingCommon
     include DateTimeCommon
     include EventLogger
+    include Command::CommandHandler
 
     attr_reader :files_provider, :stats
 
@@ -52,7 +53,7 @@ module Download
 
     end
 
-    def process(request)
+    def handle_command(request)
       stats.merge({start_date: @start_time, elapsed: elapsed_time})
     end
 

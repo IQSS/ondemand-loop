@@ -33,21 +33,29 @@ class DetachedProcessTest < ActiveSupport::TestCase
 
   test 'launch starts services, command server and logs process lifecycle' do
     # Mock dependencies
+    command_registry = mock('CommandRegistry')
+    command_registry.expects(:register).with('detached.process.shutdown', anything).once
+    Command::CommandRegistry.stubs(:instance).returns(command_registry)
+
     command_server = mock('CommandServer')
     command_server.expects(:start).once
     command_server.expects(:shutdown).once
 
-    controller = mock('DetachedProcessManager')
+    controller = mock('DetachedServicesManager')
     controller.expects(:run).once
 
+    download_files_provider = mock('DownloadFilesProvider')
+    upload_files_provider = mock('UploadFilesProvider')
     download_service = mock('DownloadService')
     upload_service = mock('UploadService')
 
     # Stub constructors
     Command::CommandServer.expects(:new).with(socket_path: @mock_socket_file).returns(command_server)
-    DetachedProcessManager.expects(:new).returns(controller)
-    Download::DownloadService.expects(:new).returns(download_service)
-    Upload::UploadService.expects(:new).returns(upload_service)
+    DetachedServicesManager.expects(:new).returns(controller)
+    Download::DownloadFilesProvider.expects(:new).returns(download_files_provider)
+    Upload::UploadFilesProvider.expects(:new).returns(upload_files_provider)
+    Download::DownloadService.expects(:new).with(download_files_provider).returns(download_service)
+    Upload::UploadService.expects(:new).with(upload_files_provider).returns(upload_service)
 
     process = DetachedProcess.new
 
@@ -59,12 +67,19 @@ class DetachedProcessTest < ActiveSupport::TestCase
   end
 
   test 'launch handles startup errors gracefully and still shuts down' do
+    command_registry = mock('CommandRegistry')
+    command_registry.expects(:register).with('detached.process.shutdown', anything).once
+    Command::CommandRegistry.stubs(:instance).returns(command_registry)
+
     command_server = mock('CommandServer')
     command_server.expects(:start).once
     command_server.expects(:shutdown).once
 
+    download_files_provider = mock('DownloadFilesProvider')
+
     Command::CommandServer.stubs(:new).returns(command_server)
-    Download::DownloadService.expects(:new).raises(StandardError, 'Startup failure')
+    Download::DownloadFilesProvider.expects(:new).returns(download_files_provider)
+    Download::DownloadService.expects(:new).with(download_files_provider).raises(StandardError, 'Startup failure')
 
     process = DetachedProcess.new
 
@@ -202,11 +217,15 @@ class DetachedProcessTest < ActiveSupport::TestCase
 
   test 'services are properly initialized during startup' do
     # Mock all dependencies to avoid actual initialization
+    command_registry = mock('CommandRegistry')
+    command_registry.expects(:register).with('detached.process.shutdown', anything).once
+    Command::CommandRegistry.stubs(:instance).returns(command_registry)
+
     command_server = mock('CommandServer')
     command_server.expects(:start)
     command_server.expects(:shutdown)
 
-    controller = mock('DetachedProcessManager')
+    controller = mock('DetachedServicesManager')
     controller.stubs(:run)
 
     download_files_provider = mock('DownloadFilesProvider')
@@ -215,7 +234,7 @@ class DetachedProcessTest < ActiveSupport::TestCase
     upload_service = mock('UploadService')
 
     Command::CommandServer.stubs(:new).returns(command_server)
-    DetachedProcessManager.stubs(:new).returns(controller)
+    DetachedServicesManager.stubs(:new).returns(controller)
     Download::DownloadFilesProvider.expects(:new).returns(download_files_provider)
     Upload::UploadFilesProvider.expects(:new).returns(upload_files_provider)
     Download::DownloadService.expects(:new).with(download_files_provider).returns(download_service)
@@ -230,5 +249,43 @@ class DetachedProcessTest < ActiveSupport::TestCase
     assert_includes services, download_service
     assert_includes services, upload_service
     assert_equal 2, services.length
+  end
+
+  test 'handle_command logs shutdown message, calls services_manager shutdown and returns completion message' do
+    process = DetachedProcess.new
+
+    # Set up mock services manager
+    services_manager = mock('DetachedServicesManager')
+    services_manager.expects(:shutdown).once
+    process.instance_variable_set(:@services_manager, services_manager)
+
+    # Create mock request
+    request = Command::Request.new(command: 'detached.process.shutdown')
+
+    # Expect logging
+    process.expects(:log_info).with("Shutdown command received...", { pid: Process.pid })
+
+    # Call handle_command
+    result = process.handle_command(request)
+
+    # Verify return value
+    assert_equal({message: 'shutdown request completed'}, result)
+  end
+
+  test 'handle_command handles nil services_manager gracefully' do
+    process = DetachedProcess.new
+    process.instance_variable_set(:@services_manager, nil)
+
+    # Create mock request
+    request = Command::Request.new(command: 'detached.process.shutdown')
+
+    # Expect logging
+    process.expects(:log_info).with("Shutdown command received...", { pid: Process.pid })
+
+    # Should not raise error
+    assert_nothing_raised do
+      result = process.handle_command(request)
+      assert_equal({message: 'shutdown request completed'}, result)
+    end
   end
 end

@@ -94,17 +94,17 @@ class Dataverse::DownloadConnectorProcessorTest < ActiveSupport::TestCase
   end
 
   test 'should set cancelled true when process receives matching request' do
-    request = Command::Request.new(command: 'download.cancel', body: {file_id: 'file-123'})
-    result = @processor.process(request)
+    request = Command::Request.new(command: 'file.download.cancel', body: {file_id: 'file-123'})
+    result = @processor.handle_command(request)
 
     assert_equal true, @processor.cancelled
     assert_equal 'cancellation requested', result[:message]
   end
 
   test 'should ignore request if file id does not match' do
-    request = Command::Request.new(command: 'download.cancel', body: {file_id: 'other-id'})
+    request = Command::Request.new(command: 'file.download.cancel', body: {file_id: 'other-id'})
 
-    result = @processor.process(request)
+    result = @processor.handle_command(request)
 
     assert_nil result
     assert_equal false, @processor.cancelled

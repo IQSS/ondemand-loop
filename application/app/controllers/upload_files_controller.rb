@@ -62,7 +62,7 @@ class UploadFilesController < ApplicationController
     previous_status = @upload_file.status.to_s
     if @upload_file.status.uploading?
       command_client = Command::CommandClient.new(socket_path: ::Configuration.command_server_socket_file)
-      request = Command::Request.new(command: 'upload.cancel', body: { project_id: @upload_file.project_id, upload_bundle_id: @upload_file.upload_bundle_id, file_id: @upload_file.id})
+      request = Command::Request.new(command: 'file.upload.cancel', body: { project_id: @upload_file.project_id, upload_bundle_id: @upload_file.upload_bundle_id, file_id: @upload_file.id})
       response = command_client.request(request)
       return redirect_back fallback_location: root_path, alert: t('.file_cancellation_error', filename: @upload_file.filename) if response.status != 200
     end

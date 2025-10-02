@@ -10,7 +10,7 @@ A small set of models like `Project`, `DownloadFile`, `UploadBundle`, and `Uploa
 `ApplicationDiskRecord` which provides YAML based persistence.
 
 Transfers are processed by background services started by
-`DetachedProcessManager`.  Each service loops over pending download or upload
+`DetachedServicesManager`.  Each service loops over pending download or upload
 requests and spawns connector specific processors.  Status updates are recorded
 back to the YAML metadata so the web UI can poll and display progress.
 

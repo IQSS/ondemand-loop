@@ -12,7 +12,7 @@ class UploadStatus
     return 100 if FileStatus.completed_statuses.include?(file.status)
 
     command_client = Command::CommandClient.new(socket_path: ::Configuration.command_server_socket_file)
-    request = Command::Request.new(command: 'upload.status', body: { project_id: file.project_id, upload_bundle_id: file.upload_bundle_id, file_id: file.id })
+    request = Command::Request.new(command: 'file.upload.status', body: { project_id: file.project_id, upload_bundle_id: file.upload_bundle_id, file_id: file.id })
     response = command_client.request(request)
     return 0 if response.error? || response.body.status.nil?
 

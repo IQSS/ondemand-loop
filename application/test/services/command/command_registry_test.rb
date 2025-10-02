@@ -11,7 +11,8 @@ class Command::CommandRegistryTest < ActiveSupport::TestCase
 
   test 'registers valid service and dispatch returns first result' do
     handler = Class.new do
-      def process(request)
+      include Command::CommandHandler
+      def handle_command(request)
         { foo: request.body.bar }
       end
     end.new
@@ -28,12 +29,15 @@ class Command::CommandRegistryTest < ActiveSupport::TestCase
 
   test 'dispatch executes only the first handler that returns non-nil and skips the rest' do
     handler1 = mock('handler1')
+    handler1.stubs(:is_a?).with(Command::CommandHandler).returns(true)
     handler2 = mock('handler2')
+    handler2.stubs(:is_a?).with(Command::CommandHandler).returns(true)
     handler3 = mock('handler3')
+    handler3.stubs(:is_a?).with(Command::CommandHandler).returns(true)
 
-    handler1.expects(:process).returns(nil)
-    handler2.expects(:process).returns({ message: 'handled by 2' })
-    handler3.expects(:process).never
+    handler1.expects(:handle_command).returns(nil)
+    handler2.expects(:handle_command).returns({ message: 'handled by 2' })
+    handler3.expects(:handle_command).never
 
     @registry.register('first_response', handler1)
     @registry.register('first_response', handler2)
@@ -49,7 +53,8 @@ class Command::CommandRegistryTest < ActiveSupport::TestCase
 
   test 'dispatch handles exception in handler and logs error' do
     handler = mock('handler')
-    handler.expects(:process).raises(StandardError, 'handler exploded')
+    handler.stubs(:is_a?).with(Command::CommandHandler).returns(true)
+    handler.expects(:handle_command).raises(StandardError, 'handler exploded')
 
     @registry.register('fail', handler)
 
@@ -71,8 +76,8 @@ class Command::CommandRegistryTest < ActiveSupport::TestCase
   end
 
   test 'dispatch returns error if all handlers return nil' do
-    handler1 = Class.new { def process(_) = nil }.new
-    handler2 = Class.new { def process(_) = nil }.new
+    handler1 = Class.new { include Command::CommandHandler; def handle_command(_) = nil }.new
+    handler2 = Class.new { include Command::CommandHandler; def handle_command(_) = nil }.new
 
     @registry.register('noop', handler1)
     @registry.register('noop', handler2)
@@ -84,14 +89,14 @@ class Command::CommandRegistryTest < ActiveSupport::TestCase
     assert_match 'No handler executed', result.body.message
   end
 
-  test 'raises ArgumentError when registering non-processable service' do
+  test 'raises ArgumentError when registering service without CommandHandler' do
     assert_raises(ArgumentError) do
-      @registry.register('bad', Object.new) # no #process
+      @registry.register('bad', Object.new) # does not include CommandHandler
     end
   end
 
   test 'reset! clears all registered handlers' do
-    dummy = Class.new { def process(_) = { dummy: true } }.new
+    dummy = Class.new { include Command::CommandHandler; def handle_command(_) = { dummy: true } }.new
     @registry.register('dummy', dummy)
 
     assert_not_empty @registry.instance_variable_get(:@registry)

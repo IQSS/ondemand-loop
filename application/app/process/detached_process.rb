@@ -3,6 +3,7 @@
 class DetachedProcess
   include LoggingCommon
   include DateTimeCommon
+  include Command::CommandHandler
 
   attr_reader :process_id
 
@@ -10,6 +11,7 @@ class DetachedProcess
     @process_id = Process.pid
     @start_time = Time.now
     @command_server = nil
+    @services_manager = nil
     @services = []
     @lock_file = Configuration.detached_process_lock_file
     setup_cleanup_handlers
@@ -25,17 +27,25 @@ class DetachedProcess
     shutdown
   end
 
+  def handle_command(request)
+    log_info("Shutdown command received...", { pid: process_id })
+    @services_manager.shutdown if @services_manager
+    return {message: 'shutdown request completed'}
+  end
+
   private
 
   def startup
+    Command::CommandRegistry.instance.register('detached.process.shutdown', self)
+
     @command_server = Command::CommandServer.new(socket_path: Configuration.command_server_socket_file)
     @command_server.start
 
     @services << Download::DownloadService.new(Download::DownloadFilesProvider.new)
     @services << Upload::UploadService.new(Upload::UploadFilesProvider.new)
 
-    controller = DetachedProcessManager.new(@services)
-    controller.run
+    @services_manager = DetachedServicesManager.new(@services)
+    @services_manager.run
   end
 
   def shutdown

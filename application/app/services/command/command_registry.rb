@@ -11,8 +11,8 @@ module Command
     end
 
     def register(command, service)
-      raise ArgumentError, "Service must respond to #process" unless service.respond_to?(:process)
-
+      raise ArgumentError, "Service must implement CommandHandler interface" unless service.is_a?(CommandHandler)
+      log_info('Registering command',{command:command, service: service.class.name})
       @registry[command.to_s] << service
     end
 
@@ -22,7 +22,7 @@ module Command
       handlers = @registry[request.command]
       handlers.each do |handler|
         begin
-          result = handler.process(request)
+          result = handler.handle_command(request)
           return Command::Response.ok(body: result, handler: handler) if result
         rescue => e
           log_error('Error while executing handler',{request: request.inspect, handler: handler.class.name}, e)

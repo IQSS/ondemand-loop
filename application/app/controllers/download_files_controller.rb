@@ -9,7 +9,7 @@ class DownloadFilesController < ApplicationController
     previous_status = @file.status.to_s
     if @file.status.downloading?
       command_client = Command::CommandClient.new(socket_path: ::Configuration.command_server_socket_file)
-      request = Command::Request.new(command: 'download.cancel', body: {project_id: @file.project_id, file_id: @file.id})
+      request = Command::Request.new(command: 'file.download.cancel', body: {project_id: @file.project_id, file_id: @file.id})
       response = command_client.request(request)
       return redirect_back fallback_location: root_path, alert: t('download_files.file_cancellation_error', filename: @file.filename) if response.status != 200
     end

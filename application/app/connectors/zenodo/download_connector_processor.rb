@@ -4,6 +4,7 @@ module Zenodo
   class DownloadConnectorProcessor
     include LoggingCommon
     include EventLogger
+    include Command::CommandHandler
 
     attr_reader :file, :connector_metadata, :cancelled
 
@@ -11,7 +12,7 @@ module Zenodo
       @file = file
       @connector_metadata = file.connector_metadata
       @cancelled = false
-      Command::CommandRegistry.instance.register('download.cancel', self)
+      Command::CommandRegistry.instance.register('file.download.cancel', self)
     end
 
     def download
@@ -59,7 +60,7 @@ module Zenodo
       response(FileStatus::SUCCESS, 'file download completed')
     end
 
-    def process(request)
+    def handle_command(request)
       if file.id == request.body.file_id
         @cancelled = true
         return { message: 'cancellation requested' }
