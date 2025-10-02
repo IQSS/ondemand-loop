@@ -20,11 +20,11 @@ const selectors = {
   editDownloadDirButton: '[data-test-id="edit-download-dir-btn"]',
   downloadMetadataLink: '[data-test-id="download-metadata-link"]',
   downloadSummary: '[data-test-id="download-summary"]',
-  addDownloadFilesButton: '[data-test-id="add-download-files-btn"]',
-  browseDatasetButton: '[data-test-id="browse-dataset-btn"]',
+  addFromRecentButton: '[data-test-id="add-download-files-from-recent-btn"]',
+  addFromUrlButton: '[data-test-id="add-download-files-from-url-btn"]',
   downloadRepoResolver: '#download-repo-resolver',
   downloadRepoResolverInput: '#download-repo-resolver_input',
-  downloadRepoResolverSubmit: '#submit-download-repo-resolver-btn"]',
+  downloadRepoResolverSubmit: '#submit-download-repo-resolver-btn',
   downloadFilesList: '[data-test-id="download-files-list"]',
   downloadFilesEmpty: '[data-test-id="download-files-empty"]',
   downloadFileRows: '[data-test-id="download-files-list"] li[data-download-file-id]',
@@ -153,12 +153,12 @@ export class ProjectDetailsPage {
     return cy.get(selectors.downloadSummary);
   }
 
-  clickAddDownloadFiles() {
-    cy.get(selectors.addDownloadFilesButton).click();
+  clickAddFilesFromRecent() {
+    cy.get(selectors.addFromRecentButton).click();
   }
 
-  toggleBrowseDataset() {
-    cy.get(selectors.browseDatasetButton).click();
+  toggleAddFilesFromUrl() {
+    cy.get(selectors.addFromUrlButton).click();
   }
 
   getDownloadRepoResolver() {

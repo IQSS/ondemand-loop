@@ -39,9 +39,14 @@ const selectors = {
   resultsList: 'ul.list-group',
   resultItems: 'li.list-group-item',
   noResultsAlert: '.alert.alert-warning',
+
+  //FILES
+  selectAllFiles: '#select_all_files',
+  addFilesToProjectButton: '#files_submit',
 };
 
 export class Dataverse {
+  DATAVERSE_URL = Cypress.env('dataverseUrl') || 'http://dataverse:8080';
   // Navigation methods
   navigateToDataverse() {
     cy.get(selectors.repositoriesDropdown).click();
@@ -168,6 +173,15 @@ export class Dataverse {
 
   getNoResultsAlert() {
     return cy.get(selectors.noResultsAlert);
+  }
+
+  selectAllFiles() {
+    return cy.get(selectors.selectAllFiles).click();
+  }
+
+  submitFilesToProject() {
+    cy.get(selectors.addFilesToProjectButton).should('be.visible')
+    return cy.get(selectors.addFilesToProjectButton).click();
   }
 
   // Validation methods
