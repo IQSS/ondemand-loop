@@ -1,13 +1,12 @@
 import appActionsBar from '../../pages/AppActionsBar'
 import homePage from '../../pages/HomePage'
 import pageBreadcrumbs from '../../pages/PageBreadcrumbs'
+import zenodo from '../../pages/connectors/Zenodo'
 
 // Note: These tests use WireMock to mock the Zenodo API running at http://zenodo:8080
 // The mock server contains 2 dummy records for search and pagination testing
 // Mock behavior: any search returns "Record One" and "Record Two" with basic metadata
 describe('Explore Widget - Zenodo', () => {
-  const ZENODO_URL = 'http://zenodo:8080'
-
   beforeEach(() => {
     homePage.visitLoopRoot()
   })
@@ -20,7 +19,7 @@ describe('Explore Widget - Zenodo', () => {
     appActionsBar.getExploreRepoInput().should('be.visible')
 
     // Enter the Zenodo URL (pointing to mock server)
-    appActionsBar.exploreRepository(ZENODO_URL)
+    appActionsBar.exploreRepository(zenodo.ZENODO_URL)
     
     // Verify that we're on the explore page and it rendered successfully
     cy.url().should('include', '/explore/')
@@ -58,7 +57,7 @@ describe('Explore Widget - Zenodo', () => {
     appActionsBar.getExploreRepoInput().should('be.visible')
 
     // Enter the Zenodo URL and submit via explore button
-    appActionsBar.exploreRepository(ZENODO_URL)
+    appActionsBar.exploreRepository(zenodo.ZENODO_URL)
     
     // Verify navigation to explore page
     cy.url().should('include', '/explore/')
@@ -82,7 +81,7 @@ describe('Explore Widget - Zenodo', () => {
 
   it('should test search functionality within zenodo repository', () => {
     // Navigate to zenodo repository first via explore widget
-    appActionsBar.exploreRepository(ZENODO_URL)
+    appActionsBar.exploreRepository(zenodo.ZENODO_URL)
     
     // Wait for page to load and verify we're on the Zenodo landing page
     cy.get('div[data-test-id="zenodo-logo-container"]').should('be.visible')
@@ -105,7 +104,7 @@ describe('Explore Widget - Zenodo', () => {
 
   it('should test record navigation from search results', () => {
     // Navigate to zenodo repository and perform search
-    appActionsBar.exploreRepository(ZENODO_URL)
+    appActionsBar.exploreRepository(zenodo.ZENODO_URL)
     
     // Perform search to get results
     cy.get('form input[name="query"]').type('Record')
@@ -130,8 +129,8 @@ describe('Explore Widget - Zenodo', () => {
   it('should handle different zenodo URL formats', () => {
     // Test with different URL variations that should all point to mock server
     const zenodoUrls = [
-      'http://zenodo:8080',
-      'http://zenodo:8080/',
+      zenodo.ZENODO_URL,
+      zenodo.ZENODO_URL + '/',
     ]
 
     zenodoUrls.forEach((url, index) => {
@@ -154,7 +153,7 @@ describe('Explore Widget - Zenodo', () => {
 
   it('should verify zenodo server configuration in search form', () => {
     // Navigate to zenodo explore page
-    appActionsBar.exploreRepository(ZENODO_URL)
+    appActionsBar.exploreRepository(zenodo.ZENODO_URL)
     
     // Verify hidden server configuration fields point to mock server
     cy.get('#zenodo-search-form').should('have.attr', 'action').and('include', 'zenodo')

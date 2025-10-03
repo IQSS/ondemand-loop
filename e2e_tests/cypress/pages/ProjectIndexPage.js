@@ -43,12 +43,38 @@ export class ProjectIndexPage {
     return cy.get(`${selectors.projectList} li#${projectId}`);
   }
 
+  getProjectNameLink(projectId) {
+    return cy.get(`${selectors.projectList} li#${projectId} a.project-name-link`);
+  }
+
   getProjectNameById(projectId) {
     return this.getProjectSummaryById(projectId).find(selectors.projectName);
   }
 
   getEmptyState() {
     return cy.get(selectors.emptyState);
+  }
+
+  deleteProjects() {
+    this.visit()
+    this.getProjectList().then($list => {
+      const projectIds = []
+      $list.find('li').each((i, el) => {
+        const id = Cypress.$(el).attr('id')
+        if (id) {
+          projectIds.push(id)
+        }
+      })
+
+      if (projectIds.length > 0) {
+        cy.task('log', `Deleting ${projectIds.length} projects`)
+        projectIds.forEach(projectId => {
+          this.deleteProject(projectId)
+        })
+      } else {
+        cy.task('log', 'No projects to delete')
+      }
+    })
   }
 
   deleteProject(projectId) {
