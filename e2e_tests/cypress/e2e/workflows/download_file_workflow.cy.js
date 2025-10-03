@@ -7,19 +7,9 @@ import flashMessageComponent from '../../pages/FlashMessageComponent'
 
 describe('Workflow: Download Files from Dataverse', () => {
   const PROJECT_NAME = 'DownloadFileWorkflow'
-  let projectId
 
   beforeEach(() => {
     homePage.visitLoopRoot()
-  })
-
-  after(() => {
-    // Cleanup: Delete the project after the test
-    if (projectId) {
-      projectIndexPage.visit()
-      projectIndexPage.deleteProject(projectId)
-      cy.task('log', `Cleaned up project: ${projectId}`)
-    }
   })
 
   it('should complete full workflow: create project, download files from dataverse, and verify downloads', () => {
