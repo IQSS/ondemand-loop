@@ -43,6 +43,7 @@ const selectors = {
 };
 
 export class Zenodo {
+  ZENODO_URL = 'http://zenodo:8080';
   // Navigation methods
   navigateToZenodo() {
     cy.get(selectors.repositoriesDropdown).click();

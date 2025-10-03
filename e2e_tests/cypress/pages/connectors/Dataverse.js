@@ -46,7 +46,7 @@ const selectors = {
 };
 
 export class Dataverse {
-  DATAVERSE_URL = Cypress.env('dataverseUrl') || 'http://dataverse:8080';
+  DATAVERSE_URL = 'http://dataverse:8080';
   // Navigation methods
   navigateToDataverse() {
     cy.get(selectors.repositoriesDropdown).click();

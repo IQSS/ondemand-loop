@@ -1,10 +1,9 @@
 import appActionsBar from '../../pages/AppActionsBar'
 import homePage from '../../pages/HomePage'
 import pageBreadcrumbs from '../../pages/PageBreadcrumbs'
+import dataverse from '../../pages/connectors/Dataverse'
 
 describe('Explore Widget - Dataverse', () => {
-  const DATAVERSE_URL = Cypress.env('dataverseUrl')
-
   beforeEach(() => {
     homePage.visitLoopRoot()
   })
@@ -17,7 +16,7 @@ describe('Explore Widget - Dataverse', () => {
     appActionsBar.getExploreRepoInput().should('be.visible')
 
     // Enter the Dataverse URL and submit
-    appActionsBar.exploreRepository(DATAVERSE_URL)
+    appActionsBar.exploreRepository(dataverse.DATAVERSE_URL)
     
     // Verify that we're on the explore page and it rendered successfully
     cy.url().should('include', '/explore/')
@@ -34,7 +33,7 @@ describe('Explore Widget - Dataverse', () => {
     // Verify specific breadcrumb items
     pageBreadcrumbs.getBreadcrumbHome().should('contain', 'Home')
     cy.get('.breadcrumb .breadcrumb-item').eq(1).should('contain', 'Dataverse')
-    cy.get('.breadcrumb .breadcrumb-item').eq(2).should('contain', DATAVERSE_URL)
+    cy.get('.breadcrumb .breadcrumb-item').eq(2).should('contain', dataverse.DATAVERSE_URL)
     
     // Verify the main h2 title is present and contains expected text
     cy.get('h2').contains('Sample Dataverse').should('be.visible')
@@ -70,7 +69,7 @@ describe('Explore Widget - Dataverse', () => {
     appActionsBar.getExploreRepoInput().should('be.visible')
 
     // Enter the Dataverse URL and submit via explore button
-    appActionsBar.exploreRepository(DATAVERSE_URL)
+    appActionsBar.exploreRepository(dataverse.DATAVERSE_URL)
     
     // Verify navigation to explore page
     cy.url().should('include', '/explore/')
@@ -93,7 +92,7 @@ describe('Explore Widget - Dataverse', () => {
 
   it('should test search functionality within dataverse collection', () => {
     // Navigate to dataverse collection first
-    appActionsBar.exploreRepository(DATAVERSE_URL)
+    appActionsBar.exploreRepository(dataverse.DATAVERSE_URL)
     
     // Wait for page to load and verify we're on the collection page
     cy.get('h2').contains('Sample Dataverse').should('be.visible')
@@ -114,7 +113,7 @@ describe('Explore Widget - Dataverse', () => {
 
   it('should test pagination navigation in dataverse collection', () => {
     // Navigate to dataverse collection
-    appActionsBar.exploreRepository(DATAVERSE_URL)
+    appActionsBar.exploreRepository(dataverse.DATAVERSE_URL)
     
     // Verify we're on page 1
     cy.get('.card-header').contains('11 to 30 of 195882 results').should('be.visible')
