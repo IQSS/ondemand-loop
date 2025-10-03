@@ -1,11 +1,20 @@
 {
+  "priority": 1,
   "request": {
     "method": "GET",
-    "urlPath": "/api/search"
+    "urlPathPattern": "/api/search",
+    "queryParameters": {
+      "subtree": {
+        "matches": ".*"
+      },
+      "type": {
+        "equalTo": "dataset"
+      }
+    }
   },
   "response": {
     "status": 200,
-    "bodyFileName": "search_response.json",
+    "bodyFileName": "search_collection_items_datasets_only_response.json",
     "headers": {
       "Content-Type": "application/json"
     }
