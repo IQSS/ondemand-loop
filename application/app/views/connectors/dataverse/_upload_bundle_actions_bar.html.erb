@@ -48,6 +48,7 @@
           <% if upload_bundle.connector_metadata.select_collection? %>
             <button type="button"
                     class="btn btn-outline-primary btn-badge me-2"
+                    data-test-id="select-collection-btn"
                     title="<%= t('connectors.dataverse.upload_bundle_actions_bar.button_select_collection_title') %>"
                     data-controller="modal"
                     data-action="click->modal#load"
@@ -62,6 +63,7 @@
           <% if upload_bundle.connector_metadata.select_dataset? %>
             <button type="button"
                     class="btn btn-outline-primary btn-badge me-2"
+                    data-test-id="select-dataset-btn"
                     title="<%= t('connectors.dataverse.upload_bundle_actions_bar.button_dataset_form_tabs_title') %>"
                     data-controller="modal"
                     data-action="click->modal#load"
@@ -91,6 +93,7 @@
 
     <button type="button"
             class="btn btn-sm btn-outline-primary"
+            data-test-id="edit-api-key-btn"
             title="<%= t(".button_edit_key_title") %>"
             data-controller="modal"
             data-action="click->modal#load"

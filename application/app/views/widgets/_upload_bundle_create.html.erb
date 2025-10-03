@@ -14,6 +14,7 @@
                       'aria-label': t('projects.show.project_actions.button_create_upload_bundle_placeholder') %>
   <%= button_tag type: 'submit',
                  class: 'btn btn-outline-primary',
+                 data: {test_id: 'create-bundle-from-url-submit'},
                  title: t('projects.show.project_actions.button_create_upload_bundle_title') do %>
     <i class="bi bi-folder-plus" aria-hidden="true"></i>
     <span class="visually-hidden"><%= t('projects.show.project_actions.button_create_upload_bundle_label') %></span>

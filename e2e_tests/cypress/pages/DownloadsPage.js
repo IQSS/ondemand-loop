@@ -33,7 +33,7 @@ export class DownloadsPage {
     // PAGE REFRESHES EVERY 5s
     // THIS IS A TRICK TO FORCE CYPRESS TO GET THE getDownloadFileRows ON EVERY RETRY
     this.getDownloadFileRows()
-        .find('span.badge.file-status')
+        .find('span.badge.file-status', { timeout: 20000 })
         .should($badges => {
           expect($badges.length).to.be.greaterThan(0)
           $badges.each((_, el) => {
