@@ -15,7 +15,7 @@ const selectors = {
 
 export class ProjectIndexPage {
   visit() {
-    cy.get(selectors.navProjectsLink).click();
+    cy.get(selectors.navProjectsLink).waitClick();
   }
 
   getPageContainer() {

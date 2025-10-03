@@ -45,7 +45,7 @@ describe('Explore Widget - Dataverse', () => {
     
     // Verify pagination is present
     cy.get('nav[aria-label="Search result pagination"]').should('be.visible')
-    cy.get('.card-header').contains('11 to 30 of 195882 results').should('be.visible')
+    cy.get('.card-header').contains('11 to 30 of 188518 results').should('be.visible')
     cy.get('a[aria-label="Go to next page"]').should('be.visible')
     cy.get('a[title="Next page"]').should('be.visible')
     
@@ -116,7 +116,7 @@ describe('Explore Widget - Dataverse', () => {
     appActionsBar.exploreRepository(dataverse.DATAVERSE_URL)
     
     // Verify we're on page 1
-    cy.get('.card-header').contains('11 to 30 of 195882 results').should('be.visible')
+    cy.get('.card-header').contains('11 to 30 of 188518 results').should('be.visible')
     
     // Click next page
       cy.get('a[data-test-id="header-pagination-next"]').click()

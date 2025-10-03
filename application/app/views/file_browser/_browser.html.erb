@@ -59,6 +59,7 @@
     <!-- Actions (right) -->
     <div>
       <button class="btn btn-sm btn-outline-dark" type="button"
+              data-test-id="fb-edit-path-btn"
               title="<%= t('.button_edit_path_title') %>"
               aria-label="<%= t('.button_edit_path_label') %>"
               data-action="click->file-browser#editPath">
@@ -67,6 +68,7 @@
       </button>
 
       <button class="btn btn-sm btn-outline-dark" type="button"
+              data-test-id="fb-home-btn"
               data-entry-path="<%= Dir.home %>"
               data-entry-type="folder"
               title="<%= t('.button_home_title') %>"
@@ -79,6 +81,7 @@
       <%= render partial: '/shared/ood_folder_button', locals: { path: current_path }%>
 
       <button class="btn btn-sm btn-outline-dark" type="button"
+              data-test-id="fb-close-btn"
               title="<%= t('.button_close_browser_title') %>"
               aria-label="<%= t('.button_close_browser_label') %>"
               data-action="click->file-browser#hideContainer">

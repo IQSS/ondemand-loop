@@ -1,3 +1,5 @@
+import dataverse from "./connectors/Dataverse";
+
 const selectors = {
   pageContainer: '[data-test-id="project-details-page"]',
   projectActions: '[data-test-id="project-actions"]',
@@ -13,6 +15,8 @@ const selectors = {
   createUploadBundleButton: '[data-test-id="create-upload-bundle-btn"]',
   projectMetadataLink: '[data-test-id="project-metadata-link"]',
   projectTabs: '#project-tabs',
+  createUploadBundleInput: '#remote_repo_url',
+  createUploadBundleSubmitButton: '[data-test-id="create-bundle-from-url-submit"]',
   downloadTab: '#project-tabs [data-project-tab="downloads"]',
   uploadBundleTab: (bundleId) => `#project-tabs [data-upload-bundle-id="${bundleId}"]`,
   downloadActionsCard: '[data-test-id="download-actions-card"]',
@@ -44,6 +48,8 @@ const selectors = {
   uploadFileRowById: (bundleId, fileId) => `#upload-bundle-${bundleId}-files li[data-upload-file-id="${fileId}"]`,
   uploadFileEventsButton: (fileId) => `button[data-upload-file-id="${fileId}"]`,
   deleteUploadFileButton: (fileId) => `#delete-upload-file-${fileId}-btn`,
+  uploadFileStatusBadge: (bundleId) => `#upload-bundle-${bundleId}-files span.badge.file-status`,
+  uploadBundleFileBrowser: (bundleId) => `#fb-${bundleId}`,
 };
 
 export class ProjectDetailsPage {
@@ -107,6 +113,14 @@ export class ProjectDetailsPage {
 
   clickCreateUploadBundle() {
     cy.get(selectors.createUploadBundleButton).click();
+    cy.get(selectors.createUploadBundleInput).should('be.visible');
+  }
+
+  createUploadBundle(url) {
+    cy.get(selectors.createUploadBundleInput).should('be.enabled').clear().type(url, { delay: 10 });
+    cy.get(selectors.createUploadBundleInput).clear().type(url, { delay: 10 });
+    cy.get(selectors.createUploadBundleInput).should('have.value', url);
+    cy.get(selectors.createUploadBundleSubmitButton).click();
   }
 
   getProjectMetadataLink() {
@@ -130,7 +144,7 @@ export class ProjectDetailsPage {
   }
 
   clickUploadBundleTab(bundleId) {
-    this.getUploadBundleTab(bundleId).click();
+    this.getUploadBundleTab(bundleId).waitClick();
   }
 
   getDownloadActionsCard() {
@@ -229,6 +243,10 @@ export class ProjectDetailsPage {
     cy.get(selectors.deleteUploadBundleButton(bundleId)).click();
   }
 
+  getUploadBundleFileBrowser(bundleId) {
+    return cy.get(selectors.uploadBundleFileBrowser(bundleId));
+  }
+
   getUploadBundleFilesList(bundleId) {
     return cy.get(selectors.uploadBundleFilesList(bundleId));
   }
@@ -251,6 +269,14 @@ export class ProjectDetailsPage {
 
   clickDeleteUploadFile(fileId) {
     cy.get(selectors.deleteUploadFileButton(fileId)).click();
+  }
+
+  getUploadFileStatusBadge(bundleId) {
+    return cy.get(selectors.uploadFileStatusBadge(bundleId));
+  }
+
+  assertUploadFileStatus(bundleId, status) {
+    this.getUploadFileStatusBadge(bundleId).should('have.attr', 'data-status', status);
   }
 }
 
