@@ -10,20 +10,9 @@ describe('Workflow: Upload Files to Dataverse', () => {
   const PROJECT_NAME = 'UploadFileWorkflow'
   const API_KEY = 'test-api-key-12345'
   const UPLOAD_FILE = 'upload_file.txt'
-  let projectId
-  let uploadBundleId
 
   beforeEach(() => {
     homePage.visitLoopRoot()
-  })
-
-  after(() => {
-    // Cleanup: Delete the project after the test
-    if (projectId) {
-      projectIndexPage.visit()
-      projectIndexPage.deleteProject(projectId)
-      cy.task('log', `Cleaned up project: ${projectId}`)
-    }
   })
 
   it('should complete full workflow: create project, upload files to dataverse, and verify uploads', () => {
