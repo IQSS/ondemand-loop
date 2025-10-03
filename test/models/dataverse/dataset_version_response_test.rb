@@ -161,4 +161,43 @@ class Dataverse::DatasetVersionResponseTest < ActiveSupport::TestCase
     assert_equal "CC0 1.0", @dataset_incomplete.data.license.name
     assert_equal "https://licensebuttons.net/p/zero/1.0/88x31.png", @dataset_incomplete.data.license.icon_uri
   end
+
+  # Tests for file_count functionality
+
+  test "file_count returns number of files when files array is present" do
+    json = load_file_fixture(File.join('dataverse', 'dataset_version_response', 'valid_response_with_files.json'))
+    dataset_with_files = Dataverse::DatasetVersionResponse.new(json)
+
+    assert_equal 3, dataset_with_files.file_count
+    assert_equal 3, dataset_with_files.data.file_count
+  end
+
+  test "file_count returns 0 when no files array is present" do
+    # Using existing fixture without files array
+    assert_equal 0, @dataset.file_count
+    assert_equal 0, @dataset.data.file_count
+  end
+
+  test "file_count returns 0 when files array is empty" do
+    json = JSON.parse(load_file_fixture(File.join('dataverse', 'dataset_version_response', 'valid_response.json')))
+    json['data']['files'] = []
+    dataset_empty_files = Dataverse::DatasetVersionResponse.new(json.to_json)
+
+    assert_equal 0, dataset_empty_files.file_count
+    assert_equal 0, dataset_empty_files.data.file_count
+  end
+
+  test "file_count handles missing data gracefully" do
+    dataset_no_data = Dataverse::DatasetVersionResponse.new(empty_json)
+
+    assert_equal 0, dataset_no_data.file_count
+    assert_equal 0, dataset_no_data.data.file_count
+  end
+
+  test "file_count works with incomplete responses" do
+    dataset_incomplete = Dataverse::DatasetVersionResponse.new(incomplete_json_body)
+
+    assert_equal 0, dataset_incomplete.file_count
+    assert_equal 0, dataset_incomplete.data.file_count
+  end
 end

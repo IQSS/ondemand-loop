@@ -19,15 +19,17 @@ class ResetPartialTest < ActionView::TestCase
 
     assert_includes html, 'Reset Completed'
     assert_includes html, 'successfully reset'
-    assert_includes html, 'window.location.href = "/restart"'
+    assert_includes html, 'window.location.href = "/"'
     assert_includes html, 'bi-check-circle-fill'
+    assert_includes html, 'fetch("/restart")'
   end
 
   test 'renders error when request is GET' do
     html = render_with(method: :get)
 
-    assert_includes html, 'Invalid Request'
+    assert_includes html, 'Reset Unavailable'
     assert_includes html, 'only allowed via POST'
+    assert_includes html, 'are active or pending downloads/uploads'
     assert_includes html, 'window.location.href = "/"'
     assert_includes html, 'bi-exclamation-octagon-fill'
   end

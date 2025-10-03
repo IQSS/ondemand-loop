@@ -11,7 +11,8 @@ class Command::CommandServerTest < ActiveSupport::TestCase
 
     # Register a default handler for 'test_command'
     handler = Class.new do
-      def process(request)
+      include Command::CommandHandler
+      def handle_command(request)
         { echo: request.body.to_h }
       end
     end.new
@@ -79,7 +80,8 @@ class Command::CommandServerTest < ActiveSupport::TestCase
 
   test 'Should return error response when handler raises exception' do
     handler = Class.new do
-      def process(_payload)
+      include Command::CommandHandler
+      def handle_command(_payload)
         raise StandardError, "Something bad happened"
       end
     end.new

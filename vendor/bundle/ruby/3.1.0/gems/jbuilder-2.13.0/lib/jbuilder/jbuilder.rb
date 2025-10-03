@@ -1,1 +1,0 @@
-Jbuilder = Class.new(BasicObject)

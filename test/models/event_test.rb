@@ -12,19 +12,21 @@ class EventTest < ActiveSupport::TestCase
     assert_equal({}, event.metadata)
   end
 
-  test "to_h and from_hash preserve metadata" do
-    metadata = { 'foo' => 'bar', 'count' => 1 }
+  test "to_h and from_hash preserve metadata with string conversion" do
+    input_metadata = { 'foo' => 'bar', 'count' => 1 }
+    expected_metadata = { 'foo' => 'bar', 'count' => '1' }  # count converted to string
+
     event = Event.new(project_id: 'p1',
                       entity_type: 'file',
                       entity_id: 'e1',
                       message: 'm',
-                      metadata: metadata)
+                      metadata: input_metadata)
 
     hash = event.to_h
-    assert_equal metadata, hash['metadata']
+    assert_equal expected_metadata, hash['metadata']
 
     reconstructed = Event.from_hash(hash)
-    assert_equal metadata, reconstructed.metadata
+    assert_equal expected_metadata, reconstructed.metadata
     assert_equal event.message, reconstructed.message
     assert_equal event.entity_id, reconstructed.entity_id
   end
@@ -113,6 +115,111 @@ class EventTest < ActiveSupport::TestCase
   test "entity_type handles symbols and converts to downcase string" do
     event = Event.new(project_id: 'p1', entity_type: :Bundle, message: 'm')
     assert_equal 'bundle', event.entity_type
+  end
+
+  test "metadata converts ConnectorType objects to strings in constructor" do
+    metadata = {
+      'connector_type' => ConnectorType::DATAVERSE,
+      'other_connector' => ConnectorType::ZENODO,
+      'normal_string' => 'test'
+    }
+
+    event = Event.new(project_id: 'p1', entity_type: 'project', message: 'm', metadata: metadata)
+
+    assert_equal 'dataverse', event.metadata['connector_type']
+    assert_equal 'zenodo', event.metadata['other_connector']
+    assert_equal 'test', event.metadata['normal_string']
+  end
+
+  test "metadata converts FileStatus objects to strings in constructor" do
+    metadata = {
+      'file_status' => FileStatus::PENDING,
+      'previous_status' => FileStatus::ERROR,
+      'final_status' => FileStatus::SUCCESS,
+      'count' => 42
+    }
+
+    event = Event.new(project_id: 'p1', entity_type: 'file', message: 'm', metadata: metadata)
+
+    assert_equal 'pending', event.metadata['file_status']
+    assert_equal 'error', event.metadata['previous_status']
+    assert_equal 'success', event.metadata['final_status']
+    assert_equal '42', event.metadata['count']
+  end
+
+  test "metadata converts mixed object types to strings in constructor" do
+    metadata = {
+      'connector_type' => ConnectorType::DATAVERSE,
+      'file_status' => FileStatus::UPLOADING,
+      'number' => 123,
+      'boolean' => true,
+      'symbol' => :test_symbol,
+      'string' => 'already_string'
+    }
+
+    event = Event.new(project_id: 'p1', entity_type: 'bundle', message: 'm', metadata: metadata)
+
+    assert_equal 'dataverse', event.metadata['connector_type']
+    assert_equal 'uploading', event.metadata['file_status']
+    assert_equal '123', event.metadata['number']
+    assert_equal 'true', event.metadata['boolean']
+    assert_equal 'test_symbol', event.metadata['symbol']
+    assert_equal 'already_string', event.metadata['string']
+  end
+
+  test "metadata converts objects to strings when loaded from hash" do
+    # Create original event with object metadata
+    original_metadata = {
+      'connector_type' => ConnectorType::ZENODO,
+      'file_status' => FileStatus::CANCELLED,
+      'count' => 99
+    }
+
+    original_event = Event.new(project_id: 'p1', entity_type: 'project', message: 'm', metadata: original_metadata)
+
+    # Convert to hash and back
+    hash = original_event.to_h
+    reconstructed = Event.from_hash(hash)
+
+    # Verify metadata objects are converted to strings
+    assert_equal 'zenodo', reconstructed.metadata['connector_type']
+    assert_equal 'cancelled', reconstructed.metadata['file_status']
+    assert_equal '99', reconstructed.metadata['count']
+  end
+
+  test "metadata handles nil and empty values gracefully" do
+    metadata = {
+      'nil_value' => nil,
+      'empty_string' => '',
+      'connector_type' => ConnectorType::DATAVERSE
+    }
+
+    event = Event.new(project_id: 'p1', entity_type: 'file', message: 'm', metadata: metadata)
+
+    assert_equal '', event.metadata['nil_value']
+    assert_equal '', event.metadata['empty_string']
+    assert_equal 'dataverse', event.metadata['connector_type']
+  end
+
+  test "from_hash with object metadata gets converted to strings" do
+    # Simulate loading from hash with object values (this could happen from JSON parsing)
+    hash_data = {
+      'project_id' => 'p1',
+      'entity_type' => 'FILE',  # Also test entity_type normalization
+      'message' => 'test message',
+      'metadata' => {
+        'connector_type' => ConnectorType::DATAVERSE,
+        'status' => FileStatus::DOWNLOADING,
+        'numeric' => 456
+      }
+    }
+
+    event = Event.from_hash(hash_data)
+
+    assert_equal 'file', event.entity_type  # entity_type should be normalized
+    assert_equal 'dataverse', event.metadata['connector_type']
+    assert_equal 'downloading', event.metadata['status']
+    assert_equal '456', event.metadata['numeric']
   end
 
 end

@@ -1,8 +1,6 @@
 require 'dotenv'
 require_relative 'configuration_property'
-require_relative '../app/lib/logging_common'
 class ConfigurationSingleton
-  include LoggingCommon
 
   def initialize
     load_dotenv_files
@@ -23,6 +21,7 @@ class ConfigurationSingleton
       ::ConfigurationProperty.integer(:download_files_retention_period, default: 24 * 60 * 60),
       ::ConfigurationProperty.integer(:upload_files_retention_period, default: 24 * 60 * 60),
       ::ConfigurationProperty.integer(:ui_feedback_delay, default: 1500),
+      ::ConfigurationProperty.integer(:restart_delay, default: 4000),
       ::ConfigurationProperty.integer(:detached_controller_interval, default: 10),
       ::ConfigurationProperty.integer(:detached_process_status_interval, default: 10 * 1000), # 10s in MILLISECONDS
       ::ConfigurationProperty.integer(:max_download_file_size, default: 10 * 1024 * 1024 * 1024), # 10 GIGABYTE
@@ -34,6 +33,7 @@ class ConfigurationSingleton
       ::ConfigurationProperty.integer(:default_pagination_items, default: 20),
       ::ConfigurationProperty.property(:dataverse_hub_url, default: 'https://hub.dataverse.org/api/installations'),
       ::ConfigurationProperty.property(:zenodo_default_url, default: 'https://zenodo.org'),
+      ::ConfigurationProperty.property(:logging_root),
     ].freeze
   end
 
@@ -43,6 +43,16 @@ class ConfigurationSingleton
 
   def command_server_socket_file
     ENV['OOD_LOOP_COMMAND_SERVER_FILE'] || File.join(metadata_root, 'command.server.sock')
+  end
+
+  def logging_root_path
+    @logging_root_path ||= begin
+      user = Etc.getpwuid(Process.euid).name || ENV['USER'] || ENV['USERNAME'] || 'unknown'
+      path = logging_root ? File.join(::Configuration.logging_root, user) : File.join(metadata_root, 'logs')
+      # ensure log folder exists and is private
+      FileUtils.mkdir_p(path, mode: 0o700)
+      path
+    end
   end
 
   def repo_db_file
@@ -55,9 +65,9 @@ class ConfigurationSingleton
 
   def navigation
     @navigation ||= begin
-      log_info('[Configuration] Building Navigation')
+      LoggingCommon.log_info('[Configuration] Building Navigation')
       defaults  = Nav::NavDefaults.navigation_items
-      overrides = ::Configuration.config.fetch(:navigation, [])
+      overrides = config.fetch(:navigation, [])
       Nav::NavBuilder.build(defaults, overrides)
     end
   end
@@ -72,7 +82,7 @@ class ConfigurationSingleton
 
   def dataverse_hub
     @dataverse_hub ||= begin
-      log_info('[Configuration] Created Dataverse::DataverseHub', {dataverse_hub_url: dataverse_hub_url})
+      LoggingCommon.log_info('[Configuration] Created Dataverse::DataverseHub', {dataverse_hub_url: dataverse_hub_url})
       Dataverse::DataverseHub.new(url: dataverse_hub_url)
     end
   end
@@ -80,7 +90,7 @@ class ConfigurationSingleton
   def repo_db
     @repo_db ||= begin
       db = Repo::RepoDb.new(db_path: repo_db_file)
-      log_info("[Configuration] RepoDb created entries: #{db.size} path: #{db.db_path}")
+      LoggingCommon.log_info("[Configuration] RepoDb created entries: #{db.size} path: #{db.db_path}")
       db
     end
   end
@@ -88,14 +98,14 @@ class ConfigurationSingleton
   def repo_history
     @repo_history ||= begin
       history = Repo::RepoHistory.new(db_path: repo_history_file)
-      log_info("[Configuration] RepoHistory created entries: #{history.size} path: #{history.db_path}")
+      LoggingCommon.log_info("[Configuration] RepoHistory created entries: #{history.size} path: #{history.db_path}")
       history
     end
   end
 
   def repo_resolver_service
     @repo_resolver_service ||= begin
-      log_info('[Configuration] Created Repo::RepoResolverService')
+      LoggingCommon.log_info('[Configuration] Created Repo::RepoResolverService')
       Repo::RepoResolverService.build
     end
   end
@@ -125,15 +135,13 @@ class ConfigurationSingleton
   end
 
   def read_config
-    Rails.logger.info("Reading OnDemand Loop configuration files from: #{config_directory}")
     files = Pathname.glob(config_directory.join('*.{yml,yaml}'))
     files.sort.each_with_object({}) do |f, conf|
       begin
-        Rails.logger.info("Loading file: #{f}")
         yml = YAML.safe_load_file(f, aliases: true) || {}
         conf.deep_merge!(yml.deep_symbolize_keys)
       rescue => e
-        Rails.logger.error("Can't read or parse #{f}: #{e.class} - #{e.message}")
+        $stderr.puts("Can't read or parse #{f} because of error: #{e.class} - #{e.message}")
       end
     end
   end

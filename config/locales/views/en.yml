@@ -182,6 +182,7 @@ en:
         modal_delete_confirmation_title: "Delete Upload Bundle"
         modal_delete_confirmation_content: "This will remove the upload bundle from the app. Files on disk and any already uploaded files will remain unchanged. To upload again, you’ll need to create a new bundle."
       upload_files:
+        button_retry_upload_title: "Retry Upload"
         button_delete_file_title: "Delete File"
         button_view_events_title: "View File Events"
         button_view_events_label: "View Events"
@@ -280,6 +281,7 @@ en:
     files:
       button_browse_file_a11y_text: "Browse file %{filename}"
       button_browse_file_title: "Browse file"
+      button_retry_upload_title: "Retry upload"
       button_cancel_upload_title: "Cancel upload"
       button_view_events_title: "View File Events"
       button_view_events_label: "View Events"
@@ -324,22 +326,33 @@ en:
       tab_project_label: "This Project Downloads"
       tab_global_label: "All Projects"
       empty_recent_text: "No recently used datasets found."
+    restart:
+      page_title: "Application Restarting"
+      content_title: "Restart in Progress"
+      content_html: >
+        <p>Your personal <em>OnDemand Loop</em> instance is restarting.</p>
+        <p>You will be redirected to the home page <strong>shortly</strong>.</p>
+        <hr>
+        <p class="mb-0">
+          If the page does not refresh automatically, <a href="%{url}">click here to continue</a>.
+        </p>
     reset:
       success_page_title: "Reset Completed"
       success_content_title: "Reset Completed"
       success_content_html: >
         <p>Your personal <em>OnDemand Loop</em> instance has been successfully reset.</p>
-        <p>The application will automatically restart in <strong>3 seconds</strong>.</p>
+        <p>You will be redirected to the home page <strong>shortly</strong>.</p>
         <hr>
         <p class="mb-0">
         If the page does not refresh, <a href="%{url}">click here to continue</a>.
         </p>
       error_page_title: "Invalid Reset Request"
-      error_content_title: "Invalid Request"
+      error_content_title: "Reset Unavailable"
       error_content_html: >
-        <p>The reset request is only allowed via POST.</p>
-        <p>You will be redirected to the home page in <strong>3 seconds</strong>.</p>
+        <p>The reset request is only allowed via POST and cannot be performed while there are active or pending downloads/uploads.</p>
+        <p>Please allow ongoing transfers to complete or delete them manually before trying again.</p>
+        <p>You will be redirected to the home page <strong>shortly</strong>.</p>
         <hr>
         <p class="mb-0">
-        If the page does not refresh, <a href="%{url}">click here to continue</a>.
+          If the page does not refresh, <a href="%{url}">click here to continue</a>.
         </p>

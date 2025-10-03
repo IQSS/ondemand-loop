@@ -44,6 +44,19 @@
         <%= render partial: '/shared/file_row_date', locals: { date: file.end_date, title: t('.field_completion_date_title'), classes: 'mx-2'} if file.end_date %>
         <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: t('.field_download_start_date_title'), classes: 'mx-2'} if file.status.downloading? %>
 
+        <% if retry_button_visible?(file) %>
+          <%= render layout: '/shared/button_to',
+             locals: {
+               url: retry_project_upload_bundle_upload_file_path(project_id: file.project_id, upload_bundle_id: file.upload_bundle_id, id: file.id),
+               method: :post,
+               icon: 'bi bi-arrow-clockwise',
+               class: 'btn-icon-sm btn-outline-secondary icon-hover-success',
+               title: t('.button_retry_upload_title')
+             } do %>
+              <%= hidden_field_tag :anchor, tab_anchor_for(bundle) %>
+          <% end %>
+        <% end %>
+
         <%= render layout: "shared/button_to", locals: {
           url: project_upload_bundle_upload_file_path(project_id: bundle.project_id, upload_bundle_id: bundle.id, id: file.id),
           method: 'DELETE',

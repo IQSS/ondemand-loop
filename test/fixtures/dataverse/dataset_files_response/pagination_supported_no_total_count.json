@@ -1,0 +1,55 @@
+{
+  "status": "OK",
+  "data": [
+    {
+      "label": "file1.txt",
+      "restricted": false,
+      "version": 1,
+      "datasetVersionId": 2,
+      "dataFile": {
+        "id": 10,
+        "persistentId": "",
+        "filename": "file1.txt",
+        "contentType": "text/plain",
+        "friendlyType": "Plain Text",
+        "filesize": 1024,
+        "storageIdentifier": "local://abc123",
+        "rootDataFileId": -1,
+        "md5": "abc123md5hash",
+        "checksum": {
+          "type": "MD5",
+          "value": "abc123md5hash"
+        },
+        "tabularData": false,
+        "creationDate": "2025-01-16",
+        "publicationDate": "2025-01-20",
+        "fileAccessRequest": true
+      }
+    },
+    {
+      "label": "file2.txt",
+      "restricted": false,
+      "version": 1,
+      "datasetVersionId": 2,
+      "dataFile": {
+        "id": 11,
+        "persistentId": "",
+        "filename": "file2.txt",
+        "contentType": "text/plain",
+        "friendlyType": "Plain Text",
+        "filesize": 2048,
+        "storageIdentifier": "local://def456",
+        "rootDataFileId": -1,
+        "md5": "def456md5hash",
+        "checksum": {
+          "type": "MD5",
+          "value": "def456md5hash"
+        },
+        "tabularData": false,
+        "creationDate": "2025-01-16",
+        "publicationDate": "2025-01-20",
+        "fileAccessRequest": true
+      }
+    }
+  ]
+}

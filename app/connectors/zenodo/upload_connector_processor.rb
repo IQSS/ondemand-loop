@@ -3,14 +3,15 @@
 module Zenodo
   class UploadConnectorProcessor
     include LoggingCommon
+    include Command::CommandHandler
 
     attr_reader :file, :connector_metadata, :cancelled
     def initialize(file)
       @file = file
       @connector_metadata = file.upload_bundle.connector_metadata
       @cancelled = false
-      Command::CommandRegistry.instance.register('upload.cancel', self)
-      Command::CommandRegistry.instance.register('upload.status', self)
+      Command::CommandRegistry.instance.register('file.upload.cancel', self)
+      Command::CommandRegistry.instance.register('file.upload.status', self)
     end
 
     def upload
@@ -37,8 +38,8 @@ module Zenodo
       response(FileStatus::SUCCESS, 'file upload completed')
     end
 
-    def process(request)
-      if request.command == 'upload.cancel'
+    def handle_command(request)
+      if request.command == 'file.upload.cancel'
         if file.id == request.body.file_id
           # CANCELLATION IS FOR THIS FILE
           @cancelled = true
@@ -46,7 +47,7 @@ module Zenodo
         end
       end
 
-      if request.command == 'upload.status'
+      if request.command == 'file.upload.status'
         if file.id == request.body.file_id
           return { message: 'upload in progress', status: @status_context }
         end

@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.2.2", ">= 7.2.2.1"
+gem "rails", "~> 7.2.2", ">= 7.2.2.2"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
@@ -49,7 +49,6 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
-  gem "selenium-webdriver"
   gem "mocha"
   gem 'simplecov', require: false
   gem 'i18n-tasks', require: false

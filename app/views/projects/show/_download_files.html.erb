@@ -52,17 +52,15 @@
           <%= render partial: '/shared/file_row_date', locals: { date: file.start_date, title: t('.field_download_start_date_title'), classes: 'mx-2'} if file.status.downloading? %>
 
           <% if retry_button_visible?(file) %>
-            <%= render layout: '/shared/button_to',
+            <%= render partial: '/shared/button_to',
                        locals: {
-                         url: project_download_file_path(project_id: file.project_id, id: file.id),
-                         method: :patch,
+                         url: retry_project_download_file_path(project_id: file.project_id, id: file.id),
+                         method: :post,
                          icon: 'bi bi-arrow-clockwise',
                          class: 'btn-icon-sm btn-outline-secondary icon-hover-success',
                          title: t('.button_retry_download_title'),
                          button_id: "retry-download-file-#{file.id}-btn"
-                       } do %>
-              <%= hidden_field_tag :state, FileStatus::PENDING.to_s %>
-            <% end %>
+                       } %>
           <% end %>
 
           <%= render layout: 'shared/button_to', locals: {

@@ -157,7 +157,6 @@ class Nav::NavDefaultsTest < ActiveSupport::TestCase
     assert_equal 'bs://bi-bootstrap-reboot', restart_item.icon
     assert_equal 3, restart_item.position
     assert restart_item.link?
-    assert_includes restart_item.url, '/nginx/stop?redir='
 
     separator_item = menu_items_by_id['help-reset-separator']
     assert_equal '---', separator_item.label

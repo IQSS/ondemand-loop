@@ -47,12 +47,12 @@ class Zenodo::UploadConnectorProcessorTest < ActiveSupport::TestCase
     Zenodo::ZenodoBucketHttpUploader.any_instance.stubs(:upload).yields({ total: 1, uploaded: 1 })
 
     @processor.upload
-    request = Command::Request.new(command: 'upload.status', body: { file_id: @file.id })
-    status = @processor.process(request)
+    request = Command::Request.new(command: 'file.upload.status', body: { file_id: @file.id })
+    status = @processor.handle_command(request)
     assert_equal({ message: 'upload in progress', status: { total: 1, uploaded: 1 } }, status)
 
-    cancel_req = Command::Request.new(command: 'upload.cancel', body: { file_id: @file.id })
-    cancel_result = @processor.process(cancel_req)
+    cancel_req = Command::Request.new(command: 'file.upload.cancel', body: { file_id: @file.id })
+    cancel_result = @processor.handle_command(cancel_req)
     assert_equal true, @processor.cancelled
     assert_equal 'cancellation requested', cancel_result[:message]
   end

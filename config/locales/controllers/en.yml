@@ -7,8 +7,9 @@ en:
     file_cancellation_update_error: "Download cancelled: %{filename}, but status update failed. Try again"
     file_cancellation_success: "Download cancelled for file: %{filename}"
     file_deletion_success: "Download file deleted: %{filename}"
-    file_update_success: "Download file status updated: %{filename}"
-    file_update_error: "Could not update file: %{filename}"
+    file_retry_success: "File has been moved back to the pending queue and will be downloaded again"
+    file_retry_error: "Could not move file back to the pending queue"
+    file_retry_invalid: "File with status %{status} cannot be moved back to the pending queue"
   file_browser:
     directory_forbidden: "You do not have permission to access this directory."
   projects:
@@ -55,19 +56,23 @@ en:
       not_found: "Upload Bundle not found: %{upload_bundle_id}"
       success: "Upload bundle deleted: %{bundle_name}"
   upload_files:
+    bundle_not_found: "Upload bundle not found for project: %{project_id} bundle: %{upload_bundle_id}"
+    file_not_found: "File: %{file_id} not found for project: %{project_id}"
     create:
       invalid_file: "Invalid file in selection: %{filename} errors: %{errors}"
       files_added: "%{count} files added from: %{path_folder}"
       file_added: "File added: %{filename}"
     destroy:
-      file_not_found: "File: %{file_id} not found for project: %{project_id}"
       file_in_progress: "File: %{filename} cannot be deleted while is being uploaded"
       upload_file_removed: "Upload file removed from bundle: %{filename}"
     cancel:
-      file_not_found: "file not found project_id=%{project_id} upload_bundle_id=%{upload_bundle_id} id=%{file_id}"
       file_cancellation_error: "Could not cancel upload for file: %{filename}"
       file_cancellation_update_error: "Upload cancelled: %{filename}, but status update failed. Try again"
       file_cancellation_success: "Upload cancelled for file: %{filename}"
+    retry:
+      file_retry_success: "File has been moved back to the pending queue and will be uploaded again."
+      file_retry_error: "Could not move file back to the pending queue"
+      file_retry_invalid: "File with status %{status} cannot be moved back to the pending queue"
   explore:
     show:
       message_processor_error: "Error processing request for repository: %{connector_type} type: %{object_type} with id: %{object_id}"

@@ -51,10 +51,14 @@ module Dataverse
       [data.version_number, data.version_minor_number].compact.join('.')
     end
 
+    def file_count
+      data.file_count
+    end
+
     class Data
       attr_reader :id, :publication_date, :dataset_id, :dataset_persistent_id,
                   :version_number, :version_minor_number, :version_state,
-                  :license, :metadata_blocks, :parents
+                  :license, :metadata_blocks, :parents, :file_count
 
       def initialize(data)
         data = data || {}
@@ -67,6 +71,7 @@ module Dataverse
         @version_state = data[:versionState]
         @license = License.new(data[:license])
         @metadata_blocks = MetadataBlocks.new(data[:metadataBlocks])
+        @file_count = data.fetch(:files, []).size
         @parents = []
         parent = data[:isPartOf]
         while parent

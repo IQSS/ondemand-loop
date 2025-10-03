@@ -28,7 +28,7 @@
             </div>
           </div>
 
-          <div class="download-actions col-md-2 text-end d-flex justify-content-end align-items-center" role="cell">
+          <div class="download-actions col-md-2 text-end d-flex justify-content-end align-items-center gap-1" role="cell">
             <% if data.file.status.downloading? %>
               <%= render partial: '/shared/progress_bar', locals: { progress: data.file.connector_status.download_progress, file: data.file } %>
             <% else %>
@@ -46,18 +46,16 @@
                 <span class="visually-hidden"><%= t('.button_view_events_label') %></span>
               <% end %>
             <% end %>
-            &nbsp;
+
             <% if retry_button_visible?(data.file) %>
-              <%= render layout: '/shared/button_to',
+              <%= render partial: '/shared/button_to',
                          locals: {
-                           url: project_download_file_path(project_id: data.file.project_id, id: data.file.id),
-                           method: :patch,
+                           url: retry_project_download_file_path(project_id: data.file.project_id, id: data.file.id),
+                           method: :post,
                            icon: 'bi bi-arrow-clockwise',
                            class: 'btn-icon-sm btn-outline-dark icon-hover-success',
                            title: t('.button_retry_download_title')
-                         } do %>
-                <%= hidden_field_tag :state, FileStatus::PENDING.to_s %>
-              <% end %>
+                         }%>
             <% else %>
               <%= render partial: '/shared/button_to',
                          locals: {

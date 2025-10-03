@@ -259,10 +259,10 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     
     # Clear any existing navigation instance variable to ensure fresh test
     config.instance_variable_set(:@navigation, nil)
+    config.expects(:config).once.returns({})
     
     # Mock the building process to verify it's only called once due to memoization
     Nav::NavDefaults.expects(:navigation_items).once.returns([])
-    ::Configuration.expects(:config).once.returns({})
     Nav::NavBuilder.expects(:build).once.returns([])
     
     first_call = config.navigation
@@ -288,9 +288,8 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
   test 'navigation respects configuration overrides when present' do
     # Create a temporary config that has navigation overrides
     temp_config = { navigation: [{ id: 'nav-projects', label: 'Custom Projects Label' }] }
-    ::Configuration.stubs(:config).returns(temp_config)
-    
     config = ConfigurationSingleton.new
+    config.stubs(:config).returns(temp_config)
     navigation = config.navigation
     
     projects_item = navigation.find { |item| item.id == 'nav-projects' }
@@ -298,19 +297,185 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
     assert_equal 'Custom Projects Label', projects_item.label
   end
 
-  test 'navigation rebuilds when @navigation is nil' do
+  test 'should return default timeout and pagination values when ENV is not set' do
+    assert_equal 5, @config_instance.default_connect_timeout
+    assert_equal 15, @config_instance.default_read_timeout
+    assert_equal 20, @config_instance.default_pagination_items
+  end
+
+  test 'should override timeout and pagination values from ENV' do
+    ENV['OOD_LOOP_DEFAULT_CONNECT_TIMEOUT'] = '10'
+    ENV['OOD_LOOP_DEFAULT_READ_TIMEOUT'] = '30'
+    ENV['OOD_LOOP_DEFAULT_PAGINATION_ITEMS'] = '50'
+
     config = ConfigurationSingleton.new
-    
-    # Clear navigation instance variable to simulate initial state
-    config.instance_variable_set(:@navigation, nil)
-    
-    # Mock the building process - should be called once for first call
-    Nav::NavDefaults.expects(:navigation_items).once.returns([])
-    ::Configuration.expects(:config).once.returns({})
-    Nav::NavBuilder.expects(:build).once.returns([])
-    
-    navigation = config.navigation
-    
-    assert_not_nil navigation
+    assert_equal 10, config.default_connect_timeout
+    assert_equal 30, config.default_read_timeout
+    assert_equal 50, config.default_pagination_items
+  ensure
+    ENV.delete('OOD_LOOP_DEFAULT_CONNECT_TIMEOUT')
+    ENV.delete('OOD_LOOP_DEFAULT_READ_TIMEOUT')
+    ENV.delete('OOD_LOOP_DEFAULT_PAGINATION_ITEMS')
+  end
+
+  test 'should return default dataverse_hub_url and zenodo_default_url when ENV is not set' do
+    assert_equal 'https://hub.dataverse.org/api/installations', @config_instance.dataverse_hub_url
+    assert_equal 'https://zenodo.org', @config_instance.zenodo_default_url
+  end
+
+  test 'should override dataverse_hub_url and zenodo_default_url from ENV' do
+    ENV['OOD_LOOP_DATAVERSE_HUB_URL'] = 'https://custom.dataverse'
+    ENV['OOD_LOOP_ZENODO_DEFAULT_URL'] = 'https://custom.zenodo'
+
+    config = ConfigurationSingleton.new
+    assert_equal 'https://custom.dataverse', config.dataverse_hub_url
+    assert_equal 'https://custom.zenodo', config.zenodo_default_url
+  ensure
+    ENV.delete('OOD_LOOP_DATAVERSE_HUB_URL')
+    ENV.delete('OOD_LOOP_ZENODO_DEFAULT_URL')
+  end
+
+  test 'logging_root_path returns default path when logging_root is nil' do
+    @config_instance.stubs(:logging_root).returns(nil)
+    expected_path = File.join(@config_instance.metadata_root, 'logs')
+
+    # Mock FileUtils to avoid actual directory creation in tests
+    FileUtils.stubs(:mkdir_p)
+
+    assert_equal expected_path, @config_instance.logging_root_path
+  end
+
+  test 'logging_root_path returns custom path when logging_root is set' do
+    custom_root = '/custom/logging'
+
+    # Mock the global Configuration singleton that's called in the method
+    ::Configuration.stubs(:logging_root).returns(custom_root)
+    @config_instance.stubs(:logging_root).returns(custom_root)
+
+    # Mock system calls - need to stub Process.euid as well
+    Process.stubs(:euid).returns(1000)
+    Etc.stubs(:getpwuid).with(1000).returns(OpenStruct.new(name: 'testuser'))
+    FileUtils.stubs(:mkdir_p)
+
+    # Clear memoized value to ensure fresh test
+    @config_instance.instance_variable_set(:@logging_root_path, nil)
+
+    expected_path = File.join(custom_root, 'testuser')
+    assert_equal expected_path, @config_instance.logging_root_path
+  end
+
+  test 'logging_root_path creates directory with correct permissions' do
+    @config_instance.stubs(:logging_root).returns(nil)
+    expected_path = File.join(@config_instance.metadata_root, 'logs')
+
+    # Verify mkdir_p is called with mode 0o700
+    FileUtils.expects(:mkdir_p).with(expected_path, mode: 0o700)
+
+    @config_instance.logging_root_path
+  end
+
+  test 'logging_root_path memoizes result on subsequent calls' do
+    @config_instance.stubs(:logging_root).returns(nil)
+    FileUtils.stubs(:mkdir_p)
+
+    # Clear memoized value to ensure fresh test
+    @config_instance.instance_variable_set(:@logging_root_path, nil)
+
+    first_call = @config_instance.logging_root_path
+    second_call = @config_instance.logging_root_path
+
+    assert_same first_call, second_call
+  end
+
+  test 'logging_root_path handles missing user gracefully' do
+    custom_root = '/custom/logging'
+    @config_instance.stubs(:logging_root).returns(custom_root)
+    ::Configuration.stubs(:logging_root).returns(custom_root)
+
+    # Mock Etc.getpwuid to return struct without name property
+    Process.stubs(:euid).returns(1000)
+    Etc.stubs(:getpwuid).with(1000).returns(OpenStruct.new(name: nil))
+    ENV.delete('USER')
+    ENV.delete('USERNAME')
+    FileUtils.stubs(:mkdir_p)
+
+    # Clear memoized value to ensure fresh test
+    @config_instance.instance_variable_set(:@logging_root_path, nil)
+
+    expected_path = File.join(custom_root, 'unknown')
+    assert_equal expected_path, @config_instance.logging_root_path
+  end
+
+  test 'logging_root_path works with ENV fallback when getpwuid name is nil' do
+    custom_root = '/custom/logging'
+    @config_instance.stubs(:logging_root).returns(custom_root)
+    ::Configuration.stubs(:logging_root).returns(custom_root)
+
+    # Mock getpwuid to return a struct with nil name, so it falls back to ENV
+    Process.stubs(:euid).returns(1000)
+    Etc.stubs(:getpwuid).with(1000).returns(OpenStruct.new(name: nil))
+    ENV['USER'] = 'envuser'
+    FileUtils.stubs(:mkdir_p)
+
+    # Clear memoized value to ensure fresh test
+    @config_instance.instance_variable_set(:@logging_root_path, nil)
+
+    expected_path = File.join(custom_root, 'envuser')
+    assert_equal expected_path, @config_instance.logging_root_path
+  ensure
+    ENV.delete('USER')
+  end
+
+  test 'logging_root_path falls back to USERNAME when USER is not set' do
+    custom_root = '/custom/logging'
+    @config_instance.stubs(:logging_root).returns(custom_root)
+    ::Configuration.stubs(:logging_root).returns(custom_root)
+
+    # Mock getpwuid to return nil name, and no USER env, but USERNAME is set
+    Process.stubs(:euid).returns(1000)
+    Etc.stubs(:getpwuid).with(1000).returns(OpenStruct.new(name: nil))
+    ENV.delete('USER')
+    ENV['USERNAME'] = 'winuser'
+    FileUtils.stubs(:mkdir_p)
+
+    # Clear memoized value to ensure fresh test
+    @config_instance.instance_variable_set(:@logging_root_path, nil)
+
+    expected_path = File.join(custom_root, 'winuser')
+    assert_equal expected_path, @config_instance.logging_root_path
+  ensure
+    ENV.delete('USERNAME')
+  end
+
+  test 'should return nil for http_proxy when not set' do
+    assert_nil @config_instance.http_proxy
+  end
+
+  test 'should return nil for logging_root when not set' do
+    assert_nil @config_instance.logging_root
+  end
+
+  test 'should return default locale as symbol' do
+    assert_equal :en, @config_instance.locale
+  end
+
+  test 'should override locale from ENV' do
+    ENV['OOD_LOOP_LOCALE'] = 'es'
+    config = ConfigurationSingleton.new
+    assert_equal 'es', config.locale
+  ensure
+    ENV.delete('OOD_LOOP_LOCALE')
+  end
+
+  test 'should return default ood_dashboard_path when ENV is not set' do
+    assert_equal '/pun/sys/dashboard', @config_instance.ood_dashboard_path
+  end
+
+  test 'should override ood_dashboard_path from ENV' do
+    ENV['OOD_LOOP_OOD_DASHBOARD_PATH'] = '/custom/dashboard'
+    config = ConfigurationSingleton.new
+    assert_equal '/custom/dashboard', config.ood_dashboard_path
+  ensure
+    ENV.delete('OOD_LOOP_OOD_DASHBOARD_PATH')
   end
 end

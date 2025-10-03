@@ -101,4 +101,20 @@ class Dataverse::DatasetServiceTest < ActiveSupport::TestCase
     assert_includes client.called_path, '/versions/:latest-published/files'
   end
 
+  test 'search_dataset_files_by_persistent_id passes dataset_total to DatasetFilesResponse' do
+    client = HttpClientMock.new(file_path: fixture_path('dataverse/dataset_files_response/pagination_supported_no_total_count.json'))
+    target = Dataverse::DatasetService.new('https://example.com', http_client: client, api_key: 'KEY')
+
+    # Mock the DatasetFilesResponse.new method to verify dataset_total parameter is passed
+    Dataverse::DatasetFilesResponse.expects(:new).with(
+      instance_of(String),
+      page: 1,
+      per_page: 10,
+      query: nil,
+      dataset_total: 5
+    ).returns(OpenStruct.new(files: [], total_count: 5))
+
+    target.search_dataset_files_by_persistent_id('doi:1', page: 1, per_page: 10, dataset_total: 5)
+  end
+
 end

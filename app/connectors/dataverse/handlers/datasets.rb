@@ -38,7 +38,7 @@ module Dataverse::Handlers
           )
         end
         version = dataset.version
-        files_page = service.search_dataset_files_by_persistent_id(@persistent_id, version: version, page: page, query: search_query)
+        files_page = service.search_dataset_files_by_persistent_id(@persistent_id, version: version, page: page, query: search_query, dataset_total: dataset.file_count)
         if files_page.nil?
           log_error('Dataset files not found.', { dataverse: dataverse_url, persistent_id: @persistent_id, version: version, page: page })
           return ConnectorResult.new(
@@ -105,7 +105,7 @@ module Dataverse::Handlers
         dataset = service.find_dataset_version_by_persistent_id(@persistent_id, version: version)
         return ConnectorResult.new(message: { alert: I18n.t('connectors.dataverse.datasets.show.dataset_not_found', dataverse_url: dataverse_url, persistent_id: @persistent_id, version: version) }, success: false) unless dataset
         version = dataset.version
-        files_page = service.search_dataset_files_by_persistent_id(@persistent_id, version: version, page: page, query: search_query)
+        files_page = service.search_dataset_files_by_persistent_id(@persistent_id, version: version, page: page, query: search_query, dataset_total: dataset.file_count)
         if files_page.nil?
           log_error('Unable to find Dataset', { dataverse: dataverse_url, persistent_id: @persistent_id, version: version, query: search_query })
           return ConnectorResult.new(message: { alert: I18n.t('connectors.dataverse.datasets.show.dataset_files_not_found', dataverse_url: dataverse_url, persistent_id: @persistent_id, version: version, page: page) }, success: false)

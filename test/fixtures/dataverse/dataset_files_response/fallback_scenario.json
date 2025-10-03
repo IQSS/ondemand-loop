@@ -1,0 +1,30 @@
+{
+  "status": "OK",
+  "data": [
+    {
+      "label": "file1.txt",
+      "restricted": false,
+      "version": 1,
+      "datasetVersionId": 2,
+      "dataFile": {
+        "id": 30,
+        "persistentId": "",
+        "filename": "file1.txt",
+        "contentType": "text/plain",
+        "friendlyType": "Plain Text",
+        "filesize": 1024,
+        "storageIdentifier": "local://abc123",
+        "rootDataFileId": -1,
+        "md5": "abc123md5hash",
+        "checksum": {
+          "type": "MD5",
+          "value": "abc123md5hash"
+        },
+        "tabularData": false,
+        "creationDate": "2025-01-16",
+        "publicationDate": "2025-01-20",
+        "fileAccessRequest": true
+      }
+    }
+  ]
+}

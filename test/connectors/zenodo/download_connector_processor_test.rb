@@ -32,7 +32,7 @@ class Zenodo::DownloadConnectorProcessorTest < ActiveSupport::TestCase
 
   test 'process cancellation request' do
     req = OpenStruct.new(body: OpenStruct.new(file_id: @file.id))
-    res = @processor.process(req)
+    res = @processor.handle_command(req)
     assert_equal true, @processor.cancelled
     assert_equal 'cancellation requested', res[:message]
   end

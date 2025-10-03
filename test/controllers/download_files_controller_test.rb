@@ -4,10 +4,13 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
   def setup
     @project_id = "test_project"
     @file_id = "file_123"
-    @file = mock("DownloadFile")
-    @file.stubs(:is_a?).with(DownloadFile).returns(true)
-    @file.stubs(:id).returns(@file_id)
-    @file.stubs(:project_id).returns(@project_id)
+    @file = DownloadFile.new.tap do |file|
+      file.id = @file_id
+      file.project_id = @project_id
+      file.type = ConnectorType::DATAVERSE
+      file.filename = "#{random_id}.txt"
+      file.status = FileStatus::PENDING
+    end
   end
 
   test "cancel should redirect with error message when file is nil" do
@@ -64,7 +67,7 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
     DownloadFilesController.any_instance.expects(:log_download_file_event).with(
       @file,
       message: 'events.download_file.cancel_completed',
-      metadata: { filename: 'filename_test', previous_status: 'success' }
+      metadata: { previous_status: 'success' }
     )
 
     post cancel_project_download_file_url(project_id: @project_id, id: @file_id)
@@ -100,6 +103,10 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
     @file.stubs(:filename).returns('file.zip')
     @file.expects(:destroy)
     DownloadFile.stubs(:find).with(@project_id, @file_id).returns(@file)
+    DownloadFilesController.any_instance.expects(:log_download_file_event).with(
+      @file,
+      message: 'events.download_file.deleted'
+    )
 
     delete project_download_file_url(project_id: @project_id, id: @file_id)
     assert_redirected_to root_path
@@ -108,23 +115,33 @@ class DownloadFilesControllerTest < ActionDispatch::IntegrationTest
     assert_match 'file.zip', flash[:notice]
   end
 
-  test 'update should redirect with alert if file is nil' do
+  test 'retry should redirect with alert if file is nil' do
     DownloadFile.stubs(:find).with(@project_id, @file_id).returns(nil)
 
-    patch project_download_file_url(project_id: @project_id, id: @file_id), params: { state: 'pending' }
+    post retry_project_download_file_url(project_id: @project_id, id: @file_id)
     assert_redirected_to root_path
     follow_redirect!
     assert_match 'not found for project', flash[:alert]
   end
 
-  test 'update should change status and redirect' do
-    @file.stubs(:filename).returns('file.txt')
+  test 'retry should redirect with alert if file status is not retryable' do
+    @file.stubs(:status).returns(FileStatus::SUCCESS)
+    DownloadFile.stubs(:find).with(@project_id, @file_id).returns(@file)
+
+    post retry_project_download_file_url(project_id: @project_id, id: @file_id)
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_match 'cannot be moved back to the pending queue', flash[:alert]
+  end
+
+  test 'retry should change status and redirect for retryable status' do
+    @file.stubs(:status).returns(FileStatus::ERROR)
     @file.expects(:update).with(status: FileStatus::PENDING).returns(true)
     DownloadFile.stubs(:find).with(@project_id, @file_id).returns(@file)
 
-    patch project_download_file_url(project_id: @project_id, id: @file_id), params: { state: 'pending' }
+    post retry_project_download_file_url(project_id: @project_id, id: @file_id)
     assert_redirected_to root_path
     follow_redirect!
-    assert_match 'file.txt', flash[:notice]
+    assert_match 'moved back to the pending queue', flash[:notice]
   end
 end

@@ -105,11 +105,11 @@ class Project < ApplicationDiskRecord
     File.join(metadata_directory, id)
   end
 
-  private
-
   def self.metadata_directory
     File.join(metadata_root_directory, 'projects')
   end
+
+  private
 
   def self.download_files_directory(id)
     File.join(metadata_directory, id, 'download_files')
