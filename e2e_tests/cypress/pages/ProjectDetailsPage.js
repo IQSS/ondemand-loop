@@ -2,6 +2,7 @@ const selectors = {
   pageContainer: '[data-test-id="project-details-page"]',
   projectActions: '[data-test-id="project-actions"]',
   projectName: '#project-name',
+  projectId: 'data-project-details-project-id',
   openProjectFolderButton: '[data-test-id="open-project-folder-btn"]',
   editProjectNameButton: '[data-test-id="edit-project-name-btn"]',
   editNameInput: '#edit-name-input',
@@ -63,6 +64,10 @@ export class ProjectDetailsPage {
 
   getProjectName() {
     return cy.get(selectors.projectName);
+  }
+
+  getProjectId(){
+    return cy.get(`[${selectors.projectId}]`).invoke('attr', selectors.projectId)
   }
 
   clickOpenProjectFolder() {

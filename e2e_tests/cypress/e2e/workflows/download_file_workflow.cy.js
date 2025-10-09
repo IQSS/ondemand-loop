@@ -38,8 +38,8 @@ describe('Workflow: Download Files from Dataverse', () => {
     projectDetailsPage.assertInProjectDetails()
 
     // Store project ID for cleanup
-    cy.get('[data-project-id]').invoke('attr', 'data-project-id').as('projectId')
-    cy.get('@projectId').then(projectId => {
+    projectDetailsPage.getProjectId().then(projectId => {
+      cy.wrap(projectId).as('projectId')
       cy.task('log', `Created project with ID: ${projectId}`)
     })
 

@@ -1,5 +1,5 @@
 <% content_for :title, t('.page_title') %>
-<div class="project-details container-md content" data-test-id="project-details-page" role="main" data-project-id="<%= @project.id %>">
+<div class="project-details container-md content" data-test-id="project-details-page" role="main" data-project-details-project-id="<%= @project.id %>">
   <div>
     <%= render partial: '/shared/breadcrumbs', locals: { links: [{text: t('.breadcrumbs_text'), url: projects_path}, {text: @project.name}]} %>
   </div>
