@@ -26,6 +26,7 @@ services:
       - ../application:/var/www/ood/apps/sys/loop
       - ./config/.env:/var/www/ood/apps/sys/loop/.env
       - ./config/loop.conf:/var/lib/ondemand-nginx/config/apps/sys/loop.conf
+      - ./config/upload_file.txt:/home/ood/upload_file.txt
     ports:
       - "22200:443"
     expose:

@@ -33,7 +33,7 @@
                            'modal-id-value': 'global-modal',
                            'upload-file-id': file.id
                          } do %>
-            <%= status_badge(file.status, title: file.end_date, filename: file.filename) %>
+            <%= status_badge(file.status, filename: file.filename) %>
             <span class="visually-hidden"><%= t('.button_view_events_label') %></span>
           <% end %>
           <% if file.status.success? %>

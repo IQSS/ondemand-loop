@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/api/search"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "search_response.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
