@@ -61,7 +61,7 @@ describe('Workflow: Download Files from Dataverse', () => {
     projectDetailsPage.getDownloadRepoResolver().should('be.visible')
 
     // Enter the Dataverse URL in the repo resolver input
-    projectDetailsPage.getDownloadRepoResolverInput().clear().type(dataverse.DATAVERSE_URL)
+    projectDetailsPage.typeRepoUrl(dataverse.DATAVERSE_URL)
     projectDetailsPage.submitDownloadRepoResolver()
     cy.task('log', `Exploring Dataverse URL: ${dataverse.DATAVERSE_URL}`)
 

@@ -74,10 +74,6 @@ export class ProjectDetailsPage {
     cy.get(selectors.openProjectFolderButton).click();
   }
 
-  clickEditProjectName() {
-    cy.get(selectors.editProjectNameButton).click();
-  }
-
   waitClickEditProjectName() {
     cy.get(selectors.editProjectNameButton).waitClick();
   }
@@ -176,6 +172,10 @@ export class ProjectDetailsPage {
 
   getDownloadRepoResolverInput() {
     return cy.get(selectors.downloadRepoResolverInput);
+  }
+
+  typeRepoUrl(repoUrl) {
+    this.getDownloadRepoResolverInput().clear().type(repoUrl);
   }
 
   submitDownloadRepoResolver() {
