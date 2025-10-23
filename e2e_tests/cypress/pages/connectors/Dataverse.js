@@ -30,6 +30,8 @@ const selectors = {
   collectionTitle: '#dataverse-collection-action-bar h2',
   createBundleButton: '[data-test-id="create-collection-bundle-btn"]',
   openCollectionLink: '[data-test-id="open-collection-link"]',
+  collectionItemsList: 'div.collection-header ul.list-group',
+  collectionItemsRow: 'div.collection-header li.list-group-item',
 
   // Collection search
   collectionSearchInput: '[data-test-id="collection-search-input"]',
@@ -39,14 +41,42 @@ const selectors = {
   resultsList: 'ul.list-group',
   resultItems: 'li.list-group-item',
   noResultsAlert: '.alert.alert-warning',
+
+  //FILES
+  selectAllFiles: '#select_all_files',
+  addFilesToProjectButton: '#files_submit',
+
+  // UPLOAD BUNDLE FORMS
+  editApiKeyButton: '[data-test-id="edit-api-key-btn"]',
+  apiKeyInput: '#api_key',
+  saveApiKeyButton: 'button[type="submit"]:contains("Save")',
+  selectCollectionButton: '[data-test-id="select-collection-btn"]',
+  collectionRadioButton: 'input[name="collection_id"]',
+  selectCollectionSubmit: '[data-test-id="select-collection-submit"]',
+  selectDatasetButton: '[data-test-id="select-dataset-btn"]',
+  datasetRadioButton: 'input[name="dataset_id"]',
+  selectDatasetSubmit: '[data-test-id="select-dataset-submit"]',
 };
 
 export class Dataverse {
+  DATAVERSE_URL = 'http://dataverse:8080';
   // Navigation methods
   navigateToDataverse() {
     cy.get(selectors.repositoriesDropdown).click();
     cy.get(selectors.dataverseNavItem).click();
     cy.get('body').should('contain', 'Dataverse Landing');
+  }
+
+  assertInExploreCollection() {
+    // Assert we're on the project details page
+    cy.url().should('include', '/explore/dataverse/dataverse/collections/')
+    cy.title().should('match', /dataverse collection/i)
+  }
+
+  assertInExploreDataset() {
+    // Assert we're on the project details page
+    cy.url().should('include', '/explore/dataverse/dataverse/datasets/')
+    cy.title().should('match', /dataverse dataset/i)
   }
 
   // Landing page methods
@@ -135,6 +165,14 @@ export class Dataverse {
     return cy.get(selectors.openCollectionLink);
   }
 
+  getCollectionItemsList() {
+    return cy.get(selectors.collectionItemsList);
+  }
+
+  getCollectionItemsRow() {
+    return cy.get(selectors.collectionItemsRow);
+  }
+
   clickCreateBundle() {
     this.getCreateBundleButton().click();
   }
@@ -168,6 +206,52 @@ export class Dataverse {
 
   getNoResultsAlert() {
     return cy.get(selectors.noResultsAlert);
+  }
+
+  selectAllFiles() {
+    return cy.get(selectors.selectAllFiles).click();
+  }
+
+  submitFilesToProject() {
+    cy.get(selectors.addFilesToProjectButton).should('be.visible')
+    return cy.get(selectors.addFilesToProjectButton).click();
+  }
+
+  // Upload bundle methods
+  clickEditApiKey() {
+    cy.get(selectors.editApiKeyButton).click();
+  }
+
+  enterApiKey(apiKey) {
+    cy.get(selectors.apiKeyInput).clear().type(apiKey);
+  }
+
+  saveApiKey() {
+    cy.get(selectors.saveApiKeyButton).click();
+  }
+
+  clickSelectCollection() {
+    cy.get(selectors.selectCollectionButton).click();
+  }
+
+  selectFirstCollection() {
+    cy.get(selectors.collectionRadioButton).first().click();
+  }
+
+  submitSelectCollectionForm() {
+    cy.get(selectors.selectCollectionSubmit).click();
+  }
+
+  clickSelectDataset() {
+    cy.get(selectors.selectDatasetButton).click();
+  }
+
+  selectFirstDataset() {
+    cy.get(selectors.datasetRadioButton).first().click();
+  }
+
+  submitSelectDatasetForm() {
+    cy.get(selectors.selectDatasetSubmit).click();
   }
 
   // Validation methods

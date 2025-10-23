@@ -1,7 +1,10 @@
+import dataverse from "./connectors/Dataverse";
+
 const selectors = {
   pageContainer: '[data-test-id="project-details-page"]',
   projectActions: '[data-test-id="project-actions"]',
   projectName: '#project-name',
+  projectId: 'data-project-details-project-id',
   openProjectFolderButton: '[data-test-id="open-project-folder-btn"]',
   editProjectNameButton: '[data-test-id="edit-project-name-btn"]',
   editNameInput: '#edit-name-input',
@@ -13,6 +16,8 @@ const selectors = {
   createUploadBundleButton: '[data-test-id="create-upload-bundle-btn"]',
   projectMetadataLink: '[data-test-id="project-metadata-link"]',
   projectTabs: '#project-tabs',
+  createUploadBundleInput: '#remote_repo_url',
+  createUploadBundleSubmitButton: '[data-test-id="create-bundle-from-url-submit"]',
   downloadTab: '#project-tabs [data-project-tab="downloads"]',
   uploadBundleTab: (bundleId) => `#project-tabs [data-upload-bundle-id="${bundleId}"]`,
   downloadActionsCard: '[data-test-id="download-actions-card"]',
@@ -20,11 +25,11 @@ const selectors = {
   editDownloadDirButton: '[data-test-id="edit-download-dir-btn"]',
   downloadMetadataLink: '[data-test-id="download-metadata-link"]',
   downloadSummary: '[data-test-id="download-summary"]',
-  addDownloadFilesButton: '[data-test-id="add-download-files-btn"]',
-  browseDatasetButton: '[data-test-id="browse-dataset-btn"]',
+  addFromRecentButton: '[data-test-id="add-download-files-from-recent-btn"]',
+  addFromUrlButton: '[data-test-id="add-download-files-from-url-btn"]',
   downloadRepoResolver: '#download-repo-resolver',
   downloadRepoResolverInput: '#download-repo-resolver_input',
-  downloadRepoResolverSubmit: '#submit-download-repo-resolver-btn"]',
+  downloadRepoResolverSubmit: '#submit-download-repo-resolver-btn',
   downloadFilesList: '[data-test-id="download-files-list"]',
   downloadFilesEmpty: '[data-test-id="download-files-empty"]',
   downloadFileRows: '[data-test-id="download-files-list"] li[data-download-file-id]',
@@ -44,6 +49,8 @@ const selectors = {
   uploadFileRowById: (bundleId, fileId) => `#upload-bundle-${bundleId}-files li[data-upload-file-id="${fileId}"]`,
   uploadFileEventsButton: (fileId) => `button[data-upload-file-id="${fileId}"]`,
   deleteUploadFileButton: (fileId) => `#delete-upload-file-${fileId}-btn`,
+  uploadFileStatusBadge: (bundleId) => `#upload-bundle-${bundleId}-files span.badge.file-status`,
+  uploadBundleFileBrowser: (bundleId) => `#fb-${bundleId}`,
 };
 
 export class ProjectDetailsPage {
@@ -65,12 +72,12 @@ export class ProjectDetailsPage {
     return cy.get(selectors.projectName);
   }
 
-  clickOpenProjectFolder() {
-    cy.get(selectors.openProjectFolderButton).click();
+  getProjectId(){
+    return cy.get(`[${selectors.projectId}]`).invoke('attr', selectors.projectId)
   }
 
-  clickEditProjectName() {
-    cy.get(selectors.editProjectNameButton).click();
+  clickOpenProjectFolder() {
+    cy.get(selectors.openProjectFolderButton).click();
   }
 
   waitClickEditProjectName() {
@@ -107,6 +114,14 @@ export class ProjectDetailsPage {
 
   clickCreateUploadBundle() {
     cy.get(selectors.createUploadBundleButton).click();
+    cy.get(selectors.createUploadBundleInput).should('be.visible');
+  }
+
+  createUploadBundle(url) {
+    cy.get(selectors.createUploadBundleInput).should('be.enabled').clear().type(url, { delay: 10 });
+    cy.get(selectors.createUploadBundleInput).clear().type(url, { delay: 10 });
+    cy.get(selectors.createUploadBundleInput).should('have.value', url);
+    cy.get(selectors.createUploadBundleSubmitButton).click();
   }
 
   getProjectMetadataLink() {
@@ -130,7 +145,7 @@ export class ProjectDetailsPage {
   }
 
   clickUploadBundleTab(bundleId) {
-    this.getUploadBundleTab(bundleId).click();
+    this.getUploadBundleTab(bundleId).waitClick();
   }
 
   getDownloadActionsCard() {
@@ -153,12 +168,12 @@ export class ProjectDetailsPage {
     return cy.get(selectors.downloadSummary);
   }
 
-  clickAddDownloadFiles() {
-    cy.get(selectors.addDownloadFilesButton).click();
+  clickAddFilesFromRecent() {
+    cy.get(selectors.addFromRecentButton).click();
   }
 
-  toggleBrowseDataset() {
-    cy.get(selectors.browseDatasetButton).click();
+  toggleAddFilesFromUrl() {
+    cy.get(selectors.addFromUrlButton).click();
   }
 
   getDownloadRepoResolver() {
@@ -171,6 +186,10 @@ export class ProjectDetailsPage {
 
   getDownloadRepoResolverInput() {
     return cy.get(selectors.downloadRepoResolverInput);
+  }
+
+  typeRepoUrl(repoUrl) {
+    this.getDownloadRepoResolverInput().clear().type(repoUrl);
   }
 
   submitDownloadRepoResolver() {
@@ -229,6 +248,10 @@ export class ProjectDetailsPage {
     cy.get(selectors.deleteUploadBundleButton(bundleId)).click();
   }
 
+  getUploadBundleFileBrowser(bundleId) {
+    return cy.get(selectors.uploadBundleFileBrowser(bundleId));
+  }
+
   getUploadBundleFilesList(bundleId) {
     return cy.get(selectors.uploadBundleFilesList(bundleId));
   }
@@ -251,6 +274,14 @@ export class ProjectDetailsPage {
 
   clickDeleteUploadFile(fileId) {
     cy.get(selectors.deleteUploadFileButton(fileId)).click();
+  }
+
+  getUploadFileStatusBadge(bundleId) {
+    return cy.get(selectors.uploadFileStatusBadge(bundleId));
+  }
+
+  assertUploadFileStatus(bundleId, status) {
+    this.getUploadFileStatusBadge(bundleId).should('have.attr', 'data-status', status);
   }
 }
 
