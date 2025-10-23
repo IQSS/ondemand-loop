@@ -71,22 +71,22 @@ describe('Workflow: Download Files from Dataverse', () => {
     // Wait for the collection page to load
     cy.get('h2').contains('Sample Dataverse').should('be.visible')
 
-    // Verify we're on the browse/explore page
-    cy.url().should('include', '/explore/')
+    // Verify we're on the dataverse browse/explore page
+    dataverse.assertInExploreCollection()
 
     // Select the first dataset from the collection
-    cy.get('ul.list-group').should('be.visible')
-    cy.get('li.list-group-item').should('have.length.at.least', 1)
+    dataverse.getCollectionItemsList().should('be.visible')
+    dataverse.getCollectionItemsRow().should('have.length.at.least', 1)
 
     // Click on the first dataset link
-    cy.get('li.list-group-item').first().find('a').first().click()
+    dataverse.getCollectionItemsRow().first().find('a').first().click()
     cy.task('log', 'Selected first dataset from collection')
 
     // Step 5: Browse files and download all files
     cy.task('log', 'Step 5: Browsing files and downloading')
 
     // Wait for the dataset page to load with files
-    cy.get('body').should('contain', 'Files')
+    dataverse.assertInExploreDataset()
 
     // SELECT ALL FILES AND SUBMIT FORM
     dataverse.selectAllFiles()
@@ -107,11 +107,10 @@ describe('Workflow: Download Files from Dataverse', () => {
     downloadsPage.visit()
 
     // Verify we're on the downloads page
-    cy.url().should('include', '/downloads')
-    cy.get('body').should('contain', 'Downloads')
+    downloadsPage.assertInDownloads()
 
     downloadsPage.getDownloadsList().should('be.visible')
-    downloadsPage.getDownloadFileRows().should('have.length', 2)
+    downloadsPage.getDownloadFileRows().should('have.length.at.least', 2)
     downloadsPage.assertAllDownloadFilesWithStatus('success')
 
     // Step 8: Navigate to project details and verify downloads in Downloads tab
@@ -133,7 +132,7 @@ describe('Workflow: Download Files from Dataverse', () => {
 
     // Verify downloads are shown in the tab
     projectDetailsPage.getDownloadFilesList().should('be.visible')
-    projectDetailsPage.getDownloadFileRows().should('have.length.at.least', 1)
+    projectDetailsPage.getDownloadFileRows().should('have.length', 2)
 
     cy.task('log', 'Verified downloads in project Downloads tab')
     cy.task('log', 'Workflow completed successfully!')

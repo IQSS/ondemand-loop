@@ -30,6 +30,8 @@ const selectors = {
   collectionTitle: '#dataverse-collection-action-bar h2',
   createBundleButton: '[data-test-id="create-collection-bundle-btn"]',
   openCollectionLink: '[data-test-id="open-collection-link"]',
+  collectionItemsList: 'div.collection-header ul.list-group',
+  collectionItemsRow: 'div.collection-header li.list-group-item',
 
   // Collection search
   collectionSearchInput: '[data-test-id="collection-search-input"]',
@@ -52,6 +54,18 @@ export class Dataverse {
     cy.get(selectors.repositoriesDropdown).click();
     cy.get(selectors.dataverseNavItem).click();
     cy.get('body').should('contain', 'Dataverse Landing');
+  }
+
+  assertInExploreCollection() {
+    // Assert we're on the project details page
+    cy.url().should('include', '/explore/dataverse/dataverse/collections/')
+    cy.title().should('match', /dataverse collection/i)
+  }
+
+  assertInExploreDataset() {
+    // Assert we're on the project details page
+    cy.url().should('include', '/explore/dataverse/dataverse/datasets/')
+    cy.title().should('match', /dataverse dataset/i)
   }
 
   // Landing page methods
@@ -138,6 +152,14 @@ export class Dataverse {
 
   getOpenCollectionLink() {
     return cy.get(selectors.openCollectionLink);
+  }
+
+  getCollectionItemsList() {
+    return cy.get(selectors.collectionItemsList);
+  }
+
+  getCollectionItemsRow() {
+    return cy.get(selectors.collectionItemsRow);
   }
 
   clickCreateBundle() {

@@ -11,6 +11,12 @@ export class DownloadsPage {
     cy.get(selectors.navDownloadsLink).click();
   }
 
+  assertInDownloads() {
+    // Assert we're on the project details page
+    cy.url().should('include', '/downloads')
+    cy.title().should('match', /downloads management/i)
+  }
+
   getPageContainer() {
     return cy.get(selectors.pageContainer);
   }
