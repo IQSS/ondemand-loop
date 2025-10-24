@@ -30,6 +30,8 @@ const selectors = {
   collectionTitle: '#dataverse-collection-action-bar h2',
   createBundleButton: '[data-test-id="create-collection-bundle-btn"]',
   openCollectionLink: '[data-test-id="open-collection-link"]',
+  collectionItemsList: 'div.collection-header ul.list-group',
+  collectionItemsRow: 'div.collection-header li.list-group-item',
 
   // Collection search
   collectionSearchInput: '[data-test-id="collection-search-input"]',
@@ -39,14 +41,31 @@ const selectors = {
   resultsList: 'ul.list-group',
   resultItems: 'li.list-group-item',
   noResultsAlert: '.alert.alert-warning',
+
+  //FILES
+  selectAllFiles: '#select_all_files',
+  addFilesToProjectButton: '#files_submit',
 };
 
 export class Dataverse {
+  DATAVERSE_URL = 'http://dataverse:8080';
   // Navigation methods
   navigateToDataverse() {
     cy.get(selectors.repositoriesDropdown).click();
     cy.get(selectors.dataverseNavItem).click();
     cy.get('body').should('contain', 'Dataverse Landing');
+  }
+
+  assertInExploreCollection() {
+    // Assert we're on the project details page
+    cy.url().should('include', '/explore/dataverse/dataverse/collections/')
+    cy.title().should('match', /dataverse collection/i)
+  }
+
+  assertInExploreDataset() {
+    // Assert we're on the project details page
+    cy.url().should('include', '/explore/dataverse/dataverse/datasets/')
+    cy.title().should('match', /dataverse dataset/i)
   }
 
   // Landing page methods
@@ -135,6 +154,14 @@ export class Dataverse {
     return cy.get(selectors.openCollectionLink);
   }
 
+  getCollectionItemsList() {
+    return cy.get(selectors.collectionItemsList);
+  }
+
+  getCollectionItemsRow() {
+    return cy.get(selectors.collectionItemsRow);
+  }
+
   clickCreateBundle() {
     this.getCreateBundleButton().click();
   }
@@ -168,6 +195,15 @@ export class Dataverse {
 
   getNoResultsAlert() {
     return cy.get(selectors.noResultsAlert);
+  }
+
+  selectAllFiles() {
+    return cy.get(selectors.selectAllFiles).click();
+  }
+
+  submitFilesToProject() {
+    cy.get(selectors.addFilesToProjectButton).should('be.visible')
+    return cy.get(selectors.addFilesToProjectButton).click();
   }
 
   // Validation methods
