@@ -1,0 +1,16 @@
+{
+  "key": "upload_file.txt",
+  "mimetype": "text/plain",
+  "checksum": "md5:83a6d1735b33c36459d5a0761b139d16",
+  "version_id": "1",
+  "size": 1024,
+  "created": "2025-10-03T12:00:00.000000+00:00",
+  "updated": "2025-10-03T12:00:00.000000+00:00",
+  "links": {
+    "self": "http://zenodo:8080/api/files/123/upload_file.txt",
+    "version": "http://zenodo:8080/api/files/123/upload_file.txt?versionId=1",
+    "uploads": "http://zenodo:8080/api/files/123/upload_file.txt?uploads"
+  },
+  "is_head": true,
+  "delete_marker": false
+}

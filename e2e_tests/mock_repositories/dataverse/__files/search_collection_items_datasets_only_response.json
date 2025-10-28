@@ -1,0 +1,1404 @@
+{
+  "status": "OK",
+  "data": {
+    "q": "*",
+    "total_count": 188518,
+    "start": 10,
+    "spelling_alternatives": {},
+    "items": [
+      {
+        "name": "Traditional martial arts, subak, folk dance, subak dance Review of UNESCO documentary heritage application materials",
+        "type": "dataset",
+        "url": "https://doi.org/10.7910/DVN/VIQT9F",
+        "global_id": "doi:10.7910/DVN/VIQT9F",
+        "description": "한국과 북한, 중국 조선족 3개국에서 채집 전통무예 수박과 민속무용 수박춤 기록물들을 2025년 유네스코 아시아태평양 기록유산으로 국가유산청에 등재 신청 한 신청서 및 관련 자료다. 디지털화 된 기록물들(필사본, 사진, 문서, 영상 기타)은 자체 사이트 구축을 통해서 국내외 한국어와 영문으로 공개, 전시되고 있으며 국립중앙도서관에 보관 및 온라인을 통해서 배포되고 있다. This is an application and related materials for the registration of the records of traditional martial arts, subak, and folk dance, subak dance, collected from three countries, South Korea, North Korea, and China's ethnic Koreans, as UNESCO's Memory of the Asia-Pacific Memory of the World in 2025 to the National Heritage Administration. The digitized records (manuscripts, photos, documents, videos, etc.) are being made public and exhibited in Korean and English at home and abroad through the construction of their own website, and are being stored at the National Library of Korea and distributed online.",
+        "published_at": "2025-04-21T05:17:29Z",
+        "publisher": "junho song Dataverse",
+        "citationHtml": "song, junho, 2025, \"전통무예 수박, 민속무용 수박춤 유네스코 기록유산 신청 자료 고찰 Traditional martial arts, subak, folk dance, subak dance Review of UNESCO documentary heritage application materials\", <a href=\"https://doi.org/10.7910/DVN/VIQT9F\" target=\"_blank\">https://doi.org/10.7910/DVN/VIQT9F</a>, Harvard Dataverse, V1",
+        "identifier_of_dataverse": "junho",
+        "name_of_dataverse": "junho song Dataverse",
+        "citation": "song, junho, 2025, \"전통무예 수박, 민속무용 수박춤 유네스코 기록유산 신청 자료 고찰 Traditional martial arts, subak, folk dance, subak dance Review of UNESCO documentary heritage application materials\", https://doi.org/10.7910/DVN/VIQT9F, Harvard Dataverse, V1",
+        "publicationStatuses": [
+          "Published"
+        ],
+        "storageIdentifier": "s3://10.7910/DVN/VIQT9F",
+        "subjects": [
+          "Arts and Humanities"
+        ],
+        "fileCount": 1,
+        "versionId": 442588,
+        "versionState": "RELEASED",
+        "majorVersion": 1,
+        "minorVersion": 0,
+        "createdAt": "2025-04-21T05:15:50Z",
+        "updatedAt": "2025-04-21T05:17:29Z",
+        "contacts": [
+          {
+            "name": "song, junho",
+            "affiliation": "Northeast Asia Expert Forum"
+          }
+        ],
+        "authors": [
+          "song, junho"
+        ]
+      },
+      {
+        "name": "Replication Data for: The Impact of Regional Business Environment on Innovation Capability of Small and Medium-sized Enterprises",
+        "type": "dataset",
+        "url": "https://doi.org/10.7910/DVN/25SGPL",
+        "global_id": "doi:10.7910/DVN/25SGPL",
+        "description": "Data for: The Impact of Regional Business Environment on Innovation Capability of Small and Medium-sized Enterprises",
+        "published_at": "2025-04-21T04:07:00Z",
+        "publisher": "Harvard Dataverse",
+        "citationHtml": "None, 2025, \"Replication Data for: The Impact of Regional Business Environment on Innovation Capability of Small and Medium-sized Enterprises\", <a href=\"https://doi.org/10.7910/DVN/25SGPL\" target=\"_blank\">https://doi.org/10.7910/DVN/25SGPL</a>, Harvard Dataverse, V2, UNF:6:OskerYx7WT7gN2iffpL6Sg== [fileUNF]",
+        "identifier_of_dataverse": "harvard",
+        "name_of_dataverse": "Harvard Dataverse",
+        "citation": "None, 2025, \"Replication Data for: The Impact of Regional Business Environment on Innovation Capability of Small and Medium-sized Enterprises\", https://doi.org/10.7910/DVN/25SGPL, Harvard Dataverse, V2, UNF:6:OskerYx7WT7gN2iffpL6Sg== [fileUNF]",
+        "publicationStatuses": [
+          "Published"
+        ],
+        "storageIdentifier": "s3://10.7910/DVN/25SGPL",
+        "subjects": [
+          "Social Sciences"
+        ],
+        "fileCount": 1,
+        "versionId": 442586,
+        "versionState": "RELEASED",
+        "majorVersion": 2,
+        "minorVersion": 0,
+        "createdAt": "2025-04-14T07:55:04Z",
+        "updatedAt": "2025-04-21T04:07:00Z",
+        "contacts": [
+          {
+            "name": "None",
+            "affiliation": ""
+          }
+        ],
+        "publications": [
+          {}
+        ],
+        "authors": [
+          "None"
+        ]
+      },
+      {
+        "name": "Virginia election data 2000-2023",
+        "type": "dataset",
+        "url": "https://doi.org/10.7910/DVN/BAQ69D",
+        "global_id": "doi:10.7910/DVN/BAQ69D",
+        "description": "Made with @ciync9 shapefile from https://github.com/erikalopresti/virginia-voting-precincts CENUS",
+        "published_at": "2025-04-21T03:28:21Z",
+        "publisher": "Virginia Election Data",
+        "citationHtml": "Jones, Joseph, 2024, \"Virginia election data 2000-2023\", <a href=\"https://doi.org/10.7910/DVN/BAQ69D\" target=\"_blank\">https://doi.org/10.7910/DVN/BAQ69D</a>, Harvard Dataverse, V16",
+        "identifier_of_dataverse": "vaelections",
+        "name_of_dataverse": "Virginia Election Data",
+        "citation": "Jones, Joseph, 2024, \"Virginia election data 2000-2023\", https://doi.org/10.7910/DVN/BAQ69D, Harvard Dataverse, V16",
+        "publicationStatuses": [
+          "Published"
+        ],
+        "storageIdentifier": "s3://10.7910/DVN/BAQ69D",
+        "subjects": [
+          "Arts and Humanities",
+          "Social Sciences"
+        ],
+        "fileCount": 20,
+        "versionId": 442585,
+        "versionState": "RELEASED",
+        "majorVersion": 16,
+        "minorVersion": 0,
+        "createdAt": "2024-11-27T22:11:33Z",
+        "updatedAt": "2025-04-21T03:28:21Z",
+        "contacts": [
+          {
+            "name": "Jones, Joseph",
+            "affiliation": ""
+          }
+        ],
+        "authors": [
+          "Jones, Joseph"
+        ]
+      },
+      {
+        "name": "What factors affect students’ career satisfaction in China’s application-oriented undergraduate universities:",
+        "type": "dataset",
+        "url": "https://doi.org/10.7910/DVN/WHHV5X",
+        "global_id": "doi:10.7910/DVN/WHHV5X",
+        "description": "Students’ career satisfaction serves as a critical indicator for evaluating the quality of higher education, both globally and within specific contexts. However, limited research has investigated the factors influencing career satisfaction among students in China’s application-oriented undergraduate universities. To address this gap, this study aims to identify the key determinants of students’ career satisfaction within this institutional context. Using a structural equation modeling (SEM) approach, the research examines the factors that shape career development satisfaction among students at application-oriented undergraduate institutions in China.",
+        "published_at": "2025-04-21T02:08:54Z",
+        "publisher": "Harvard Dataverse",
+        "citationHtml": "Li, Jian, 2025, \"What factors affect students&rsquo; career satisfaction in China&rsquo;s application-oriented undergraduate universities:\", <a href=\"https://doi.org/10.7910/DVN/WHHV5X\" target=\"_blank\">https://doi.org/10.7910/DVN/WHHV5X</a>, Harvard Dataverse, V1",
+        "identifier_of_dataverse": "harvard",
+        "name_of_dataverse": "Harvard Dataverse",
+        "citation": "Li, Jian, 2025, \"What factors affect students’ career satisfaction in China’s application-oriented undergraduate universities:\", https://doi.org/10.7910/DVN/WHHV5X, Harvard Dataverse, V1",
+        "publicationStatuses": [
+          "Published"
+        ],
+        "storageIdentifier": "s3://10.7910/DVN/WHHV5X",
+        "subjects": [
+          "Social Sciences"
+        ],
+        "fileCount": 1,
+        "versionId": 442578,
+        "versionState": "RELEASED",
+        "majorVersion": 1,
+        "minorVersion": 0,
+        "createdAt": "2025-04-21T02:08:42Z",
+        "updatedAt": "2025-04-21T02:08:54Z",
+        "contacts": [
+          {
+            "name": "Li, Jian",
+            "affiliation": "Beijing Normal University"
+          }
+        ],
+        "authors": [
+          "Li, Jian"
+        ]
+      },
+      {
+        "name": "Replication Data for: Influence of geometric factors on the acoustic absorption performance of three-dimensional dual-graded anechoic coatings",
+        "type": "dataset",
+        "url": "https://doi.org/10.7910/DVN/LGIXBG",
+        "global_id": "doi:10.7910/DVN/LGIXBG",
+        "description": "Data for mean sound absorption coefficients for 3D DGAC configurations covering cases 1 to 729 and cases L1 to L27.",
+        "published_at": "2025-04-21T01:23:24Z",
+        "publisher": "Harvard Dataverse",
+        "citationHtml": "Zhang, Xiuhai; Song, Kailin; Huang, Qing; Cao, Peilin; Zeng, Xiangyang, 2025, \"Replication Data for: Influence of geometric factors on the acoustic absorption performance of three-dimensional dual-graded anechoic coatings\", <a href=\"https://doi.org/10.7910/DVN/LGIXBG\" target=\"_blank\">https://doi.org/10.7910/DVN/LGIXBG</a>, Harvard Dataverse, V1, UNF:6:4fJ43ZGdqO5WzSyNPjoTZQ== [fileUNF]",
+        "identifier_of_dataverse": "harvard",
+        "name_of_dataverse": "Harvard Dataverse",
+        "citation": "Zhang, Xiuhai; Song, Kailin; Huang, Qing; Cao, Peilin; Zeng, Xiangyang, 2025, \"Replication Data for: Influence of geometric factors on the acoustic absorption performance of three-dimensional dual-graded anechoic coatings\", https://doi.org/10.7910/DVN/LGIXBG, Harvard Dataverse, V1, UNF:6:4fJ43ZGdqO5WzSyNPjoTZQ== [fileUNF]",
+        "publicationStatuses": [
+          "Published"
+        ],
+        "storageIdentifier": "s3://10.7910/DVN/LGIXBG",
+        "subjects": [
+          "Engineering",
+          "Physics"
+        ],
+        "fileCount": 2,
+        "versionId": 442552,
+        "versionState": "RELEASED",
+        "majorVersion": 1,
+        "minorVersion": 0,
+        "createdAt": "2025-04-20T11:19:35Z",
+        "updatedAt": "2025-04-21T01:23:24Z",
+        "contacts": [
+          {
+            "name": "Zhang, Xiuhai",
+            "affiliation": "Northwestern Polytechnical University"
+          }
+        ],
+        "publications": [
+          {}
+        ],
+        "authors": [
+          "Zhang, Xiuhai",
+          "Song, Kailin",
+          "Huang, Qing",
+          "Cao, Peilin",
+          "Zeng, Xiangyang"
+        ]
+      },
+      {
+        "name": "Replication Data for Declining Information Quality Under New Platform Governance",
+        "type": "dataset",
+        "url": "https://doi.org/10.7910/DVN/PFIRDJ",
+        "global_id": "doi:10.7910/DVN/PFIRDJ",
+        "description": "This repository holds the replication material for the figures and tables in the study. Please email azturan.b@northeastern with additional questions.",
+        "published_at": "2025-04-21T00:12:13Z",
+        "publisher": "Burak Ozturan Dataverse",
+        "citationHtml": "Ozturan, Burak; Quintana-Math&eacute;. Alexi; Grinberg, Nir; Ognyanova, Katherine; Lazer, David, 2025, \"Replication Data for Declining Information Quality Under New Platform Governance\", <a href=\"https://doi.org/10.7910/DVN/PFIRDJ\" target=\"_blank\">https://doi.org/10.7910/DVN/PFIRDJ</a>, Harvard Dataverse, V1, UNF:6:DlPzluVltpRcXSBpeHZKZQ== [fileUNF]",
+        "identifier_of_dataverse": "ozturan",
+        "name_of_dataverse": "Burak Ozturan Dataverse",
+        "citation": "Ozturan, Burak; Quintana-Mathé. Alexi; Grinberg, Nir; Ognyanova, Katherine; Lazer, David, 2025, \"Replication Data for Declining Information Quality Under New Platform Governance\", https://doi.org/10.7910/DVN/PFIRDJ, Harvard Dataverse, V1, UNF:6:DlPzluVltpRcXSBpeHZKZQ== [fileUNF]",
+        "publicationStatuses": [
+          "Published"
+        ],
+        "storageIdentifier": "s3://10.7910/DVN/PFIRDJ",
+        "subjects": [
+          "Social Sciences"
+        ],
+        "fileCount": 9,
+        "versionId": 431604,
+        "versionState": "RELEASED",
+        "majorVersion": 1,
+        "minorVersion": 0,
+        "createdAt": "2024-11-19T21:19:34Z",
+        "updatedAt": "2025-04-21T00:12:13Z",
+        "contacts": [
+          {
+            "name": "Ozturan, Burak",
+            "affiliation": "Northeastern University"
+          }
+        ],
+        "publications": [
+          {}
+        ],
+        "authors": [
+          "Ozturan, Burak",
+          "Quintana-Mathé. Alexi",
+          "Grinberg, Nir",
+          "Ognyanova, Katherine",
+          "Lazer, David"
+        ]
+      },
+      {
+        "name": "Arla Foods: Data-Driven Decarbonization",
+        "type": "dataset",
+        "url": "https://doi.org/10.7910/DVN/DO1LHS",
+        "global_id": "doi:10.7910/DVN/DO1LHS",
+        "description": "This is data and code for the Harvard Business School case Arla Foods: Data-Driven Decarbonization, #624003.",
+        "published_at": "2025-04-20T21:56:28Z",
+        "publisher": "Harvard Dataverse",
+        "citationHtml": "Parzen, Michael, 2025, \"Arla Foods: Data-Driven Decarbonization\", <a href=\"https://doi.org/10.7910/DVN/DO1LHS\" target=\"_blank\">https://doi.org/10.7910/DVN/DO1LHS</a>, Harvard Dataverse, V3, UNF:6:1UmjXr6++d5tmRb0tuvXdA== [fileUNF]",
+        "identifier_of_dataverse": "harvard",
+        "name_of_dataverse": "Harvard Dataverse",
+        "citation": "Parzen, Michael, 2025, \"Arla Foods: Data-Driven Decarbonization\", https://doi.org/10.7910/DVN/DO1LHS, Harvard Dataverse, V3, UNF:6:1UmjXr6++d5tmRb0tuvXdA== [fileUNF]",
+        "publicationStatuses": [
+          "Published"
+        ],
+        "storageIdentifier": "s3://10.7910/DVN/DO1LHS",
+        "keywords": [
+          "Decarbonization"
+        ],
+        "subjects": [
+          "Business and Management",
+          "Earth and Environmental Sciences"
+        ],
+        "fileCount": 4,
+        "versionId": 442571,
+        "versionState": "RELEASED",
+        "majorVersion": 3,
+        "minorVersion": 0,
+        "createdAt": "2025-04-18T14:08:00Z",
+        "updatedAt": "2025-04-20T21:56:28Z",
+        "contacts": [
+          {
+            "name": "Parzen, Michael",
+            "affiliation": "Harvard Business School"
+          }
+        ],
+        "publications": [
+          {
+            "citation": "Parzen, Michael, Michael Toffel, Susan Pinckney, and Amram Migdal. \"Arla Foods: Data Driven DeParzen, Michael, Michael Toffel, Susan Pinckney, and Amram Migdal. \"Arla Foods: Data Driven Decarbonization.\" HBS Case 624-022, August 2023.carbonization.\" HBS Case 624-022, August 2023."
+          }
+        ],
+        "authors": [
+          "Parzen, Michael"
+        ]
+      },
+      {
+        "name": "Replication Data for 2025 NatComm_CTO paper",
+        "type": "dataset",
+        "url": "https://doi.org/10.7910/DVN/EX0TMY",
+        "global_id": "doi:10.7910/DVN/EX0TMY",
+        "description": "Replication Data for 2025 NatComm_CTO paper",
+        "published_at": "2025-04-20T20:11:54Z",
+        "publisher": "Replication Data for 2025 NatComm_CTO paper",
+        "citationHtml": "Choe, Jeongheon, 2025, \"Replication Data for 2025 NatComm_CTO paper\", <a href=\"https://doi.org/10.7910/DVN/EX0TMY\" target=\"_blank\">https://doi.org/10.7910/DVN/EX0TMY</a>, Harvard Dataverse, V1",
+        "identifier_of_dataverse": "CoTiO3ZBMagnon",
+        "name_of_dataverse": "Replication Data for 2025 NatComm_CTO paper",
+        "citation": "Choe, Jeongheon, 2025, \"Replication Data for 2025 NatComm_CTO paper\", https://doi.org/10.7910/DVN/EX0TMY, Harvard Dataverse, V1",
+        "publicationStatuses": [
+          "Published"
+        ],
+        "storageIdentifier": "s3://10.7910/DVN/EX0TMY",
+        "subjects": [
+          "Physics"
+        ],
+        "fileCount": 12,
+        "versionId": 442569,
+        "versionState": "RELEASED",
+        "majorVersion": 1,
+        "minorVersion": 0,
+        "createdAt": "2025-04-20T20:10:40Z",
+        "updatedAt": "2025-04-20T20:11:54Z",
+        "contacts": [
+          {
+            "name": "Choe, Jeongheon",
+            "affiliation": ""
+          }
+        ],
+        "authors": [
+          "Choe, Jeongheon"
+        ]
+      },
+      {
+        "name": "Replication Data for: Effect of girls’ education on cancer awareness and screening in a natural experiment in Lesotho",
+        "type": "dataset",
+        "url": "https://doi.org/10.7910/DVN/ATGJYB",
+        "global_id": "doi:10.7910/DVN/ATGJYB",
+        "description": "This file contains replication code for the following article: \"Effect of increased girls’ education on cancer awareness and screening uptake in a natural experiment in Lesotho\" by Liao, Moshoeshoe, Holmes, Subramanian, and De Neve (2025). We used unrestricted data which are publicly available upon request from the Demographic and Health Surveys Program (https://dhsprogram.com/). Dataset requests must include contact information, a research project title, and a description of the proposed analysis of the data. Stata version 17.0 was used for all analyses.",
+        "published_at": "2025-04-20T19:04:10Z",
+        "publisher": "Harvard Dataverse",
+        "citationHtml": "Liao, Janny; Moshoeshoe, Ramaele; Holmes, Michelle D.; Subramanian, SV; De Neve, Jan-Walter, 2025, \"Replication Data for: Effect of girls&rsquo; education on cancer awareness and screening in a natural experiment in Lesotho\", <a href=\"https://doi.org/10.7910/DVN/ATGJYB\" target=\"_blank\">https://doi.org/10.7910/DVN/ATGJYB</a>, Harvard Dataverse, V2",
+        "identifier_of_dataverse": "harvard",
+        "name_of_dataverse": "Harvard Dataverse",
+        "citation": "Liao, Janny; Moshoeshoe, Ramaele; Holmes, Michelle D.; Subramanian, SV; De Neve, Jan-Walter, 2025, \"Replication Data for: Effect of girls’ education on cancer awareness and screening in a natural experiment in Lesotho\", https://doi.org/10.7910/DVN/ATGJYB, Harvard Dataverse, V2",
+        "publicationStatuses": [
+          "Published"
+        ],
+        "storageIdentifier": "s3://10.7910/DVN/ATGJYB",
+        "subjects": [
+          "Medicine, Health and Life Sciences",
+          "Social Sciences"
+        ],
+        "fileCount": 2,
+        "versionId": 442566,
+        "versionState": "RELEASED",
+        "majorVersion": 2,
+        "minorVersion": 0,
+        "createdAt": "2025-02-22T04:38:00Z",
+        "updatedAt": "2025-04-20T19:04:10Z",
+        "contacts": [
+          {
+            "name": "De Neve, Jan-Walter",
+            "affiliation": "San Diego State University"
+          }
+        ],
+        "authors": [
+          "Liao, Janny",
+          "Moshoeshoe, Ramaele",
+          "Holmes, Michelle D.",
+          "Subramanian, SV",
+          "De Neve, Jan-Walter"
+        ]
+      },
+      {
+        "name": "Data_AI_Thai",
+        "type": "dataset",
+        "url": "https://doi.org/10.7910/DVN/JYERKX",
+        "global_id": "doi:10.7910/DVN/JYERKX",
+        "description": "Data_AI_Thai",
+        "published_at": "2025-04-20T15:57:28Z",
+        "publisher": "Harvard Dataverse",
+        "citationHtml": "Jabutay, Felicito, 2025, \"Data_AI_Thai\", <a href=\"https://doi.org/10.7910/DVN/JYERKX\" target=\"_blank\">https://doi.org/10.7910/DVN/JYERKX</a>, Harvard Dataverse, V1, UNF:6:mWw62ssfrB95grClFczz7w== [fileUNF]",
+        "identifier_of_dataverse": "harvard",
+        "name_of_dataverse": "Harvard Dataverse",
+        "citation": "Jabutay, Felicito, 2025, \"Data_AI_Thai\", https://doi.org/10.7910/DVN/JYERKX, Harvard Dataverse, V1, UNF:6:mWw62ssfrB95grClFczz7w== [fileUNF]",
+        "publicationStatuses": [
+          "Published"
+        ],
+        "storageIdentifier": "s3://10.7910/DVN/JYERKX",
+        "subjects": [
+          "Arts and Humanities",
+          "Social Sciences"
+        ],
+        "fileCount": 1,
+        "versionId": 442563,
+        "versionState": "RELEASED",
+        "majorVersion": 1,
+        "minorVersion": 0,
+        "createdAt": "2025-04-20T15:55:32Z",
+        "updatedAt": "2025-04-20T15:57:28Z",
+        "contacts": [
+          {
+            "name": "Jabutay, Felicito",
+            "affiliation": "Kasem Bundit University"
+          }
+        ],
+        "authors": [
+          "Jabutay, Felicito"
+        ]
+      },
+      {
+        "name": "Replication Data for: lobbying-position",
+        "type": "dataset",
+        "url": "https://doi.org/10.7910/DVN/D0QWM2",
+        "global_id": "doi:10.7910/DVN/D0QWM2",
+        "description": "This Dataverse contains the replication dataset for the paper \"Measuring Interest Group Positions on Legislation: An AI-Driven Analysis of Lobbying Reports\". It includes input and output data used in the study. The source code and additional documentation are available on GitHub: https://github.com/hikoseon12/lobbying-position.",
+        "published_at": "2025-04-20T15:01:15Z",
+        "publisher": "lobbying-position-data",
+        "citationHtml": "Kim, Jiseon, 2025, \"Replication Data for: lobbying-position\", <a href=\"https://doi.org/10.7910/DVN/D0QWM2\" target=\"_blank\">https://doi.org/10.7910/DVN/D0QWM2</a>, Harvard Dataverse, V2",
+        "identifier_of_dataverse": "lobbying_position_data",
+        "name_of_dataverse": "lobbying-position-data",
+        "citation": "Kim, Jiseon, 2025, \"Replication Data for: lobbying-position\", https://doi.org/10.7910/DVN/D0QWM2, Harvard Dataverse, V2",
+        "publicationStatuses": [
+          "Published"
+        ],
+        "storageIdentifier": "s3://10.7910/DVN/D0QWM2",
+        "subjects": [
+          "Computer and Information Science",
+          "Social Sciences"
+        ],
+        "fileCount": 10,
+        "versionId": 442560,
+        "versionState": "RELEASED",
+        "majorVersion": 2,
+        "minorVersion": 0,
+        "createdAt": "2025-04-20T13:42:35Z",
+        "updatedAt": "2025-04-20T15:01:15Z",
+        "contacts": [
+          {
+            "name": "Kim, Jiseon",
+            "affiliation": "KAIST"
+          }
+        ],
+        "authors": [
+          "Kim, Jiseon"
+        ]
+      },
+      {
+        "name": "The quiet January 2025 disappearance of the “Humanitarian Area” in IDF maps of Gaza",
+        "type": "dataset",
+        "url": "https://doi.org/10.7910/DVN/RR6KDO",
+        "image_url": "https://dataverse.harvard.edu/api/datasets/11098641/logo",
+        "global_id": "doi:10.7910/DVN/RR6KDO",
+        "description": "While announced with much fanfare by the IDF on May 6, 2024, the Humanitarian Zone declared to be a safe haven for Gazan civilians seems to have disappeared from use with no explicit announcement, but, simply, a lapse in use since the Israel-Hamas Ceasefire agreement in mid-January, 2025. This description documents the falling away of this designation in official IDF Spokesman communications.",
+        "published_at": "2025-04-20T12:13:27Z",
+        "publisher": "Harvard Dataverse",
+        "citationHtml": "Garb, Yaakov, 2025, \"The quiet January 2025 disappearance of the &ldquo;Humanitarian Area&rdquo; in IDF maps of Gaza\", <a href=\"https://doi.org/10.7910/DVN/RR6KDO\" target=\"_blank\">https://doi.org/10.7910/DVN/RR6KDO</a>, Harvard Dataverse, V1",
+        "identifier_of_dataverse": "harvard",
+        "name_of_dataverse": "Harvard Dataverse",
+        "citation": "Garb, Yaakov, 2025, \"The quiet January 2025 disappearance of the “Humanitarian Area” in IDF maps of Gaza\", https://doi.org/10.7910/DVN/RR6KDO, Harvard Dataverse, V1",
+        "publicationStatuses": [
+          "Published"
+        ],
+        "storageIdentifier": "s3://10.7910/DVN/RR6KDO",
+        "subjects": [
+          "Earth and Environmental Sciences",
+          "Social Sciences",
+          "Other"
+        ],
+        "fileCount": 1,
+        "versionId": 442554,
+        "versionState": "RELEASED",
+        "majorVersion": 1,
+        "minorVersion": 1,
+        "createdAt": "2025-04-20T11:38:05Z",
+        "updatedAt": "2025-04-20T12:14:20Z",
+        "contacts": [
+          {
+            "name": "Garb, Yaakov",
+            "affiliation": "Ben Gurion University of the Negev"
+          }
+        ],
+        "publications": [
+          {}
+        ],
+        "authors": [
+          "Garb, Yaakov"
+        ]
+      },
+      {
+        "name": "Episode 2: Persien-Iran; Kunst & Kultur",
+        "type": "dataset",
+        "url": "https://doi.org/10.7910/DVN/HGIUES",
+        "global_id": "doi:10.7910/DVN/HGIUES",
+        "description": "EN: American: This research project focuses on the culture and art of the ancient country of Greater Iran, beginning with an analysis of events from the early Achaemenid dynasty. The project is conducted in English and German and will be presented in several episodes. So far, the first and second episodes have been prepared in both languages. After releasing the first episode in German, we are now releasing the second episode. The English versions will be available in the next few days. It should be noted that both the English and German versions have already been published on the respective pages of the research institute Andishe Online Germany. DE: Deutsch: Dieses Forschungsprojekt konzentriert sich auf die Kultur und Kunst des antiken Großiran und beginnt mit einer Analyse der Ereignisse der frühen Achämeniden-Dynastie. Das Projekt wird in englischer und deutscher Sprache durchgeführt und in mehreren Episoden präsentiert. Bisher sind die erste und zweite Episode in beiden Sprachen erschienen. Nachdem die erste Episode auf Deutsch erschienen ist, veröffentlichen wir nun die zweite Episode. Die englische Version wird in den nächsten Tagen folgen. Sowohl die englische als auch die deutsche Version sind bereits auf den entsprechenden Seiten des Forschungsinstituts Andishe Online Deutschland veröffentlicht.",
+        "published_at": "2025-04-20T10:38:43Z",
+        "publisher": "Harvard Dataverse",
+        "citationHtml": "Tabesh, Faramarz, 2025, \"Episode 2: Persien-Iran; Kunst &amp; Kultur\", <a href=\"https://doi.org/10.7910/DVN/HGIUES\" target=\"_blank\">https://doi.org/10.7910/DVN/HGIUES</a>, Harvard Dataverse, V1",
+        "identifier_of_dataverse": "harvard",
+        "name_of_dataverse": "Harvard Dataverse",
+        "citation": "Tabesh, Faramarz, 2025, \"Episode 2: Persien-Iran; Kunst & Kultur\", https://doi.org/10.7910/DVN/HGIUES, Harvard Dataverse, V1",
+        "publicationStatuses": [
+          "Published"
+        ],
+        "storageIdentifier": "s3://10.7910/DVN/HGIUES",
+        "subjects": [
+          "Social Sciences"
+        ],
+        "fileCount": 1,
+        "versionId": 442551,
+        "versionState": "RELEASED",
+        "majorVersion": 1,
+        "minorVersion": 0,
+        "createdAt": "2025-04-20T10:38:26Z",
+        "updatedAt": "2025-04-20T10:38:43Z",
+        "contacts": [
+          {
+            "name": "Tabesh, Faramarz",
+            "affiliation": ""
+          }
+        ],
+        "authors": [
+          "Tabesh, Faramarz"
+        ]
+      },
+      {
+        "name": "Episode 1: Persien-Iran; Kunst & Kultur",
+        "type": "dataset",
+        "url": "https://doi.org/10.7910/DVN/8YFPVS",
+        "global_id": "doi:10.7910/DVN/8YFPVS",
+        "description": "EN: American This research project focuses on the culture and art of the ancient country of Greater Iran, beginning with an analysis of events from the early Achaemenid dynasty. The project is being conducted in English and German and will be presented in several episodes. So far, the first and second episodes have been prepared in both languages. Here we provide the first episode in German, followed by the second episode in a separate file. The English versions will be made available in the coming days. It should be noted that both the English and German versions have already been published on the respective pages of the research institute Andishe Online Germany. DE: Deutsch Dieses Forschungsprojekt untersucht die Kultur und Kunst des antiken Groß-Iran, beginnend mit einer Analyse der Ereignisse der frühen Achämeniden-Dynastie. Das Projekt wird in englischer und deutscher Sprache durchgeführt und in mehreren Episoden präsentiert. Bisher liegen die erste und zweite Episode in beiden Sprachen vor. Wir stellen hier die erste Episode in deutscher Sprache zur Verfügung, die zweite Episode folgt in einer separaten Datei. Die englische Version wird in den nächsten Tagen folgen. Sowohl die englische als auch die deutsche Version wurden bereits auf den entsprechenden Seiten des Forschungsinstituts Andishe Online Deutschland veröffentlicht.",
+        "published_at": "2025-04-20T10:32:30Z",
+        "publisher": "Harvard Dataverse",
+        "citationHtml": "Tabesh, Faramarz, 2025, \"Episode 1: Persien-Iran; Kunst &amp; Kultur\", <a href=\"https://doi.org/10.7910/DVN/8YFPVS\" target=\"_blank\">https://doi.org/10.7910/DVN/8YFPVS</a>, Harvard Dataverse, V1",
+        "identifier_of_dataverse": "harvard",
+        "name_of_dataverse": "Harvard Dataverse",
+        "citation": "Tabesh, Faramarz, 2025, \"Episode 1: Persien-Iran; Kunst & Kultur\", https://doi.org/10.7910/DVN/8YFPVS, Harvard Dataverse, V1",
+        "publicationStatuses": [
+          "Published"
+        ],
+        "storageIdentifier": "s3://10.7910/DVN/8YFPVS",
+        "subjects": [
+          "Social Sciences"
+        ],
+        "fileCount": 1,
+        "versionId": 442550,
+        "versionState": "RELEASED",
+        "majorVersion": 1,
+        "minorVersion": 0,
+        "createdAt": "2025-04-20T10:32:06Z",
+        "updatedAt": "2025-04-20T10:32:30Z",
+        "contacts": [
+          {
+            "name": "Tabesh, Faramarz",
+            "affiliation": ""
+          }
+        ],
+        "authors": [
+          "Tabesh, Faramarz"
+        ]
+      },
+      {
+        "name": "Replication Data for: What Determines the Effectiveness of Post-civil War Peace-building: Path Mining and Verification based on Fuzzy-Set Qualitative Comparative Analysis and Process Tracing",
+        "type": "dataset",
+        "url": "https://doi.org/10.7910/DVN/C48DQN",
+        "image_url": "https://dataverse.harvard.edu/api/datasets/11057880/logo",
+        "global_id": "doi:10.7910/DVN/C48DQN",
+        "description": "After the end of the Cold War, civil wars and post-war peace-building have gradually become the core issues of international security governance. Despite the substantial resources invested by the international community in peace-building practices, there are significant differences in the effectiveness achieved by different countries in these practices. Based on the “peace-building triangle”, the author constructs a three-dimensional analytical framework encompassing international support, social cohesion, and social resilience. Using Fuzzy-Set Qualitative Comparative Analysis (fsQCA), the author conducts configurational analysis on 28 civil war cases from 1991 to 2024. The findings reveal four sufficient condition configuration types that lead to high levels of peacebuilding effectiveness: (1) the aid-cohesion type, where international aid allocation synergizes with domestic identity cohesion; (2) the peacekeeping-resilience type, relying on peacekeeping operations to rebuild security environments and activate local resilience; (3) the social resilience type, driven by endogenous political participation and economic well-being; and (4) the cohesion-resilience type, which emphasizes the synergistic effect of social cohesion and societal resilience. Through process tracing of cases in Rwanda, Sierra Leone, Croatia, and Mozambique, the research confirms that peacebuilding is embedded in a state-building process oriented by social cohesion and societal resilience, international interventions mainly provide auxiliary support for peacebuilding by compensating for domestic capacity deficits or forming positive complementarities with local advantageous factors. By employing mixed methods, this study transcends variable-oriented linear analyses, revealing the complex causal mechanisms in post-conflict peace-building. 冷战结束后，内战以及战后的和平重建逐渐成为国际安全治理的核心议题。尽管国际社会投入大量资源进行和平建设实践，但不同国家在和平建设实践中取得的成效存在显著差异。基于“和平建设三角模型”，作者建构了包含国际支持、社会凝聚力与社会复原力的三维分析框架，运用模糊集定性比较分析对1991—2024年间28个内战案例进行组态分析，揭示了四种导致高水平和平建设成效的充分条件组态类型：以高水平发展援助和种族同质性为核心条件的援助—凝聚型；以大规模维和与高水平参与为核心条件的维和—复原型；以政治参与水平和经济福祉提升为核心驱动力的社会复原型；以及强调社会凝聚力与社会复原力协同作用的凝聚—复原型。对卢旺达、塞拉利昂、克罗地亚和莫桑比克四个典型案例进行过程追踪后发现，和平建设内嵌于以社会凝聚力和社会复原力为导向的国家建设进程之中，国际干预主要通过弥补国内能力短板，或与本土优势要素形成良性互补，为和平建设提供辅助支持。有别于变量导向的线性分析，作者运用混合方法揭示了和平建设“多重并发、殊途同归”的复杂因果机制，为后冲突社会选择差异化的重建方案提供了理论依据与实践启示。",
+        "published_at": "2025-04-20T02:48:42Z",
+        "publisher": "JiNing Young Dataverse",
+        "citationHtml": "Chen, Fei; Yang, Jining, 2025, \"Replication Data for: What Determines the Effectiveness of Post-civil War Peace-building: Path Mining and Verification based on Fuzzy-Set Qualitative Comparative Analysis and Process Tracing\", <a href=\"https://doi.org/10.7910/DVN/C48DQN\" target=\"_blank\">https://doi.org/10.7910/DVN/C48DQN</a>, Harvard Dataverse, V2",
+        "identifier_of_dataverse": "haha",
+        "name_of_dataverse": "JiNing Young Dataverse",
+        "citation": "Chen, Fei; Yang, Jining, 2025, \"Replication Data for: What Determines the Effectiveness of Post-civil War Peace-building: Path Mining and Verification based on Fuzzy-Set Qualitative Comparative Analysis and Process Tracing\", https://doi.org/10.7910/DVN/C48DQN, Harvard Dataverse, V2",
+        "publicationStatuses": [
+          "Published"
+        ],
+        "storageIdentifier": "s3://10.7910/DVN/C48DQN",
+        "subjects": [
+          "Social Sciences"
+        ],
+        "fileCount": 1,
+        "versionId": 442547,
+        "versionState": "RELEASED",
+        "majorVersion": 2,
+        "minorVersion": 0,
+        "createdAt": "2025-04-08T06:16:12Z",
+        "updatedAt": "2025-04-20T02:48:42Z",
+        "contacts": [
+          {
+            "name": "Young, JiNing",
+            "affiliation": "Central China Normal University"
+          }
+        ],
+        "authors": [
+          "Chen, Fei",
+          "Yang, Jining"
+        ]
+      }
+    ],
+    "facets": [
+      {
+        "dvCategory": {
+          "friendly": "Dataverse Category",
+          "labels": [
+            {
+              "Research Project": 2779
+            },
+            {
+              "Researcher": 2299
+            },
+            {
+              "Organization or Institution": 573
+            },
+            {
+              "Research Group": 530
+            },
+            {
+              "Journal": 167
+            },
+            {
+              "Laboratory": 138
+            },
+            {
+              "Department": 83
+            },
+            {
+              "Teaching Course": 54
+            }
+          ]
+        },
+        "metadataSource": {
+          "friendly": "Metadata Source",
+          "labels": [
+            {
+              "Harvard Dataverse": 109866
+            },
+            {
+              "Harvested": 86016
+            }
+          ]
+        },
+        "publicationDate": {
+          "friendly": "Publication Year",
+          "labels": [
+            {
+              "2021": 23888
+            },
+            {
+              "2022": 19802
+            },
+            {
+              "2015": 15315
+            },
+            {
+              "2024": 10127
+            },
+            {
+              "2020": 9898
+            },
+            {
+              "2011": 9525
+            },
+            {
+              "2023": 8315
+            },
+            {
+              "2018": 4762
+            },
+            {
+              "2019": 4495
+            },
+            {
+              "2009": 4016
+            },
+            {
+              "2025": 4004
+            },
+            {
+              "2016": 3890
+            },
+            {
+              "2017": 3327
+            },
+            {
+              "2014": 2147
+            },
+            {
+              "2007": 1300
+            },
+            {
+              "2013": 1138
+            },
+            {
+              "2012": 806
+            },
+            {
+              "2010": 784
+            },
+            {
+              "2008": 416
+            }
+          ]
+        },
+        "license": {
+          "friendly": "License",
+          "labels": [
+            {
+              "Custom Terms": 67924
+            },
+            {
+              "CC0 1.0": 62715
+            },
+            {
+              "CC BY 4.0": 1373
+            },
+            {
+              "CC BY-NC-SA 4.0": 407
+            },
+            {
+              "CC BY-NC 4.0": 342
+            },
+            {
+              "CC BY-NC-ND 4.0": 192
+            },
+            {
+              "CC BY-SA 4.0": 99
+            },
+            {
+              "CC BY-ND 4.0": 10
+            },
+            {
+              "MIT": 6
+            },
+            {
+              "ODbL 1.0": 3
+            },
+            {
+              "ODC-By 1.0": 2
+            },
+            {
+              "OGL UK 3.0": 1
+            }
+          ]
+        },
+        "subject_ss": {
+          "friendly": "Subject",
+          "labels": [
+            {
+              "Social Sciences": 69402
+            },
+            {
+              "Arts and Humanities": 37180
+            },
+            {
+              "Medicine, Health and Life Sciences": 12563
+            },
+            {
+              "Earth and Environmental Sciences": 10444
+            },
+            {
+              "Law": 6071
+            },
+            {
+              "Agricultural Sciences": 5423
+            },
+            {
+              "Computer and Information Science": 5048
+            },
+            {
+              "Other": 3467
+            },
+            {
+              "Business and Management": 3027
+            },
+            {
+              "Engineering": 2658
+            },
+            {
+              "Physics": 2025
+            },
+            {
+              "Astronomy and Astrophysics": 1465
+            },
+            {
+              "Chemistry": 1162
+            },
+            {
+              "Mathematical Sciences": 871
+            }
+          ]
+        },
+        "authorName_ss": {
+          "friendly": "Author Name",
+          "labels": [
+            {
+              "Master, Daniel M.": 28167
+            },
+            {
+              "Stallman, Lawrence E.": 28167
+            },
+            {
+              "Government of Canada": 5906
+            },
+            {
+              "Army Survey Establishment": 5902
+            },
+            {
+              "Curtis David": 4940
+            },
+            {
+              "John A. Hathaway": 4938
+            },
+            {
+              "Jack L. Sparrow": 4270
+            },
+            {
+              "Digital Archive of Massachusetts Anti-Slavery and Anti-Segregation Petitions, Massachusetts Archives, Boston MA": 4248
+            },
+            {
+              "U.S. Department of Commerce, Bureau of the Census, Geography Division": 3517
+            },
+            {
+              "Gallup Organization": 2890
+            },
+            {
+              "Social Surveys (Gallup Poll) Limited": 2486
+            },
+            {
+              "Esther Perez": 2371
+            },
+            {
+              "Statistics Canada": 2226
+            },
+            {
+              "Else Spoon": 1390
+            },
+            {
+              "UNI-CEN Project": 1362
+            },
+            {
+              "Harvard Map Collection, Harvard College Library": 1315
+            },
+            {
+              "Houghton Library": 1229
+            },
+            {
+              "CBS News": 1094
+            },
+            {
+              "Louis Harris and Associates, Inc.": 993
+            },
+            {
+              "Stansen, Raimon": 944
+            },
+            {
+              "United States Department of Commerce. Bureau of the Census": 852
+            },
+            {
+              "Geological Survey (U.S.)": 759
+            },
+            {
+              "Princeton Survey Research Associates International": 729
+            },
+            {
+              "Environmental Systems Research Institute (Redlands, Calif.)": 719
+            },
+            {
+              "Tamara Smith": 697
+            },
+            {
+              "United States Department of Justice. Office of Justice Programs. Bureau of Justice Statistics": 676
+            },
+            {
+              "Jack Goldsmith": 668
+            },
+            {
+              "Harvard Geospatial Library": 664
+            },
+            {
+              "Digital Archive of Native American Petitions, Massachusetts Archives, Boston MA": 645
+            },
+            {
+              "ABC News": 633
+            },
+            {
+              "International Food Policy Research Institute (IFPRI)": 615
+            },
+            {
+              "Labour Statistics Division": 570
+            },
+            {
+              "Division de la statistique du travail": 569
+            },
+            {
+              "Maria Domínguez": 558
+            },
+            {
+              "Princeton Survey Research Associates": 534
+            },
+            {
+              "CBS News and The New York Times": 495
+            },
+            {
+              "Darpa, S.": 487
+            },
+            {
+              "Gallup Canada": 481
+            },
+            {
+              "Los Angeles Times": 481
+            },
+            {
+              "Tena Junguito, Antonio": 476
+            },
+            {
+              "Fernando, Giovanni": 475
+            },
+            {
+              "The Roper Organization": 457
+            },
+            {
+              "Chihiro, Pete.": 453
+            },
+            {
+              "United States. Agency for International Development": 453
+            },
+            {
+              "Tromsø Geophysical Observatory": 421
+            },
+            {
+              "Environmental Systems Research Institute, Inc. (ESRI)": 418
+            },
+            {
+              "Doe, Afonso (coord.)": 393
+            },
+            {
+              "The New York Times": 388
+            },
+            {
+              "The Washington Post": 384
+            },
+            {
+              "Directorate-General of Budget, Accounting and Statistics, Executive Yuan": 377
+            },
+            {
+              "Harvard University. Center for Geographic Analysis.": 344
+            },
+            {
+              "Minneapolis Tribune": 340
+            },
+            {
+              "East View Cartographic, Inc.": 335
+            },
+            {
+              "Chilton Research Services": 317
+            },
+            {
+              "Institut fuer Demoskopie Allensbach": 316
+            },
+            {
+              "院主計處": 297
+            },
+            {
+              "Institute Francais d'Opinion Publique": 296
+            },
+            {
+              "Smith, Katherine": 283
+            },
+            {
+              "Siena Research Institute, Siena College": 279
+            },
+            {
+              "Field Research Corporation.": 278
+            },
+            {
+              "Geographic Data Technology, Inc. (GDT)": 278
+            },
+            {
+              "Canadian Institute of Public Opinion (Gallup)": 275
+            },
+            {
+              "Inter-university Consortium for Political and Social Research": 275
+            },
+            {
+              "United States Department of Education. National Center for Education Statistics": 271
+            },
+            {
+              "Voter News Service (VNS is an association of ABC News, CNN, CBS News, FOX News, NBC News and the Associated Press.)": 271
+            },
+            {
+              "United States Department of Health and Human Services. National Center for Health Statistics": 270
+            },
+            {
+              "DataFolha Institute of Research": 263
+            },
+            {
+              "Stephens, Ian": 263
+            },
+            {
+              "Environics": 260
+            },
+            {
+              "Monmouth University Polling Institute": 260
+            },
+            {
+              "U.S. Bureau of the Census": 260
+            },
+            {
+              "The Field Institute": 255
+            },
+            {
+              "National Opinion Research Center [NORC]": 254
+            },
+            {
+              "Opinion Research Corporation": 254
+            },
+            {
+              "Brůha": 250
+            },
+            {
+              "Mouček": 250
+            },
+            {
+              "Prokop": 250
+            },
+            {
+              "Vařeka": 250
+            },
+            {
+              "Štěbeták": 250
+            },
+            {
+              "TNS Intersearch": 244
+            },
+            {
+              "Doe, Petra": 237
+            },
+            {
+              "Brule Ville Associes on behalf of Paris Match": 233
+            },
+            {
+              "Edison Media Research/Mitofsky International": 232
+            },
+            {
+              "Institute for Social Inquiry, University of Connecticut": 229
+            },
+            {
+              "United States Department of Justice. Federal Bureau of Investigation": 227
+            },
+            {
+              "Fraiture, PF": 225
+            },
+            {
+              "Division de la statistique du revenu": 223
+            },
+            {
+              "ICR Survey Research Group": 220
+            },
+            {
+              "Statistique Canada": 217
+            },
+            {
+              "Global Wheat Program": 216
+            },
+            {
+              "IWIN Collaborators": 216
+            },
+            {
+              "MaconUSA (Firm)": 211
+            },
+            {
+              "Economic Behavior Program. Survey Research Center. University of Michigan": 209
+            },
+            {
+              "Santana, Thomas": 205
+            },
+            {
+              "Smith, Alvaro": 204
+            },
+            {
+              "Gallup Markedsanalyse A/S": 202
+            },
+            {
+              "U.S. Department of Commerce": 197
+            },
+            {
+              "Cat, Katie": 194
+            },
+            {
+              "Division des enquêtes spéciales": 192
+            },
+            {
+              "Tele Atlas North America, Inc.": 191
+            }
+          ]
+        },
+        "authorAffiliation_ss": {
+          "friendly": "Author Affiliation",
+          "labels": [
+            {
+              "Harvard University": 32470
+            },
+            {
+              "Wheaton College": 28171
+            },
+            {
+              "Department of National Defence": 5902
+            },
+            {
+              "Harvard Law School": 4956
+            },
+            {
+              "Yale Law School": 4942
+            },
+            {
+              "Duke Law School": 4941
+            },
+            {
+              "Stichting RING": 2083
+            },
+            {
+              "Western University": 1438
+            },
+            {
+              "Statistique Canada": 1320
+            },
+            {
+              "Statistics Canada": 1250
+            },
+            {
+              "Unknown": 1236
+            },
+            {
+              "University of British Columbia": 1222
+            },
+            {
+              "Chonnam National University": 1127
+            },
+            {
+              "University of Texas at Austin": 1051
+            },
+            {
+              "UiT The Arctic University of Norway": 955
+            },
+            {
+              "United States Department of Commerce. Bureau of the Census": 852
+            },
+            {
+              "Stanford University": 764
+            },
+            {
+              "University of Toronto": 724
+            },
+            {
+              "United States Department of Justice. Office of Justice Programs. Bureau of Justice Statistics": 676
+            },
+            {
+              "Princeton University": 654
+            },
+            {
+              "CBS News": 647
+            },
+            {
+              "Massachusetts Institute of Technology": 615
+            },
+            {
+              "Universidad Carlos III de Madrid": 611
+            },
+            {
+              "CIMMYT": 588
+            },
+            {
+              "ABC News": 535
+            },
+            {
+              "Northwestern University": 535
+            },
+            {
+              "University of Alberta": 499
+            },
+            {
+              "University of Michigan": 487
+            },
+            {
+              "Yale University": 479
+            },
+            {
+              "ICRISAT": 474
+            },
+            {
+              "BAAC bv": 473
+            },
+            {
+              "Columbia University": 472
+            },
+            {
+              "Maastricht University": 438
+            },
+            {
+              "Duke University": 437
+            },
+            {
+              "Leiden University": 436
+            },
+            {
+              "University of Pennsylvania": 431
+            },
+            {
+              "McGill University": 419
+            },
+            {
+              "New York University": 403
+            },
+            {
+              "University of Chicago": 396
+            },
+            {
+              "Departamento de Filología, Comunicación y Documentación de la Universidad de Alcalá": 392
+            },
+            {
+              "The New York Times": 388
+            },
+            {
+              "The Washington Post": 382
+            },
+            {
+              "Michigan State University": 381
+            },
+            {
+              "University of North Carolina at Chapel Hill": 380
+            },
+            {
+              "University of California, Berkeley": 376
+            },
+            {
+              "New York University Abu Dhabi": 370
+            },
+            {
+              "University of Calgary": 365
+            },
+            {
+              "Cornell University": 342
+            },
+            {
+              "Washington University in St. Louis": 320
+            },
+            {
+              "University of Virginia": 316
+            },
+            {
+              "WorldFish": 316
+            },
+            {
+              "University of Oxford": 313
+            },
+            {
+              "International Center for Tropical Agriculture - CIAT": 310
+            },
+            {
+              "Vanderbilt University": 301
+            },
+            {
+              "University of Florida": 297
+            },
+            {
+              "University of Pittsburgh": 294
+            },
+            {
+              "Vrije Universiteit Amsterdam": 289
+            },
+            {
+              "Dartmouth College": 288
+            },
+            {
+              "University of Groningen": 286
+            },
+            {
+              "Harvard Library": 282
+            },
+            {
+              "University of Washington": 281
+            },
+            {
+              "University of California, San Diego": 279
+            },
+            {
+              "International Potato Center": 276
+            },
+            {
+              "Carleton University": 273
+            },
+            {
+              "Texas A and  M University": 272
+            },
+            {
+              "United States Department of Education. National Center for Education Statistics": 271
+            },
+            {
+              "United States Department of Health and Human Services. National Center for Health Statistics": 270
+            },
+            {
+              "Emory University": 267
+            },
+            {
+              "University of California, Davis": 265
+            },
+            {
+              "University of Georgia": 263
+            },
+            {
+              "Environics Research Group, Toronto, ON": 262
+            },
+            {
+              "Georgetown University": 259
+            },
+            {
+              "University of Southern California": 252
+            },
+            {
+              "Project LO1506 of the Czech Ministry of Education, Youth and Sports": 250
+            },
+            {
+              "Monmouth University": 248
+            },
+            {
+              "MIT": 245
+            },
+            {
+              "World Agroforestry Centre": 244
+            },
+            {
+              "International Potato Center - CIP": 242
+            },
+            {
+              "Department of National��Defence": 240
+            },
+            {
+              "Brown University": 239
+            },
+            {
+              "International Center for Agricultural Research in the Dry Areas - ICARDA": 234
+            },
+            {
+              "London School of Economics and Political Science": 231
+            },
+            {
+              "University College London": 231
+            },
+            {
+              "University of California, Los Angeles": 228
+            },
+            {
+              "United States Department of Justice. Federal Bureau of Investigation": 227
+            },
+            {
+              "Royal Institute for Cultural Heritage": 225
+            },
+            {
+              "Tilburg University": 225
+            },
+            {
+              "Harvard Medical School": 223
+            },
+            {
+              "Nova Southeastern University": 223
+            },
+            {
+              "BAAC": 220
+            },
+            {
+              "Texas A&M University": 220
+            },
+            {
+              "Florida State University": 218
+            },
+            {
+              "Boston University": 217
+            },
+            {
+              "University of Oslo": 216
+            },
+            {
+              "University of Essex": 215
+            },
+            {
+              "University of Bergen": 211
+            },
+            {
+              "George Washington University": 210
+            },
+            {
+              "Economic Behavior Program. Survey Research Center. University of Michigan": 209
+            },
+            {
+              "Utrecht University": 209
+            },
+            {
+              "Université de Montréal": 208
+            }
+          ]
+        }
+      }
+    ],
+    "count_in_response": 20,
+    "total_count_per_object_type": {
+      "Datasets": 188518,
+      "Dataverses": 7364,
+      "Files": 0
+    }
+  }
+}

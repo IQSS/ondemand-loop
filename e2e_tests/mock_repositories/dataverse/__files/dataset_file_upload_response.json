@@ -1,0 +1,34 @@
+{
+  "status": "OK",
+  "data": {
+    "files": [
+      {
+        "description": "File uploaded via OnDemand Loop",
+        "label": "upload_file.txt",
+        "restricted": false,
+        "version": 1,
+        "datasetVersionId": 1,
+        "dataFile": {
+          "id": 101,
+          "persistentId": "doi:10.1977/AK44/IQSS/FILE101",
+          "pidURL": "https://doi.org/10.1977/AK44/IQSS/FILE101",
+          "filename": "upload_file.txt",
+          "contentType": "text/plain",
+          "friendlyType": "Plain Text",
+          "filesize": 1024,
+          "description": "File uploaded via OnDemand Loop",
+          "storageIdentifier": "s3://dataverse-bucket:1977/upload_file.txt",
+          "rootDataFileId": -1,
+          "md5": "83a6d1735b33c36459d5a0761b139d16",
+          "checksum": {
+            "type": "MD5",
+            "value": "83a6d1735b33c36459d5a0761b139d16"
+          },
+          "tabularData": false,
+          "creationDate": "2025-10-03",
+          "fileAccessRequest": false
+        }
+      }
+    ]
+  }
+}

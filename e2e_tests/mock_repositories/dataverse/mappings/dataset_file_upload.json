@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPathPattern": "/api/datasets/:persistentId/add",
+    "queryParameters": {
+      "persistentId": {
+        "matches": ".*"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "dataset_file_upload_response.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
