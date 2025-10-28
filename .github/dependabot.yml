@@ -1,24 +1,24 @@
 version: 2
 updates:
   # Ruby gems using Bundler
-  - package-ecosystem: bundler
-    directory: /application
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: bundler
-    labels: ['epic.dependencies']
+  # - package-ecosystem: bundler
+  #   directory: /application
+  #   schedule:
+  #     interval: weekly
+  #   open-pull-requests-limit: 5
+  #   commit-message:
+  #     prefix: bundler
+  #   labels: ['epic.dependencies']
 
-  # JavaScript dependencies using npm
-  - package-ecosystem: npm
-    directory: /application
-    schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
-    commit-message:
-      prefix: npm
-    labels: ['epic.dependencies']
+  # # JavaScript dependencies using npm
+  # - package-ecosystem: npm
+  #   directory: /application
+  #   schedule:
+  #     interval: weekly
+  #   open-pull-requests-limit: 5
+  #   commit-message:
+  #     prefix: npm
+  #   labels: ['epic.dependencies']
 
   # GitHub Actions
   - package-ecosystem: github-actions
@@ -27,4 +27,4 @@ updates:
       interval: weekly
     commit-message:
       prefix: actions
-    labels: ['epic.dependencies']
+    labels: ["epic.dependencies"]
