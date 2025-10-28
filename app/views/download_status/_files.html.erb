@@ -5,9 +5,9 @@
   </div>
 
   <div class="card-body bg-light px-0">
-    <div class="container files" role="table">
+    <div class="container files" role="table" data-test-id="downloads-list">
       <% files.each_with_index do |data, index| %>
-        <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>" role="row">
+        <div class="row py-2 align-items-center <%= 'custom-stripe' if index.even? %>" role="row" data-download-file-id="<%= data.file.id %>">
           <div class="col-md-10" role="cell">
             <div class="d-flex align-items-center">
               <%= link_to(files_app_url(data.project.download_dir), class: 'btn btn-sm btn-outline-secondary me-2',
