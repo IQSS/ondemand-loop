@@ -19,7 +19,7 @@ Follow the steps below to create a release of OnDemand Loop.
      /create_release_candidate
      ```
    - Eyes and rocket react appear when the command is received.
-   - This deploys the current `main` commit to the QA environment and comments the result with the commit hash.
+   - This designates the current `main` commit as one to be deployed to the QA environment and comments the result with the commit hash.
 
 3. **Verify and approve**
    - Test the deployment in QA.
