@@ -49,6 +49,8 @@ const selectors = {
   // UPLOAD BUNDLE FORMS
   editApiKeyButton: '[data-test-id="edit-api-key-btn"]',
   apiKeyInput: '#api_key',
+  globalModal: '#global-modal',
+
   saveApiKeyButton: 'button[type="submit"]:contains("Save")',
   selectCollectionButton: '[data-test-id="select-collection-btn"]',
   collectionRadioButton: 'input[name="collection_id"]',
@@ -217,6 +219,10 @@ export class Dataverse {
     return cy.get(selectors.addFilesToProjectButton).click();
   }
 
+  getModal() {
+    return cy.get(selectors.globalModal)
+  }
+
   // Upload bundle methods
   clickEditApiKey() {
     cy.get(selectors.editApiKeyButton).click();
@@ -234,8 +240,12 @@ export class Dataverse {
     cy.get(selectors.selectCollectionButton).click();
   }
 
+  getSelectCollectionItems() {
+    return cy.get(selectors.collectionRadioButton)
+  }
+
   selectFirstCollection() {
-    cy.get(selectors.collectionRadioButton).first().click();
+    this.getSelectCollectionItems().first().click();
   }
 
   submitSelectCollectionForm() {
@@ -246,8 +256,12 @@ export class Dataverse {
     cy.get(selectors.selectDatasetButton).click();
   }
 
+  getSelectDatasetItems() {
+    return cy.get(selectors.datasetRadioButton)
+  }
+
   selectFirstDataset() {
-    cy.get(selectors.datasetRadioButton).first().click();
+    this.getSelectDatasetItems().first().click();
   }
 
   submitSelectDatasetForm() {

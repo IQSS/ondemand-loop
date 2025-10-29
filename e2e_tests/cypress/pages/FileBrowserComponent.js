@@ -1,6 +1,7 @@
 const selectors = {
   fileBrowserHomeButton: '[data-test-id="fb-home-btn"]',
   fileBrowserCloseButton: '[data-test-id="fb-close-btn"]',
+  // THIS USE REGULAR EXPRESSIONS TO MATCH THE FILE FULL PATH WITH JUST THE FILENAME
   fileBrowserFileRow: (filename) => `li[data-entry-path*="${filename}"]`,
 };
 

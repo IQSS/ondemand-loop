@@ -77,8 +77,8 @@ describe('Workflow: Upload Files to Dataverse', () => {
     dataverse.clickSelectCollection()
 
     // Wait for modal to load with collections
-    cy.get('#global-modal').should('be.visible')
-    cy.get('input[name="collection_id"]').should('exist')
+    dataverse.getModal().should('be.visible')
+    dataverse.getSelectCollectionItems().should('exist')
 
     dataverse.selectFirstCollection()
     dataverse.submitSelectCollectionForm()
@@ -92,8 +92,8 @@ describe('Workflow: Upload Files to Dataverse', () => {
     dataverse.clickSelectDataset()
 
     // Wait for modal to load with datasets
-    cy.get('#global-modal').should('be.visible')
-    cy.get('input[name="dataset_id"]').should('exist')
+    dataverse.getModal().should('be.visible')
+    dataverse.getSelectDatasetItems().should('exist')
 
     dataverse.selectFirstDataset()
     dataverse.submitSelectDatasetForm()
@@ -128,7 +128,7 @@ describe('Workflow: Upload Files to Dataverse', () => {
     cy.task('log', 'Step 11: Verifying file is in upload bundle')
     cy.get('@bundleId').then(bundleId => {
       projectDetailsPage.getUploadBundleFilesList(bundleId).should('be.visible')
-      projectDetailsPage.getUploadFileRows(bundleId).should('have.length.at.least', 1)
+      projectDetailsPage.getUploadFileRows(bundleId).should('have.length', 1)
       projectDetailsPage.getUploadFileRows(bundleId).first().invoke('attr', 'data-upload-file-id').as('fileId')
       return projectDetailsPage.getUploadFileRows(bundleId).should('contain', UPLOAD_FILE)
     })
@@ -139,8 +139,7 @@ describe('Workflow: Upload Files to Dataverse', () => {
     uploadsPage.visit()
 
     // Verify we're on the uploads page
-    cy.url().should('include', '/uploads')
-    cy.get('body').should('contain', 'Uploads')
+    uploadsPage.assertInUploads()
 
     uploadsPage.getUploadsList().should('be.visible')
     uploadsPage.getUploadFileRows().should('have.length.at.least', 1)

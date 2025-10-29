@@ -10,6 +10,12 @@ export class UploadsPage {
     cy.get(selectors.navUploadsLink).click();
   }
 
+  assertInUploads() {
+    // Assert we're on the project details page
+    cy.url().should('include', '/uploads')
+    cy.title().should('match', /uploads management/i)
+  }
+
   getUploadsList() {
     return cy.get(selectors.uploadsList);
   }
