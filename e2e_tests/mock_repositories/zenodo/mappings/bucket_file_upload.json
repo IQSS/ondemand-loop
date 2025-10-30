@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "PUT",
+    "urlPathPattern": "/api/files/123/.*"
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "bucket_file_upload_response.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

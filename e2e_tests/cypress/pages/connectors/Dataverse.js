@@ -45,6 +45,19 @@ const selectors = {
   //FILES
   selectAllFiles: '#select_all_files',
   addFilesToProjectButton: '#files_submit',
+
+  // UPLOAD BUNDLE FORMS
+  editApiKeyButton: '[data-test-id="edit-api-key-btn"]',
+  apiKeyInput: '#api_key',
+  globalModal: '#global-modal',
+
+  saveApiKeyButton: 'button[type="submit"]:contains("Save")',
+  selectCollectionButton: '[data-test-id="select-collection-btn"]',
+  collectionRadioButton: 'input[name="collection_id"]',
+  selectCollectionSubmit: '[data-test-id="select-collection-submit"]',
+  selectDatasetButton: '[data-test-id="select-dataset-btn"]',
+  datasetRadioButton: 'input[name="dataset_id"]',
+  selectDatasetSubmit: '[data-test-id="select-dataset-submit"]',
 };
 
 export class Dataverse {
@@ -204,6 +217,55 @@ export class Dataverse {
   submitFilesToProject() {
     cy.get(selectors.addFilesToProjectButton).should('be.visible')
     return cy.get(selectors.addFilesToProjectButton).click();
+  }
+
+  getModal() {
+    return cy.get(selectors.globalModal)
+  }
+
+  // Upload bundle methods
+  clickEditApiKey() {
+    cy.get(selectors.editApiKeyButton).click();
+  }
+
+  enterApiKey(apiKey) {
+    cy.get(selectors.apiKeyInput).clear().type(apiKey);
+  }
+
+  saveApiKey() {
+    cy.get(selectors.saveApiKeyButton).click();
+  }
+
+  clickSelectCollection() {
+    cy.get(selectors.selectCollectionButton).click();
+  }
+
+  getSelectCollectionItems() {
+    return cy.get(selectors.collectionRadioButton)
+  }
+
+  selectFirstCollection() {
+    this.getSelectCollectionItems().first().click();
+  }
+
+  submitSelectCollectionForm() {
+    cy.get(selectors.selectCollectionSubmit).click();
+  }
+
+  clickSelectDataset() {
+    cy.get(selectors.selectDatasetButton).click();
+  }
+
+  getSelectDatasetItems() {
+    return cy.get(selectors.datasetRadioButton)
+  }
+
+  selectFirstDataset() {
+    this.getSelectDatasetItems().first().click();
+  }
+
+  submitSelectDatasetForm() {
+    cy.get(selectors.selectDatasetSubmit).click();
   }
 
   // Validation methods
