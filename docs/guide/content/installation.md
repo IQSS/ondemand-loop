@@ -101,8 +101,8 @@ For links to the repository and releases, [jump to repo info](#ondemand-loop-rep
 ```bash
 cd /tmp
 git clone --branch <tag-or-branch> https://github.com/IQSS/ondemand-loop.git loop
-cd loop/application
-APP_ENV=production ../scripts/loop_build.sh
+cd loop
+make native_build
 mkdir /var/www/ood/apps/sys/loop
 cp -R ./* /var/www/ood/apps/sys/loop/
 ```
