@@ -91,38 +91,135 @@ This will generate a release-compatible build of the application using the envir
     This ensures the resulting assets and dependencies are aligned with your server environment.
 
 ### Deployment Options
+You can build and deploy OnDemand Loop in one of three ways:
 
-#### 1. Build on the Server
+1. **Build on the OnDemand server**
+2. **Build on a controlled environment and transfer**
+3. **Build and deploy with Puppet** using the OnDemand Puppet Module
 
-Clone the repository (or a release tag) directly into the OOD server, run the build script,
-and copy the built application into the OnDemand application `sys` folder.
-For links to the repository and releases, [jump to repo info](#ondemand-loop-repo-info).
+All methods produce a fully self-contained application under `application/`
+with its gems installed in `vendor/bundle` and bundle configuration in `.bundle/config`.
+
+For links to the OnDemand Loop repository and releases, [jump to the repo info](#ondemand-loop-repo-info).
+
+---
+
+#### 1. Build on the OnDemand server
+
+Building directly on the OnDemand server provides a straightforward, self-contained workflow.
+This approach ensures that the build environment matches the runtime environment exactly, minimizing dependency or version mismatches.
+It avoids the need to transfer large bundles across systems, simplifies troubleshooting, and allows rapid iteration when testing or upgrading the application locally.
 
 ```bash
 cd /tmp
 git clone --branch <tag-or-branch> https://github.com/IQSS/ondemand-loop.git loop
 cd loop
+
+# Build vendor/bundle, write .bundle/config, precompile assets
 make native_build
-mkdir /var/www/ood/apps/sys/loop
-cp -R ./* /var/www/ood/apps/sys/loop/
+
+# Deploy — rsync preserves dotfiles (like .bundle/) and permissions
+sudo mkdir -p /var/www/ood/apps/sys/loop
+sudo rsync -a --delete ./application/ /var/www/ood/apps/sys/loop/
+
+# (Optional) tidy up ownership
+sudo chown -R root:root /var/www/ood/apps/sys/loop
+sudo chmod -R a+rX /var/www/ood/apps/sys/loop
+
+# Quick verification: dotfiles and bundles present
+test -f /var/www/ood/apps/sys/loop/.bundle/config || { echo 'Missing .bundle/config'; exit 1; }
+test -d /var/www/ood/apps/sys/loop/vendor/bundle || { echo 'Missing vendor/bundle'; exit 1; }
 ```
 
-#### 2. Build Elsewhere and Copy
+---
 
-If you prefer to compile the application in a controlled environment, run the
-build steps on another machine and then copy `ondemand-loop/application` directory to
-`/var/www/ood/apps/sys` on your production server. Then rename it to `loop`, ie: `/var/www/ood/apps/sys/loop`.
-Ensure file permissions are preserved during the transfer.
+#### 2. Build on a controlled environment and transfer
 
-#### 3. Deploy with Puppet
+Building in a controlled or dedicated environment allows you to standardize and isolate the build process from the production system.
+This approach supports reproducible builds, continuous integration pipelines, and dependency validation before deployment.
+It also reduces load on production servers, improves security by limiting build tools to non-production systems, and simplifies testing or approval steps prior to release.
 
-Sites already managing Open OnDemand with the official Puppet module can deploy
-Loop in a similar fashion to the Dashboard app. Build the application using the
-steps above, then copy the resulting `loop` directory into a dedicated branch of
-your deployment repository. The Puppet configuration can then reference that
-branch when installing the app:
+**Build and transfer** — `rsync` preserves dotfiles & metadata
+```bash
+cd /tmp
+git clone --branch <tag-or-branch> https://github.com/IQSS/ondemand-loop.git loop
+# On build machine:
+cd loop
+make native_build
+
+# Copy to server (adjust host & path)
+rsync -a --delete ./application/ user@server:/var/www/ood/apps/sys/loop/
+```
+
+**Post-copy checks** — run on server
+```bash
+# (Optional) tidy up ownership
+sudo chown -R root:root /var/www/ood/apps/sys/loop
+sudo chmod -R a+rX /var/www/ood/apps/sys/loop
+
+# Ensure dotfiles and bundled gems are present
+test -f /var/www/ood/apps/sys/loop/.bundle/config || { echo 'Missing .bundle/config'; exit 1; }
+test -d /var/www/ood/apps/sys/loop/vendor/bundle || { echo 'Missing vendor/bundle'; exit 1; }
+```
+
+---
+
+#### 3. Build and Deploy with Puppet
+For sites already managing [Open OnDemand official Puppet module](https://github.com/OSC/ondemand-puppet-module),
+deploying Loop through Puppet provides a consistent, automated, and scalable solution.
+This approach integrates seamlessly with existing infrastructure management workflows,
+ensuring that application deployments are version-controlled, reproducible, and easily rolled out across multiple OOD instances.
+It also centralizes configuration and updates, reducing manual steps and improving long-term maintainability.
+
+**Build the app** 
+```bash
+cd /tmp
+git clone --branch <tag-or-branch> https://github.com/IQSS/ondemand-loop.git loop
+# On build machine:
+cd loop
+make native_build
+```
+
+**Commit the built artifacts to a deploy repo/branch**
+
+```bash
+# From the root of the project after building:
+cd application
+
+# Start a "clean" repo that contains ONLY the built app payload
+git init
+
+# (Optional) ensure everything, including dotfiles, is added
+# (This will include .bundle/config, etc.)
+git add .
+
+git commit -m "Built version for deployment"
+
+# Point to your deployment repo
+git remote add origin https://github.com/sample/deploy-ondemand-loop.git
+
+# Create and switch to the branch you want Puppet to pull from
+BRANCH=production_v1.0.0-2025-07-09
+git checkout -b "$BRANCH"
+
+# Push that exact branch
+git push -u origin "$BRANCH"
+```
+
+**Quick sanity checks:**
+
+```bash
+# Confirm branch exists on remote
+git ls-remote --heads origin | grep "$BRANCH"
+
+# Confirm critical files are in the commit
+git ls-files | egrep '^\.bundle/config$|^vendor/bundle/'
+```
+
+**Point Puppet at that repo/branch**
 
 ```yaml
+# Hiera (e.g., /etc/puppetlabs/code/environments/production/data/common.yaml)
 openondemand::install_apps:
   'loop':
     ensure: latest
@@ -130,8 +227,10 @@ openondemand::install_apps:
     git_revision: production_v1.0.0-2025-07-09
 ```
 
-This approach keeps the build artifacts under version control while allowing the
-Puppet module to deploy the precompiled application.
+!!! tips
+    - Use `ensure: latest` if you want Puppet to update on each run; use `present` for pinned.
+    - If your repo is private, configure deploy keys or a token for the Puppet agent host(s).
+    - Keep this **deploy repo** dedicated to the *built* payload—no source files—so Puppet fetches only what it needs.
 
 ### Dataverse Integration
 
