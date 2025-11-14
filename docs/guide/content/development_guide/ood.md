@@ -14,8 +14,8 @@ We have develop the OnDemand Loop Beta version with **Open OnDemand version 3.1.
 |-------------|--------------|----------------------|
 | 3.1.7       | 2023‑05‑03   | ✅ Tested            |
 | 3.1.13      | 2025‑05‑23   | 🚫 Not in test scope |
-| 3.1.14      | 2025‑07‑11   | 🔜 Planned testing   |
-| 4.0.0       | 2025‑01‑24   | 🔜 Planned testing   |
+| 3.1.14      | 2025‑07‑11   | ✅ Tested            |
+| 4.0.0       | 2025‑01‑24   | ✅ Tested            |
 | 4.0.1       | 2025‑02‑13   | 🚫 Not in test scope |
 | 4.0.2       | 2025‑03‑25   | 🚫 Not in test scope |
 | 4.0.3       | 2025‑04‑23   | 🚫 Not in test scope |
