@@ -34,6 +34,7 @@ class ConfigurationSingleton
       ::ConfigurationProperty.property(:dataverse_hub_url, default: 'https://hub.dataverse.org/api/installations'),
       ::ConfigurationProperty.property(:zenodo_default_url, default: 'https://zenodo.org'),
       ::ConfigurationProperty.property(:logging_root),
+      ::ConfigurationProperty.file_content(:deployment, default: File.join(app_root, 'DEPLOYMENT').to_s),
     ].freeze
   end
 

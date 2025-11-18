@@ -78,6 +78,7 @@ The following properties control various aspects of OnDemand Loop's behavior. Ea
 - [zenodo_default_url](#zenodo_default_url)
 - [logging_root](#logging_root)
 - [navigation](#navigation)
+- [deployment](#deployment)
 
 ---
 
@@ -252,6 +253,7 @@ URL to the external documentation site. This is used for help links in the inter
 Proxy server settings for outbound HTTP requests made by internal clients (such as the `Common::HttpClient` class). This is used to route API requests through a proxy, which may be required in secure or enterprise network environments.
 
 The value should be a hash with the following optional keys:
+
 - `:host`: proxy server hostname or IP (e.g., `'proxy.example.com'`)
 - `:port`: port number used by the proxy (e.g., `8080`)
 - `:user`: (optional) username for proxy authentication
@@ -338,6 +340,15 @@ This array property allows administrators to customize the navigation bar at the
 For detailed configuration options and examples, see the [Navigation Customization](customizations.md#application-navigation-bar) section.
 
 - **Default**: `[]` (empty array, uses default navigation)
+- **Environment Variable**: _Not supported_
+
+---
+
+<a id="deployment"></a>
+**`deployment`**  
+Specifies the path to a file containing the OnDemand Loop deployment version string. This string is referenced in the Loop meta tag in the header of all Loop pages.
+
+- **Default**: `/var/www/ood/apps/sys/loop/DEPLOYMENT`
 - **Environment Variable**: _Not supported_
 
 ---
