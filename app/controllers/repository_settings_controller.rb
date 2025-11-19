@@ -20,7 +20,7 @@ class RepositorySettingsController < ApplicationController
   end
 
   def update
-    repo_url = params[:repo_url]
+    repo_url = params[:repo_url].to_s.strip
     repo = ::Configuration.repo_db.get(repo_url)
     unless repo
       redirect_to repository_settings_path, alert: t('.message_not_found', domain: repo_url) and return

@@ -3,18 +3,18 @@ current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/websocket-driver
 creating Makefile
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/websocket-driver-0.8.0/ext/websocket-driver
-make DESTDIR\= sitearchdir\=./.gem.20251028-37-1198u2 sitelibdir\=./.gem.20251028-37-1198u2 clean
+make DESTDIR\= sitearchdir\=./.gem.20251119-37-flag2s sitelibdir\=./.gem.20251119-37-flag2s clean
 rm -f 
 rm -fr websocket_mask.so false *.o  *.bak mkmf.log .*.time
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/websocket-driver-0.8.0/ext/websocket-driver
-make DESTDIR\= sitearchdir\=./.gem.20251028-37-1198u2 sitelibdir\=./.gem.20251028-37-1198u2
+make DESTDIR\= sitearchdir\=./.gem.20251119-37-flag2s sitelibdir\=./.gem.20251119-37-flag2s
 gcc -I. -I/usr/include -I/usr/include/ruby/backward -I/usr/include -I.   -fPIC -O2 -g -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -Wp,-D_GLIBCXX_ASSERTIONS -fexceptions -fstack-protector-strong -grecord-gcc-switches -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -specs=/usr/lib/rpm/redhat/redhat-annobin-cc1 -mtune=generic -fasynchronous-unwind-tables -fstack-clash-protection -fcf-protection -fPIC -m64 -o websocket_mask.o -c websocket_mask.c
 rm -f websocket_mask.so
 gcc -shared -o websocket_mask.so websocket_mask.o -L. -L/usr/lib64 -L. -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed -Wl,-z,relro  -Wl,-z,now -specs=/usr/lib/rpm/redhat/redhat-hardened-ld  -m64  -lruby  -lm  -lc
 
 current directory: /usr/local/app/vendor/bundle/ruby/3.1.0/gems/websocket-driver-0.8.0/ext/websocket-driver
-make DESTDIR\= sitearchdir\=./.gem.20251028-37-1198u2 sitelibdir\=./.gem.20251028-37-1198u2 install
-/usr/bin/mkdir -p . ./.gem.20251028-37-1198u2
+make DESTDIR\= sitearchdir\=./.gem.20251119-37-flag2s sitelibdir\=./.gem.20251119-37-flag2s install
+/usr/bin/mkdir -p . ./.gem.20251119-37-flag2s
 exit > .sitearchdir.time
-/usr/bin/install -c -m 0755 websocket_mask.so ./.gem.20251028-37-1198u2
+/usr/bin/install -c -m 0755 websocket_mask.so ./.gem.20251119-37-flag2s
