@@ -22,7 +22,8 @@ Follow the steps below to create a release of OnDemand Loop.
    - This designates the current `main` commit as one to be deployed to the QA environment and comments the result with the commit hash.
 
 3. **Verify and approve**
-   - Test the deployment in QA.
+   - Test the deployment in QA
+     - FIXME: we do not currently have a QA test environment for LOOP as a product. Ideally this would be a generic vanilla OOD (or set of OOD versions) where we do manual testing (similar to the dev env). Instead we rely only on the automated testing. We do manual QA testing of the our local deployment after the deployment release candidate is created in our deployment repo.
    - When ready to proceed, add a comment (which the next command will look for) containing:
      ```
      release approved
