@@ -206,12 +206,12 @@ class ConfigurationSingletonTest < ActiveSupport::TestCase
   end
 
   test 'dataverse_hub memoizes and logs creation' do
-    hub = mock('hub')
-    Dataverse::DataverseHub.expects(:new).once.returns(hub)
+    service = mock('dataverse_installations_service')
+    Dataverse::DataverseInstallationService.expects(:new).once.returns(service)
 
     config = ConfigurationSingleton.new
-    assert_same hub, config.dataverse_hub
-    assert_same hub, config.dataverse_hub
+    assert_same service, config.dataverse_hub
+    assert_same service, config.dataverse_hub
   end
 
   test 'repo_db memoizes and logs creation' do

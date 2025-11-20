@@ -298,6 +298,8 @@ Specifies the URL to the Dataverse Hub API endpoint for retrieving the list of a
 This endpoint provides a registry of public Dataverse repositories that users can browse and connect to from the application.
 The URL should point to the `/api/installations` endpoint of a Dataverse Hub instance.
 For development or testing environments, this can be pointed to a mock server.
+The property also accepts `file://` URLs that reference a JSON file shaped like the `/api/installations` response (see `e2e_tests/mock_repositories/dataverse/__files/partial_installations_response.json` for a template).
+When using a local file, provide an absolute path such as `file:///opt/loop/dataverse_installations.json`.
 
 - **Default**: `https://hub.dataverse.org/api/installations`
 - **Environment Variable**: `OOD_LOOP_DATAVERSE_HUB_URL`

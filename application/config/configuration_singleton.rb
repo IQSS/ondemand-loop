@@ -83,8 +83,8 @@ class ConfigurationSingleton
 
   def dataverse_hub
     @dataverse_hub ||= begin
-      LoggingCommon.log_info('[Configuration] Created Dataverse::DataverseHub', {dataverse_hub_url: dataverse_hub_url})
-      Dataverse::DataverseHub.new(url: dataverse_hub_url)
+      LoggingCommon.log_info('[Configuration] Created Dataverse::DataverseInstallationService', {dataverse_hub_url: dataverse_hub_url})
+      Dataverse::DataverseInstallationService.new(url: dataverse_hub_url)
     end
   end
 
