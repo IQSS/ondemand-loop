@@ -19,7 +19,7 @@ jobs:
               core.setFailed(`❌ User ${user} is not allowed to run this command.`);
             }
 
-      - uses: peter-evans/slash-command-dispatch@v4
+      - uses: peter-evans/slash-command-dispatch@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-type: issue
