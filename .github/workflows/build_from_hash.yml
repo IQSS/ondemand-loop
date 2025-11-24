@@ -23,7 +23,7 @@ jobs:
           echo "  - branch: ondemand_loop_qa"
 
       - name: Checkout Loop at specific commit
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: IQSS/ondemand-loop
           path: src
@@ -41,7 +41,7 @@ jobs:
         run: make release_build
 
       - name: Checkout Loop Environment Branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: IQSS/ondemand-loop
           ref: ${{ inputs.branch }}
