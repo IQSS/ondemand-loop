@@ -1,4 +1,4 @@
-name: Create Release
+name: Execute Release
 
 on:
   workflow_call:
