@@ -81,8 +81,8 @@ class ConfigurationSingleton
     config.fetch(connector_type.to_sym, {})
   end
 
-  def dataverse_hub
-    @dataverse_hub ||= begin
+  def dataverse_installation_service
+    @dataverse_installation_service ||= begin
       LoggingCommon.log_info('[Configuration] Created Dataverse::DataverseInstallationService', {dataverse_hub_url: dataverse_hub_url})
       Dataverse::DataverseInstallationService.new(url: dataverse_hub_url)
     end
