@@ -4,9 +4,11 @@ require 'test_helper'
 
 class Dataverse::DataverseInstallationFileTest < ActiveSupport::TestCase
   include ActiveSupport::Testing::TimeHelpers
+  include FileFixtureHelper
+
 
   setup do
-    @fixture_path = Rails.root.join('..', 'e2e_tests', 'mock_repositories', 'dataverse', '__files', 'partial_installations_response.json').expand_path
+    @fixture_path = fixture_path('dataverse/dataverse_installations/partial_installations_response.json')
   end
 
   teardown do
