@@ -17,6 +17,7 @@ Currently supported connectors:
 Dataverse repositories host published research datasets.
 The connector supports public installations that respond to the standard Dataverse API.
 You can find a list of known public Dataverse instances on the <a href="https://dataverse.org/installations" target="_blank" rel="noopener noreferrer">Dataverse Website</a>.
+The Dataverse picker in Loop is populated from the configured Dataverse Hub URL or from a curated on-disk JSON file; only active installations are shown.
 
 **Explore**
 

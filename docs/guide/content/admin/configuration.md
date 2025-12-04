@@ -294,12 +294,13 @@ This setting affects UI components and API calls that support pagination, ensuri
 
 <a id="dataverse_hub_url"></a>
 **`dataverse_hub_url`**  
-Specifies the URL to the Dataverse Hub API endpoint for retrieving the list of available Dataverse installations.
-This endpoint provides a registry of public Dataverse repositories that users can browse and connect to from the application.
-The URL should point to the `/api/installations` endpoint of a Dataverse Hub instance.
-For development or testing environments, this can be pointed to a mock server.
-The property also accepts `file://` URLs that reference a JSON file shaped like the `/api/installations` response (see `e2e_tests/mock_repositories/dataverse/__files/partial_installations_response.json` for a template).
-When using a local file, provide an absolute path such as `file:///opt/loop/dataverse_installations.json`.
+Specifies the source for the Dataverse installations list shown on the Dataverse landing page.
+Provide either:
+
+- An HTTP(S) Dataverse Hub `/api/installations` endpoint (public hub or your own).
+- A `file://` URL pointing to a JSON file shaped like the hub response. Use an absolute path such as `file:///etc/loop/dataverse_installations.json`.
+
+The installations loader filters out entries where `isActive` is `false` and caches results for 24 hours to reduce repeated reads/requests. This is useful for staging environments or when shipping a curated list of approved Dataverse servers on disk.
 
 - **Default**: `https://hub.dataverse.org/api/installations`
 - **Environment Variable**: `OOD_LOOP_DATAVERSE_HUB_URL`
@@ -462,7 +463,7 @@ OOD_LOOP_DETACHED_PROCESS_STATUS_INTERVAL=2_000
 OOD_LOOP_MAX_DOWNLOAD_FILE_SIZE=15_000_000_000
 OOD_LOOP_MAX_UPLOAD_FILE_SIZE=2_000_000_000
 OOD_LOOP_GUIDE_URL=https://example.com/loop
-OOD_LOOP_DATAVERSE_HUB_URL=https://hub.dataverse.org/api/installations
+OOD_LOOP_DATAVERSE_HUB_URL=file:///etc/loop/dataverse_installations.json
 OOD_LOOP_ZENODO_DEFAULT_URL=https://zenodo.org
 OOD_LOOP_LOGGING_ROOT=/var/log/loop
 ```
