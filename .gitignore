@@ -43,3 +43,10 @@ application/vendor/bundle
 /data
 
 .DS_Store
+
+# Deployment
+application/DEPLOYMENT
+
+# Agents
+AGENTS.md
+
