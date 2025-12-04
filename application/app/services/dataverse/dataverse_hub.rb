@@ -1,6 +1,8 @@
 module Dataverse
   class DataverseHub
     include LoggingCommon
+    include Dataverse::InstallationsParser
+
     DEFAULT_CACHE_EXPIRY = 24.hours.freeze
 
     def initialize(
@@ -34,25 +36,10 @@ module Dataverse
       @last_fetched_at.nil? || Time.current - @last_fetched_at > @expires_in
     end
 
-    private
-
     def fetch_installations
       response = @http_client.get(@url)
       if response.success?
-        json = JSON.parse(response.body)
-        installations = json.map do |entry|
-          {
-            id: entry['dvHubId'],
-            name: entry['name'],
-            hostname: entry['hostname'],
-            active: entry.fetch('isActive', true),
-          }
-        end.compact
-
-        active, inactive = installations.partition { |item| item[:active] }
-
-        log_info('Completed loading Dataverse installations', {active: active.size, inactive: inactive.size})
-        active
+        parse_installations(response.body, source: @url)
       else
         log_error('Failed to fetch Dataverse Hub data', {url: @url, response: response.status}, nil)
         []
