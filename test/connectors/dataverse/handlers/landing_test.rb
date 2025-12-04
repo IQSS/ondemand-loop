@@ -16,7 +16,7 @@ class Dataverse::Handlers::LandingTest < ActiveSupport::TestCase
       { id: 'dv-test-02', name: 'DV Test 02', hostname: 'https://dv-02.org' }
     ]
     hub = mock('hub'); hub.stubs(:installations).returns(dvs)
-    ::Configuration.stubs(:dataverse_hub).returns(hub)
+    ::Configuration.stubs(:dataverse_installation_service).returns(hub)
     res = @action.show({})
     assert res.success?
     assert_equal 2, res.locals[:installations_page].page_items.size
@@ -28,7 +28,7 @@ class Dataverse::Handlers::LandingTest < ActiveSupport::TestCase
       { id: 'dv-test-02', name: 'Another DV', hostname: 'https://dv-02.org' }
     ]
     hub = mock('hub'); hub.stubs(:installations).returns(dvs)
-    ::Configuration.stubs(:dataverse_hub).returns(hub)
+    ::Configuration.stubs(:dataverse_installation_service).returns(hub)
     res = @action.show(query: 'Test 01')
     assert res.success?
     items = res.locals[:installations_page].page_items
@@ -37,7 +37,7 @@ class Dataverse::Handlers::LandingTest < ActiveSupport::TestCase
   end
 
   test 'show returns error on service failure' do
-    ::Configuration.stubs(:dataverse_hub).raises(StandardError.new('boom'))
+    ::Configuration.stubs(:dataverse_installation_service).raises(StandardError.new('boom'))
     res = @action.show({})
     assert_not res.success?
     assert_equal I18n.t('dataverse.landing.index.dataverse_installations_service_error'), res.message[:alert]
