@@ -5,8 +5,8 @@ OOD_UID := $(shell id -u)
 OOD_GID := $(shell id -g)
 
 # Configuration for OOD 4.0.6
-define CONFIG_4.0.6
-OOD_IMAGE := hmdc/sid-ood:ood-4.0.6.el8
+define CONFIG_4.1.0-BETA
+OOD_IMAGE := hmdc/sid-ood:ood-4.1.0-0.1.start.1.el8
 RUBY_VERSION := ruby:3.3
 NODE_VERSION := nodejs:20
 LOOP_BUILDER_IMAGE := hmdc/ondemand-loop:builder-R3.3
