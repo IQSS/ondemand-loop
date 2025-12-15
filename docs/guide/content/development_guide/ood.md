@@ -22,6 +22,7 @@ We have develop the OnDemand Loop Beta version with **Open OnDemand version 3.1.
 | 4.0.4       | 2025‑05‑21   | 🚫 Not in test scope |
 | 4.0.5       | 2025‑05‑27   | 🚫 Not in test scope |
 | 4.0.6       | 2025‑07‑10   | ✅ Tested            |
+| 4.1.20251210-249779.82d77f0.nightly | 2025‑12‑10   | 🚫 Not in test scope |
 
 
 !!! note
@@ -43,6 +44,7 @@ Docker images are published under [hmdc/sid-ood on Docker Hub](https://hub.docke
     - v3.1.14
     - v4.0.0
     - v4.0.6
+    - v4.1.20251210-249779.82d77f0.nightly
 
 #### OOD version configuration
 
