@@ -12,12 +12,13 @@ make loop_build
 make dev_up
 ```
 The `make dev_up` command starts the development environment using Docker Compose with local development configuration.
-It runs in the foreground, streaming logs from all containers to your terminal.
-The shell prompt will not return until you stop the environment manually.
+It runs in the background. The shell prompt will return immediately.
 
-To stop the environment, press <kbd>Ctrl</kbd>+<kbd>C</kbd>. This will gracefully shut down all containers.
-Alternatively, in another terminal you can run: `make dev_down`
+To stop the environment, run:
 
+```bash
+make dev_down
+```
 Once the containers are running visit [https://localhost:33000/pun/sys/loop](https://localhost:33000/pun/sys/loop) and log in with the test user `ood/ood`.
 
 The documentation is organized by topic to help you find what you need quickly:

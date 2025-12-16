@@ -7,17 +7,22 @@ include tools/make/ood_versions.mk
 COMPOSE_CMD = docker compose
 WORKING_DIR := $(shell pwd)
 DOC_BUILDER_IMAGE := python:3.11-slim
+WORKING_DIR := $(shell pwd)
+CONFIG_DIR := $(WORKING_DIR)/config
 
 ENV := env OOD_IMAGE=$(OOD_IMAGE) OOD_UID=$(OOD_UID) OOD_GID=$(OOD_GID)
 
 loop_up: loop_down
-	$(ENV) $(COMPOSE_CMD) -p loop_passenger up --build || :
+	$(ENV) $(COMPOSE_CMD) -p loop_passenger up --build -d || :
 
 loop_down:
 	$(ENV) $(COMPOSE_CMD) -p loop_passenger down -v || :
 
 dev_up: dev_down
-	$(ENV) $(COMPOSE_CMD) -f docker-compose.yml -f docker/docker-local-override.yaml -p loop_passenger up --build || :
+	$(ENV) $(COMPOSE_CMD) -f docker-compose.yml -f docker/docker-local-override.yaml -p loop_passenger up --build -d
+# These must be copied not bind-mounted b/c docker will present bind-mounted files and being owned by the calling user but OOD requires that config files be owned by root when run in rails_env=production
+	docker cp $(CONFIG_DIR)/ondemand.d passenger_loop_ood:/etc/ood/config
+	docker exec -u 0 passenger_loop_ood chown -hR root:root /etc/ood/config/ondemand.d
 
 dev_down:
 	$(ENV) $(COMPOSE_CMD) -f docker-compose.yml -f docker/docker-local-override.yaml -p loop_passenger down -v || :

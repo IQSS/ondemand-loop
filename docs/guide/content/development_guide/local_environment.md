@@ -56,17 +56,19 @@ make dev_up
 ```
 
 The `make dev_up` command starts the development environment using Docker Compose with local development configuration.
-It runs in the foreground, streaming logs from all containers to your terminal.
-The shell prompt will not return until you stop the environment manually.
+It runs in the background. The shell prompt will return immediately.
 
-To stop the environment, press <kbd>Ctrl</kbd>+<kbd>C</kbd>. This will gracefully shut down all containers.
-Alternatively, in another terminal you can run: `make dev_down`
+To stop the environment, run:
+
+```bash
+make dev_down
+```
 
 #### Development vs Vanilla Environment
 
 The project provides two different targets for running the application locally:
 
-- **`make dev_up`** - **Recommended for development**. Uses additional volume mounts for local configuration and development files. This target loads both the main `docker-compose.yml` and the local override file `docker/docker-local-override.yaml`.
+- **`make dev_up`** - **Recommended for development**. Uses additional volume mounts and copies files for local configuration and development. This target loads both the main `docker-compose.yml` and the local override file `docker/docker-local-override.yaml`.
 
 - **`make loop_up`** - **Vanilla installation**. Uses only the base Docker Compose configuration without local development overrides. Use this when you need to test the application in a configuration closer to production or for troubleshooting configuration issues.
 
