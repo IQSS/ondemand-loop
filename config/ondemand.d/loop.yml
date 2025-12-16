@@ -1,0 +1,5 @@
+files_select_target:
+  endpoint: /pun/sys/loop/connect
+  label: "Send to Loop"
+  title: "Send the selected files to the OnDemand Loop application for upload"
+  icon: "fas://paper-plane"
