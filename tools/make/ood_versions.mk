@@ -4,6 +4,14 @@ OOD_VERSION ?= 3.1.7
 OOD_UID := $(shell id -u)
 OOD_GID := $(shell id -g)
 
+# Configuration for OOD 4.1 nightly
+define CONFIG_4.1.nightly
+OOD_IMAGE := hmdc/sid-ood:ood-4.1.nightly.el8
+RUBY_VERSION := ruby:3.3
+NODE_VERSION := nodejs:22
+LOOP_BUILDER_IMAGE := hmdc/ondemand-loop:builder-R3.3
+endef
+
 # Configuration for OOD 4.0.6
 define CONFIG_4.0.6
 OOD_IMAGE := hmdc/sid-ood:ood-4.0.6.el8
